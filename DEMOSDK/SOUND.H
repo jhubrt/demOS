@@ -1,0 +1,117 @@
+/*------------------------------------------------------------------------------  -----------------
+  Copyright J.Hubert 2015
+
+  This file is part of demOS
+
+  demOS is free software: you can redistribute it and/or modify it under the terms of 
+  the GNU Lesser General Public License as published by the Free Software Foundation, 
+  either version 3 of the License, or (at your option) any later version.
+
+  demOS is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY ;
+  without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
+  See the GNU Lesser General Public License for more details.
+
+  You should have received a copy of the GNU Lesser General Public License along with demOS.  
+  If not, see <http://www.gnu.org/licenses/>.
+------------------------------------------------------------------------------------------------- */
+
+/*! @brief @ref SND @file */
+
+/*! @defgroup SND
+
+    SND provides SouNDtrack management. 
+    It is designed to be cheap in terms of CPU usage.                                       <br>
+
+    SND:                                                                                     <br>
+    - plays PCM sample with STe DMA                                                         <br>
+    - manages volumes of left / right channels : the idea is to listen in mono 
+      and use them as (free) mixers                                                         <br>
+    - manages the musical score as a DSL code (coded as a co-routine)                       <br>
+    - requires / synchronizes loading of samples and transfer PCM to the wished channel     <br>
+
+    Volume slides are managed by VBL interrupt
+    PCM transfers are also sliced into VBL interrupt.
+*/
+    
+#ifndef SOUND_H
+#define SOUND_H
+
+#include "DEMOSDK\BASTYPES.H"
+#include "DEMOSDK\HARDWARE.H"
+#include "DEMOSDK\ALLOC.H"
+#include "DEMOSDK\LOAD.H"
+
+extern volatile u8		SNDleftVolume;
+extern volatile u8		SNDrightVolume;
+extern volatile s8		SNDfademasterVolume;
+extern volatile u8		SNDspeedfade;
+extern volatile u16		SNDdmaLoopCount;
+extern void*			SNDsourceTransfer;
+extern volatile void*	SNDendSourceTransfer;
+extern void*			SNDdestTransfer;
+
+extern volatile void*	SNDlastDMAposition;	    /* read only */
+extern volatile s8		SNDmasterVolume;		/* ready only - debug purpose */
+
+STRUCT(SNDcore)
+{
+	u8*		     dmaBuffer;
+	u8*		     cache;
+	u32		     sampleLength;
+
+	bool	     pcmLoaded;
+	bool		 syncWithSoundtrack;
+	
+	LOADrequest* currentLoadRequest;
+	u16			 dmaLoopstart;
+
+	volatile s16 playerContext;
+	u16			 playerStart;
+    volatile u16 playerClientStep;
+};
+
+#ifndef SOUND_C
+
+extern SNDcore snd;
+extern u8 SNDchannelVolume[];
+
+#endif
+
+#define SND_BEGIN							case 0: snd.playerStart = __LINE__; 
+
+#define SND_LOADSAMPLE(MEDIA,RESOURCE)		snd.currentLoadRequest = LOADrequestLoad(&RSC_##MEDIA##, RSC_##MEDIA##_ZIK__##RESOURCE##_RAW, snd.cache, LOAD_PRIOTITY_HIGH);
+#define SND_WAIT_SAMPLELOADED				case __LINE__:	if ( snd.currentLoadRequest->processed == false )  return __LINE__; snd.currentLoadRequest->allocated = false; snd.currentLoadRequest = NULL;
+
+#define SND_SYNC_COPYCACHE_TO_LEFT(OFFSET,LEN)		SNDcopySample(snd.cache, snd.dmaBuffer + (OFFSET << 1)		, LEN);
+#define SND_SYNC_COPYCACHE_TO_RIGHT(OFFSET,LEN)		SNDcopySample(snd.cache, snd.dmaBuffer + (OFFSET << 1) +1	, LEN);
+
+#define SND_COPYCACHE_TO_LEFT(OFFSET,LEN)	SNDsourceTransfer = snd.cache; SNDendSourceTransfer = snd.cache + LEN; SNDdestTransfer = snd.dmaBuffer + (OFFSET << 1);
+#define SND_COPYCACHE_TO_RIGHT(OFFSET,LEN)	SNDsourceTransfer = snd.cache; SNDendSourceTransfer = snd.cache + LEN; SNDdestTransfer = snd.dmaBuffer + (OFFSET << 1) + 1;
+#define SND_WAIT_CACHECOPIED				case __LINE__: if ( SNDsourceTransfer < SNDendSourceTransfer ) return __LINE__;
+
+#define SND_VOLUME_SET(VOL)					SNDmasterVolume = VOL; (*HW_MICROWIRE_MASK) = HW_MICROWIRE_MASK_SOUND; (*HW_MICROWIRE_DATA) = HW_MICROWIRE_VOLUME | VOL;
+#define SND_VOLUME_FADEIN(STEP)				SNDspeedfade = STEP; SNDmasterVolume = 0; SNDfademasterVolume = 1;
+#define SND_VOLUME_FADEOUT(STEP)			SNDspeedfade = STEP; SNDmasterVolume = 40; SNDfademasterVolume = -1;
+
+#define SND_SETPANNING(PAN)					SNDleftVolume = SNDchannelVolume[PAN]; SNDrightVolume = SNDchannelVolume[6 - PAN]; { STATIC_ASSERT(PAN<7); }
+
+#define SND_DMALOOP_RESET					snd.dmaLoopstart = SNDdmaLoopCount;
+#define SND_WAIT_DMALOOP_REACH(COUNT)		case __LINE__: if ( (SNDdmaLoopCount - snd.dmaLoopstart) < COUNT ) return __LINE__;
+
+#define	SND_IDLE							case __LINE__: return __LINE__;
+#define SND_RESTART							return 0;
+#define SND_WAIT_CLIENTSTEP(COUNT)          case __LINE__: if (( snd.playerClientStep < COUNT ) && snd.syncWithSoundtrack ) return __LINE__;
+
+void SNDinit        (RINGallocator* _allocator, u32 _sampleLen);
+void SNDshutdown    (RINGallocator* _allocator);
+void SNDcopySample  (u8* _source, u8* _dest, u32 _length);
+void SNDwaitDMALoop (void);
+void SNDwaitClientStep(u16 _clientStep);	/* shoud be used from idle thread only ! */
+void SNDplayNoise   (u16 _freq, u16 _level);
+void SNDstopNoise   (void);
+
+#ifdef DEMOS_DEBUG
+u16  SNDtrace       (void* _image, u16 _pitch, u16 _planePitch, u16 _y);
+#endif
+
+#endif
