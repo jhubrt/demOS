@@ -117,8 +117,8 @@ void CybervectorEntry (FSM* _fsm)
 
 	temp = (u8*) RINGallocatorAlloc ( &sys.mem, polysDataTempSize );
 
-	loadRequest  = LOADrequestLoad (&RSC_DISK1, RSC_DISK1_POLYZOOM__CYBERVECTOR_BIN, temp, LOAD_PRIORITY_INORDER);
-	loadRequest2 = LOADrequestLoad (&RSC_DISK1, RSC_DISK1_POLYZOOM__SIN_BIN, g_screens.cybervector->sin, LOAD_PRIORITY_INORDER);
+	loadRequest  = LOADdata (&RSC_DISK1, RSC_DISK1_POLYZOOM__CYBERVECTOR_BIN, temp, LOAD_PRIORITY_INORDER);
+	loadRequest2 = LOADdata (&RSC_DISK1, RSC_DISK1_POLYZOOM__SIN_BIN, g_screens.cybervector->sin, LOAD_PRIORITY_INORDER);
 
     LOADwaitRequestCompleted ( loadRequest );	
 	
@@ -771,7 +771,7 @@ void CybervectorBacktask (FSM* _fsm)
     data   = (u8*) RINGallocatorAlloc ( &sys.mem, (logoSize / 3) * 4 );
 	random = (u16*) RINGallocatorAlloc  ( &sys.mem, GRIDMAXSIZE * sizeof(u16) * NBFRAMEBUFFERS );
 
-	loadRequest = LOADrequestLoad(&RSC_DISK1, RSC_DISK1_POLYZOOM__REBIRTH_ARJX, packed, LOAD_PRIORITY_INORDER);
+	loadRequest = LOADdata (&RSC_DISK1, RSC_DISK1_POLYZOOM__REBIRTH_ARJX, packed, LOAD_PRIORITY_INORDER);
 
     for (i = 1 ; i < 8 ; i++)
 	{
@@ -863,7 +863,7 @@ void CybervectorBacktask (FSM* _fsm)
         snd.playerClientStep = STEP_POLYZOOM_STOP;
         RASnextOpList = NULL;               
         FSMgotoNextState (&g_stateMachine);
-        SYSvsync;
+        ScreenWaitMainDonothing();
     }
 }
 

@@ -139,6 +139,7 @@
 
 #define OS_FLOPVBL		((u16*)0x43e)
 #define OS_NFLOPS		((u16*)0x4a6)
+#define OS_PHYTOP       ((u32*)0x42e)
 
 #else
 
@@ -208,6 +209,7 @@ STRUCT(SThardware)
 
 	u16 _flopvbl;
 	u16 _nflops;
+    u32 _phytop;
 };
 
 #	ifndef HARDWARE_C
@@ -282,6 +284,7 @@ STRUCT(SThardware)
 
 #	define OS_FLOPVBL					(&g_STHardware._flopvbl)
 #	define OS_NFLOPS					(&g_STHardware._nflops)
+#   define OS_PHYTOP                    (&g_STHardware._phytop)
 
 #endif
 

@@ -151,6 +151,19 @@ LOADrequest* LOADrequestLoad (LOADdisk* _media, u16 _resourceid, void* _buffer, 
 #	endif
 }
 
+LOADrequest* LOADdata (LOADdisk* _media, u16 _resource, void* _buffer, u16 _order)
+{
+    if ( _media->FAT[_resource].preload != NULL )
+    {
+        STDmcpy(_buffer, _media->FAT[_resource].preload, LOADgetEntrySize(_media, _resource) );
+        return NULL;
+    }
+    else
+    {
+        return LOADrequestLoad (_media, _resource, _buffer, _order);
+    }
+}
+
 
 u32 LOADgetEntrySize (LOADdisk* _media, u16 _entryIndex)
 {
@@ -166,10 +179,49 @@ void LOADwaitFDCIdle (void)
 
 void LOADwaitRequestCompleted (LOADrequest* _request)
 {
-    ASSERT (_request->allocated);
-	while ( _request->processed == 0 );
-	_request->allocated = false;
+    if ( _request != NULL )
+    {
+        ASSERT (_request->allocated);
+	    while ( _request->processed == 0 );
+	    _request->allocated = false;
+    }
 }
+
+
+void* LOADpreload (void* _framebuffer, u16 _pitch, u16 _planepitch, void* _preload, u32 _preloadsize, void* _current, LOADdisk* _disk, u8* _resources, u16 _nbResources)
+{
+    static char line[] = "preloading    -      ";
+    u8* currentpreload = (u8*) _current;
+    u16 t;
+
+    
+    for (t = 0 ; t < _nbResources ; t++)
+    {
+        u16 rsc     = _resources[t];
+        u32 rscSize = LOADgetEntrySize(_disk, rsc);
+
+        if ( ( _preloadsize - (currentpreload - (u8*)_preload) ) >= rscSize )
+        {
+            LOADrequest* request = LOADrequestLoad (_disk, rsc, currentpreload, LOAD_PRIORITY_INORDER);
+
+            _disk->FAT[rsc].preload = currentpreload;
+
+            while (request->processed == false)
+            {
+                STDuxtoa(&line[11], _nbResources - t - 1, 2);
+                STDuxtoa(&line[16], request->nbsectors, 4);
+
+                SYSfastPrint (line, _framebuffer, _pitch, _planepitch, (u32) sys.fontChars);
+            }
+
+            LOADfreeRequest (request);
+            currentpreload += rscSize;
+        }
+    }
+
+    return currentpreload;
+}
+
 
 #ifdef DEMOS_DEBUG
 u16 LOADtrace (void* _image, u16 _pitch, u16 _planePitch, u16 _y)

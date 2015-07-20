@@ -328,8 +328,8 @@ void SlidesEntry (FSM* _fsm)
     g_screens.slides->pos         = (u16*) RINGallocatorAlloc ( &sys.mem, SLI_MORPHPOINTS * sizeof(u16) * 3);
     g_screens.slides->points[0]   = (u16*) RINGallocatorAlloc ( &sys.mem, LOADgetEntrySize(&RSC_DISK2, RSC_DISK2_SLIDES__MASKS_PT) );
 
-	loadRequest  = LOADrequestLoad (&RSC_DISK2, SlidePhotoIndexes[0], g_screens.slides->bitmaps[0], LOAD_PRIORITY_INORDER);
-    loadRequest2 = LOADrequestLoad (&RSC_DISK2, RSC_DISK2_SLIDES__MASKS_PT, g_screens.slides->points[0], LOAD_PRIORITY_INORDER);
+	loadRequest  = LOADdata (&RSC_DISK2, SlidePhotoIndexes[0], g_screens.slides->bitmaps[0], LOAD_PRIORITY_INORDER);
+    loadRequest2 = LOADdata (&RSC_DISK2, RSC_DISK2_SLIDES__MASKS_PT, g_screens.slides->points[0], LOAD_PRIORITY_INORDER);
 
     SLIinitMorph (g_screens.slides->verttable, g_screens.slides->horitable, SLI_HEIGHT, SLI_WIDTH >> 1, SLI_WIDTH);
 
@@ -1127,10 +1127,9 @@ void SlidesBacktask (FSM* _fsm)
     {
         snd.playerClientStep = STEP_SLIDES_STOPPED;
         SNDwaitDMALoop();
-
-        FSMgotoNextState (&g_stateMachine);
         RASnextOpList = NULL;
-        SYSvsync
+        FSMgotoNextState (&g_stateMachine);
+        ScreenWaitMainDonothing();
     }
 
     IGNORE_PARAM(_fsm);

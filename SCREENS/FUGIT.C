@@ -148,7 +148,7 @@ void FugitEntry (FSM* _fsm)
 
     g_screens.fugit->auxbuffer       = (u8*) RINGallocatorAlloc ( &sys.mem, 20000 );
 
-    loadRequest = LOADrequestLoad(&RSC_DISK2, RSC_DISK2_FUGIT__FONT_ARJX, g_screens.fugit->auxbuffer, LOAD_PRIORITY_INORDER);
+    loadRequest = LOADdata (&RSC_DISK2, RSC_DISK2_FUGIT__FONT_ARJX, g_screens.fugit->auxbuffer, LOAD_PRIORITY_INORDER);
     
     g_screens.fugit->deltapacked     = (u8*) RINGallocatorAlloc ( &sys.mem, 40000UL );
     g_screens.fugit->framebuffers[0] = (u8*) RINGallocatorAlloc ( &sys.mem, 32000UL * 2UL );
@@ -264,8 +264,7 @@ void FugitBacktask (FSM* _fsm)
     if ( FSMisLastState(_fsm) == false )
     {
         FSMgotoNextState (&g_stateMachine);
-
-        SYSvsync;
+        ScreenWaitMainDonothing();
     }
 }
 

@@ -72,6 +72,7 @@ STRUCT(SYScore)
 	u8				lastKey;
     SYSemulator     emulator;
     u8*             idleThreadStackBase;
+    u32             phytop;
 
     u8*	            font;
     u16	            fontChars[256];

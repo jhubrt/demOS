@@ -59,7 +59,7 @@ scr_nbsectors:			set 14		;
 prg_startsector:		set 5		; 0 to 9
 prg_starttrack:			set 0		; 0 to 81
 prg_startside:			set 1		; 0 or 1
-prg_nbsectors:			set 50		; 
+prg_nbsectors:			set 51		; 
 ;-------------------------------------------------------------------------
 
     ; Optimize a bit: put code instead of OEM and Serial

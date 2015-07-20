@@ -57,6 +57,7 @@ STRUCT(SNDcore)
 {
 	u8*		     dmaBuffer;
 	u8*		     cache;
+    u8*          loaded;
 	u32		     sampleLength;
 
 	bool	     pcmLoaded;
@@ -79,14 +80,14 @@ extern u8 SNDchannelVolume[];
 
 #define SND_BEGIN							case 0: snd.playerStart = __LINE__; 
 
-#define SND_LOADSAMPLE(MEDIA,RESOURCE)		snd.currentLoadRequest = LOADrequestLoad(&RSC_##MEDIA##, RSC_##MEDIA##_ZIK__##RESOURCE##_RAW, snd.cache, LOAD_PRIOTITY_HIGH);
-#define SND_WAIT_SAMPLELOADED				case __LINE__:	if ( snd.currentLoadRequest->processed == false )  return __LINE__; snd.currentLoadRequest->allocated = false; snd.currentLoadRequest = NULL;
+#define SND_LOADSAMPLE(MEDIA,RESOURCE)		snd.loaded = RSC_##MEDIA##.FAT[RSC_##MEDIA##_ZIK__##RESOURCE##_RAW].preload; if ( snd.loaded == NULL ) { snd.currentLoadRequest = LOADrequestLoad(&RSC_##MEDIA##, RSC_##MEDIA##_ZIK__##RESOURCE##_RAW, snd.cache, LOAD_PRIOTITY_HIGH); snd.loaded = snd.cache; }
+#define SND_WAIT_SAMPLELOADED				case __LINE__:	if ( (snd.currentLoadRequest != NULL) && (snd.currentLoadRequest->processed == false) )  return __LINE__; if ( snd.currentLoadRequest != NULL) snd.currentLoadRequest->allocated = false; snd.currentLoadRequest = NULL;
 
-#define SND_SYNC_COPYCACHE_TO_LEFT(OFFSET,LEN)		SNDcopySample(snd.cache, snd.dmaBuffer + (OFFSET << 1)		, LEN);
-#define SND_SYNC_COPYCACHE_TO_RIGHT(OFFSET,LEN)		SNDcopySample(snd.cache, snd.dmaBuffer + (OFFSET << 1) +1	, LEN);
+#define SND_SYNC_COPYCACHE_TO_LEFT(OFFSET,LEN)		SNDcopySample(snd.loaded, snd.dmaBuffer + (OFFSET << 1)		, LEN);
+#define SND_SYNC_COPYCACHE_TO_RIGHT(OFFSET,LEN)		SNDcopySample(snd.loaded, snd.dmaBuffer + (OFFSET << 1) +1	, LEN);
 
-#define SND_COPYCACHE_TO_LEFT(OFFSET,LEN)	SNDsourceTransfer = snd.cache; SNDendSourceTransfer = snd.cache + LEN; SNDdestTransfer = snd.dmaBuffer + (OFFSET << 1);
-#define SND_COPYCACHE_TO_RIGHT(OFFSET,LEN)	SNDsourceTransfer = snd.cache; SNDendSourceTransfer = snd.cache + LEN; SNDdestTransfer = snd.dmaBuffer + (OFFSET << 1) + 1;
+#define SND_COPYCACHE_TO_LEFT(OFFSET,LEN)	SNDdestTransfer = snd.dmaBuffer + (OFFSET << 1);     SNDsourceTransfer = snd.loaded; SNDendSourceTransfer = snd.loaded + LEN;
+#define SND_COPYCACHE_TO_RIGHT(OFFSET,LEN)	SNDdestTransfer = snd.dmaBuffer + (OFFSET << 1) + 1; SNDsourceTransfer = snd.loaded; SNDendSourceTransfer = snd.loaded + LEN; 
 #define SND_WAIT_CACHECOPIED				case __LINE__: if ( SNDsourceTransfer < SNDendSourceTransfer ) return __LINE__;
 
 #define SND_VOLUME_SET(VOL)					SNDmasterVolume = VOL; (*HW_MICROWIRE_MASK) = HW_MICROWIRE_MASK_SOUND; (*HW_MICROWIRE_DATA) = HW_MICROWIRE_VOLUME | VOL;

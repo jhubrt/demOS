@@ -619,7 +619,7 @@ void InterludeBacktask (FSM* _fsm)
     snd.playerClientStep++;
 
     FSMgotoNextState (&g_stateMachine);
-    SYSvsync;
+    ScreenWaitMainDonothing();
 
     IGNORE_PARAM(_fsm);
 }

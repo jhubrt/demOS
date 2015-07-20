@@ -88,7 +88,7 @@ void SYScheckHWRequirements (void)
     }
 
     /* Check you have two drives */
-    if ( sys.has2Drives == false )
+    if (( sys.has2Drives == false ) && ( sys.phytop < (2UL * 1024UL * 1024UL)) )
     {
         failed = true;
     }
@@ -107,8 +107,8 @@ void SYScheckHWRequirements (void)
 
         STDmset (&HW_COLOR_LUT[1], 0xFFFFFFFFUL, 30);
 
-        SYSfastPrint ("Hardware requirements:"       , frameBuffer          , 160, 8, (u32) sys.fontChars);
-        SYSfastPrint ("STe - at least 1mb - 2 drives", &frameBuffer[160 * 8], 160, 8, (u32) sys.fontChars);
+        SYSfastPrint ("Hardware requirements:" , frameBuffer, 160, 8, (u32) sys.fontChars);
+        SYSfastPrint ("STe - 1mb + 2 drives or at least 2mb", &frameBuffer[160 * 8], 160, 8, (u32) sys.fontChars);
 
         while(1)
         {
@@ -145,6 +145,7 @@ void SYSinit(SYSinitParam* _param)
     }
 
 	sys.has2Drives = *OS_NFLOPS >= 2;
+    sys.phytop = *OS_PHYTOP;
 
 	sys.bakUSP = STDgetUSP();
 

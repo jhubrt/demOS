@@ -528,8 +528,8 @@ void VisualizerEntry (FSM* _fsm)
     g_screens.visualizer->nbcolors      = (u16) (RSC_DISK1.metaData[RSC_DISK1_METADATA_VISUALIZ_TEXTOS_PAL].offset) >> 1;
     g_screens.visualizer->colors        = (u16*) RINGallocatorAlloc ( &sys.mem, LOADgetEntrySize(&RSC_DISK1, RSC_DISK1_VISUALIZ__PAL_BIN) );
 
-    loadRequest  = LOADrequestLoad (&RSC_DISK1, RSC_DISK1_VISUALIZ__PAL_BIN, g_screens.visualizer->colors, LOAD_PRIORITY_INORDER);
-    loadRequest2 = LOADrequestLoad (&RSC_DISK1, RSC_DISK1_POLYZOOM__SIN_BIN, sin, LOAD_PRIORITY_INORDER);
+    loadRequest  = LOADdata (&RSC_DISK1, RSC_DISK1_VISUALIZ__PAL_BIN, g_screens.visualizer->colors, LOAD_PRIORITY_INORDER);
+    loadRequest2 = LOADdata (&RSC_DISK1, RSC_DISK1_POLYZOOM__SIN_BIN, sin, LOAD_PRIORITY_INORDER);
     
     g_screens.visualizer->startcolors   = (u16*) RINGallocatorAlloc ( &sys.mem, (VIS_NBSTARTCOLORS + VIS_WIDTH) << U16_SIZEOF_SHIFT );
     g_screens.visualizer->startcolflash = (u16*) RINGallocatorAlloc ( &sys.mem, ((8 + VIS_WIDTH) * 2) << U16_SIZEOF_SHIFT );
@@ -567,7 +567,7 @@ void VisualizerEntry (FSM* _fsm)
 
     if (visTracksList[g_screens.visualizerIndex].animateat != VIS_NOANIM)
     {
-        loadRequest = LOADrequestLoad(&RSC_DISK1, RSC_DISK1_VISUALIZ_TEXTOS_ARJX, g_screens.visualizer->animations, LOAD_PRIORITY_INORDER);
+        loadRequest = LOADdata(&RSC_DISK1, RSC_DISK1_VISUALIZ_TEXTOS_ARJX, g_screens.visualizer->animations, LOAD_PRIORITY_INORDER);
     }
     else
     {
@@ -584,7 +584,7 @@ void VisualizerEntry (FSM* _fsm)
 
     STDmset (g_screens.visualizer->bitmaps, 0, 64000UL);
 
-    if ( loadRequest != NULL )
+    if (visTracksList[g_screens.visualizerIndex].animateat != VIS_NOANIM)
     {
         LOADwaitRequestCompleted ( loadRequest ); /* bitmaps available ---------------------------------------------- */
         ARJdepack(g_screens.visualizer->bitmaps + (VIS_BITMAP_BASE * VIS_SCREEN_PITCH), g_screens.visualizer->animations);
@@ -1429,7 +1429,7 @@ void VisualizerBacktask (FSM* _fsm)
         g_screens.visualizerIndex++;
         RASnextOpList = NULL;
         FSMgotoNextState (&g_stateMachine);
-        SYSvsync;
+        ScreenWaitMainDonothing();
     }
     
     IGNORE_PARAM(_fsm);

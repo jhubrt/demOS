@@ -68,11 +68,12 @@ STRUCT(LOADmetaData)
 
 STRUCT(LOADresource)
 {
-	u16	nbsectors;		/* : 10; */
-	u8  startsector;	/* : 5;  */
-	u8	side;			/* : 1;  */
-	u8	track;			/* : 8;	 */
-    s16 metadataIndex;  /* : 16; */
+	u16	    nbsectors;		/* : 10; */
+	u8      startsector;	/* : 5;  */
+	u8	    side;			/* : 1;  */
+	u8	    track;			/* : 8;	 */
+    s16     metadataIndex;  /* : 16; */
+    void*   preload;
 };
 
 STRUCT(LOADdisk)
@@ -126,10 +127,12 @@ extern u16 LOADorder;
 
 void          LOADinit          		(void);
 LOADrequest*  LOADrequestLoad           (LOADdisk* _media, u16 _resource, void* _buffer, u16 _order);
+LOADrequest*  LOADdata                  (LOADdisk* _media, u16 _resource, void* _buffer, u16 _order);
 void          LOADwaitRequestCompleted  (LOADrequest* request);
 void		  LOADwaitFDCIdle			(void);
-#define       LOADfreeRequest(_request) _request->allocated = false;
+#define       LOADfreeRequest(_request) if (_request != NULL) _request->allocated = false;
 u32           LOADgetEntrySize          (LOADdisk* _media, u16 _entryIndex);
+void*         LOADpreload               (void* _framebuffer, u16 _pitch, u16 _planepitch, void* _preload, u32 _preloadsize, void* _current, LOADdisk* _disk, u8* _resources, u16 _nbResources);
 
 #ifdef DEMOS_DEBUG
 u16 LOADtrace (void* _image, u16 _pitch, u16 _planePitch, u16 _y);
