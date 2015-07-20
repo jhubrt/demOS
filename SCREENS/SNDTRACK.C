@@ -75,7 +75,7 @@ s16 playTrack (void) {	switch (snd.playerContext)	/* minimize line numbers to ke
                                                         snd.playerClientStep = STEP_STOP_VISUALIZER3;
                                                         SND_WAIT_CLIENTSTEP(STEP_VISUALIZER3_STOPPED);
     SND_LOADSAMPLE(DISK1, 6056766)	/* preload */       SND_WAIT_SAMPLELOADED
-	SND_DMALOOP_RESET	SND_SETPANNING(6)				
+	SND_DMALOOP_RESET	SND_SETPANNING(6)				SND_WAIT_DMALOOP_REACH(1)
 	SND_COPYCACHE_TO_LEFT(0, SAMPLE_L)					SND_WAIT_CACHECOPIED
                                                         SND_WAIT_DMALOOP_REACH(8)
     SNDplayNoise (0,3);

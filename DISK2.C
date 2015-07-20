@@ -4,17 +4,17 @@
 
 static LOADresource RSC_DISK2_FAT[] =
 { /* nbSectors @sector   @side     @track   metaDataIndex */
-    {        1,        0,        0,        0,      0 } ,  /* lost bytes = 0 */
-    {      174,        1,        0,        0,      1 } ,  /* lost bytes = 80 */
-    {      174,        5,        1,        8,      2 } ,  /* lost bytes = 80 */
-    {       87,        9,        0,       17,      3 } ,  /* lost bytes = 40 */
-    {       87,        6,        1,       21,      4 } ,  /* lost bytes = 40 */
-    {      109,        3,        0,       26,      5 } ,  /* lost bytes = 88 */
-    {      109,        2,        1,       31,      6 } ,  /* lost bytes = 88 */
-    {      109,        1,        0,       37,      7 } ,  /* lost bytes = 88 */
-    {      109,        0,        1,       42,      8 } ,  /* lost bytes = 88 */
-    {       16,        9,        1,       47,      9 } ,  /* lost bytes = 224 */
-    {        4,        5,        1,       48,     17 }    /* lost bytes = 348 */
+    {        1,        0,        0,        0,      0, NULL } ,  /* lost bytes = 0 */
+    {      174,        1,        0,        0,      1, NULL } ,  /* lost bytes = 80 */
+    {      174,        5,        1,        8,      2, NULL } ,  /* lost bytes = 80 */
+    {       87,        9,        0,       17,      3, NULL } ,  /* lost bytes = 40 */
+    {       87,        6,        1,       21,      4, NULL } ,  /* lost bytes = 40 */
+    {      109,        3,        0,       26,      5, NULL } ,  /* lost bytes = 88 */
+    {      109,        2,        1,       31,      6, NULL } ,  /* lost bytes = 88 */
+    {      109,        1,        0,       37,      7, NULL } ,  /* lost bytes = 88 */
+    {      109,        0,        1,       42,      8, NULL } ,  /* lost bytes = 88 */
+    {       16,        9,        1,       47,      9, NULL } ,  /* lost bytes = 224 */
+    {        4,        5,        1,       48,     17, NULL }    /* lost bytes = 348 */
 };
 
 static LOADmetaData RSC_DISK2_MetaData[] =

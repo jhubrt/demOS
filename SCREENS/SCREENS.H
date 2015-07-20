@@ -49,6 +49,7 @@ extern u16      statesSize;
 extern u16      statesIdleSize;
 #endif
 
-void ScreensInit(void);
+void ScreensInit(void* _preload, u32 _preloadsize);
+void ScreenWaitMainDonothing (void);
 
 #endif

@@ -28,6 +28,12 @@
 #include "DEMOSDK\COLORS.H"
 #include "DEMOSDK\SOUND.H"
 
+#include "DISK1.H"
+#include "DISK2.H"
+
+
+#define DISK2_BOOT_CHECKSUM_DIFF 0x7d25
+
 Screens	g_screens;
 
 FSM g_stateMachine;
@@ -358,8 +364,85 @@ u16 statesSize     = (u16) ARRAYSIZE(states);
 u16 statesIdleSize = (u16) ARRAYSIZE(statesIdle);
 
 
-void ScreensInit ()
+void ScreenWaitMainDonothing (void)
 {
-	STDmset (&g_screens, 0, sizeof(g_screens));
-	snd.syncWithSoundtrack = statesSize >= 20;
+    while (g_stateMachine.states[g_stateMachine.activeState].activity != doNothing);
+}
+
+
+#define SCREEN_PRELOAD_H    160
+
+void ScreensInit (void* _preload, u32 _preloadsize)
+{
+    STDmset (&g_screens, 0, sizeof(g_screens));
+    snd.syncWithSoundtrack = statesSize >= 20;
+
+    if ( _preload != NULL )
+    {
+        u8 disk1Preload[RSC_DISK1_NBENTRIES - RSC_DISK1_POLYZOOM__CYBERVECTOR_BIN];
+        u8 t, i = 0;
+        
+        void* current = _preload;
+        u8*   screen = RINGallocatorAlloc(&sys.mem, 32000);
+        u8*   diplayarea = screen + SCREEN_PRELOAD_H * 160 + 2;
+
+
+        STDmcpy(screen, (void*) SYSreadVideoBase(), 32000);
+        SYSwriteVideoBase ((u32)screen);
+        SYSvsync;
+
+        for (t = RSC_DISK1_POLYZOOM__CYBERVECTOR_BIN ; t < RSC_DISK1_NBENTRIES ; t++)
+        {
+            disk1Preload[i++] = t;
+        }
+
+        STDmset (diplayarea, 0, (200 - SCREEN_PRELOAD_H) * 160);
+        SYSfastPrint ("only 1 drive but extra memory...", diplayarea, 160, 4, (u32) sys.fontChars);
+
+        current = LOADpreload (&diplayarea[160*10], 160, 4, _preload, _preloadsize, current, &RSC_DISK1, disk1Preload, ARRAYSIZE(disk1Preload));
+
+        {
+            bool goon = true;
+
+            SYSfastPrint ("insert disk 2 and press space...", &diplayarea[160*20], 160, 4, (u32) sys.fontChars);
+
+            do 
+            {
+                LOADrequest* request;
+
+                do 
+                {
+                    if ( SYS_kbhit )
+                    {
+                        goon = (SYSgetKb() != (HW_KEY_SPACEBAR | HW_KEYBOARD_KEYRELEASE));
+                    }
+                }
+                while (goon);
+
+                request = LOADrequestLoad (&RSC_DISK1, 0, current, LOAD_PRIORITY_INORDER);  /* force sector 0 load */
+                LOADwaitRequestCompleted (request);
+                LOADfreeRequest (request);
+
+                goon = ((u16*)current)[255] != DISK2_BOOT_CHECKSUM_DIFF;
+            } 
+            while (goon);
+
+            {
+                static u8 disk2Preload[] = 
+                {
+                    RSC_DISK2_ZIK__7569902_RAW,  
+                    RSC_DISK2_ZIK__12465342_RAW, 
+                    RSC_DISK2_ZIK__14245502_RAW, 
+                    RSC_DISK2_ZIK__14646038_RAW, 
+                    RSC_DISK1_VISUALIZ__PAL_BIN,
+                    RSC_DISK2_SLIDES__MASKS_PT, 
+                    RSC_DISK2_FUGIT__FONT_ARJX 
+                };
+
+                LOADpreload (&diplayarea[160*30], 160, 4, _preload, _preloadsize, current, &RSC_DISK2, disk2Preload, ARRAYSIZE(disk2Preload));
+            }
+        }
+
+        RINGallocatorFree(&sys.mem, screen);
+    }
 }

@@ -145,7 +145,7 @@ public:
 
         for (std::vector<FileEntry>::const_iterator fileEntry = _fileEntries.begin() ; fileEntry != _fileEntries.end() ; fileEntry++)
 		{
-            fprintf (m_file, "    { %8ld, %8ld, %8ld, %8ld, %6ld } %c  /* lost bytes = %d */\n",
+            fprintf (m_file, "    { %8ld, %8ld, %8ld, %8ld, %6ld, NULL } %c  /* lost bytes = %d */\n",
                 fileEntry->nbsectors,
                 fileEntry->startsector,
                 fileEntry->side,
@@ -425,17 +425,26 @@ static void* loadDataFile( const char* _currentName, u32& _filesize, s32& _origi
                 printf ("bootsector size exceeds 512 bytes\n");
                 goto Error;
             }
-            
+
             if ( _executableBootSector )
             {
                 u16 checksum = 0;
 
-                for (u32 t = 0 ; t < (_filesize - 2) ; t += 2)
+                _filesize -= 2;
+
+                for (u32 t = 0 ; t < _filesize ; t += 2)
                 {
                     checksum += STDswap16( *(u16*)&buffer[t] );
                 }
 
-                *(u16*)&buffer[_filesize - 2] = STDswap16(0x1234 - checksum);
+                checksum = 0x1234 - checksum; 
+
+                printf ("bootsector checksum diff 0x%x\n", checksum);
+
+                memset (&buffer[_filesize], 0, 512 - _filesize);
+
+                *(u16*)&buffer[510] = STDswap16(checksum);
+                _filesize = 512;
             }
         }
     }

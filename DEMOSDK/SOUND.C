@@ -100,10 +100,11 @@ static void SND_waitMicrowire (void)
 
 void SNDinit(RINGallocator* _allocator, u32 _sampleLen)
 {
-	u32 roundSampleLen = (_sampleLen + 0xFF) & 0xFFFFFF00UL;
+	u32 dmaSampleBufferLen = ((_sampleLen * 2UL) + 1023UL) & 0xFFFFFC00UL;    /* stereo sample and round to 1024 for vbl copy routine */ 
 
-	snd.cache		 = (u8*) RINGallocatorAlloc (_allocator, LOADroundBufferSize(roundSampleLen));
-	snd.dmaBuffer	 = (u8*) RINGallocatorAlloc (_allocator, roundSampleLen * 2UL);
+	snd.cache		 = (u8*) RINGallocatorAlloc (_allocator, LOADroundBufferSize(_sampleLen));
+	snd.dmaBuffer	 = (u8*) RINGallocatorAlloc (_allocator, dmaSampleBufferLen);
+    snd.loaded       = NULL;
 	snd.sampleLength = _sampleLen;
 	snd.pcmLoaded	 = false;
 	snd.currentLoadRequest = NULL;

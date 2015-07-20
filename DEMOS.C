@@ -75,7 +75,7 @@
 #include "DISK1.H"
 
 
-static char* DEMOSbuildversion = " rc7";
+static char* DEMOSbuildversion = " rc8";
 
 static void DEMOSidleThread(void)
 {
@@ -123,8 +123,9 @@ int main(int argc, char** argv)
 {
     u8* base = (u8*) STDgetSP();
 
-	u32 coresize = 264UL * 1024UL;
-	u32 size	 = 700UL * 1024UL;
+	u32 coresize    = 264UL * 1024UL;
+	u32 size	    = 700UL * 1024UL;
+    u32 preloadsize = 1024UL * 1024UL;
  
 
 	/*STD_unitTest();*/
@@ -138,12 +139,13 @@ int main(int argc, char** argv)
 
 	{
 #       if defined(DEMOS_OPTIMIZED) || defined(DEMOS_USES_BOOTSECTOR)
-        u8*   corebuffer = base + 64;
-		u8*   buffer1	 = corebuffer + coresize;
+        u8*   corebuffer    = base + 64;
+		u8*   buffer1	    = corebuffer + coresize;
 #       else
-		u8*   corebuffer = malloc( EMULbufferSize(coresize) );
-		u8*   buffer1	 = malloc( EMULbufferSize(size) );
+		u8*   corebuffer    = malloc( EMULbufferSize(coresize) );
+		u8*   buffer1	    = malloc( EMULbufferSize(size) );
 #       endif
+        u8*   preloadbuffer = NULL;
 
 		void* buffer = EMULalignBuffer (buffer1);
 
@@ -189,7 +191,16 @@ int main(int argc, char** argv)
 			/* BIT_unitTest(); */
 		}
 
-		ScreensInit ();		
+        if ( sys.has2Drives == false )
+        {
+#           if defined(DEMOS_OPTIMIZED) || defined(DEMOS_USES_BOOTSECTOR)
+            preloadbuffer = buffer1 + size;
+#           else
+            preloadbuffer = malloc( EMULbufferSize(preloadsize) );
+#           endif
+        }
+
+		ScreensInit (preloadbuffer, preloadsize);		
 		{
 			u16*	color = HW_COLOR_LUT;
 			u8		key = 0;
@@ -229,7 +240,11 @@ int main(int argc, char** argv)
 
 			SYSgemdosSetMode(sys.bakGemdos32);
 
-			free (buffer1);
+            if (preloadbuffer != NULL)
+            {
+                free(preloadbuffer);
+            }
+            free (buffer1);
 			free (corebuffer);
 #			else
 			SYSreset ();
