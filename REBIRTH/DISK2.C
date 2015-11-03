@@ -1,0 +1,9 @@
+#define DISK2_C
+
+#include "DISK2.H"
+
+LOADdisk RSC_DISK2 = { NULL, RSC_DISK2_NBENTRIES, NULL, RSC_DISK2_NBMETADATA, 1, NULL
+#	ifdef DEMOS_DEBUG
+     ,"DISK2.ST", NULL
+#   endif
+};

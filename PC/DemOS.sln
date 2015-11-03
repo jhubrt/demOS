@@ -1,13 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual C++ Express 2010
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DemOS", "DemOS.vcxproj", "{270FFB34-1884-425B-800D-E06130E24F0D}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Rebirth", "Rebirth.vcxproj", "{270FFB34-1884-425B-800D-E06130E24F0D}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "NeoViewer", "NeoViewer\NeoViewer.vcxproj", "{08B7D386-B965-49B4-AEBF-67FE50BA8AE7}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "NeoViewer", "NeoViewer.vcxproj", "{08B7D386-B965-49B4-AEBF-67FE50BA8AE7}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Binarize", "Binarize\Binarize.vcxproj", "{082CD7CB-ED9C-4F05-B6BA-4A6357ACECBD}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RebirthBinarize", "RebirthBinarize.vcxproj", "{082CD7CB-ED9C-4F05-B6BA-4A6357ACECBD}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Imager", "Imager\Imager.vcxproj", "{C5A504F1-3F1B-45AC-9607-9FD9EAF7B700}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RebirthImager", "RebirthImager.vcxproj", "{C5A504F1-3F1B-45AC-9607-9FD9EAF7B700}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SyntheticSound", "SyntheticSound.vcxproj", "{46CA3CC9-D57C-4A22-ACB5-B79A5C21DE1E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,6 +33,10 @@ Global
 		{C5A504F1-3F1B-45AC-9607-9FD9EAF7B700}.Debug|Win32.Build.0 = Debug|Win32
 		{C5A504F1-3F1B-45AC-9607-9FD9EAF7B700}.Release|Win32.ActiveCfg = Release|Win32
 		{C5A504F1-3F1B-45AC-9607-9FD9EAF7B700}.Release|Win32.Build.0 = Release|Win32
+		{46CA3CC9-D57C-4A22-ACB5-B79A5C21DE1E}.Debug|Win32.ActiveCfg = Debug|Win32
+		{46CA3CC9-D57C-4A22-ACB5-B79A5C21DE1E}.Debug|Win32.Build.0 = Debug|Win32
+		{46CA3CC9-D57C-4A22-ACB5-B79A5C21DE1E}.Release|Win32.ActiveCfg = Release|Win32
+		{46CA3CC9-D57C-4A22-ACB5-B79A5C21DE1E}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

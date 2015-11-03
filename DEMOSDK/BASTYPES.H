@@ -138,12 +138,17 @@ STRUCT(MEMallocator)
 #ifdef __TOS__
 #   ifdef DEMOS_ASSERT
 	    void SYSassert(char* _message, char* _file, int _line);
+	    void SYSassertEarly(u16 _c1, u16 _c2);
 #	    define ASSERT(A) if (!(A)) { SYSassert(#A, __FILE__, __LINE__); }
+#	    define ASSERT_EARLY(A,COLOR1,COLOR2) if (!(A)) { SYSassertEarly(COLOR1,COLOR2); }
 #	else
 #	    define ASSERT(A)
+#	    define ASSERT_EARLY(A,COLOR1,COLOR2)
 #   endif
 #else
+#   define _CRT_SECURE_NO_WARNINGS
 #   define ASSERT(A) assert(A)
+#	define ASSERT_EARLY(A,COLOR1,COLOR2) assert(A)
 #endif
 
 #endif

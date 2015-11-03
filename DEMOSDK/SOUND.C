@@ -36,7 +36,11 @@ void*			SNDdestTransfer;
 
 volatile void*	SNDlastDMAposition;	/* read only */
 volatile s8		SNDmasterVolume;	/* ready only - debug purpose */
+
+void SNDsoundtrackMonitor (void) {}
 #endif
+
+void SNDsoundtrackMonitor (void);
 
 /*
 20   0db = 1.0
@@ -101,6 +105,8 @@ static void SND_waitMicrowire (void)
 void SNDinit(RINGallocator* _allocator, u32 _sampleLen)
 {
 	u32 dmaSampleBufferLen = ((_sampleLen * 2UL) + 1023UL) & 0xFFFFFC00UL;    /* stereo sample and round to 1024 for vbl copy routine */ 
+
+    SYSsoundtrackUpdate = (void*) SNDsoundtrackMonitor;   /* setup streamer routine into VBL */
 
 	snd.cache		 = (u8*) RINGallocatorAlloc (_allocator, LOADroundBufferSize(_sampleLen));
 	snd.dmaBuffer	 = (u8*) RINGallocatorAlloc (_allocator, dmaSampleBufferLen);

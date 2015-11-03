@@ -43,6 +43,7 @@ void TRACinit (LOADdisk* _disk, u16 _resourceId);
     void TRACregisterDisplayService (TRAC_DisplayCallback _callback, u16 _enableMask); 
 	void TRACdisplay (void* _image);
 	void TRACmanage (u8 _key);
+    void TRACdrawScanlinesScale (void* _image, u16 _screenPitch, u16 _bitplanPitchShift, u16 _h);
 #	ifdef DEMOS_UNITTEST
 	void TRACunitTest (void* _screen);
 #	endif

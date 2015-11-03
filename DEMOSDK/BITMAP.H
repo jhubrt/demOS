@@ -27,6 +27,7 @@
 #ifndef BITMAP_H
 #define BITMAP_H
 
+/* when _endpitch line is 0, you can use _src == _dst */
 void BITpl2chunk(void* _src, u16 _h, u16 _nbchunks, u16 _endlinepitch, void* _dst);
 
 #ifdef DEMOS_UNITTEST

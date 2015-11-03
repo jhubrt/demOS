@@ -35,17 +35,6 @@
 #define MOUSE_RBUT  0x02
 #define MOUSE_MBUT  0x04
 
-#define KEY_HOME        0xF0
-#define KEY_END         0xF1
-#define KEY_PAGEUP      0xF2
-#define KEY_PAGEDOWN    0xF3
-#define KEY_INSERT      0xF4
-#define KEY_DELETE      0xF5
-#define KEY_UP          0xF6
-#define KEY_DOWN        0xF7
-#define KEY_LEFT        0xF8
-#define KEY_RIGHT       0xF9
-
 #define CONTROLKEY_CTRL   0x01000
 #define CONTROLKEY_ALT    0x02000
 #define CONTROLKEY_ALTGR  0x03000
@@ -64,23 +53,26 @@ STRUCT(WINinitParam)
 
 PREDECLARE_STRUCT(WINdow);
 
-WINdow* WINconstruct	(WINinitParam* _initParam);
-void WINdestroy		    (WINdow* _m);
-void WINwaitLoop		(WINdow* _m);
-void WINclear			(WINdow* _m);
-void WINdrawImage		(WINdow* _m, void* _image, u32 _width, u32 _height, u32 _nbBitsPerPixel, u8* _palette, u32 _x, u32 _y);
-void WINfilledRectangle (WINdow* _m,s32 _iX1, s32 _iY1, s32 _iX2, s32 _iY2);
-void WINline			(WINdow* _m,s32 _iX1, s32 _iY1, s32 _iX2, s32 _iY2);
-void WInpoint			(WINdow* _m,s32 _iX, s32 _iY);
-void WINrectangle		(WINdow* _m,s32 _iX1, s32 _iY1, s32 _iX2, s32 _iY2);
-void WINsetColor		(WINdow* _m,u8 _uiR, u8 _uiG, u8 _uiB);
-void WINtext			(WINdow* _m,s32 _iX, s32 _iY, char* _string);
-void WINrender			(WINdow* _m, u32 _waitms);
-bool WINisClosed		(WINdow* _m);
-void WINgetMouse		(WINdow* _m,s32* _piX, s32* _piY, s32* _piK, s32* _z);
-bool WINisKeyHit		(WINdow* _m);
-u32  WINgetKey			(WINdow* _m);
-u32  WINgetControlKeys	(WINdow* _m);
+WINdow* WINconstruct	 (WINinitParam* _initParam);
+void WINdestroy		     (WINdow* _m);
+void WINwaitLoop		 (WINdow* _m);
+void WINclear			 (WINdow* _m);
+void WINdrawImage		 (WINdow* _m, void* _image, u32 _width, u32 _height, u32 _nbBitsPerPixel, u8* _palette, u32 _x, u32 _y);
+void WINfilledRectangle  (WINdow* _m,s32 _iX1, s32 _iY1, s32 _iX2, s32 _iY2);
+void WINline			 (WINdow* _m,s32 _iX1, s32 _iY1, s32 _iX2, s32 _iY2);
+void WInpoint			 (WINdow* _m,s32 _iX, s32 _iY);
+void WINrectangle		 (WINdow* _m,s32 _iX1, s32 _iY1, s32 _iX2, s32 _iY2);
+void WINsetColor		 (WINdow* _m,u8 _uiR, u8 _uiG, u8 _uiB);
+void WINtext			 (WINdow* _m,s32 _iX, s32 _iY, char* _string);
+void WINrender			 (WINdow* _m, u32 _waitms);
+bool WINisClosed		 (WINdow* _m);
+void WINgetMouse		 (WINdow* _m,s32* _piX, s32* _piY, s32* _piK, s32* _z);
+bool WINisKeyHit		 (WINdow* _m);
+u32  WINgetKey			 (WINdow* _m);
+u32  WINgetKeyState      (WINdow* _m);
+u32  WINgetControlKeys	 (WINdow* _m);
+u32  WINgetKeyExtraState (WINdow* _m);
+void* WINgetWindowHandle (WINdow* _m);
 
 #endif // __TOS__
 

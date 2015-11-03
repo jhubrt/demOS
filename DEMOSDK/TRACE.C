@@ -27,7 +27,7 @@ void SYSfastPrint(char* _s, void* _screenprintadr, u16 _screenPitch, u16 _bitpla
 
 static void tracLoadFont (LOADdisk* _disk, u16 _resourceId)
 {
-	u32 size = LOADgetEntrySize(_disk,_resourceId);
+	u32 size = LOADresourceRoundedSize(_disk,_resourceId);
 	u16 c;
 
 	sys.font = (u8*) RINGallocatorAlloc ( &sys.coremem, size );
@@ -35,8 +35,8 @@ static void tracLoadFont (LOADdisk* _disk, u16 _resourceId)
 
 	{
 		LOADrequest* request;
-		void* temp = (u8*) RINGallocatorAlloc ( &sys.mem, _disk->FAT[_resourceId].nbsectors * LOAD_SECTORSIZE );
-		ASSERT (temp != NULL);
+        void* temp = (u8*) RINGallocatorAlloc ( &sys.mem, LOADresourceRoundedSize(_disk, _resourceId) );
+		ASSERT_EARLY (temp != NULL, 0x770, 0x0);
 
 		request = LOADrequestLoad (_disk, _resourceId, temp, LOAD_PRIORITY_INORDER);
 		LOADwaitRequestCompleted ( request );
@@ -133,7 +133,7 @@ void TRACinit (LOADdisk* _disk, u16 _resourceId)
 void SYSdebugPrint(void* _screen, u16 _screenPitch, u16 _bitplanPitchShift, u16 _col, u16 _y, char* _s)
 {
     u16 bitplanPitch = 1 << _bitplanPitchShift;
-	u8* adr = ((u8*)_screen + SYSmemoryHighMap);
+	u8* adr = (u8*)_screen;
 
 
 	if  (_y != 0)	
@@ -141,7 +141,7 @@ void SYSdebugPrint(void* _screen, u16 _screenPitch, u16 _bitplanPitchShift, u16 
 		adr += _y * _screenPitch;
 	}
 
-	adr += (_col & 0xFFFE) << _bitplanPitchShift;
+	adr += (_col & 0xFFFE) << (_bitplanPitchShift - 1);
 	adr += _col & 1;
 
 #	ifdef __TOS__
@@ -182,37 +182,6 @@ void SYSdebugPrint(void* _screen, u16 _screenPitch, u16 _bitplanPitchShift, u16 
 	}
 #	endif
 }
-
-void SYSassert(char* _message, char* _file, int _line)
-{
-    static char line[16] = "line=0x       ";
-
-
-    STDcpuSetSR(0x2700);
-
-    _message[79] = 0;
-    _file   [79] = 0;
-
-    STDuxtoa (&line[7], _line, 6);
-
-    SYSwriteVideoBase((u32) sys.mem.buffer);
-    STDmset(sys.mem.buffer, 0, 32000);
-
-    *HW_COLOR_LUT = TRAC_ASSERT_COLOR;
-    *HW_VIDEO_OFFSET = 0;
-    *HW_VIDEO_PIXOFFSET = 0;
-    *HW_VIDEO_MODE = HW_VIDEO_MODE_2P;
-
-    STDmset (HW_COLOR_LUT + 1, 0xFFFFFFFFUL, 30);
-
-    SYSdebugPrint(sys.mem.buffer, 160, SYS_2P_BITSHIFT, 0,  0, "Assertion failed:");
-    SYSdebugPrint(sys.mem.buffer, 160, SYS_2P_BITSHIFT, 0,  8, _message);
-    SYSdebugPrint(sys.mem.buffer, 160, SYS_2P_BITSHIFT, 0, 16, _file);
-    SYSdebugPrint(sys.mem.buffer, 160, SYS_2P_BITSHIFT, 0, 24, line);
-
-    while(1);
-}
-
 
 static void trac_clear (void* _image, trac_DisplayParam* _displayParam)
 {
@@ -350,6 +319,54 @@ void TRACmanage (u8 _key)
 }
 
 
+void TRACdrawScanlinesScale (void* _image, u16 _screenPitch, u16 _bitplanPitchShift, u16 _h)
+{
+    char line[4] = "   ";
+    u16* p = (u16*) _image;
+    u16 y, t;
+    u16 planePitchW  = (1 << _bitplanPitchShift) >> 1;
+    u16 screenPitchW = _screenPitch >> 1;
+
+
+    for (y = 0 ; y < _h ; y += 5)
+    {
+        u16 mask = -1;
+
+        if ( y & 1 )
+        {
+            mask = 0x5555;
+        }
+
+        p += planePitchW * 2;
+        t = planePitchW * 2;
+
+        if (y & 1)
+        {
+            p += planePitchW;
+            t += planePitchW;
+        }
+
+        for ( ; t < screenPitchW ; t += planePitchW)
+        {
+            *p = mask;
+            p += planePitchW;
+        }
+
+        if ( (y + 8) < _h )
+        {
+            if ( (y & 1) == 0 )
+            {
+                STDuxtoa(line, y, 3);
+                SYSdebugPrint (_image, _screenPitch, _bitplanPitchShift, 0, y, line);
+            }
+        }
+
+        p += (screenPitchW << 2);
+    }
+}
+
+
+
 #ifdef DEMOS_UNITTEST
 void TRACunitTest (void* _screen)
 {
@@ -360,25 +377,77 @@ void TRACunitTest (void* _screen)
 
 #else
 
-#ifdef DEMOS_ASSERT
-void SYSassert(char* _message, char* _file, int _line)
-{
-    STDcpuSetSR(0x2700);
-
-    STDmset (HW_COLOR_LUT + 1, 0xFFFFFFFFUL, 30);
-
-    while(1)
-    {
-        *HW_COLOR_LUT = TRAC_ASSERT_COLOR;
-        *HW_COLOR_LUT = 0;
-
-    }
-}
-#endif
-
 void TRACinit (LOADdisk* _disk, u16 _resourceId)
 {
     tracLoadFont (_disk, _resourceId);
 }
 
 #endif /* DEMOS_DEBUG */
+
+
+#ifdef DEMOS_ASSERT
+
+void SYSassert(char* _message, char* _file, int _line)
+{
+    static char line[16] = "line=0x       ";
+
+
+    STDcpuSetSR(0x2700);
+
+    _message[79] = 0;
+    _file   [79] = 0;
+
+    STDuxtoa (&line[7], _line, 6);
+
+    if ( sys.mem.buffer != NULL )
+    {
+        SYSwriteVideoBase((u32) sys.mem.buffer);
+        STDmset(sys.mem.buffer, 0, 32000);
+    }
+
+    *HW_COLOR_LUT = TRAC_ASSERT_COLOR;
+    *HW_VIDEO_OFFSET = 0;
+    *HW_VIDEO_PIXOFFSET = 0;
+    *HW_VIDEO_MODE = HW_VIDEO_MODE_2P;
+
+    STDmset (HW_COLOR_LUT + 1, 0xFFFFFFFFUL, 30);
+
+    if (sys.font != NULL)
+    {
+        SYSdebugPrint(sys.mem.buffer, 160, SYS_2P_BITSHIFT, 0,  0, "Assertion failed:");
+        SYSdebugPrint(sys.mem.buffer, 160, SYS_2P_BITSHIFT, 0,  8, _message);
+        SYSdebugPrint(sys.mem.buffer, 160, SYS_2P_BITSHIFT, 0, 16, _file);
+        SYSdebugPrint(sys.mem.buffer, 160, SYS_2P_BITSHIFT, 0, 24, line);
+        while(1);
+    }
+    else
+    {   /* early asserts management */
+        while(1)
+        {
+            (*HW_COLOR_LUT) = 0x700;  /* consider to use ASSERT_EARLY instead for a use specified color code */
+            (*HW_COLOR_LUT) = 0x600;
+        }
+    }
+}
+
+void SYSassertEarly(u16 _c1, u16 _c2)
+{
+    /* to display assertion before system initialization */
+    STDcpuSetSR(0x2700);
+
+    if ( sys.mem.buffer != NULL )
+    {
+        SYSwriteVideoBase((u32) sys.mem.buffer);
+        STDmset(sys.mem.buffer, 0, 32000);
+    }
+
+    STDmset (HW_COLOR_LUT + 1, 0xFFFFFFFFUL, 30);
+
+    while(1)
+    {
+        (*HW_COLOR_LUT) = _c1; 
+        (*HW_COLOR_LUT) = _c2;
+    }
+}
+
+#endif /* DEMOS_ASSERT */

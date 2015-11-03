@@ -48,7 +48,7 @@ sectorspertrack:	set 10
 ;-------------------------------------------------------------------------
 ; splash screen
 ;-------------------------------------------------------------------------
-scr_startsector:		set 1		; 0 to 9
+scr_startsector:		set 3		; 0 to 9
 scr_starttrack:			set 0		; 0 to 81
 scr_startside:			set 0		; 0 or 1
 scr_nbsectors:			set 14		; 
@@ -56,7 +56,7 @@ scr_nbsectors:			set 14		;
 ;-------------------------------------------------------------------------
 ; program
 ;-------------------------------------------------------------------------
-prg_startsector:		set 5		; 0 to 9
+prg_startsector:		set 7		; 0 to 9
 prg_starttrack:			set 0		; 0 to 81
 prg_startside:			set 1		; 0 or 1
 prg_nbsectors:			set 51		; 

@@ -21,22 +21,12 @@
 
   IMAGER is a tool that:
   - creates the floppy disks image                                                          <br>
-  - generates C headers & sources to map data in your program                               <br>
+  - generates H headers containing entries enums for your data                              <br>
+  - custom FAT sectors (2nd and 3rd sector of the disk) that maps exactly each entry        <br>
+  - LOG files listing FAT data in a human readable format                                   <br>
   - strips .ARJ (mode 4) files (=> write shrinked .ARJX file)                               <br>
   - consider .BOT file as bootsector program => strips its gemdos descriptor
     and computes its checksum (delta to $1234) to make it executable                        <br>
- 
-   Warning: generating the sources of the disk map integrated into your program creates 
-            a cyclic dependency for the floppy containing the program
-            => when you recompile your program and write the image, 
-            maybe its size has changed, so the following data may have moved
-            => in this case you need to recompile it and rewrite the image a second time.   <br>
-
-    => To avoid this problem, in the future it would be better to:                          <br>
-    - only generate entries enum in .h file                                                 <br>
-    - store the content of arrays (currently generated into .c files)
-      into a specific sector of the floppy (2nd sector of the floppy for example) and load it
-      at LOADinit
 */
 
 

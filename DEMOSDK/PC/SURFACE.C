@@ -64,6 +64,8 @@ void BITlutDestroy(BITlut* _lut)
     {
         ASSERT( (_lut->data.p == NULL) || ( _lut->bufferowner == false) );
     }
+
+    _lut->format = BITlutFormat_BnW;
 }
 
 
@@ -145,7 +147,7 @@ void BITsurfaceInit(MEMallocator* _allocator, BITsurface* _surface, BITformat _f
 		break;
 	};
 
-	_surface->pitch     = _pitch == BIT_DEFAULT_PITCH ? autoPitch : _pitch;
+	_surface->pitch = _pitch == BIT_DEFAULT_PITCH ? autoPitch : _pitch;
 
     size = _surface->pitch * nbPlanes * _h;
 

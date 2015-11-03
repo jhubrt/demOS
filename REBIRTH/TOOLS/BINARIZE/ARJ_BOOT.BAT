@@ -1,0 +1,7 @@
+set ARJEXE=U:\TOOLS\ARJ\ARJ.EXE
+
+del ..\..\..\REBIRTHO.ARJ
+%ARJEXE% a ..\..\..\REBIRTHO.ARJ -e -m4 ..\..\..\REBIRTHO.PRG
+
+del ..\..\DATABIN\BOOT\BOOT.ARJ
+%ARJEXE% a ..\..\DATABIN\BOOT\BOOT.ARJ -e -m4 ..\..\DATABIN\BOOT\BOOT.2P

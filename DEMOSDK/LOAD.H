@@ -39,6 +39,7 @@
 #define LOAD_H
 
 #include "DEMOSDK\BASTYPES.H"
+#include "DEMOSDK\LOADDEFS.H"
 
 /*! @struct LOADdisk
 
@@ -53,36 +54,32 @@
     defines a FAT entry to address of a specific data 
     the resource table is generated with IMAGER tool
 
-    @struct LOADmetaData
+    @struct LOADmetadata
 
     defines detailed info for each file section (one or more file section(s) may exist 
     by entry)
 */
 
-STRUCT(LOADmetaData)
+STRUCT(LOADmetadata)
 {
-    u32     offset;
-    u32     size;
-    s32     originalsize;
+    u32     offsetsizeh;                /* 21 bits offset        | 11 bits size high bits */
+    u32     originalsizesizel;          /* 21 bits original size | 11 bits size low bits  */ 
 };
 
 STRUCT(LOADresource)
 {
-	u16	    nbsectors;		/* : 10; */
-	u8      startsector;	/* : 5;  */
-	u8	    side;			/* : 1;  */
-	u8	    track;			/* : 8;	 */
-    s16     metadataIndex;  /* : 16; */
-    void*   preload;
+	u16	    startsectorsidenbsectors;	/* 1 bit side | 4 bits start sector | 11 bits nb sectors */
+	u16	    metadataindextrack;		    /* 9 bits metadataindex | 7 bits track num */
 };
 
 STRUCT(LOADdisk)
 {
 	LOADresource* FAT;
     u16           nbEntries;
-    LOADmetaData* metaData;  
+    LOADmetadata* metaData;  
     u16           nbMetaData;
 	u8		      preferedDrive;
+    void**        preload;
 
 #	ifdef DEMOS_DEBUG
 	char*	filename;
@@ -112,8 +109,6 @@ STRUCT(LOADrequest)
     u16		        order;
 };
 
-
-#define LOAD_SECTORSIZE	512UL
 #define LOADroundBufferSize(SIZE)	((SIZE + 511UL) & 0xFFFFFE00UL)
 
 #define LOAD_PRIOTITY_HIGH      0
@@ -125,14 +120,25 @@ STRUCT(LOADrequest)
 extern u16 LOADorder;
 #endif
 
-void          LOADinit          		(void);
+void          LOADinit          		(LOADdisk* _firstmedia, u16 _nbEntries, u16 _nbMetaData);
+void          LOADinitFAT               (u8 _drive, LOADdisk* _media, u16 _nbEntries, u16 _nbMetaData);
 LOADrequest*  LOADrequestLoad           (LOADdisk* _media, u16 _resource, void* _buffer, u16 _order);
 LOADrequest*  LOADdata                  (LOADdisk* _media, u16 _resource, void* _buffer, u16 _order);
 void          LOADwaitRequestCompleted  (LOADrequest* request);
 void		  LOADwaitFDCIdle			(void);
 #define       LOADfreeRequest(_request) if (_request != NULL) _request->allocated = false;
-u32           LOADgetEntrySize          (LOADdisk* _media, u16 _entryIndex);
 void*         LOADpreload               (void* _framebuffer, u16 _pitch, u16 _planepitch, void* _preload, u32 _preloadsize, void* _current, LOADdisk* _disk, u8* _resources, u16 _nbResources);
+
+
+u32           LOADresourceRoundedSize   (LOADdisk* _media, u16 _entryIndex);
+u16           LOADresourceMetaDataIndex (LOADdisk* _media, u16 _entryIndex);
+#define LOAD_RESOURCE_NOMETADATA        0x1FF
+
+u32           LOADmetadataOffset        (LOADdisk* _media, u16 _metaDataIndex);
+u32           LOADmetadataSize          (LOADdisk* _media, u16 _metaDataIndex);
+u32           LOADmetadataOriginalSize  (LOADdisk* _media, u16 _metaDataIndex);
+#define LOAD_METADATA_NOTPACKEDSIZE     0x1FFFFF
+
 
 #ifdef DEMOS_DEBUG
 u16 LOADtrace (void* _image, u16 _pitch, u16 _planePitch, u16 _y);

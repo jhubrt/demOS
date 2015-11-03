@@ -1,0 +1,220 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Resource Files\ZIK">
+      <UniqueIdentifier>{033728f8-b3ce-4f16-adf7-832bf896c5a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\DEMOSDK">
+      <UniqueIdentifier>{63376e97-fa66-4880-af07-45ae8624e06c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Batchs">
+      <UniqueIdentifier>{d49f3e9f-c47c-46ab-85ab-95d2fb7ff635}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\EXTERN">
+      <UniqueIdentifier>{f7a073e2-22fc-40e3-b1b1-31cb4ec97c20}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\VISUALIZ">
+      <UniqueIdentifier>{58307cf6-e2ea-4bbc-8528-884b6c79e177}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\BOOT">
+      <UniqueIdentifier>{123412be-23b6-4815-9bdc-ce13fb2d2e32}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\SLIDES">
+      <UniqueIdentifier>{92a612a1-2ed5-4a01-b93a-0e26c8fdc12a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\FUGIT">
+      <UniqueIdentifier>{174ebc4d-54ba-4a74-b7f9-63b6ca953dc9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\POLYZOOM">
+      <UniqueIdentifier>{6a3515b8-48e1-4446-b423-b2ac648c7788}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\REBIRTH\TOOLS\BINARIZE\BINARIZE.C">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\HARDWARE.C">
+      <Filter>Source Files\DEMOSDK</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\PC\WINDOW.C">
+      <Filter>Source Files\DEMOSDK</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\PC\SURFACE.C">
+      <Filter>Source Files\DEMOSDK</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\PC\BMPLOADER.C">
+      <Filter>Source Files\DEMOSDK</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\STANDARD.C">
+      <Filter>Source Files\DEMOSDK</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\PC\BITCONVR.C">
+      <Filter>Source Files\DEMOSDK</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\COLORS.C">
+      <Filter>Source Files\DEMOSDK</Filter>
+    </ClCompile>
+    <ClCompile Include="..\EXTERN\MPP\BMP2MPP.C">
+      <Filter>Source Files\EXTERN</Filter>
+    </ClCompile>
+    <ClCompile Include="..\EXTERN\MPP\MPP2BMP.C">
+      <Filter>Source Files\EXTERN</Filter>
+    </ClCompile>
+    <ClCompile Include="..\EXTERN\MPP\PIXBUF.C">
+      <Filter>Source Files\EXTERN</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\REBIRTH\DATA\SYSTFONT.NEO">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\REBIRTH\TOOLS\BINARIZE\ARJ_POLY.BAT">
+      <Filter>Batchs</Filter>
+    </None>
+    <None Include="..\REBIRTH\TOOLS\BINARIZE\ARJ_FUG.BAT">
+      <Filter>Batchs</Filter>
+    </None>
+    <None Include="..\REBIRTH\TOOLS\BINARIZE\ARJ_VISU.BAT">
+      <Filter>Batchs</Filter>
+    </None>
+    <None Include="..\REBIRTH\TOOLS\BINARIZE\ARJ_ALL.BAT">
+      <Filter>Batchs</Filter>
+    </None>
+    <None Include="..\REBIRTH\TOOLS\BINARIZE\ARJ_BOOT.BAT">
+      <Filter>Batchs</Filter>
+    </None>
+    <None Include="..\REBIRTH\DATA\VISUALIZ\PAL0.PAL">
+      <Filter>Resource Files\VISUALIZ</Filter>
+    </None>
+    <None Include="..\REBIRTH\DATA\VISUALIZ\PAL1.PAL">
+      <Filter>Resource Files\VISUALIZ</Filter>
+    </None>
+    <None Include="..\REBIRTH\DATA\VISUALIZ\PAL2.PAL">
+      <Filter>Resource Files\VISUALIZ</Filter>
+    </None>
+    <None Include="..\REBIRTH\DATA\VISUALIZ\PAL3.PAL">
+      <Filter>Resource Files\VISUALIZ</Filter>
+    </None>
+    <None Include="..\REBIRTH\DATA\VISUALIZ\PAL4.PAL">
+      <Filter>Resource Files\VISUALIZ</Filter>
+    </None>
+    <None Include="..\REBIRTH\DATA\VISUALIZ\PAL5.PAL">
+      <Filter>Resource Files\VISUALIZ</Filter>
+    </None>
+    <None Include="..\REBIRTH\DATA\VISUALIZ\BITMAP.BMP">
+      <Filter>Resource Files\VISUALIZ</Filter>
+    </None>
+    <None Include="..\REBIRTH\DATA\VISUALIZ\BITMAP_8.BMP">
+      <Filter>Resource Files\VISUALIZ</Filter>
+    </None>
+    <None Include="..\REBIRTH\DATA\SLIDES\PHOT5.BMP">
+      <Filter>Resource Files\SLIDES</Filter>
+    </None>
+    <None Include="..\REBIRTH\DATA\SLIDES\PHOT5.PAL">
+      <Filter>Resource Files\SLIDES</Filter>
+    </None>
+    <None Include="..\REBIRTH\DATA\SLIDES\PHOT5MSK.BMP">
+      <Filter>Resource Files\SLIDES</Filter>
+    </None>
+    <None Include="..\REBIRTH\DATA\SLIDES\PHOT6.BMP">
+      <Filter>Resource Files\SLIDES</Filter>
+    </None>
+    <None Include="..\REBIRTH\DATA\SLIDES\PHOT6.PAL">
+      <Filter>Resource Files\SLIDES</Filter>
+    </None>
+    <None Include="..\REBIRTH\DATA\SLIDES\PHOT6MSK.BMP">
+      <Filter>Resource Files\SLIDES</Filter>
+    </None>
+    <None Include="..\REBIRTH\DATA\SLIDES\PHOT8.BMP">
+      <Filter>Resource Files\SLIDES</Filter>
+    </None>
+    <None Include="..\REBIRTH\DATA\SLIDES\PHOT8.PAL">
+      <Filter>Resource Files\SLIDES</Filter>
+    </None>
+    <None Include="..\REBIRTH\DATA\SLIDES\PHOT8MSK.BMP">
+      <Filter>Resource Files\SLIDES</Filter>
+    </None>
+    <None Include="..\REBIRTH\DATA\SLIDES\PHOTF.BMP">
+      <Filter>Resource Files\SLIDES</Filter>
+    </None>
+    <None Include="..\REBIRTH\DATA\SLIDES\PHOTF.PAL">
+      <Filter>Resource Files\SLIDES</Filter>
+    </None>
+    <None Include="..\REBIRTH\DATA\SLIDES\PHOTFMSK.BMP">
+      <Filter>Resource Files\SLIDES</Filter>
+    </None>
+    <None Include="..\REBIRTH\DATA\BOOT\BOOT.BMP">
+      <Filter>Resource Files\BOOT</Filter>
+    </None>
+    <None Include="..\REBIRTH\DATA\BOOT\BOOT2P.BMP">
+      <Filter>Resource Files\BOOT</Filter>
+    </None>
+    <None Include="..\REBIRTH\DATA\FUGIT\LETTER_1.NEO">
+      <Filter>Resource Files\FUGIT</Filter>
+    </None>
+    <None Include="..\REBIRTH\DATA\FUGIT\LETTER_2.NEO">
+      <Filter>Resource Files\FUGIT</Filter>
+    </None>
+    <None Include="..\REBIRTH\DATA\FUGIT\LETTER_3.NEO">
+      <Filter>Resource Files\FUGIT</Filter>
+    </None>
+    <None Include="..\REBIRTH\DATA\FUGIT\LETTERS.BIN">
+      <Filter>Resource Files\FUGIT</Filter>
+    </None>
+    <None Include="..\REBIRTH\DATA\FUGIT\LETTERS2.BIN">
+      <Filter>Resource Files\FUGIT</Filter>
+    </None>
+    <None Include="..\REBIRTH\DATA\FUGIT\EXTR.GFA">
+      <Filter>Resource Files\FUGIT</Filter>
+    </None>
+    <None Include="..\REBIRTH\DATA\POLYZOOM\REBIRTH.BMP">
+      <Filter>Resource Files\POLYZOOM</Filter>
+    </None>
+    <None Include="..\REBIRTH\DATA\POLYZOOM\REBIRTH.PI1">
+      <Filter>Resource Files\POLYZOOM</Filter>
+    </None>
+    <None Include="..\REBIRTH\DATA\POLYZOOM\VECTOR.GFA">
+      <Filter>Resource Files\POLYZOOM</Filter>
+    </None>
+    <None Include="..\REBIRTH\DATA\POLYZOOM\VECTOR.NEO">
+      <Filter>Resource Files\POLYZOOM</Filter>
+    </None>
+    <None Include="..\REBIRTH\DATA\ZIK\DUALIS.RAW">
+      <Filter>Resource Files\ZIK</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\DEMOSDK\HARDWARE.H">
+      <Filter>Source Files\DEMOSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DEMOSDK\PC\WINDOW.H">
+      <Filter>Source Files\DEMOSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DEMOSDK\PC\BMPLOADER.H">
+      <Filter>Source Files\DEMOSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DEMOSDK\PC\SURFACE.H">
+      <Filter>Source Files\DEMOSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DEMOSDK\STANDARD.H">
+      <Filter>Source Files\DEMOSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DEMOSDK\PC\BITCONVR.H">
+      <Filter>Source Files\DEMOSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DEMOSDK\COLORS.H">
+      <Filter>Source Files\DEMOSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="..\EXTERN\MPP\PIXBUF.H">
+      <Filter>Source Files\EXTERN</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

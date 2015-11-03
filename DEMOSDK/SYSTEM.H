@@ -45,13 +45,14 @@
 #include "DEMOSDK\BASTYPES.H"
 #include "DEMOSDK\ALLOC.H"
 
-ENUM(SYSemulator)
+enum SYSemulator_
 {
     SYSemulator_NOTDETECTED,
     SYSemulator_STEEM,
     SYSemulator_TOSBOX,
     SYSemulator_PACIFIST
 };
+typedef enum SYSemulator_ SYSemulator;
 
 STRUCT(SYScore)
 {
@@ -68,8 +69,10 @@ STRUCT(SYScore)
 	u32				bakvbl;
 	u32				bakdma;
 	u8				bakvideoAdr[3];
-	bool			has2Drives;
+    u8				key;
 	u8				lastKey;
+	bool			has2Drives;
+    bool            isMegaSTe;
     SYSemulator     emulator;
     u8*             idleThreadStackBase;
     u32             phytop;
@@ -108,12 +111,14 @@ STRUCT(SYSinitParam)
 #endif
 
 void SYSinit		        (SYSinitParam* _param);
-void SYS_shutdown	        (void);
+void SYSshutdown	        (void);
 void SYSvsync		        (void);
 void SYScheckHWRequirements (void);
+bool SYSgetCookie           (u32 _id, u32* _value);
 
 extern volatile u32	SYSvblcount;
 extern volatile u16	SYSvblLcount;
+extern void*        SYSsoundtrackUpdate;
 
 #ifdef __TOS__
 #	define SYSvsync {	u16 currentvblcount = SYSvblLcount; while (SYSvblLcount == currentvblcount); }
@@ -129,8 +134,9 @@ void SYStune(void);
 u32	 SYSreadVideoBase (void);
 void SYSwriteVideoBase (u32 _val);
 
-#define SYS_kbhit  (sys.lastKey != *HW_KEYBOARD_DATA)
-u8 SYSgetKb(void);
+#define SYSkbAcquire  sys.key = *HW_KEYBOARD_DATA
+#define SYSkbHit  (sys.lastKey != sys.key)
+void SYSkbReset(void);
 
 void SYSfastPrint(char* _s, void* _screenprintadr, u16 _screenPitch, u16 _bitplanPitch, u32 _fontadr);
 

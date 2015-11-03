@@ -24,6 +24,7 @@
 #undef MEM_FREE /* collides with our MEM_FREE... */
 
 #include "DEMOSDK/PC/WINDOW.H"
+#include "DEMOSDK/HARDWARE.H"
 
 #define WINDOW_KEYBUFFER_SIZE 16
 #define WINDOW_MAXTITLELEN    256
@@ -59,10 +60,11 @@ STRUCT(WINdow)
 	volatile u32 controlKeys;
 	volatile u32 keyBuffer[WINDOW_KEYBUFFER_SIZE];
 	volatile u32 keyBufferLen;
+    volatile u32 keyState;
+    volatile u32 keyExtraState;
 
 	char title[WINDOW_MAXTITLELEN];
 };
-
 
 static DWORD WINAPI Window_eventThread (void* _param);
 
@@ -93,6 +95,8 @@ WINdow* WINconstruct (WINinitParam* _param)
 	_m->color       = 0xFFFFFFFF;
 	_m->pen         = 0;
 	_m->brush       = 0;
+    _m->keyState    = 0;
+    _m->keyExtraState = 0;
 	
 	_m->width       = _param->w;
 	_m->height      = _param->h;
@@ -165,6 +169,14 @@ void WINdestroy (WINdow* _m)
 		WaitForSingleObject (_m->thread, 2000); //2 secondes should be sufficient to destroy a window        }
 	}
 }
+
+
+void* WINgetWindowHandle (WINdow* _m)
+{
+    return _m->window;
+}
+
+
 
 static void WINinsertKey (WINdow* _m, u32 _key)
 {
@@ -290,6 +302,15 @@ u32 WINgetKey (WINdow* _m)
 	return uiKey;
 }
 
+u32 WINgetKeyState (WINdow* _m)
+{
+    return _m->keyState;
+}
+
+u32 WINgetKeyExtraState (WINdow* _m)
+{
+    return _m->keyExtraState;
+}
 
 u32 WINgetControlKeys (WINdow* _m)
 {
@@ -375,6 +396,95 @@ void WINrender(WINdow* _m, u32 _waitms)
     Sleep (_waitms);
 }
 
+static s32 WINconvertMapping (WPARAM _wparam)
+{
+    s32 key = -1;
+
+    switch (_wparam)
+    {
+    case VK_DOWN:           key = HW_KEY_DOWN;              break;
+    case VK_UP:             key = HW_KEY_UP;                break;
+    case VK_RIGHT:          key = HW_KEY_RIGHT;             break;
+    case VK_LEFT:           key = HW_KEY_LEFT;              break;
+    case VK_HOME:           key = HW_KEY_HOME;              break;
+    case VK_INSERT:         key = HW_KEY_INSERT;            break;
+    case VK_DELETE:         key = HW_KEY_DELETE;            break;
+    case VK_PRIOR:          key = HW_KEY_HELP;              break;
+    case VK_NEXT:           key = HW_KEY_UNDO;              break;
+    case VK_NUMPAD0:        key = HW_KEY_NUMPAD_0;          break;
+    case VK_NUMPAD1:        key = HW_KEY_NUMPAD_1;          break;
+    case VK_NUMPAD2:        key = HW_KEY_NUMPAD_2;          break;
+    case VK_NUMPAD3:        key = HW_KEY_NUMPAD_3;          break;
+    case VK_NUMPAD4:        key = HW_KEY_NUMPAD_4;          break;
+    case VK_NUMPAD5:        key = HW_KEY_NUMPAD_5;          break;
+    case VK_NUMPAD6:        key = HW_KEY_NUMPAD_6;          break;
+    case VK_NUMPAD7:        key = HW_KEY_NUMPAD_7;          break;
+    case VK_NUMPAD8:        key = HW_KEY_NUMPAD_8;          break;
+    case VK_NUMPAD9:        key = HW_KEY_NUMPAD_9;          break;
+    case VK_BACK:           key = HW_KEY_BACKSPACE;         break;
+    case VK_TAB:            key = HW_KEY_TAB;               break;
+    case VK_RETURN:         key = HW_KEY_RETURN;            break;
+    case VK_MULTIPLY:       key = HW_KEY_NUMPAD_MULTIPLY;   break;
+    case VK_DIVIDE:         key = HW_KEY_NUMPAD_DIVIDE;     break;
+    case VK_SUBTRACT:       key = HW_KEY_NUMPAD_MINUS;      break;
+    case VK_ADD:            key = HW_KEY_NUMPAD_PLUS;       break;
+    case VK_SEPARATOR:      key = HW_KEY_NUMPAD_ENTER;      break;
+    case VK_SPACE:          key = HW_KEY_SPACEBAR;          break;
+
+    case 'A':               key = HW_KEY_Q;                 break;
+    case 'Z':               key = HW_KEY_W;                 break;
+    case 'E':               key = HW_KEY_E;                 break;
+    case 'R':               key = HW_KEY_R;                 break;
+    case 'T':               key = HW_KEY_T;                 break;
+    case 'Y':               key = HW_KEY_Y;                 break;
+    case 'U':               key = HW_KEY_U;                 break;
+    case 'I':               key = HW_KEY_I;                 break;
+    case 'O':               key = HW_KEY_O;                 break;
+    case 'P':               key = HW_KEY_P;                 break;
+    case VK_OEM_6:          key = HW_KEY_BRACKET_LEFT;      break;
+    case VK_OEM_1:          key = HW_KEY_BRACKET_RIGHT;     break;
+    }
+    
+    return key;
+}
+
+
+typedef enum WINmappingTypeEnum_
+{
+    WINmappingType_ASCII,
+    WINmappingType_KEY,
+    WINmappingType_EXTRAKEY,
+    WINmappingType_CTRLKEY
+} WINmappingTypeEnum;
+
+
+static WINmappingTypeEnum WINgetMappingType (WPARAM _wparam)
+{
+    switch (_wparam)
+    {
+    case VK_DOWN:   
+    case VK_UP:
+    case VK_RIGHT:
+    case VK_LEFT:
+    case VK_HOME:
+    case VK_INSERT:
+    case VK_DELETE:
+    case VK_PRIOR:
+    case VK_NEXT:
+        return WINmappingType_KEY;
+
+    case VK_END:
+        return WINmappingType_EXTRAKEY;
+
+    case VK_MENU:
+    case VK_CONTROL:
+    case VK_SHIFT:
+        return WINmappingType_CTRLKEY;
+
+    default:
+        return WINmappingType_ASCII;
+    }
+}
 
 
 LRESULT CALLBACK Window_wndProc (HWND _wnd, UINT _message, WPARAM _wparam, LPARAM _lparam)
@@ -530,73 +640,47 @@ LRESULT CALLBACK Window_wndProc (HWND _wnd, UINT _message, WPARAM _wparam, LPARA
 
         if ( thisWindow != NULL)
         {
-            s32 key = -1;
-
-            switch (_wparam)
-            {
-            case VK_DOWN:
-                key = KEY_DOWN;
-                break;
-            case VK_UP:
-                key = KEY_UP;
-                break;
-            case VK_RIGHT:
-                key = KEY_RIGHT;
-                break;
-            case VK_LEFT:
-                key = KEY_LEFT;
-                break;
-            case VK_HOME:
-                key = KEY_HOME;
-                break;
-            case VK_END:
-                key = KEY_END;
-                break;
-            case VK_INSERT:
-                key = KEY_INSERT;
-                break;
-            case VK_DELETE:
-                key = KEY_DELETE;
-                break;
-            case VK_PRIOR:
-                key = KEY_PAGEUP;
-                break;
-            case VK_NEXT:
-                key = KEY_PAGEDOWN;
-                break;
-            }
+            WINmappingTypeEnum mappingType = WINgetMappingType (_wparam);
+            s32 key = WINconvertMapping (_wparam);
 
             if ( key != -1 )
             {
-                s32 i;
-
-
-                for (i = 0 ; i < (_lparam & 15) ; i++)
-                {
-                    WINinsertKey(thisWindow, key);
-                }
-
-                processDefault = false;
+                thisWindow->keyState = key;
             }
-            else
+
+            switch ( mappingType )
             {
-                switch (_wparam)
+            case WINmappingType_EXTRAKEY:
+                thisWindow->keyExtraState = _wparam;
+                break;
+
+            case WINmappingType_KEY:
                 {
-                case VK_MENU:
-                    thisWindow->controlKeys |= CONTROLKEY_ALT;
+                    s32 i;
+
+                    for (i = 0 ; i < (_lparam & 15) ; i++)
+                    {
+                        WINinsertKey(thisWindow, key);
+                    }
+
                     processDefault = false;
-                    break;
-                case VK_CONTROL:
-                    thisWindow->controlKeys |= CONTROLKEY_CTRL;
+                }
+                break;
+
+            case WINmappingType_CTRLKEY:
+                {
                     processDefault = false;
-                    break;
-                case VK_SHIFT:
-                    thisWindow->controlKeys |= CONTROLKEY_SHIFT;
-                    processDefault = false;
-                    break;
-                }                       
+
+                    switch (_wparam)
+                    {
+                    case VK_MENU:       thisWindow->controlKeys |= CONTROLKEY_ALT;      break;
+                    case VK_CONTROL:    thisWindow->controlKeys |= CONTROLKEY_CTRL;     break;
+                    case VK_SHIFT:      thisWindow->controlKeys |= CONTROLKEY_SHIFT;    break;
+                    }
+                }
+                break;
             }
-		}
+        }
 
 		break;
 
@@ -606,19 +690,31 @@ LRESULT CALLBACK Window_wndProc (HWND _wnd, UINT _message, WPARAM _wparam, LPARA
 
 		if ( thisWindow != NULL)
         {
-            switch (_wparam)
+            WINmappingTypeEnum mappingType = WINgetMappingType (_wparam);
+            s32 key = WINconvertMapping (_wparam) | HW_KEYBOARD_KEYRELEASE;
+
+            if ( key != -1 )
             {
-            case VK_MENU:
-                thisWindow->controlKeys &= ~CONTROLKEY_ALT;
-                processDefault = false;
+                thisWindow->keyState = key | HW_KEYBOARD_KEYRELEASE;
+            }
+
+            switch ( mappingType )
+            {
+            case WINmappingType_CTRLKEY:
+                {
+                    processDefault = false;
+
+                    switch (_wparam)
+                    {
+                    case VK_MENU:       thisWindow->controlKeys &= ~CONTROLKEY_ALT;     break;
+                    case VK_CONTROL:    thisWindow->controlKeys &= ~CONTROLKEY_CTRL;    break;
+                    case VK_SHIFT:      thisWindow->controlKeys &= ~CONTROLKEY_SHIFT;   break;
+                    }
+                }
                 break;
-            case VK_CONTROL:
-                thisWindow->controlKeys &= ~CONTROLKEY_CTRL;
-                processDefault = false;
-                break;
-            case VK_SHIFT:
-                thisWindow->controlKeys &= ~CONTROLKEY_SHIFT;
-                processDefault = false;
+
+            case WINmappingType_EXTRAKEY:
+                thisWindow->keyExtraState = _wparam | HW_KEYBOARD_KEYRELEASE;
                 break;
             }
 		}

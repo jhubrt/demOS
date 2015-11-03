@@ -26,7 +26,8 @@
 	
 	opt 	o+
 
-    xdef    SYSdetectEmu,SYSlockIdle,SYSlockMain,SYSreadVideoBase,SYSwriteVideoBase
+    xdef    SYSsoundtrackUpdate
+    xdef    SYSdetectEmu,SYSlockIdle,SYSlockMain,SYSreadVideoBase,SYSwriteVideoBase,SYSemptyKb
 
 	xdef	SYSvblinterrupt,SYSvblcount,SYSvblLcount,SYSOSVBL
 	xdef	SYSsetIdlethread,SYSswitchIdle
@@ -34,7 +35,7 @@
 
 	xref	RASnextOpList
     
-    xref    LOADdeconnectAndStartRequest,LOADtoggleDriveStartRequest,SNDsoundtrackMonitor
+    xref    LOADdeconnectAndStartRequest,LOADtoggleDriveStartRequest
 
 *-------------------------------------------------------------------------
 * void* SYSgemdosSetMode (void* _adr);
@@ -78,6 +79,23 @@ SYSwriteVideoBase:
 	move.b	d0,$ffff8203.w
 	lsr.w	#8,d0
 	move.b	d0,$ffff820d.w
+	rts
+
+*-------------------------------------------------------------------------
+* void SYSemptyKb (void);
+*-------------------------------------------------------------------------
+SYSemptyKb: 				
+	btst	#5,$fffffc00.w
+	beq.s	.noerror
+	tst.b	$fffffc02.w
+	bra.s	SYSemptyKb
+.noerror:
+	btst	#0,$fffffc00.w
+	beq.s	.vidbuff                          
+	tst.b	$fffffc02.w
+	bra.s	SYSemptyKb
+.vidbuff:
+	move.w	#0,$fffffc02.w
 	rts
 
 *-------------------------------------------------------------------------
@@ -207,7 +225,12 @@ SYSvblinterrupt_noraster:
 
 	* -------------------- soundtrack management -------------------------
 
-	bsr		SNDsoundtrackMonitor
+    move.l  SYSsoundtrackUpdate(pc),d0
+    beq.s   SYSvblinterrupt_nosoundtrack
+    move.l  d0,a0
+	jsr		(a0)
+
+SYSvblinterrupt_nosoundtrack:
 
     move.l  LOADdeconnectAndStartRequest(pc),a0
     move.l  a0,d0
@@ -240,6 +263,9 @@ automodjmp:
 endvbl:
 	rte
 
+
+SYSsoundtrackUpdate:
+    dc.l    0
 
 SYSemuDescriptor:
     dc.l    0

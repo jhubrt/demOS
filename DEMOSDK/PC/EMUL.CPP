@@ -1,0 +1,533 @@
+/*------------------------------------------------------------------------------  -----------------
+  Copyright J.Hubert 2015
+
+  This file is part of demOS
+
+  demOS is free software: you can redistribute it and/or modify it under the terms of 
+  the GNU Lesser General Public License as published by the Free Software Foundation, 
+  either version 3 of the License, or (at your option) any later version.
+
+  demOS is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY ;
+  without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
+  See the GNU Lesser General Public License for more details.
+
+  You should have received a copy of the GNU Lesser General Public License along with demOS.  
+  If not, see <http://www.gnu.org/licenses/>.
+------------------------------------------------------------------------------------------------- */
+
+#define _CRT_SECURE_NO_WARNINGS
+
+#include <windows.h>
+#include <string.h>
+#include <mmsystem.h>
+#include <dsound.h>
+
+#undef MEM_FREE  // collision...
+
+extern "C"
+{
+    #include "DEMOSDK\BASTYPES.H"
+    #include "DEMOSDK\STANDARD.H"
+    #include "DEMOSDK\HARDWARE.H"
+    #include "DEMOSDK\SYSTEM.H"
+    #include "DEMOSDK\SYNTH.H"
+
+    #include "DEMOSDK\PC\WINDOW.H"
+    #include "DEMOSDK\PC\EMUL.H"
+    #include "DEMOSDK\PC\BITCONVR.H"
+}
+
+STRUCT(MiniEmul)
+{
+	WINdow* w;
+
+	u8                      image [640*400];
+	u32                     imagelut [256];
+    size_t                  buffermask;
+    IDirectSound8*          directSound;
+	IDirectSoundBuffer*     primaryBuffer;
+	IDirectSoundBuffer8*    secondaryBuffer;
+    u32                     lastExtraKey;
+    bool                    captureSound;
+};
+
+MiniEmul g_miniEmul;
+
+
+extern "C" WINdow* EMULgetWindow (void)
+{
+	return g_miniEmul.w;
+}
+
+
+static bool InitializeDirectSound(MiniEmul* _emul)
+{
+	HRESULT result;
+	DSBUFFERDESC bufferDesc;
+	WAVEFORMATEX waveFormat;
+
+
+	// Initialize the direct sound interface pointer for the default sound device.
+	result = DirectSoundCreate8(NULL, &(_emul->directSound), NULL);
+	if(FAILED(result))
+	{
+		return false;
+	}
+
+	// Set the cooperative level to priority so the format of the primary sound buffer can be modified.
+    result = _emul->directSound->SetCooperativeLevel((HWND)WINgetWindowHandle(_emul->w), DSSCL_PRIORITY);
+	if(FAILED(result))
+	{
+		return false;
+	}
+
+	// Setup the primary buffer description.
+	bufferDesc.dwSize = sizeof(DSBUFFERDESC);
+	bufferDesc.dwFlags = DSBCAPS_PRIMARYBUFFER | DSBCAPS_CTRLVOLUME;
+	bufferDesc.dwBufferBytes = 0;
+	bufferDesc.dwReserved = 0;
+	bufferDesc.lpwfxFormat = NULL;
+	bufferDesc.guid3DAlgorithm = GUID_NULL;
+
+	// Get control of the primary sound buffer on the default sound device.
+	result = _emul->directSound->CreateSoundBuffer(&bufferDesc, &(_emul->primaryBuffer), NULL);
+	if(FAILED(result))
+	{
+		return false;
+	}
+
+	// Setup the format of the primary sound bufffer.
+	// In this case it is a .WAV file recorded at 44,100 samples per second in 16-bit stereo (cd audio format).
+	waveFormat.wFormatTag = WAVE_FORMAT_PCM;
+	waveFormat.nSamplesPerSec = 44100;
+	waveFormat.wBitsPerSample = 16;
+	waveFormat.nChannels = 2;
+	waveFormat.nBlockAlign = (waveFormat.wBitsPerSample / 8) * waveFormat.nChannels;
+	waveFormat.nAvgBytesPerSec = waveFormat.nSamplesPerSec * waveFormat.nBlockAlign;
+	waveFormat.cbSize = 0;
+
+	// Set the primary buffer to be the wave format specified.
+	result = _emul->primaryBuffer->SetFormat(&waveFormat);
+	if(FAILED(result))
+	{
+		return false;
+	}
+
+	return true;
+}
+
+
+extern "C" void EMULplaysound (void* _data, u32 _byteslength, u32 _offset)
+{
+    void* bufferPtr = NULL;
+    DWORD bufferSize = 0;
+    void* bufferPtr2 = NULL;
+    DWORD bufferSize2 = 0;
+
+
+    HRESULT result = g_miniEmul.secondaryBuffer->Lock(_offset, _byteslength, (void**)&bufferPtr, (DWORD*)&bufferSize, (void**)&bufferPtr2, (DWORD*)&bufferSize2, 0);
+    ASSERT (result == DS_OK);
+    ASSERT (bufferPtr2 == NULL);
+
+    u32 t;
+    u8* d = (u8*)bufferPtr;
+    s8* s = (s8*)_data;
+
+    for (t = 0 ; t < _byteslength ; t++)
+    {
+        *d++ = (*s++) + 128;
+    }
+ 
+	result = g_miniEmul.secondaryBuffer->Unlock((void*)bufferPtr, bufferSize, bufferPtr2, bufferSize2);
+    ASSERT (result == DS_OK);
+
+    if (g_miniEmul.captureSound)
+    {
+        static FILE* file = NULL;
+
+        if (file == NULL)
+        {
+            file = fopen ("E:\\temp\\dmadump.raw", "wb");
+        }
+
+        fwrite (_data, 1, _byteslength, file);
+    }
+}
+
+
+extern "C" void EMULgetSound (void* _data, u32 _byteslength)
+{
+    void* bufferPtr = NULL;
+    DWORD bufferSize = 0;
+
+
+    HRESULT result = g_miniEmul.secondaryBuffer->Lock(0, _byteslength, (void**)&bufferPtr, (DWORD*)&bufferSize, NULL, 0, DSBLOCK_ENTIREBUFFER);    
+    ASSERT (result == DS_OK);
+
+    {
+        u32 t;
+        u8* d = (u8*)bufferPtr;
+        s8* s = (s8*)_data;
+
+        for (t = 0 ; t < _byteslength ; t++)
+        {
+            *s++ = (*d++) - 128;
+        }
+    }
+
+    // Unlock the secondary buffer after the data has been written to it.
+	result = g_miniEmul.secondaryBuffer->Unlock((void*)bufferPtr, bufferSize, NULL, 0);
+    ASSERT (result == DS_OK);
+}
+
+
+
+extern "C" u32 EMULgetPlayOffset (void)
+{
+    DWORD playCursor = 0, writeCursor = 0;
+
+    g_miniEmul.secondaryBuffer->GetCurrentPosition(&playCursor, &writeCursor);
+
+    return writeCursor;
+}
+
+
+extern "C" void EMULcreateSoundBuffer (u32 _length, bool _stereo)
+{
+	WAVEFORMATEX waveFormat;
+	DSBUFFERDESC bufferDesc;
+	HRESULT result;
+	IDirectSoundBuffer* tempBuffer;
+    unsigned nbChannels = _stereo ? 2 : 1;
+
+
+    if ( g_miniEmul.secondaryBuffer != NULL )
+    {
+        g_miniEmul.secondaryBuffer->Release();
+        g_miniEmul.secondaryBuffer = NULL;
+    }
+
+	// Set the wave format of secondary buffer that this wave file will be loaded onto.
+	waveFormat.wFormatTag      = WAVE_FORMAT_PCM;
+	waveFormat.nSamplesPerSec  = SND_DMA_FREQ;
+	waveFormat.wBitsPerSample  = 8;
+	waveFormat.nChannels       = nbChannels;
+	waveFormat.nBlockAlign     = (waveFormat.wBitsPerSample / 8) * waveFormat.nChannels;
+	waveFormat.nAvgBytesPerSec = waveFormat.nSamplesPerSec * waveFormat.nBlockAlign;
+	waveFormat.cbSize          = 0;
+
+	// Set the buffer description of the secondary sound buffer that the wave file will be loaded onto.
+	bufferDesc.dwSize = sizeof(DSBUFFERDESC);
+	bufferDesc.dwFlags = DSBCAPS_CTRLVOLUME;
+	bufferDesc.dwBufferBytes = _length * nbChannels;
+	bufferDesc.dwReserved = 0;
+	bufferDesc.lpwfxFormat = &waveFormat;
+	bufferDesc.guid3DAlgorithm = GUID_NULL;
+
+	// Create a temporary sound buffer with the specific buffer settings.
+	result = g_miniEmul.directSound->CreateSoundBuffer(&bufferDesc, &tempBuffer, NULL);
+    ASSERT ( result == DS_OK );
+
+	// Test the buffer format against the direct sound 8 interface and create the secondary buffer.
+	result = tempBuffer->QueryInterface(IID_IDirectSoundBuffer8, (void**)&g_miniEmul.secondaryBuffer);
+    ASSERT ( result == DS_OK );
+
+	// Release the temporary buffer.
+	tempBuffer->Release();
+	tempBuffer = 0;
+
+	// Create a temporary buffer to hold the wave file data.
+	// Lock the secondary buffer to write wave data into it.
+    void* bufferPtr = NULL;
+    DWORD bufferSize = 0;
+
+    result = g_miniEmul.secondaryBuffer->Lock(0, _length * nbChannels, (void**)&bufferPtr, (DWORD*)&bufferSize, NULL, 0, DSBLOCK_ENTIREBUFFER);
+    ASSERT ( result == DS_OK );
+
+    STDmset (bufferPtr, 0, bufferSize);
+    
+    // Unlock the secondary buffer after the data has been written to it.
+	result = g_miniEmul.secondaryBuffer->Unlock((void*)bufferPtr, bufferSize, NULL, 0);
+    ASSERT ( result == DS_OK );
+	
+    // Set position at the beginning of the sound buffer.
+	result = g_miniEmul.secondaryBuffer->SetCurrentPosition(0);
+    ASSERT ( result == DS_OK );
+
+	// Set volume of the buffer to 100%.
+	result = g_miniEmul.secondaryBuffer->SetVolume(DSBVOLUME_MAX);
+    ASSERT ( result == DS_OK );
+
+	// Play the contents of the secondary sound buffer.
+	result = g_miniEmul.secondaryBuffer->Play(0, 0, DSBPLAY_LOOPING);
+    ASSERT ( result == DS_OK );   
+}
+
+
+static void ShutdownDirectSound(MiniEmul* _emul)
+{
+    // Release the secondary sound buffer.
+	if (_emul->secondaryBuffer)
+	{
+		_emul->secondaryBuffer->Release();
+		_emul->secondaryBuffer = NULL;
+	}
+    
+    // Release the primary sound buffer pointer.
+	if (_emul->primaryBuffer)
+	{
+		_emul->primaryBuffer->Release();
+		_emul->primaryBuffer = NULL;
+	}
+
+	// Release the direct sound interface pointer.
+	if(_emul->directSound)
+	{
+		_emul->directSound->Release();
+		_emul->directSound = NULL;
+	}
+}
+
+
+extern "C" void EMULinit (void* _buffer)
+{
+	WINinitParam param;
+    bool result;
+
+    DEFAULT_CONSTRUCT(&g_miniEmul);
+
+	param.x = param.y = WINDOW_CENTER;
+	param.w = EMUL_WINDOW_WIDTH + EMUL_WINDOW_PCAREA_WIDTH;
+	param.h = EMUL_WINDOW_HEIGHT;
+	param.title = NULL;
+	param.hInstance = NULL;
+
+	g_miniEmul.w = WINconstruct (&param);
+
+    result = InitializeDirectSound(&g_miniEmul);
+    ASSERT (result);    
+}
+
+static void ST2PCLut (u16* _STlut, u32* _PClut)
+{
+	u32 i;
+	
+	for ( i = 0 ; i < 16 ; i++ )
+	{
+		u16 color = PCENDIANSWAP16 (_STlut[i]);
+		u8 R = (u8)(color >> 8);
+		u8 G = (u8)(color >> 4);
+		u8 B = (u8)(color);
+
+		R <<= 1;
+		G <<= 1;
+		B <<= 1;
+
+		R |= (R & 0x10) != 0;
+		G |= (G & 0x10) != 0;
+		B |= (B & 0x10) != 0;
+
+		R &= 0xF;
+		G &= 0xF;
+		B &= 0xF;
+
+		R <<= 4;
+		G <<= 4;
+		B <<= 4;
+
+		_PClut[i] = ((u32)R << 16) | ((u32)G << 8) | (u32)B;
+	}
+}
+
+extern "C" void EMULrender ()
+{
+	u32 i = 0;
+    void* adr = (void*) SYSreadVideoBase();
+
+
+	if ( WINisKeyHit( g_miniEmul.w ) )
+	{
+		u32 key = WINgetKey( g_miniEmul.w );
+
+		switch (key)
+		{
+		case ' ':
+			*HW_KEYBOARD_DATA = HW_KEY_SPACEBAR | HW_KEYBOARD_KEYRELEASE;
+			break;
+		case '1':
+			break;
+		}
+	}
+
+    ST2PCLut(HW_COLOR_LUT, g_miniEmul.imagelut);
+
+    switch (*HW_VIDEO_MODE)
+    {
+    case HW_VIDEO_MODE_1P:
+        BITfromChunk1PTo8b (adr, 80, NULL, g_miniEmul.image, 640, 400, 640);
+        break;
+    case HW_VIDEO_MODE_2P:
+        BITfromChunk2PTo8b (adr, 160, NULL, g_miniEmul.image, 640, 200, 640);
+        break;
+    case HW_VIDEO_MODE_4P:
+        BITfromChunk4PTo8b (adr, 160, NULL, g_miniEmul.image, 320, 200, 320);
+        break;
+    }
+
+    WINdrawImage (g_miniEmul.w, g_miniEmul.image, 640, 400, 8, (u8*) g_miniEmul.imagelut, (EMUL_WINDOW_WIDTH - 640) / 2, (EMUL_WINDOW_HEIGHT - 400) / 2);
+	WINrender (g_miniEmul.w, 0);
+   
+    {
+        u32 extrakey = WINgetKeyExtraState (g_miniEmul.w);
+        
+        if ( extrakey != g_miniEmul.lastExtraKey )
+        {
+            g_miniEmul.lastExtraKey = extrakey;
+
+            if ( extrakey == VK_END )
+            {
+                g_miniEmul.captureSound ^= 1;
+            }
+        }
+    }
+
+    *HW_KEYBOARD_DATA = (u8) WINgetKeyState(g_miniEmul.w);
+}
+
+extern "C" void EMULblit (void)
+{
+    u8   rshift = *HW_BLITTER_CTRL2 & 15;
+    bool fxsr   = (*HW_BLITTER_CTRL2 & HW_BLITTER_CTRL2_FORCE_XTRA_SRC   ) != 0;
+    bool nfsr   = (*HW_BLITTER_CTRL2 & HW_BLITTER_CTRL2_NO_FINAL_SRC_READ) != 0;
+
+    u16 htone = (*HW_BLITTER_CTRL1) & 15;
+    u16* s = (u16*) *HW_BLITTER_ADDR_SOURCE;
+    u16* d = (u16*) *HW_BLITTER_ADDR_DEST;
+
+    s16 incSx = *HW_BLITTER_XINC_SOURCE;
+    s16 incSy = *HW_BLITTER_YINC_SOURCE;
+    s16 incDx = *HW_BLITTER_XINC_DEST;
+    s16 incDy = *HW_BLITTER_YINC_DEST;
+
+    incSx >>= 1;
+    incSy >>= 1;
+    incDx >>= 1;
+    incDy >>= 1;
+
+    do
+    {
+        u16 x;
+        u16 w1 = 0;
+        u16 endmask = *HW_BLITTER_ENDMASK1;
+
+
+        endmask = PCENDIANSWAP16 (endmask);
+        
+        if (fxsr)
+        {
+            w1 = *s;
+            w1 = PCENDIANSWAP16(w1);
+            s += incSx;        
+        }
+
+        for (x = *HW_BLITTER_XSIZE ; x > 0 ; x--)
+        {
+            u16 w2 = 0;
+            u16 sw = -1;
+            u16 dw;
+
+
+            if ((x != 1) || (nfsr == 0))
+            {
+                w2 = *s;
+                w2 = PCENDIANSWAP16(w2);
+            }
+
+            switch (*HW_BLITTER_HOP)
+            {
+            case HW_BLITTER_HOP_HTONE:
+                sw = HW_BLITTER_HTONE[htone++ & 15];
+                sw = PCENDIANSWAP16(sw);
+                break;
+
+            case HW_BLITTER_HOP_SOURCE:
+            case HW_BLITTER_HOP_SOURCE_AND_HTONE:
+                
+                sw = (w1 << (16 - rshift)) | (w2 >> rshift);
+
+                if ((*HW_BLITTER_HOP) == HW_BLITTER_HOP_SOURCE_AND_HTONE)
+                {
+                    u16 ht = HW_BLITTER_HTONE[htone++ & 15];
+                    ht = PCENDIANSWAP16(ht);
+                    sw &= ht;
+                }
+                break;
+            }
+
+            w1 = w2;
+            
+            /* apply logical operation */
+            dw = *d;
+            dw = PCENDIANSWAP16(dw);
+
+            switch (*HW_BLITTER_OP)
+            {
+            case HW_BLITTER_OP_BIT0:                dw = 0;              break;
+            case HW_BLITTER_OP_S_AND_D:             dw =  sw &  dw;      break;
+            case HW_BLITTER_OP_S_AND_NOT_D:         dw =  sw & ~dw;      break;
+            case HW_BLITTER_OP_S:                   dw =  sw;            break;
+            case HW_BLITTER_OP_NOT_S_AND_D:         dw = ~sw &  dw;      break;
+            case HW_BLITTER_OP_D:                   dw = *d;             break;
+            case HW_BLITTER_OP_S_XOR_D:             dw =  sw ^  dw;      break;
+            case HW_BLITTER_OP_S_OR_D:              dw =  sw |  dw;      break;
+            case HW_BLITTER_OP_NOT_S_AND_NOT_D:     dw = ~sw & ~dw;      break;
+            case HW_BLITTER_OP_NOT_S_XOR_D:         dw = ~sw ^  dw;      break;
+            case HW_BLITTER_OP_NOT_S:               dw = ~sw;            break;
+            case HW_BLITTER_OP_NOT_S_2:             dw = ~sw;            break;
+            case HW_BLITTER_OP_S_OR_NOT_D:          dw = sw  | ~dw;      break;
+            case HW_BLITTER_OP_NOT_S_OR_D:          dw = ~sw |  dw;      break;
+            case HW_BLITTER_OP_NOT_S_OR_NOT_D:      dw = ~sw | ~dw;      break;
+            case HW_BLITTER_OP_BIT1:                dw = -1;             break;
+            }
+
+            /* end mask and destination write */
+            {
+                u16 dm   = PCENDIANSWAP16(*d);
+                u16 dbak = dm & ~endmask;
+                dw = dbak | (dw & endmask);
+                dw = PCENDIANSWAP16(dw);
+                *d = dw;
+            }
+
+            if (x != 1)
+            {
+                s += incSx;
+                d += incDx;
+            }
+
+            if (x == 2)
+            {
+                if ( nfsr )
+                {
+                    s -= incSx;
+                }
+                endmask = *HW_BLITTER_ENDMASK3;
+                endmask = PCENDIANSWAP16 (endmask);
+            }
+            else
+            {
+                endmask = *HW_BLITTER_ENDMASK2;
+                endmask = PCENDIANSWAP16 (endmask);
+            }
+        }
+
+        s += incSy;
+        d += incDy;
+
+        (*HW_BLITTER_YSIZE)--;
+    }
+    while (*HW_BLITTER_YSIZE);
+
+    *HW_BLITTER_ADDR_SOURCE = (u32) s;
+    *HW_BLITTER_ADDR_DEST   = (u32) d;
+}

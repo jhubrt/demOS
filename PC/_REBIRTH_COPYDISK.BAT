@@ -1,0 +1,2 @@
+copy /Y ..\REBIRTH\DISK1.ST X:\
+copy /Y ..\REBIRTH\DISK2.ST X:\

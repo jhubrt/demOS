@@ -22,14 +22,14 @@
 #include "DEMOSDK\HARDWARE.H"
 #include "DEMOSDK\STANDARD.H"
 #include "DEMOSDK\SYSTEM.H"
-
+#include "DEMOSDK\ALLOC.H"
 
 u16 LOADorder = 1;
 
 ASMIMPORT volatile u8				LOADinprogress;
 ASMIMPORT volatile u16				LOADsecpertrack;
 ASMIMPORT		   LOADrequest		LOADreq;
-ASMIMPORT volatile LOADrequest*	LOADcurrentreq;
+ASMIMPORT volatile LOADrequest* 	LOADcurrentreq;
 ASMIMPORT          u16				LOADreqNb;
 ASMIMPORT volatile u32              LOADdeconnectAndStartRequest;
 
@@ -42,22 +42,25 @@ void LOADidle(void);
 /* #	define LOAD_CHECK_CONTENT */ /* LOAD_CHECK_CONTENT needs DEMOS_DEBUG */
 #endif
 
-void LOADinit (void)
+
+void LOADinit (LOADdisk* _firstmedia, u16 _nbEntries, u16 _nbMetaData)
 {
 #	ifdef __TOS__
 	*HW_VECTOR_DMA = (u32) LOADidle;
 	LOADsecpertrack = LOAD_SECTORS_PER_TRACK;
 	STDcpuSetSR(0x2300);
 #	endif
+
+    LOADinitFAT (0, _firstmedia, _nbEntries, _nbMetaData);
 }
 
+
 #ifdef DEMOS_DEBUG
-static void* loadUsingStdlib (void* _buffer, LOADdisk* _media, u16 _resourceid)
+static void* loadUsingStdlib (void* _buffer, LOADdisk* _media, u32 track, u32 side, u16 startsector, u32 nbsectors)
 {
-	LOADresource* rsc = &_media->FAT[_resourceid];
-    u32 offset = ((rsc->track * 2 + rsc->side) * LOAD_SECTORS_PER_TRACK + rsc->startsector) * 512UL;
+    u32 offset = ((track * 2 + side) * LOAD_SECTORS_PER_TRACK + startsector) * LOAD_SECTORSIZE;
+    u32 size   = nbsectors * LOAD_SECTORSIZE;
     u32 result;
-    u32 size = LOADgetEntrySize(_media, _resourceid);
 	u8* buf;
 
 	if ( _buffer == NULL )
@@ -85,15 +88,83 @@ static void* loadUsingStdlib (void* _buffer, LOADdisk* _media, u16 _resourceid)
 }
 #endif
 
+
+void LOADinitFAT (u8 _drive, LOADdisk* _media, u16 _nbEntries, u16 _nbMetaData)
+{
+    u16* temp = (u16*) RINGallocatorAlloc (&sys.mem, LOAD_SECTORSIZE * 2);
+
+#	ifndef DEMOS_LOAD_FROMHD
+
+    _drive = sys.has2Drives & (_drive != DEMOS_INVERT_DRIVE);
+
+    {
+        LOADrequest* loadRequest = LOADpush (temp, LOAD_FAT_STARTSECTOR + 1, ((u32)_drive << 17), ((u32)LOAD_PRIOTITY_HIGH << 16) | LOAD_FAT_NBSECTORS);
+        LOADwaitRequestCompleted (loadRequest);
+    }
+
+#	else /* DEMOS_LOAD_FROMHD */
+
+    loadUsingStdlib (temp, _media, 0, 0, LOAD_FAT_STARTSECTOR, LOAD_FAT_NBSECTORS);
+
+#	endif
+
+    _media->nbEntries  = PCENDIANSWAP16(temp[0]);
+    _media->nbMetaData = PCENDIANSWAP16(temp[1]);
+
+    ASSERT_EARLY(_media->nbEntries == _nbEntries   , 0x700, 0x7);
+    ASSERT_EARLY(_media->nbMetaData == _nbMetaData , 0x700, 0x7);
+
+    {
+        u16 entriessize  = _media->nbEntries  * sizeof(LOADresource);
+        u16 metadatasize = _media->nbMetaData * sizeof(LOADmetadata);
+        u16 preloadsize  = _media->nbEntries  * sizeof(void*);
+        
+        u8* FATbuffer = (u8*) RINGallocatorAlloc (&sys.coremem, entriessize + metadatasize + preloadsize);
+        ASSERT_EARLY (FATbuffer != NULL, 0x700, 0x0);
+
+        _media->FAT      = (LOADresource*) FATbuffer;
+        _media->metaData = (LOADmetadata*) (FATbuffer + entriessize);
+        _media->preload  = (void**) (FATbuffer + entriessize + metadatasize);
+
+        STDmcpy (FATbuffer, &temp[2], entriessize + metadatasize);
+        STDmset (_media->preload, 0, preloadsize);
+    }
+
+#   ifndef __TOS__
+    {
+        u16 t;
+
+        for (t = 0 ; t < _media->nbEntries ; t++)
+        {
+            _media->FAT[t].startsectorsidenbsectors = PCENDIANSWAP16(_media->FAT[t].startsectorsidenbsectors);
+            _media->FAT[t].metadataindextrack       = PCENDIANSWAP16(_media->FAT[t].metadataindextrack);
+        }
+
+        for (t = 0 ; t < _media->nbMetaData ; t++)
+        {
+            _media->metaData[t].offsetsizeh       = PCENDIANSWAP32(_media->metaData[t].offsetsizeh);
+            _media->metaData[t].originalsizesizel = PCENDIANSWAP32(_media->metaData[t].originalsizesizel);
+        }
+    }
+#   endif
+
+    RINGallocatorFree (&sys.mem, temp);
+}
+
 LOADrequest* LOADrequestLoad (LOADdisk* _media, u16 _resourceid, void* _buffer, u16 _order)
 {
 	LOADresource* rsc = &_media->FAT[_resourceid];
 
+    u32 track       = rsc->metadataindextrack & LOAD_RESOURCE_MASK_TRACK;
+    u32 side        = (rsc->startsectorsidenbsectors & LOAD_RESOURCE_MASK_SIDE) != 0;
+    u16 startsector = (rsc->startsectorsidenbsectors >> LOAD_RESOURCE_RSHIFT_STARTSECTOR) & LOAD_RESOURCE_MASK_STARTSECTOR;
+    u32 nbsectors   = rsc->startsectorsidenbsectors & LOAD_RESOURCE_MASK_NBSECTORS;
+
 #	ifndef DEMOS_LOAD_FROMHD
 
-	u8 drive = sys.has2Drives & (_media->preferedDrive != DEMOS_INVERT_DRIVE);
-
-	LOADrequest* loadRequest = LOADpush (_buffer, rsc->startsector + 1, (u32) rsc->track | ((u32) rsc->side << 16) | ((u32) drive << 17), ((u32)_order << 16) | (u32) rsc->nbsectors);
+    u8 drive        = sys.has2Drives & (_media->preferedDrive != DEMOS_INVERT_DRIVE);
+    
+	LOADrequest* loadRequest = LOADpush (_buffer, startsector + 1, track | (side << 16) | ((u32) drive << 17), ((u32)_order << 16) | nbsectors);
 
 #	ifdef LOAD_CHECK_CONTENT
 	if ( loadRequest != NULL )
@@ -108,7 +179,7 @@ LOADrequest* LOADrequestLoad (LOADdisk* _media, u16 _resourceid, void* _buffer, 
         LOADwaitRequestCompleted (loadRequest);
         LOADwaitFDCIdle();
 
-        buf = (u8*) loadUsingStdlib (NULL, _media, _resourceid);
+        buf = (u8*) loadUsingStdlib (NULL, _media, track, side, startsector, nbsectors);
 
 		for (i = 0 ; i < size ; i++)
 		{
@@ -140,7 +211,7 @@ LOADrequest* LOADrequestLoad (LOADdisk* _media, u16 _resourceid, void* _buffer, 
 		requestnum = 0;
 	}
 
-	loadUsingStdlib (_buffer, _media, _resourceid);
+	loadUsingStdlib (_buffer, _media, track, side, startsector, nbsectors);
 
 	curReq->allocated = true;
 	curReq->processed = true;
@@ -153,9 +224,9 @@ LOADrequest* LOADrequestLoad (LOADdisk* _media, u16 _resourceid, void* _buffer, 
 
 LOADrequest* LOADdata (LOADdisk* _media, u16 _resource, void* _buffer, u16 _order)
 {
-    if ( _media->FAT[_resource].preload != NULL )
+    if ( _media->preload[_resource] != NULL )
     {
-        STDmcpy(_buffer, _media->FAT[_resource].preload, LOADgetEntrySize(_media, _resource) );
+        STDmcpy(_buffer, _media->preload[_resource], LOADresourceRoundedSize(_media, _resource) );
         return NULL;
     }
     else
@@ -165,12 +236,42 @@ LOADrequest* LOADdata (LOADdisk* _media, u16 _resource, void* _buffer, u16 _orde
 }
 
 
-u32 LOADgetEntrySize (LOADdisk* _media, u16 _entryIndex)
+u32 LOADresourceRoundedSize (LOADdisk* _media, u16 _entryIndex)
 {
     ASSERT(_entryIndex < _media->nbEntries);
-    return (u32)_media->FAT[_entryIndex].nbsectors * 512UL;
+    return (u32)(_media->FAT[_entryIndex].startsectorsidenbsectors & LOAD_RESOURCE_MASK_NBSECTORS) * LOAD_SECTORSIZE;
 }
 
+u16 LOADresourceMetaDataIndex (LOADdisk* _media, u16 _entryIndex)
+{
+    ASSERT(_entryIndex < _media->nbEntries);
+    return _media->FAT[_entryIndex].metadataindextrack >> LOAD_RESOURCE_RSHIFT_METADATA;
+}
+
+u32 LOADmetadataOffset (LOADdisk* _media, u16 _metaDataIndex)
+{
+    ASSERT(_metaDataIndex < _media->nbMetaData);
+    return _media->metaData[_metaDataIndex].offsetsizeh >> LOAD_METADATA_RSHIFT_OFFSET;
+}
+
+u32 LOADmetadataSize (LOADdisk* _media, u16 _metaDataIndex)
+{
+    u32 size;
+
+    ASSERT(_metaDataIndex < _media->nbMetaData);
+
+    size   = _media->metaData[_metaDataIndex].offsetsizeh & LOAD_METADATA_MASK_SIZEH;
+    size <<= LOAD_METADATA_LSHIFT_SIZEH;
+    size  |= _media->metaData[_metaDataIndex].originalsizesizel & LOAD_METADATA_MASK_SIZEL;
+
+    return size;
+}
+
+u32 LOADmetadataOriginalSize (LOADdisk* _media, u16 _metaDataIndex)
+{
+    ASSERT(_metaDataIndex < _media->nbMetaData);
+    return _media->metaData[_metaDataIndex].originalsizesizel >> LOAD_METADATA_RSHIFT_ORIGINALSIZE;
+}
 
 void LOADwaitFDCIdle (void)
 {
@@ -198,13 +299,13 @@ void* LOADpreload (void* _framebuffer, u16 _pitch, u16 _planepitch, void* _prelo
     for (t = 0 ; t < _nbResources ; t++)
     {
         u16 rsc     = _resources[t];
-        u32 rscSize = LOADgetEntrySize(_disk, rsc);
+        u32 rscSize = LOADresourceRoundedSize(_disk, rsc);
 
         if ( ( _preloadsize - (currentpreload - (u8*)_preload) ) >= rscSize )
         {
             LOADrequest* request = LOADrequestLoad (_disk, rsc, currentpreload, LOAD_PRIORITY_INORDER);
 
-            _disk->FAT[rsc].preload = currentpreload;
+            _disk->preload[rsc] = currentpreload;
 
             while (request->processed == false)
             {
@@ -300,7 +401,8 @@ u8*				g_bufLoaded[NBREQUESTS];
 LOADrequest*	g_requests[NBREQUESTS];
 LOADdisk*		g_media = NULL;
 
-#include "DISK2.H"
+/* wrong dependency => for test only */
+#include "REBIRTH\DISK2.H"
 
 void LOADunitTestInit (FSM* _fsm)
 {
@@ -309,16 +411,23 @@ void LOADunitTestInit (FSM* _fsm)
 
     IGNORE_PARAM(_fsm);
     
-    g_media = (&RSC_DISK2);
+    g_media = &RSC_DISK2;
 
 	for (t = 0 ; t < NBREQUESTS ; t++)
 	{
 #       ifndef DEMOS_USES_BOOTSECTOR
-        g_bufReference[t] = (u8*) loadUsingStdlib (NULL, g_media, t + RESOURCEOFFSET);
+        LOADresource* rsc = &g_media->FAT[t + RESOURCEOFFSET];
+        u32 track       = rsc->metadataindextrack & LOAD_RESOURCE_MASK_TRACK;
+        u32 side        = (rsc->startsectorsidenbsectors & LOAD_RESOURCE_MASK_SIDE) != 0;
+        u16 startsector = (rsc->startsectorsidenbsectors >> LOAD_RESOURCE_RSHIFT_STARTSECTOR) & LOAD_RESOURCE_MASK_STARTSECTOR;
+        u32 nbsectors   = rsc->startsectorsidenbsectors & LOAD_RESOURCE_MASK_NBSECTORS;
+
+        g_bufReference [t] = (u8*) loadUsingStdlib (NULL, g_media, track, side, startsector, nbsectors);
 #       endif
-        g_bufLoaded   [t] = (u8*) MEM_ALLOC (&sys.allocatorMem, 512UL * 255UL);
+
+        g_bufLoaded [t] = (u8*) MEM_ALLOC (&sys.allocatorMem, LOAD_SECTORSIZE * 255UL);
 		
-		g_requests[t] = NULL;
+		g_requests [t] = NULL;
 	}
 
     FSMgotoNextState (_fsm);
@@ -349,7 +458,7 @@ void LOADunitTestUpdate (FSM* _fsm)
 		{
 			if ( g_requests[t]->processed )
 			{
-				u32 size = LOADgetEntrySize (g_media, t + RESOURCEOFFSET);
+				u32 size = LOADresourceRoundedSize (g_media, t + RESOURCEOFFSET);
 				u32 i;
 
 #               ifndef DEMOS_USES_BOOTSECTOR

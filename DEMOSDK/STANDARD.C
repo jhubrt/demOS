@@ -125,8 +125,21 @@ s32 STDmuls (s16 _x, s16 _y)
     return _x * _y;
 }
 
-// u32 STDdivu (u32 _x, u16 _y);
-// u32 STDdivs (s32 _x, s16 _y);
+u32 STDdivu (u32 _x, u16 _y)
+{
+    u32 q = _x / _y;
+    u32 r = _x % _y;
+
+    return (r << 16) | (q & 0xFFFF);
+}
+
+u32 STDdivs (s32 _x, s16 _y)
+{
+    s32 q = _x / _y;
+    s32 r = _x % _y;
+
+    return (r << 16) | (q & 0xFFFF);
+}
 
 void STDmset (void* _adr, u32 _value, u32 _length)
 {

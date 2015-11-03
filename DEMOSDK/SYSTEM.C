@@ -26,11 +26,20 @@
 SYScore sys;
 u16	SYSbeginFrameNum = 0;
 
-#ifndef __TOS__
+#ifdef __TOS__
+u32* SYSdetectEmu (void);
+#else
 
 volatile u32 SYSvblcount;
 volatile u16 SYSvblLcount;
+void* SYSsoundtrackUpdate;
 static SYSthread SYSidleThread = NULL;
+
+u32* SYSdetectEmu (void)
+{
+    static u32 dummy[2] = {0,0};
+    return dummy;
+}
 
 void SYSswitchIdle(void) 
 {
@@ -43,7 +52,7 @@ void SYSswitchIdle(void)
 u32 SYSreadVideoBase (void) 
 { 
 	u8* a = HW_VIDEO_BASE_H;
-	u32 val = (a[0] << 16) | (a[1] << 8) | a[2];
+    u32 val = (sys.memoryMapHigh) | (a[0] << 16) | (a[1] << 8) | a[2];
 	return val; 
 }
 
@@ -59,8 +68,8 @@ void SYSwriteVideoBase (u32 _val)
 ASMIMPORT u32 SYSOSVBL;		/* this vector allow to re-root old vbl interrupt from DEMOS DK vbl (used in DEMOS_ALLOW_DEBUGGER mode only) */
 
 void  SYSvblinterrupt   (void)       PCSTUB;
-u32*  SYSdetectEmu      (void)       PCSTUBRET;
 void* SYSgemdosSetMode  (void* _adr) PCSTUBRET;
+void  SYSemptyKb        (void)       PCSTUB;
 
 #if !defined(DEMOS_OPTIMIZED) && !defined(DEMOS_USES_BOOTSECTOR)
 static void* SYSstdAlloc(void* _alloc, u32 _size)
@@ -119,32 +128,80 @@ void SYScheckHWRequirements (void)
 #   endif
 }
     
+STRUCT(SYScookie)
+{
+    u32 id;
+	u32 value;
+};
+
+bool SYSgetCookie(u32 _id, u32* _value)
+{
+#   ifdef __TOS__
+    SYScookie *cookie = *(SYScookie**) OS_COOKIEJAR;
+
+    if (cookie != NULL)
+    {
+        while (cookie->id != 0)
+        {
+            if ( cookie->id == _id )
+            {
+                *_value = cookie->value;
+                return true;
+            }
+            cookie++;
+        }
+    } 
+#   endif
+    
+    return false;
+}
+
+
 void SYSinit(SYSinitParam* _param)
 {
+    STDmset (&sys, 0, sizeof(sys));
+
+    {
 #   ifdef DEMOS_USES_BOOTSECTOR
-    u32* emudetect = (u32*) 0x600;
+        u32* emudetect = (u32*) 0x600;
 #   else
-    u32* emudetect = SYSdetectEmu();
+        u32* emudetect = SYSdetectEmu();
 #   endif
 
-    if (( emudetect[0] == 0x53544565UL ) && ( emudetect[1] == 0x6d456e67UL ))
-    {
-        sys.emulator = SYSemulator_STEEM;
-    }
-    else if (( emudetect[0] == 0x456D753FUL ) && ( emudetect[1] == 0x456D753FUL ))    
-    {
-        sys.emulator = SYSemulator_PACIFIST;
-    }
-    else if ( emudetect[0] == 0x54426f78UL ) 
-    {
-        sys.emulator = SYSemulator_TOSBOX;
-    }
-    else
-    {
-        sys.emulator = SYSemulator_NOTDETECTED;
+        if (( emudetect[0] == 0x53544565UL ) && ( emudetect[1] == 0x6d456e67UL ))
+        {
+            sys.emulator = SYSemulator_STEEM;
+        }
+        else if (( emudetect[0] == 0x456D753FUL ) && ( emudetect[1] == 0x456D753FUL ))    
+        {
+            sys.emulator = SYSemulator_PACIFIST;
+        }
+        else if ( emudetect[0] == 0x54426f78UL ) 
+        {
+            sys.emulator = SYSemulator_TOSBOX;
+        }
+        else
+        {
+            sys.emulator = SYSemulator_NOTDETECTED;
+        }
     }
 
-	sys.has2Drives = *OS_NFLOPS >= 2;
+#   ifdef __TOS__
+    {   /* detect mega ste */
+        u32 machineType = 0;
+        u8  id[4] = {'_','M','C','H'};
+        bool cookieFound = SYSgetCookie( *(u32*)id, &machineType );
+        ASSERT_EARLY(cookieFound,0x70,0x777);
+
+        sys.isMegaSTe = machineType == 0x10010UL;
+        if ( sys.isMegaSTe )
+        {
+            *HW_MEGASTE_CPUMODE = HW_MEGASTE_CPUMODE_8MHZ | HW_MEGASTE_CPUMODE_NOCACHE;
+        }
+    }
+#   endif
+
+    sys.has2Drives = *OS_NFLOPS >= 2;
     sys.phytop = *OS_PHYTOP;
 
 	sys.bakUSP = STDgetUSP();
@@ -183,15 +240,7 @@ void SYSinit(SYSinitParam* _param)
 	sys.bakmfpInterruptMaskB   = *HW_MFP_INTERRUPT_MASK_B;
 
 #	ifndef __TOS__
-	{
-		u32 adr = (u32) RINGallocatorAlloc ( &sys.coremem, 32000 );
-
-		*HW_VIDEO_BASE_H = (u8) (adr >> 16);
-		*HW_VIDEO_BASE_M = (u8) (adr >> 8);
-		*HW_VIDEO_BASE_L = (u8) adr;
-	
-		sys.memoryMapHigh = ((u32)_param->adr) & 0xFF000000;
-	}
+    sys.memoryMapHigh = ((u32)_param->adr) & 0xFF000000;
 #	endif
 
 	STDcpuSetSR(0x2700);
@@ -221,7 +270,7 @@ void SYSinit(SYSinitParam* _param)
 
 	*HW_MFP_INTERRUPT_MASK_A   |= 0x1;	/* enable Timer B mask */
 
-	sys.lastKey = 0;
+	sys.lastKey = sys.key = 0;
 
 	if (_param->idleThread != NULL)
 	{
@@ -240,7 +289,7 @@ void SYSinit(SYSinitParam* _param)
 	}
 }
 
-void SYS_shutdown(void)
+void SYSshutdown(void)
 {
 	*HW_VIDEO_BASE_H = sys.bakvideoAdr[0];
 	*HW_VIDEO_BASE_M = sys.bakvideoAdr[1];
@@ -266,10 +315,10 @@ void SYS_shutdown(void)
 	STDsetUSP (sys.bakUSP);
 }
 
-u8 SYSgetKb(void)
+void SYSkbReset(void)
 {
-	sys.lastKey = *HW_KEYBOARD_DATA;
-	return sys.lastKey;
+    sys.lastKey = sys.key;
+    SYSemptyKb();
 }
 
 
@@ -323,14 +372,15 @@ u16 SYStraceAllocators (void* _image, u16 _pitch, u16 _planePitch, u16 _y)
 
 u16 SYStraceHW (void* _image, u16 _pitch, u16 _planePitch, u16 _y)
 {
-	char line[] = "vmod= |   key=   emul=  vbl=    |    ";
+	static char line[] = "vmod= |   key=   mach=     vbl=    |    ";
     
 	STDuxtoa (&line[5] , *HW_VIDEO_MODE, 1);
 	STDuxtoa (&line[7] , *HW_VIDEO_SYNC == HW_VIDEO_SYNC_50HZ ? 0x50 : 0x60, 2);
-	STDuxtoa (&line[14], *HW_KEYBOARD_DATA  , 2);
-	STDuxtoa (&line[22], sys.emulator, 1);
-    STDuxtoa (&line[28], SYSvblLcount, 4);
-    STDuxtoa (&line[33], SYSbeginFrameNum, 4);
+	STDuxtoa (&line[14], *HW_KEYBOARD_DATA, 2);
+    line[22] = sys.emulator  ? 'e' : 'h';
+    line[23] = sys.isMegaSTe ? 'm' : 's';
+    STDuxtoa (&line[31], SYSvblLcount, 4);
+    STDuxtoa (&line[36], SYSbeginFrameNum, 4);
 
 	SYSdebugPrint ( _image, _pitch, _planePitch, 0, _y, line); 
 

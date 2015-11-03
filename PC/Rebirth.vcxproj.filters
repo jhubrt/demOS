@@ -1,0 +1,279 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="DEMOSDK">
+      <UniqueIdentifier>{0166929c-daf7-48fc-b266-2567060771d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PC">
+      <UniqueIdentifier>{2a38062b-912a-4a4c-9792-94520b1cd38a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="EXTERN">
+      <UniqueIdentifier>{02c5f3d6-462e-4937-923f-89abacefdd41}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SPECIFIC">
+      <UniqueIdentifier>{4724582c-a246-4582-87cc-2960d08b5cb6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SPECIFIC\MAIN">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="SPECIFIC\SRC">
+      <UniqueIdentifier>{32e2bd30-aa0f-44fb-b3a5-9d0b88a7d0e6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SPECIFIC\SRC\BOOT">
+      <UniqueIdentifier>{d1a5ac8e-aeb7-4593-ae52-4dd9eea54618}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SPECIFIC\SRC\FUGIT">
+      <UniqueIdentifier>{29a482a9-8672-4ec0-ac40-0ea4f14bcc88}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SPECIFIC\SRC\INTERLUDE">
+      <UniqueIdentifier>{f05bfd80-ee2a-4366-9475-16136bc4c354}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SPECIFIC\SRC\POLYZOOM">
+      <UniqueIdentifier>{cac2f0a1-1e0b-4a3e-8a9c-5bb3cd9b9740}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SPECIFIC\SRC\SLIDES">
+      <UniqueIdentifier>{ede278bf-6f9d-4f06-958d-17db9ce7a121}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SPECIFIC\SRC\VISUALIZER">
+      <UniqueIdentifier>{8c0b86ec-4db9-4958-8698-db48330f7e09}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SPECIFIC\PURE_C">
+      <UniqueIdentifier>{5a78965b-b5bc-422e-a6e8-6c6175fa83e3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SPECIFIC\DISK">
+      <UniqueIdentifier>{a07f1790-dda9-4715-9ddf-7dda3f588db2}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\REBIRTH\SRC\POLYZOOM.C">
+      <Filter>SPECIFIC\SRC\POLYZOOM</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\ALLOC.C">
+      <Filter>DEMOSDK</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\FSM.C">
+      <Filter>DEMOSDK</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\HARDWARE.C">
+      <Filter>DEMOSDK</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\SYSTEM.C">
+      <Filter>DEMOSDK</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\LOAD.C">
+      <Filter>DEMOSDK</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\RASTERS.C">
+      <Filter>DEMOSDK</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\BITMAP.C">
+      <Filter>DEMOSDK</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\STANDARD.C">
+      <Filter>DEMOSDK</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\PC\WINDOW.C">
+      <Filter>PC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\REBIRTH\SRC\VISUALIZ.C">
+      <Filter>SPECIFIC\SRC\VISUALIZER</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\COLORS.C">
+      <Filter>DEMOSDK</Filter>
+    </ClCompile>
+    <ClCompile Include="..\REBIRTH\SRC\SLIDES.C">
+      <Filter>SPECIFIC\SRC\SLIDES</Filter>
+    </ClCompile>
+    <ClCompile Include="..\REBIRTH\SRC\FUGIT.C">
+      <Filter>SPECIFIC\SRC\FUGIT</Filter>
+    </ClCompile>
+    <ClCompile Include="..\EXTERN\ARJDEP.C">
+      <Filter>EXTERN</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\TRACE.C">
+      <Filter>DEMOSDK</Filter>
+    </ClCompile>
+    <ClCompile Include="..\REBIRTH\SRC\INTERLUD.C">
+      <Filter>SPECIFIC\SRC\INTERLUDE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\SOUND.C">
+      <Filter>DEMOSDK</Filter>
+    </ClCompile>
+    <ClCompile Include="..\REBIRTH\BUILD.C">
+      <Filter>SPECIFIC\MAIN</Filter>
+    </ClCompile>
+    <ClCompile Include="..\REBIRTH\SRC\DEMOS.C">
+      <Filter>SPECIFIC\MAIN</Filter>
+    </ClCompile>
+    <ClCompile Include="..\REBIRTH\OPTBUILD.C">
+      <Filter>SPECIFIC\MAIN</Filter>
+    </ClCompile>
+    <ClCompile Include="..\REBIRTH\SRC\MORPH.C">
+      <Filter>SPECIFIC\SRC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\REBIRTH\SRC\SCREENS.C">
+      <Filter>SPECIFIC\SRC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\REBIRTH\SRC\SNDTRACK.C">
+      <Filter>SPECIFIC\SRC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\REBIRTH\DISK1.C">
+      <Filter>SPECIFIC\DISK</Filter>
+    </ClCompile>
+    <ClCompile Include="..\REBIRTH\DISK2.C">
+      <Filter>SPECIFIC\DISK</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\PC\BITCONVR.C">
+      <Filter>PC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\PC\EMUL.CPP">
+      <Filter>PC</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\REBIRTH\SRC\POLYZOOM.H">
+      <Filter>SPECIFIC\SRC\POLYZOOM</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DEMOSDK\ALLOC.H">
+      <Filter>DEMOSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DEMOSDK\BASTYPES.H">
+      <Filter>DEMOSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DEMOSDK\FSM.H">
+      <Filter>DEMOSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DEMOSDK\HARDWARE.H">
+      <Filter>DEMOSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DEMOSDK\SYSTEM.H">
+      <Filter>DEMOSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DEMOSDK\LOAD.H">
+      <Filter>DEMOSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DEMOSDK\TRACE.H">
+      <Filter>DEMOSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DEMOSDK\RASTERS.H">
+      <Filter>DEMOSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="..\EXTERN\ARJDEP.H">
+      <Filter>EXTERN</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DEMOSDK\BITMAP.H">
+      <Filter>DEMOSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DEMOSDK\STANDARD.H">
+      <Filter>DEMOSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DEMOSDK\PC\WINDOW.H">
+      <Filter>PC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\REBIRTH\SRC\VISUALIZ.H">
+      <Filter>SPECIFIC\SRC\VISUALIZER</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DEMOSDK\COLORS.H">
+      <Filter>DEMOSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DEMOSDK\PC\EMUL.H">
+      <Filter>PC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\REBIRTH\SRC\SLIDES.H">
+      <Filter>SPECIFIC\SRC\SLIDES</Filter>
+    </ClInclude>
+    <ClInclude Include="..\REBIRTH\SRC\FUGIT.H">
+      <Filter>SPECIFIC\SRC\FUGIT</Filter>
+    </ClInclude>
+    <ClInclude Include="..\REBIRTH\SRC\INTERLUD.H">
+      <Filter>SPECIFIC\SRC\INTERLUDE</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DEMOSDK\SOUND.H">
+      <Filter>DEMOSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="..\REBIRTH\DISK1.H">
+      <Filter>SPECIFIC\DISK</Filter>
+    </ClInclude>
+    <ClInclude Include="..\REBIRTH\DISK2.H">
+      <Filter>SPECIFIC\DISK</Filter>
+    </ClInclude>
+    <ClInclude Include="..\REBIRTH\SRC\SNDTRACK.H">
+      <Filter>SPECIFIC\SRC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\REBIRTH\SRC\MORPH.H">
+      <Filter>SPECIFIC\SRC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\REBIRTH\SRC\SCREENS.H">
+      <Filter>SPECIFIC\SRC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DEMOSDK\LOADDEFS.H">
+      <Filter>DEMOSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DEMOSDK\PC\BITCONVR.H">
+      <Filter>PC</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\REBIRTH\SRC\POLYZOOM.S">
+      <Filter>SPECIFIC\SRC\POLYZOOM</Filter>
+    </None>
+    <None Include="..\EXTERN\ARJDEP.S">
+      <Filter>EXTERN</Filter>
+    </None>
+    <None Include="..\DEMOSDK\BITMAP.S">
+      <Filter>DEMOSDK</Filter>
+    </None>
+    <None Include="..\DEMOSDK\STANDARD.S">
+      <Filter>DEMOSDK</Filter>
+    </None>
+    <None Include="..\DEMOSDK\TRACE.S">
+      <Filter>DEMOSDK</Filter>
+    </None>
+    <None Include="..\DEMOSDK\LOAD.S">
+      <Filter>DEMOSDK</Filter>
+    </None>
+    <None Include="..\REBIRTH\SRC\VISUALIZ.S">
+      <Filter>SPECIFIC\SRC\VISUALIZER</Filter>
+    </None>
+    <None Include="..\REBIRTH\SRC\SLIDES.S">
+      <Filter>SPECIFIC\SRC\SLIDES</Filter>
+    </None>
+    <None Include="..\REBIRTH\SRC\FUGIT.S">
+      <Filter>SPECIFIC\SRC\FUGIT</Filter>
+    </None>
+    <None Include="..\DEMOSDK\RASTERS.S">
+      <Filter>DEMOSDK</Filter>
+    </None>
+    <None Include="..\DEMOSDK\BOOTSTRA.S">
+      <Filter>DEMOSDK</Filter>
+    </None>
+    <None Include="..\REBIRTH\SRC\BOOTSEC2.S">
+      <Filter>SPECIFIC\SRC\BOOT</Filter>
+    </None>
+    <None Include="..\DEMOSDK\SYSTEM.S">
+      <Filter>DEMOSDK</Filter>
+    </None>
+    <None Include="..\EXTERN\XSTARTUP.S">
+      <Filter>EXTERN</Filter>
+    </None>
+    <None Include="..\DEMOSDK\SOUND.S">
+      <Filter>DEMOSDK</Filter>
+    </None>
+    <None Include="..\REBIRTH.PRJ">
+      <Filter>SPECIFIC\PURE_C</Filter>
+    </None>
+    <None Include="..\REBIRTHO.PRJ">
+      <Filter>SPECIFIC\PURE_C</Filter>
+    </None>
+    <None Include="..\REBIRTHB.PRJ">
+      <Filter>SPECIFIC\PURE_C</Filter>
+    </None>
+    <None Include="..\REBIRTH\DISK1.LOG">
+      <Filter>SPECIFIC\DISK</Filter>
+    </None>
+    <None Include="..\REBIRTH\DISK2.LOG">
+      <Filter>SPECIFIC\DISK</Filter>
+    </None>
+  </ItemGroup>
+</Project>
