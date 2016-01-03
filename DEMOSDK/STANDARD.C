@@ -261,7 +261,7 @@ static void STD_unitTest_mcpy (void)
 
         if ( memcmp(buf[0], buf[1], 32768UL) != 0 )
         {
-            printf ("buf=%x i1=%u i2=%u siz=%u v=%u\n", buf[1], index1, index2, size, val);
+            printf ("buf=%p i1=%u i2=%u siz=%u v=%u\n", buf[1], index1, index2, size, val);
             ASSERT(0);
         }
 		

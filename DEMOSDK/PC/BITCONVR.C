@@ -44,6 +44,64 @@ void BITfrom8bTox888 (void* _source, u16 _pitchSource, u32* _lut, void* _dest, u
     }
 }
 
+
+void BITfrom8bTo888 (void* _source, u16 _pitchSource, u32* _lut, void* _dest, u16 _w, u16 _h, u16 _pitchDest)
+{
+    u8* source = (u8*) _source;
+    u8* dest   = (u8*) _dest;
+    u16 x,y;
+
+
+    for (y = 0 ; y < _h ; y++)
+    {
+        u8* s = source;
+        u8* d = dest;
+
+
+        for (x = 0 ; x < _w ; x++)
+        {
+            u32 c = _lut[*s++];
+            
+            *d++ = (u8)(c >> 16);
+            *d++ = (u8)(c >> 8);
+            *d++ = (u8)(c);
+        }
+
+        source += _pitchSource;
+        dest   += _pitchDest;
+    }
+}
+
+
+void BITfromx888To8b (void* _source, u16 _pitchSource, u32* _lut, void* _dest, u16 _w, u16 _h, u16 _pitchDest)
+{
+    u8* source = (u8*) _source;
+    u8* dest   = (u8*) _dest;
+    u16 x,y;
+
+
+    for (y = 0 ; y < _h ; y++)
+    {
+        u8* s = source;
+        u8* d = dest;
+
+
+        for (x = 0 ; x < _w ; x++)
+        {
+            u16 grey = (s[0] * 14) + (s[2] * 37) + (s[1] * 77);
+            
+            grey >>= 7;
+
+            *d++ = (u8) grey;
+            s += 4;
+        }
+
+        source += _pitchSource;
+        dest   += _pitchDest;
+    }
+}
+
+
 void BITfrom888Tox888 (void* _source, u16 _pitchSource, u32* _lut, void* _dest, u16 _w, u16 _h, u16 _pitchDest)
 {
     u8* source = (u8*) _source;

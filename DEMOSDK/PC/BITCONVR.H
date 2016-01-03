@@ -23,7 +23,9 @@
 #include "DEMOSDK\BASTYPES.H"
 
 void BITfrom888Tox888       (void* _source, u16 _pitchSource, u32* _lut, void* _dest, u16 _w, u16 _h, u16 _pitchDest);
+void BITfromx888To8b        (void* _source, u16 _pitchSource, u32* _lut, void* _dest, u16 _w, u16 _h, u16 _pitchDest);
 void BITfrom8bTox888        (void* _source, u16 _pitchSource, u32* _lut, void* _dest, u16 _w, u16 _h, u16 _pitchDest);
+void BITfrom8bTo888         (void* _source, u16 _pitchSource, u32* _lut, void* _dest, u16 _w, u16 _h, u16 _pitchDest);
 void BITfrom8bTo4b          (void* _source, u16 _pitchSource, u32* _lut, void* _dest, u16 _w, u16 _h, u16 _pitchDest);
 
 void BITfrom4bTo8b          (void* _source, u16 _pitchSource, u32* _lut, void* _dest, u16 _w, u16 _h, u16 _pitchDest);

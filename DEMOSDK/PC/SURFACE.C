@@ -213,6 +213,9 @@ void BITinit (void)
 
         /* ----- source ------------ dest  -------- */        
         convert [BITformat_888]       [BITformat_x888]      .func  = BITfrom888Tox888;
+        convert [BITformat_x888]      [BITformat_8bits]     .func  = BITfromx888To8b;
+
+        convert [BITformat_8bits]     [BITformat_888]       .func =  BITfrom8bTo888;
         convert [BITformat_8bits]     [BITformat_x888]      .func  = BITfrom8bTox888;
         convert [BITformat_8bits]     [BITformat_4bits]     .func  = BITfrom8bTo4b;
 

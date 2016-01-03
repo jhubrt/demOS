@@ -139,7 +139,7 @@ int main(int argc, char** argv)
 #       else
 		u8*   corebuffer    = (u8*) malloc( EMULbufferSize(coresize + size) );
 #       endif
-		void* buffer        = EMULalignBuffer (corebuffer + coresize);
+		u8* buffer          = (u8*) EMULalignBuffer (corebuffer + coresize);
         u8*   preloadbuffer = NULL;
 
 		ASSERT(corebuffer != NULL);
@@ -190,7 +190,7 @@ int main(int argc, char** argv)
         if ( sys.has2Drives == false )
         {
 #           if defined(DEMOS_OPTIMIZED) || defined(DEMOS_USES_BOOTSECTOR)
-            preloadbuffer = buffer1 + size;
+            preloadbuffer = buffer + size;
 #           else
             preloadbuffer = malloc( EMULbufferSize(preloadsize) );
 #           endif

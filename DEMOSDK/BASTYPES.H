@@ -145,10 +145,12 @@ STRUCT(MEMallocator)
 #	    define ASSERT(A)
 #	    define ASSERT_EARLY(A,COLOR1,COLOR2)
 #   endif
+#	define ASSERT_ST(A) ASSERT(A)
 #else
 #   define _CRT_SECURE_NO_WARNINGS
 #   define ASSERT(A) assert(A)
 #	define ASSERT_EARLY(A,COLOR1,COLOR2) assert(A)
+#	define ASSERT_ST(A) if (!(A)) {}        /* just check compilation */
 #endif
 
 #endif

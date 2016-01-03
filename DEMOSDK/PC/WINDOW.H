@@ -22,7 +22,7 @@
     provides a very simple display window implementation for PC applications
 */
 
-#ifndef WINWOW_H
+#ifndef WINDOW_H
 #define WINDOW_H
 
 #ifndef __TOS__

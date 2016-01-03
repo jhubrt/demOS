@@ -339,10 +339,16 @@ static void ST2PCLut (u16* _STlut, u32* _PClut)
 	}
 }
 
+extern "C" void EMULwait (u32 _ms)
+{
+    Sleep(_ms);
+}
+
 extern "C" void EMULrender ()
 {
-	u32 i = 0;
+	u32   i = 0;
     void* adr = (void*) SYSreadVideoBase();
+	u16   steaddpixels = 0;
 
 
 	if ( WINisKeyHit( g_miniEmul.w ) )
@@ -361,6 +367,11 @@ extern "C" void EMULrender ()
 
     ST2PCLut(HW_COLOR_LUT, g_miniEmul.imagelut);
 
+	if ((*HW_VIDEO_PIXOFFSET != 0) && (*HW_VIDEO_PIXOFFSET_HIDDEN == 0))
+	{
+		steaddpixels = 16;
+	}
+
     switch (*HW_VIDEO_MODE)
     {
     case HW_VIDEO_MODE_1P:
@@ -370,7 +381,7 @@ extern "C" void EMULrender ()
         BITfromChunk2PTo8b (adr, 160, NULL, g_miniEmul.image, 640, 200, 640);
         break;
     case HW_VIDEO_MODE_4P:
-        BITfromChunk4PTo8b (adr, 160, NULL, g_miniEmul.image, 320, 200, 320);
+    	BITfromChunk4PTo8b (adr, 160 + (steaddpixels >> 1), NULL, g_miniEmul.image, 320 + steaddpixels, 200, 640);
         break;
     }
 
@@ -439,12 +450,19 @@ extern "C" void EMULblit (void)
 
             if ((x != 1) || (nfsr == 0))
             {
-                w2 = *s;
-                w2 = PCENDIANSWAP16(w2);
+                if (((*HW_BLITTER_HOP) & HW_BLITTER_HOP_SOURCE) != 0)
+                {
+                    w2 = *s;
+                    w2 = PCENDIANSWAP16(w2);
+                }
             }
 
             switch (*HW_BLITTER_HOP)
             {
+            case HW_BLITTER_HOP_BIT1:
+                sw = 0xFFFF;
+                break;
+
             case HW_BLITTER_HOP_HTONE:
                 sw = HW_BLITTER_HTONE[htone++ & 15];
                 sw = PCENDIANSWAP16(sw);
@@ -530,4 +548,89 @@ extern "C" void EMULblit (void)
 
     *HW_BLITTER_ADDR_SOURCE = (u32) s;
     *HW_BLITTER_ADDR_DEST   = (u32) d;
+}
+
+// 68k port helpers
+
+extern "C" u8* EMUL_B_I (EMULregister* _reg)
+{
+    u8* adr = (u8*) _reg->l;
+    _reg->l++;
+
+    return adr;
+}
+
+
+extern "C" u16* EMUL_W_I (EMULregister* _reg)
+{
+    u16* adr = (u16*) _reg->l;
+    _reg->l += 2;
+
+    return adr;
+}
+
+extern "C" u32* EMUL_L_I (EMULregister* _reg)
+{
+    u32* adr = (u32*) _reg->l;
+    _reg->l += 4;
+
+    return adr;
+}
+
+extern "C" void EMUL_ROR_W (EMULregister* _reg, u8 _shift)
+{
+    if (_shift > 0)
+    {
+	    u16 bits = _reg->w;
+	
+        _shift &= 15;
+
+        bits <<= 16 - _shift;
+
+	    _reg->w >>= _shift;	
+    	_reg->w |= bits;
+    }
+}
+
+extern "C" void EMUL_ROL_L (EMULregister* _reg, u8 _shift)
+{
+    if (_shift > 0)
+    {
+    	u32 bits = _reg->l;
+	
+        _shift &= 31;
+
+        bits >>= 32 - _shift;
+       
+	    _reg->l <<= _shift;	
+	    _reg->l |= bits;
+    }
+}
+
+extern "C" void EMUL_LSL_L (EMULregister* _reg, u8 _shift)
+{
+    if (_shift >= 32)
+    {
+        _reg->l = 0;
+    }
+    else
+    {
+        _reg->l <<= _shift;
+    }
+}
+
+extern "C" void EMUL_SUB_B (EMULregister* _source, EMULregister* _dest, EMUL68k* _p)
+{
+	u16 source = _source->b;
+	u16 dest   = _dest->b;
+	
+	dest -= source;
+	
+	_dest->b = (u8) dest;
+	_p->carry = (dest & 0x100) != 0;
+}
+
+extern "C" bool EMUL_BTST (u32 _data, u8 _bit)
+{
+    return (_data & (1 << _bit)) != 0;
 }
