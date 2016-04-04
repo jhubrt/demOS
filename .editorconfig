@@ -1,0 +1,5 @@
+root = true
+
+# Tab 4 on every file
+[*]
+indent_size = 4
