@@ -136,9 +136,9 @@ void IntroActivity	(FSM* _fsm)
 
     if ( SYSkbHit )
     {
-        bool pressed  = (sys.key & HW_KEYBOARD_KEYRELEASE) == 0;
-        u8   scancode = sys.key & ~(HW_KEYBOARD_KEYRELEASE);
-
+        bool         pressed  = (sys.key & HW_KEYBOARD_KEYRELEASE) == 0;
+        u8           scancode = sys.key & ~(HW_KEYBOARD_KEYRELEASE);
+        SNDsynVoice* voice    = &synth.voices[g_screens.intro->channel];
 
         switch (scancode)
         {
@@ -154,7 +154,6 @@ void IntroActivity	(FSM* _fsm)
         case HW_KEY_P:
         case HW_KEY_BRACKET_LEFT:
         case HW_KEY_BRACKET_RIGHT:
-
             if ( pressed )
             {
                 g_screens.intro->keyb[g_screens.intro->channel] = scancode - HW_KEY_Q + 1;
@@ -167,21 +166,59 @@ void IntroActivity	(FSM* _fsm)
                 }
             }
             break;
+
+        case HW_KEY_S:
+        case HW_KEY_D:					
+        case HW_KEY_F:					
+        case HW_KEY_G:					
+        case HW_KEY_H:					
+        case HW_KEY_J:					
+        case HW_KEY_K:					
+        case HW_KEY_L:
+        case HW_KEY_SEMICOLON:
+            if (scancode == HW_KEY_S)
+            {
+                voice->frame.mask = NULL;
+            }
+            else
+            {
+                voice->frame.mask = &mask[scancode - HW_KEY_D][0];
+            }
+            break;
+
+        case HW_KEY_Z:
+        case HW_KEY_X:
+        case HW_KEY_C:
+        case HW_KEY_V:
+        case HW_KEY_B:
+        case HW_KEY_N:
+        case HW_KEY_M:
+
+            if (voice->frame.lastSound != NULL)
+            {
+                SNDsynSound* sound = voice->frame.lastSound;
+                u8 keyindex = scancode - HW_KEY_Z;
+
+                keyindex %= sound->nbsustainindexes; 
+                sound->sampleindexes[ sound->sustainindex ] = sound->sustainindexes[keyindex];
+            }
+            break;
+
         }
 
         switch (sys.key)
         {
-        case HW_KEY_NUMPAD_MINUS:
-            if ( synth.voices[g_screens.intro->channel].frame.transpose > 0 )
+        case HW_KEY_NUMPAD_PLUS:
+            if ( voice->frame.transpose > 0 )
             {
-                synth.voices[g_screens.intro->channel].frame.transpose--;
+                voice->frame.transpose--;
             }
             break;
 
-        case HW_KEY_NUMPAD_PLUS:
-            if ( synth.voices[g_screens.intro->channel].frame.transpose < 4 )
+        case HW_KEY_NUMPAD_MINUS:
+            if ( voice->frame.transpose < 4 )
             {
-                synth.voices[g_screens.intro->channel].frame.transpose++;
+                voice->frame.transpose++;
             }
             break;
 
@@ -190,34 +227,16 @@ void IntroActivity	(FSM* _fsm)
             break;
 
         case HW_KEY_LEFT:
-            if ( synth.voices[g_screens.intro->channel].frame.volume > 0 )
+            if ( voice->frame.volume > 0 )
             {
-                synth.voices[g_screens.intro->channel].frame.volume--;
+                voice->frame.volume--;
             }
             break;
 
         case HW_KEY_RIGHT:
-            if ( synth.voices[g_screens.intro->channel].frame.volume < 7 )
+            if ( voice->frame.volume < 7 )
             {
-                synth.voices[g_screens.intro->channel].frame.volume++;
-            }
-            break;
-
-        case HW_KEY_UP:
-            g_screens.intro->mask[g_screens.intro->channel]--;
-
-            if (g_screens.intro->mask[g_screens.intro->channel] == -2)                     
-            {
-                g_screens.intro->mask[g_screens.intro->channel] = ARRAYSIZE(value) - 1;
-            }
-            break;
-
-        case HW_KEY_DOWN:
-            g_screens.intro->mask[g_screens.intro->channel]++;
-
-            if ( g_screens.intro->mask[g_screens.intro->channel] == ARRAYSIZE(value) )
-            {
-                g_screens.intro->mask[g_screens.intro->channel] = -1;
+                voice->frame.volume++;
             }
             break;
         }

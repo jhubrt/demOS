@@ -441,6 +441,27 @@ static s32 WINconvertMapping (WPARAM _wparam)
     case 'I':               key = HW_KEY_I;                 break;
     case 'O':               key = HW_KEY_O;                 break;
     case 'P':               key = HW_KEY_P;                 break;
+
+    case 'Q':               key = HW_KEY_A;                 break;
+    case 'S':               key = HW_KEY_S;                 break;
+    case 'D':               key = HW_KEY_D;                 break;
+    case 'F':               key = HW_KEY_F;                 break;
+    case 'G':               key = HW_KEY_G;                 break;
+    case 'H':               key = HW_KEY_H;                 break;
+    case 'J':               key = HW_KEY_J;                 break;
+    case 'K':               key = HW_KEY_K;                 break;
+    case 'L':               key = HW_KEY_L;                 break;
+    case 'M':               key = HW_KEY_SEMICOLON;         break;
+
+    case 'W':               key = HW_KEY_Z;                 break;
+    case 'X':               key = HW_KEY_X;                 break;
+    case 'C':               key = HW_KEY_C;                 break;
+    case 'V':               key = HW_KEY_V;                 break;
+    case 'B':               key = HW_KEY_B;                 break;
+    case 'N':               key = HW_KEY_N;                 break;
+    case '?':
+    case ',':               key = HW_KEY_M;                 break;
+
     case VK_OEM_6:          key = HW_KEY_BRACKET_LEFT;      break;
     case VK_OEM_1:          key = HW_KEY_BRACKET_RIGHT;     break;
     }

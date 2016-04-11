@@ -85,8 +85,12 @@ STRUCT(SNDsynSound)
     u8              transposerange;
 
     u8              sampleindexes[16];
-    u8              sustainindex;
     u8              nbsampleindexes;
+
+    u8              sustainindexes[16];
+    u8              nbsustainindexes;
+
+    u8              sustainindex;
 };
 
 typedef enum SNDsynNote_
@@ -177,7 +181,7 @@ STRUCT(SNDsynFrame)
     u8                  lastvolume;
 };
 
-
+/*
 STRUCT(SNDsynModulator)
 {
     u8  framescount;
@@ -201,7 +205,7 @@ STRUCT(SNDsynLFO)
     u8  nbframes;
 
     SNDsynModulator     modulators[SNDsynModulatorType_NBMODULATORS];
-};
+};*/
 
 STRUCT(SNDsynVoice)
 {
@@ -209,9 +213,9 @@ STRUCT(SNDsynVoice)
 
     u16             sampledisplay;
 
-    SNDsynLFO       lfo;
+/*    SNDsynLFO       lfo;
 
-/*    SNDsynSoundCtrl currentsound;
+    SNDsynSoundCtrl currentsound;
     u16             chaneloffset;
     u16*            copyMask;*/
 /*    s8              volume; */
@@ -244,6 +248,8 @@ void SNDsynPlayerShutdown     (RINGallocator* _allocator);
 void SNDsynSound_drawCurve    (SNDsynSample* _sample, void* _screen);
 void SNDsynSample_drawCurve   (void* _sample, u16 _nbsamples, u16 _incx, void* _screen);
 void SNDsynSample_drawXorPass (u16 _nbsamples, void* _screen);
+
+SNDsynSoundSet* SNDsynthLoad  (char* _filename);
 
 #ifdef DEMOS_DEBUG
 u16  SNDsynPlayerTrace       (void* _image, u16 _pitch, u16 _planePitch, u16 _y);

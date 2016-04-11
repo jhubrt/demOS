@@ -351,20 +351,6 @@ extern "C" void EMULrender ()
 	u16   steaddpixels = 0;
 
 
-	if ( WINisKeyHit( g_miniEmul.w ) )
-	{
-		u32 key = WINgetKey( g_miniEmul.w );
-
-		switch (key)
-		{
-		case ' ':
-			*HW_KEYBOARD_DATA = HW_KEY_SPACEBAR | HW_KEYBOARD_KEYRELEASE;
-			break;
-		case '1':
-			break;
-		}
-	}
-
     ST2PCLut(HW_COLOR_LUT, g_miniEmul.imagelut);
 
 	if ((*HW_VIDEO_PIXOFFSET != 0) && (*HW_VIDEO_PIXOFFSET_HIDDEN == 0))
