@@ -44,6 +44,9 @@
     <Filter Include="SPECIFIC\DISK">
       <UniqueIdentifier>{a07f1790-dda9-4715-9ddf-7dda3f588db2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="DEMOSDK\DATA">
+      <UniqueIdentifier>{4e28215c-ec60-49eb-8f40-b96777129a2d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\REBIRTH\SRC\POLYZOOM.C">
@@ -130,6 +133,9 @@
     <ClCompile Include="..\DEMOSDK\PC\EMUL.CPP">
       <Filter>PC</Filter>
     </ClCompile>
+    <ClCompile Include="..\DEMOSDK\DATA\DATA.C">
+      <Filter>DEMOSDK\DATA</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\REBIRTH\SRC\POLYZOOM.H">
@@ -213,6 +219,9 @@
     <ClInclude Include="..\DEMOSDK\PC\BITCONVR.H">
       <Filter>PC</Filter>
     </ClInclude>
+    <ClInclude Include="..\DEMOSDK\DATA\SYSTFNT.H">
+      <Filter>DEMOSDK\DATA</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\REBIRTH\SRC\POLYZOOM.S">
@@ -274,6 +283,9 @@
     </None>
     <None Include="..\REBIRTH\DISK2.LOG">
       <Filter>SPECIFIC\DISK</Filter>
+    </None>
+    <None Include="..\REBIRTH\SRC\BOOTSTRA.S">
+      <Filter>SPECIFIC\SRC</Filter>
     </None>
   </ItemGroup>
 </Project>

@@ -34,6 +34,8 @@
 #include "DEMOSDK\PC\BMPLOADER.H"
 #include "DEMOSDK\PC\BITCONVR.H"
 
+#include "TOOLS\BINARIZE\HELPERS.H"
+
 /* imported from MPP */
 int bmp2mpp(const char* filename, int _mode, int ste, int extra, int doubl, int optlevel, int randseed, const char* outfilename, int raw_palette);
 void mpp2bmp(const char* _mppfilename, int _mode, int ste, int extra, int doubl, const char* bmpfilename, int raw_palette);
@@ -252,6 +254,8 @@ static void binarizeSystemFont (WINdow* _window)
 
     free (buffer);
     buffer = NULL;
+
+    TOOLwriteStaticData("DATABIN\\SYSTFONT.BIN", "..\\DEMOSDK\\DATA\\SYSTFNT.H", "SYSfontdata");
 }
 
 

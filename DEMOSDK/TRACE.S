@@ -19,10 +19,15 @@
 	
 	opt 	o+
 
-	xdef SYSfontbitmap,SYSfastPrint
+	xdef SYSfontbitmap,SYSfontchars,SYSfastPrint
 
-	; void SYSfastPrint (char* _s, void* _screenprintadr, u16 _screenPitch, u16 _bitplanPitch, u32 _fontadr) 
-
+;-----------------------------------------------------------------------------------------
+; void SYSfastPrint (char* _s, void* _screenprintadr, u16 _screenPitch, u16 _bitplanPitch) 
+; a0 = string
+; a1 = screendisplay
+; d0 = screenpitch
+; d1 = bitplanepitch
+;-----------------------------------------------------------------------------------------
 SYSfastPrint:
 
 	movem.l	a2-a4/d4,-(sp)
@@ -57,8 +62,8 @@ SYSfastPrint:
 
 SYS_debugPrint_noautomod:
 
-	move.l	d2,a2
 	move.l	SYSfontbitmap(pc),a3
+	lea 	SYSfontchars(pc),a2
 
 	subq.w  #1,d1
 
@@ -132,4 +137,4 @@ SYS_debugPrint_end:
 
 
 SYSfontbitmap:	dc.l	0
-	
+SYSfontchars:   ds.w    256,0

@@ -23,6 +23,9 @@
     <Filter Include="SPECIFIC\PURE_C">
       <UniqueIdentifier>{5a78965b-b5bc-422e-a6e8-6c6175fa83e3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="DEMOSDK\DATA">
+      <UniqueIdentifier>{3b252f99-899e-4dbb-9086-bc30e5ec9fa2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\DEMOSDK\ALLOC.C">
@@ -84,6 +87,9 @@
     </ClCompile>
     <ClCompile Include="..\SYNSOUND\SRC\PLAYER.C">
       <Filter>SPECIFIC\SRC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\DATA\DATA.C">
+      <Filter>DEMOSDK\DATA</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -147,6 +153,9 @@
     <ClInclude Include="..\SYNSOUND\SRC\PLAYER.H">
       <Filter>SPECIFIC\SRC</Filter>
     </ClInclude>
+    <ClInclude Include="..\DEMOSDK\DATA\SYSTFNT.H">
+      <Filter>DEMOSDK\DATA</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\EXTERN\ARJDEP.S">
@@ -188,8 +197,8 @@
     <None Include="..\SYNSOUNB.PRJ">
       <Filter>SPECIFIC\PURE_C</Filter>
     </None>
-    <None Include="..\SYNSOUNO.PRJ">
-      <Filter>SPECIFIC\PURE_C</Filter>
+    <None Include="..\SYNSOUND\SYNTH.INI">
+      <Filter>SPECIFIC</Filter>
     </None>
   </ItemGroup>
 </Project>

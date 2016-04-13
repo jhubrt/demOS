@@ -21,73 +21,9 @@
 #include "DEMOSDK\TRACE.H"
 #include "DEMOSDK\HARDWARE.H"
 
-
-ASMIMPORT void* SYSfontbitmap;
-void SYSfastPrint(char* _s, void* _screenprintadr, u16 _screenPitch, u16 _bitplanPitch, u32 _fontadr) PCSTUB;
-
-static void tracLoadFont (LOADdisk* _disk, u16 _resourceId)
-{
-	u32 size = LOADresourceRoundedSize(_disk,_resourceId);
-	u16 c;
-
-	sys.font = (u8*) RINGallocatorAlloc ( &sys.coremem, size );
-	ASSERT(sys.font != NULL);
-
-	{
-		LOADrequest* request;
-        void* temp = (u8*) RINGallocatorAlloc ( &sys.mem, LOADresourceRoundedSize(_disk, _resourceId) );
-		ASSERT_EARLY (temp != NULL, 0x770, 0x0);
-
-		request = LOADrequestLoad (_disk, _resourceId, temp, LOAD_PRIORITY_INORDER);
-		LOADwaitRequestCompleted ( request );
-
-		STDmcpy (sys.font, temp, size);
-
-		RINGallocatorFree ( &sys.mem, temp );
-	}
-
-	STDmset (sys.fontChars, 0xFFFFFFFFUL, sizeof(sys.fontChars));
-
-	for (c = 0 ; c < 26 ; c++)
-	{
-		sys.fontChars['A' + c] = c * 8;
-		sys.fontChars['a' + c] = (c + 54) * 8;
-	} 
-
-	for (c = 0 ; c < 10 ; c++)
-	{
-		sys.fontChars['0' + c] = (c + 26) * 8;
-	} 
-
-	sys.fontChars['-'] = 36 * 8;
-	sys.fontChars['+'] = 37 * 8;
-	sys.fontChars['.'] = 38 * 8;
-	sys.fontChars['\''] = 39 * 8;
-	sys.fontChars['/'] = 40 * 8;
-	sys.fontChars['\\'] = 40 * 8;
-	sys.fontChars['*'] = 41 * 8;
-	sys.fontChars['<'] = 42 * 8;
-	sys.fontChars['>'] = 43 * 8;
-	sys.fontChars['='] = 44 * 8;
-	sys.fontChars[':'] = 45 * 8;
-	sys.fontChars[';'] = 46 * 8;
-	sys.fontChars[','] = 47 * 8;
-	sys.fontChars['?'] = 48 * 8;
-	sys.fontChars['!'] = 49 * 8;
-	sys.fontChars['['] = 50 * 8;
-	sys.fontChars[']'] = 51 * 8;
-	sys.fontChars['%'] = 52 * 8;
-	sys.fontChars['|'] = 53 * 8;
-	sys.fontChars[' '] = 80 * 8;
-
-	SYSfontbitmap = sys.font;
-}
-
-
 #ifdef DEMOS_DEBUG
 
 #define TRAC_NBMAXDISPLAYSERVICES 10
-#define TRAC_ASSERT_COLOR 0xA00
 
 STRUCT(trac_DisplayService)
 {
@@ -114,7 +50,7 @@ STRUCT(trac_DisplayParam)
 static trac_DisplayParam trac_displayParam;
 static trac_DisplayParam trac_displayParamLast;
 
-void TRACinit (LOADdisk* _disk, u16 _resourceId)
+void TRACinit (void)
 {
 	trac_displayParam.h			 = 0;
 	trac_displayParam.pitch		 = 160;
@@ -125,63 +61,8 @@ void TRACinit (LOADdisk* _disk, u16 _resourceId)
 	trac_displayParamLast.refresh = 0;
 
     STDmset (g_displayServices, 0, sizeof(g_displayServices));
-
-    tracLoadFont (_disk, _resourceId);
-}
-
-/* Static callbacks : declared into system interface but implemented at higher level into TRACE.C... */
-void SYSdebugPrint(void* _screen, u16 _screenPitch, u16 _bitplanPitchShift, u16 _col, u16 _y, char* _s)
-{
-    u16 bitplanPitch = 1 << _bitplanPitchShift;
-	u8* adr = (u8*)_screen;
-
-
-	if  (_y != 0)	
-	{
-		adr += _y * _screenPitch;
 	}
 
-	adr += (_col & 0xFFFE) << (_bitplanPitchShift - 1);
-	adr += _col & 1;
-
-#	ifdef __TOS__
-    SYSfastPrint (_s, adr, _screenPitch, bitplanPitch, (u32)sys.fontChars);
-#	else
-
-    bitplanPitch--;
-
-	while (*_s)
-	{
-		u8 c = *_s++;
-		u8* d = adr;
-
-			if ( sys.fontChars[c] != 0xFFFF )
-			{
-				u8* bitmap = sys.font + sys.fontChars[c];
-
-				*d = *bitmap++;	d += _screenPitch;
-				*d = *bitmap++;	d += _screenPitch;
-				*d = *bitmap++;	d += _screenPitch;
-				*d = *bitmap++;	d += _screenPitch;
-				*d = *bitmap++;	d += _screenPitch;
-				*d = *bitmap++;	d += _screenPitch;
-				*d = *bitmap++;	d += _screenPitch;
-				*d = *bitmap++;	d += _screenPitch;
-			}
-
-		_col++;
-
-		if (_col & 1)
-		{
-			adr++;
-		}
-		else
-		{
-			adr += bitplanPitch;
-		}
-	}
-#	endif
-}
 
 static void trac_clear (void* _image, trac_DisplayParam* _displayParam)
 {
@@ -377,77 +258,10 @@ void TRACunitTest (void* _screen)
 
 #else
 
-void TRACinit (LOADdisk* _disk, u16 _resourceId)
-{
-    tracLoadFont (_disk, _resourceId);
-}
+void TRACinit (void)
+{}
 
 #endif /* DEMOS_DEBUG */
 
 
-#ifdef DEMOS_ASSERT
 
-void SYSassert(char* _message, char* _file, int _line)
-{
-    static char line[16] = "line=0x       ";
-
-
-    STDcpuSetSR(0x2700);
-
-    _message[79] = 0;
-    _file   [79] = 0;
-
-    STDuxtoa (&line[7], _line, 6);
-
-    if ( sys.mem.buffer != NULL )
-    {
-        SYSwriteVideoBase((u32) sys.mem.buffer);
-        STDmset(sys.mem.buffer, 0, 32000);
-    }
-
-    *HW_COLOR_LUT = TRAC_ASSERT_COLOR;
-    *HW_VIDEO_OFFSET = 0;
-    *HW_VIDEO_PIXOFFSET = 0;
-    *HW_VIDEO_MODE = HW_VIDEO_MODE_2P;
-
-    STDmset (HW_COLOR_LUT + 1, 0xFFFFFFFFUL, 30);
-
-    if (sys.font != NULL)
-    {
-        SYSdebugPrint(sys.mem.buffer, 160, SYS_2P_BITSHIFT, 0,  0, "Assertion failed:");
-        SYSdebugPrint(sys.mem.buffer, 160, SYS_2P_BITSHIFT, 0,  8, _message);
-        SYSdebugPrint(sys.mem.buffer, 160, SYS_2P_BITSHIFT, 0, 16, _file);
-        SYSdebugPrint(sys.mem.buffer, 160, SYS_2P_BITSHIFT, 0, 24, line);
-        while(1);
-    }
-    else
-    {   /* early asserts management */
-        while(1)
-        {
-            (*HW_COLOR_LUT) = 0x700;  /* consider to use ASSERT_EARLY instead for a use specified color code */
-            (*HW_COLOR_LUT) = 0x600;
-        }
-    }
-}
-
-void SYSassertEarly(u16 _c1, u16 _c2)
-{
-    /* to display assertion before system initialization */
-    STDcpuSetSR(0x2700);
-
-    if ( sys.mem.buffer != NULL )
-    {
-        SYSwriteVideoBase((u32) sys.mem.buffer);
-        STDmset(sys.mem.buffer, 0, 32000);
-    }
-
-    STDmset (HW_COLOR_LUT + 1, 0xFFFFFFFFUL, 30);
-
-    while(1)
-    {
-        (*HW_COLOR_LUT) = _c1; 
-        (*HW_COLOR_LUT) = _c2;
-    }
-}
-
-#endif /* DEMOS_ASSERT */

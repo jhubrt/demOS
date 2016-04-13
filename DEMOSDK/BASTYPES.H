@@ -110,12 +110,14 @@ typedef u8 bool;
 #	define PCSTUB
 #	define PCSTUBRET
 #	define ASMIMPORT			extern
+#   define ASMIMPORTDEFAULT(A)
 #else
 #	define PCENDIANSWAP16(V)	STDswap16(V)
 #	define PCENDIANSWAP32(V)	STDswap32(V)
 #	define PCSTUB               {}
 #	define PCSTUBRET            { return 0; }
 #	define ASMIMPORT
+#   define ASMIMPORTDEFAULT(A)   = A
 #endif
 
 /* memory allocator interface */
@@ -138,18 +140,18 @@ STRUCT(MEMallocator)
 #ifdef __TOS__
 #   ifdef DEMOS_ASSERT
 	    void SYSassert(char* _message, char* _file, int _line);
-	    void SYSassertEarly(u16 _c1, u16 _c2);
+	    void SYSassertColor(u16 _c1, u16 _c2);
 #	    define ASSERT(A) if (!(A)) { SYSassert(#A, __FILE__, __LINE__); }
-#	    define ASSERT_EARLY(A,COLOR1,COLOR2) if (!(A)) { SYSassertEarly(COLOR1,COLOR2); }
+#	    define ASSERT_COLOR(A,COLOR1,COLOR2) if (!(A)) { SYSassertColor(COLOR1,COLOR2); }
 #	else
 #	    define ASSERT(A)
-#	    define ASSERT_EARLY(A,COLOR1,COLOR2)
+#	    define ASSERT_COLOR(A,COLOR1,COLOR2)
 #   endif
 #	define ASSERT_ST(A) ASSERT(A)
 #else
 #   define _CRT_SECURE_NO_WARNINGS
 #   define ASSERT(A) assert(A)
-#	define ASSERT_EARLY(A,COLOR1,COLOR2) assert(A)
+#	define ASSERT_COLOR(A,COLOR1,COLOR2) assert(A)
 #	define ASSERT_ST(A) if (!(A)) {}        /* just check compilation */
 #endif
 

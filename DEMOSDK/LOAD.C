@@ -111,8 +111,8 @@ void LOADinitFAT (u8 _drive, LOADdisk* _media, u16 _nbEntries, u16 _nbMetaData)
     _media->nbEntries  = PCENDIANSWAP16(temp[0]);
     _media->nbMetaData = PCENDIANSWAP16(temp[1]);
 
-    ASSERT_EARLY(_media->nbEntries == _nbEntries   , 0x700, 0x7);
-    ASSERT_EARLY(_media->nbMetaData == _nbMetaData , 0x700, 0x7);
+    ASSERT(_media->nbEntries == _nbEntries);
+    ASSERT(_media->nbMetaData == _nbMetaData);
 
     {
         u16 entriessize  = _media->nbEntries  * sizeof(LOADresource);
@@ -120,7 +120,7 @@ void LOADinitFAT (u8 _drive, LOADdisk* _media, u16 _nbEntries, u16 _nbMetaData)
         u16 preloadsize  = _media->nbEntries  * sizeof(void*);
         
         u8* FATbuffer = (u8*) RINGallocatorAlloc (&sys.coremem, entriessize + metadatasize + preloadsize);
-        ASSERT_EARLY (FATbuffer != NULL, 0x700, 0x0);
+        ASSERT(FATbuffer != NULL);
 
         _media->FAT      = (LOADresource*) FATbuffer;
         _media->metaData = (LOADmetadata*) (FATbuffer + entriessize);
@@ -312,7 +312,7 @@ void* LOADpreload (void* _framebuffer, u16 _pitch, u16 _planepitch, void* _prelo
                 STDuxtoa(&line[11], _nbResources - t - 1, 2);
                 STDuxtoa(&line[16], request->nbsectors, 4);
 
-                SYSfastPrint (line, _framebuffer, _pitch, _planepitch, (u32) sys.fontChars);
+                SYSfastPrint (line, _framebuffer, _pitch, _planepitch);
             }
 
             LOADfreeRequest (request);
@@ -402,7 +402,7 @@ LOADrequest*	g_requests[NBREQUESTS];
 LOADdisk*		g_media = NULL;
 
 /* wrong dependency => for test only */
-#include "REBIRTH\DISK2.H"
+/* #include "REBIRTH\DISK2.H" */
 
 void LOADunitTestInit (FSM* _fsm)
 {
@@ -411,7 +411,7 @@ void LOADunitTestInit (FSM* _fsm)
 
     IGNORE_PARAM(_fsm);
     
-    g_media = &RSC_DISK2;
+    /*g_media = &RSC_DISK2;*/
 
 	for (t = 0 ; t < NBREQUESTS ; t++)
 	{

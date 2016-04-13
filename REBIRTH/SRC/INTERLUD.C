@@ -337,7 +337,7 @@ static void InterludeInitMorphPointsFromText(u16* _points, void* _printbuffer, I
         u16 dy = _message->texts[t].y - ybase;
 
         ASSERT( dy < (INTERLUD_MAX_H - 8) );
-        SYSfastPrint (_message->texts[t].text, ((u8*)_printbuffer) + (dy * 40) + _message->texts[t].col, 40, 2, (u32)sys.fontChars);
+        SYSfastPrint (_message->texts[t].text, ((u8*)_printbuffer) + (dy * 40) + _message->texts[t].col, 40, 2);
     }
 
     {

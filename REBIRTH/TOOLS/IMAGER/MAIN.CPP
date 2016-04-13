@@ -20,10 +20,9 @@
 // Script your content here
 static char* g_disk1[] = 
 {
-    "..\\\\..\\\\OUTPUT\\\\BOOTSTRA.BOT", NULL,
+    "..\\\\..\\\\OUTPUT\\\\BOOTREBI.BOT", NULL,
     "BOOT\\\\BOOT.ARJ"     , NULL,
     "..\\\\..\\\\REBIRTHO.ARJ"   , NULL,
-	"SYSTFONT.BIN"		   , NULL,
 	"POLYZOOM\\\\CYBERVECTOR.BIN"	, 
 						  "POLYZOOM\\C.DAT;"
 						  "POLYZOOM\\Y_1.DAT;"

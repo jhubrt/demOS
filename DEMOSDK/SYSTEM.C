@@ -65,6 +65,116 @@ void SYSwriteVideoBase (u32 _val)
 
 #endif
 
+
+/*------------------------------------------------------------------
+    SYSTEM FONT
+--------------------------------------------------------------------*/
+ASMIMPORT u8*  SYSfontbitmap ASMIMPORTDEFAULT(NULL);
+ASMIMPORT u16  SYSfontchars[256];
+
+extern u8 SYSfontdata[];
+
+void SYSfastPrint(char* _s, void* _screenprintadr, u16 _screenPitch, u16 _bitplanPitch)
+#ifdef __TOS__
+;
+#else
+{
+    u8* adr = (u8*)_screenprintadr;
+
+    _bitplanPitch--;
+
+	while (*_s)
+	{
+		u8  c = *_s++;
+		u8* d = adr;
+
+        if ( SYSfontchars[c] != 0xFFFF )
+        {
+            u8* bitmap = SYSfontbitmap + SYSfontchars[c];
+
+            *d = *bitmap++;	d += _screenPitch;
+            *d = *bitmap++;	d += _screenPitch;
+            *d = *bitmap++;	d += _screenPitch;
+            *d = *bitmap++;	d += _screenPitch;
+            *d = *bitmap++;	d += _screenPitch;
+            *d = *bitmap++;	d += _screenPitch;
+            *d = *bitmap++;	d += _screenPitch;
+            *d = *bitmap++;	d += _screenPitch;
+        }
+
+		if (1 & (u32) adr)
+		{
+			adr += _bitplanPitch;
+		}
+		else
+		{
+			adr++;
+		}
+	}
+}
+#endif
+
+void SYSinitPrint(void)
+{
+	u16 c;
+
+	STDmset (SYSfontchars, 0xFFFFFFFFUL, sizeof(SYSfontchars));
+
+	for (c = 0 ; c < 26 ; c++)
+	{
+		SYSfontchars['A' + c] = c * 8;
+		SYSfontchars['a' + c] = (c + 54) * 8;
+	} 
+
+	for (c = 0 ; c < 10 ; c++)
+	{
+		SYSfontchars['0' + c] = (c + 26) * 8;
+	} 
+
+	SYSfontchars['-'] = 36 * 8;
+	SYSfontchars['+'] = 37 * 8;
+	SYSfontchars['.'] = 38 * 8;
+	SYSfontchars['\''] = 39 * 8;
+	SYSfontchars['/'] = 40 * 8;
+	SYSfontchars['\\'] = 40 * 8;
+	SYSfontchars['*'] = 41 * 8;
+	SYSfontchars['<'] = 42 * 8;
+	SYSfontchars['>'] = 43 * 8;
+	SYSfontchars['='] = 44 * 8;
+	SYSfontchars[':'] = 45 * 8;
+	SYSfontchars[';'] = 46 * 8;
+	SYSfontchars[','] = 47 * 8;
+	SYSfontchars['?'] = 48 * 8;
+	SYSfontchars['!'] = 49 * 8;
+	SYSfontchars['['] = 50 * 8;
+	SYSfontchars[']'] = 51 * 8;
+	SYSfontchars['%'] = 52 * 8;
+	SYSfontchars['|'] = 53 * 8;
+	SYSfontchars[' '] = 80 * 8;
+
+    SYSfontbitmap = SYSfontdata;
+}
+
+#ifdef DEMOS_DEBUG
+void SYSdebugPrint(void* _screen, u16 _screenPitch, u16 _bitplanPitchShift, u16 _col, u16 _y, char* _s)
+{
+    u16 bitplanPitch = 1 << _bitplanPitchShift;
+	u8* adr = (u8*)_screen;
+
+
+	if  (_y != 0)	
+	{
+		adr += _y * _screenPitch;
+	}
+
+	adr += (_col & 0xFFFE) << (_bitplanPitchShift - 1);
+	adr += _col & 1;
+
+    SYSfastPrint (_s, adr, _screenPitch, bitplanPitch);
+}
+#endif
+
+
 ASMIMPORT u32 SYSOSVBL;		/* this vector allow to re-root old vbl interrupt from DEMOS DK vbl (used in DEMOS_ALLOW_DEBUGGER mode only) */
 
 void  SYSvblinterrupt   (void)       PCSTUB;
@@ -85,49 +195,6 @@ static void SYSstdFree(void* _alloc, void* _adr)
 }
 #endif
 
-void SYScheckHWRequirements (void)
-{
-#	ifdef __TOS__
-    bool failed = false;
-
-    /* Check computer is a STe */
-    if ( (*HW_VECTOR_INIT_PC) != 0xE00030UL )
-    {
-        failed = true;
-    }
-
-    /* Check you have two drives */
-    if (( sys.has2Drives == false ) && ( sys.phytop < (2UL * 1024UL * 1024UL)) )
-    {
-        failed = true;
-    }
-
-    if ( failed )
-    {
-        u8* frameBuffer = (u8*) SYSreadVideoBase();    
-        
-        SYSvsync;
-
-        STDcpuSetSR(0x2700);
-
-        *HW_VIDEO_MODE = HW_VIDEO_MODE_4P;
-
-        STDmset(frameBuffer, 0, 32000);
-
-        STDmset (&HW_COLOR_LUT[1], 0xFFFFFFFFUL, 30);
-
-        SYSfastPrint ("Hardware requirements:" , frameBuffer, 160, 8, (u32) sys.fontChars);
-        SYSfastPrint ("STe - 1mb + 2 drives or at least 2mb", &frameBuffer[160 * 8], 160, 8, (u32) sys.fontChars);
-
-        while(1)
-        {
-            (*HW_COLOR_LUT) = 0x300;
-            (*HW_COLOR_LUT) = 0x400;
-        }
-    }
-#   endif
-}
-    
 STRUCT(SYScookie)
 {
     u32 id;
@@ -161,6 +228,9 @@ void SYSinit(SYSinitParam* _param)
 {
     STDmset (&sys, 0, sizeof(sys));
 
+	ASSERT(_param->adr != NULL);
+	RINGallocatorInit ( &sys.mem, _param->adr, _param->size );
+
     {
 #   ifdef DEMOS_USES_BOOTSECTOR
         u32* emudetect = (u32*) 0x600;
@@ -191,7 +261,7 @@ void SYSinit(SYSinitParam* _param)
         u32 machineType = 0;
         u8  id[4] = {'_','M','C','H'};
         bool cookieFound = SYSgetCookie( *(u32*)id, &machineType );
-        ASSERT_EARLY(cookieFound,0x70,0x777);
+        ASSERT(cookieFound);
 
         sys.isMegaSTe = machineType == 0x10010UL;
         if ( sys.isMegaSTe )
@@ -206,10 +276,8 @@ void SYSinit(SYSinitParam* _param)
 
 	sys.bakUSP = STDgetUSP();
 
-	ASSERT(_param->adr	   != NULL);
 	ASSERT(_param->coreAdr != NULL);
 
-	RINGallocatorInit ( &sys.mem	 , _param->adr	  , _param->size );
 	RINGallocatorInit ( &sys.coremem, _param->coreAdr, _param->coreSize );
 
 	sys.allocatorMem.alloc = (MEMallocFunc) RINGallocatorAlloc;
@@ -321,6 +389,81 @@ void SYSkbReset(void)
     SYSemptyKb();
 }
 
+#ifdef DEMOS_ASSERT
+
+#define SYS_ASSERT_COLOR 0xA00
+
+void SYSassert(char* _message, char* _file, int _line)
+{
+    static char line[16] = "line=0x       ";
+#   ifdef __TOS__
+    u8 buffer[1];
+#   else
+    u8 buffer[40000];
+#   endif
+
+
+    STDcpuSetSR(0x2700);
+
+    _message[79] = 0;
+    _file   [79] = 0;
+
+    STDuxtoa (&line[7], _line, 6);
+
+    if ( sys.mem.buffer == NULL )
+    {
+        sys.mem.buffer = buffer + 4096;
+    }
+
+        SYSwriteVideoBase((u32) sys.mem.buffer);
+        STDmset(sys.mem.buffer, 0, 32000);
+
+    *HW_COLOR_LUT = SYS_ASSERT_COLOR;
+    *HW_VIDEO_OFFSET = 0;
+    *HW_VIDEO_PIXOFFSET = 0;
+    *HW_VIDEO_MODE = HW_VIDEO_MODE_2P;
+
+    STDmset (HW_COLOR_LUT + 1, 0xFFFFFFFFUL, 30);
+
+    if (SYSfontbitmap != NULL)
+    {
+        SYSdebugPrint(sys.mem.buffer, 160, SYS_2P_BITSHIFT, 0,  0, "Assertion failed:");
+        SYSdebugPrint(sys.mem.buffer, 160, SYS_2P_BITSHIFT, 0,  8, _message);
+        SYSdebugPrint(sys.mem.buffer, 160, SYS_2P_BITSHIFT, 0, 16, _file);
+        SYSdebugPrint(sys.mem.buffer, 160, SYS_2P_BITSHIFT, 0, 24, line);
+        while(1);
+    }
+    else
+    {   /* early asserts management */
+        while(1)
+        {
+            (*HW_COLOR_LUT) = 0x700;  /* consider to use ASSERT_COLOR instead for a use specified color code */
+            (*HW_COLOR_LUT) = 0x600;
+        }
+    }
+}
+
+void SYSassertColor(u16 _c1, u16 _c2)
+{
+    /* to display assertion before system initialization */
+    STDcpuSetSR(0x2700);
+
+    if ( sys.mem.buffer != NULL )
+    {
+        SYSwriteVideoBase((u32) sys.mem.buffer);
+        STDmset(sys.mem.buffer, 0, 32000);
+    }
+
+    STDmset (HW_COLOR_LUT + 1, 0xFFFFFFFFUL, 30);
+
+    while(1)
+    {
+        (*HW_COLOR_LUT) = _c1; 
+        (*HW_COLOR_LUT) = _c2;
+    }
+}
+
+#endif /* DEMOS_ASSERT */
 
 #ifdef DEMOS_DEBUG
 

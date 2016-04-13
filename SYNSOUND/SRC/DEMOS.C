@@ -136,9 +136,8 @@ int main(int argc, char** argv)
 {
     u8* base = (u8*) STDgetSP();
 
-	u32 coresize    = 270UL * 1024UL;
-	u32 size	    = 1024UL * 1024UL; /*768UL * 1024UL;*/
-    u32 preloadsize = 1024UL * 1024UL;
+	u32 coresize    = 64UL  * 1024UL;
+	u32 size	    = 512UL * 1024UL; /*768UL * 1024UL;*/
  
 
 	/*STD_unitTest();*/
@@ -154,7 +153,13 @@ int main(int argc, char** argv)
         u8*   corebuffer    = (u8*) EMULalignBuffer (corebuffer1);
 #       endif
 		void* buffer        = corebuffer + coresize;
-        u8*   preloadbuffer = NULL;
+
+
+#       ifndef DEMOS_USES_BOOTSECTOR
+		sys.bakGemdos32 = SYSgemdosSetMode(NULL);
+#       endif
+
+        SYSinitPrint ();
 
 		ASSERT(corebuffer != NULL);
         IGNORE_PARAM(base);
@@ -163,12 +168,13 @@ int main(int argc, char** argv)
 
 		EMULinit (corebuffer1);
 
-#       ifndef DEMOS_USES_BOOTSECTOR
-		sys.bakGemdos32 = SYSgemdosSetMode(NULL);
-#       endif
-    
 		FSMinit (&g_stateMachine	, states    , statesSize    , 0);
 		FSMinit (&g_stateMachineIdle, statesIdle, statesIdleSize, 0);
+
+        {
+            SNDsynSoundSet* soundSet = SNDsynthLoad ("SYNSOUND\\SYNTH.INI");
+            SNDtest (soundSet);
+        }
 
 		/* RingAllocator_unitTest(); */
 
@@ -185,11 +191,10 @@ int main(int argc, char** argv)
 
 			SYSinit ( &sysparam );
 			SNDsynPlayerInit (&sys.coremem, &sndparam);
-            LOADinit (&RSC_DISK1, RSC_DISK1_NBENTRIES, RSC_DISK1_NBMETADATA);
-			TRACinit (&RSC_DISK1, RSC_DISK1_SYSTFONT_BIN);
+			TRACinit ();
             SYScheckHWRequirements ();
 
-            SYSfastPrint(DEMOSbuildversion, (u8*)(SYSreadVideoBase()) + 160 * 192 + 152, 160, 4, (u32) sys.fontChars);
+            SYSfastPrint(DEMOSbuildversion, (u8*)(SYSreadVideoBase()) + 160 * 192 + 152, 160, 4);
 
 #           ifdef DEMOS_DEBUG
             registerTraceServices();
@@ -198,20 +203,10 @@ int main(int argc, char** argv)
 			/* BIT_unitTest(); */
 		}
 
-        if ( sys.has2Drives == false )
-        {
-#           if defined(DEMOS_OPTIMIZED) || defined(DEMOS_USES_BOOTSECTOR)
-            preloadbuffer = buffer1 + size;
-#           else
-            preloadbuffer = malloc( EMULbufferSize(preloadsize) );
-#           endif
-        }
+		ScreensInit ();		
 
-		ScreensInit (preloadbuffer, preloadsize);		
 		{
 			u16* color = HW_COLOR_LUT;
-
-			SYSvsync;
 
 			do
 			{
@@ -229,7 +224,10 @@ int main(int argc, char** argv)
 
 				if ( SYSkbHit )
 				{
+                    if ( sys.key != HW_KEY_S )  /* do not allow 60hz  switch */  
+                    {
 					TRACmanage(sys.key);
+                    }
                     SYSkbReset();
 				}
 
@@ -246,10 +244,6 @@ int main(int argc, char** argv)
 
 			SYSgemdosSetMode(sys.bakGemdos32);
 
-            if (preloadbuffer != NULL)
-            {
-                free(preloadbuffer);
-            }
 			free (corebuffer1);
 #			else
 			SYSreset ();

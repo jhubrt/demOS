@@ -89,6 +89,7 @@
     <ClCompile Include="..\EXTERN\MPP\MPP2BMP.C" />
     <ClCompile Include="..\EXTERN\MPP\PIXBUF.C" />
     <ClCompile Include="..\REBIRTH\TOOLS\BINARIZE\BINARIZE.C" />
+    <ClCompile Include="..\TOOLS\BINARIZE\HELPERS.C" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\REBIRTH\DATA\BOOT\BOOT.BMP" />

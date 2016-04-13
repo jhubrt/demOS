@@ -17,4 +17,8 @@
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="..\REBIRTH\DISK1.LOG" />
+    <None Include="..\REBIRTH\DISK2.LOG" />
+  </ItemGroup>
 </Project>

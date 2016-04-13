@@ -115,6 +115,7 @@
     <ClCompile Include="..\EXTERN\ARJDEP.C" />
     <ClCompile Include="..\SYNSOUND\SRC\PLAYER.C" />
     <ClCompile Include="..\SYNSOUND\SRC\SCREENS.C" />
+    <ClCompile Include="..\DEMOSDK\DATA\DATA.C" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\DEMOSDK\ALLOC.H" />
@@ -137,6 +138,7 @@
     <ClInclude Include="..\EXTERN\RELOCATE.H" />
     <ClInclude Include="..\SYNSOUND\SRC\PLAYER.H" />
     <ClInclude Include="..\SYNSOUND\SRC\SCREENS.H" />
+    <ClInclude Include="..\DEMOSDK\DATA\SYSTFNT.H" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\DEMOSDK\SYNTH.S" />
@@ -152,7 +154,7 @@
     <None Include="..\DEMOSDK\TRACE.S" />
     <None Include="..\EXTERN\ARJDEP.S" />
     <None Include="..\EXTERN\XSTARTUP.S" />
-    <None Include="..\SYNSOUNO.PRJ" />
+    <None Include="..\SYNSOUND\SYNTH.INI" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

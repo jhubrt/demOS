@@ -17,6 +17,10 @@
   <ItemGroup>
     <ClInclude Include="..\TOOLS\IMAGER\IMAGER.H" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="..\REBIRTH\DISK1.LOG" />
+    <None Include="..\REBIRTH\DISK2.LOG" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{C5A504F1-3F1B-45AC-9607-9FD9EAF7B700}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>

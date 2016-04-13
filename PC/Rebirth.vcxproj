@@ -129,6 +129,7 @@
       <PreprocessToFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</PreprocessToFile>
     </ClCompile>
     <ClCompile Include="..\REBIRTH\SRC\VISUALIZ.C" />
+    <ClCompile Include="..\DEMOSDK\DATA\DATA.C" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\DEMOSDK\ALLOC.H" />
@@ -158,6 +159,7 @@
     <ClInclude Include="..\REBIRTH\SRC\SLIDES.H" />
     <ClInclude Include="..\REBIRTH\SRC\SNDTRACK.H" />
     <ClInclude Include="..\REBIRTH\SRC\VISUALIZ.H" />
+    <ClInclude Include="..\DEMOSDK\DATA\SYSTFNT.H" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\REBIRTH.PRJ" />
@@ -176,6 +178,7 @@
     <None Include="..\REBIRTH\DISK1.LOG" />
     <None Include="..\REBIRTH\DISK2.LOG" />
     <None Include="..\REBIRTH\SRC\BOOTSEC2.S" />
+    <None Include="..\REBIRTH\SRC\BOOTSTRA.S" />
     <None Include="..\REBIRTH\SRC\FUGIT.S" />
     <None Include="..\REBIRTH\SRC\POLYZOOM.S" />
     <None Include="..\REBIRTH\SRC\SLIDES.S" />

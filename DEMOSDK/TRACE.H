@@ -32,9 +32,8 @@
 #define TRACE_H
 
 #include "DEMOSDK\BASTYPES.H"
-#include "DEMOSDK\LOAD.H"
 
-void TRACinit (LOADdisk* _disk, u16 _resourceId);
+void TRACinit (void);
 
 #ifdef DEMOS_DEBUG
     typedef u16 (*TRAC_DisplayCallback) (void* _image, u16 _pitch, u16 _planePitch, u16 _y);

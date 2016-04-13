@@ -397,14 +397,14 @@ void ScreensInit (void* _preload, u32 _preloadsize)
         }
 
         STDmset (diplayarea, 0, (200 - SCREEN_PRELOAD_H) * 160);
-        SYSfastPrint ("only 1 drive but extra memory...", diplayarea, 160, 4, (u32) sys.fontChars);
+        SYSfastPrint ("only 1 drive but extra memory...", diplayarea, 160, 4);
 
         current = LOADpreload (&diplayarea[160*10], 160, 4, _preload, _preloadsize, current, &RSC_DISK1, disk1Preload, ARRAYSIZE(disk1Preload));
 
         {
             bool goon = true;
 
-            SYSfastPrint ("insert disk 2 and press space...", &diplayarea[160*20], 160, 4, (u32) sys.fontChars);
+            SYSfastPrint ("insert disk 2 and press space...", &diplayarea[160*20], 160, 4);
 
             do 
             {
@@ -449,4 +449,47 @@ void ScreensInit (void* _preload, u32 _preloadsize)
 
         RINGallocatorFree(&sys.mem, screen);
     }
+}
+
+void SYScheckHWRequirements (void)
+{
+#	ifdef __TOS__
+    bool failed = false;
+
+    /* Check computer is a STe */
+    if ( (*HW_VECTOR_INIT_PC) != 0xE00030UL )
+    {
+        failed = true;
+    }
+
+    /* Check you have two drives */
+    if (( sys.has2Drives == false ) && ( sys.phytop < (2UL * 1024UL * 1024UL)) )
+    {
+        failed = true;
+    }
+
+    if ( failed )
+    {
+        u8* frameBuffer = (u8*) SYSreadVideoBase();    
+        
+        SYSvsync;
+
+        STDcpuSetSR(0x2700);
+
+        *HW_VIDEO_MODE = HW_VIDEO_MODE_4P;
+
+        STDmset(frameBuffer, 0, 32000);
+
+        STDmset (&HW_COLOR_LUT[1], 0xFFFFFFFFUL, 30);
+
+        SYSfastPrint ("Hardware requirements:" , frameBuffer, 160, 8);
+        SYSfastPrint ("STe - 1mb + 2 drives or at least 2mb", &frameBuffer[160 * 8], 160, 8);
+
+        while(1)
+        {
+            (*HW_COLOR_LUT) = 0x300;
+            (*HW_COLOR_LUT) = 0x400;
+        }
+    }
+#   endif
 }

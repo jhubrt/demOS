@@ -171,15 +171,12 @@ FSMstate states[] =
 	{NULL, doNothing, NULL},
 
     {NULL, IntroActivity, NULL},
-	{NULL, stepNext, NULL}
+	{NULL, doNothing, NULL}
 };
 
 FSMstate statesIdle[] =
 {
 	{NULL, SCRfade2black, NULL},
-    {NULL, SCRswitch50hz, NULL},
-    {NULL, SCRswitch4P, NULL},
-
     {NULL, IntroEntry, NULL},
     {NULL, IntroBacktask, NULL},
     {NULL, IntroExit, NULL}
@@ -197,7 +194,11 @@ void ScreenWaitMainDonothing (void)
 
 #define SCREEN_PRELOAD_H    160
 
-void ScreensInit (void* _preload, u32 _preloadsize)
+void ScreensInit (void)
 {
     STDmset (&g_screens, 0, sizeof(g_screens));
+}
+
+void SYScheckHWRequirements(void)
+{
 }

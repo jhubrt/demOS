@@ -75,7 +75,7 @@
 #include "REBIRTH\DISK1.H"
 #include "REBIRTH\DISK2.H"
 
-static char* DEMOSbuildversion = "rcA";
+static char* DEMOSbuildversion = "vB";
 
 static void DEMOSidleThread(void)
 {
@@ -142,6 +142,13 @@ int main(int argc, char** argv)
 		u8* buffer          = (u8*) EMULalignBuffer (corebuffer + coresize);
         u8*   preloadbuffer = NULL;
 
+
+#       ifndef DEMOS_USES_BOOTSECTOR
+		sys.bakGemdos32 = SYSgemdosSetMode(NULL);
+#       endif
+
+        SYSinitPrint ();
+
 		ASSERT(corebuffer != NULL);
         IGNORE_PARAM(base);
 
@@ -149,10 +156,6 @@ int main(int argc, char** argv)
 
 		EMULinit (corebuffer);
 
-#       ifndef DEMOS_USES_BOOTSECTOR
-		sys.bakGemdos32 = SYSgemdosSetMode(NULL);
-#       endif
-    
 		FSMinit (&g_stateMachine	, states    , statesSize    , 0);
 		FSMinit (&g_stateMachineIdle, statesIdle, statesIdleSize, 0);
 
@@ -175,10 +178,10 @@ int main(int argc, char** argv)
             {
                 LOADinitFAT (1, &RSC_DISK2, RSC_DISK2_NBENTRIES, RSC_DISK2_NBMETADATA);
             }
-			TRACinit (&RSC_DISK1, RSC_DISK1_SYSTFONT_BIN);
+			TRACinit ();
             SYScheckHWRequirements ();
 
-            SYSfastPrint(DEMOSbuildversion, (u8*)(SYSreadVideoBase()) + 160 * 192 + 152, 160, 4, (u32) sys.fontChars);
+            SYSfastPrint(DEMOSbuildversion, (u8*)(SYSreadVideoBase()) + 160 * 192 + 152, 160, 4);
 
 #           ifdef DEMOS_DEBUG
             registerTraceServices();
@@ -199,8 +202,6 @@ int main(int argc, char** argv)
 		ScreensInit (preloadbuffer, preloadsize);		
 		{
 			u16* color = HW_COLOR_LUT;
-
-			SYSvsync;
 
 			do
 			{

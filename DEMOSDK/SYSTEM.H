@@ -77,9 +77,6 @@ STRUCT(SYScore)
     u8*             idleThreadStackBase;
     u32             phytop;
 
-    u8*	            font;
-    u16	            fontChars[256];
-
 	MEMallocator		allocatorCoreMem;
 	MEMallocator		allocatorMem;
 
@@ -110,6 +107,7 @@ STRUCT(SYSinitParam)
 
 #endif
 
+void SYSinitPrint           (void);
 void SYSinit		        (SYSinitParam* _param);
 void SYSshutdown	        (void);
 void SYSvsync		        (void);
@@ -138,7 +136,7 @@ void SYSwriteVideoBase (u32 _val);
 #define SYSkbHit  (sys.lastKey != sys.key)
 void SYSkbReset(void);
 
-void SYSfastPrint(char* _s, void* _screenprintadr, u16 _screenPitch, u16 _bitplanPitch, u32 _fontadr);
+void SYSfastPrint(char* _s, void* _screenprintadr, u16 _screenPitch, u16 _bitplanPitch);
 
 #define SYS_1P_BITSHIFT     1
 #define SYS_2P_BITSHIFT     2

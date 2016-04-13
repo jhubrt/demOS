@@ -36,6 +36,12 @@
     <Filter Include="Resource Files\POLYZOOM">
       <UniqueIdentifier>{6a3515b8-48e1-4446-b423-b2ac648c7788}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\TOOLS">
+      <UniqueIdentifier>{03078201-bfa2-497f-a851-33add90f9f08}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\TOOLS\BINARIZE">
+      <UniqueIdentifier>{c8fad681-bce3-4c43-9946-4286ec8595d3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\REBIRTH\TOOLS\BINARIZE\BINARIZE.C">
@@ -70,6 +76,9 @@
     </ClCompile>
     <ClCompile Include="..\EXTERN\MPP\PIXBUF.C">
       <Filter>Source Files\EXTERN</Filter>
+    </ClCompile>
+    <ClCompile Include="..\TOOLS\BINARIZE\HELPERS.C">
+      <Filter>Source Files\TOOLS\BINARIZE</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
