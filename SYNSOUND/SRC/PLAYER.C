@@ -39,9 +39,6 @@ STRUCT(SynthSample)
     u16     freq;
 };
 
-void SNDtest (void);
-
-
 u16 value[8] = 
 {
     0xFFFF,
@@ -96,20 +93,20 @@ u16 mask[ARRAYSIZE(value)][16];
 
 void IntroEntry (FSM* _fsm)
 {
+    (*HW_VIDEO_MODE) = HW_VIDEO_MODE_2P;
+
     g_screens.intro = MEM_ALLOC_STRUCT( &sys.allocatorMem, Intro );
     DEFAULT_CONSTRUCT(g_screens.intro);
 
-    g_screens.intro->framebuffer = RINGallocatorAlloc ( &sys.mem, 64000 );
+    g_screens.intro->framebuffer = RINGallocatorAlloc ( &sys.mem, 64000UL );
     ASSERT (g_screens.intro->framebuffer != NULL);
-    STDmset (g_screens.intro->framebuffer, 0, 64000);
+    STDmset (g_screens.intro->framebuffer, 0, 64000UL);
     SYSwriteVideoBase ((u32)g_screens.intro->framebuffer);
 
     g_screens.intro->pcmcopy = (s8*) RINGallocatorAlloc ( &sys.mem, SND_FRAME_NBSAMPLES * 4);
     ASSERT (g_screens.intro->pcmcopy != NULL);
 
     STDmset (HW_COLOR_LUT+1, -1, 30);
-
-    SNDtest ();
 
     {
         s16 t, i;
@@ -256,11 +253,9 @@ void IntroBacktask (FSM* _fsm)
     SYSvsync;
     {
         u8 channel = g_screens.intro->channel;
-        static s16 masknum = 0;
 
         s8* backbuf  = g_screens.intro->pcmcopy;
         s8* frontbuf = g_screens.intro->pcmcopy;
-        s32 y = 0, k = 0;
 /*        u32 cursor = EMULgetPlayOffset ();*/
 /*        char temp [32]; */
         
@@ -303,6 +298,7 @@ void IntroBacktask (FSM* _fsm)
         /*{
             WINdow* w = EMULgetWindow ();
             WINgetMouse (w, NULL, &y, &k, NULL);
+            static s16 masknum = 0;
 
             if (k != 0)
             {

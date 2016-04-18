@@ -104,7 +104,7 @@ SNDsynPlayer synth;
 #define SND_SYN_ALLOC_MAIN(A)   malloc(A)
 #define SND_SYN_ALLOC_TEMP(A)   malloc(A)
 #define SND_SYN_FREE_TEMP(A)    free(A)
-#define SND_SYN_ALLOC_SAMPLE(A) RINGallocatorAlloc (&sys.mem, A)
+#define SND_SYN_ALLOC_SAMPLE(A) malloc (A)
 
 
 
@@ -115,6 +115,7 @@ static char* SNDsyndelims = "\n\r";
 SNDsynSoundSet* soundSet1 = NULL;
 SNDsynSoundSet* soundSet2 = NULL;
 
+/*
 SNDsynSampleConfig  configTest1Samples[3] = {40, 1, 40};
 SNDsynConfig        configTest1 = {220.0f, 2, ARRAYSIZE(configTest1Samples), configTest1Samples};
 
@@ -128,50 +129,7 @@ SNDsynConfig        configTest3 = {220.0f, 2, ARRAYSIZE(configTest3Samples), con
 
 SNDsynSampleConfig  configTest4Samples[1] = {2};
 SNDsynConfig        configTest4 = {220.0f, 2, ARRAYSIZE(configTest4Samples), configTest4Samples};
-
-
-static u8 volumestest[] =
-{
-    0,
-    1,
-    2,
-    1,
-    0
-};
-
-static u8 maskstest[] =
-{
-    0,
-    1,
-    2,
-    3,
-    4,
-    5,
-    6,
-    6,
-    5,
-    4,
-    3,
-    2,
-    1,
-    0,
-    0
-};
-
-static u8 wavestest[] = 
-{
-    1,
-    1,
-    2,
-    3,
-    3,
-    3,
-    3,
-    2,
-    1,
-    1
-};
-
+*/
 
 
 float SNDsynSound_allocatePeriods(SNDsynSound* _sound, u16 _sampleindex, float _fundamentalfreq, u16 _nbPeriods)
@@ -316,7 +274,7 @@ void SNDsynSound_dump (SNDsynSound* _sound, char* _filename)
 
 void SNDsynSound_allocateSound(SNDsynSound* _sound, u8 _nbSamples, u8 _transposerange)
 {
-    _sound->samples = (SNDsynSample*) RINGallocatorAlloc (&sys.mem, _nbSamples * sizeof(SNDsynSample));
+    _sound->samples = (SNDsynSample*) SND_SYN_ALLOC_MAIN (_nbSamples * sizeof(SNDsynSample));
     _sound->nbsamples = _nbSamples;
     _sound->transposerange = _transposerange;
 
@@ -1044,7 +1002,7 @@ void SNDsynSoundSet_generate(SNDsynSoundSet* _soundset, SNDsynConfig* _config, b
                
                 float error = SNDsynSound_allocatePeriods (sound, s, freq, sampleConfig->nbperiods);
 
-                printf ("%f\n", error);
+                printf ("%d%%\n", (s32)(error * 100.0f));
             }
 
             _generationCallback (sound);
@@ -1106,22 +1064,21 @@ static char* SNDsynNexttoken (char* _p)
 }
 
 
-void SNDsynTranspose (s8* _sourcesample, u32 _filesize, SNDsynSample* _sample)
+void SNDsynTranspose (s8* _sourcesample, s8* _dest, u16 _destlen, u32 sourceinc)
+#ifdef __TOS__
+;
+#else
 {
     u16 t;
-    u16 destlen = (u16) _sample->length;
     u32 acc = 0;
-    u32 sourceinc;
-    s8* dest = _sample->data;
         
     
-    ASSERT(_sample->length < 65536UL);
-
-    sourceinc = STDdivu(_filesize, destlen);
+/*    sourceinc = STDdivu(_filesize, _destlen);
     sourceinc <<= 16;
-    sourceinc |= STDdivu(_filesize << 16, destlen) & 0xFFFF;
+    div        = (u16) STDdivu(_filesize << 16, _destlen);
+    sourceinc |= div;*/
 
-    for (t = 0 ; t < destlen ; t++)
+    for (t = 0 ; t < _destlen ; t++)
     {
         u16 index = acc >> 16;
         u16 error = acc & 0xFFFF;
@@ -1138,18 +1095,41 @@ void SNDsynTranspose (s8* _sourcesample, u32 _filesize, SNDsynSample* _sample)
         
         if ( sample >= 0 )
         {
-            *dest++ = 0;
+            *_dest++ = 0;
         }
         else
         {
-            *dest++ = 0xFF;
+            *_dest++ = 0xFF;
         }
 
-        *dest++ = sample;
+        *_dest++ = sample;
 
         acc += sourceinc;
     }
 }
+#endif
+
+
+void SNDsynTestTranspose (s8* _sourcesample, u32 _filesize, SNDsynSample* _sample)
+{
+    u16 t, i = 0;
+    u16 destlen = (u16) _sample->length;
+    s8* dest = _sample->data;
+        
+    
+    ASSERT(_sample->length < 65536UL);
+
+    for (t = 0 ; t < destlen ; t++)
+    {
+        dest[t] = _sourcesample[i++];
+
+        if (i >= _filesize)
+        {
+            i = 0;
+        }
+    }
+}
+
 
 
 static u32 getFileSize (FILE* _file)
@@ -1210,11 +1190,15 @@ char* SNDsynSoundSet_load(SNDsynSoundSet* _soundset, char* _p)
         _p = SNDsynNexttoken (_p);
 
         {
+            u32 result;
             FILE* samplefile = fopen (_p, "rb");
+            ASSERT(samplefile != NULL);
             filesize = getFileSize(samplefile);
-            sourcesample = (s8*) SND_SYN_ALLOC_TEMP (filesize);
-            fread(sourcesample, 1, filesize, samplefile); 
+            sourcesample = (s8*) SND_SYN_ALLOC_TEMP (filesize+1);
+            result = fread(sourcesample, 1, filesize, samplefile); 
+            sourcesample[filesize] = sourcesample[0];
             fclose (samplefile);
+            ASSERT(result == filesize);
         }
 
         _p = SNDsynNexttoken (_p);
@@ -1230,12 +1214,16 @@ char* SNDsynSoundSet_load(SNDsynSoundSet* _soundset, char* _p)
             float error;
             
             error = SNDsynSound_allocatePeriods (sound, s, currentfreq, nbperiods);
-            printf ("semi tone %d error = %f\n", t, error);
-            
+            printf ("sampl %2d tone %2d error = %3ld%% [%d]\n", (u16) s, t, (s32)(error * 100.0f), (u16) sound->samples[s].length);
             SND_SYN_FREE_TEMP(sound->samples[s].tmpdata);
             sound->samples[s].tmpdata = NULL;
 
-            SNDsynTranspose (sourcesample, filesize, &(sound->samples[s]));
+            ASSERT(sound->samples[s].length < 65536UL);
+            {
+                u32 inc = (filesize << 16) / sound->samples[s].length;
+
+                SNDsynTranspose (sourcesample, sound->samples[s].data, (u16) sound->samples[s].length, inc);
+            }
 
             currentfreq *= FSEMITONE;
         }
@@ -1292,12 +1280,10 @@ SNDsynSoundSet* SNDsynthLoad (char* _filename)
     u16     nbsoundsets, t;
 
 
-    (*HW_VIDEO_MODE) = HW_VIDEO_MODE_2P;
-
     fseek (file, 0, SEEK_END);
     filesize = ftell(file);
     fseek (file, 0, SEEK_SET);
-    buffer = (char*) RINGallocatorAlloc (&sys.mem, filesize + 1);
+    buffer = (char*) SND_SYN_ALLOC_MAIN (filesize + 1);
     fread (buffer, 1, filesize, file);
     fclose (file);
     buffer[filesize] = 0;
@@ -1307,7 +1293,7 @@ SNDsynSoundSet* SNDsynthLoad (char* _filename)
     nbsoundsets = atoi(p);
     printf ("nb sound sets: %d\n", nbsoundsets);
 
-    soundSet = (SNDsynSoundSet*) RINGallocatorAlloc (&sys.mem, sizeof(SNDsynSoundSet) * nbsoundsets);
+    soundSet = (SNDsynSoundSet*) SND_SYN_ALLOC_MAIN (sizeof(SNDsynSoundSet) * nbsoundsets);
     
     for (t = 0 ; t < nbsoundsets ; t++)
     {
@@ -1331,16 +1317,19 @@ void SNDsynPlayerShutdown(RINGallocator* _allocator)
 #ifdef DEMOS_DEBUG
 u16 SNDsynPlayerTrace (void* _image, u16 _pitch, u16 _planePitch, u16 _y)
 {
+    IGNORE_PARAM(_image);
+    IGNORE_PARAM(_pitch);
+    IGNORE_PARAM(_planePitch);
+    IGNORE_PARAM(_y);
+
     return 8;
 }
 #endif
 
 
-void SNDtest (void)
+void SNDtest (SNDsynSoundSet* _soundSet)
 {
-    (*HW_VIDEO_MODE) = HW_VIDEO_MODE_2P;
-
-    soundSet1 = SNDsynthLoad ("SYNTH.INI");
+    soundSet1 = _soundSet;
     soundSet2 = soundSet1 + 1;
 }
 
@@ -1418,6 +1407,47 @@ void gentest4 (SNDsynSound* _sound)
 }
 
 
+static u8 volumestest[] =
+{
+    0,
+    1,
+    2,
+    1,
+    0
+};
+
+static u8 maskstest[] =
+{
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    6,
+    5,
+    4,
+    3,
+    2,
+    1,
+    0,
+    0
+};
+
+static u8 wavestest[] = 
+{
+    1,
+    1,
+    2,
+    3,
+    3,
+    3,
+    3,
+    2,
+    1,
+    1
+};
 
 
 void lfoTest (void)

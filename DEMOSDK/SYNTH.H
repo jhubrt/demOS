@@ -242,6 +242,7 @@ extern SNDsynPlayer synth;
 
 #endif
 
+SNDsynSoundSet* SNDsynthLoad  (char* _filename);
 void SNDsynUpdate             (u8 _keyb1, u8 _keyb2);
 void SNDsynPlayerInit         (RINGallocator* _allocator, SNDsynPlayerInitParam* _init);
 void SNDsynPlayerShutdown     (RINGallocator* _allocator);
@@ -250,6 +251,8 @@ void SNDsynSample_drawCurve   (void* _sample, u16 _nbsamples, u16 _incx, void* _
 void SNDsynSample_drawXorPass (u16 _nbsamples, void* _screen);
 
 SNDsynSoundSet* SNDsynthLoad  (char* _filename);
+
+void SNDtest (SNDsynSoundSet* _soundSet);
 
 #ifdef DEMOS_DEBUG
 u16  SNDsynPlayerTrace       (void* _image, u16 _pitch, u16 _planePitch, u16 _y);

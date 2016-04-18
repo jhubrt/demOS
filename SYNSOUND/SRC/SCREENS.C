@@ -176,6 +176,7 @@ FSMstate states[] =
 
 FSMstate statesIdle[] =
 {
+    {NULL, SCRswitch50hz, NULL},
 	{NULL, SCRfade2black, NULL},
     {NULL, IntroEntry, NULL},
     {NULL, IntroBacktask, NULL},
