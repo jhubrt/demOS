@@ -2,27 +2,27 @@
 ; SYNSOUND / DemOS - debug target > metafile build to speed up compilation
 ;-------------------------------------------------------------------------------
 
-D:\PROJECTS\DEMOS\SYNSOUND.PRG		; name of executable program
+SYNSOUND.PRG		; name of executable program
 
 .C [ -Y -P -K -C -M ]
 .L [ -G -L -Y ]
 .S [ -Y ]
 =									; list of modules follows...
 
-D:\CODE\PURE_C\LIB\PCSTART.O        ; standard startup code
+PCSTART.O        ; standard startup code
 
-D:\PROJECTS\DEMOS\OUTPUT\ARJDEP.O
-D:\PROJECTS\DEMOS\OUTPUT\RELOCATE.O
+OUTPUT\ARJDEP.O
+OUTPUT\RELOCATE.O
 
-D:\PROJECTS\DEMOS\OUTPUT\BITMAP.O
-D:\PROJECTS\DEMOS\OUTPUT\SYNTH.O
-D:\PROJECTS\DEMOS\OUTPUT\LOAD.O
-D:\PROJECTS\DEMOS\OUTPUT\RASTERS.O
-D:\PROJECTS\DEMOS\OUTPUT\STANDARD.O
-D:\PROJECTS\DEMOS\OUTPUT\SYSTEM.O
-D:\PROJECTS\DEMOS\OUTPUT\TRACE.O
+OUTPUT\BITMAP.O
+OUTPUT\SYNTH.O
+OUTPUT\LOAD.O
+OUTPUT\RASTERS.O
+OUTPUT\STANDARD.O
+OUTPUT\SYSTEM.O
+OUTPUT\TRACE.O
 
-D:\PROJECTS\DEMOS\SYNSOUND\BUILD.C
+SYNSOUND\BUILD.C
 
 PCSTDLIB.LIB        ; standard library
 PCFLTLIB.LIB        ; floating point library
