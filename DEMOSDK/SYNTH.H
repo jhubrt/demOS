@@ -41,9 +41,17 @@
 #include "DEMOSDK\ALLOC.H"
 #include "DEMOSDK\LOAD.H"
 
-#define SND_DMA_FREQ            50000UL
 #define SND_SCREEN_FREQ         50UL
+
+#define SND_FREQ 1
+
+#if SND_FREQ == 1
+#define SND_DMA_FREQ            50000UL
 #define SND_FRAME_NBSAMPLES     1000 /*(SND_DMA_FREQ / SND_SCREEN_FREQ)*/
+#else
+#   define SND_DMA_FREQ            25000UL
+#   define SND_FRAME_NBSAMPLES     500 /*(SND_DMA_FREQ / SND_SCREEN_FREQ)*/
+#endif
 
 extern volatile u8		SNDleftVolume;
 extern volatile u8		SNDrightVolume;

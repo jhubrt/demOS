@@ -322,13 +322,19 @@ void IntroBacktask (FSM* _fsm)
 
         {
             u16 off = synth.voices[channel].sampledisplay;
+			u16 nbsamples = SND_FRAME_NBSAMPLES;
 
-            if (off > (SND_FRAME_NBSAMPLES - 640))
+			if (nbsamples > 640)
+			{
+				nbsamples = 640;
+			}
+			
+            if (off > (SND_FRAME_NBSAMPLES - nbsamples))
             {
                 off = 0;
             }
 
-            SNDsynSample_drawCurve (backbuf + off, 640, 2, (u8*)backframebuffer);
+            SNDsynSample_drawCurve (backbuf + off, nbsamples, 2, (u8*)backframebuffer);
         }
 
         /*SNDsynSample_drawCurve ( g_screens.intro->pcmcopy, 640, 8, (u8*)backframebuffer);*/

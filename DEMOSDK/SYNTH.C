@@ -536,7 +536,11 @@ void SNDsynPlayerInit(RINGallocator* _allocator, SNDsynPlayerInitParam* _init)
     /**HW_MICROWIRE_DATA = HW_MICROWIRE_MIXER_YM;
     while (*HW_MICROWIRE_MASK != HW_MICROWIRE_MASK_SOUND);*/
 
+#   if SND_FREQ == 1
     *HW_DMASOUND_MODE = HW_DMASOUND_MODE_50066HZ | HW_DMASOUND_MODE_STEREO;
+#   else
+    *HW_DMASOUND_MODE = HW_DMASOUND_MODE_25033HZ | HW_DMASOUND_MODE_STEREO;
+#   endif
 
     EMULcreateSoundBuffer (SND_FRAME_NBSAMPLES * 2, true);
 }
