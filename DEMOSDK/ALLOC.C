@@ -1,18 +1,23 @@
 /*------------------------------------------------------------------------------  -----------------
-  Copyright J.Hubert 2015
+  The MIT License (MIT)
 
-  This file is part of demOS
+  Copyright (c) 2015-2016 J.Hubert
 
-  demOS is free software: you can redistribute it and/or modify it under the terms of 
-  the GNU Lesser General Public License as published by the Free Software Foundation, 
-  either version 3 of the License, or (at your option) any later version.
+  Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
+  and associated documentation files (the "Software"), 
+  to deal in the Software without restriction, including without limitation the rights to use, 
+  copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, 
+  and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
-  demOS is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY ;
-  without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-  See the GNU Lesser General Public License for more details.
+  The above copyright notice and this permission notice shall be included in all copies 
+  or substantial portions of the Software.
 
-  You should have received a copy of the GNU Lesser General Public License along with demOS.  
-  If not, see <http://www.gnu.org/licenses/>.
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, 
+  INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
+  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. 
+  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, 
+  DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
+  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ------------------------------------------------------------------------------------------------- */
 
 #include "DEMOSDK\ALLOC.H"
@@ -231,6 +236,7 @@ void RINGallocatorDump (RINGallocator* _m, FILE* _output)
     char line[78];
     s32  dsize = ARRAYSIZE(line) - 1;
     char occupied = 'X';
+    u32 totalallocated = 0;
 
 
     STDmset(line, 0x20202020UL, dsize);
@@ -268,11 +274,18 @@ void RINGallocatorDump (RINGallocator* _m, FILE* _output)
                 size = ((u32)cellend) - ((u32)cell);
             }
 
+            if (ALLOCCELL_isFree(cell))
+            {
+                nbfreecells ++;
+            }
+            else
+            {
+                totalallocated += size;
+            }
+
             size -= sizeof(AllocCell);
 
             nbcells++;
-
-            nbfreecells += ALLOCCELL_isFree(cell);
 
             fprintf (_output, "%-8p %s prev: %-8p next: %-8p user: %p rsiz: %ld %c\n", 
                 cell, 
@@ -314,7 +327,7 @@ void RINGallocatorDump (RINGallocator* _m, FILE* _output)
         fprintf (_output, "%s\n", line);
     }
 
-	fprintf (_output, "cells: %lu - allocs: %lu - free: %lu\n\n", nbcells, nbcells - nbfreecells, nbfreecells);
+	fprintf (_output, "cells: %lu - allocs: %lu - freecells: %lu - total allocated bytes: %lu\n\n", nbcells, nbcells - nbfreecells, nbfreecells, totalallocated);
 
     RINGallocatorCheck(_m);    
 }
