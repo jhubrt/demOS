@@ -31,6 +31,9 @@
     <ClCompile Include="..\TOOLS\NEOVIEWER\NEOVIEWER.C">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\DEMOSDK\PC\BMPLOADER.C">
+      <Filter>Source Files\DEMOSDK</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\DEMOSDK\HARDWARE.H">
@@ -49,6 +52,9 @@
       <Filter>Source Files\DEMOSDK</Filter>
     </ClInclude>
     <ClInclude Include="..\DEMOSDK\COLORS.H">
+      <Filter>Source Files\DEMOSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DEMOSDK\PC\BMPLOADER.H">
       <Filter>Source Files\DEMOSDK</Filter>
     </ClInclude>
   </ItemGroup>

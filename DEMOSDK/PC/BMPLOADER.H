@@ -39,5 +39,6 @@ BITloadResult BITbmpLoadLUT (BITlut* _lut, MEMallocator* _allocator, char* _file
 bool          BITbmpSave    (BITsurface* _surface, char* _filename);
 
 BITloadResult BITneoLoad    (BITsurface* _surface, MEMallocator* _allocator, char* _filename);
+BITloadResult BITdegasLoad  (BITsurface* _surface, MEMallocator* _allocator, char* _filename);
 
 #endif

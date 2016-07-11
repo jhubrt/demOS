@@ -81,6 +81,7 @@
     <ClCompile Include="..\DEMOSDK\COLORS.C" />
     <ClCompile Include="..\DEMOSDK\HARDWARE.C" />
     <ClCompile Include="..\DEMOSDK\PC\BITCONVR.C" />
+    <ClCompile Include="..\DEMOSDK\PC\BMPLOADER.C" />
     <ClCompile Include="..\DEMOSDK\PC\SURFACE.C" />
     <ClCompile Include="..\DEMOSDK\PC\WINDOW.C" />
     <ClCompile Include="..\DEMOSDK\STANDARD.C" />
@@ -90,6 +91,7 @@
     <ClInclude Include="..\DEMOSDK\COLORS.H" />
     <ClInclude Include="..\DEMOSDK\HARDWARE.H" />
     <ClInclude Include="..\DEMOSDK\PC\BITCONVR.H" />
+    <ClInclude Include="..\DEMOSDK\PC\BMPLOADER.H" />
     <ClInclude Include="..\DEMOSDK\PC\SURFACE.H" />
     <ClInclude Include="..\DEMOSDK\PC\WINDOW.H" />
     <ClInclude Include="..\DEMOSDK\STANDARD.H" />

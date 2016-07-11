@@ -20,11 +20,15 @@
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ------------------------------------------------------------------------------------------------- */
 
+#define _CRT_SECURE_NO_WARNINGS
+#include <conio.h>
+
 #include "DEMOSDK\BASTYPES.H"
 #include "DEMOSDK\STANDARD.H"
 
 #include "DEMOSDK\PC\WINDOW.H"
 #include "DEMOSDK\PC\SURFACE.H"
+#include "DEMOSDK\PC\BMPLOADER.H"
 
 
 static void* stdAlloc(void* _alloc, u32 _size)
@@ -47,31 +51,37 @@ int main(int argc, char** argv)
 	if ( argc == 2 )
 	{
 		WINinitParam init;
-		void* buffer  = malloc(32000);
-		u32*  image   = (u32*) malloc(640*480*4);
-		u16 lut[16];
-		char ext[16];
+		char drive[256];
+		char subdir[256];
+		char filename[256];
+		char ext[256];
+        char title[512];
+        BITsurface surface, surface2;
+        BITloadResult result;
 
-		FILE* file = fopen (argv[1], "rb");
 
-		_splitpath(argv[1], NULL, NULL, NULL, ext);
+        BITsurfaceConstruct(&surface);
+        BITsurfaceConstruct(&surface2);
+
+        _splitpath(argv[1], drive, subdir, filename, ext);
 
 		if (_strcmpi(ext, ".NEO") == 0)
 		{
-			fseek (file, 4, SEEK_SET);
-			fread (lut, 32, 1, file);
-
-			fseek (file, 128, SEEK_SET);
+            result = BITneoLoad(&surface, &stdAllocator, argv[1]);
 		}
 		else 
 		{
-			fseek (file, 2, SEEK_SET);
-			fread (lut, 32, 1, file);
+            result = BITdegasLoad(&surface, &stdAllocator, argv[1]);
 		}
 
-		fread (buffer, 32000, 1, file);
-
-		fclose(file);
+        if ( result != BITloadResult_OK )
+        {
+            printf ("ERROR: cannot load file %s\n", argv[1]);
+            _getch();
+        }
+        else
+        {
+            sprintf(title, "NeoViewer - %s [press S to save bmp]", argv[1]);
 
 		init.x = WINDOW_CENTER;
 		init.y = WINDOW_CENTER;
@@ -81,15 +91,7 @@ int main(int argc, char** argv)
 		init.hInstance = NULL;
 
 		{
-            BITsurface surface, surface2;
 			WINdow* window = WINconstruct (&init);
-
-
-            BITsurfaceConstruct(&surface);
-            BITsurfaceConstruct(&surface2);
-
-            BITsurfaceSetExternal(&surface, buffer, BITformat_Chunk4P, 320, 200, 160);
-            BITlutSetExternal(&surface.lut, BITlutFormat_STe, lut, 16);
 
             BITsurfaceConvert(&stdAllocator, &surface, &surface2, BITformat_8bits);
 
@@ -100,6 +102,31 @@ int main(int argc, char** argv)
 
 				do
 				{
+                        if (WINisKeyHit(window))
+                        {
+                            switch (WINgetKey(window))                        
+                            {
+                            case 'S':
+                            case 's':
+                                {
+                                    char path[512];
+
+                                    sprintf (path, "%s%s%s_neoview.BMP", drive, subdir, filename);
+                                    if ( BITbmpSave(&surface2, path) )
+                                    {
+                                        WINsetColor(window, 0, 255, 0);
+                                        WINtext(window, 0, 0, "bmp file saved");
+                                    }
+                                    else
+                                    {
+                                        WINsetColor(window, 255, 0, 0);
+                                        WINtext(window, 0, 0, "cannot save file");
+                                    }
+                                    WINrender (window, 0);
+                                }
+                            }
+                        }
+
 					WINgetMouse (window, NULL, NULL, &k, NULL);
 				}
 				while (!WINisKeyHit(window) && !WINisClosed(window) && !k);
@@ -109,6 +136,7 @@ int main(int argc, char** argv)
             BITsurfaceDestroy(&surface);
 		}
 	}
+    }
 
 	return 0;
 }

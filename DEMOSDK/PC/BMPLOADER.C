@@ -321,18 +321,20 @@ bool BITbmpSave (BITsurface* _surface, char* _filename)
 {
     u8               bmpFileHeader[14];   
     BITbmpInfoHeader bmpInfoHeader;
-    u32 paletteSize = 0;
-    u32 bitmapSize  = _surface->width * 3 * _surface->height;
+    u32 paletteSize = _surface->format == BITformat_8bits ? 256 : 0;
+    u32 pixelsize   = _surface->format == BITformat_8bits ? 1 : 3;
+    u32 bitmapSize  = _surface->width * pixelsize * _surface->height;
     FILE* file = NULL;
 
 
-    ASSERT(_surface->format == BITformat_888);
+    ASSERT ((_surface->format == BITformat_888) || (_surface->format == BITformat_8bits));
 
     memset (bmpFileHeader, 0, sizeof(bmpFileHeader));
 
-    getWord (bmpFileHeader)         = 0x4d42;  /* "BM" */
-    getDWord(&bmpFileHeader[2])     = sizeof(bmpFileHeader) + bitmapSize + paletteSize;
-    getDWord(&bmpFileHeader[10])    = sizeof(bmpFileHeader) + sizeof(bmpInfoHeader);
+    bmpFileHeader[0] = 'B';
+    bmpFileHeader[1] = 'M';
+    getDWord(&bmpFileHeader[10])    = sizeof(bmpFileHeader) + sizeof(bmpInfoHeader) + paletteSize * sizeof(u32);
+    getDWord(&bmpFileHeader[2])     = getDWord(&bmpFileHeader[10]) + bitmapSize;
 
     file = fopen (_filename, "wb");
 
@@ -347,15 +349,23 @@ bool BITbmpSave (BITsurface* _surface, char* _filename)
     bmpInfoHeader.biHeight       = _surface->height;
     bmpInfoHeader.biPlanes       = 1;
     bmpInfoHeader.biCompression  = 0;
-    bmpInfoHeader.biBitCount     = 24;
+    bmpInfoHeader.biBitCount     = _surface->format == BITformat_8bits ? 8 : 24;
     bmpInfoHeader.biClrImportant = 0;
-    bmpInfoHeader.biClrUsed      = 0;
+    bmpInfoHeader.biClrUsed      = _surface->format == BITformat_8bits ? 256 : 0;
     bmpInfoHeader.biSizeImage    = bitmapSize;
     bmpInfoHeader.biXPelsPerMeter = 72;
     bmpInfoHeader.biYPelsPerMeter = 72;
 
 	if ( fwrite (&bmpInfoHeader, sizeof(bmpInfoHeader), 1, file) != 1 )
+    {
         goto Error;
+    }
+
+    if ( _surface->format == BITformat_8bits )
+    {
+        if ( fwrite (_surface->lut.data.p, 256*sizeof(u32), 1, file) != 1 )
+            goto Error;    
+    }
 
     {
         u16 i;
@@ -363,8 +373,8 @@ bool BITbmpSave (BITsurface* _surface, char* _filename)
     
         for (i = 0 ; i < _surface->height ; i++)
         {
-            p -= _surface->width * 3;
-            fwrite (p, _surface->width * 3, 1, file);
+            p -= _surface->width * pixelsize;
+            fwrite (p, _surface->width * pixelsize, 1, file);
         }
     }
 
@@ -410,3 +420,51 @@ Error:
    
     return returnCode;
 }
+
+
+BITloadResult BITdegasLoad (BITsurface* _surface, MEMallocator* _allocator, char* _filename)
+{
+	BITloadResult returnCode = BITloadResult_READERROR;
+    FILE* file = NULL;
+
+    switch (_filename[strlen(_filename) - 1])
+    {
+    case '1':
+        BITsurfaceInit (_allocator, _surface, BITformat_Chunk4P, 320, 200, BIT_DEFAULT_PITCH);
+        break;
+    case '2':
+        BITsurfaceInit (_allocator, _surface, BITformat_Chunk2P, 640, 200, BIT_DEFAULT_PITCH);
+        break;
+    case '3':
+        BITsurfaceInit (_allocator, _surface, BITformat_Plane1P, 640, 400, BIT_DEFAULT_PITCH);
+        break;    
+    default:
+        returnCode = BITloadResult_UNKNOWN_FORMAT;
+        goto Error;
+    }
+
+    file = fopen (_filename, "rb");
+
+    if ( file == NULL )
+        goto Error;
+  
+    BITlutConstruct(&_surface->lut);
+    BITlutInit(_allocator, &_surface->lut, BITlutFormat_STe, 16);
+
+    fseek (file, 2, SEEK_SET);
+    fread (_surface->lut.data.p, 16, sizeof(u16), file);
+
+    fseek (file, 34, SEEK_SET);
+    fread (_surface->buffer, 32000, 1, file);
+
+    fclose(file);
+    
+	return BITloadResult_OK;
+
+Error:
+    if ( file != NULL )
+        fclose (file);
+   
+    return returnCode;
+}
+
