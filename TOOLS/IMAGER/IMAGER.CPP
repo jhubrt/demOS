@@ -163,7 +163,7 @@ public:
         : OutputFile(_filename, "LOG", _fileid)
     {}
 
-    void write(std::vector<FileEntry>& _fileEntries, std::vector<FileMetaData>& _metaData, s32 _delta, u16 _preferedUnit)
+    void write(std::vector<FileEntry>& _fileEntries, std::vector<FileMetaData>& _metaData, u32 _imagesize, u32 _pos, u16 _preferedUnit)
     {
         int t = 0;
         assert (m_file != NULL);
@@ -171,7 +171,7 @@ public:
 
 
         fprintf (m_file, "LOG for %s\n\n", m_fileid.c_str());
-        fprintf (m_file, "%d bytes left on floppy\n\n", _delta);
+        fprintf (m_file, "%d bytes left on floppy (%d bytes on %d)\n\n", _imagesize - _pos, _pos, _imagesize);
 
 		fprintf (m_file, "FILE ENTRIES:\n\n"); 
 		fprintf (m_file, "       nbSectors | @sector | @side | @track | metadata | lostbytes | roundsize | \n"); 
@@ -714,7 +714,7 @@ bool writeST (char* _filename, u16 _nbSectorsPerTrack, u16 _nbsides, u16 _nbtrac
             free(buf);
 
             headerFile.write(fileEntries, fileMetaData);
-            logFile.write(fileEntries, fileMetaData, delta, _preferedUnit);
+            logFile.write(fileEntries, fileMetaData, imagesize, pos, _preferedUnit);
             
             success = writeFAT (fileEntries, fileMetaData, fileImage);
         }

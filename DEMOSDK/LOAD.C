@@ -60,45 +60,36 @@ void LOADinit (LOADdisk* _firstmedia, u16 _nbEntries, u16 _nbMetaData)
 }
 
 
-#ifdef DEMOS_DEBUG
-static void* loadUsingStdlib (void* _buffer, LOADdisk* _media, u32 track, u32 side, u16 startsector, u32 nbsectors)
+#ifdef DEMOS_LOAD_FROMHD
+void LOADpreloadMedia (LOADdisk* _media)
 {
-    u32 offset = ((track * 2 + side) * LOAD_SECTORS_PER_TRACK + startsector) * LOAD_SECTORSIZE;
-    u32 size   = nbsectors * LOAD_SECTORSIZE;
+    FILE* file = fopen(_media->filename, "rb");
     u32 result;
-	u8* buf;
 
-	if ( _buffer == NULL )
-	{
-		buf = (u8*) malloc (size);
-	}
-	else
-	{
-		buf = (u8*) _buffer;
-	}
 
-    ASSERT(buf != NULL);
+    ASSERT(file != NULL);
 
-    if ( _media->file == NULL )
-    {
-        _media->file = fopen(_media->filename, "rb");
-        ASSERT(_media->file != NULL);
-    }
+    _media->mediapreload = malloc(_media->mediapreloadsize);
+    ASSERT(_media->mediapreload != NULL);
 
-    fseek  ( _media->file, offset , SEEK_SET );
-    result  = fread ( buf, 1, size, _media->file);
-    ASSERT (result == size);
+    fseek (file, LOAD_SECTORSIZE, SEEK_SET);
 
-    return buf;
+    result = fread (_media->mediapreload, 1, _media->mediapreloadsize, file);
+    ASSERT(result == _media->mediapreloadsize);
+
+    fclose(file);
 }
 #endif
 
 
 void LOADinitFAT (u8 _drive, LOADdisk* _media, u16 _nbEntries, u16 _nbMetaData)
 {
-    u16* temp = (u16*) RINGallocatorAlloc (&sys.mem, LOAD_SECTORSIZE * 2);
+    u16* temp;
 
-#	ifndef DEMOS_LOAD_FROMHD
+#   ifdef DEMOS_LOAD_FROMHD
+    temp = (u16*) _media->mediapreload;
+#   else
+    temp = (u16*) RINGallocatorAlloc (&sys.mem, LOAD_SECTORSIZE * LOAD_FAT_NBSECTORS);
 
     _drive = sys.has2Drives & (_drive != DEMOS_INVERT_DRIVE);
 
@@ -106,11 +97,6 @@ void LOADinitFAT (u8 _drive, LOADdisk* _media, u16 _nbEntries, u16 _nbMetaData)
         LOADrequest* loadRequest = LOADpush (temp, LOAD_FAT_STARTSECTOR + 1, ((u32)_drive << 17), ((u32)LOAD_PRIOTITY_HIGH << 16) | LOAD_FAT_NBSECTORS);
         LOADwaitRequestCompleted (loadRequest);
     }
-
-#	else /* DEMOS_LOAD_FROMHD */
-
-    loadUsingStdlib (temp, _media, 0, 0, LOAD_FAT_STARTSECTOR, LOAD_FAT_NBSECTORS);
-
 #	endif
 
     _media->nbEntries  = PCENDIANSWAP16(temp[0]);
@@ -153,8 +139,42 @@ void LOADinitFAT (u8 _drive, LOADdisk* _media, u16 _nbEntries, u16 _nbMetaData)
     }
 #   endif
 
+#   ifdef DEMOS_LOAD_FROMHD
+    {
+        u8* p = (u8*) _media->mediapreload;
+        u16 t;
+
+        p += LOAD_FAT_NBSECTORS * LOAD_SECTORSIZE;
+
+        for (t = 1 ; t < _media->nbEntries ; t++)
+        {
+            u16 nbsectors = _media->FAT[t].startsectorsidenbsectors & LOAD_RESOURCE_MASK_NBSECTORS;
+
+            _media->preload[t] = p;
+
+            p += nbsectors * LOAD_SECTORSIZE;
+        }
+    }
+#   else
     RINGallocatorFree (&sys.mem, temp);
+#   endif
 }
+
+#ifdef DEMOS_LOAD_FROMHD
+
+LOADrequest* LOADrequestLoad (LOADdisk* _media, u16 _resourceid, void* _buffer, u16 _order)
+{
+    ASSERT(0);
+    return NULL;
+}
+
+void* LOADpreload (void* _framebuffer, u16 _pitch, u16 _planepitch, void* _preload, u32 _preloadsize, void* _current, LOADdisk* _disk, u8* _resources, u16 _nbResources)
+{
+    ASSERT(0);
+    return NULL;
+}
+
+#else
 
 LOADrequest* LOADrequestLoad (LOADdisk* _media, u16 _resourceid, void* _buffer, u16 _order)
 {
@@ -164,8 +184,6 @@ LOADrequest* LOADrequestLoad (LOADdisk* _media, u16 _resourceid, void* _buffer, 
     u32 side        = (rsc->startsectorsidenbsectors & LOAD_RESOURCE_MASK_SIDE) != 0;
     u16 startsector = (rsc->startsectorsidenbsectors >> LOAD_RESOURCE_RSHIFT_STARTSECTOR) & LOAD_RESOURCE_MASK_STARTSECTOR;
     u32 nbsectors   = rsc->startsectorsidenbsectors & LOAD_RESOURCE_MASK_NBSECTORS;
-
-#	ifndef DEMOS_LOAD_FROMHD
 
     u8 drive        = sys.has2Drives & (_media->preferedDrive != DEMOS_INVERT_DRIVE);
     
@@ -204,40 +222,59 @@ LOADrequest* LOADrequestLoad (LOADdisk* _media, u16 _resourceid, void* _buffer, 
 #	endif /* LOAD_CHECK_CONTENT */
 
     return loadRequest;
-
-#	else /* DEMOS_LOAD_FROMHD */
-
-    static LOADrequest request[3];
-	static u16 requestnum = 0;
-	LOADrequest* curReq = &request[requestnum++];
-
-	if ( requestnum >= 3 )
-	{
-		requestnum = 0;
-	}
-
-	loadUsingStdlib (_buffer, _media, track, side, startsector, nbsectors);
-
-	curReq->allocated = true;
-	curReq->processed = true;
-    curReq->address   = _buffer;
-
-    return curReq;
-
-#	endif
 }
+
+void* LOADpreload (void* _framebuffer, u16 _pitch, u16 _planepitch, void* _preload, u32 _preloadsize, void* _current, LOADdisk* _disk, u8* _resources, u16 _nbResources)
+{
+    static char line[] = "preloading    -      ";
+    u8* currentpreload = (u8*) _current;
+    u16 t;
+
+
+    for (t = 0 ; t < _nbResources ; t++)
+    {
+        u16 rsc     = _resources[t];
+        u32 rscSize = LOADresourceRoundedSize(_disk, rsc);
+
+        if ( ( _preloadsize - (currentpreload - (u8*)_preload) ) >= rscSize )
+	    {
+            LOADrequest* request = LOADrequestLoad (_disk, rsc, currentpreload, LOAD_PRIORITY_INORDER);
+
+            _disk->preload[rsc] = currentpreload;
+
+            while (request->processed == false)
+            {
+                STDuxtoa(&line[11], _nbResources - t - 1, 2);
+                STDuxtoa(&line[16], request->nbsectors, 4);
+
+                SYSfastPrint (line, _framebuffer, _pitch, _planepitch);
+	        }
+
+            LOADfreeRequest (request);
+            currentpreload += rscSize;
+        }
+    }
+
+    return currentpreload;
+}
+
+#endif
+
 
 LOADrequest* LOADdata (LOADdisk* _media, u16 _resource, void* _buffer, u16 _order)
 {
     if ( _media->preload[_resource] != NULL )
     {
         STDmcpy(_buffer, _media->preload[_resource], LOADresourceRoundedSize(_media, _resource) );
-        return NULL;
     }
+#   ifndef DEMOS_LOAD_FROMHD
     else
     {
         return LOADrequestLoad (_media, _resource, _buffer, _order);
     }
+#   endif
+
+    return NULL;
 }
 
 
@@ -291,41 +328,6 @@ void LOADwaitRequestCompleted (LOADrequest* _request)
 	    while ( _request->processed == 0 );
 	    _request->allocated = false;
     }
-}
-
-
-void* LOADpreload (void* _framebuffer, u16 _pitch, u16 _planepitch, void* _preload, u32 _preloadsize, void* _current, LOADdisk* _disk, u8* _resources, u16 _nbResources)
-{
-    static char line[] = "preloading    -      ";
-    u8* currentpreload = (u8*) _current;
-    u16 t;
-
-    
-    for (t = 0 ; t < _nbResources ; t++)
-    {
-        u16 rsc     = _resources[t];
-        u32 rscSize = LOADresourceRoundedSize(_disk, rsc);
-
-        if ( ( _preloadsize - (currentpreload - (u8*)_preload) ) >= rscSize )
-        {
-            LOADrequest* request = LOADrequestLoad (_disk, rsc, currentpreload, LOAD_PRIORITY_INORDER);
-
-            _disk->preload[rsc] = currentpreload;
-
-            while (request->processed == false)
-            {
-                STDuxtoa(&line[11], _nbResources - t - 1, 2);
-                STDuxtoa(&line[16], request->nbsectors, 4);
-
-                SYSfastPrint (line, _framebuffer, _pitch, _planepitch);
-            }
-
-            LOADfreeRequest (request);
-            currentpreload += rscSize;
-        }
-    }
-
-    return currentpreload;
 }
 
 
@@ -396,7 +398,7 @@ u16 LOADtrace (void* _image, u16 _pitch, u16 _planePitch, u16 _y)
 #endif
 
 
-#ifdef DEMOS_UNITTEST
+#if defined(DEMOS_UNITTEST) && !defined(DEMOS_LOAD_FROMHD)
 
 #define NBREQUESTS 2
 #define RESOURCEOFFSET 6
@@ -421,13 +423,7 @@ void LOADunitTestInit (FSM* _fsm)
 	for (t = 0 ; t < NBREQUESTS ; t++)
 	{
 #       ifndef DEMOS_USES_BOOTSECTOR
-        LOADresource* rsc = &g_media->FAT[t + RESOURCEOFFSET];
-        u32 track       = rsc->metadataindextrack & LOAD_RESOURCE_MASK_TRACK;
-        u32 side        = (rsc->startsectorsidenbsectors & LOAD_RESOURCE_MASK_SIDE) != 0;
-        u16 startsector = (rsc->startsectorsidenbsectors >> LOAD_RESOURCE_RSHIFT_STARTSECTOR) & LOAD_RESOURCE_MASK_STARTSECTOR;
-        u32 nbsectors   = rsc->startsectorsidenbsectors & LOAD_RESOURCE_MASK_NBSECTORS;
-
-        g_bufReference [t] = (u8*) loadUsingStdlib (NULL, g_media, track, side, startsector, nbsectors);
+        g_bufReference [t] = (u8*) g_media->preload[t + RESOURCEOFFSET];
 #       endif
 
         g_bufLoaded [t] = (u8*) MEM_ALLOC (&sys.allocatorMem, LOAD_SECTORSIZE * 255UL);

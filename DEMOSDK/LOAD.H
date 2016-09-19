@@ -84,12 +84,10 @@ STRUCT(LOADdisk)
     LOADmetadata* metaData;  
     u16           nbMetaData;
 	u8		      preferedDrive;
+    void*         mediapreload;
+    u32           mediapreloadsize;
     void**        preload;
-
-#	ifdef DEMOS_DEBUG
-	char*	filename;
-	FILE*	file;
-#	endif
+	char*	      filename;
 };
 
 /*! @struct LOADrequest
@@ -125,6 +123,12 @@ STRUCT(LOADrequest)
 extern u16 LOADorder;
 #endif
 
+#ifdef DEMOS_LOAD_FROMHD
+void          LOADpreloadMedia          (LOADdisk* _media);
+#else
+void*         LOADpreload               (void* _framebuffer, u16 _pitch, u16 _planepitch, void* _preload, u32 _preloadsize, void* _current, LOADdisk* _disk, u8* _resources, u16 _nbResources);
+#endif
+
 void          LOADinit          		(LOADdisk* _firstmedia, u16 _nbEntries, u16 _nbMetaData);
 void          LOADinitFAT               (u8 _drive, LOADdisk* _media, u16 _nbEntries, u16 _nbMetaData);
 LOADrequest*  LOADrequestLoad           (LOADdisk* _media, u16 _resource, void* _buffer, u16 _order);
@@ -132,7 +136,6 @@ LOADrequest*  LOADdata                  (LOADdisk* _media, u16 _resource, void* 
 void          LOADwaitRequestCompleted  (LOADrequest* request);
 void		  LOADwaitFDCIdle			(void);
 #define       LOADfreeRequest(_request) if (_request != NULL) _request->allocated = false;
-void*         LOADpreload               (void* _framebuffer, u16 _pitch, u16 _planepitch, void* _preload, u32 _preloadsize, void* _current, LOADdisk* _disk, u8* _resources, u16 _nbResources);
 
 
 u32           LOADresourceRoundedSize   (LOADdisk* _media, u16 _entryIndex);

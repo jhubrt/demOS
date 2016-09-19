@@ -66,7 +66,7 @@
 #endif
 
 /* OS standards */
-#if !defined(DEMOS_OPTIMIZED) || !defined(__TOS__)
+#if !defined(DEMOS_OPTIMIZED) || !defined(__TOS__) || defined(DEMOS_LOAD_FROMHD)
 #	ifndef __TOS__
 #		define _CRT_SECURE_NO_WARNINGS
 #       include <assert.h>

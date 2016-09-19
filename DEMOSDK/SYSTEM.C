@@ -331,7 +331,6 @@ void SYSinit(SYSinitParam* _param)
 	*HW_MICROWIRE_MASK = 0x7FF;
 	*HW_VECTOR_VBL = (u32) SYSvblinterrupt;
 
-#	ifndef DEMOS_LOAD_FROMHD
 	sys.bakmfpVectorBase	   = *HW_MFP_VECTOR_BASE;
 
 	*OS_FLOPVBL = 1;
@@ -339,7 +338,6 @@ void SYSinit(SYSinitParam* _param)
 	*HW_MFP_INTERRUPT_ENABLE_B |= 0x80;
 	*HW_MFP_INTERRUPT_MASK_B   |= 0x80;
 	*HW_MFP_VECTOR_BASE		   &= ~0x8;
-#	endif
 
 	*HW_MFP_INTERRUPT_MASK_A   |= 0x1;	/* enable Timer B mask */
 
@@ -377,13 +375,11 @@ void SYSshutdown(void)
 	*HW_MFP_INTERRUPT_ENABLE_A = sys.bakmfpInterruptEnableA;
 	*HW_MFP_INTERRUPT_MASK_A   = sys.bakmfpInterruptMaskA;
 
-#	ifndef DEMOS_LOAD_FROMHD
 	*HW_MFP_INTERRUPT_ENABLE_B = sys.bakmfpInterruptEnableB;
 	*HW_MFP_INTERRUPT_MASK_B   = sys.bakmfpInterruptMaskB;
 	*HW_MFP_VECTOR_BASE		   = sys.bakmfpVectorBase;
 
 	*OS_FLOPVBL = 0;
-#	endif
 
 	STDsetUSP (sys.bakUSP);
 }

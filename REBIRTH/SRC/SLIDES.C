@@ -795,7 +795,7 @@ void SlidesBacktask (FSM* _fsm)
     u16 gradient[16];
     
 
-    loadRequest = LOADrequestLoad (&RSC_DISK2, SlidePhotoIndexes[currentpicture+1], g_screens.slides->bitmaps[!bitmapcurrent], LOAD_PRIORITY_INORDER);
+    loadRequest = LOADdata (&RSC_DISK2, SlidePhotoIndexes[currentpicture+1], g_screens.slides->bitmaps[!bitmapcurrent], LOAD_PRIORITY_INORDER);
 
     SlideDeployPaletteFlipAndMask ((u16*) g_screens.slides->bitmaps[0], (u16*) g_screens.slides->palettes[2], SLI_HEIGHT);
 

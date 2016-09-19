@@ -382,6 +382,7 @@ void ScreensInit (void* _preload, u32 _preloadsize)
     STDmset (&g_screens, 0, sizeof(g_screens));
     snd.syncWithSoundtrack = statesSize >= 20;
 
+#   ifndef DEMOS_LOAD_FROMHD
     if ( _preload != NULL )
     {
         u8 disk1Preload[RSC_DISK1_NBENTRIES - RSC_DISK1_POLYZOOM__CYBERVECTOR_BIN];
@@ -454,6 +455,7 @@ void ScreensInit (void* _preload, u32 _preloadsize)
 
         RINGallocatorFree(&sys.mem, screen);
     }
+#   endif
 }
 
 void SYScheckHWRequirements (void)
