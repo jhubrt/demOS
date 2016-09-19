@@ -167,23 +167,23 @@ ste_ok:
     ; Relocate sp before load address
 	lea	loadaddress-4.w,sp
 
-	; Load & display splash screen
+	; Load & run splash code
 
 	moveq.l		#scr_startsector,d0
 	moveq.l		#scr_starttrack,d1
 	moveq.l		#scr_startside,d2
 	move.w		#scr_nbsectors,d3
 	move.l      #tempaddress,a0
+    move.l      a0,a1
 
     bsr         load	
 
-    move.l      $44e.w,a0
-	move.l      #tempaddress,a1
+    lea         scr_nbsectors*512(a1),a0
+    move.l      a0,a4
     bsr         DECODE_F
 
-    ; Set splash screen colors
-    move.w      #$0EEE,$ffff8242.w
-    move.l      #$05550AAA,$ffff8244.w
+    ; Run splash code (should be load address independent code)
+    jsr         (a4)
 
 	; Load code
 	moveq.l		#prg_startsector,d0
@@ -448,7 +448,7 @@ NO_FILL:
 ;----------------------------------------------------------------	
 mes:
         ifeq    test
-    	dc.b	'STE 1MB+'
+    	dc.b	'STE 1MB+ MINI'
         dc.b    0
         else
     	dc.b	'!'
