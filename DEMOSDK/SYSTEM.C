@@ -266,12 +266,13 @@ void SYSinit(SYSinitParam* _param)
         u32 machineType = 0;
         u8  id[4] = {'_','M','C','H'};
         bool cookieFound = SYSgetCookie( *(u32*)id, &machineType );
-        ASSERT(cookieFound);
-
         sys.isMegaSTe = machineType == 0x10010UL;
-        if ( sys.isMegaSTe )
+        if (cookieFound)
         {
-            *HW_MEGASTE_CPUMODE = HW_MEGASTE_CPUMODE_8MHZ | HW_MEGASTE_CPUMODE_NOCACHE;
+            if ( sys.isMegaSTe )
+            {
+                *HW_MEGASTE_CPUMODE = HW_MEGASTE_CPUMODE_8MHZ | HW_MEGASTE_CPUMODE_NOCACHE;
+            }
         }
     }
 #   endif

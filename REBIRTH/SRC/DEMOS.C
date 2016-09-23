@@ -153,6 +153,7 @@ int main(int argc, char** argv)
 #       endif
 
         SYSinitPrint ();
+        SYScheckHWRequirements ();
 
 		ASSERT(corebuffer != NULL);
         IGNORE_PARAM(base);
@@ -184,7 +185,6 @@ int main(int argc, char** argv)
                 LOADinitFAT (1, &RSC_DISK2, RSC_DISK2_NBENTRIES, RSC_DISK2_NBMETADATA);
             }
 			TRACinit ();
-            SYScheckHWRequirements ();
 
             SYSfastPrint(DEMOSbuildversion, (u8*)(SYSreadVideoBase()) + 160 * 192 + 152, 160, 4);
 

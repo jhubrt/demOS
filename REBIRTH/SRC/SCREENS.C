@@ -464,13 +464,13 @@ void SYScheckHWRequirements (void)
     bool failed = false;
 
     /* Check computer is a STe */
-    if ( (*HW_VECTOR_INIT_PC) != 0xE00030UL )
+    if ( (*((u16*)HW_VECTOR_INIT_PC)) != 0xE0 )
     {
         failed = true;
     }
 
-    /* Check you have two drives */
-    if (( sys.has2Drives == false ) && ( sys.phytop < (2UL * 1024UL * 1024UL)) )
+    /* Check you have two drives or 2mb */
+    if (( *OS_NFLOPS < 2 ) && ( *OS_PHYTOP < 0x200000UL ))
     {
         failed = true;
     }
@@ -479,9 +479,9 @@ void SYScheckHWRequirements (void)
     {
         u8* frameBuffer = (u8*) SYSreadVideoBase();    
         
-        SYSvsync;
-
         STDcpuSetSR(0x2700);
+
+        while ((*HW_VIDEO_BASE_L != *HW_VIDEO_COUNT_L) || (*HW_VIDEO_BASE_M != *HW_VIDEO_COUNT_M) || (*HW_VIDEO_BASE_H != *HW_VIDEO_COUNT_H));
 
         *HW_VIDEO_MODE = HW_VIDEO_MODE_4P;
 
