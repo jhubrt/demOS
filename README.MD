@@ -26,4 +26,5 @@ TODO <BR>
 <BR>
 <BR>
 
-	[![REBiRTH](./README_V.PNG)](http://www.youtube.com/watch?v=iNbVcFThTxY)
+![](./README_V.PNG)
+[REBiRTH](http://www.youtube.com/watch?v=iNbVcFThTxY)
