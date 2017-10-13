@@ -85,7 +85,7 @@ extern u8 SNDchannelVolume[];
 
 #define SND_BEGIN							case 0: snd.playerStart = __LINE__; 
 
-#define SND_LOADSAMPLE(MEDIA,RESOURCE)		snd.loaded = RSC_##MEDIA##.preload[RSC_##MEDIA##_ZIK__##RESOURCE##_RAW]; if ( snd.loaded == NULL ) { snd.currentLoadRequest = LOADrequestLoad(&RSC_##MEDIA##, RSC_##MEDIA##_ZIK__##RESOURCE##_RAW, snd.cache, LOAD_PRIOTITY_HIGH); snd.loaded = snd.cache; }
+#define SND_LOADSAMPLE(MEDIA,RESOURCE)		snd.loaded = (u8*) RSC_##MEDIA .preload[RSC_##MEDIA##_ZIK__##RESOURCE##_RAW]; if ( snd.loaded == NULL ) { snd.currentLoadRequest = LOADrequestLoad(&RSC_##MEDIA , RSC_##MEDIA##_ZIK__##RESOURCE##_RAW, snd.cache, LOAD_PRIOTITY_HIGH); snd.loaded = snd.cache; }
 #define SND_WAIT_SAMPLELOADED				case __LINE__:	if ( (snd.currentLoadRequest != NULL) && (snd.currentLoadRequest->processed == false) )  return __LINE__; if ( snd.currentLoadRequest != NULL) snd.currentLoadRequest->allocated = false; snd.currentLoadRequest = NULL;
 
 #define SND_SYNC_COPYCACHE_TO_LEFT(OFFSET,LEN)		SNDcopySample(snd.loaded, snd.dmaBuffer + (OFFSET << 1)		, LEN);

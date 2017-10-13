@@ -389,7 +389,7 @@ void ScreensInit (void* _preload, u32 _preloadsize)
         u8 t, i = 0;
         
         void* current = _preload;
-        u8*   screen = RINGallocatorAlloc(&sys.mem, 32000);
+        u8*   screen = (u8*) RINGallocatorAlloc(&sys.mem, 32000);
         u8*   diplayarea = screen + SCREEN_PRELOAD_H * 160 + 2;
 
 

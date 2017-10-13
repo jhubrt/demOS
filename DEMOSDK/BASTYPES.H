@@ -77,7 +77,11 @@
 #endif
 
 /* constructs */
+#ifdef __GNUC__
+#define ENUM(NAME)			                            enum NAME
+#else
 #define ENUM(NAME)			                            typedef enum NAME##_ NAME; enum NAME##_
+#endif
 #define PREDECLARE_STRUCT(NAME)							typedef struct NAME##_ NAME
 #define STRUCT(NAME)									PREDECLARE_STRUCT(NAME); struct NAME##_ 
 #define UNION(NAME)										typedef union NAME##_ NAME; union NAME##_ 

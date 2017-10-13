@@ -11,3 +11,5 @@ LOADdisk RSC_DISK1 =
     NULL,                         /* File preload table */
      "DISK1.ST"                   /* Image filename */
 };
+
+#undef DISK1_C

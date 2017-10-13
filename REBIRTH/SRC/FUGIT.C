@@ -56,7 +56,7 @@ STRUCT(FUGtext)
 {
     u16  effect;
     u16  nbsteps;
-    char text [12];
+    char text [14];
     u16  pause;
 };
 

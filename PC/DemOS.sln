@@ -11,6 +11,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RebirthImager", "RebirthIma
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SyntheticSound", "SyntheticSound.vcxproj", "{46CA3CC9-D57C-4A22-ACB5-B79A5C21DE1E}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RebirthGCC68k", "RebirthGCC68k.vcxproj", "{E1415CBF-6C72-48CB-B7C9-110AEB8927F4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32

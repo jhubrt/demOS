@@ -200,7 +200,7 @@ int main(int argc, char** argv)
 #           if defined(DEMOS_OPTIMIZED) || defined(DEMOS_USES_BOOTSECTOR)
             preloadbuffer = buffer + size;
 #           else
-            preloadbuffer = malloc( EMULbufferSize(preloadsize) );
+            preloadbuffer = (u8*) malloc( EMULbufferSize(preloadsize) );
 #           endif
         }
 
