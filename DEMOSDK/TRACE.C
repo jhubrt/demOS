@@ -55,7 +55,18 @@ STRUCT(trac_DisplayParam)
 static trac_DisplayParam trac_displayParam;
 static trac_DisplayParam trac_displayParamLast;
 
-void TRACinit (void)
+STRUCT(trac_Logger)
+{
+    u8*     m_logmem;
+    u32     m_logmemsize;
+    u32     m_current;
+    bool    m_haslooped;
+};
+
+static trac_Logger trac_logger = {NULL, 0, 0, false};
+
+
+void TRACinit (void* _logmem, u32 _logmemsize)
 {
 	trac_displayParam.h			 = 0;
 	trac_displayParam.pitch		 = 160;
@@ -66,8 +77,99 @@ void TRACinit (void)
 	trac_displayParamLast.refresh = 0;
 
     STDmset (g_displayServices, 0, sizeof(g_displayServices));
+
+    trac_logger.m_logmem     = (u8*) _logmem;
+    trac_logger.m_logmemsize = _logmemsize;
+    STDmset(_logmem, 0UL, _logmemsize);
+}
+
+
+void TRAClog (char* _str, bool _loop)
+{
+    u8* p = trac_logger.m_logmem + trac_logger.m_current;
+
+    if (_loop)
+    {
+        while (*_str != 0)
+        {
+            *p++ = *_str++;
+
+            trac_logger.m_current++;
+
+            if (trac_logger.m_current >= trac_logger.m_logmemsize)
+            {
+                trac_logger.m_current = 0;
+                trac_logger.m_haslooped = true;
+            }
 	}
 
+        *p++ = '\n';
+
+        trac_logger.m_current++;
+
+        if (trac_logger.m_current >= trac_logger.m_logmemsize)
+        {
+            trac_logger.m_current = 0;
+            trac_logger.m_haslooped = true;
+        }
+    }
+    else
+    {
+        while (*_str != 0)
+        {
+            if (trac_logger.m_current < trac_logger.m_logmemsize)
+            {
+                trac_logger.m_current++;
+                *p++ = *_str++;
+            }
+            else
+            {
+                break;
+            }
+        }
+
+        if (trac_logger.m_current < trac_logger.m_logmemsize)
+        {
+            trac_logger.m_current++;
+            *p++ = '\n';
+        }
+    }
+}
+
+
+void TRAClogClear()
+{
+    trac_logger.m_current = 0,
+    trac_logger.m_haslooped = false;
+    
+    STDmset(trac_logger.m_logmem, 0UL, trac_logger.m_logmemsize);
+}
+
+/* Activate break on blitter in Steem  then use this useless blitter call to break emulator */
+void TRACsteemBlitterBreak ()
+{
+    static u16 dummy = 0;
+
+    *HW_BLITTER_XINC_SOURCE = 0;
+    *HW_BLITTER_YINC_SOURCE = 0;
+    *HW_BLITTER_ADDR_SOURCE = (u32) &dummy;
+
+    *HW_BLITTER_XINC_DEST   = 0;
+    *HW_BLITTER_YINC_DEST   = 0;
+    *HW_BLITTER_ADDR_DEST   = (u32) &dummy;
+
+    *HW_BLITTER_ENDMASK1 = 0;
+    *HW_BLITTER_ENDMASK2 = 0;
+    *HW_BLITTER_ENDMASK3 = 0;
+
+    *HW_BLITTER_XSIZE = 1;
+    *HW_BLITTER_YSIZE = 1;
+
+    *HW_BLITTER_HOP   = 0;
+    *HW_BLITTER_OP    = 0;
+
+    * (u16*) HW_BLITTER_CTRL1 = 0xC000;
+}
 
 static void trac_clear (void* _image, trac_DisplayParam* _displayParam)
 {
@@ -260,11 +362,6 @@ void TRACunitTest (void* _screen)
 	SYSdebugPrint(_screen, 160, SYS_4P_BITSHIFT, 0, 8, "/*<>=:;,?![]%|abcdefghijklmnopqrstuvwxyz");
 }
 #endif
-
-#else
-
-void TRACinit (void)
-{}
 
 #endif /* DEMOS_DEBUG */
 

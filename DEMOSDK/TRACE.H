@@ -38,20 +38,27 @@
 
 #include "DEMOSDK\BASTYPES.H"
 
-void TRACinit (void);
 
 #ifdef DEMOS_DEBUG
     typedef u16 (*TRAC_DisplayCallback) (void* _image, u16 _pitch, u16 _planePitch, u16 _y);
 
+    void TRACinit (void* _logmem, u32 _logmemsize);
+    void TRAClog (char* _str, bool _loop);
+    void TRAClogClear (void);
     void TRACsetVideoMode (u16 _pitch);
     void TRACregisterDisplayService (TRAC_DisplayCallback _callback, u16 _enableMask); 
 	void TRACdisplay (void* _image);
 	void TRACmanage (u8 _key);
     void TRACdrawScanlinesScale (void* _image, u16 _screenPitch, u16 _bitplanPitchShift, u16 _h);
+    void TRACsteemBlitterBreak(void);
+
 #	ifdef DEMOS_UNITTEST
 	void TRACunitTest (void* _screen);
 #	endif
 #else
+#   define TRACinit(_logmem, _logmemsize)
+#   define TRAClog(_str,_loop)
+#   define TRAClogClear()
 #   define TRACsetVideoMode(_pitch)
 #	define TRACdisplay(_image)
 #	define TRACmanage(KEY) false

@@ -147,6 +147,16 @@ int main(int argc, char** argv)
 		u8* buffer          = (u8*) EMULalignBuffer (corebuffer + coresize);
         u8*   preloadbuffer = NULL;
 
+#       ifdef DEMOS_DEBUG
+        u32   logsize   = 65536UL;
+#           ifdef __TOS__
+            void* logmem = (void*) 0x3A0000UL;
+            u8*   bufferend = corebuffer + coresize + size;
+            ASSERT(logmem >= bufferend);
+#           else
+            void* logmem = malloc(logsize);
+#           endif
+#       endif
 
 #       ifndef DEMOS_USES_BOOTSECTOR
 		sys.bakGemdos32 = SYSgemdosSetMode(NULL);
@@ -184,7 +194,7 @@ int main(int argc, char** argv)
             {
                 LOADinitFAT (1, &RSC_DISK2, RSC_DISK2_NBENTRIES, RSC_DISK2_NBMETADATA);
             }
-			TRACinit ();
+			TRACinit (logmem, logsize);
 
             SYSfastPrint(DEMOSbuildversion, (u8*)(SYSreadVideoBase()) + 160 * 192 + 152, 160, 4);
 
