@@ -47,6 +47,9 @@
     <Filter Include="DEMOSDK\DATA">
       <UniqueIdentifier>{4e28215c-ec60-49eb-8f40-b96777129a2d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="SPECIFIC\SNDH_VERSION">
+      <UniqueIdentifier>{7a8bcdcd-d7a6-4202-b028-b212168b51e0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\REBIRTH\SRC\POLYZOOM.C">
@@ -286,6 +289,9 @@
     </None>
     <None Include="..\REBIRTH\SRC\BOOTSTRA.S">
       <Filter>SPECIFIC\SRC</Filter>
+    </None>
+    <None Include="..\SNDH\SNDH.S">
+      <Filter>SPECIFIC\SNDH_VERSION</Filter>
     </None>
   </ItemGroup>
 </Project>
