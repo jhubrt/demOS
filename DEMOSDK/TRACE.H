@@ -52,6 +52,8 @@
     void TRACdrawScanlinesScale (void* _image, u16 _screenPitch, u16 _bitplanPitchShift, u16 _h);
     void TRACsteemBlitterBreak(void);
 
+#   define TRAClogNumber(STR,NUM,NBCHARS,KEEPLASTLOG) { static char trace[] = STR ":         "; STDuxtoa(&trace[sizeof(trace) - 9], (NUM), (NBCHARS)); TRAClog(trace, (KEEPLASTLOG)); }
+
 #	ifdef DEMOS_UNITTEST
 	void TRACunitTest (void* _screen);
 #	endif
@@ -62,6 +64,9 @@
 #   define TRACsetVideoMode(_pitch)
 #	define TRACdisplay(_image)
 #	define TRACmanage(KEY) false
+
+#   define TRAClogNumber(STR,NUM,NBCHARS,KEEPLASTLOG)
+
 #endif
 
 #endif
