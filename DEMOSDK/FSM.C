@@ -24,20 +24,11 @@
 #include "DEMOSDK\STANDARD.H"
 #include "DEMOSDK\SYSTEM.H"
 
-void FSMinit (FSM* _m, FSMstate* _states, u16 _nbStates, u16 _startState)
+void FSMinit (FSM* _m, FSMfunction* _states, u16 _nbStates, u16 _startState)
 {
 	_m->states		= _states;
     _m->nbStates    = _nbStates;
 	_m->activeState = _startState;
-
-	{
-		FSMfunction entryAction = _states[_startState].entryAction;
-
-		if ( entryAction != NULL )
-		{
-			entryAction (_m);
-		}
-	}
 
 #   ifdef DEMOS_DEBUG
     {
@@ -49,31 +40,12 @@ void FSMinit (FSM* _m, FSMstate* _states, u16 _nbStates, u16 _startState)
 #   endif
 }
 
-void FSMupdate (FSM* _m)
-{
-    _m->states [_m->activeState].activity (_m);
-}
-
 void FSMgoto (FSM* _m, u16 _newState)
 {
-	FSMfunction exitAction	= _m->states[_m->activeState].exitAction;
-	FSMfunction entryAction	= _m->states[_newState].entryAction;
-
-
     ASSERT(_newState < _m->nbStates);
-
-    if ( exitAction != NULL )
-	{
-		exitAction (_m);
-	}
-
     _m->activeState = _newState;
-
-	if ( entryAction != NULL )
-	{
-		entryAction (_m);
 	}
-}
+
 
 #ifdef DEMOS_DEBUG
 u16 FSMtrace (FSM* _m, void* _image, u16 _pitch, u16 _planePitch, u16 _y)

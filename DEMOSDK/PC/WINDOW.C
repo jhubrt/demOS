@@ -209,7 +209,7 @@ void WINclear (WINdow* _m)
 	WINfilledRectangle (_m, 0,0,_m->width, _m->height);
 }
 
-void WINdrawImage (WINdow* _m, void* _image, u32 _width, u32 _height, u32 _bitsPerPixel, u8* _palette, u32 _x, u32 _y)
+void WINdrawImage (WINdow* _m, void* _image, u32 _width, u32 _height, u32 _bitsPerPixel, void* _palette, u32 _x, u32 _y)
 {
 	u8 buffer [ sizeof(BITMAPINFOHEADER) + 256 * sizeof(RGBQUAD) ];
 	BITMAPINFO * bmpi = (BITMAPINFO *) buffer;
@@ -890,4 +890,30 @@ static DWORD WINAPI Window_eventThread (void* _param)
 	}
 
 	return 0;
+}
+
+
+void WINwaitForGUI (WINdow* _m)
+{
+    s32 k = 0;
+
+    do
+    {
+        WINgetMouse (_m, NULL, NULL, &k, NULL);
+    }
+    while (!WINisKeyHit(_m) && !WINisClosed(_m) && !k);
+
+    if ( !WINisClosed(_m) )
+    {
+        while ( WINisKeyHit(_m) )
+        {
+            WINgetKey(_m);
+        }
+
+        do
+        {
+            WINgetMouse (_m, NULL, NULL, &k, NULL);
+        }
+        while (k);
+    }
 }

@@ -83,12 +83,11 @@ void TRACinit (void* _logmem, u32 _logmemsize)
     STDmset(_logmem, 0UL, _logmemsize);
 }
 
-
-void TRAClog (char* _str, bool _loop)
+void TRAClog (char* _str)
 {
     u8* p = trac_logger.m_logmem + trac_logger.m_current;
 
-    if (_loop)
+#   if TRAC_KEEPLASTLOG
     {
         while (*_str != 0)
         {
@@ -113,7 +112,7 @@ void TRAClog (char* _str, bool _loop)
             trac_logger.m_haslooped = true;
         }
     }
-    else
+#   else
     {
         while (*_str != 0)
         {
@@ -134,6 +133,7 @@ void TRAClog (char* _str, bool _loop)
             *p++ = '\n';
         }
     }
+#   endif
 }
 
 
@@ -143,32 +143,6 @@ void TRAClogClear()
     trac_logger.m_haslooped = false;
     
     STDmset(trac_logger.m_logmem, 0UL, trac_logger.m_logmemsize);
-}
-
-/* Activate break on blitter in Steem  then use this useless blitter call to break emulator */
-void TRACsteemBlitterBreak ()
-{
-    static u16 dummy = 0;
-
-    *HW_BLITTER_XINC_SOURCE = 0;
-    *HW_BLITTER_YINC_SOURCE = 0;
-    *HW_BLITTER_ADDR_SOURCE = (u32) &dummy;
-
-    *HW_BLITTER_XINC_DEST   = 0;
-    *HW_BLITTER_YINC_DEST   = 0;
-    *HW_BLITTER_ADDR_DEST   = (u32) &dummy;
-
-    *HW_BLITTER_ENDMASK1 = 0;
-    *HW_BLITTER_ENDMASK2 = 0;
-    *HW_BLITTER_ENDMASK3 = 0;
-
-    *HW_BLITTER_XSIZE = 1;
-    *HW_BLITTER_YSIZE = 1;
-
-    *HW_BLITTER_HOP   = 0;
-    *HW_BLITTER_OP    = 0;
-
-    * (u16*) HW_BLITTER_CTRL1 = 0xC000;
 }
 
 static void trac_clear (void* _image, trac_DisplayParam* _displayParam)

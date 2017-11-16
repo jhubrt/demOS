@@ -45,13 +45,13 @@ STRUCT(Screens)
 };
 
 #ifndef SCREEN_C
-extern Screens  g_screens;
-extern FSM      g_stateMachine;
-extern FSM      g_stateMachineIdle;
-extern FSMstate states[];
-extern FSMstate statesIdle[];
-extern u16      statesSize;
-extern u16      statesIdleSize;
+extern Screens      g_screens;
+extern FSM          g_stateMachine;
+extern FSM          g_stateMachineIdle;
+extern FSMfunction  states[];
+extern FSMfunction  statesIdle[];
+extern u16          statesSize;
+extern u16          statesIdleSize;
 #endif
 
 void ScreensInit(void* _preload, u32 _preloadsize);

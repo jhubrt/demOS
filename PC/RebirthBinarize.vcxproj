@@ -88,8 +88,8 @@
     <ClCompile Include="..\EXTERN\MPP\BMP2MPP.C" />
     <ClCompile Include="..\EXTERN\MPP\MPP2BMP.C" />
     <ClCompile Include="..\EXTERN\MPP\PIXBUF.C" />
-    <ClCompile Include="..\REBIRTH\TOOLS\BINARIZE\BINARIZE.C" />
-    <ClCompile Include="..\TOOLS\BINARIZE\HELPERS.C" />
+    <ClCompile Include="..\REBIRTH\TOOLS\BINARIZE\BINARIZE.CPP" />
+    <ClCompile Include="..\TOOLS\BINARIZE\HELPERS.CPP" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\REBIRTH\DATA\BOOT\BOOT.BMP" />
@@ -141,6 +141,7 @@
     <ClInclude Include="..\DEMOSDK\PC\WINDOW.H" />
     <ClInclude Include="..\DEMOSDK\STANDARD.H" />
     <ClInclude Include="..\EXTERN\MPP\PIXBUF.H" />
+    <ClInclude Include="..\TOOLS\BINARIZE\HELPERS.H" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

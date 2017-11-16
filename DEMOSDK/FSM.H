@@ -33,9 +33,12 @@
 
 #include "DEMOSDK\BASTYPES.H"
 
-STRUCT(FSM)
+typedef struct FSM_ FSM;
+typedef void (*FSMfunction)(FSM* _fsm);
+
+struct FSM_
 {
-	struct FSMstate_* states;
+	FSMfunction*    states;
     u16    nbStates;
 	u16	   activeState;
 
@@ -46,19 +49,10 @@ STRUCT(FSM)
 #   endif
 };
 
-typedef void (*FSMfunction)(FSM* _fsm);
-
-STRUCT(FSMstate)
-{
-	FSMfunction entryAction;
-	FSMfunction activity;
-	FSMfunction exitAction;
-};
-
-void  FSMinit		 (FSM* _m, FSMstate* _states, u16 _nbStates, u16 _startState);
-void  FSMupdate		(FSM* _m);
+void  FSMinit	(FSM* _m, FSMfunction* _states, u16 _nbStates, u16 _startState);
 void  FSMgoto		(FSM* _m, u16 _newState);
 
+#define FSMupdate(FSM)          (FSM)->states[(FSM)->activeState](FSM)
 #define FSMgotoNextState(FSM)   FSMgoto((FSM),(FSM)->activeState+1)
 #define	FSMgetCurrentState(FSM) (FSM)->activeState
 #define FSMisLastState(FSM)     (((FSM)->activeState+1) == (FSM)->nbStates)

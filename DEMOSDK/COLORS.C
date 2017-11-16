@@ -66,15 +66,8 @@ u8 COL4b2ST[17] =
 };
 
 
-u16* COLcomputeGradient (u16* _startColors, u16* _endcolors, u16 _nbColors, s16 _nbSteps, u16* _destColors)
+u16* COLcomputeGradientStep (u16* _startColors, u16* _endcolors, u16 _nbColors, s16 _nbSteps, s16 _step, u16* _destColors)
 {
-    s16 s;
-
-
-    _nbSteps--;
-
-    for (s = 0 ; s <= _nbSteps ; s++)
-    {
         u16  n;
         u16* scp = _startColors;
         u16* ecp = _endcolors;
@@ -92,12 +85,27 @@ u16* COLcomputeGradient (u16* _startColors, u16* _endcolors, u16 _nbColors, s16 
             s16 ge = COLST24b[(ec & 0xF0 ) >> 4];
             s16 be = COLST24b[(ec & 0xF  )     ];
 
-            s16 rd = ( ((re - rs) * s) / _nbSteps ) + rs; 
-            s16 gd = ( ((ge - gs) * s) / _nbSteps ) + gs;
-            s16 bd = ( ((be - bs) * s) / _nbSteps ) + bs;
+        s16 rd = ( ((re - rs) * _step) / _nbSteps ) + rs; 
+        s16 gd = ( ((ge - gs) * _step) / _nbSteps ) + gs;
+        s16 bd = ( ((be - bs) * _step) / _nbSteps ) + bs;
 
             *_destColors++ = (COL4b2ST[rd] << 8) | (COL4b2ST[gd] << 4) | COL4b2ST[bd];
         }
+
+    return _destColors;
+}
+
+
+u16* COLcomputeGradient (u16* _startColors, u16* _endcolors, u16 _nbColors, s16 _nbSteps, u16* _destColors)
+{
+    s16 s;
+
+
+    _nbSteps--;
+
+    for (s = 0 ; s <= _nbSteps ; s++)
+    {
+        _destColors = COLcomputeGradientStep (_startColors, _endcolors, _nbColors, _nbSteps, s, _destColors);
     }
 
     return _destColors;

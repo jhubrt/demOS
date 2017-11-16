@@ -18,8 +18,18 @@
 #ifndef HELPERS_H
 #define HELPERS_H
 
-#include "DEMOSDK\BASTYPES.H"
-#include "TOOLS\BINARIZE\HELPERS.H"
+#define WINDOW_WIDTH  1024
+#define WINDOW_HEIGHT 1024
+
+PREDECLARE_STRUCT(WINdow);
+PREDECLARE_STRUCT(BITsurface);
+
+u32  TOOLfileSize       (FILE* _file);
+void TOOLreadcheck      (void* _buf, u32 _size, FILE* _file);
+void TOOLwritecheck     (void* _buf, u32 _size, FILE* _file);
+void TOOLtruncateFile   (const char* _source, const char* _dest, u32 _size);
+
+void TOOLdisplayImage   (WINdow* _window, BITsurface* _surface);
 
 void TOOLwriteStaticData(char* _filename, char* _sourcefile, char* _symbolName);
 

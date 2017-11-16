@@ -62,7 +62,7 @@ WINdow* WINconstruct	 (WINinitParam* _initParam);
 void WINdestroy		     (WINdow* _m);
 void WINwaitLoop		 (WINdow* _m);
 void WINclear			 (WINdow* _m);
-void WINdrawImage		 (WINdow* _m, void* _image, u32 _width, u32 _height, u32 _nbBitsPerPixel, u8* _palette, u32 _x, u32 _y);
+void WINdrawImage		 (WINdow* _m, void* _image, u32 _width, u32 _height, u32 _nbBitsPerPixel, void* _palette, u32 _x, u32 _y);
 void WINfilledRectangle  (WINdow* _m,s32 _iX1, s32 _iY1, s32 _iX2, s32 _iY2);
 void WINline			 (WINdow* _m,s32 _iX1, s32 _iY1, s32 _iX2, s32 _iY2);
 void WInpoint			 (WINdow* _m,s32 _iX, s32 _iY);
@@ -78,6 +78,8 @@ u32  WINgetKeyState      (WINdow* _m);
 u32  WINgetControlKeys	 (WINdow* _m);
 u32  WINgetKeyExtraState (WINdow* _m);
 void* WINgetWindowHandle (WINdow* _m);
+
+void WINwaitForGUI 		 (WINdow* _m);
 
 #endif // __TOS__
 

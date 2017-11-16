@@ -161,13 +161,13 @@ static void SCRfade2black (FSM* _fsm)
 /*
 FSMstate statesIdle[] =
 {
-    {NULL, LOADunitTestInit, NULL},
-    {NULL, LOADunitTestUpdate, NULL}
+    LOADunitTestInit, 
+    LOADunitTestUpdate
 };
 
 FSMstate states[] =
 {
-	{NULL, doNothing, NULL}
+	doNothing
 };
 */
 
@@ -176,16 +176,16 @@ FSMstate states[] =
 /*
 FSMstate statesIdle[] =
 {
-	{NULL, CybervectorEntry, NULL},
-	{NULL, CybervectorBacktask, NULL}
+	CybervectorEntry, 
+	CybervectorBacktask
 };
 
 FSMstate states[] =
 {
-	{NULL, doNothing, NULL},
-    {NULL, SCRswitch60hz, NULL},
-    {NULL, SCRswitch4P, NULL},
-	{NULL, CybervectorActivity, NULL}
+	doNothing, 
+    SCRswitch60hz, 
+    SCRswitch4P, 
+	CybervectorActivity
 };
 */
 
@@ -193,16 +193,16 @@ FSMstate states[] =
 /*
 FSMstate states[] =
 {
-	{NULL, doNothing, NULL},
-    {NULL, SCRswitch50hz, NULL},
-    {NULL, SCRswitch2P, NULL},
-	{NULL, VisualizerActivity, NULL}
+	doNothing, 
+    SCRswitch50hz, 
+    SCRswitch2P, 
+	VisualizerActivity
 };
 
 FSMstate statesIdle[] =
 {
-	{NULL, VisualizerEntry, NULL},
-	{NULL, VisualizerBacktask, NULL}
+	VisualizerEntry, 
+	VisualizerBacktask
 };
 */
 
@@ -210,18 +210,18 @@ FSMstate statesIdle[] =
 /*
 FSMstate states[] =
 {
-    {NULL, SCRswitch50hz, NULL},
-    {NULL, SCRswitch4P, NULL},
-    {NULL, SCRswitch336, NULL},
-    {NULL, doNothing, NULL},
-    {NULL, SlidesInitActivity, NULL},
-	{NULL, SlidesActivity, NULL}
+    SCRswitch50hz, 
+    SCRswitch4P, 
+    SCRswitch336, 
+    doNothing, 
+    SlidesInitActivity, 
+	SlidesActivity
 };
 
 FSMstate statesIdle[] =
 {
-	{NULL, SlidesEntry, NULL},
-	{NULL, SlidesBacktask, NULL}
+	SlidesEntry, 
+	SlidesBacktask
 };
 */
 
@@ -230,16 +230,16 @@ FSMstate statesIdle[] =
 /*
 FSMstate statesIdle[] =
 {
-	{NULL, FugitEntry, NULL},
-    {NULL, FugitBacktask, NULL}
+	FugitEntry, 
+    FugitBacktask
 };
 
 FSMstate states[] =
 {
-    {NULL, SCRswitch50hz, NULL},
-    {NULL, SCRswitch2P, NULL},
-	{NULL, doNothing, NULL},
-	{NULL, FugitActivity, NULL}
+    SCRswitch50hz, 
+    SCRswitch2P, 
+	doNothing, 
+	FugitActivity
 };
 */
 
@@ -247,122 +247,123 @@ FSMstate states[] =
 /*
 FSMstate statesIdle[] =
 {
-	{NULL, InterludeEntry,    NULL},
-	{NULL, InterludeBacktask, NULL},
+	InterludeEntry,    
+	InterludeBacktask
 };
 
 FSMstate states[] =
 {
-    {NULL, SCRswitch50hz    , NULL},
-    {NULL, SCRswitch4P      , NULL},
-	{NULL, doNothing        , NULL},
-	{NULL, InterludeActivity, NULL},
+    SCRswitch50hz    , 
+    SCRswitch4P      , 
+	doNothing        , 
+	InterludeActivity
 };
 */
 
 /* WHOLE DEMO -------------------------------------------*/
 
-FSMstate states[] =
+FSMfunction states[] =
 {
-	{NULL, doNothing, NULL},
-    {NULL, SCRswitch60hz, NULL},
-    {NULL, SCRswitch4P, NULL},
-	{NULL, CybervectorActivity, NULL},
-	{NULL, stepNext, NULL},
+	doNothing, 
+    SCRswitch60hz, 
+    SCRswitch4P, 
+	CybervectorActivity, 
+	stepNext, 
 
-	{NULL, doNothing, NULL},
-    {NULL, SCRswitch50hz, NULL},
-    {NULL, SCRswitch2P, NULL},
-	{NULL, VisualizerActivity, NULL},
-    {NULL, stepNext, NULL},
+	doNothing, 
+    SCRswitch50hz, 
+    SCRswitch2P, 
+	VisualizerActivity, 
+    stepNext, 
     
-	{NULL, doNothing, NULL},
-    {NULL, SCRswitch50hz, NULL},
-    {NULL, SCRswitch4P, NULL},
-	{NULL, InterludeActivity, NULL},
-    {NULL, stepNext, NULL},
+	doNothing, 
+    SCRswitch50hz, 
+    SCRswitch4P, 
+	InterludeActivity, 
+    stepNext, 
 
-	{NULL, doNothing, NULL},
-    {NULL, SCRswitch50hz, NULL},
-    {NULL, SCRswitch2P, NULL},
-	{NULL, VisualizerActivity, NULL},
-    {NULL, stepNext, NULL},
+	doNothing, 
+    SCRswitch50hz, 
+    SCRswitch2P, 
+	VisualizerActivity, 
+    stepNext, 
 
-	{NULL, doNothing, NULL},
-    {NULL, SCRswitch50hz, NULL},
-    {NULL, SCRswitch4P, NULL},
-	{NULL, InterludeActivity, NULL},
-    {NULL, stepNext, NULL},
+	doNothing, 
+    SCRswitch50hz, 
+    SCRswitch4P, 
+	InterludeActivity, 
+    stepNext, 
 
-	{NULL, doNothing, NULL},
-    {NULL, SCRswitch50hz, NULL},
-    {NULL, SCRswitch2P, NULL},
-	{NULL, VisualizerActivity, NULL},
-    {NULL, stepNext, NULL},
+	doNothing, 
+    SCRswitch50hz, 
+    SCRswitch2P, 
+	VisualizerActivity, 
+    stepNext, 
 
-    {NULL, doNothing, NULL},
-    {NULL, SCRswitch4P, NULL},
-    {NULL, SCRswitch336, NULL},
-    {NULL, SlidesInitActivity, NULL},
-	{NULL, SlidesActivity, NULL},
-	{NULL, stepNext, NULL},
+    doNothing, 
+    SCRswitch4P, 
+    SCRswitch336, 
+    SlidesInitActivity, 
+	SlidesActivity, 
+	stepNext, 
 
-	{NULL, doNothing, NULL},
-    {NULL, SCRswitch320, NULL},
-    {NULL, SCRswitch2P, NULL},
-	{NULL, VisualizerActivity, NULL},
-    {NULL, stepNext, NULL},
+	doNothing, 
+    SCRswitch320, 
+    SCRswitch2P, 
+	VisualizerActivity, 
+    stepNext, 
     
-    {NULL, doNothing, NULL},
-    {NULL, SCRswitch320, NULL},
-    {NULL, SCRswitch2P, NULL},
-	{NULL, FugitActivity, NULL},
-    {NULL, stepNext, NULL},
+    doNothing, 
+    SCRswitch320, 
+    SCRswitch2P, 
+	FugitActivity, 
+    stepNext, 
 
-	{NULL, doNothing, NULL}
+	doNothing
 };
 
-FSMstate statesIdle[] =
+
+FSMfunction statesIdle[] =
 {
-    {NULL, SCRfade2black, NULL},
+    SCRfade2black, 
 
-    {NULL, CybervectorEntry, NULL},
-	{NULL, CybervectorBacktask, NULL},
-	{NULL, CybervectorExit, NULL},
+    CybervectorEntry, 
+	CybervectorBacktask, 
+	CybervectorExit, 
 
-    {NULL, VisualizerEntry, NULL},
-    {NULL, VisualizerEntryFast, NULL},
-	{NULL, VisualizerBacktask, NULL},
+    VisualizerEntry, 
+    VisualizerEntryFast, 
+	VisualizerBacktask, 
 	
-    {NULL, InterludeEntry, NULL},
-	{NULL, InterludeBacktask, NULL},
-	{NULL, InterludeExit, NULL},
+    InterludeEntry, 
+	InterludeBacktask, 
+	InterludeExit, 
 
-    {NULL, VisualizerEntryFast, NULL},
-	{NULL, VisualizerBacktask, NULL},
+    VisualizerEntryFast, 
+	VisualizerBacktask, 
 
-    {NULL, InterludeEntry, NULL},
-	{NULL, InterludeBacktask, NULL},
-	{NULL, InterludeExit, NULL},
+    InterludeEntry, 
+	InterludeBacktask, 
+	InterludeExit, 
 
-    {NULL, VisualizerEntryFast, NULL},
-	{NULL, VisualizerBacktask, NULL},
-	{NULL, VisualizerExit, NULL},
+    VisualizerEntryFast, 
+	VisualizerBacktask, 
+	VisualizerExit, 
 
-    {NULL, SlidesEntry, NULL},
-	{NULL, SlidesBacktask, NULL},
-	{NULL, SlidesExit, NULL},
+    SlidesEntry, 
+	SlidesBacktask, 
+	SlidesExit, 
 
-	{NULL, VisualizerEntry, NULL},
-    {NULL, VisualizerEntryFast, NULL},
-	{NULL, VisualizerBacktask, NULL},
-	{NULL, VisualizerExit, NULL},
+	VisualizerEntry, 
+    VisualizerEntryFast, 
+	VisualizerBacktask, 
+	VisualizerExit, 
 
-    {NULL, FugitEntry, NULL},
-	{NULL, FugitBacktask, NULL},
-	{NULL, FugitExit, NULL},
+    FugitEntry, 
+	FugitBacktask, 
+	FugitExit, 
 	
-    {NULL, doNothing, NULL}
+    doNothing
 };
 
 u16 statesSize     = (u16) ARRAYSIZE(states);
@@ -371,7 +372,7 @@ u16 statesIdleSize = (u16) ARRAYSIZE(statesIdle);
 
 void ScreenWaitMainDonothing (void)
 {
-    while (g_stateMachine.states[g_stateMachine.activeState].activity != doNothing);
+    while (g_stateMachine.states[g_stateMachine.activeState] != doNothing);
 }
 
 

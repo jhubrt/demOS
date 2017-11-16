@@ -80,16 +80,23 @@
 #include "REBIRTH\DISK1.H"
 #include "REBIRTH\DISK2.H"
 
-LOADdisk RSC_DISK1 = { NULL, RSC_DISK1_NBENTRIES, NULL, RSC_DISK1_NBMETADATA, 0, NULL
-#	ifdef DEMOS_DEBUG
-     ,"DISK1.ST", NULL
-#   endif
+
+LOADdisk RSC_DISK1 = { 
+    NULL, RSC_DISK1_NBENTRIES, 
+    NULL, RSC_DISK1_NBMETADATA, 
+    0, 
+    NULL, 0,
+    NULL,
+    "DISK1.ST"
 };
 
-LOADdisk RSC_DISK2 = { NULL, RSC_DISK2_NBENTRIES, NULL, RSC_DISK2_NBMETADATA, 1, NULL
-#	ifdef DEMOS_DEBUG
-     ,"DISK2.ST", NULL
-#   endif
+LOADdisk RSC_DISK2 = { 
+    NULL, RSC_DISK2_NBENTRIES, 
+    NULL, RSC_DISK2_NBMETADATA, 
+    1, 
+    NULL, 0,
+    NULL,
+    "DISK2.ST"
 };
 
 
@@ -159,6 +166,15 @@ int main(int argc, char** argv)
 #       endif
 		void* buffer        = corebuffer + coresize;
 
+#       ifdef DEMOS_DEBUG
+        u32   logsize   = 256UL * 1024UL;
+#           ifdef __TOS__
+            void* logmem = (void*) 0x3A0000UL;
+            u8*   bufferend = corebuffer + coresize + size;
+#           else
+            void* logmem = malloc(logsize);
+#           endif
+#       endif
 
 #       ifndef DEMOS_USES_BOOTSECTOR
 		sys.bakGemdos32 = SYSgemdosSetMode(NULL);
@@ -196,7 +212,7 @@ int main(int argc, char** argv)
 
 			SYSinit ( &sysparam );
 			SNDsynPlayerInit (&sys.coremem, &sndparam);
-			TRACinit ();
+			TRACinit (logmem, logsize);
             SYScheckHWRequirements ();
 
             SYSfastPrint(DEMOSbuildversion, (u8*)(SYSreadVideoBase()) + 160 * 192 + 152, 160, 4);

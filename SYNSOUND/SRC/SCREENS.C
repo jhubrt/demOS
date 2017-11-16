@@ -171,21 +171,20 @@ FSMstate states[] =
 
 /* WHOLE DEMO -------------------------------------------*/
 
-FSMstate states[] =
+FSMfunction states[] =
 {
-	{NULL, doNothing, NULL},
-
-    {NULL, IntroActivity, NULL},
-	{NULL, doNothing, NULL}
+	doNothing, 
+    IntroActivity, 
+	doNothing
 };
 
-FSMstate statesIdle[] =
+FSMfunction statesIdle[] =
 {
-    {NULL, SCRswitch50hz, NULL},
-	{NULL, SCRfade2black, NULL},
-    {NULL, IntroEntry, NULL},
-    {NULL, IntroBacktask, NULL},
-    {NULL, IntroExit, NULL}
+    SCRswitch50hz, 
+    SCRfade2black, 
+    IntroEntry, 
+    IntroBacktask,
+    IntroExit
 };
 
 u16 statesSize     = (u16) ARRAYSIZE(states);
@@ -194,7 +193,7 @@ u16 statesIdleSize = (u16) ARRAYSIZE(statesIdle);
 
 void ScreenWaitMainDonothing (void)
 {
-    while (g_stateMachine.states[g_stateMachine.activeState].activity != doNothing);
+    while (g_stateMachine.states[g_stateMachine.activeState] != doNothing);
 }
 
 

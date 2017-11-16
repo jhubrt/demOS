@@ -37,10 +37,28 @@
 	xdef	SYSvblinterrupt,SYSvblcount,SYSvblLcount,SYSOSVBL
 	xdef	SYSsetIdlethread,SYSswitchIdle
     xdef    SYSgemdosSetMode,SYSreset
+    xdef    SYSinitDbgBreak,SYSdbgBreak
 
 	xref	RASnextOpList
     
     xref    LOADdeconnectAndStartRequest,LOADtoggleDriveStartRequest
+
+
+*-------------------------------------------------------------------------
+* void SYSinitDbgBreak (void);
+*-------------------------------------------------------------------------
+SYSinitDbgBreak:
+    move.l  #.return,$0A8.w
+    rts
+.return
+    rte
+    
+*-------------------------------------------------------------------------
+* void SYSdbgBreak (void);
+*-------------------------------------------------------------------------
+SYSdbgBreak:
+    trap    #10
+    rts
 
 *-------------------------------------------------------------------------
 * void* SYSgemdosSetMode (void* _adr);
@@ -177,7 +195,7 @@ SYSswitchIdle:
 	movem.l d0-d7/a0-a6,-(sp)			; store main thread context
 	move.l	sp,mainthreadcontext		; save main thread SP
 
-	move.l	idlethreadcontext,sp		; restore idle thread SP and context
+	move.l	idlethreadcontext(pc),sp	; restore idle thread SP and context
 	movem.l (sp)+,d0-d7/a0-a6
 
 	rte									; trick: use rte instead of rts while we were called by bsr

@@ -118,6 +118,7 @@ void SYSshutdown	        (void);
 void SYSvsync		        (void);
 void SYScheckHWRequirements (void);
 bool SYSgetCookie           (u32 _id, u32* _value);
+void SYSdbgBreak            (void);
 
 extern volatile u32	SYSvblcount;
 extern volatile u16	SYSvblLcount;

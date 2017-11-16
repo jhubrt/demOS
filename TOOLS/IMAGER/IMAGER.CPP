@@ -117,7 +117,7 @@ public:
   
     {}
 
-    void write(std::vector<FileEntry>& _fileEntries, std::vector<FileMetaData>& _metaData)
+    void write(std::vector<FileEntry>& _fileEntries, std::vector<FileMetaData>& _metaData, u32 _mediausedsize)
     {
         assert (m_file != NULL);
         const char* fileid = m_fileid.c_str();
@@ -146,6 +146,8 @@ public:
 
 		fprintf (m_file, "    RSC_%s_NBMETADATA\n", fileid);
 		fprintf (m_file, "};\n\n");
+
+        fprintf (m_file, "#define RSC_%s_MEDIAPRELOAD_SIZE %uUL\n\n", fileid, _mediausedsize);
 
 		fprintf (m_file, "#ifndef %s_C\n", fileid);
 		fprintf (m_file, "extern LOADdisk RSC_%s;\n", fileid);
@@ -713,7 +715,7 @@ bool writeST (char* _filename, u16 _nbSectorsPerTrack, u16 _nbsides, u16 _nbtrac
             fwrite (buf, delta, 1, fileImage);
             free(buf);
 
-            headerFile.write(fileEntries, fileMetaData);
+            headerFile.write(fileEntries, fileMetaData, pos);
             logFile.write(fileEntries, fileMetaData, imagesize, pos, _preferedUnit);
             
             success = writeFAT (fileEntries, fileMetaData, fileImage);

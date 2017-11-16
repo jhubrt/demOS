@@ -65,17 +65,17 @@ void LOADpreloadMedia (LOADdisk* _media)
 {
     FILE* file = fopen(_media->filename, "rb");
     u32 result;
+    u32 size = _media->mediapreloadsize - LOAD_SECTORSIZE; /* skip bootsector */
 
 
     ASSERT(file != NULL);
 
-    _media->mediapreload = malloc(_media->mediapreloadsize);
+    _media->mediapreload = malloc(size);
     ASSERT(_media->mediapreload != NULL);
 
-    fseek (file, LOAD_SECTORSIZE, SEEK_SET);
-
-    result = fread (_media->mediapreload, 1, _media->mediapreloadsize, file);
-    ASSERT(result == _media->mediapreloadsize);
+    fseek(file, LOAD_SECTORSIZE, SEEK_SET); /* skip bootsector */
+    result = fread (_media->mediapreload, 1, size, file);
+    ASSERT(result == size);
 
     fclose(file);
 }

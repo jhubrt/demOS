@@ -228,9 +228,12 @@ bool SYSgetCookie(u32 _id, u32* _value)
     return false;
 }
 
+void SYSinitDbgBreak(void) PCSTUB;
 
 void SYSinit(SYSinitParam* _param)
 {
+    SYSinitDbgBreak ();
+
     STDmset (&sys, 0, sizeof(sys));
 
 	ASSERT(_param->adr != NULL);
@@ -532,5 +535,33 @@ u16 SYStraceHW (void* _image, u16 _pitch, u16 _planePitch, u16 _y)
 	return 12;
 }
 
+static void sysStackTestRecurs (int _level, int _max, int* _values)
+{
+    if (_level < _max)
+    {
+        _values[_level] = _level;
+        sysStackTestRecurs (_level + 1, _max, _values);
+    }
+}
+
+void SYSstackTest (void)
+{
+    while (1)
+    {
+        int values [64];
+        u16 max = STDifrnd() & 63;
+        u16 t;
+
+
+        *HW_COLOR_LUT ^= 0x2;
+
+        sysStackTestRecurs(0, max, values);
+
+        for (t = 0 ; t < max ; t++)
+        {
+            ASSERT(values[t] == t);
+        }
+    }
+}
 
 #endif
