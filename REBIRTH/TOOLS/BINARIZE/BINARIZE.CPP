@@ -1,7 +1,7 @@
-/*------------------------------------------------------------------------------  -----------------
+/*-----------------------------------------------------------------------------------------------
   The MIT License (MIT)
 
-  Copyright (c) 2015-2016 J.Hubert
+  Copyright (c) 2015-2017 J.Hubert
 
   Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
   and associated documentation files (the "Software"), 
@@ -18,7 +18,8 @@
   IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, 
   DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-------------------------------------------------------------------------------------------------- */
+-------------------------------------------------------------------------------------------------*/
+
 
 /*! @brief @ref BINARIZE @file */
 
@@ -31,19 +32,22 @@
   DATA => (BINARIZE) => DATABIN => (ARJ batchs) => DATABIN => (IMAGER) => Floppy images          
 */
 
-#include "DEMOSDK\BASTYPES.H"
-#include "DEMOSDK\SYSTEM.H"
-#include "DEMOSDK\STANDARD.H"
+extern "C"
+{
+#   include "DEMOSDK\BASTYPES.H"
+#   include "DEMOSDK\SYSTEM.H"
+#   include "DEMOSDK\STANDARD.H"
 
-#include "DEMOSDK\PC\WINDOW.H"
-#include "DEMOSDK\PC\BMPLOADER.H"
-#include "DEMOSDK\PC\BITCONVR.H"
+#   include "DEMOSDK\PC\WINDOW.H"
+#   include "DEMOSDK\PC\BMPLOADER.H"
+#   include "DEMOSDK\PC\BITCONVR.H"
+
+    /* imported from MPP */
+    int bmp2mpp(const char* filename, int _mode, int ste, int extra, int doubl, int optlevel, int randseed, const char* outfilename, int raw_palette);
+    void mpp2bmp(const char* _mppfilename, int _mode, int ste, int extra, int doubl, const char* bmpfilename, int raw_palette);
+}
 
 #include "TOOLS\BINARIZE\HELPERS.H"
-
-/* imported from MPP */
-int bmp2mpp(const char* filename, int _mode, int ste, int extra, int doubl, int optlevel, int randseed, const char* outfilename, int raw_palette);
-void mpp2bmp(const char* _mppfilename, int _mode, int ste, int extra, int doubl, const char* bmpfilename, int raw_palette);
 
 /* allocator */
 static void* stdAlloc(void* _alloc, u32 _size)
@@ -58,7 +62,7 @@ static void stdFree(void* _alloc, void* _adr)
     free(_adr);
 }
 
-MEMallocator stdAllocator = { NULL, stdAlloc, stdFree };
+MEMallocator stdAllocator = { NULL, stdAlloc, stdAlloc, stdFree };
 
 /* some services */
 static void waitForGUI (WINdow* _window)

@@ -1,0 +1,169 @@
+/*-----------------------------------------------------------------------------------------------
+  The MIT License (MIT)
+
+  Copyright (c) 2015-2017 J.Hubert
+
+  Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
+  and associated documentation files (the "Software"), 
+  to deal in the Software without restriction, including without limitation the rights to use, 
+  copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, 
+  and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+  The above copyright notice and this permission notice shall be included in all copies 
+  or substantial portions of the Software.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, 
+  INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
+  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. 
+  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, 
+  DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
+  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+-------------------------------------------------------------------------------------------------*/
+
+extern "C"
+{
+#   include "DEMOSDK\BASTYPES.H"
+
+#   include "DEMOSDK\STANDARD.H"
+
+#   include "DEMOSDK\PC\SURFACE.H"
+#   include "DEMOSDK\PC\WINDOW.H"
+}
+
+#include "TOOLS\BINARIZE\HELPERS.H"
+
+
+extern MEMallocator stdAllocator;
+
+
+u32 TOOLfileSize (FILE* _file)
+{
+    u32 filesize;
+    u32 pos = ftell(_file);
+    
+    fseek (_file, 0, SEEK_END);
+    filesize = ftell(_file);
+    fseek (_file, pos, SEEK_SET);
+
+    return filesize;
+}
+
+void TOOLreadcheck (void* _buf, u32 _size, FILE* _file)
+{
+    if ( fread (_buf, _size, 1, _file) != 1 )
+    {
+        printf ("#ERROR while reading %d bytes\n", _size);
+    }
+}
+
+void TOOLwritecheck (void* _buf, u32 _size, FILE* _file)
+{
+    if ( fwrite (_buf, _size, 1, _file) != 1 )
+    {
+        printf ("#ERROR while writing %d bytes\n", _size);
+    }
+}
+
+
+void TOOLdisplayImage (WINdow* _window, BITsurface* _surface)
+{
+    if ( _window != NULL )
+    {
+        BITsurface temp;
+        BITsurface* surface = _surface;
+
+
+        if (( _surface->format != BITformat_8bits ) && ( _surface->format != BITformat_x888 ))
+        {
+            surface = &temp; 
+            
+            BITsurfaceConstruct (surface);
+            BITsurfaceConvert (&stdAllocator, _surface, surface, BITformat_8bits);
+        }
+
+        WINdrawImage (
+            _window, 
+            surface->buffer, 
+            surface->width, surface->height, 
+            surface->format == BITformat_8bits ? 8 : 32, 
+            surface->format == BITformat_8bits ? surface->lut.data.p : NULL,
+            (WINDOW_WIDTH - surface->width) / 2, (WINDOW_HEIGHT - surface->height) / 2);
+
+        WINrender (_window, 0);
+        WINwaitForGUI(_window);
+
+        if ( surface == &temp )
+        {
+            BITsurfaceDestroy(surface);
+        }
+    }
+}
+
+
+void TOOLtruncateFile (const char* _source, const char* _dest, u32 _size)
+{
+    u8* buffer = NULL;
+    u32 filesize;
+    FILE* file = fopen(_source, "rb");
+    ASSERT(file != NULL);
+
+    fseek (file, 0, SEEK_END);
+    filesize = ftell(file);
+    ASSERT(filesize >= _size);
+
+    buffer = (u8*) malloc(_size);
+
+    fseek (file, 0, SEEK_SET);
+    fread (buffer, 1, _size, file);
+    fclose (file);
+
+    file = fopen (_dest, "wb");
+    ASSERT(file != NULL);
+    fwrite(buffer, 1, _size, file);
+    fclose (file);
+}
+
+
+void TOOLwriteStaticData(char* _filename, char* _sourcefile, char* _symbolName)
+{
+	u32 filesize;
+	FILE* file = fopen(_filename, "rb");
+	ASSERT(file != NULL);	
+	
+	fseek (file, 0, SEEK_END);
+	filesize = ftell(file);
+	fseek (file, 0, SEEK_SET);
+
+	{	
+		u8* buffer = (u8*) malloc(filesize);
+		u32 t;
+	
+		fread (buffer, 1, filesize, file);
+		fclose(file);
+
+		file = fopen(_sourcefile, "wt");
+		ASSERT(file != NULL);	
+		
+		fprintf(file, "u8 %s[] = {\n", _symbolName);
+		
+		for (t = 0 ; t < filesize ; t++)
+		{
+			fprintf (file, "%u", buffer[t]);
+
+			if ((t + 1) < filesize)
+			{
+				fprintf (file, ",");
+			}
+
+			if ((t & 31) == 31)
+			{
+				fprintf (file, "\n");
+			}
+		}
+
+		fprintf(file, "};\n");
+		
+		fclose(file);		
+		free (buffer);
+	}
+}
