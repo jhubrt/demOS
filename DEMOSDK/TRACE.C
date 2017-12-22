@@ -1,7 +1,7 @@
 /*------------------------------------------------------------------------------  -----------------
   The MIT License (MIT)
 
-  Copyright (c) 2015-2016 J.Hubert
+  Copyright (c) 2015-2017 J.Hubert
 
   Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
   and associated documentation files (the "Software"), 
@@ -27,6 +27,8 @@
 #include "DEMOSDK\HARDWARE.H"
 
 #ifdef DEMOS_DEBUG
+
+#define TRAC_KEEPLASTLOG 1   /* define 1 to keep last log (looping log) else 0 */
 
 #define TRAC_NBMAXDISPLAYSERVICES 10
 
