@@ -1,7 +1,7 @@
 /*------------------------------------------------------------------------------  -----------------
   The MIT License (MIT)
 
-  Copyright (c) 2015-2016 J.Hubert
+  Copyright (c) 2015-2017 J.Hubert
 
   Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
   and associated documentation files (the "Software"), 
@@ -289,12 +289,14 @@ void SYSinit(SYSinitParam* _param)
 
 	RINGallocatorInit ( &sys.coremem, _param->coreAdr, _param->coreSize );
 
-	sys.allocatorMem.alloc = (MEMallocFunc) RINGallocatorAlloc;
-	sys.allocatorMem.free  = (MEMfreeFunc)  RINGallocatorFree;
+    sys.allocatorMem.alloc     = (MEMallocFunc) RINGallocatorAlloc;
+    sys.allocatorMem.alloctemp = (MEMallocFunc) RINGallocatorAllocTemp;
+	sys.allocatorMem.free      = (MEMfreeFunc)  RINGallocatorFree;
 	sys.allocatorMem.allocator = &sys.mem;
 
-	sys.allocatorCoreMem.alloc = (MEMallocFunc) RINGallocatorAlloc;
-	sys.allocatorCoreMem.free  = (MEMfreeFunc)  RINGallocatorFree;
+	sys.allocatorCoreMem.alloc     = (MEMallocFunc) RINGallocatorAlloc;
+    sys.allocatorCoreMem.alloctemp = (MEMallocFunc) RINGallocatorAllocTemp;
+	sys.allocatorCoreMem.free      = (MEMfreeFunc)  RINGallocatorFree;
 	sys.allocatorCoreMem.allocator = &sys.coremem;
 
 #   if !defined(DEMOS_OPTIMIZED) && !defined(DEMOS_USES_BOOTSECTOR)	

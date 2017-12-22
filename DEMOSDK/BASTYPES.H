@@ -1,7 +1,7 @@
 /*-----------------------------------------------------------------------------------------------
   The MIT License (MIT)
 
-  Copyright (c) 2015-2016 J.Hubert
+  Copyright (c) 2015-2017 J.Hubert
 
   Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
   and associated documentation files (the "Software"), 
@@ -138,13 +138,16 @@ STRUCT(MEMallocator)
 {
 	void* allocator;
 	MEMallocFunc alloc;
+    MEMallocFunc alloctemp;
 	MEMfreeFunc  free;
 };
 
 #define MEM_ALLOC(ALLOCATOR,SIZE) (ALLOCATOR)->alloc((ALLOCATOR)->allocator,(SIZE))
+#define MEM_ALLOCTEMP(ALLOCATOR,SIZE) (ALLOCATOR)->alloctemp((ALLOCATOR)->allocator,(SIZE))
 #define MEM_FREE(ALLOCATOR,ADR)   (ALLOCATOR)->free((ALLOCATOR)->allocator,(ADR))
 
 #define MEM_ALLOC_STRUCT(ALLOCATOR,NAME) (NAME*) (ALLOCATOR)->alloc((ALLOCATOR)->allocator, sizeof(NAME))
+#define MEM_ALLOCTEMP_STRUCT(ALLOCATOR,NAME) (NAME*) (ALLOCATOR)->alloctemp((ALLOCATOR)->allocator, sizeof(NAME))
 
 /* assertion */
 #ifdef __TOS__

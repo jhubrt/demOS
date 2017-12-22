@@ -1,7 +1,7 @@
 /*------------------------------------------------------------------------------  -----------------
   The MIT License (MIT)
 
-  Copyright (c) 2015-2016 J.Hubert
+  Copyright (c) 2015-2017 J.Hubert
 
   Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
   and associated documentation files (the "Software"), 
@@ -153,6 +153,88 @@ void* RINGallocatorAlloc (RINGallocator* _m, u32 _size)
 }
 
 
+void* RINGallocatorAllocTemp (RINGallocator* _m, u32 _size)
+{
+	u32 size = sizeof(AllocCell) + ((_size + 3UL) & 0xFFFFFFFCUL);
+    AllocCell* cell;
+
+
+	if ( _m->last == NULL )
+	{
+		if ( size <= _m->size )
+		{
+	        cell = (AllocCell*) _m->head;
+		    
+            cell->prev = cell->next = NULL;
+			
+            _m->tail += size;
+            _m->last = _m->head;
+		}
+		else
+		{
+			return NULL;
+		}
+	}
+	else
+	{
+		u8* p = _m->head;
+
+        cell = (AllocCell*) _m->head;
+
+#		ifdef RINGALLOCATOR_DEBUG
+		ASSERT(cell->guard1 == RINGALLOCATOR_GUARD1);
+		ASSERT(cell->guard2 == RINGALLOCATOR_GUARD2);
+#		endif
+
+        if ( p <= _m->tail )
+		{
+            if ( (_m->buffer + size) <= p )
+            {
+                p -= size;
+            }
+            else if ( (_m->tail + size) <= _m->bufferEnd )
+			{
+				p = _m->bufferEnd - size;
+			}
+			else
+			{
+				return NULL;
+			}
+		}
+		else
+		{
+            if (( _m->tail + size ) <= _m->head )
+			{
+				p -= size;
+			}
+			else
+			{
+				return NULL;
+			}
+		}
+
+		{
+			AllocCell* cellNew = (AllocCell*) p;
+            
+            ASSERT(ALLOCCELL_isFree(cell) == false);
+			cell->prev = cellNew;
+			cellNew->prev = NULL;
+			cellNew->next = cell;
+
+			_m->head = p;
+			cell = cellNew;
+		}
+	}
+
+#	ifdef RINGALLOCATOR_DEBUG
+	cell->guard1 = RINGALLOCATOR_GUARD1;
+	cell->guard2 = RINGALLOCATOR_GUARD2;
+#	endif
+
+	return cell + 1;
+}
+
+
 void RINGallocatorFree (RINGallocator* _m, void* _address)
 {
 	AllocCell* cell = ((AllocCell*) _address) - 1;
@@ -224,6 +306,47 @@ void RINGallocatorFree (RINGallocator* _m, void* _address)
 bool RINGallocatorIsEmpty (RINGallocator* _m)
 {
     return _m->last == NULL;
+}
+
+void RINGallocatorFreeSize(RINGallocator* _m, RINGallocatorFreeArea* _info)
+{
+    _info->nbareas = 0;
+    _info->size    = 0;
+
+    if (_m->tail > _m->head)
+    {
+        if (_m->head > _m->buffer )
+        {
+            _info->areasizes[_info->nbareas++] = _m->head - _m->buffer;
+        }
+
+        if (_m->tail < _m->bufferEnd )
+        {
+            _info->areasizes[_info->nbareas++] = _m->bufferEnd - _m->tail;
+        }
+    }
+    else
+    {
+        if (_m->tail > _m->buffer )
+        {
+            _info->areasizes[_info->nbareas++] = _m->tail - _m->buffer;
+        }
+
+        if (_m->head < _m->bufferEnd )
+        {
+            _info->areasizes[_info->nbareas++] = _m->bufferEnd - _m->head;
+        }
+    }
+    
+    {
+        u16 i;
+    
+        for (i = 0 ; i < _info->nbareas ; i++)
+        {
+            _info->size += _info->areasizes[i];
+
+        }
+    }
 }
 
 #ifdef DEMOS_DEBUG
@@ -394,6 +517,7 @@ void RINGallocatorUnitTest (void)
 {
 	RINGallocator allocator;
 	void* adr[16];
+    void* adrtemp[16];
 	void* alloc[16];
 
     u32 size = 128UL*1024UL;
@@ -406,6 +530,30 @@ void RINGallocatorUnitTest (void)
 	RINGallocatorDump (&allocator, stdout);
 	ASSERT( 1 == RINGallocatorList (&allocator, alloc, ARRAYSIZE(alloc) ));
 	ASSERT( adr[0] == alloc[0] );
+
+    adrtemp[0] = RINGallocatorAllocTemp (&allocator, 8192);
+	ASSERT( 2 == RINGallocatorList (&allocator, alloc, ARRAYSIZE(alloc) ));
+	RINGallocatorDump (&allocator, stdout);
+
+    RINGallocatorFree (&allocator, adrtemp[0]);
+	ASSERT( 1 == RINGallocatorList (&allocator, alloc, ARRAYSIZE(alloc) ));
+	RINGallocatorDump (&allocator, stdout);
+
+    adrtemp[0] = RINGallocatorAllocTemp (&allocator, 8192);
+	ASSERT( 2 == RINGallocatorList (&allocator, alloc, ARRAYSIZE(alloc) ));
+	RINGallocatorDump (&allocator, stdout);
+
+    adrtemp[1] = RINGallocatorAllocTemp (&allocator, 8192);
+	ASSERT( 3 == RINGallocatorList (&allocator, alloc, ARRAYSIZE(alloc) ));
+	RINGallocatorDump (&allocator, stdout);
+
+    RINGallocatorFree (&allocator, adrtemp[0]);
+	ASSERT( 2 == RINGallocatorList (&allocator, alloc, ARRAYSIZE(alloc) ));
+	RINGallocatorDump (&allocator, stdout);
+
+    RINGallocatorFree (&allocator, adrtemp[1]);
+	ASSERT( 1 == RINGallocatorList (&allocator, alloc, ARRAYSIZE(alloc) ));
+	RINGallocatorDump (&allocator, stdout);
 
 	adr[1] = RINGallocatorAlloc (&allocator, 16384UL);
 	RINGallocatorDump (&allocator, stdout);

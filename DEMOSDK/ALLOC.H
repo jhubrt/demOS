@@ -1,7 +1,7 @@
 /*-----------------------------------------------------------------------------------------------
   The MIT License (MIT)
 
-  Copyright (c) 2015-2016 J.Hubert
+  Copyright (c) 2015-2017 J.Hubert
 
   Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
   and associated documentation files (the "Software"), 
@@ -55,11 +55,20 @@ STRUCT(RINGallocator)
 	u8* last;
 };
 
+STRUCT(RINGallocatorFreeArea)
+{
+    u16 nbareas;
+    u32 areasizes[2];
+    u32 size;
+};
+
 void  RINGallocatorInit    (RINGallocator* _m, void* _buffer, u32 _size);
 void* RINGallocatorAlloc   (RINGallocator* _m, u32 _size);
+void* RINGallocatorAllocTemp (RINGallocator* _m, u32 _size);
 void  RINGallocatorFree    (RINGallocator* _m, void* _address);
 void  RINGallocatorReset   (RINGallocator* _m);
 bool  RINGallocatorIsEmpty (RINGallocator* _m);
+void  RINGallocatorFreeSize  (RINGallocator* _m, RINGallocatorFreeArea* _info);
 
 #ifdef DEMOS_DEBUG
 
