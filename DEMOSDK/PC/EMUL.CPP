@@ -455,7 +455,7 @@ extern "C" void EMULblit (void)
                 break;
 
             case HW_BLITTER_HOP_HTONE:
-                sw = HW_BLITTER_HTONE[htone++ & 15];
+                sw = HW_BLITTER_HTONE[htone & 15];
                 sw = PCENDIANSWAP16(sw);
                 break;
 
@@ -466,7 +466,7 @@ extern "C" void EMULblit (void)
 
                 if ((*HW_BLITTER_HOP) == HW_BLITTER_HOP_SOURCE_AND_HTONE)
                 {
-                    u16 ht = HW_BLITTER_HTONE[htone++ & 15];
+                    u16 ht = HW_BLITTER_HTONE[htone & 15];
                     ht = PCENDIANSWAP16(ht);
                     sw &= ht;
                 }
@@ -532,6 +532,8 @@ extern "C" void EMULblit (void)
 
         s += incSy;
         d += incDy;
+
+        htone++;
 
         (*HW_BLITTER_YSIZE)--;
     }
