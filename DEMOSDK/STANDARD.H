@@ -60,5 +60,16 @@ void  STDsetUSP(void* _adr);
 void STD_unitTest (void);
 #endif
 
+/* S should be a u8* pointer */
+#define STDreadB(S,B) { STATIC_ASSERT(sizeof(B)==1); B=*S++; }
+
+#ifdef __TOS__
+#define STDreadW(S,W) { STATIC_ASSERT(sizeof(W)==2); u8* pW=(u8*)&(W); *pW++=*S++; *pW++=*S++; }
+#define STDreadL(S,L) { STATIC_ASSERT(sizeof(L)==4); u8* pL=(u8*)&(L); *pL++=*S++; *pL++=*S++; *pL++=*S++; *pL++=*S++; }
+#else
+#define STDreadW(S,W) { STATIC_ASSERT(sizeof(W)==2); u8* pW=(u8*)&(W); pW[1]=S[0]; pW[0]=S[1]; S+=2; }
+#define STDreadL(S,L) { STATIC_ASSERT(sizeof(L)==4); u8* pL=(u8*)&(L); pL[3]=S[0]; pL[2]=S[1]; pL[1]=S[2]; pL[0]=S[3]; S+=4; }
+#endif
+
 #endif
 

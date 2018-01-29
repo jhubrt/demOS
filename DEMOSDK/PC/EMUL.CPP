@@ -26,6 +26,7 @@
 #include <string.h>
 #include <mmsystem.h>
 #include <dsound.h>
+#include <math.h>
 
 #undef MEM_FREE  // collision...
 
@@ -121,6 +122,21 @@ static bool InitializeDirectSound(MiniEmul* _emul)
 	return true;
 }
 
+static s32 g_EMULleftChannelAmp = 64;
+
+extern "C" void EMULleftChannel(void)
+{
+    const float dbleft  = -2.0f * (float)(20 - (*HW_MICROWIRE_DATA & 0x3F));   
+    g_EMULleftChannelAmp = (s32) (powf(10.0f, dbleft / 10.0f) * 64.0f);
+}
+
+static s32 g_EMULrightChannelAmp = 64;
+
+extern "C" void EMULrightChannel(void)
+{
+    const float dbright  = -2.0f * float(20 - (*HW_MICROWIRE_DATA & 0x3F));   
+    g_EMULrightChannelAmp = (s32) (powf(10.0f, dbright / 10.0f) * 64.0f);
+}
 
 extern "C" void EMULplaysound (void* _data, u32 _byteslength, u32 _offset)
 {
@@ -138,9 +154,10 @@ extern "C" void EMULplaysound (void* _data, u32 _byteslength, u32 _offset)
     u8* d = (u8*)bufferPtr;
     s8* s = (s8*)_data;
 
-    for (t = 0 ; t < _byteslength ; t++)
+    for (t = 0 ; t < _byteslength ; t += 2)
     {
-        *d++ = (*s++) + 128;
+        *d++ = (s8) ( (((*s++) * g_EMULleftChannelAmp)  >> 6) + 128);
+        *d++ = (s8) ( (((*s++) * g_EMULrightChannelAmp) >> 6) + 128);
     }
  
 	result = g_miniEmul.secondaryBuffer->Unlock((void*)bufferPtr, bufferSize, bufferPtr2, bufferSize2);
@@ -152,10 +169,13 @@ extern "C" void EMULplaysound (void* _data, u32 _byteslength, u32 _offset)
 
         if (file == NULL)
         {
-            file = fopen ("E:\\temp\\dmadump.raw", "wb");
+            file = fopen (".\\_logs\\dmadump.raw", "wb");
         }
 
         fwrite (_data, 1, _byteslength, file);
+
+        WINsetColor       (g_miniEmul.w, 255, 0, 0);
+        WINfilledRectangle(g_miniEmul.w, 5, 5, 30, 30);
     }
 }
 

@@ -2,6 +2,8 @@
 #   define DEMOS_INVERT_DRIVE 1
 #endif
 
+#define DEMOS_LOAD_FROMHD
+
 #include "SYNSOUND\SRC\DEMOS.C"
 
 #include "DEMOSDK\ALLOC.C"
@@ -14,8 +16,8 @@
 #include "DEMOSDK\SYNTH.C"
 #include "DEMOSDK\SYSTEM.C"
 #include "DEMOSDK\TRACE.C"
-
 #include "DEMOSDK\DATA\DATA.C"
+
 
 #include "SYNSOUND\SRC\SCREENS.C"
 #include "SYNSOUND\SRC\PLAYER.C"

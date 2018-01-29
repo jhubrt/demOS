@@ -33,6 +33,8 @@
 #ifdef __TOS__
 
 #define EMULinit(BUFFER)
+#define EMULleftChannel()
+#define EMULrightChannel()
 #define EMULrender()
 #define EMULbufferSize(SIZE)	SIZE
 #define EMULalignBuffer(BUFFER)	BUFFER
@@ -56,6 +58,8 @@ EXTERN_C void    EMULrender            (void);
 EXTERN_C WINdow* EMULgetWindow         (void);
 EXTERN_C void    EMULcreateSoundBuffer (u32 _length, bool _stereo);
 EXTERN_C void    EMULplaysound         (void* _data, u32 _byteslength, u32 _offset);
+EXTERN_C void    EMULleftChannel       (void);
+EXTERN_C void    EMULrightChannel      (void);
 EXTERN_C u32     EMULgetPlayOffset     (void);
 EXTERN_C void    EMULblit              (void);
 EXTERN_C void    EMULgetSound          (void* _data, u32 _byteslength);

@@ -159,7 +159,7 @@ STD_mcpy_exec:
     bne.s   STD_mcpy_exec_memshifted
 
     move.w  a0,d1               ; is dest address odd ?
-    and.l   #1,d1
+    and.w   #1,d1
 
     beq.s   STD_mcpy_notodd
 
@@ -206,6 +206,8 @@ STD_mcpy_exec_memshifted:       ; unaligned => slow method (ok in our context =>
     bne.s   STD_mcpy_exec_memshifted
     
     move.l  (sp)+,d1
+
+    rts
 
 *-------------------------------------------------------------------------
 * void STDcpuSetSR (u16 _status);
