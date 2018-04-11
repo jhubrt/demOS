@@ -122,12 +122,14 @@ u16 STDifrnd()
 
 u32 STDmulu (u16 _x, u16 _y)
 {
-    return (u32)_x * (u32)_y;
+    u32 result = (u32)_x * (u32)_y;
+    return result;
 }
 
 s32 STDmuls (s16 _x, s16 _y)
 {
-    return (s32)_x * (s32)_y;
+    s32 result = (s32)_x * (s32)_y;
+    return result;
 }
 
 u32 STDdivu (u32 _x, u16 _y)

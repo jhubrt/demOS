@@ -57,7 +57,8 @@
 #	endif
 
 #	define IGNORE_PARAM(NAME)	NAME = NAME;
-#   define STATIC_ASSERT(COND) typedef char static_assertion##__LINE__[(COND)?1:-1]
+#   define _STATIC_ASSERT_PRIVATE_(COND,LINE) typedef char static_assertion##LINE[(COND)?1:-1]
+#   define STATIC_ASSERT(COND) _STATIC_ASSERT_PRIVATE_(COND,__LINE__)
 
 #endif
 

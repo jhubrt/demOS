@@ -1,4 +1,4 @@
-/*------------------------------------------------------------------------------  -----------------
+/*-----------------------------------------------------------------------------------------------
   The MIT License (MIT)
 
   Copyright (c) 2015-2017 J.Hubert
@@ -18,7 +18,7 @@
   IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, 
   DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-------------------------------------------------------------------------------------------------- */
+-------------------------------------------------------------------------------------------------*/
 
 /*! @brief @ref SYS @file */
 
@@ -96,14 +96,18 @@ STRUCT(SYScore)
 
 typedef void (*SYSthread)(void);
 
+STRUCT(SYSinitThreadParam)
+{
+    SYSthread       idleThread;
+    u16             idleThreadStackSize;
+};
+
 STRUCT(SYSinitParam)
 {
 	void*			coreAdr;
 	u32				coreSize;
 	void*			adr;
 	u32				size;
-	SYSthread		idleThread;
-    u16             idleThreadStackSize;
 };
 
 #ifndef SYSTEM_C
@@ -114,6 +118,8 @@ STRUCT(SYSinitParam)
 
 void SYSinitPrint           (void);
 void SYSinit		        (SYSinitParam* _param);
+void SYSinitHW              (void);
+void SYSinitThreading       (SYSinitThreadParam* _param);
 void SYSshutdown	        (void);
 void SYSvsync		        (void);
 void SYScheckHWRequirements (void);
@@ -137,6 +143,7 @@ bool SYSsetIdlethread(void* _stacklow, void*_stackhigh);
 void SYStune(void);
 u32	 SYSreadVideoBase (void);
 void SYSwriteVideoBase (u32 _val);
+u32  SYSvidCountRead (void);
 
 #define SYSkbAcquire  sys.key = *HW_KEYBOARD_DATA
 #define SYSkbHit  (sys.lastKey != sys.key)
@@ -166,6 +173,7 @@ bool SYSlockMain (SYSlock* _lock); /* when called from main thread => you should
 void SYSlockIdle (SYSlock* _lock); /* when called from idle thread, it will spin till it is unlocked by main thread (blocking strategy) */
 
 void* SYSgemdosSetMode (void* _adr);
+void* SYSmalloc (size_t _size);
 void  SYSreset (void);
 
 #endif

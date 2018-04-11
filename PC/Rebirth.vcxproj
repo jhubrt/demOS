@@ -183,6 +183,7 @@
     <None Include="..\REBIRTH\SRC\POLYZOOM.S" />
     <None Include="..\REBIRTH\SRC\SLIDES.S" />
     <None Include="..\REBIRTH\SRC\VISUALIZ.S" />
+    <None Include="..\SNDH\SNDH.S" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

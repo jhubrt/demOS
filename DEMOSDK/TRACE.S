@@ -24,122 +24,56 @@
 	
 	opt 	o+
 
-	xdef SYSfontbitmap,SYSfontchars,SYSfastPrint
+    xdef    TRAmaxraster
 
-;-----------------------------------------------------------------------------------------
-; void SYSfastPrint (char* _s, void* _screenprintadr, u16 _screenPitch, u16 _bitplanPitch) 
-; a0 = string
-; a1 = screendisplay
-; d0 = screenpitch
-; d1 = bitplanepitch
-;-----------------------------------------------------------------------------------------
-SYSfastPrint:
+;---------------------------------------
+; u16 TRAmaxraster (u16 maxraster)
+;---------------------------------------
+TRAmaxraster:
+    move.l  d1,-(sp)
+    move.l  d2,-(sp)
 
-	movem.l	a2-a4/d4,-(sp)
+	moveq.l	#0,d1
+	move.b	$ffff8201.w,d1
+	swap	d1
+	move.b	$ffff8203.w,d1
+	lsl.w	#8,d1
+	move.b	$ffff820d.w,d1              ; video base address
 
-    cmp.w   SYSfastPrintautomod+2(pc),d0
-    beq.s   SYS_debugPrint_noautomod
+	moveq.l	#0,d2
+	move.b	$ffff8205.w,d2
+	swap	d2
+	move.b	$ffff8207.w,d2
+	lsl.w	#8,d2
+	move.b	$ffff8209.w,d2              ; current video address
 
-    lea     SYSfastPrintautomod+2(pc),a4        ; check current automod state with current pitch
-    lea     SYSfastPrintautomod2+2(pc),a3
+    sub.l   d1,d2                       ; current - video
 
-    move.w  d0,d4
-    move.w  d4,(a4)
-    move.w  d4,(a3)
-    add.w   d0,d4
-    move.w  d4,4(a4)
-    move.w  d4,4(a3)
-    add.w   d0,d4
-    move.w  d4,8(a4)
-    move.w  d4,8(a3)
-    add.w   d0,d4
-    move.w  d4,12(a4)
-    move.w  d4,12(a3)
-    add.w   d0,d4
-    move.w  d4,16(a4)
-    move.w  d4,16(a3)
-    add.w   d0,d4
-    move.w  d4,20(a4)
-    move.w  d4,20(a3)
-    add.w   d0,d4
-    move.w  d4,24(a4)
-    move.w  d4,24(a3)
+    cmp.w   d0,d2
+    bhi.s   .getmax                     ; if current < max 
 
-SYS_debugPrint_noautomod:
+.loop:
+	moveq.l	#0,d2
+	move.b	$ffff8205.w,d2
+	swap	d2
+	move.b	$ffff8207.w,d2
+	lsl.w	#8,d2
+	move.b	$ffff8209.w,d2              ; current video address
 
-	move.l	SYSfontbitmap(pc),a3
-	lea 	SYSfontchars(pc),a2
+    sub.l   d1,d2                       ; current - video
+    cmp.w   d0,d2                       ;
+    bls.s   .loop                       ; loop while current > max 
 
-	subq.w  #1,d1
+    move.l  (sp)+,d1
+    move.l  (sp)+,d2
 
-    move.w  a1,d4
-    and.w   #1,d4
-    bne.s   SYS_debugPrint_loop_part2
+    rts
 
-SYS_debugPrint_loop:
+.getmax
+    move.w  d2,d0
 
-
-
-	moveq.l	#0,d4
-    move.b  (a0)+,d4
-	beq.s	SYS_debugPrint_end
-
-	add.w	d4,d4
-	move.w	(a2,d4.w),d4
-	blt.s	SYS_debugPrint_noprint
-
-	lea		(a3,d4.w),a4		    ; a4 = char bitmap adr
-
-	move.b	(a4)+,(a1)			
-SYSfastPrintautomod:
-	move.b	(a4)+,2(a1)			
-	move.b	(a4)+,2(a1)			
-	move.b	(a4)+,2(a1)			
-	move.b	(a4)+,2(a1)			
-	move.b	(a4)+,2(a1)			
-	move.b	(a4)+,2(a1)			
-	move.b	(a4),2(a1)			
-
-SYS_debugPrint_noprint:
-	
-	addq.l	#1,a1
-
-
-
-
-SYS_debugPrint_loop_part2:
-    moveq.l #0,d4
-    move.b  (a0)+,d4
-    beq.s   SYS_debugPrint_end
-
-	add.w	d4,d4
-	move.w	(a2,d4.w),d4
-	blt.s	SYS_debugPrint_noprint2
-
-	lea		(a3,d4.w),a4		    ; a4 = char bitmap adr
-
-	move.b	(a4)+,(a1)			
-SYSfastPrintautomod2:
-	move.b	(a4)+,2(a1)			
-	move.b	(a4)+,2(a1)			
-	move.b	(a4)+,2(a1)			
-	move.b	(a4)+,2(a1)			
-	move.b	(a4)+,2(a1)			
-	move.b	(a4)+,2(a1)			
-	move.b	(a4),2(a1)			
-
-SYS_debugPrint_noprint2:
-
-	add.w	d1,a1                   ; add  bitplanepitch - 2
-
-	bra.s	SYS_debugPrint_loop
-
-SYS_debugPrint_end:
-
-	movem.l	(sp)+,a2-a4/d4
+    move.l  (sp)+,d1
+    move.l  (sp)+,d2
 
 	rts
 
-
-SYSfontbitmap:	dc.l	0
-SYSfontchars:   ds.w    256,0

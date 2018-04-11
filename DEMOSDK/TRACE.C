@@ -67,6 +67,9 @@ STRUCT(trac_Logger)
 
 static trac_Logger trac_logger = {NULL, 0, 0, false};
 
+#ifndef __TOS__
+u16 TRAmaxraster (u16 maxraster) { return 0; }
+#endif
 
 void TRACinit (void* _logmem, u32 _logmemsize)
 {

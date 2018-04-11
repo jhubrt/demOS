@@ -150,7 +150,7 @@ int main(int argc, char** argv)
 
 	u32 coresize    = 64UL  * 1024UL;
 	u32 size	    = 512UL * 1024UL; /*768UL * 1024UL;*/
- 
+
 
 	/*STD_unitTest();*/
 
@@ -182,13 +182,13 @@ int main(int argc, char** argv)
 
         SYSinitPrint ();
 
-		ASSERT(corebuffer != NULL);
+        ASSERT(corebuffer != NULL);
         IGNORE_PARAM(base);
 
 		/* STDmset (buffer, 0, size); */
 
 		EMULinit (corebuffer1);
-
+   
 		FSMinit (&g_stateMachine	, states    , statesSize    , 0);
 		FSMinit (&g_stateMachineIdle, statesIdle, statesIdleSize, 0);
 
@@ -201,16 +201,19 @@ int main(int argc, char** argv)
 
 		{
 			SYSinitParam            sysparam;
+            SYSinitThreadParam      threadParam;
             SNDsynPlayerInitParam   sndparam;
 
 			sysparam.adr	     = buffer;
 			sysparam.size	     = size;
-			sysparam.coreAdr    = corebuffer;
-			sysparam.coreSize   = coresize;
-			sysparam.idleThread = DEMOSidleThread;
-            sysparam.idleThreadStackSize = 1024;
+			sysparam.coreAdr     = corebuffer;
+			sysparam.coreSize    = coresize;
+			threadParam.idleThread  = DEMOSidleThread;
+            threadParam.idleThreadStackSize = 1024;
 
 			SYSinit ( &sysparam );
+            SYSinitHW ();
+            SYSinitThreading ( &threadParam ); 
 			SNDsynPlayerInit (&sys.coremem, &sndparam);
 			TRACinit (logmem, logsize);
             SYScheckHWRequirements ();
@@ -223,13 +226,13 @@ int main(int argc, char** argv)
 
 			/* BIT_unitTest(); */
 		}
-
+       
 		ScreensInit ();		
 
 		{
 			u16* color = HW_COLOR_LUT;
-
-			do
+        
+            do
 			{
 				SYSswitchIdle();
 
@@ -247,7 +250,7 @@ int main(int argc, char** argv)
 				{
                     if ( sys.key != HW_KEY_S )  /* do not allow 60hz  switch */  
                     {
-					TRACmanage(sys.key);
+					    TRACmanage(sys.key);
                     }
                     SYSkbReset();
 				}

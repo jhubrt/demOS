@@ -1,4 +1,4 @@
-/*------------------------------------------------------------------------------  -----------------
+/*-----------------------------------------------------------------------------------------------
   The MIT License (MIT)
 
   Copyright (c) 2015-2017 J.Hubert
@@ -18,7 +18,7 @@
   IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, 
   DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-------------------------------------------------------------------------------------------------- */
+-------------------------------------------------------------------------------------------------*/
 
 /*! @brief @ref MAIN @file */
 /*! @defgroup MAIN
@@ -144,7 +144,7 @@ int main(int argc, char** argv)
 #       else
 		u8*   corebuffer    = (u8*) malloc( EMULbufferSize(coresize + size) );
 #       endif
-		u8* buffer          = (u8*) EMULalignBuffer (corebuffer + coresize);
+		u8*   buffer        = (u8*) EMULalignBuffer (corebuffer + coresize);
         u8*   preloadbuffer = NULL;
 
 #       ifdef DEMOS_DEBUG
@@ -165,29 +165,33 @@ int main(int argc, char** argv)
         SYSinitPrint ();
         SYScheckHWRequirements ();
 
-		ASSERT(corebuffer != NULL);
+        ASSERT(corebuffer != NULL);
         IGNORE_PARAM(base);
 
 		/* STDmset (buffer, 0, size); */
 
 		EMULinit (corebuffer);
-
+  
 		FSMinit (&g_stateMachine	, states    , statesSize    , 0);
 		FSMinit (&g_stateMachineIdle, statesIdle, statesIdleSize, 0);
 
 		/* RingAllocator_unitTest(); */
 
 		{
-			SYSinitParam param;
+			SYSinitParam        param;
+            SYSinitThreadParam  threadParam;
 
 			param.adr	     = buffer;
 			param.size	     = size;
 			param.coreAdr    = corebuffer;
 			param.coreSize   = coresize;
-			param.idleThread = DEMOSidleThread;
-            param.idleThreadStackSize = 1024;
+			threadParam.idleThread = DEMOSidleThread;
+            threadParam.idleThreadStackSize = 1024;
 
 			SYSinit ( &param );
+            SYSinitHW ();
+            SYSinitThreading ( &threadParam );
+
 			SNDinit (&sys.coremem, 89008UL);
             LOADinit (&RSC_DISK1, RSC_DISK1_NBENTRIES, RSC_DISK1_NBMETADATA);
             if (sys.has2Drives)

@@ -33,17 +33,6 @@ STRUCT(Screens)
     Intro*      intro;
 };
 
-typedef void(*DynLibEvent)(void);
-
-STRUCT(DynInterface)
-{
-    DynLibEvent    init;
-    DynLibEvent    update;
-    DynLibEvent    shutdown;
-};
-
-typedef void(*DynLibBootstrap)(DynInterface* _interface);
-
 #ifndef SCREEN_C
 extern Screens      g_screens;
 extern FSM          g_stateMachine;

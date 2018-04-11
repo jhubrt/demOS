@@ -1,4 +1,4 @@
-/*------------------------------------------------------------------------------  -----------------
+/*-----------------------------------------------------------------------------------------------
   The MIT License (MIT)
 
   Copyright (c) 2015-2017 J.Hubert
@@ -18,7 +18,8 @@
   IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, 
   DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-------------------------------------------------------------------------------------------------- */
+-------------------------------------------------------------------------------------------------*/
+
 
 #define SYSTEM_C
 
@@ -54,10 +55,15 @@ void SYSswitchIdle(void)
 	}
 }
 
+u32 SYSvidCountRead (void) 
+{ 
+    u32 val = ((u32)*HW_VIDEO_COUNT_H << 16) | ((u32)*HW_VIDEO_COUNT_M << 8) | (u32)*HW_VIDEO_COUNT_L;
+	return val; 
+}
+
 u32 SYSreadVideoBase (void) 
 { 
-	u8* a = HW_VIDEO_BASE_H;
-    u32 val = (sys.memoryMapHigh) | (a[0] << 16) | (a[1] << 8) | a[2];
+    u32 val = (sys.memoryMapHigh) | ((u32)*HW_VIDEO_BASE_H << 16) | ((u32)*HW_VIDEO_BASE_M << 8) | (u32)*HW_VIDEO_BASE_L;
 	return val; 
 }
 
@@ -77,7 +83,7 @@ void SYSwriteVideoBase (u32 _val)
 ASMIMPORT u8*  SYSfontbitmap ASMIMPORTDEFAULT(NULL);
 ASMIMPORT u16  SYSfontchars[256];
 
-extern u8 SYSfontdata[];
+extern u8  SYSfontdata[];
 
 void SYSfastPrint(char* _s, void* _screenprintadr, u16 _screenPitch, u16 _bitplanPitch)
 #ifdef __TOS__
@@ -199,7 +205,7 @@ static void SYSstdFree(void* _alloc, void* _adr)
 	free(_adr);
 }
 #endif
-
+   
 STRUCT(SYScookie)
 {
     u32 id;
@@ -268,7 +274,7 @@ void SYSinit(SYSinitParam* _param)
     {   /* detect mega ste */
         u32 machineType = 0;
         u8  id[4] = {'_','M','C','H'};
-        bool cookieFound = SYSgetCookie( *(u32*)id, &machineType );
+        bool cookieFound = SYSgetCookie( *(u32*)id, &machineType );        
         sys.isMegaSTe = machineType == 0x10010UL;
         if (cookieFound)
         {
@@ -278,6 +284,8 @@ void SYSinit(SYSinitParam* _param)
             }
         }
     }
+#   else
+    sys.memoryMapHigh = ((u32)_param->adr) & 0xFF000000;
 #   endif
 
     sys.has2Drives = *OS_NFLOPS >= 2;
@@ -304,7 +312,10 @@ void SYSinit(SYSinitParam* _param)
 	sys.allocatorStandard.free  = SYSstdFree;
 	sys.allocatorStandard.allocator = NULL;
 #	endif
+}
 
+void SYSinitHW (void)
+{
 	sys.bakvideoMode = *HW_VIDEO_MODE;
 	sys.bakvbl	     = *HW_VECTOR_VBL;
 	sys.bakdma		 = *HW_VECTOR_DMA;
@@ -317,10 +328,6 @@ void SYSinit(SYSinitParam* _param)
 	sys.bakmfpInterruptMaskA   = *HW_MFP_INTERRUPT_MASK_A;
 	sys.bakmfpInterruptEnableB = *HW_MFP_INTERRUPT_ENABLE_B;
 	sys.bakmfpInterruptMaskB   = *HW_MFP_INTERRUPT_MASK_B;
-
-#	ifndef __TOS__
-    sys.memoryMapHigh = ((u32)_param->adr) & 0xFF000000;
-#	endif
 
 	STDcpuSetSR(0x2700);
 
@@ -348,22 +355,22 @@ void SYSinit(SYSinitParam* _param)
 	*HW_MFP_INTERRUPT_MASK_A   |= 0x1;	/* enable Timer B mask */
 
 	sys.lastKey = sys.key = 0;
+}
 
-	if (_param->idleThread != NULL)
-	{
-		sys.idleThreadStackBase = (u8*) RINGallocatorAlloc ( &sys.coremem, _param->idleThreadStackSize );
-		ASSERT(sys.idleThreadStackBase != NULL);
+void SYSinitThreading(SYSinitThreadParam* _param)
+{
+    sys.idleThreadStackBase = (u8*) RINGallocatorAlloc ( &sys.coremem, _param->idleThreadStackSize );
+    ASSERT(sys.idleThreadStackBase != NULL);
 
-#		ifdef __TOS__
-		if ( SYSsetIdlethread (sys.idleThreadStackBase, sys.idleThreadStackBase + _param->idleThreadStackSize) )
-		{
-			_param->idleThread ();
-			ASSERT(0);	/* you should not return from this function */
-		}
-#		else
-		SYSidleThread = _param->idleThread;
-#		endif
-	}
+#	ifdef __TOS__
+    if ( SYSsetIdlethread (sys.idleThreadStackBase, sys.idleThreadStackBase + _param->idleThreadStackSize) )
+    {
+        _param->idleThread ();
+        ASSERT(0);	/* you should not return from this function */
+    }
+#	else
+    SYSidleThread = _param->idleThread;
+#	endif
 }
 
 void SYSshutdown(void)
@@ -422,8 +429,8 @@ void SYSassert(char* _message, char* _file, int _line)
         sys.mem.buffer = buffer + 4096;
     }
 
-        SYSwriteVideoBase((u32) sys.mem.buffer);
-        STDmset(sys.mem.buffer, 0, 32000);
+    SYSwriteVideoBase((u32) sys.mem.buffer);
+    STDmset(sys.mem.buffer, 0, 32000);
 
     *HW_COLOR_LUT = SYS_ASSERT_COLOR;
     *HW_VIDEO_OFFSET = 0;

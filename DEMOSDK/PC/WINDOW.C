@@ -435,6 +435,7 @@ static s32 WINconvertMapping (WPARAM _wparam)
     case VK_ADD:            key = HW_KEY_NUMPAD_PLUS;       break;
     case VK_SEPARATOR:      key = HW_KEY_NUMPAD_ENTER;      break;
     case VK_SPACE:          key = HW_KEY_SPACEBAR;          break;
+    case VK_ESCAPE:         key = HW_KEY_ESC;               break;
 
     case VK_F1:             key = HW_KEY_F1             ;   break;
     case VK_F2:             key = HW_KEY_F2             ;   break;

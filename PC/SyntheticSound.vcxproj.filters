@@ -85,11 +85,11 @@
     <ClCompile Include="..\DEMOSDK\PC\EMUL.CPP">
       <Filter>PC</Filter>
     </ClCompile>
-    <ClCompile Include="..\SYNSOUND\SRC\PLAYER.C">
-      <Filter>SPECIFIC\SRC</Filter>
-    </ClCompile>
     <ClCompile Include="..\DEMOSDK\DATA\DATA.C">
       <Filter>DEMOSDK\DATA</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SYNSOUND\SRC\PLAYER.C">
+      <Filter>SPECIFIC\SRC</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -150,11 +150,11 @@
     <ClInclude Include="..\DEMOSDK\PC\BITCONVR.H">
       <Filter>PC</Filter>
     </ClInclude>
-    <ClInclude Include="..\SYNSOUND\SRC\PLAYER.H">
-      <Filter>SPECIFIC\SRC</Filter>
-    </ClInclude>
     <ClInclude Include="..\DEMOSDK\DATA\SYSTFNT.H">
       <Filter>DEMOSDK\DATA</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SYNSOUND\SRC\PLAYER.H">
+      <Filter>SPECIFIC\SRC</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

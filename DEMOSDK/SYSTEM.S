@@ -31,16 +31,18 @@
 	
 	opt 	o+
 
+    ; exports
     xdef    SYSsoundtrackUpdate
-    xdef    SYSdetectEmu,SYSlockIdle,SYSlockMain,SYSreadVideoBase,SYSwriteVideoBase,SYSemptyKb
+    xdef    SYSdetectEmu,SYSlockIdle,SYSlockMain,SYSreadVideoBase,SYSwriteVideoBase,SYSvidCountRead,SYSemptyKb
 
 	xdef	SYSvblinterrupt,SYSvblcount,SYSvblLcount,SYSOSVBL
 	xdef	SYSsetIdlethread,SYSswitchIdle
-    xdef    SYSgemdosSetMode,SYSreset
+    xdef    SYSgemdosSetMode,SYSmalloc,SYSreset
     xdef    SYSinitDbgBreak,SYSdbgBreak
+	xdef    SYSfontbitmap,SYSfontchars,SYSfastPrint
 
+    ; imports
 	xref	RASnextOpList
-    
     xref    LOADdeconnectAndStartRequest,LOADtoggleDriveStartRequest
 
 
@@ -64,8 +66,29 @@ SYSdbgBreak:
 * void* SYSgemdosSetMode (void* _adr);
 *-------------------------------------------------------------------------
 SYSgemdosSetMode:
+	movem.l	d0-d1/a1,.backup
+	
 	move.l	a0,-(sp)
 	move.w	#32,-(sp)
+	trap	#1
+	addq.l	#6,sp
+	move.l	d0,a0
+	
+	movem.l	.backup(pc),d0-d1/a1
+	
+	rts
+	
+.backup: 
+	dc.l	0
+	dc.l	0
+	dc.l	0
+
+*-------------------------------------------------------------------------
+* void* SYSmalloc (size_t _size);
+*-------------------------------------------------------------------------
+SYSmalloc:
+	move.l	d0,-(sp)
+	move.w	#$48,-(sp)
 	trap	#1
 	addq.l	#6,sp
 	move.l	d0,a0
@@ -90,6 +113,18 @@ SYSreadVideoBase:
 	lsl.w	#8,d0
 	move.b	$ffff820d.w,d0
 	rts
+
+*-------------------------------------------------------------------------
+* u32 SYSvidCountRead ();
+*-------------------------------------------------------------------------
+SYSvidCountRead:
+	moveq.l	#0,d0
+	move.b	$ffff8205.w,d0
+	swap	d0
+	move.b	$ffff8207.w,d0
+	lsl.w	#8,d0
+	move.b	$ffff8209.w,d0
+    rts
 
 *-------------------------------------------------------------------------
 * void SYSwriteVideoBase (u32 _val);
@@ -144,6 +179,118 @@ SYSdetectEmu:
         movem.l (sp)+,d0-d7/a1-a6
 
         rts
+
+;-----------------------------------------------------------------------------------------
+; void SYSfastPrint (char* _s, void* _screenprintadr, u16 _screenPitch, u16 _bitplanPitch) 
+; a0 = string
+; a1 = screendisplay
+; d0 = screenpitch
+; d1 = bitplanepitch
+;-----------------------------------------------------------------------------------------
+SYSfastPrint:
+
+	movem.l	a2-a4/d4,-(sp)
+
+    cmp.w   SYSfastPrintautomod+2(pc),d0
+    beq.s   SYS_debugPrint_noautomod
+
+    lea     SYSfastPrintautomod+2(pc),a4        ; check current automod state with current pitch
+    lea     SYSfastPrintautomod2+2(pc),a3
+
+    move.w  d0,d4
+    move.w  d4,(a4)
+    move.w  d4,(a3)
+    add.w   d0,d4
+    move.w  d4,4(a4)
+    move.w  d4,4(a3)
+    add.w   d0,d4
+    move.w  d4,8(a4)
+    move.w  d4,8(a3)
+    add.w   d0,d4
+    move.w  d4,12(a4)
+    move.w  d4,12(a3)
+    add.w   d0,d4
+    move.w  d4,16(a4)
+    move.w  d4,16(a3)
+    add.w   d0,d4
+    move.w  d4,20(a4)
+    move.w  d4,20(a3)
+    add.w   d0,d4
+    move.w  d4,24(a4)
+    move.w  d4,24(a3)
+
+SYS_debugPrint_noautomod:
+
+	move.l	SYSfontbitmap(pc),a3
+	lea 	SYSfontchars(pc),a2
+
+	subq.w  #1,d1
+
+    move.w  a1,d4
+    and.w   #1,d4
+    bne.s   SYS_debugPrint_loop_part2
+
+SYS_debugPrint_loop:
+
+	moveq.l	#0,d4
+    move.b  (a0)+,d4
+	beq.s	SYS_debugPrint_end
+
+	add.w	d4,d4
+	move.w	(a2,d4.w),d4
+	blt.s	SYS_debugPrint_noprint
+
+	lea		(a3,d4.w),a4		    ; a4 = char bitmap adr
+
+	move.b	(a4)+,(a1)			
+SYSfastPrintautomod:
+	move.b	(a4)+,2(a1)			
+	move.b	(a4)+,2(a1)			
+	move.b	(a4)+,2(a1)			
+	move.b	(a4)+,2(a1)			
+	move.b	(a4)+,2(a1)			
+	move.b	(a4)+,2(a1)			
+	move.b	(a4),2(a1)			
+
+SYS_debugPrint_noprint:
+	
+	addq.l	#1,a1
+
+SYS_debugPrint_loop_part2:
+    moveq.l #0,d4
+    move.b  (a0)+,d4
+    beq.s   SYS_debugPrint_end
+
+	add.w	d4,d4
+	move.w	(a2,d4.w),d4
+	blt.s	SYS_debugPrint_noprint2
+
+	lea		(a3,d4.w),a4		    ; a4 = char bitmap adr
+
+	move.b	(a4)+,(a1)			
+SYSfastPrintautomod2:
+	move.b	(a4)+,2(a1)			
+	move.b	(a4)+,2(a1)			
+	move.b	(a4)+,2(a1)			
+	move.b	(a4)+,2(a1)			
+	move.b	(a4)+,2(a1)			
+	move.b	(a4)+,2(a1)			
+	move.b	(a4),2(a1)			
+
+SYS_debugPrint_noprint2:
+
+	add.w	d1,a1                   ; add  bitplanepitch - 2
+
+	bra.s	SYS_debugPrint_loop
+
+SYS_debugPrint_end:
+
+	movem.l	(sp)+,a2-a4/d4
+
+	rts
+
+SYSfontbitmap:	dc.l	0
+SYSfontchars:   ds.w    256
 
 *-------------------------------------------------------------------------
 * bool SYSlockMain (SYSlock* _lock);

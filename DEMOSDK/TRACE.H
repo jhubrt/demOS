@@ -27,8 +27,6 @@
     TRAC provides services to display traces.                                           <br>
 
     It provides:                                                                        <br>
-    - a fast print routine to display messages on the screen. 
-      The corresponding lightweight font data is provided on floppy.                    <br>
     - a list of trace routines you can register. Then the user can 
       activate / deactivate traces by pressing functions key.                           <br>
 */
@@ -50,6 +48,7 @@
 	void TRACdisplay (void* _image);
 	void TRACmanage (u8 _key);
     void TRACdrawScanlinesScale (void* _image, u16 _screenPitch, u16 _bitplanPitchShift, u16 _h);
+    u16  TRAmaxraster (u16 maxraster);
 
 #   define TRAClogNumber(STR,NUM,NBCHARS) { static char trace[] = STR ":         "; STDuxtoa(&trace[sizeof(trace) - 9], (NUM), (NBCHARS)); TRAClog(trace); }
 

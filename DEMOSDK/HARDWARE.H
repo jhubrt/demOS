@@ -1,4 +1,4 @@
-/*------------------------------------------------------------------------------  -----------------
+/*-----------------------------------------------------------------------------------------------
   The MIT License (MIT)
 
   Copyright (c) 2015-2017 J.Hubert
@@ -18,7 +18,7 @@
   IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, 
   DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-------------------------------------------------------------------------------------------------- */
+-------------------------------------------------------------------------------------------------*/
 
 /*! @brief @ref HARDWARE @file */
 
@@ -270,7 +270,7 @@
 
 #ifdef __TOS__
 
-#   define HW_DEFINE_REGISTER(TYPE,ADR,NAME)   ((TYPE*)ADR)
+#   define HW_DEFINE_REGISTER(TYPE,ADR,NAME)   ((volatile TYPE*)ADR)
 
 #else
 
@@ -306,7 +306,7 @@ STRUCT(SThardware)
     HW_DECLARE_REGISTER(u32 , HW_VECTOR_VBL		        ); 
     HW_DECLARE_REGISTER(u32 , HW_VECTOR_HBL		        ); 
     HW_DECLARE_REGISTER(u32 , HW_VECTOR_DMA		        ); 
-    HW_DECLARE_REGISTER(volatile u32 , HW_VECTOR_TIMERB );
+    HW_DECLARE_REGISTER(u32 , HW_VECTOR_TIMERB          );
 
     HW_DECLARE_REGISTER(u16, HW_COLOR_LUT		        );
     u16 reg_HW_COLOR_LUT_1TO15 [15];
@@ -413,7 +413,7 @@ STRUCT(SThardware)
 #define HW_VECTOR_VBL		            HW_DEFINE_REGISTER(u32 , 0x70 ,       HW_VECTOR_VBL		        ) 
 #define HW_VECTOR_HBL		            HW_DEFINE_REGISTER(u32 , 0x68 ,       HW_VECTOR_HBL		        ) 
 #define HW_VECTOR_DMA		            HW_DEFINE_REGISTER(u32 , 0x11C ,      HW_VECTOR_DMA		        ) 
-#define HW_VECTOR_TIMERB	            HW_DEFINE_REGISTER(volatile u32 , 0x120, HW_VECTOR_TIMERB       )
+#define HW_VECTOR_TIMERB	            HW_DEFINE_REGISTER(u32 , 0x120,       HW_VECTOR_TIMERB          )
 
 /* Shifter */
 
