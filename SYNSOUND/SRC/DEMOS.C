@@ -77,28 +77,6 @@
 
 #include "SYNSOUND\SRC\SCREENS.H"
 
-#include "REBIRTH\DISK1.H"
-#include "REBIRTH\DISK2.H"
-
-
-LOADdisk RSC_DISK1 = { 
-    NULL, RSC_DISK1_NBENTRIES, 
-    NULL, RSC_DISK1_NBMETADATA, 
-    0, 
-    NULL, 0,
-    NULL,
-    "DISK1.ST"
-};
-
-LOADdisk RSC_DISK2 = { 
-    NULL, RSC_DISK2_NBENTRIES, 
-    NULL, RSC_DISK2_NBMETADATA, 
-    1, 
-    NULL, 0,
-    NULL,
-    "DISK2.ST"
-};
-
 
 static char* DEMOSbuildversion = "v0";
 
