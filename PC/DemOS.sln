@@ -13,6 +13,10 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SyntheticSound", "Synthetic
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RebirthGCC68k", "RebirthGCC68k.vcxproj", "{E1415CBF-6C72-48CB-B7C9-110AEB8927F4}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BlsConvert", "BlsConvert.vcxproj", "{24452CF2-8EF4-4DA6-AAA1-F33A3644B3FA}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BlsPlay", "BlsPlay.vcxproj", "{41CDAB10-F36A-40DB-8377-A10BFF4BDCE9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32

@@ -1,0 +1,178 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{41CDAB10-F36A-40DB-8377-A10BFF4BDCE9}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>BlsPlay</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <IntDir>$(ProjectName)_$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <IntDir>$(ProjectName)_$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <DisableLanguageExtensions>true</DisableLanguageExtensions>
+      <PrecompiledHeaderFile>
+      </PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>..\</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;dsound.lib;dxguid.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Program Files (x86)\Windows Kits\8.0\Lib\win8\um\x86</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <DisableLanguageExtensions>true</DisableLanguageExtensions>
+      <PrecompiledHeaderFile>
+      </PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>..\</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;dsound.lib;dxguid.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Program Files (x86)\Windows Kits\8.0\Lib\win8\um\x86</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\BLSPLAY\BUILD.C">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\BLSPLAY\SRC\BPLAYER.C" />
+    <ClCompile Include="..\BLSPLAY\SRC\DEMOS.C" />
+    <ClCompile Include="..\BLSPLAY\SRC\SCREENS.C" />
+    <ClCompile Include="..\DEMOSDK\BLITSND.C" />
+    <ClCompile Include="..\DEMOSDK\BLITSNDP.C" />
+    <ClCompile Include="..\DEMOSDK\PC\BITCONVR.C" />
+    <ClCompile Include="..\DEMOSDK\TRACE.C" />
+    <ClCompile Include="..\EXTERN\RELOCATE.C" />
+    <ClCompile Include="..\DEMOSDK\ALLOC.C" />
+    <ClCompile Include="..\DEMOSDK\BITMAP.C" />
+    <ClCompile Include="..\DEMOSDK\COLORS.C" />
+    <ClCompile Include="..\DEMOSDK\FSM.C" />
+    <ClCompile Include="..\DEMOSDK\HARDWARE.C" />
+    <ClCompile Include="..\DEMOSDK\LOAD.C" />
+    <ClCompile Include="..\DEMOSDK\PC\EMUL.CPP">
+      <DisableLanguageExtensions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</DisableLanguageExtensions>
+      <DisableLanguageExtensions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</DisableLanguageExtensions>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\RASTERS.C" />
+    <ClCompile Include="..\DEMOSDK\STANDARD.C" />
+    <ClCompile Include="..\DEMOSDK\SYSTEM.C" />
+    <ClCompile Include="..\DEMOSDK\PC\WINDOW.C">
+      <DisableLanguageExtensions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</DisableLanguageExtensions>
+      <DisableLanguageExtensions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</DisableLanguageExtensions>
+    </ClCompile>
+    <ClCompile Include="..\EXTERN\ARJDEP.C" />
+    <ClCompile Include="..\DEMOSDK\DATA\DATA.C" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\BLSPLAY\SRC\BPLAYER.H" />
+    <ClInclude Include="..\BLSPLAY\SRC\SCREENS.H" />
+    <ClInclude Include="..\DEMOSDK\ALLOC.H" />
+    <ClInclude Include="..\DEMOSDK\BASTYPES.H" />
+    <ClInclude Include="..\DEMOSDK\BITMAP.H" />
+    <ClInclude Include="..\DEMOSDK\BLITSND.H" />
+    <ClInclude Include="..\DEMOSDK\COLORS.H" />
+    <ClInclude Include="..\DEMOSDK\LOADDEFS.H" />
+    <ClInclude Include="..\DEMOSDK\FSM.H" />
+    <ClInclude Include="..\DEMOSDK\HARDWARE.H" />
+    <ClInclude Include="..\DEMOSDK\LOAD.H" />
+    <ClInclude Include="..\DEMOSDK\PC\BITCONVR.H" />
+    <ClInclude Include="..\DEMOSDK\PC\EMUL.H" />
+    <ClInclude Include="..\DEMOSDK\PC\WINDOW.H" />
+    <ClInclude Include="..\DEMOSDK\RASTERS.H" />
+    <ClInclude Include="..\DEMOSDK\STANDARD.H" />
+    <ClInclude Include="..\DEMOSDK\SYSTEM.H" />
+    <ClInclude Include="..\DEMOSDK\TRACE.H" />
+    <ClInclude Include="..\EXTERN\ARJDEP.H" />
+    <ClInclude Include="..\EXTERN\RELOCATE.H" />
+    <ClInclude Include="..\DEMOSDK\DATA\SYSTFNT.H" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\BLSPLAY.PRJ" />
+    <None Include="..\BLSPLAYB.PRJ" />
+    <None Include="..\BLSPLAY\SRC\BPLAYER.S" />
+    <None Include="..\DEMOSDK\BLITSNDP.S" />
+    <None Include="..\EXTERN\RELOCATE.S" />
+    <None Include="..\DEMOSDK\SYSTEM.S" />
+    <CustomBuild Include="..\DEMOSDK\BITMAP.S">
+      <FileType>Document</FileType>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">VASM_BUILD.BAT %(FullPath) $(SolutionDir)..\OUTPUT\%(Filename).O</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">VASM_BUILD.BAT %(FullPath) $(SolutionDir)..\OUTPUT\%(Filename).O</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">VASM_BUILD.BAT %(FullPath) $(SolutionDir)..\OUTPUT\%(Filename).O</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)..\OUTPUT\%(Filename).O</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">VASM_BUILD.BAT %(FullPath) $(SolutionDir)..\OUTPUT\%(Filename).O</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)..\OUTPUT\%(Filename).O</Outputs>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </CustomBuild>
+    <None Include="..\DEMOSDK\LOAD.S" />
+    <None Include="..\DEMOSDK\RASTERS.S" />
+    <None Include="..\DEMOSDK\STANDARD.S" />
+    <None Include="..\DEMOSDK\TRACE.S" />
+    <None Include="..\EXTERN\ARJDEP.S" />
+    <None Include="..\EXTERN\XSTARTUP.S" />
+    <None Include="BlsAutotest.bat">
+      <FileType>Document</FileType>
+    </None>
+    <None Include="BlsComparePC_ST.bat" />
+    <None Include="VASM_BUILD.BAT" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

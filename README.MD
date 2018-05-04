@@ -24,6 +24,7 @@ maybe it can also solve problems for people having floppy timing problems
 * in this case just keep your second floppy drive switched off
 * if you run Rebirth with the 2 floppy drives switched on, it will load as before (without precache)
 
+![](README_V.PNG)  
 [REBiRTH](https://youtu.be/iNbVcFThTxY)
 
 ## Ubi30 - Metal Ages - 2016
@@ -45,6 +46,10 @@ Prototype using blitter to mix PCM sounds on 2 voices (proof of concept)
 ## BLITSnd
 
 4 voices replay routine using blitter to mix sound (around 16% VBL max)
+* BLSconvr: convertion tool from .MOD format to .BLS format
+* BLSplay : player using the routine
+
+Have a look at DOCS/BLITsnd.md in the git depot for more info...
 
 [BLITSnd](https://youtu.be/Xc0zv4YFitI)
 
