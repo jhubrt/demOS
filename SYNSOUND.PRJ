@@ -43,7 +43,7 @@ SYNSOUND\SRC\SCREENS.C
 SYNSOUND\SRC\PLAYER.C
 
 PCSTDLIB.LIB        ; standard library
-PCFLTLIB.LIB       ; floating point library
+PCFLTLIB.LIB        ; floating point library
 
-;PCEXTLIB.LIB       ; extended library
-;PCTOSLIB.LIB       ; TOS library
+; PCEXTLIB.LIB       ; extended library
+; PCTOSLIB.LIB       ; TOS library

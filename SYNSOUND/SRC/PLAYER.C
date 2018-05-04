@@ -1,4 +1,4 @@
-/*------------------------------------------------------------------------------  -----------------
+/*-----------------------------------------------------------------------------------------------
   The MIT License (MIT)
 
   Copyright (c) 2015-2018 J.Hubert
@@ -328,7 +328,7 @@ void IntroBacktask (FSM* _fsm)
         {
             u16 off = synth.voices[channel].sampledisplay;
 			u16 nbsamples = SND_FRAME_NBSAMPLES;
-
+		
 			if (nbsamples > 640)
 			{
 				nbsamples = 640;

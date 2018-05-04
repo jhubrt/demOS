@@ -75,5 +75,5 @@ TRAmaxraster:
     move.l  (sp)+,d1
     move.l  (sp)+,d2
 
-	rts
+    rts
 

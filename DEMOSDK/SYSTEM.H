@@ -78,6 +78,7 @@ STRUCT(SYScore)
 	u8				lastKey;
 	bool			has2Drives;
     bool            isMegaSTe;
+    bool            OSneedRestore;
     SYSemulator     emulator;
     u8*             idleThreadStackBase;
     u32             phytop;

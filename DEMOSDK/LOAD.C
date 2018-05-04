@@ -1,4 +1,4 @@
-/*------------------------------------------------------------------------------  -----------------
+/*-----------------------------------------------------------------------------------------------
   The MIT License (MIT)
 
   Copyright (c) 2015-2018 J.Hubert
@@ -18,7 +18,8 @@
   IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, 
   DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-------------------------------------------------------------------------------------------------- */
+-------------------------------------------------------------------------------------------------*/
+
 
 #define LOAD_C
 
@@ -69,7 +70,7 @@ void LOADpreloadMedia (LOADdisk* _media)
 
 
     ASSERT(file != NULL);
-
+  
     _media->mediapreload = malloc(size);
     ASSERT(_media->mediapreload != NULL);
 
@@ -85,7 +86,7 @@ void LOADpreloadMedia (LOADdisk* _media)
 void LOADinitFAT (u8 _drive, LOADdisk* _media, u16 _nbEntries, u16 _nbMetaData)
 {
     u16* temp;
-
+    
 #   ifdef DEMOS_LOAD_FROMHD
     temp = (u16*) _media->mediapreload;
 #   else
@@ -97,7 +98,7 @@ void LOADinitFAT (u8 _drive, LOADdisk* _media, u16 _nbEntries, u16 _nbMetaData)
         LOADrequest* loadRequest = LOADpush (temp, LOAD_FAT_STARTSECTOR + 1, ((u32)_drive << 17), ((u32)LOAD_PRIOTITY_HIGH << 16) | LOAD_FAT_NBSECTORS);
         LOADwaitRequestCompleted (loadRequest);
     }
-#	endif
+#   endif
 
     _media->nbEntries  = PCENDIANSWAP16(temp[0]);
     _media->nbMetaData = PCENDIANSWAP16(temp[1]);
@@ -230,14 +231,14 @@ void* LOADpreload (void* _framebuffer, u16 _pitch, u16 _planepitch, void* _prelo
     u8* currentpreload = (u8*) _current;
     u16 t;
 
-
+    
     for (t = 0 ; t < _nbResources ; t++)
     {
         u16 rsc     = _resources[t];
         u32 rscSize = LOADresourceRoundedSize(_disk, rsc);
 
         if ( ( _preloadsize - (currentpreload - (u8*)_preload) ) >= rscSize )
-	    {
+        {
             LOADrequest* request = LOADrequestLoad (_disk, rsc, currentpreload, LOAD_PRIORITY_INORDER);
 
             _disk->preload[rsc] = currentpreload;
@@ -248,7 +249,7 @@ void* LOADpreload (void* _framebuffer, u16 _pitch, u16 _planepitch, void* _prelo
                 STDuxtoa(&line[16], request->nbsectors, 4);
 
                 SYSfastPrint (line, _framebuffer, _pitch, _planepitch);
-	        }
+            }
 
             LOADfreeRequest (request);
             currentpreload += rscSize;

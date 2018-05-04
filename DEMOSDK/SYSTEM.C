@@ -238,9 +238,12 @@ void SYSinitDbgBreak(void) PCSTUB;
 
 void SYSinit(SYSinitParam* _param)
 {
+    void* bakGemdos32 = sys.bakGemdos32;
+
     SYSinitDbgBreak ();
 
     STDmset (&sys, 0, sizeof(sys));
+    sys.bakGemdos32 = bakGemdos32;
 
 	ASSERT(_param->adr != NULL);
 	RINGallocatorInit ( &sys.mem, _param->adr, _param->size );
@@ -316,6 +319,8 @@ void SYSinit(SYSinitParam* _param)
 
 void SYSinitHW (void)
 {
+    sys.OSneedRestore = true;
+
 	sys.bakvideoMode = *HW_VIDEO_MODE;
 	sys.bakvbl	     = *HW_VECTOR_VBL;
 	sys.bakdma		 = *HW_VECTOR_DMA;
@@ -375,26 +380,29 @@ void SYSinitThreading(SYSinitThreadParam* _param)
 
 void SYSshutdown(void)
 {
-	*HW_VIDEO_BASE_H = sys.bakvideoAdr[0];
-	*HW_VIDEO_BASE_M = sys.bakvideoAdr[1];
-	*HW_VIDEO_BASE_L = sys.bakvideoAdr[2];
+    if (sys.OSneedRestore)
+    {
+        *HW_VIDEO_BASE_H = sys.bakvideoAdr[0];
+        *HW_VIDEO_BASE_M = sys.bakvideoAdr[1];
+        *HW_VIDEO_BASE_L = sys.bakvideoAdr[2];
 
-	*HW_VIDEO_MODE = sys.bakvideoMode;
-	STDcpuSetSR(0x2700);
-	*HW_VECTOR_VBL = sys.bakvbl;
-	*HW_VECTOR_DMA = sys.bakdma;
-	STDcpuSetSR(0x2300);
+        *HW_VIDEO_MODE = sys.bakvideoMode;
+        STDcpuSetSR(0x2700);
+        *HW_VECTOR_VBL = sys.bakvbl;
+        *HW_VECTOR_DMA = sys.bakdma;
+        STDcpuSetSR(0x2300);
 
-	*HW_MFP_INTERRUPT_ENABLE_A = sys.bakmfpInterruptEnableA;
-	*HW_MFP_INTERRUPT_MASK_A   = sys.bakmfpInterruptMaskA;
+        *HW_MFP_INTERRUPT_ENABLE_A = sys.bakmfpInterruptEnableA;
+        *HW_MFP_INTERRUPT_MASK_A   = sys.bakmfpInterruptMaskA;
 
-	*HW_MFP_INTERRUPT_ENABLE_B = sys.bakmfpInterruptEnableB;
-	*HW_MFP_INTERRUPT_MASK_B   = sys.bakmfpInterruptMaskB;
-	*HW_MFP_VECTOR_BASE		   = sys.bakmfpVectorBase;
+        *HW_MFP_INTERRUPT_ENABLE_B = sys.bakmfpInterruptEnableB;
+        *HW_MFP_INTERRUPT_MASK_B   = sys.bakmfpInterruptMaskB;
+        *HW_MFP_VECTOR_BASE		   = sys.bakmfpVectorBase;
 
-	*OS_FLOPVBL = 0;
+        *OS_FLOPVBL = 0;
 
-	STDsetUSP (sys.bakUSP);
+        STDsetUSP (sys.bakUSP);
+    }
 }
 
 void SYSkbReset(void)

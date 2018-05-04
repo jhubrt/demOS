@@ -143,11 +143,11 @@ STRUCT(MEMallocator)
 	MEMfreeFunc  free;
 };
 
-#define MEM_ALLOC(ALLOCATOR,SIZE) (ALLOCATOR)->alloc((ALLOCATOR)->allocator,(SIZE))
+#define MEM_ALLOC(ALLOCATOR,SIZE)     (ALLOCATOR)->alloc((ALLOCATOR)->allocator,(SIZE))
 #define MEM_ALLOCTEMP(ALLOCATOR,SIZE) (ALLOCATOR)->alloctemp((ALLOCATOR)->allocator,(SIZE))
-#define MEM_FREE(ALLOCATOR,ADR)   (ALLOCATOR)->free((ALLOCATOR)->allocator,(ADR))
+#define MEM_FREE(ALLOCATOR,ADR)       (ALLOCATOR)->free((ALLOCATOR)->allocator,(ADR))
 
-#define MEM_ALLOC_STRUCT(ALLOCATOR,NAME) (NAME*) (ALLOCATOR)->alloc((ALLOCATOR)->allocator, sizeof(NAME))
+#define MEM_ALLOC_STRUCT(ALLOCATOR,NAME)     (NAME*) (ALLOCATOR)->alloc((ALLOCATOR)->allocator, sizeof(NAME))
 #define MEM_ALLOCTEMP_STRUCT(ALLOCATOR,NAME) (NAME*) (ALLOCATOR)->alloctemp((ALLOCATOR)->allocator, sizeof(NAME))
 
 /* assertion */

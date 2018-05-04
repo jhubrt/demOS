@@ -1,4 +1,4 @@
-/*------------------------------------------------------------------------------  -----------------
+/*-----------------------------------------------------------------------------------------------
   The MIT License (MIT)
 
   Copyright (c) 2015-2018 J.Hubert
@@ -18,7 +18,8 @@
   IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, 
   DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-------------------------------------------------------------------------------------------------- */
+-------------------------------------------------------------------------------------------------*/
+
 
 /*! @brief @ref SND @file */
 
@@ -51,8 +52,8 @@
 #define SND_FREQ 1
 
 #if SND_FREQ == 1
-#define SND_DMA_FREQ            50000UL
-#define SND_FRAME_NBSAMPLES     1000 /*(SND_DMA_FREQ / SND_SCREEN_FREQ)*/
+#   define SND_DMA_FREQ            50000UL
+#   define SND_FRAME_NBSAMPLES     1000 /*(SND_DMA_FREQ / SND_SCREEN_FREQ)*/
 #else
 #   define SND_DMA_FREQ            25000UL
 #   define SND_FRAME_NBSAMPLES     500 /*(SND_DMA_FREQ / SND_SCREEN_FREQ)*/
@@ -268,7 +269,7 @@ SNDsynSoundSet* SNDsynthLoad  (char* _filename);
 void SNDtest (SNDsynSoundSet* _soundSet);
 
 #ifdef DEMOS_DEBUG
-u16  SNDsynPlayerTrace       (void* _image, u16 _pitch, u16 _planePitch, u16 _y);
+u16  SNDsynPlayerTrace        (void* _image, u16 _pitch, u16 _planePitch, u16 _y);
 #endif
 
 #endif

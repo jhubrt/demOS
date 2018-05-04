@@ -1,4 +1,4 @@
-/*------------------------------------------------------------------------------  -----------------
+/*-----------------------------------------------------------------------------------------------
   The MIT License (MIT)
 
   Copyright (c) 2015-2018 J.Hubert
@@ -18,7 +18,8 @@
   IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, 
   DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-------------------------------------------------------------------------------------------------- */
+-------------------------------------------------------------------------------------------------*/
+
 
 /*! @brief @ref FSM @file */
 
@@ -39,8 +40,8 @@ typedef void (*FSMfunction)(FSM* _fsm);
 struct FSM_
 {
 	FSMfunction*    states;
-    u16    nbStates;
-	u16	   activeState;
+    u16             nbStates;
+	u16	            activeState;
 
 #   ifdef DEMOS_DEBUG
     char   trace[40];
@@ -50,7 +51,7 @@ struct FSM_
 };
 
 void  FSMinit	(FSM* _m, FSMfunction* _states, u16 _nbStates, u16 _startState);
-void  FSMgoto		(FSM* _m, u16 _newState);
+void  FSMgoto	(FSM* _m, u16 _newState);
 
 #define FSMupdate(FSM)          (FSM)->states[(FSM)->activeState](FSM)
 #define FSMgotoNextState(FSM)   FSMgoto((FSM),(FSM)->activeState+1)

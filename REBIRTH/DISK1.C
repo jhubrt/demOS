@@ -9,7 +9,7 @@ LOADdisk RSC_DISK1 =
     0,                            /* Prefered drive */
     NULL, 760UL * 1024UL,         /* Media preload */
     NULL,                         /* File preload table */
-     "DISK1.ST"                   /* Image filename */
+    "DISK1.ST"                    /* Image filename */
 };
 
 #undef DISK1_C

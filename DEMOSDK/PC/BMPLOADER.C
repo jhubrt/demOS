@@ -1,4 +1,4 @@
-/*------------------------------------------------------------------------------  -----------------
+/*-----------------------------------------------------------------------------------------------
   The MIT License (MIT)
 
   Copyright (c) 2015-2018 J.Hubert
@@ -18,7 +18,8 @@
   IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, 
   DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-------------------------------------------------------------------------------------------------- */
+-------------------------------------------------------------------------------------------------*/
+
 
 #include "DEMOSDK\BASTYPES.H"
 
@@ -328,7 +329,7 @@ bool BITbmpSave (BITsurface* _surface, char* _filename)
 
 
     ASSERT ((_surface->format == BITformat_888) || (_surface->format == BITformat_8bits));
-
+    
     memset (bmpFileHeader, 0, sizeof(bmpFileHeader));
 
     bmpFileHeader[0] = 'B';

@@ -1,4 +1,4 @@
-/*------------------------------------------------------------------------------  -----------------
+/*-----------------------------------------------------------------------------------------------
   The MIT License (MIT)
 
   Copyright (c) 2015-2018 J.Hubert
@@ -18,7 +18,8 @@
   IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, 
   DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-------------------------------------------------------------------------------------------------- */
+-------------------------------------------------------------------------------------------------*/
+
 
 #define _CRT_SECURE_NO_WARNINGS
 
@@ -437,16 +438,16 @@ static s32 WINconvertMapping (WPARAM _wparam)
     case VK_SPACE:          key = HW_KEY_SPACEBAR;          break;
     case VK_ESCAPE:         key = HW_KEY_ESC;               break;
 
-    case VK_F1:             key = HW_KEY_F1             ;   break;
-    case VK_F2:             key = HW_KEY_F2             ;   break;
-    case VK_F3:             key = HW_KEY_F3             ;   break;
-    case VK_F4:             key = HW_KEY_F4             ;   break;
-    case VK_F5:             key = HW_KEY_F5             ;   break;
-    case VK_F6:             key = HW_KEY_F6             ;   break;
-    case VK_F7:             key = HW_KEY_F7             ;   break;
-    case VK_F8:             key = HW_KEY_F8             ;   break;
-    case VK_F9:             key = HW_KEY_F9             ;   break;
-    case VK_F10:            key = HW_KEY_F10            ;   break;
+    case VK_F1:             key = HW_KEY_F1 ;               break;
+    case VK_F2:             key = HW_KEY_F2 ;               break;
+    case VK_F3:             key = HW_KEY_F3 ;               break;
+    case VK_F4:             key = HW_KEY_F4 ;               break;
+    case VK_F5:             key = HW_KEY_F5 ;               break;
+    case VK_F6:             key = HW_KEY_F6 ;               break;
+    case VK_F7:             key = HW_KEY_F7 ;               break;
+    case VK_F8:             key = HW_KEY_F8 ;               break;
+    case VK_F9:             key = HW_KEY_F9 ;               break;
+    case VK_F10:            key = HW_KEY_F10;               break;
 
     case 'A':               key = HW_KEY_Q;                 break;
     case 'Z':               key = HW_KEY_W;                 break;

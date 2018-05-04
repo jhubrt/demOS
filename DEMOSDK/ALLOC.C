@@ -555,7 +555,7 @@ void RINGallocatorUnitTest (void)
 	ASSERT( 1 == RINGallocatorList (&allocator, alloc, ARRAYSIZE(alloc) ));
 	RINGallocatorDump (&allocator, stdout);
 
-	adr[1] = RINGallocatorAlloc (&allocator, 16384UL);
+    adr[1] = RINGallocatorAlloc (&allocator, 16384UL);
 	RINGallocatorDump (&allocator, stdout);
 	ASSERT( 2 == RINGallocatorList (&allocator, alloc, ARRAYSIZE(alloc) ));
 	ASSERT( adr[0] == alloc[0] );

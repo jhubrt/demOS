@@ -163,8 +163,8 @@ STD_mcpy_exec:
 
     beq.s   STD_mcpy_notodd
 
-    move.b  (a1)+,(a0)+            ; if so fill the byte
-    subq.l  #1,d0                  ; if length was 1 => end
+    move.b  (a1)+,(a0)+         ; if so fill the byte
+    subq.l  #1,d0               ; if length was 1 => end
 
     beq.s   STD_mcpy_end
 

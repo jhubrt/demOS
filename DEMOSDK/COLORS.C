@@ -1,4 +1,4 @@
-/*------------------------------------------------------------------------------  -----------------
+/*-----------------------------------------------------------------------------------------------
   The MIT License (MIT)
 
   Copyright (c) 2015-2018 J.Hubert
@@ -18,7 +18,8 @@
   IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, 
   DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-------------------------------------------------------------------------------------------------- */
+-------------------------------------------------------------------------------------------------*/
+
 
 #define COLORS_C
 
@@ -68,29 +69,30 @@ u8 COL4b2ST[17] =
 
 u16* COLcomputeGradientStep (u16* _startColors, u16* _endcolors, u16 _nbColors, s16 _nbSteps, s16 _step, u16* _destColors)
 {
-        u16  n;
-        u16* scp = _startColors;
-        u16* ecp = _endcolors;
+    u16  n;
+    u16* scp = _startColors;
+    u16* ecp = _endcolors;
 
-        for (n = 0 ; n < _nbColors ; n++)
-        {
-            u16 sc = *scp++;
-            u16 ec = *ecp++;
 
-            s16 rs = COLST24b[(sc & 0xF00) >> 8];
-            s16 gs = COLST24b[(sc & 0xF0 ) >> 4];
-            s16 bs = COLST24b[(sc & 0xF  )     ];
+    for (n = 0 ; n < _nbColors ; n++)
+    {
+        u16 sc = *scp++;
+        u16 ec = *ecp++;
 
-            s16 re = COLST24b[(ec & 0xF00) >> 8];
-            s16 ge = COLST24b[(ec & 0xF0 ) >> 4];
-            s16 be = COLST24b[(ec & 0xF  )     ];
+        s16 rs = COLST24b[(sc & 0xF00) >> 8];
+        s16 gs = COLST24b[(sc & 0xF0 ) >> 4];
+        s16 bs = COLST24b[(sc & 0xF  )     ];
+
+        s16 re = COLST24b[(ec & 0xF00) >> 8];
+        s16 ge = COLST24b[(ec & 0xF0 ) >> 4];
+        s16 be = COLST24b[(ec & 0xF  )     ];
 
         s16 rd = ( ((re - rs) * _step) / _nbSteps ) + rs; 
         s16 gd = ( ((ge - gs) * _step) / _nbSteps ) + gs;
         s16 bd = ( ((be - bs) * _step) / _nbSteps ) + bs;
 
-            *_destColors++ = (COL4b2ST[rd] << 8) | (COL4b2ST[gd] << 4) | COL4b2ST[bd];
-        }
+        *_destColors++ = (COL4b2ST[rd] << 8) | (COL4b2ST[gd] << 4) | COL4b2ST[bd];
+    }
 
     return _destColors;
 }

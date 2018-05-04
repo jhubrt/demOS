@@ -62,12 +62,12 @@ STRUCT(RINGallocatorFreeArea)
     u32 size;
 };
 
-void  RINGallocatorInit    (RINGallocator* _m, void* _buffer, u32 _size);
-void* RINGallocatorAlloc   (RINGallocator* _m, u32 _size);
+void  RINGallocatorInit      (RINGallocator* _m, void* _buffer, u32 _size);
+void* RINGallocatorAlloc     (RINGallocator* _m, u32 _size);
 void* RINGallocatorAllocTemp (RINGallocator* _m, u32 _size);
-void  RINGallocatorFree    (RINGallocator* _m, void* _address);
-void  RINGallocatorReset   (RINGallocator* _m);
-bool  RINGallocatorIsEmpty (RINGallocator* _m);
+void  RINGallocatorFree      (RINGallocator* _m, void* _address);
+void  RINGallocatorReset     (RINGallocator* _m);
+bool  RINGallocatorIsEmpty   (RINGallocator* _m);
 void  RINGallocatorFreeSize  (RINGallocator* _m, RINGallocatorFreeArea* _info);
 
 #ifdef DEMOS_DEBUG

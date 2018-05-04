@@ -1,4 +1,4 @@
-/*------------------------------------------------------------------------------  -----------------
+/*-----------------------------------------------------------------------------------------------
   The MIT License (MIT)
 
   Copyright (c) 2015-2018 J.Hubert
@@ -18,7 +18,7 @@
   IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, 
   DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-------------------------------------------------------------------------------------------------- */
+-------------------------------------------------------------------------------------------------*/
 
 #define _CRT_SECURE_NO_WARNINGS
 #include <conio.h>
@@ -65,14 +65,14 @@ int main(int argc, char** argv)
 
         _splitpath(argv[1], drive, subdir, filename, ext);
 
-		if (_strcmpi(ext, ".NEO") == 0)
-		{
+        if (_strcmpi(ext, ".NEO") == 0)
+        {
             result = BITneoLoad(&surface, &stdAllocator, argv[1]);
-		}
-		else 
-		{
+        }
+        else 
+        {
             result = BITdegasLoad(&surface, &stdAllocator, argv[1]);
-		}
+        }
 
         if ( result != BITloadResult_OK )
         {
@@ -83,25 +83,25 @@ int main(int argc, char** argv)
         {
             sprintf(title, "NeoViewer - %s [press S to save bmp]", argv[1]);
 
-		init.x = WINDOW_CENTER;
-		init.y = WINDOW_CENTER;
-		init.w = 384;
-		init.h = 288;
-		init.title = argv[1];
-		init.hInstance = NULL;
+            init.x = WINDOW_CENTER;
+            init.y = WINDOW_CENTER;
+            init.w = 384;
+            init.h = 288;
+            init.title = argv[1];
+            init.hInstance = NULL;
 
-		{
-			WINdow* window = WINconstruct (&init);
+            {
+                WINdow* window = WINconstruct (&init);
 
-            BITsurfaceConvert(&stdAllocator, &surface, &surface2, BITformat_8bits);
+                BITsurfaceConvert(&stdAllocator, &surface, &surface2, BITformat_8bits);
 
-			WINdrawImage (window, surface2.buffer, 320, 200, 8, surface2.lut.data.p, (384 - 320) / 2, (288- 200) / 2);
-			WINrender (window, 0);
-			{
-				s32 k = 0;
+                WINdrawImage (window, surface2.buffer, 320, 200, 8, surface2.lut.data.p, (384 - 320) / 2, (288- 200) / 2);
+                WINrender (window, 0);
+                {
+                    s32 k = 0;
 
-				do
-				{
+                    do
+                    {
                         if (WINisKeyHit(window))
                         {
                             switch (WINgetKey(window))                        
@@ -127,16 +127,16 @@ int main(int argc, char** argv)
                             }
                         }
 
-					WINgetMouse (window, NULL, NULL, &k, NULL);
-				}
-				while (!WINisKeyHit(window) && !WINisClosed(window) && !k);
-			}
+                        WINgetMouse (window, NULL, NULL, &k, NULL);
+                    }
+                    while (!WINisKeyHit(window) && !WINisClosed(window) && !k);
+                }
 
-            BITsurfaceDestroy(&surface2);
-            BITsurfaceDestroy(&surface);
-		}
-	}
+                BITsurfaceDestroy(&surface2);
+                BITsurfaceDestroy(&surface);
+            }
+        }
     }
 
-	return 0;
+    return 0;
 }
