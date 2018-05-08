@@ -24,9 +24,10 @@ maybe it can also solve problems for people having floppy timing problems
 * in this case just keep your second floppy drive switched off
 * if you run Rebirth with the 2 floppy drives switched on, it will load as before (without precache)
 
-![](README_V.PNG)  
 [REBiRTH](https://youtu.be/iNbVcFThTxY)
 
+![](README_V.PNG)
+ 
 ## Ubi30 - Metal Ages - 2016
 
 Atari STe 8mhz
@@ -53,6 +54,8 @@ Prototype using blitter to mix PCM sounds on 2 voices (proof of concept)
 Have a look at DOCS/BLITsnd.md in the git depot for more info...
 
 [BLITSnd](https://youtu.be/Xc0zv4YFitI)
+
+![](README_B.PNG) 
 
 ## Todo list
 * add CRC / RNF error management in FDC routine
