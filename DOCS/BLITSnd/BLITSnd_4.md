@@ -68,6 +68,7 @@ The BLSplay *-test* mode is very useful to develop. In this mode, instead of an 
 * a 4 voices RAW sample file of the replay. You can import them in Audacity for example (import => raw data => 4 channels / 8 bits signed PCM / 25khz).
 	- dumps are saved into _logs\ASM or _logs\C or _logs\PC folder according to the running version
 * a text file that contains player routine variables states for each frame
+* a file dump of pre-transposed samples storage
 
 Batch files are provided (they expect to have notepad++ and winmerge installed)
 * PC\BlsConvert.bat converts all the test .MOD file and visualize conversion results in notepad++
