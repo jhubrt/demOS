@@ -46,7 +46,8 @@ Prototype using blitter to mix PCM sounds on 2 voices (proof of concept)
 ## BLITSnd
 
 4 voices replay routine using blitter to mix sound (around 16% VBL max)
-* BLSconvr: convertion tool from .MOD format to .BLS format
+
+* BLSconvert : convertion tool from .MOD format to .BLS format
 * BLSplay : player using the routine
 
 Have a look at DOCS/BLITsnd.md in the git depot for more info...

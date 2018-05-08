@@ -2,7 +2,7 @@
 
 Atari STe 4 voices sound replay routine using blitter to mix sound (around 16% VBL max)
 
-* BLSconvr : convertion tool from .MOD format to .BLS format
+* BLSconvert : conversion tool from .MOD format to .BLS format
 * BLSplay : player using the routine
 
 [Demoing BLITSnd](https://youtu.be/Xc0zv4YFitI)
