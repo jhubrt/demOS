@@ -29,8 +29,10 @@
   [SPACE]          mute selected voice                                          
   [Q-P/A-L]        apply bit decimation mask                                    
   [NUMPAD 4-9/1-2] step volume effect (only for sound with volume fx available) 
-  [RETURN]         reset max raster bar                                         
-------------------------------------------------------------------------------  */
+  [RETURN]         reset max raster bar            
+  [BACKSPACE]      toggle sync to first display line / sync to VBL start
+                   (strangely it removes clicks to run at VBL start in Hatari ?)
+------------------------------------------------------------------------------ */
 
 #include "DEMOSDK\STANDARD.H"
 #include "DEMOSDK\SYSTEM.H"

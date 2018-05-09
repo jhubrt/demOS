@@ -411,14 +411,14 @@ Keep in mind :
 The program displays the 4 voices samples (and also the multiplexed
 buffer on PC) while playing. Some keys allows you to modify the replay :
 
-*   ESC quits player
-*   Key 1-4 (! not the numpad 1-4) to select a voice to modify
-*   Key 5-8 (! not the numpad 5-8) to mute / unmute a voice
-*   Space to mute / unmute selected voice
-*   AZERTYUIOPQSDF to apply a mask effect on the selected voice
-*   RETURN to reset max raster time on ST
-*   NUMPAD 1-2-4-5-6-7-8-9 increases bitshift volume if current instrument
-    supports volume.  
+*   **ESC** quits player
+*   **BACKSPACE** toggles sync to first display line / sync to VBL start (strangely it removes clicks to run at VBL start in Hatari ?)
+*   **1-4** (! not the numpad) select a voice to modify
+*   **5-8** (! not the numpad) mute / unmute a voice
+*   **SPACE** mutes / unmutes selected voice
+*   **QWERTYUIOPASDF** apply a mask effect on the selected voice
+*   **RETURN** resets max raster time on ST
+*   **NUMPAD 1-2-4-5-6-7-8-9** increase bitshift volume if current instrument supports volume.  
 	Support for this option is disabled by default into the Atari ST ASM routine.
 
 In the console output, the player displays the whole memory allocated by the player in bytes.

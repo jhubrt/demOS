@@ -252,22 +252,27 @@ u8 VoiceOrder(u16 i)
 
 void PlayerActivity	(FSM* _fsm)
 {
-#   ifdef __TOS__
-    *HW_COLOR_LUT = 0;
-
+    if (g_player.waitfordisplay)
     {
-        u8 count = *HW_VIDEO_COUNT_L;
-        while (*HW_VIDEO_COUNT_L == count);
+        *HW_COLOR_LUT = 0x70;
+        BLSupdate (&(g_player.player));
     }
+    else
+    {
+        *HW_COLOR_LUT = 0;
+#       ifdef __TOS__
+        {
+            u8 count = *HW_VIDEO_COUNT_L;
+            while (*HW_VIDEO_COUNT_L == count);
+        }
+        *HW_COLOR_LUT = 0x70;
+#       endif
 
-    *HW_COLOR_LUT = 0x70;
-#   endif
+        BLSupdate (&(g_player.player));
 
-    BLSupdate (&(g_player.player));
-    
-    *HW_COLOR_LUT = 0x34;
-
-    g_player.rastermax = TRAmaxraster(g_player.rastermax);
+        *HW_COLOR_LUT = 0x34;
+        g_player.rastermax = TRAmaxraster(g_player.rastermax);
+    }
 
     *HW_COLOR_LUT = g_player.player.clientEvent;
 
@@ -356,6 +361,9 @@ void PlayerActivity	(FSM* _fsm)
             case HW_KEY_ESC:
                 FSMgotoNextState(&g_stateMachineIdle);
                 break;
+
+            case HW_KEY_BACKSPACE:
+                g_player.waitfordisplay = !g_player.waitfordisplay;
             }
         }
     }

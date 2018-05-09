@@ -50,8 +50,7 @@ STRUCT(Player)
     u16   rastermax;
 
     bool  play;
-    /*u8    keyb[2];
-    s8    mask[2];*/
+    bool  waitfordisplay;
 };
 
 #endif

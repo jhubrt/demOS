@@ -35,7 +35,5 @@ more optimizations:
 
 ## TODO
 
-*   Need to investigate : in Hatari when playing with ASM routine, it generates more clicks than C routine while the test mode gives equivalent samples.  
-    Problem with DMA sound, timing... ? Surprisingly when using ASM routines separately (called from C) there is no click.
 *   Debug rendering when using STe microwire
 * 	Port *BLSinitSample* in ASM
