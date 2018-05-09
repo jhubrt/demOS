@@ -51,7 +51,7 @@ Prototype using blitter to mix PCM sounds on 2 voices (proof of concept)
 * BLSconvert : convertion tool from .MOD format to .BLS format
 * BLSplay : player using the routine
 
-Have a look at DOCS/BLITsnd.md in the git depot for more info...
+[BLITSnd documentation](https://github.com/gibs75/demOS/blob/master/DOCS/BLITSnd/README.md) 
 
 [BLITSnd](https://youtu.be/Xc0zv4YFitI)
 
