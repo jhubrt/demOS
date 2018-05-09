@@ -252,7 +252,7 @@ ablsUpSoundBuffers:
     
     movep.l     d1,(a2)
 
-    add.l       #(BLS_NBSAMPLES_PERFRAME*2),d1
+    add.l       #BLS_NBBYTES_PERFRAME,d1
 
     movep.l     d1,HW_DMASOUND_ENDADR_H-2-HW_DMASOUND_CONTROL(a2)
 
