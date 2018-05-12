@@ -50,7 +50,7 @@ STRUCT(Player)
     u16   rastermax;
 
     bool  play;
-    bool  waitfordisplay;
+    bool  startdisplay;
 };
 
 #endif

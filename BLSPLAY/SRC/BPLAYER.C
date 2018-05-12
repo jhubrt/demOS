@@ -252,7 +252,7 @@ u8 VoiceOrder(u16 i)
 
 void PlayerActivity	(FSM* _fsm)
 {
-    if (g_player.waitfordisplay)
+    if (g_player.startdisplay)
     {
         *HW_COLOR_LUT = 0x70;
         BLSupdate (&(g_player.player));
@@ -363,7 +363,7 @@ void PlayerActivity	(FSM* _fsm)
                 break;
 
             case HW_KEY_BACKSPACE:
-                g_player.waitfordisplay = !g_player.waitfordisplay;
+                g_player.startdisplay = !g_player.startdisplay;
             }
         }
     }
