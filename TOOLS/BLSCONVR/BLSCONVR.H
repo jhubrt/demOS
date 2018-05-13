@@ -246,7 +246,7 @@ struct Pattern
             m_period = PCENDIANSWAP16(m_period);
             fx       = PCENDIANSWAP16(fx);
 
-            m_instrument = ((m_period >> 12) & 0xF0) | (fx >> 12);
+            m_instrument = ((m_period >> 8) & 0xF0) | (fx >> 12);
 
             m_period &= 0xFFF;
 
