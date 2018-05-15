@@ -133,6 +133,7 @@ void PlayerEntry (void)
 
 #       ifdef __TOS__
         temp[2] = 0;
+        framebuffer += 160;
 
         for (t = 0 ; t < 14 ; t++, framebuffer += 5*160)
         {       
@@ -265,6 +266,9 @@ void PlayerActivity	(FSM* _fsm)
             u8 count = *HW_VIDEO_COUNT_L;
             while (*HW_VIDEO_COUNT_L == count);
         }
+#       if blsUSEASM 
+        STDmcpy(HW_COLOR_LUT, HW_COLOR_LUT, 16); /* workaround to fix clics in Hatari : insert wait time */
+#       endif
         *HW_COLOR_LUT = 0x70;
 #       endif
 
