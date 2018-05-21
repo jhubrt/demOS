@@ -43,8 +43,8 @@ extern "C"
 #define BLS_CONVERT_OUTPUT(FORMAT, ...) { printf (FORMAT, __VA_ARGS__ ); fprintf (stderr, FORMAT, __VA_ARGS__ ); }
 
 #define BLS_CONVERT_OUTPUT_POSITION(MESSAGE_TYPE, p, r, v) {\
-    printf ("\n" MESSAGE_TYPE ": pat=0x%x|%d row=0x%x|%d voice=%d/4 - ", p, p, r, r, v + 1);\
-    fprintf (stderr, "\n" MESSAGE_TYPE ": pat=0x%x|%d row=0x%x|%d voice=%d/4 - ", p, p, r, r, v + 1); }
+    printf (MESSAGE_TYPE ": pat=0x%x|%d row=0x%x|%d voice=%d/4 - ", p, p, r, r, v + 1);\
+    fprintf (stderr, MESSAGE_TYPE ": pat=0x%x|%d row=0x%x|%d voice=%d/4 - ", p, p, r, r, v + 1); }
 
 // allocator
 static void* stdAlloc(void* _alloc, u32 _size)
@@ -271,6 +271,8 @@ bool Sndtrack::LoadModule (const char* _filename)
                 for (u32 v = 0 ; v < NBVOICES ; v++)
                 {
                     Pattern::Cell& cell = m_patterns[p].m_cells[r][v];
+                    bool needToRegisterVolume = false;
+                    u8 currentVolume = 64;
 
                     cell.Read (file);
 
@@ -279,8 +281,8 @@ bool Sndtrack::LoadModule (const char* _filename)
                         ASSERT(cell.m_instrument >= 1);
                         if (cell.m_instrument > m_samples.size()) // Manage invalid cells
                         {
-                            BLS_CONVERT_OUTPUT_POSITION("ERROR", p, r, v);
-                            BLS_CONVERT_OUTPUT("use invalid instrument (0x%x|%d)\n" , cell.m_instrument, cell.m_instrument);
+                            BLS_CONVERT_OUTPUT_POSITION("\n\nERROR", p, r, v);
+                            BLS_CONVERT_OUTPUT("use invalid instrument (0x%x|%d)\n\n" , cell.m_instrument, cell.m_instrument);
                         }
                         else
                         {
@@ -293,6 +295,8 @@ bool Sndtrack::LoadModule (const char* _filename)
                             }
                             else
                             {
+                                needToRegisterVolume = true;
+
                                 if (sample.isNoTranposeRequired() || sample.isFixedLengthRequired())
                                 {
                                     cell.m_period = NO_TRANSPOSE_PERIOD;
@@ -308,8 +312,8 @@ bool Sndtrack::LoadModule (const char* _filename)
                                 }
                                 else
                                 {
-                                    BLS_CONVERT_OUTPUT_POSITION("ERROR", p, r, v);
-                                    BLS_CONVERT_OUTPUT("unknown key period (0x%x|%d)\n" , cell.m_period, cell.m_period);
+                                    BLS_CONVERT_OUTPUT_POSITION("\n\nERROR", p, r, v);
+                                    BLS_CONVERT_OUTPUT("unknown key period (0x%x|%d)\n\n" , cell.m_period, cell.m_period);
                                 }
                             }
                         }
@@ -320,10 +324,20 @@ bool Sndtrack::LoadModule (const char* _filename)
                     case 0xC:   // volume 
                         if (lastinstrument[v] != 0)
                         {
+                            needToRegisterVolume = true;
+
                             // When use volume for balance => odd value for balance control
                             if ((m_useVolumeForBalance == false) || ((cell.m_fx_l & 1) == 0))
                             {
-                                m_instrHasVolumeEffect.insert(lastinstrument[v]);
+                                u8 vol = (cell.m_fx_m << 4) | cell.m_fx_l;
+                                
+                                if (vol > 64)
+                                {
+                                    BLS_CONVERT_OUTPUT_POSITION("\n\nERROR", p, r, v);
+                                    BLS_CONVERT_OUTPUT("volume exceed 64 (0x%x|%d)\n\n" , vol, vol);
+                                    vol = 64;
+                                }
+                                currentVolume = vol;
                             }
                         }
                         break;
@@ -355,6 +369,18 @@ bool Sndtrack::LoadModule (const char* _filename)
                     if ((v + 1) < NBVOICES)
                     {
                         printf (" | ");
+                    }
+
+                    if (needToRegisterVolume)
+                    {
+                        auto it = m_instrFXVolumes.find(lastinstrument[v]);
+                        if (it == m_instrFXVolumes.end())
+                        {
+                            m_instrFXVolumes.insert(std::make_pair(lastinstrument[v], std::set<u8>())).second;
+                            it = m_instrFXVolumes.find(lastinstrument[v]);
+                        }
+
+                        it->second.insert(currentVolume);
                     }
                 }
             }
@@ -456,13 +482,23 @@ void Sndtrack::DisplayVolumeFXUsageByInstrument(const std::map<u8,u32>& instrToS
     {
         printf ("instrument %ld size = %-7u ", it->first, it->second);
 
-        if ( m_instrHasVolumeEffect.find(it->first) == m_instrHasVolumeEffect.end() )
+        if ( DoesInstrumentHaveVolumeFX(it->first) == false )
         {
             printf ("no volume effect found\n");
         }
         else
         {
-            printf ("volume used\n");
+            printf ("volume used (");
+
+            auto it2 = m_instrFXVolumes.find(it->first);
+            ASSERT(it2 != m_instrFXVolumes.end());
+
+            for (auto it3 = it2->second.begin() ; it3 != it2->second.end() ; it3++)
+            {
+                printf ("0x%x ", *it3);
+            }
+
+            printf (")\n");
         }
     }
 }
@@ -563,7 +599,7 @@ void Sndtrack::ComputeSamplesTransposeTable ()
 
             m_nbPrecomputedSamples++;
 
-            const bool hasVolumeEffect = m_instrHasVolumeEffect.find(ipkey->m_instrument) != m_instrHasVolumeEffect.end();
+            const bool hasVolumeEffect = DoesInstrumentHaveVolumeFX(ipkey->m_instrument);
             ipkey->AssignStorageCharac (nbSTsamples, hasVolumeEffect, freqmullog2 );
 
             auto its = instrToSize.find(ipkey->m_instrument);
@@ -1190,6 +1226,15 @@ int main (char argc, char* _argv[])
 {
     bool useVolumeForBalance = false;
     bool amigaPALFreq = false;
+
+
+    if (argc == 1)
+    {
+        printf ("BlsConvert v 0.9.1\n\n");
+        printf ("blsconvert [-v1] [-amigapal] filename\n\n");
+
+        return 1;
+    }
 
     if (argc >= 3)
     {

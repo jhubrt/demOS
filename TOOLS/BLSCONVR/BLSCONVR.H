@@ -324,9 +324,16 @@ class Sndtrack
     std::vector<PrecomputedKey> m_precomputedKeys;
     std::map<u32,u32>           m_keyInstr2precomputedKeys;
     u16                         m_nbPrecomputedSamples;
-    std::set<u8>                m_instrHasVolumeEffect;
+    std::map<u8, std::set<u8>>  m_instrFXVolumes;
 
 public:
+
+    bool DoesInstrumentHaveVolumeFX (u8 _instrument) const
+    {
+        auto it = m_instrFXVolumes.find(_instrument);
+        ASSERT(it != m_instrFXVolumes.end());
+        return it->second.size() > 1;
+    }
     
     Sndtrack(bool _useVolumeForBalance) : m_useVolumeForBalance (_useVolumeForBalance) {}
 
