@@ -89,7 +89,7 @@ void TRACinit (void* _logmem, u32 _logmemsize)
     STDmset(_logmem, 0UL, _logmemsize);
 }
 
-void TRAClog (char* _str)
+void TRAClog (char* _str, char _separator)
 {
     u8* p = trac_logger.m_logmem + trac_logger.m_current;
 
@@ -108,9 +108,11 @@ void TRAClog (char* _str)
             }
         }
 
-        *p++ = '\n';
-
-        trac_logger.m_current++;
+        if (_separator)
+        {
+            *p++ = _separator;
+            trac_logger.m_current++;
+        }
 
         if (trac_logger.m_current >= trac_logger.m_logmemsize)
         {
@@ -135,8 +137,11 @@ void TRAClog (char* _str)
 
         if (trac_logger.m_current < trac_logger.m_logmemsize)
         {
-            trac_logger.m_current++;
-            *p++ = '\n';
+            if (_separator)
+            {
+                *p++ = _separator;
+                trac_logger.m_current++;
+            }
         }
     }
 #   endif

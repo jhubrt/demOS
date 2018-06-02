@@ -39,6 +39,8 @@
 
 #include <time.h>
 
+#define BLSPLAY_TITLE "BLSplay v1.0.0"
+
 #ifdef __TOS__
 #   define bplayerUSEASM 1
 #endif
@@ -69,6 +71,29 @@ u16 g_maskValues[] =
     0x3F3F,
     0x1F1F,
 };
+
+
+ENUM(TextdisplayState)
+{
+    TDS_WRITELINE,
+    TDS_WAITLINE
+};
+
+#ifdef __TOS__
+#   define TDS_WAITLINECOUNT   50
+#else
+#   define TDS_WAITLINECOUNT   1000
+#endif
+
+char* g_textdisplayContent[] =
+{
+    "BLITsnd by Metal Ages from CYBERNETICS [soundtrack routine using blitter]",
+    "BLSconvert converts MOD format into BLS format [with constraints...]",
+    "BLSplay replays BLS files [routine uses up to 16% of VBL on 8mhz STe]",
+    "Thanks fly to NPomarede for his great advices about DMA sound",
+    "Greetings go to all friends and kind people from the scene" 
+};
+
 
 static void playerInit (u16 _i, u16 _nb)
 {
@@ -111,8 +136,6 @@ void PlayerEntry (void)
     RINGallocatorFreeSize(&sys.mem, &info);
     deltasize -= info.size;
     
-    BLSplayerInit  (&sys.allocatorMem, &(g_player.player), sndtrack, !g_player.testMode);
-
     g_player.framebuffer = RINGallocatorAlloc ( &sys.mem, 64000UL );
     ASSERT (g_player.framebuffer != NULL);
     STDmset (g_player.framebuffer, 0, 64000UL);
@@ -127,13 +150,18 @@ void PlayerEntry (void)
         u8* framebuffer = (u8*)g_player.framebuffer;
         u16 t = 0;
 
+        SYSdebugPrint(framebuffer        , 160, 2, 66, 0, BLSPLAY_TITLE);
+        SYSdebugPrint(framebuffer + 32000, 160, 2, 66, 0, BLSPLAY_TITLE);
+
         STDuxtoa(&temp[8], deltasize, 6);
-        SYSdebugPrint(framebuffer, 160, 2, 66, 0, temp);
-        SYSdebugPrint(framebuffer + 32000, 160, 2, 66, 0, temp);
+        SYSdebugPrint(framebuffer        , 160, 2, 66, 16, temp);
+        SYSdebugPrint(framebuffer + 32000, 160, 2, 66, 16, temp);
 
 #       ifdef __TOS__
+        SYSdebugPrint(framebuffer        , 160, 2, 66, 32, "DMAsync");
+        SYSdebugPrint(framebuffer + 32000, 160, 2, 66, 32, "DMAsync");
+
         temp[2] = 0;
-        framebuffer += 160;
 
         for (t = 0 ; t < 14 ; t++, framebuffer += 5*160)
         {       
@@ -158,6 +186,7 @@ void PlayerEntry (void)
 #       endif
     }
 
+    BLSplayerInit  (&sys.allocatorMem, &(g_player.player), sndtrack, !g_player.testMode);
 }
 
 #if bplayerUSEASM==0
@@ -266,9 +295,6 @@ void PlayerActivity	(FSM* _fsm)
             u8 count = *HW_VIDEO_COUNT_L;
             while (*HW_VIDEO_COUNT_L == count);
         }
-#       if blsUSEASM 
-        STDmcpy(HW_COLOR_LUT, HW_COLOR_LUT, 16); /* workaround to fix clics in Hatari : insert wait time */
-#       endif
         *HW_COLOR_LUT = 0x70;
 #       endif
 
@@ -423,6 +449,65 @@ void PlayerTest	(void)
 }
 
 
+void TextDisplayUpdate (PlayerText* _text)
+{
+    u8* frame1 = (u8*) g_player.framebuffer + 2;
+    u8* frame2;
+
+#   ifdef __TOS__
+    frame1 += 72*160;
+#   else
+    frame1 += 191*160;
+#   endif
+
+    frame2 = frame1 + 32000;
+
+    switch (_text->state)
+    {
+    case TDS_WRITELINE:
+        
+        _text->animatecount = 0;
+        _text->currentchar = g_textdisplayContent[_text->currentline][_text->currentpos];
+        
+        if (_text->currentchar != 0)
+        {
+            char temp[2] = "";
+
+            *temp = _text->currentchar;
+
+            SYSdebugPrint(frame1, 160, 2, _text->currentpos, 0, temp);
+            SYSdebugPrint(frame2, 160, 2, _text->currentpos, 0, temp);
+            _text->currentpos++;
+        }
+        else
+        {
+            _text->currentline++;
+            _text->currentpos = 0;
+
+            if (_text->currentline >= ARRAYSIZE(g_textdisplayContent))
+            {
+                _text->currentline = 0;
+            }
+
+            _text->state = TDS_WAITLINE;
+        }
+        break;
+
+    case TDS_WAITLINE:
+
+        _text->animatecount++;
+
+        if (_text->animatecount >= TDS_WAITLINECOUNT)
+        {
+            STDmset (frame1, 0, 8*160);
+            STDmset (frame2, 0, 8*160);
+            _text->state = TDS_WRITELINE;
+        }
+        break;
+    }
+}
+
+
 void PlayerBacktask (FSM* _fsm)
 {
     static u8 flip = 0;
@@ -434,12 +519,20 @@ void PlayerBacktask (FSM* _fsm)
 
     SYSvsync;
     {
-        STDmcpy (g_player.pcmcopy, g_player.player.dmabuffers[g_player.player.backbuffer == 0], BLS_NBBYTES_PERFRAME + BLS_NBBYTES_OVERHEAD);
+        if (g_player.player.buffertoupdate != NULL)
+        {
+            STDmcpy (g_player.pcmcopy, g_player.player.buffertoupdate, BLS_NBBYTES_PERFRAME + BLS_NBBYTES_OVERHEAD);
+        }
 
         {
             u8* line = (u8*) backframebuffer + ((200 - 140) * 160);
+            bool sync = (g_player.player.dmabufend - g_player.player.dmabufstart) > BLS_NBBYTES_PERFRAME;
     
+
 #           ifdef __TOS__
+            *(u16*)(backframebuffer + (74 * 2 + 160 * 32))           = sync ? 0xFFFF : 0;
+            *(u16*)(backframebuffer + (74 * 2 + 160 * 32 + 160 * 7)) = sync ? 0      : 0xFFFF;
+
             line += 70*160;
 #           endif
 
@@ -533,6 +626,8 @@ void PlayerBacktask (FSM* _fsm)
             }           
         }
 
+        TextDisplayUpdate (&g_player.text);
+
         SYSvsync;
         SYSwriteVideoBase ((u32)backframebuffer);
     }
@@ -542,6 +637,8 @@ void PlayerBacktask (FSM* _fsm)
 void PlayerExit	(FSM* _fsm)
 {
     IGNORE_PARAM(_fsm);
+
+    *HW_DMASOUND_CONTROL = HW_DMASOUND_CONTROL_OFF;
 
     BLSfree(&sys.allocatorMem, g_player.player.sndtrack);
     BLSplayerFree(&sys.allocatorMem, &g_player.player);

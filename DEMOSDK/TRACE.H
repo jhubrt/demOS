@@ -42,7 +42,7 @@
     typedef u16 (*TRAC_DisplayCallback) (void* _image, u16 _pitch, u16 _planePitch, u16 _y);
 
     void TRACinit (void* _logmem, u32 _logmemsize);
-    void TRAClog (char* _str);
+    void TRAClog (char* _str, char _separator);
     void TRAClogClear (void);
     void TRACsetVideoMode (u16 _pitch);
     void TRACregisterDisplayService (TRAC_DisplayCallback _callback, u16 _enableMask); 
@@ -51,20 +51,22 @@
     void TRACdrawScanlinesScale (void* _image, u16 _screenPitch, u16 _bitplanPitchShift, u16 _h);
     u16  TRAmaxraster (u16 maxraster);
 
-#   define TRAClogNumber(STR,NUM,NBCHARS) { static char trace[] = STR ":         "; STDuxtoa(&trace[sizeof(trace) - 9], (NUM), (NBCHARS)); TRAClog(trace); }
+#   define TRAClogNumber(STR,NUM,NBCHARS) TRAClogNumberS(STR,NUM,NBCHARS,'\n')
+#   define TRAClogNumberS(STR,NUM,NBCHARS,SEPARATOR) { static char trace[] = STR ":         "; STDuxtoa(&trace[sizeof(trace) - 9], (NUM), (NBCHARS)); TRAClog(trace, SEPARATOR); }
 
 #	ifdef DEMOS_UNITTEST
 	void TRACunitTest (void* _screen);
 #	endif
 #else
 #   define TRACinit(_logmem, _logmemsize)
-#   define TRAClog(_str)
+#   define TRAClog(_str,_separator)
 #   define TRAClogClear()
 #   define TRACsetVideoMode(_pitch)
 #	define TRACdisplay(_image)
 #	define TRACmanage(KEY) false
 
 #   define TRAClogNumber(STR,NUM,NBCHARS)
+#   define TRAClogNumberS(STR,NUM,NBCHARS,SEPARATOR)
 
 #endif
 

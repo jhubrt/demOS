@@ -31,10 +31,12 @@
 #define BLS_NBVOICES            4
 #define BLS_NBPATTERNROWS       64
 #define BLS_DMA_FREQ            50000UL
+#define BLS_NB_BUFFERS          3
 #define BLS_NBSAMPLES_PERFRAME  1000
 #define BLS_NBBYTES_PERFRAME    (BLS_NBSAMPLES_PERFRAME << 1)   /* stereo => * 2 */
 #define BLS_NBBYTES_OVERHEAD    4
 #define BLS_NBBYTES_CLEARFLAGS  4
+#define BLS_STEP_PERFRAME       (BLS_NBBYTES_PERFRAME + BLS_NBBYTES_OVERHEAD + BLS_NBBYTES_CLEARFLAGS)
 
 #define BLS_STORAGE_WORD        0x0000
 #define BLS_STORAGE_BYTE_0      0x4000
@@ -160,9 +162,10 @@ STRUCT(BLSplayer)
     BLSsoundTrack* sndtrack;
     
     s8* buffer;
-    s8* dmabuffers[2];
-    u16 dummy;
-    u16 backbuffer;
+    s8* buffertoupdate;
+    u32 dmabufstart;
+    u32 dmabufend;
+    u16 bufferstate;
 
     u8  speed;
     u8  speedcount;
@@ -181,7 +184,9 @@ STRUCT(BLSplayer)
 typedef void (*BLSinitCallback)(u16 _index, u16 _nb);
 
 #ifdef __TOS__
-#   define blsUSEASM 1
+#   ifndef blsUSEASM
+#       define blsUSEASM 1
+#   endif
 
 #   if blsUSEASM
 #       define BLSupdate  aBLSupdate /* comment this define to test with independent ASM routines. In this case 'exportall' should be set to 1 in BLITSNDP.S file */
@@ -189,6 +194,8 @@ typedef void (*BLSinitCallback)(u16 _index, u16 _nb);
 #endif
 
 #define blsDUMP 1 /* if you want to call BLStestPlay, you need to activate this flag and in this case stdlib should be included */
+
+#define blsLOGDMA 0
 
 BLSsoundTrack*  BLSread       (MEMallocator* _allocator, void* _buffer);
 void            BLSinit       (MEMallocator* _allocator, BLSsoundTrack* _sndtrack, BLSinitCallback _statCallback);

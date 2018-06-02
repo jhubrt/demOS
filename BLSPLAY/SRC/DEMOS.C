@@ -39,8 +39,8 @@
 #include "DEMOSDK\HARDWARE.H"
 #include "DEMOSDK\FSM.H"
 #include "DEMOSDK\LOAD.H"
-#include "DEMOSDK\SYNTH.H"
 #include "DEMOSDK\TRACE.H"
+#include "DEMOSDK\BLITSND.H"
 
 #include "DEMOSDK\BITMAP.H"
 #include "DEMOSDK\PC\WINDOW.H"
@@ -67,6 +67,7 @@
 /*#define bls_TEST_MODULE "BLSPLAY\\DATA\\LOADER.BLS"*/
 /*#define bls_TEST_MODULE "BLSPLAY\\DATA\\QUICKIE.BLS"*/
 #define bls_TEST_MODULE "BLSPLAY\\DATA\\_QUICKIE.BLS"
+/*#define bls_TEST_MODULE "BLSPLAY\\DATA\\DEMO_B.BLS"*/
 
 
 static void SetParam (int argc, char** argv)
@@ -176,6 +177,12 @@ int main(int argc, char** argv)
 
             SYScheckHWRequirements ();
 
+#           if blsLOGDMA
+            TRACinit ((void*) 0x3A0000UL, 256UL * 1024UL);
+#           endif
+
+            *HW_KEYBOARD_DATA = 0x12; /* deactivate mouse management on ACIA */
+
             {
                 do
                 {
@@ -199,6 +206,8 @@ int main(int argc, char** argv)
 
                 SYSvsync;
             }
+
+            *HW_KEYBOARD_DATA = 0x8; /* activate mouse management on ACIA */
         }
 
         SYSshutdown();

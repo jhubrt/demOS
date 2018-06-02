@@ -2,9 +2,9 @@
 ; BLSPLAY / DemOS - debug target > metafile build to speed up compilation
 ;-------------------------------------------------------------------------------
 
-BLSPLAY.TTP		; name of executable program
+BLSPLAYC.TTP		; name of executable program
 
-.C [ -Y -P -K -C -M -DblsUSEASM=1]
+.C [ -Y -P -K -C -M -DblsUSEASM=0 ]
 .L [ -G -L -Y ]
 .S [ -Y ]
 =									; list of modules follows...

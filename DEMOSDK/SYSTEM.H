@@ -145,6 +145,8 @@ void SYStune(void);
 u32	 SYSreadVideoBase (void);
 void SYSwriteVideoBase (u32 _val);
 u32  SYSvidCountRead (void);
+u16  SYSwmovep              (void* _adr);
+u32  SYSlmovep              (void* _adr);
 
 #define SYSkbAcquire  sys.key = *HW_KEYBOARD_DATA
 #define SYSkbHit  (sys.lastKey != sys.key)

@@ -24,6 +24,8 @@
 #include "DEMOSDK\STANDARD.H"
 #include "DEMOSDK\BLITSND.H"
 #include "DEMOSDK\HARDWARE.H"
+#include "DEMOSDK\SYSTEM.H"
+#include "DEMOSDK\TRACE.H"
 
 #include "DEMOSDK\PC\EMUL.H"
 
@@ -42,18 +44,29 @@
 #if blsUSEASM
 #   ifdef BLSupdate
 #       define blsUpdAsync              ablsUpdAsync
-        void blsUpdAsync                (BLSplayer* _player, void* _p);
+        void blsUpdAsync                (BLSplayer* _player);
 #   else
 #       define blsUpdateAllVoices       ablsUpAllVoices
 #       define blsUpdateSoundBuffers    ablsUpSoundBuffers
 #       define blsUpdateScore           ablsUpScore
 #       define blsUpdateRunningEffects  ablsUpRunningEffects
-        void blsUpdateAllVoices         (BLSplayer* _player, void* backbuf);
+#       define blsSetDMABuffer          ablsSetDMABuffer
+        void blsUpdateAllVoices         (BLSplayer* _player);
         void blsUpdateSoundBuffers      (BLSplayer* _player);
         void blsUpdateScore             (BLSplayer* _player);
         void blsUpdateRunningEffects    (BLSplayer* _player);
+        void blsSetDMABuffer            (BLSplayer* _player);
 #   endif
 #endif
+
+
+ENUM(BLSbufferState)
+{
+    BLSbs_STEP0 = 0,
+    BLSbs_STEP1 = 4,
+    BLSbs_STEP2 = 8,
+    BLSbs_START = 12
+};
 
 
 int g_nbframes = 0;
@@ -62,7 +75,7 @@ int g_nbframes = 0;
 void BLSplayerInit(MEMallocator* _allocator, BLSplayer* _player, BLSsoundTrack* _sndtrack, bool _initaudio)
 {
     u16 v;
-    u16 buffersize = (BLS_NBBYTES_PERFRAME + BLS_NBBYTES_OVERHEAD + BLS_NBBYTES_CLEARFLAGS) * 2;
+    u16 buffersize = (BLS_NBBYTES_PERFRAME + BLS_NBBYTES_OVERHEAD + BLS_NBBYTES_CLEARFLAGS) * BLS_NB_BUFFERS;
 
     DEFAULT_CONSTRUCT(_player);
 
@@ -77,16 +90,10 @@ void BLSplayerInit(MEMallocator* _allocator, BLSplayer* _player, BLSsoundTrack* 
     _player->buffer   = (s8*) MEM_ALLOC (_allocator, buffersize);
 
     STDmset (_player->buffer, 0UL, buffersize);
-
-    _player->dmabuffers[0] = _player->buffer;
-    _player->dmabuffers[1] = _player->buffer + BLS_NBBYTES_PERFRAME + BLS_NBBYTES_OVERHEAD + BLS_NBBYTES_CLEARFLAGS;
-    
-    *((u32*)(_player->dmabuffers[0] + BLS_NBBYTES_PERFRAME + BLS_NBBYTES_OVERHEAD)) = 0;
-    *((u32*)(_player->dmabuffers[1] + BLS_NBBYTES_PERFRAME + BLS_NBBYTES_OVERHEAD)) = 0;
-    	
+      	
     for (v = 0 ; v < BLS_NBVOICES ; v++)
     {
-        _player->voices[v].mask    = 0xFFFF;
+        _player->voices[v].mask = 0xFFFF;
     }
 
     if (_initaudio)
@@ -105,7 +112,9 @@ void BLSplayerInit(MEMallocator* _allocator, BLSplayer* _player, BLSsoundTrack* 
 
         *HW_DMASOUND_MODE = HW_DMASOUND_MODE_50066HZ | HW_DMASOUND_MODE_STEREO;
 
-        EMULcreateSoundBuffer (BLS_NBBYTES_PERFRAME, true);
+        _player->bufferstate = BLSbs_START;
+
+        EMULcreateSoundBuffer (BLS_NBSAMPLES_PERFRAME * 2, true, BLS_DMA_FREQ);
     }
 }
 
@@ -122,23 +131,81 @@ void BLSplayerInit(MEMallocator* _allocator, BLSplayer* _player, BLSsoundTrack* 
 #ifndef blsUpdateSoundBuffers
 static void blsUpdateSoundBuffers (BLSplayer* _player)
 {
-    u32 frontbuf = (u32) _player->dmabuffers[_player->backbuffer != 0];
-    u32 endbuf = frontbuf + BLS_NBBYTES_PERFRAME;
+    u32 buffer      = (u32) _player->buffer; 
+    u32 readcursor  = SYSlmovep(HW_DMASOUND_COUNTER_H) >> 8;
+    u32 dmabufstart = _player->dmabufstart;
+    u32 dmabufend   = _player->dmabufend;
 
 
-    _player->backbuffer ^= 4;
+    switch (_player->bufferstate)
+    {
+    case BLSbs_STEP0:
+        _player->buffertoupdate = _player->buffer;
+        _player->dmabufstart    = buffer + BLS_STEP_PERFRAME + BLS_STEP_PERFRAME;
+        _player->bufferstate    = BLSbs_STEP1;
+        break;
 
-    (*HW_DMASOUND_CONTROL)    = 0;
+    case BLSbs_STEP1:
+        _player->buffertoupdate = _player->buffer + BLS_STEP_PERFRAME;
+        _player->dmabufstart    = buffer;
+        _player->bufferstate    = BLSbs_STEP2;
+        break;
+    
+    case BLSbs_START:
 
-    (*HW_DMASOUND_STARTADR_H) = (u8)(frontbuf >> 16);
-    (*HW_DMASOUND_STARTADR_M) = (u8)(frontbuf >> 8);
-    (*HW_DMASOUND_STARTADR_L) = (u8) frontbuf;
+        *HW_DMASOUND_STARTADR_H = (u8)(buffer >> 16);
+        *HW_DMASOUND_STARTADR_M = (u8)(buffer >> 8);
+        *HW_DMASOUND_STARTADR_L = (u8) buffer;
 
-    (*HW_DMASOUND_ENDADR_H) = (u8)(endbuf >> 16);
-    (*HW_DMASOUND_ENDADR_M) = (u8)(endbuf >> 8);
-    (*HW_DMASOUND_ENDADR_L) = (u8) endbuf;
+        {
+            u32 endbuf = buffer + BLS_NBBYTES_PERFRAME + BLS_NBBYTES_OVERHEAD;
 
-    *HW_DMASOUND_CONTROL = HW_DMASOUND_CONTROL_PLAYONCE;   
+            *HW_DMASOUND_ENDADR_H = (u8)(endbuf >> 16);
+            *HW_DMASOUND_ENDADR_M = (u8)(endbuf >> 8);
+            *HW_DMASOUND_ENDADR_L = (u8) endbuf;
+        }
+
+        *HW_DMASOUND_CONTROL = HW_DMASOUND_CONTROL_PLAYLOOP;
+
+        readcursor = -1;
+
+        /* !!! no break here !!! */
+
+    case BLSbs_STEP2:
+        _player->buffertoupdate = _player->buffer + BLS_STEP_PERFRAME + BLS_STEP_PERFRAME;
+        _player->dmabufstart    = buffer + BLS_STEP_PERFRAME;
+        _player->bufferstate    = BLSbs_STEP0;
+        break;
+    }
+
+    _player->dmabufend = _player->dmabufstart + BLS_NBBYTES_PERFRAME;
+
+    if ((readcursor >= dmabufstart) && (readcursor <= dmabufend))
+    {
+        _player->dmabufend += BLS_NBBYTES_OVERHEAD;
+    }
+
+#   if blsLOGDMA
+    TRAClogNumberS("frame"    , (u32) g_nbframes             , 4, 0);
+
+    if ((readcursor >= dmabufstart) && (readcursor <= dmabufend))
+    {
+        TRAClog(" noskip ", 0);
+    }
+    else
+    {
+        TRAClog(" skip 4 ", 0);
+    }
+
+    TRAClogNumberS("dmastart" , (u32) dmabufstart            , 4, 0);
+    TRAClogNumberS("dmaend"   , (u32) dmabufend              , 4, 0);
+    TRAClogNumberS("readcurs" , (u32) readcursor             , 4, 0);
+    TRAClogNumberS("nextdmas" , (u32) _player->dmabufstart   , 4, 0);
+    TRAClogNumberS("nextdmae" , (u32) _player->dmabufend     , 4, 0);
+    TRAClogNumberS("update"   , (u32) _player->buffertoupdate, 4, 0);
+
+    TRAClog("\n", _player->bufferstate == BLSbs_STEP2 ? '\n' : 0);
+#   endif
 }
 #endif
 
@@ -162,8 +229,9 @@ static void blsUpdateVoiceFrame (BLSvoice* _voice, u8* _buffer, bool _firstpass)
         if (*cleared)
             return;
 
-        (*cleared)  = true;
-        (*cleared2) = true;
+        *cleared  = true;
+        *cleared2 = true;
+
         goto clear;
     }
 
@@ -388,11 +456,12 @@ clear:
     }
 }
 
-static void blsUpdateAllVoices (BLSplayer* _player, void* _backbuf)
+static void blsUpdateAllVoices (BLSplayer* _player)
 {
-    u32 backbuf = (u32) _backbuf;
+    u32  backbuf  = (u32) _player->buffertoupdate;
+    u32* overhead = (u32*)(backbuf + BLS_NBBYTES_PERFRAME);
 
-    *(u32*)(backbuf + BLS_NBBYTES_PERFRAME) = 0x12341234UL;
+    *overhead = 0x12341234UL;
 
     *HW_BLITTER_XINC_DEST   = 4;    /* multiplexing */
     *HW_BLITTER_YINC_DEST   = 4;
@@ -411,9 +480,25 @@ static void blsUpdateAllVoices (BLSplayer* _player, void* _backbuf)
     blsUpdateVoiceFrame (&_player->voices[0], (u8*) backbuf    , false);
     blsUpdateVoiceFrame (&_player->voices[3], (u8*) backbuf + 2, false);
 
-    ASSERT( *(u32*)(backbuf + BLS_NBBYTES_PERFRAME) == 0x12341234UL);
+    ASSERT( *(overhead) == 0x12341234UL );
 
-    *(u32*)(backbuf + BLS_NBBYTES_PERFRAME) = *(u32*)(backbuf + BLS_NBBYTES_PERFRAME - 4);
+    *overhead = overhead[-1];
+}
+#endif
+
+#ifndef blsSetDMABuffer
+static void blsSetDMABuffer(BLSplayer* _player)
+{
+    u32 dmastart = _player->dmabufstart;
+    u32 dmaend   = _player->dmabufend;  
+
+    *HW_DMASOUND_STARTADR_H = (u8)(dmastart >> 16);
+    *HW_DMASOUND_STARTADR_M = (u8)(dmastart >> 8);
+    *HW_DMASOUND_STARTADR_L = (u8) dmastart;
+
+    *HW_DMASOUND_ENDADR_H   = (u8)(dmaend >> 16);
+    *HW_DMASOUND_ENDADR_M   = (u8)(dmaend >> 8);
+    *HW_DMASOUND_ENDADR_L   = (u8) dmaend;
 }
 #endif
 
@@ -715,19 +800,21 @@ void BLSupdate (BLSplayer* _player)
 #   endif
 
     blsUpdateScore (_player);
-  
+
     blsUpdateRunningEffects (_player);
 
-    {
-        void* backbuf = _player->dmabuffers[_player->backbuffer != 0];
-        blsUpdateAllVoices (_player, backbuf);
-        EMULplaysound ((void*)backbuf, BLS_NBBYTES_PERFRAME, playBuffer != 0 ? 0 : BLS_NBBYTES_PERFRAME);
-    }
+    blsUpdateAllVoices (_player);
+
+    blsSetDMABuffer (_player);
+
+#   ifndef __TOS__
+    EMULplaysound (_player->buffertoupdate, BLS_NBBYTES_PERFRAME, playBuffer != 0 ? 0 : BLS_NBBYTES_PERFRAME);
+#   endif
 }
 
-static void blsUpdAsync(BLSplayer* _player, void* _p)
+static void blsUpdAsync(BLSplayer* _player)
 {
-    u8* cleared = (u8*) _p;
+    u8* cleared = (u8*) _player->buffertoupdate;
 
     /* as we do not re-use buffer, enforce update by disabling clear channel optimization */
     cleared += BLS_NBBYTES_PERFRAME + BLS_NBBYTES_OVERHEAD;
@@ -737,7 +824,7 @@ static void blsUpdAsync(BLSplayer* _player, void* _p)
 
     blsUpdateRunningEffects (_player);
 
-    blsUpdateAllVoices (_player, _p);
+    blsUpdateAllVoices (_player);
 }
 #endif
 
@@ -748,8 +835,10 @@ static void blsUpdAsync(BLSplayer* _player, void* _p)
 
 u32 BLSasyncPlay (BLSplayer* _player, u8 _trackindex, void* _buffer, u32 _buffersize)
 {
-    u8* p = (u8*) _buffer;
     u32 size = 0;
+
+
+    _player->buffertoupdate = (s8*) _buffer;
 
     do
     {
@@ -763,9 +852,9 @@ u32 BLSasyncPlay (BLSplayer* _player, u8 _trackindex, void* _buffer, u32 _buffer
 
         ASSERT ( (size + BLS_NBBYTES_PERFRAME) < _buffersize );
 
-        blsUpdAsync(_player, p);
+        blsUpdAsync(_player);
 
-        p += BLS_NBBYTES_PERFRAME;
+        _player->buffertoupdate += BLS_NBBYTES_PERFRAME;
         size += BLS_NBBYTES_PERFRAME;
     }
     while (1);
@@ -791,7 +880,6 @@ static void blsDumpPlayerState (BLSplayer* _player, u32 _offset, FILE* _file)
     {
         "PLAYER --------        \n"
         "offset       =         \n"
-        "backbuffer   =         \n"
         "speed        =         \n"
         "speedcount   =         \n"
         "trackindex   =         \n"
@@ -823,7 +911,6 @@ static void blsDumpPlayerState (BLSplayer* _player, u32 _offset, FILE* _file)
 
     STDuxtoa(&tracep[i], g_nbframes, 6);            i += w;
     STDuxtoa(&tracep[i], _offset            , 6);   i += w;
-    STDuxtoa(&tracep[i], _player->backbuffer, 1);   i += w;
     STDuxtoa(&tracep[i], _player->speed, 2);        i += w;
     STDuxtoa(&tracep[i], _player->speedcount, 2);   i += w;
     STDuxtoa(&tracep[i], _player->trackindex, 2);   i += w;
@@ -939,6 +1026,8 @@ void BLStestPlay (BLSplayer* _player, u8 _trackindex, char* _filesamplename, cha
 
     blsDumpSndtrackState(_player->sndtrack, filetrace);
 
+    _player->buffertoupdate = _player->buffer;
+
     do
     {
         g_nbframes++;
@@ -967,12 +1056,9 @@ void BLStestPlay (BLSplayer* _player, u8 _trackindex, char* _filesamplename, cha
 
         lastrow = _player->row;
 
-        blsUpdAsync(_player, _player->dmabuffers[0]);
+        blsUpdAsync(_player);
 
-        /* BLSupdate (_player);
-        STDmcpy(p, _player->dmabuffers[_player->backbuffer != 0], BLS_NBBYTES_PERFRAME); */
-
-		fwrite (_player->dmabuffers[0], BLS_NBBYTES_PERFRAME, 1, filesample);
+		fwrite (_player->buffer, BLS_NBBYTES_PERFRAME, 1, filesample);
         offset += BLS_NBBYTES_PERFRAME;
     }
     while (1);

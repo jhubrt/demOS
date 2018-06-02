@@ -548,7 +548,7 @@ void SNDsynPlayerInit(RINGallocator* _allocator, SNDsynPlayerInitParam* _init)
     *HW_DMASOUND_MODE = HW_DMASOUND_MODE_25033HZ | HW_DMASOUND_MODE_STEREO;
 #   endif
 
-    EMULcreateSoundBuffer (SND_FRAME_NBSAMPLES * 2, true);
+    EMULcreateSoundBuffer (SND_FRAME_NBSAMPLES * 2, true, SND_DMA_FREQ);
 }
 
 

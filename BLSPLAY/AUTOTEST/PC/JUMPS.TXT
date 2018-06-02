@@ -28,7 +28,6 @@ flags        =    C
 
 PLAYER --------     1  
 offset       =      0  
-backbuffer   = 0       
 speed        =  6      
 speedcount   =  1      
 trackindex   =  0      
@@ -55,7 +54,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------     2  
 offset       =    7D0  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  8      
 trackindex   =  0      
@@ -82,7 +80,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------     3  
 offset       =    FA0  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  7      
 trackindex   =  0      
@@ -109,7 +106,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------     4  
 offset       =   1770  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  6      
 trackindex   =  0      
@@ -136,7 +132,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------     5  
 offset       =   1F40  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  5      
 trackindex   =  0      
@@ -163,7 +158,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------     6  
 offset       =   2710  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  4      
 trackindex   =  0      
@@ -190,7 +184,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------     7  
 offset       =   2EE0  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  3      
 trackindex   =  0      
@@ -217,7 +210,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------     8  
 offset       =   36B0  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  2      
 trackindex   =  0      
@@ -244,7 +236,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------     9  
 offset       =   3E80  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  1      
 trackindex   =  0      
@@ -271,7 +262,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------     A  
 offset       =   4650  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  8      
 trackindex   =  0      
@@ -298,7 +288,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------     B  
 offset       =   4E20  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  7      
 trackindex   =  0      
@@ -325,7 +314,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------     C  
 offset       =   55F0  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  6      
 trackindex   =  0      
@@ -352,7 +340,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------     D  
 offset       =   5DC0  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  5      
 trackindex   =  0      
@@ -379,7 +366,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------     E  
 offset       =   6590  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  4      
 trackindex   =  0      
@@ -406,7 +392,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------     F  
 offset       =   6D60  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  3      
 trackindex   =  0      
@@ -433,7 +418,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    10  
 offset       =   7530  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  2      
 trackindex   =  0      
@@ -460,7 +444,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    11  
 offset       =   7D00  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  1      
 trackindex   =  0      
@@ -487,7 +470,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    12  
 offset       =   84D0  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  8      
 trackindex   =  0      
@@ -514,7 +496,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    13  
 offset       =   8CA0  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  7      
 trackindex   =  0      
@@ -541,7 +522,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    14  
 offset       =   9470  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  6      
 trackindex   =  0      
@@ -568,7 +548,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    15  
 offset       =   9C40  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  5      
 trackindex   =  0      
@@ -595,7 +574,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    16  
 offset       =   A410  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  4      
 trackindex   =  0      
@@ -622,7 +600,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    17  
 offset       =   ABE0  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  3      
 trackindex   =  0      
@@ -649,7 +626,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    18  
 offset       =   B3B0  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  2      
 trackindex   =  0      
@@ -676,7 +652,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    19  
 offset       =   BB80  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  1      
 trackindex   =  0      
@@ -703,7 +678,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    1A  
 offset       =   C350  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  8      
 trackindex   =  0      
@@ -730,7 +704,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    1B  
 offset       =   CB20  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  7      
 trackindex   =  0      
@@ -757,7 +730,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    1C  
 offset       =   D2F0  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  6      
 trackindex   =  0      
@@ -784,7 +756,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    1D  
 offset       =   DAC0  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  5      
 trackindex   =  0      
@@ -811,7 +782,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    1E  
 offset       =   E290  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  4      
 trackindex   =  0      
@@ -838,7 +808,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    1F  
 offset       =   EA60  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  3      
 trackindex   =  0      
@@ -865,7 +834,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    20  
 offset       =   F230  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  2      
 trackindex   =  0      
@@ -892,7 +860,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    21  
 offset       =   FA00  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  1      
 trackindex   =  0      
@@ -919,7 +886,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    22  
 offset       =  101D0  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  8      
 trackindex   =  0      
@@ -946,7 +912,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    23  
 offset       =  109A0  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  7      
 trackindex   =  0      
@@ -973,7 +938,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    24  
 offset       =  11170  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  6      
 trackindex   =  0      
@@ -1000,7 +964,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    25  
 offset       =  11940  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  5      
 trackindex   =  0      
@@ -1027,7 +990,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    26  
 offset       =  12110  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  4      
 trackindex   =  0      
@@ -1054,7 +1016,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    27  
 offset       =  128E0  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  3      
 trackindex   =  0      
@@ -1081,7 +1042,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    28  
 offset       =  130B0  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  2      
 trackindex   =  0      
@@ -1108,7 +1068,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    29  
 offset       =  13880  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  1      
 trackindex   =  0      
@@ -1135,7 +1094,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    2A  
 offset       =  14050  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  8      
 trackindex   =  0      
@@ -1162,7 +1120,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    2B  
 offset       =  14820  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  7      
 trackindex   =  0      
@@ -1189,7 +1146,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    2C  
 offset       =  14FF0  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  6      
 trackindex   =  0      
@@ -1216,7 +1172,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    2D  
 offset       =  157C0  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  5      
 trackindex   =  0      
@@ -1243,7 +1198,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    2E  
 offset       =  15F90  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  4      
 trackindex   =  0      
@@ -1270,7 +1224,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    2F  
 offset       =  16760  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  3      
 trackindex   =  0      
@@ -1297,7 +1250,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    30  
 offset       =  16F30  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  2      
 trackindex   =  0      
@@ -1324,7 +1276,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    31  
 offset       =  17700  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  1      
 trackindex   =  0      
@@ -1351,7 +1302,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    32  
 offset       =  17ED0  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  8      
 trackindex   =  0      
@@ -1378,7 +1328,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    33  
 offset       =  186A0  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  7      
 trackindex   =  0      
@@ -1405,7 +1354,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    34  
 offset       =  18E70  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  6      
 trackindex   =  0      
@@ -1432,7 +1380,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    35  
 offset       =  19640  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  5      
 trackindex   =  0      
@@ -1459,7 +1406,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    36  
 offset       =  19E10  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  4      
 trackindex   =  0      
@@ -1486,7 +1432,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    37  
 offset       =  1A5E0  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  3      
 trackindex   =  0      
@@ -1513,7 +1458,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    38  
 offset       =  1ADB0  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  2      
 trackindex   =  0      
@@ -1540,7 +1484,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    39  
 offset       =  1B580  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  1      
 trackindex   =  0      
@@ -1567,7 +1510,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    3A  
 offset       =  1BD50  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 19      
 trackindex   =  0      
@@ -1594,7 +1536,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    3B  
 offset       =  1C520  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 18      
 trackindex   =  0      
@@ -1621,7 +1562,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    3C  
 offset       =  1CCF0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 17      
 trackindex   =  0      
@@ -1648,7 +1588,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    3D  
 offset       =  1D4C0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 16      
 trackindex   =  0      
@@ -1675,7 +1614,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    3E  
 offset       =  1DC90  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 15      
 trackindex   =  0      
@@ -1702,7 +1640,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    3F  
 offset       =  1E460  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 14      
 trackindex   =  0      
@@ -1729,7 +1666,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    40  
 offset       =  1EC30  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 13      
 trackindex   =  0      
@@ -1756,7 +1692,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    41  
 offset       =  1F400  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 12      
 trackindex   =  0      
@@ -1783,7 +1718,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    42  
 offset       =  1FBD0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 11      
 trackindex   =  0      
@@ -1810,7 +1744,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    43  
 offset       =  203A0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 10      
 trackindex   =  0      
@@ -1837,7 +1770,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    44  
 offset       =  20B70  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  F      
 trackindex   =  0      
@@ -1864,7 +1796,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    45  
 offset       =  21340  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  E      
 trackindex   =  0      
@@ -1891,7 +1822,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    46  
 offset       =  21B10  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  D      
 trackindex   =  0      
@@ -1918,7 +1848,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    47  
 offset       =  222E0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  C      
 trackindex   =  0      
@@ -1945,7 +1874,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    48  
 offset       =  22AB0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  B      
 trackindex   =  0      
@@ -1972,7 +1900,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    49  
 offset       =  23280  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  A      
 trackindex   =  0      
@@ -1999,7 +1926,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    4A  
 offset       =  23A50  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  9      
 trackindex   =  0      
@@ -2026,7 +1952,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    4B  
 offset       =  24220  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  8      
 trackindex   =  0      
@@ -2053,7 +1978,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    4C  
 offset       =  249F0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  7      
 trackindex   =  0      
@@ -2080,7 +2004,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    4D  
 offset       =  251C0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  6      
 trackindex   =  0      
@@ -2107,7 +2030,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    4E  
 offset       =  25990  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  5      
 trackindex   =  0      
@@ -2134,7 +2056,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    4F  
 offset       =  26160  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  4      
 trackindex   =  0      
@@ -2161,7 +2082,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    50  
 offset       =  26930  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  3      
 trackindex   =  0      
@@ -2188,7 +2108,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    51  
 offset       =  27100  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  2      
 trackindex   =  0      
@@ -2215,7 +2134,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    52  
 offset       =  278D0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  1      
 trackindex   =  0      
@@ -2242,7 +2160,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    53  
 offset       =  280A0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 19      
 trackindex   =  1      
@@ -2269,7 +2186,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    54  
 offset       =  28870  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 18      
 trackindex   =  1      
@@ -2296,7 +2212,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    55  
 offset       =  29040  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 17      
 trackindex   =  1      
@@ -2323,7 +2238,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    56  
 offset       =  29810  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 16      
 trackindex   =  1      
@@ -2350,7 +2264,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    57  
 offset       =  29FE0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 15      
 trackindex   =  1      
@@ -2377,7 +2290,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    58  
 offset       =  2A7B0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 14      
 trackindex   =  1      
@@ -2404,7 +2316,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    59  
 offset       =  2AF80  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 13      
 trackindex   =  1      
@@ -2431,7 +2342,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    5A  
 offset       =  2B750  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 12      
 trackindex   =  1      
@@ -2458,7 +2368,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    5B  
 offset       =  2BF20  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 11      
 trackindex   =  1      
@@ -2485,7 +2394,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    5C  
 offset       =  2C6F0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 10      
 trackindex   =  1      
@@ -2512,7 +2420,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    5D  
 offset       =  2CEC0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  F      
 trackindex   =  1      
@@ -2539,7 +2446,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    5E  
 offset       =  2D690  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  E      
 trackindex   =  1      
@@ -2566,7 +2472,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    5F  
 offset       =  2DE60  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  D      
 trackindex   =  1      
@@ -2593,7 +2498,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    60  
 offset       =  2E630  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  C      
 trackindex   =  1      
@@ -2620,7 +2524,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    61  
 offset       =  2EE00  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  B      
 trackindex   =  1      
@@ -2647,7 +2550,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    62  
 offset       =  2F5D0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  A      
 trackindex   =  1      
@@ -2674,7 +2576,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    63  
 offset       =  2FDA0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  9      
 trackindex   =  1      
@@ -2701,7 +2602,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    64  
 offset       =  30570  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  8      
 trackindex   =  1      
@@ -2728,7 +2628,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    65  
 offset       =  30D40  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  7      
 trackindex   =  1      
@@ -2755,7 +2654,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    66  
 offset       =  31510  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  6      
 trackindex   =  1      
@@ -2782,7 +2680,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    67  
 offset       =  31CE0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  5      
 trackindex   =  1      
@@ -2809,7 +2706,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    68  
 offset       =  324B0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  4      
 trackindex   =  1      
@@ -2836,7 +2732,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    69  
 offset       =  32C80  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  3      
 trackindex   =  1      
@@ -2863,7 +2758,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    6A  
 offset       =  33450  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  2      
 trackindex   =  1      
@@ -2890,7 +2784,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    6B  
 offset       =  33C20  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  1      
 trackindex   =  1      
@@ -2917,7 +2810,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    6C  
 offset       =  343F0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 19      
 trackindex   =  1      
@@ -2944,7 +2836,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    6D  
 offset       =  34BC0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 18      
 trackindex   =  1      
@@ -2971,7 +2862,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    6E  
 offset       =  35390  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 17      
 trackindex   =  1      
@@ -2998,7 +2888,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    6F  
 offset       =  35B60  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 16      
 trackindex   =  1      
@@ -3025,7 +2914,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    70  
 offset       =  36330  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 15      
 trackindex   =  1      
@@ -3052,7 +2940,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    71  
 offset       =  36B00  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 14      
 trackindex   =  1      
@@ -3079,7 +2966,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    72  
 offset       =  372D0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 13      
 trackindex   =  1      
@@ -3106,7 +2992,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    73  
 offset       =  37AA0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 12      
 trackindex   =  1      
@@ -3133,7 +3018,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    74  
 offset       =  38270  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 11      
 trackindex   =  1      
@@ -3160,7 +3044,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    75  
 offset       =  38A40  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 10      
 trackindex   =  1      
@@ -3187,7 +3070,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    76  
 offset       =  39210  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  F      
 trackindex   =  1      
@@ -3214,7 +3096,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    77  
 offset       =  399E0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  E      
 trackindex   =  1      
@@ -3241,7 +3122,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    78  
 offset       =  3A1B0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  D      
 trackindex   =  1      
@@ -3268,7 +3148,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    79  
 offset       =  3A980  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  C      
 trackindex   =  1      
@@ -3295,7 +3174,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    7A  
 offset       =  3B150  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  B      
 trackindex   =  1      
@@ -3322,7 +3200,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    7B  
 offset       =  3B920  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  A      
 trackindex   =  1      
@@ -3349,7 +3226,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    7C  
 offset       =  3C0F0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  9      
 trackindex   =  1      
@@ -3376,7 +3252,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    7D  
 offset       =  3C8C0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  8      
 trackindex   =  1      
@@ -3403,7 +3278,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    7E  
 offset       =  3D090  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  7      
 trackindex   =  1      
@@ -3430,7 +3304,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    7F  
 offset       =  3D860  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  6      
 trackindex   =  1      
@@ -3457,7 +3330,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    80  
 offset       =  3E030  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  5      
 trackindex   =  1      
@@ -3484,7 +3356,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    81  
 offset       =  3E800  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  4      
 trackindex   =  1      
@@ -3511,7 +3382,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    82  
 offset       =  3EFD0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  3      
 trackindex   =  1      
@@ -3538,7 +3408,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    83  
 offset       =  3F7A0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  2      
 trackindex   =  1      
@@ -3565,7 +3434,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    84  
 offset       =  3FF70  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  1      
 trackindex   =  1      
@@ -3592,7 +3460,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    85  
 offset       =  40740  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 19      
 trackindex   =  1      
@@ -3619,7 +3486,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    86  
 offset       =  40F10  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 18      
 trackindex   =  1      
@@ -3646,7 +3512,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    87  
 offset       =  416E0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 17      
 trackindex   =  1      
@@ -3673,7 +3538,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    88  
 offset       =  41EB0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 16      
 trackindex   =  1      
@@ -3700,7 +3564,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    89  
 offset       =  42680  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 15      
 trackindex   =  1      
@@ -3727,7 +3590,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    8A  
 offset       =  42E50  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 14      
 trackindex   =  1      
@@ -3754,7 +3616,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    8B  
 offset       =  43620  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 13      
 trackindex   =  1      
@@ -3781,7 +3642,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    8C  
 offset       =  43DF0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 12      
 trackindex   =  1      
@@ -3808,7 +3668,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    8D  
 offset       =  445C0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 11      
 trackindex   =  1      
@@ -3835,7 +3694,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    8E  
 offset       =  44D90  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 10      
 trackindex   =  1      
@@ -3862,7 +3720,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    8F  
 offset       =  45560  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  F      
 trackindex   =  1      
@@ -3889,7 +3746,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    90  
 offset       =  45D30  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  E      
 trackindex   =  1      
@@ -3916,7 +3772,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    91  
 offset       =  46500  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  D      
 trackindex   =  1      
@@ -3943,7 +3798,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    92  
 offset       =  46CD0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  C      
 trackindex   =  1      
@@ -3970,7 +3824,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    93  
 offset       =  474A0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  B      
 trackindex   =  1      
@@ -3997,7 +3850,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    94  
 offset       =  47C70  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  A      
 trackindex   =  1      
@@ -4024,7 +3876,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    95  
 offset       =  48440  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  9      
 trackindex   =  1      
@@ -4051,7 +3902,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    96  
 offset       =  48C10  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  8      
 trackindex   =  1      
@@ -4078,7 +3928,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    97  
 offset       =  493E0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  7      
 trackindex   =  1      
@@ -4105,7 +3954,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    98  
 offset       =  49BB0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  6      
 trackindex   =  1      
@@ -4132,7 +3980,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    99  
 offset       =  4A380  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  5      
 trackindex   =  1      
@@ -4159,7 +4006,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    9A  
 offset       =  4AB50  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  4      
 trackindex   =  1      
@@ -4186,7 +4032,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    9B  
 offset       =  4B320  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  3      
 trackindex   =  1      
@@ -4213,7 +4058,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    9C  
 offset       =  4BAF0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  2      
 trackindex   =  1      
@@ -4240,7 +4084,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    9D  
 offset       =  4C2C0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  1      
 trackindex   =  1      
@@ -4267,7 +4110,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    9E  
 offset       =  4CA90  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 19      
 trackindex   =  1      
@@ -4294,7 +4136,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    9F  
 offset       =  4D260  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 18      
 trackindex   =  1      
@@ -4321,7 +4162,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    A0  
 offset       =  4DA30  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 17      
 trackindex   =  1      
@@ -4348,7 +4188,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    A1  
 offset       =  4E200  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 16      
 trackindex   =  1      
@@ -4375,7 +4214,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    A2  
 offset       =  4E9D0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 15      
 trackindex   =  1      
@@ -4402,7 +4240,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    A3  
 offset       =  4F1A0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 14      
 trackindex   =  1      
@@ -4429,7 +4266,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    A4  
 offset       =  4F970  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 13      
 trackindex   =  1      
@@ -4456,7 +4292,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    A5  
 offset       =  50140  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 12      
 trackindex   =  1      
@@ -4483,7 +4318,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    A6  
 offset       =  50910  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 11      
 trackindex   =  1      
@@ -4510,7 +4344,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    A7  
 offset       =  510E0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 10      
 trackindex   =  1      
@@ -4537,7 +4370,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    A8  
 offset       =  518B0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  F      
 trackindex   =  1      
@@ -4564,7 +4396,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    A9  
 offset       =  52080  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  E      
 trackindex   =  1      
@@ -4591,7 +4422,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    AA  
 offset       =  52850  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  D      
 trackindex   =  1      
@@ -4618,7 +4448,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    AB  
 offset       =  53020  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  C      
 trackindex   =  1      
@@ -4645,7 +4474,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    AC  
 offset       =  537F0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  B      
 trackindex   =  1      
@@ -4672,7 +4500,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    AD  
 offset       =  53FC0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  A      
 trackindex   =  1      
@@ -4699,7 +4526,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    AE  
 offset       =  54790  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  9      
 trackindex   =  1      
@@ -4726,7 +4552,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    AF  
 offset       =  54F60  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  8      
 trackindex   =  1      
@@ -4753,7 +4578,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    B0  
 offset       =  55730  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  7      
 trackindex   =  1      
@@ -4780,7 +4604,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    B1  
 offset       =  55F00  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  6      
 trackindex   =  1      
@@ -4807,7 +4630,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    B2  
 offset       =  566D0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  5      
 trackindex   =  1      
@@ -4834,7 +4656,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    B3  
 offset       =  56EA0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  4      
 trackindex   =  1      
@@ -4861,7 +4682,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    B4  
 offset       =  57670  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  3      
 trackindex   =  1      
@@ -4888,7 +4708,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    B5  
 offset       =  57E40  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  2      
 trackindex   =  1      
@@ -4915,7 +4734,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    B6  
 offset       =  58610  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  1      
 trackindex   =  1      
@@ -4942,7 +4760,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    B7  
 offset       =  58DE0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 19      
 trackindex   =  1      
@@ -4969,7 +4786,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    B8  
 offset       =  595B0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 18      
 trackindex   =  1      
@@ -4996,7 +4812,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    B9  
 offset       =  59D80  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 17      
 trackindex   =  1      
@@ -5023,7 +4838,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    BA  
 offset       =  5A550  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 16      
 trackindex   =  1      
@@ -5050,7 +4864,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    BB  
 offset       =  5AD20  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 15      
 trackindex   =  1      
@@ -5077,7 +4890,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    BC  
 offset       =  5B4F0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 14      
 trackindex   =  1      
@@ -5104,7 +4916,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    BD  
 offset       =  5BCC0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 13      
 trackindex   =  1      
@@ -5131,7 +4942,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    BE  
 offset       =  5C490  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 12      
 trackindex   =  1      
@@ -5158,7 +4968,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    BF  
 offset       =  5CC60  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 11      
 trackindex   =  1      
@@ -5185,7 +4994,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    C0  
 offset       =  5D430  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 10      
 trackindex   =  1      
@@ -5212,7 +5020,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    C1  
 offset       =  5DC00  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  F      
 trackindex   =  1      
@@ -5239,7 +5046,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    C2  
 offset       =  5E3D0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  E      
 trackindex   =  1      
@@ -5266,7 +5072,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    C3  
 offset       =  5EBA0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  D      
 trackindex   =  1      
@@ -5293,7 +5098,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    C4  
 offset       =  5F370  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  C      
 trackindex   =  1      
@@ -5320,7 +5124,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    C5  
 offset       =  5FB40  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  B      
 trackindex   =  1      
@@ -5347,7 +5150,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    C6  
 offset       =  60310  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  A      
 trackindex   =  1      
@@ -5374,7 +5176,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    C7  
 offset       =  60AE0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  9      
 trackindex   =  1      
@@ -5401,7 +5202,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    C8  
 offset       =  612B0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  8      
 trackindex   =  1      
@@ -5428,7 +5228,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    C9  
 offset       =  61A80  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  7      
 trackindex   =  1      
@@ -5455,7 +5254,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    CA  
 offset       =  62250  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  6      
 trackindex   =  1      
@@ -5482,7 +5280,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    CB  
 offset       =  62A20  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  5      
 trackindex   =  1      
@@ -5509,7 +5306,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    CC  
 offset       =  631F0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  4      
 trackindex   =  1      
@@ -5536,7 +5332,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    CD  
 offset       =  639C0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  3      
 trackindex   =  1      
@@ -5563,7 +5358,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    CE  
 offset       =  64190  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  2      
 trackindex   =  1      
@@ -5590,7 +5384,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    CF  
 offset       =  64960  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  1      
 trackindex   =  1      
@@ -5617,7 +5410,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    D0  
 offset       =  65130  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 19      
 trackindex   =  1      
@@ -5644,7 +5436,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    D1  
 offset       =  65900  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 18      
 trackindex   =  1      
@@ -5671,7 +5462,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    D2  
 offset       =  660D0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 17      
 trackindex   =  1      
@@ -5698,7 +5488,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    D3  
 offset       =  668A0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 16      
 trackindex   =  1      
@@ -5725,7 +5514,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    D4  
 offset       =  67070  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 15      
 trackindex   =  1      
@@ -5752,7 +5540,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    D5  
 offset       =  67840  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 14      
 trackindex   =  1      
@@ -5779,7 +5566,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    D6  
 offset       =  68010  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 13      
 trackindex   =  1      
@@ -5806,7 +5592,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    D7  
 offset       =  687E0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 12      
 trackindex   =  1      
@@ -5833,7 +5618,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    D8  
 offset       =  68FB0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 11      
 trackindex   =  1      
@@ -5860,7 +5644,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    D9  
 offset       =  69780  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 10      
 trackindex   =  1      
@@ -5887,7 +5670,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    DA  
 offset       =  69F50  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  F      
 trackindex   =  1      
@@ -5914,7 +5696,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    DB  
 offset       =  6A720  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  E      
 trackindex   =  1      
@@ -5941,7 +5722,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    DC  
 offset       =  6AEF0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  D      
 trackindex   =  1      
@@ -5968,7 +5748,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    DD  
 offset       =  6B6C0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  C      
 trackindex   =  1      
@@ -5995,7 +5774,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    DE  
 offset       =  6BE90  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  B      
 trackindex   =  1      
@@ -6022,7 +5800,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    DF  
 offset       =  6C660  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  A      
 trackindex   =  1      
@@ -6049,7 +5826,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    E0  
 offset       =  6CE30  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  9      
 trackindex   =  1      
@@ -6076,7 +5852,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    E1  
 offset       =  6D600  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  8      
 trackindex   =  1      
@@ -6103,7 +5878,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    E2  
 offset       =  6DDD0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  7      
 trackindex   =  1      
@@ -6130,7 +5904,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    E3  
 offset       =  6E5A0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  6      
 trackindex   =  1      
@@ -6157,7 +5930,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    E4  
 offset       =  6ED70  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  5      
 trackindex   =  1      
@@ -6184,7 +5956,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    E5  
 offset       =  6F540  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  4      
 trackindex   =  1      
@@ -6211,7 +5982,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    E6  
 offset       =  6FD10  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  3      
 trackindex   =  1      
@@ -6238,7 +6008,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    E7  
 offset       =  704E0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  2      
 trackindex   =  1      
@@ -6265,7 +6034,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    E8  
 offset       =  70CB0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  1      
 trackindex   =  1      
@@ -6292,7 +6060,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    E9  
 offset       =  71480  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  8      
 trackindex   =  1      
@@ -6319,7 +6086,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    EA  
 offset       =  71C50  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  7      
 trackindex   =  1      
@@ -6346,7 +6112,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    EB  
 offset       =  72420  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  6      
 trackindex   =  1      
@@ -6373,7 +6138,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    EC  
 offset       =  72BF0  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  5      
 trackindex   =  1      
@@ -6400,7 +6164,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    ED  
 offset       =  733C0  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  4      
 trackindex   =  1      
@@ -6427,7 +6190,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    EE  
 offset       =  73B90  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  3      
 trackindex   =  1      
@@ -6454,7 +6216,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    EF  
 offset       =  74360  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  2      
 trackindex   =  1      
@@ -6481,7 +6242,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    F0  
 offset       =  74B30  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  1      
 trackindex   =  1      
@@ -6508,7 +6268,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    F1  
 offset       =  75300  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  8      
 trackindex   =  1      
@@ -6535,7 +6294,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    F2  
 offset       =  75AD0  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  7      
 trackindex   =  1      
@@ -6562,7 +6320,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    F3  
 offset       =  762A0  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  6      
 trackindex   =  1      
@@ -6589,7 +6346,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    F4  
 offset       =  76A70  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  5      
 trackindex   =  1      
@@ -6616,7 +6372,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    F5  
 offset       =  77240  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  4      
 trackindex   =  1      
@@ -6643,7 +6398,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    F6  
 offset       =  77A10  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  3      
 trackindex   =  1      
@@ -6670,7 +6424,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    F7  
 offset       =  781E0  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  2      
 trackindex   =  1      
@@ -6697,7 +6450,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    F8  
 offset       =  789B0  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  1      
 trackindex   =  1      
@@ -6724,7 +6476,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    F9  
 offset       =  79180  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  8      
 trackindex   =  1      
@@ -6751,7 +6502,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    FA  
 offset       =  79950  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  7      
 trackindex   =  1      
@@ -6778,7 +6528,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    FB  
 offset       =  7A120  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  6      
 trackindex   =  1      
@@ -6805,7 +6554,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    FC  
 offset       =  7A8F0  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  5      
 trackindex   =  1      
@@ -6832,7 +6580,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    FD  
 offset       =  7B0C0  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  4      
 trackindex   =  1      
@@ -6859,7 +6606,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    FE  
 offset       =  7B890  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  3      
 trackindex   =  1      
@@ -6886,7 +6632,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------    FF  
 offset       =  7C060  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  2      
 trackindex   =  1      
@@ -6913,7 +6658,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   100  
 offset       =  7C830  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  1      
 trackindex   =  1      
@@ -6940,7 +6684,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   101  
 offset       =  7D000  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  8      
 trackindex   =  1      
@@ -6967,7 +6710,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   102  
 offset       =  7D7D0  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  7      
 trackindex   =  1      
@@ -6994,7 +6736,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   103  
 offset       =  7DFA0  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  6      
 trackindex   =  1      
@@ -7021,7 +6762,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   104  
 offset       =  7E770  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  5      
 trackindex   =  1      
@@ -7048,7 +6788,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   105  
 offset       =  7EF40  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  4      
 trackindex   =  1      
@@ -7075,7 +6814,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   106  
 offset       =  7F710  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  3      
 trackindex   =  1      
@@ -7102,7 +6840,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   107  
 offset       =  7FEE0  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  2      
 trackindex   =  1      
@@ -7129,7 +6866,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   108  
 offset       =  806B0  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  1      
 trackindex   =  1      
@@ -7156,7 +6892,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   109  
 offset       =  80E80  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  8      
 trackindex   =  1      
@@ -7183,7 +6918,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   10A  
 offset       =  81650  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  7      
 trackindex   =  1      
@@ -7210,7 +6944,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   10B  
 offset       =  81E20  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  6      
 trackindex   =  1      
@@ -7237,7 +6970,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   10C  
 offset       =  825F0  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  5      
 trackindex   =  1      
@@ -7264,7 +6996,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   10D  
 offset       =  82DC0  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  4      
 trackindex   =  1      
@@ -7291,7 +7022,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   10E  
 offset       =  83590  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  3      
 trackindex   =  1      
@@ -7318,7 +7048,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   10F  
 offset       =  83D60  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  2      
 trackindex   =  1      
@@ -7345,7 +7074,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   110  
 offset       =  84530  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  1      
 trackindex   =  1      
@@ -7372,7 +7100,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   111  
 offset       =  84D00  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  8      
 trackindex   =  1      
@@ -7399,7 +7126,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   112  
 offset       =  854D0  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  7      
 trackindex   =  1      
@@ -7426,7 +7152,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   113  
 offset       =  85CA0  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  6      
 trackindex   =  1      
@@ -7453,7 +7178,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   114  
 offset       =  86470  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  5      
 trackindex   =  1      
@@ -7480,7 +7204,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   115  
 offset       =  86C40  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  4      
 trackindex   =  1      
@@ -7507,7 +7230,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   116  
 offset       =  87410  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  3      
 trackindex   =  1      
@@ -7534,7 +7256,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   117  
 offset       =  87BE0  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  2      
 trackindex   =  1      
@@ -7561,7 +7282,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   118  
 offset       =  883B0  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  1      
 trackindex   =  1      
@@ -7588,7 +7308,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   119  
 offset       =  88B80  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 19      
 trackindex   =  1      
@@ -7615,7 +7334,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   11A  
 offset       =  89350  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 18      
 trackindex   =  1      
@@ -7642,7 +7360,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   11B  
 offset       =  89B20  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 17      
 trackindex   =  1      
@@ -7669,7 +7386,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   11C  
 offset       =  8A2F0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 16      
 trackindex   =  1      
@@ -7696,7 +7412,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   11D  
 offset       =  8AAC0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 15      
 trackindex   =  1      
@@ -7723,7 +7438,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   11E  
 offset       =  8B290  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 14      
 trackindex   =  1      
@@ -7750,7 +7464,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   11F  
 offset       =  8BA60  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 13      
 trackindex   =  1      
@@ -7777,7 +7490,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   120  
 offset       =  8C230  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 12      
 trackindex   =  1      
@@ -7804,7 +7516,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   121  
 offset       =  8CA00  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 11      
 trackindex   =  1      
@@ -7831,7 +7542,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   122  
 offset       =  8D1D0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 10      
 trackindex   =  1      
@@ -7858,7 +7568,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   123  
 offset       =  8D9A0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  F      
 trackindex   =  1      
@@ -7885,7 +7594,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   124  
 offset       =  8E170  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  E      
 trackindex   =  1      
@@ -7912,7 +7620,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   125  
 offset       =  8E940  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  D      
 trackindex   =  1      
@@ -7939,7 +7646,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   126  
 offset       =  8F110  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  C      
 trackindex   =  1      
@@ -7966,7 +7672,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   127  
 offset       =  8F8E0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  B      
 trackindex   =  1      
@@ -7993,7 +7698,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   128  
 offset       =  900B0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  A      
 trackindex   =  1      
@@ -8020,7 +7724,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   129  
 offset       =  90880  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  9      
 trackindex   =  1      
@@ -8047,7 +7750,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   12A  
 offset       =  91050  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  8      
 trackindex   =  1      
@@ -8074,7 +7776,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   12B  
 offset       =  91820  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  7      
 trackindex   =  1      
@@ -8101,7 +7802,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   12C  
 offset       =  91FF0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  6      
 trackindex   =  1      
@@ -8128,7 +7828,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   12D  
 offset       =  927C0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  5      
 trackindex   =  1      
@@ -8155,7 +7854,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   12E  
 offset       =  92F90  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  4      
 trackindex   =  1      
@@ -8182,7 +7880,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   12F  
 offset       =  93760  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  3      
 trackindex   =  1      
@@ -8209,7 +7906,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   130  
 offset       =  93F30  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  2      
 trackindex   =  1      
@@ -8236,7 +7932,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   131  
 offset       =  94700  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  1      
 trackindex   =  1      
@@ -8263,7 +7958,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   132  
 offset       =  94ED0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 19      
 trackindex   =  3      
@@ -8290,7 +7984,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   133  
 offset       =  956A0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 18      
 trackindex   =  3      
@@ -8317,7 +8010,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   134  
 offset       =  95E70  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 17      
 trackindex   =  3      
@@ -8344,7 +8036,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   135  
 offset       =  96640  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 16      
 trackindex   =  3      
@@ -8371,7 +8062,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   136  
 offset       =  96E10  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 15      
 trackindex   =  3      
@@ -8398,7 +8088,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   137  
 offset       =  975E0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 14      
 trackindex   =  3      
@@ -8425,7 +8114,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   138  
 offset       =  97DB0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 13      
 trackindex   =  3      
@@ -8452,7 +8140,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   139  
 offset       =  98580  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 12      
 trackindex   =  3      
@@ -8479,7 +8166,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   13A  
 offset       =  98D50  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 11      
 trackindex   =  3      
@@ -8506,7 +8192,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   13B  
 offset       =  99520  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 10      
 trackindex   =  3      
@@ -8533,7 +8218,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   13C  
 offset       =  99CF0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  F      
 trackindex   =  3      
@@ -8560,7 +8244,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   13D  
 offset       =  9A4C0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  E      
 trackindex   =  3      
@@ -8587,7 +8270,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   13E  
 offset       =  9AC90  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  D      
 trackindex   =  3      
@@ -8614,7 +8296,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   13F  
 offset       =  9B460  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  C      
 trackindex   =  3      
@@ -8641,7 +8322,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   140  
 offset       =  9BC30  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  B      
 trackindex   =  3      
@@ -8668,7 +8348,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   141  
 offset       =  9C400  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  A      
 trackindex   =  3      
@@ -8695,7 +8374,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   142  
 offset       =  9CBD0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  9      
 trackindex   =  3      
@@ -8722,7 +8400,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   143  
 offset       =  9D3A0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  8      
 trackindex   =  3      
@@ -8749,7 +8426,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   144  
 offset       =  9DB70  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  7      
 trackindex   =  3      
@@ -8776,7 +8452,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   145  
 offset       =  9E340  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  6      
 trackindex   =  3      
@@ -8803,7 +8478,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   146  
 offset       =  9EB10  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  5      
 trackindex   =  3      
@@ -8830,7 +8504,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   147  
 offset       =  9F2E0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  4      
 trackindex   =  3      
@@ -8857,7 +8530,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   148  
 offset       =  9FAB0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  3      
 trackindex   =  3      
@@ -8884,7 +8556,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   149  
 offset       =  A0280  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  2      
 trackindex   =  3      
@@ -8911,7 +8582,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   14A  
 offset       =  A0A50  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  1      
 trackindex   =  3      
@@ -8938,7 +8608,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   14B  
 offset       =  A1220  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 19      
 trackindex   =  3      
@@ -8965,7 +8634,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   14C  
 offset       =  A19F0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 18      
 trackindex   =  3      
@@ -8992,7 +8660,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   14D  
 offset       =  A21C0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 17      
 trackindex   =  3      
@@ -9019,7 +8686,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   14E  
 offset       =  A2990  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 16      
 trackindex   =  3      
@@ -9046,7 +8712,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   14F  
 offset       =  A3160  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 15      
 trackindex   =  3      
@@ -9073,7 +8738,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   150  
 offset       =  A3930  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 14      
 trackindex   =  3      
@@ -9100,7 +8764,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   151  
 offset       =  A4100  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 13      
 trackindex   =  3      
@@ -9127,7 +8790,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   152  
 offset       =  A48D0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 12      
 trackindex   =  3      
@@ -9154,7 +8816,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   153  
 offset       =  A50A0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 11      
 trackindex   =  3      
@@ -9181,7 +8842,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   154  
 offset       =  A5870  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 10      
 trackindex   =  3      
@@ -9208,7 +8868,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   155  
 offset       =  A6040  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  F      
 trackindex   =  3      
@@ -9235,7 +8894,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   156  
 offset       =  A6810  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  E      
 trackindex   =  3      
@@ -9262,7 +8920,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   157  
 offset       =  A6FE0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  D      
 trackindex   =  3      
@@ -9289,7 +8946,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   158  
 offset       =  A77B0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  C      
 trackindex   =  3      
@@ -9316,7 +8972,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   159  
 offset       =  A7F80  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  B      
 trackindex   =  3      
@@ -9343,7 +8998,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   15A  
 offset       =  A8750  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  A      
 trackindex   =  3      
@@ -9370,7 +9024,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   15B  
 offset       =  A8F20  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  9      
 trackindex   =  3      
@@ -9397,7 +9050,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   15C  
 offset       =  A96F0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  8      
 trackindex   =  3      
@@ -9424,7 +9076,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   15D  
 offset       =  A9EC0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  7      
 trackindex   =  3      
@@ -9451,7 +9102,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   15E  
 offset       =  AA690  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  6      
 trackindex   =  3      
@@ -9478,7 +9128,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   15F  
 offset       =  AAE60  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  5      
 trackindex   =  3      
@@ -9505,7 +9154,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   160  
 offset       =  AB630  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  4      
 trackindex   =  3      
@@ -9532,7 +9180,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   161  
 offset       =  ABE00  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  3      
 trackindex   =  3      
@@ -9559,7 +9206,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   162  
 offset       =  AC5D0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  2      
 trackindex   =  3      
@@ -9586,7 +9232,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   163  
 offset       =  ACDA0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  1      
 trackindex   =  3      
@@ -9613,7 +9258,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   164  
 offset       =  AD570  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 19      
 trackindex   =  3      
@@ -9640,7 +9284,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   165  
 offset       =  ADD40  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 18      
 trackindex   =  3      
@@ -9667,7 +9310,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   166  
 offset       =  AE510  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 17      
 trackindex   =  3      
@@ -9694,7 +9336,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   167  
 offset       =  AECE0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 16      
 trackindex   =  3      
@@ -9721,7 +9362,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   168  
 offset       =  AF4B0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 15      
 trackindex   =  3      
@@ -9748,7 +9388,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   169  
 offset       =  AFC80  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 14      
 trackindex   =  3      
@@ -9775,7 +9414,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   16A  
 offset       =  B0450  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 13      
 trackindex   =  3      
@@ -9802,7 +9440,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   16B  
 offset       =  B0C20  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 12      
 trackindex   =  3      
@@ -9829,7 +9466,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   16C  
 offset       =  B13F0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 11      
 trackindex   =  3      
@@ -9856,7 +9492,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   16D  
 offset       =  B1BC0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 10      
 trackindex   =  3      
@@ -9883,7 +9518,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   16E  
 offset       =  B2390  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  F      
 trackindex   =  3      
@@ -9910,7 +9544,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   16F  
 offset       =  B2B60  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  E      
 trackindex   =  3      
@@ -9937,7 +9570,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   170  
 offset       =  B3330  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  D      
 trackindex   =  3      
@@ -9964,7 +9596,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   171  
 offset       =  B3B00  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  C      
 trackindex   =  3      
@@ -9991,7 +9622,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   172  
 offset       =  B42D0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  B      
 trackindex   =  3      
@@ -10018,7 +9648,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   173  
 offset       =  B4AA0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  A      
 trackindex   =  3      
@@ -10045,7 +9674,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   174  
 offset       =  B5270  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  9      
 trackindex   =  3      
@@ -10072,7 +9700,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   175  
 offset       =  B5A40  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  8      
 trackindex   =  3      
@@ -10099,7 +9726,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   176  
 offset       =  B6210  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  7      
 trackindex   =  3      
@@ -10126,7 +9752,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   177  
 offset       =  B69E0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  6      
 trackindex   =  3      
@@ -10153,7 +9778,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   178  
 offset       =  B71B0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  5      
 trackindex   =  3      
@@ -10180,7 +9804,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   179  
 offset       =  B7980  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  4      
 trackindex   =  3      
@@ -10207,7 +9830,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   17A  
 offset       =  B8150  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  3      
 trackindex   =  3      
@@ -10234,7 +9856,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   17B  
 offset       =  B8920  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  2      
 trackindex   =  3      
@@ -10261,7 +9882,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   17C  
 offset       =  B90F0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  1      
 trackindex   =  3      
@@ -10288,7 +9908,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   17D  
 offset       =  B98C0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 19      
 trackindex   =  3      
@@ -10315,7 +9934,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   17E  
 offset       =  BA090  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 18      
 trackindex   =  3      
@@ -10342,7 +9960,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   17F  
 offset       =  BA860  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 17      
 trackindex   =  3      
@@ -10369,7 +9986,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   180  
 offset       =  BB030  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 16      
 trackindex   =  3      
@@ -10396,7 +10012,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   181  
 offset       =  BB800  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 15      
 trackindex   =  3      
@@ -10423,7 +10038,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   182  
 offset       =  BBFD0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 14      
 trackindex   =  3      
@@ -10450,7 +10064,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   183  
 offset       =  BC7A0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 13      
 trackindex   =  3      
@@ -10477,7 +10090,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   184  
 offset       =  BCF70  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 12      
 trackindex   =  3      
@@ -10504,7 +10116,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   185  
 offset       =  BD740  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 11      
 trackindex   =  3      
@@ -10531,7 +10142,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   186  
 offset       =  BDF10  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 10      
 trackindex   =  3      
@@ -10558,7 +10168,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   187  
 offset       =  BE6E0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  F      
 trackindex   =  3      
@@ -10585,7 +10194,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   188  
 offset       =  BEEB0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  E      
 trackindex   =  3      
@@ -10612,7 +10220,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   189  
 offset       =  BF680  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  D      
 trackindex   =  3      
@@ -10639,7 +10246,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   18A  
 offset       =  BFE50  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  C      
 trackindex   =  3      
@@ -10666,7 +10272,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   18B  
 offset       =  C0620  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  B      
 trackindex   =  3      
@@ -10693,7 +10298,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   18C  
 offset       =  C0DF0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  A      
 trackindex   =  3      
@@ -10720,7 +10324,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   18D  
 offset       =  C15C0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  9      
 trackindex   =  3      
@@ -10747,7 +10350,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   18E  
 offset       =  C1D90  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  8      
 trackindex   =  3      
@@ -10774,7 +10376,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   18F  
 offset       =  C2560  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  7      
 trackindex   =  3      
@@ -10801,7 +10402,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   190  
 offset       =  C2D30  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  6      
 trackindex   =  3      
@@ -10828,7 +10428,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   191  
 offset       =  C3500  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  5      
 trackindex   =  3      
@@ -10855,7 +10454,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   192  
 offset       =  C3CD0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  4      
 trackindex   =  3      
@@ -10882,7 +10480,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   193  
 offset       =  C44A0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  3      
 trackindex   =  3      
@@ -10909,7 +10506,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   194  
 offset       =  C4C70  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  2      
 trackindex   =  3      
@@ -10936,7 +10532,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   195  
 offset       =  C5440  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  1      
 trackindex   =  3      
@@ -10963,7 +10558,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   196  
 offset       =  C5C10  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 19      
 trackindex   =  3      
@@ -10990,7 +10584,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   197  
 offset       =  C63E0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 18      
 trackindex   =  3      
@@ -11017,7 +10610,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   198  
 offset       =  C6BB0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 17      
 trackindex   =  3      
@@ -11044,7 +10636,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   199  
 offset       =  C7380  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 16      
 trackindex   =  3      
@@ -11071,7 +10662,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   19A  
 offset       =  C7B50  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 15      
 trackindex   =  3      
@@ -11098,7 +10688,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   19B  
 offset       =  C8320  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 14      
 trackindex   =  3      
@@ -11125,7 +10714,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   19C  
 offset       =  C8AF0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 13      
 trackindex   =  3      
@@ -11152,7 +10740,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   19D  
 offset       =  C92C0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 12      
 trackindex   =  3      
@@ -11179,7 +10766,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   19E  
 offset       =  C9A90  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 11      
 trackindex   =  3      
@@ -11206,7 +10792,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   19F  
 offset       =  CA260  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 10      
 trackindex   =  3      
@@ -11233,7 +10818,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   1A0  
 offset       =  CAA30  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  F      
 trackindex   =  3      
@@ -11260,7 +10844,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   1A1  
 offset       =  CB200  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  E      
 trackindex   =  3      
@@ -11287,7 +10870,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   1A2  
 offset       =  CB9D0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  D      
 trackindex   =  3      
@@ -11314,7 +10896,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   1A3  
 offset       =  CC1A0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  C      
 trackindex   =  3      
@@ -11341,7 +10922,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   1A4  
 offset       =  CC970  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  B      
 trackindex   =  3      
@@ -11368,7 +10948,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   1A5  
 offset       =  CD140  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  A      
 trackindex   =  3      
@@ -11395,7 +10974,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   1A6  
 offset       =  CD910  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  9      
 trackindex   =  3      
@@ -11422,7 +11000,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   1A7  
 offset       =  CE0E0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  8      
 trackindex   =  3      
@@ -11449,7 +11026,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   1A8  
 offset       =  CE8B0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  7      
 trackindex   =  3      
@@ -11476,7 +11052,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   1A9  
 offset       =  CF080  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  6      
 trackindex   =  3      
@@ -11503,7 +11078,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   1AA  
 offset       =  CF850  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  5      
 trackindex   =  3      
@@ -11530,7 +11104,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   1AB  
 offset       =  D0020  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  4      
 trackindex   =  3      
@@ -11557,7 +11130,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   1AC  
 offset       =  D07F0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  3      
 trackindex   =  3      
@@ -11584,7 +11156,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   1AD  
 offset       =  D0FC0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  2      
 trackindex   =  3      
@@ -11611,7 +11182,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   1AE  
 offset       =  D1790  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  1      
 trackindex   =  3      
@@ -11638,7 +11208,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   1AF  
 offset       =  D1F60  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 19      
 trackindex   =  0      
@@ -11665,7 +11234,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   1B0  
 offset       =  D2730  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 18      
 trackindex   =  0      
@@ -11692,7 +11260,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   1B1  
 offset       =  D2F00  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 17      
 trackindex   =  0      
@@ -11719,7 +11286,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   1B2  
 offset       =  D36D0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 16      
 trackindex   =  0      
@@ -11746,7 +11312,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   1B3  
 offset       =  D3EA0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 15      
 trackindex   =  0      
@@ -11773,7 +11338,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   1B4  
 offset       =  D4670  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 14      
 trackindex   =  0      
@@ -11800,7 +11364,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   1B5  
 offset       =  D4E40  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 13      
 trackindex   =  0      
@@ -11827,7 +11390,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   1B6  
 offset       =  D5610  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 12      
 trackindex   =  0      
@@ -11854,7 +11416,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   1B7  
 offset       =  D5DE0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 11      
 trackindex   =  0      
@@ -11881,7 +11442,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   1B8  
 offset       =  D65B0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 10      
 trackindex   =  0      
@@ -11908,7 +11468,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   1B9  
 offset       =  D6D80  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  F      
 trackindex   =  0      
@@ -11935,7 +11494,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   1BA  
 offset       =  D7550  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  E      
 trackindex   =  0      
@@ -11962,7 +11520,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   1BB  
 offset       =  D7D20  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  D      
 trackindex   =  0      
@@ -11989,7 +11546,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   1BC  
 offset       =  D84F0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  C      
 trackindex   =  0      
@@ -12016,7 +11572,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   1BD  
 offset       =  D8CC0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  B      
 trackindex   =  0      
@@ -12043,7 +11598,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   1BE  
 offset       =  D9490  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  A      
 trackindex   =  0      
@@ -12070,7 +11624,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   1BF  
 offset       =  D9C60  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  9      
 trackindex   =  0      
@@ -12097,7 +11650,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   1C0  
 offset       =  DA430  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  8      
 trackindex   =  0      
@@ -12124,7 +11676,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   1C1  
 offset       =  DAC00  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  7      
 trackindex   =  0      
@@ -12151,7 +11702,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   1C2  
 offset       =  DB3D0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  6      
 trackindex   =  0      
@@ -12178,7 +11728,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   1C3  
 offset       =  DBBA0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  5      
 trackindex   =  0      
@@ -12205,7 +11754,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   1C4  
 offset       =  DC370  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  4      
 trackindex   =  0      
@@ -12232,7 +11780,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   1C5  
 offset       =  DCB40  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  3      
 trackindex   =  0      
@@ -12259,7 +11806,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   1C6  
 offset       =  DD310  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  2      
 trackindex   =  0      
@@ -12286,7 +11832,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   1C7  
 offset       =  DDAE0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  1      
 trackindex   =  0      
@@ -12313,7 +11858,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   1C8  
 offset       =  DE2B0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 19      
 trackindex   =  1      
@@ -12340,7 +11884,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   1C9  
 offset       =  DEA80  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 18      
 trackindex   =  1      
@@ -12367,7 +11910,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   1CA  
 offset       =  DF250  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 17      
 trackindex   =  1      
@@ -12394,7 +11936,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   1CB  
 offset       =  DFA20  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 16      
 trackindex   =  1      
@@ -12421,7 +11962,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   1CC  
 offset       =  E01F0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 15      
 trackindex   =  1      
@@ -12448,7 +11988,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   1CD  
 offset       =  E09C0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 14      
 trackindex   =  1      
@@ -12475,7 +12014,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   1CE  
 offset       =  E1190  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 13      
 trackindex   =  1      
@@ -12502,7 +12040,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   1CF  
 offset       =  E1960  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 12      
 trackindex   =  1      
@@ -12529,7 +12066,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   1D0  
 offset       =  E2130  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 11      
 trackindex   =  1      
@@ -12556,7 +12092,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   1D1  
 offset       =  E2900  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 10      
 trackindex   =  1      
@@ -12583,7 +12118,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   1D2  
 offset       =  E30D0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  F      
 trackindex   =  1      
@@ -12610,7 +12144,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   1D3  
 offset       =  E38A0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  E      
 trackindex   =  1      
@@ -12637,7 +12170,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   1D4  
 offset       =  E4070  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  D      
 trackindex   =  1      
@@ -12664,7 +12196,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   1D5  
 offset       =  E4840  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  C      
 trackindex   =  1      
@@ -12691,7 +12222,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   1D6  
 offset       =  E5010  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  B      
 trackindex   =  1      
@@ -12718,7 +12248,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   1D7  
 offset       =  E57E0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  A      
 trackindex   =  1      
@@ -12745,7 +12274,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   1D8  
 offset       =  E5FB0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  9      
 trackindex   =  1      
@@ -12772,7 +12300,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   1D9  
 offset       =  E6780  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  8      
 trackindex   =  1      
@@ -12799,7 +12326,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   1DA  
 offset       =  E6F50  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  7      
 trackindex   =  1      
@@ -12826,7 +12352,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   1DB  
 offset       =  E7720  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  6      
 trackindex   =  1      
@@ -12853,7 +12378,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   1DC  
 offset       =  E7EF0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  5      
 trackindex   =  1      
@@ -12880,7 +12404,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   1DD  
 offset       =  E86C0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  4      
 trackindex   =  1      
@@ -12907,7 +12430,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   1DE  
 offset       =  E8E90  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  3      
 trackindex   =  1      
@@ -12934,7 +12456,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   1DF  
 offset       =  E9660  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  2      
 trackindex   =  1      
@@ -12961,7 +12482,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   1E0  
 offset       =  E9E30  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  1      
 trackindex   =  1      
@@ -12988,7 +12508,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   1E1  
 offset       =  EA600  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 19      
 trackindex   =  1      
@@ -13015,7 +12534,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   1E2  
 offset       =  EADD0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 18      
 trackindex   =  1      
@@ -13042,7 +12560,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   1E3  
 offset       =  EB5A0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 17      
 trackindex   =  1      
@@ -13069,7 +12586,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   1E4  
 offset       =  EBD70  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 16      
 trackindex   =  1      
@@ -13096,7 +12612,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   1E5  
 offset       =  EC540  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 15      
 trackindex   =  1      
@@ -13123,7 +12638,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   1E6  
 offset       =  ECD10  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 14      
 trackindex   =  1      
@@ -13150,7 +12664,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   1E7  
 offset       =  ED4E0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 13      
 trackindex   =  1      
@@ -13177,7 +12690,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   1E8  
 offset       =  EDCB0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 12      
 trackindex   =  1      
@@ -13204,7 +12716,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   1E9  
 offset       =  EE480  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 11      
 trackindex   =  1      
@@ -13231,7 +12742,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   1EA  
 offset       =  EEC50  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 10      
 trackindex   =  1      
@@ -13258,7 +12768,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   1EB  
 offset       =  EF420  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  F      
 trackindex   =  1      
@@ -13285,7 +12794,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   1EC  
 offset       =  EFBF0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  E      
 trackindex   =  1      
@@ -13312,7 +12820,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   1ED  
 offset       =  F03C0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  D      
 trackindex   =  1      
@@ -13339,7 +12846,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   1EE  
 offset       =  F0B90  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  C      
 trackindex   =  1      
@@ -13366,7 +12872,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   1EF  
 offset       =  F1360  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  B      
 trackindex   =  1      
@@ -13393,7 +12898,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   1F0  
 offset       =  F1B30  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  A      
 trackindex   =  1      
@@ -13420,7 +12924,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   1F1  
 offset       =  F2300  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  9      
 trackindex   =  1      
@@ -13447,7 +12950,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   1F2  
 offset       =  F2AD0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  8      
 trackindex   =  1      
@@ -13474,7 +12976,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   1F3  
 offset       =  F32A0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  7      
 trackindex   =  1      
@@ -13501,7 +13002,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   1F4  
 offset       =  F3A70  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  6      
 trackindex   =  1      
@@ -13528,7 +13028,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   1F5  
 offset       =  F4240  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  5      
 trackindex   =  1      
@@ -13555,7 +13054,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   1F6  
 offset       =  F4A10  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  4      
 trackindex   =  1      
@@ -13582,7 +13080,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   1F7  
 offset       =  F51E0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  3      
 trackindex   =  1      
@@ -13609,7 +13106,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   1F8  
 offset       =  F59B0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  2      
 trackindex   =  1      
@@ -13636,7 +13132,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   1F9  
 offset       =  F6180  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  1      
 trackindex   =  1      
@@ -13663,7 +13158,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   1FA  
 offset       =  F6950  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 19      
 trackindex   =  1      
@@ -13690,7 +13184,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   1FB  
 offset       =  F7120  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 18      
 trackindex   =  1      
@@ -13717,7 +13210,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   1FC  
 offset       =  F78F0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 17      
 trackindex   =  1      
@@ -13744,7 +13236,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   1FD  
 offset       =  F80C0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 16      
 trackindex   =  1      
@@ -13771,7 +13262,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   1FE  
 offset       =  F8890  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 15      
 trackindex   =  1      
@@ -13798,7 +13288,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   1FF  
 offset       =  F9060  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 14      
 trackindex   =  1      
@@ -13825,7 +13314,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   200  
 offset       =  F9830  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 13      
 trackindex   =  1      
@@ -13852,7 +13340,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   201  
 offset       =  FA000  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 12      
 trackindex   =  1      
@@ -13879,7 +13366,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   202  
 offset       =  FA7D0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 11      
 trackindex   =  1      
@@ -13906,7 +13392,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   203  
 offset       =  FAFA0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 10      
 trackindex   =  1      
@@ -13933,7 +13418,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   204  
 offset       =  FB770  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  F      
 trackindex   =  1      
@@ -13960,7 +13444,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   205  
 offset       =  FBF40  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  E      
 trackindex   =  1      
@@ -13987,7 +13470,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   206  
 offset       =  FC710  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  D      
 trackindex   =  1      
@@ -14014,7 +13496,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   207  
 offset       =  FCEE0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  C      
 trackindex   =  1      
@@ -14041,7 +13522,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   208  
 offset       =  FD6B0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  B      
 trackindex   =  1      
@@ -14068,7 +13548,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   209  
 offset       =  FDE80  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  A      
 trackindex   =  1      
@@ -14095,7 +13574,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   20A  
 offset       =  FE650  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  9      
 trackindex   =  1      
@@ -14122,7 +13600,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   20B  
 offset       =  FEE20  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  8      
 trackindex   =  1      
@@ -14149,7 +13626,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   20C  
 offset       =  FF5F0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  7      
 trackindex   =  1      
@@ -14176,7 +13652,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   20D  
 offset       =  FFDC0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  6      
 trackindex   =  1      
@@ -14203,7 +13678,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   20E  
 offset       = 100590  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  5      
 trackindex   =  1      
@@ -14230,7 +13704,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   20F  
 offset       = 100D60  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  4      
 trackindex   =  1      
@@ -14257,7 +13730,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   210  
 offset       = 101530  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  3      
 trackindex   =  1      
@@ -14284,7 +13756,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   211  
 offset       = 101D00  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  2      
 trackindex   =  1      
@@ -14311,7 +13782,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   212  
 offset       = 1024D0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  1      
 trackindex   =  1      
@@ -14338,7 +13808,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   213  
 offset       = 102CA0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 19      
 trackindex   =  1      
@@ -14365,7 +13834,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   214  
 offset       = 103470  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 18      
 trackindex   =  1      
@@ -14392,7 +13860,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   215  
 offset       = 103C40  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 17      
 trackindex   =  1      
@@ -14419,7 +13886,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   216  
 offset       = 104410  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 16      
 trackindex   =  1      
@@ -14446,7 +13912,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   217  
 offset       = 104BE0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 15      
 trackindex   =  1      
@@ -14473,7 +13938,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   218  
 offset       = 1053B0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 14      
 trackindex   =  1      
@@ -14500,7 +13964,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   219  
 offset       = 105B80  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 13      
 trackindex   =  1      
@@ -14527,7 +13990,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   21A  
 offset       = 106350  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 12      
 trackindex   =  1      
@@ -14554,7 +14016,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   21B  
 offset       = 106B20  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 11      
 trackindex   =  1      
@@ -14581,7 +14042,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   21C  
 offset       = 1072F0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 10      
 trackindex   =  1      
@@ -14608,7 +14068,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   21D  
 offset       = 107AC0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  F      
 trackindex   =  1      
@@ -14635,7 +14094,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   21E  
 offset       = 108290  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  E      
 trackindex   =  1      
@@ -14662,7 +14120,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   21F  
 offset       = 108A60  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  D      
 trackindex   =  1      
@@ -14689,7 +14146,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   220  
 offset       = 109230  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  C      
 trackindex   =  1      
@@ -14716,7 +14172,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   221  
 offset       = 109A00  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  B      
 trackindex   =  1      
@@ -14743,7 +14198,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   222  
 offset       = 10A1D0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  A      
 trackindex   =  1      
@@ -14770,7 +14224,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   223  
 offset       = 10A9A0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  9      
 trackindex   =  1      
@@ -14797,7 +14250,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   224  
 offset       = 10B170  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  8      
 trackindex   =  1      
@@ -14824,7 +14276,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   225  
 offset       = 10B940  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  7      
 trackindex   =  1      
@@ -14851,7 +14302,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   226  
 offset       = 10C110  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  6      
 trackindex   =  1      
@@ -14878,7 +14328,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   227  
 offset       = 10C8E0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  5      
 trackindex   =  1      
@@ -14905,7 +14354,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   228  
 offset       = 10D0B0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  4      
 trackindex   =  1      
@@ -14932,7 +14380,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   229  
 offset       = 10D880  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  3      
 trackindex   =  1      
@@ -14959,7 +14406,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   22A  
 offset       = 10E050  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  2      
 trackindex   =  1      
@@ -14986,7 +14432,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   22B  
 offset       = 10E820  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  1      
 trackindex   =  1      
@@ -15013,7 +14458,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   22C  
 offset       = 10EFF0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 19      
 trackindex   =  1      
@@ -15040,7 +14484,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   22D  
 offset       = 10F7C0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 18      
 trackindex   =  1      
@@ -15067,7 +14510,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   22E  
 offset       = 10FF90  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 17      
 trackindex   =  1      
@@ -15094,7 +14536,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   22F  
 offset       = 110760  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 16      
 trackindex   =  1      
@@ -15121,7 +14562,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   230  
 offset       = 110F30  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 15      
 trackindex   =  1      
@@ -15148,7 +14588,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   231  
 offset       = 111700  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 14      
 trackindex   =  1      
@@ -15175,7 +14614,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   232  
 offset       = 111ED0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 13      
 trackindex   =  1      
@@ -15202,7 +14640,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   233  
 offset       = 1126A0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 12      
 trackindex   =  1      
@@ -15229,7 +14666,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   234  
 offset       = 112E70  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 11      
 trackindex   =  1      
@@ -15256,7 +14692,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   235  
 offset       = 113640  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 10      
 trackindex   =  1      
@@ -15283,7 +14718,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   236  
 offset       = 113E10  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  F      
 trackindex   =  1      
@@ -15310,7 +14744,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   237  
 offset       = 1145E0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  E      
 trackindex   =  1      
@@ -15337,7 +14770,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   238  
 offset       = 114DB0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  D      
 trackindex   =  1      
@@ -15364,7 +14796,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   239  
 offset       = 115580  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  C      
 trackindex   =  1      
@@ -15391,7 +14822,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   23A  
 offset       = 115D50  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  B      
 trackindex   =  1      
@@ -15418,7 +14848,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   23B  
 offset       = 116520  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  A      
 trackindex   =  1      
@@ -15445,7 +14874,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   23C  
 offset       = 116CF0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  9      
 trackindex   =  1      
@@ -15472,7 +14900,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   23D  
 offset       = 1174C0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  8      
 trackindex   =  1      
@@ -15499,7 +14926,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   23E  
 offset       = 117C90  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  7      
 trackindex   =  1      
@@ -15526,7 +14952,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   23F  
 offset       = 118460  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  6      
 trackindex   =  1      
@@ -15553,7 +14978,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   240  
 offset       = 118C30  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  5      
 trackindex   =  1      
@@ -15580,7 +15004,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   241  
 offset       = 119400  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  4      
 trackindex   =  1      
@@ -15607,7 +15030,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   242  
 offset       = 119BD0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  3      
 trackindex   =  1      
@@ -15634,7 +15056,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   243  
 offset       = 11A3A0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  2      
 trackindex   =  1      
@@ -15661,7 +15082,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   244  
 offset       = 11AB70  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  1      
 trackindex   =  1      
@@ -15688,7 +15108,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   245  
 offset       = 11B340  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 19      
 trackindex   =  1      
@@ -15715,7 +15134,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   246  
 offset       = 11BB10  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 18      
 trackindex   =  1      
@@ -15742,7 +15160,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   247  
 offset       = 11C2E0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 17      
 trackindex   =  1      
@@ -15769,7 +15186,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   248  
 offset       = 11CAB0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 16      
 trackindex   =  1      
@@ -15796,7 +15212,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   249  
 offset       = 11D280  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 15      
 trackindex   =  1      
@@ -15823,7 +15238,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   24A  
 offset       = 11DA50  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 14      
 trackindex   =  1      
@@ -15850,7 +15264,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   24B  
 offset       = 11E220  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 13      
 trackindex   =  1      
@@ -15877,7 +15290,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   24C  
 offset       = 11E9F0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 12      
 trackindex   =  1      
@@ -15904,7 +15316,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   24D  
 offset       = 11F1C0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 11      
 trackindex   =  1      
@@ -15931,7 +15342,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   24E  
 offset       = 11F990  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 10      
 trackindex   =  1      
@@ -15958,7 +15368,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   24F  
 offset       = 120160  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  F      
 trackindex   =  1      
@@ -15985,7 +15394,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   250  
 offset       = 120930  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  E      
 trackindex   =  1      
@@ -16012,7 +15420,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   251  
 offset       = 121100  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  D      
 trackindex   =  1      
@@ -16039,7 +15446,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   252  
 offset       = 1218D0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  C      
 trackindex   =  1      
@@ -16066,7 +15472,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   253  
 offset       = 1220A0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  B      
 trackindex   =  1      
@@ -16093,7 +15498,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   254  
 offset       = 122870  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  A      
 trackindex   =  1      
@@ -16120,7 +15524,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   255  
 offset       = 123040  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  9      
 trackindex   =  1      
@@ -16147,7 +15550,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   256  
 offset       = 123810  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  8      
 trackindex   =  1      
@@ -16174,7 +15576,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   257  
 offset       = 123FE0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  7      
 trackindex   =  1      
@@ -16201,7 +15602,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   258  
 offset       = 1247B0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  6      
 trackindex   =  1      
@@ -16228,7 +15628,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   259  
 offset       = 124F80  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  5      
 trackindex   =  1      
@@ -16255,7 +15654,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   25A  
 offset       = 125750  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  4      
 trackindex   =  1      
@@ -16282,7 +15680,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   25B  
 offset       = 125F20  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  3      
 trackindex   =  1      
@@ -16309,7 +15706,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   25C  
 offset       = 1266F0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  2      
 trackindex   =  1      
@@ -16336,7 +15732,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   25D  
 offset       = 126EC0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  1      
 trackindex   =  1      
@@ -16363,7 +15758,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   25E  
 offset       = 127690  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  8      
 trackindex   =  1      
@@ -16390,7 +15784,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   25F  
 offset       = 127E60  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  7      
 trackindex   =  1      
@@ -16417,7 +15810,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   260  
 offset       = 128630  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  6      
 trackindex   =  1      
@@ -16444,7 +15836,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   261  
 offset       = 128E00  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  5      
 trackindex   =  1      
@@ -16471,7 +15862,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   262  
 offset       = 1295D0  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  4      
 trackindex   =  1      
@@ -16498,7 +15888,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   263  
 offset       = 129DA0  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  3      
 trackindex   =  1      
@@ -16525,7 +15914,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   264  
 offset       = 12A570  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  2      
 trackindex   =  1      
@@ -16552,7 +15940,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   265  
 offset       = 12AD40  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  1      
 trackindex   =  1      
@@ -16579,7 +15966,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   266  
 offset       = 12B510  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  8      
 trackindex   =  1      
@@ -16606,7 +15992,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   267  
 offset       = 12BCE0  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  7      
 trackindex   =  1      
@@ -16633,7 +16018,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   268  
 offset       = 12C4B0  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  6      
 trackindex   =  1      
@@ -16660,7 +16044,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   269  
 offset       = 12CC80  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  5      
 trackindex   =  1      
@@ -16687,7 +16070,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   26A  
 offset       = 12D450  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  4      
 trackindex   =  1      
@@ -16714,7 +16096,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   26B  
 offset       = 12DC20  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  3      
 trackindex   =  1      
@@ -16741,7 +16122,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   26C  
 offset       = 12E3F0  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  2      
 trackindex   =  1      
@@ -16768,7 +16148,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   26D  
 offset       = 12EBC0  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  1      
 trackindex   =  1      
@@ -16795,7 +16174,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   26E  
 offset       = 12F390  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  8      
 trackindex   =  1      
@@ -16822,7 +16200,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   26F  
 offset       = 12FB60  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  7      
 trackindex   =  1      
@@ -16849,7 +16226,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   270  
 offset       = 130330  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  6      
 trackindex   =  1      
@@ -16876,7 +16252,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   271  
 offset       = 130B00  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  5      
 trackindex   =  1      
@@ -16903,7 +16278,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   272  
 offset       = 1312D0  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  4      
 trackindex   =  1      
@@ -16930,7 +16304,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   273  
 offset       = 131AA0  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  3      
 trackindex   =  1      
@@ -16957,7 +16330,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   274  
 offset       = 132270  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  2      
 trackindex   =  1      
@@ -16984,7 +16356,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   275  
 offset       = 132A40  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  1      
 trackindex   =  1      
@@ -17011,7 +16382,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   276  
 offset       = 133210  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  8      
 trackindex   =  1      
@@ -17038,7 +16408,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   277  
 offset       = 1339E0  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  7      
 trackindex   =  1      
@@ -17065,7 +16434,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   278  
 offset       = 1341B0  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  6      
 trackindex   =  1      
@@ -17092,7 +16460,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   279  
 offset       = 134980  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  5      
 trackindex   =  1      
@@ -17119,7 +16486,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   27A  
 offset       = 135150  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  4      
 trackindex   =  1      
@@ -17146,7 +16512,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   27B  
 offset       = 135920  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  3      
 trackindex   =  1      
@@ -17173,7 +16538,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   27C  
 offset       = 1360F0  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  2      
 trackindex   =  1      
@@ -17200,7 +16564,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   27D  
 offset       = 1368C0  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  1      
 trackindex   =  1      
@@ -17227,7 +16590,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   27E  
 offset       = 137090  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  8      
 trackindex   =  1      
@@ -17254,7 +16616,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   27F  
 offset       = 137860  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  7      
 trackindex   =  1      
@@ -17281,7 +16642,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   280  
 offset       = 138030  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  6      
 trackindex   =  1      
@@ -17308,7 +16668,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   281  
 offset       = 138800  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  5      
 trackindex   =  1      
@@ -17335,7 +16694,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   282  
 offset       = 138FD0  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  4      
 trackindex   =  1      
@@ -17362,7 +16720,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   283  
 offset       = 1397A0  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  3      
 trackindex   =  1      
@@ -17389,7 +16746,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   284  
 offset       = 139F70  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  2      
 trackindex   =  1      
@@ -17416,7 +16772,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   285  
 offset       = 13A740  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  1      
 trackindex   =  1      
@@ -17443,7 +16798,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   286  
 offset       = 13AF10  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  8      
 trackindex   =  1      
@@ -17470,7 +16824,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   287  
 offset       = 13B6E0  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  7      
 trackindex   =  1      
@@ -17497,7 +16850,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   288  
 offset       = 13BEB0  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  6      
 trackindex   =  1      
@@ -17524,7 +16876,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   289  
 offset       = 13C680  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  5      
 trackindex   =  1      
@@ -17551,7 +16902,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   28A  
 offset       = 13CE50  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  4      
 trackindex   =  1      
@@ -17578,7 +16928,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   28B  
 offset       = 13D620  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  3      
 trackindex   =  1      
@@ -17605,7 +16954,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   28C  
 offset       = 13DDF0  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  2      
 trackindex   =  1      
@@ -17632,7 +16980,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   28D  
 offset       = 13E5C0  
-backbuffer   = 0       
 speed        =  8      
 speedcount   =  1      
 trackindex   =  1      
@@ -17659,7 +17006,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   28E  
 offset       = 13ED90  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 19      
 trackindex   =  1      
@@ -17686,7 +17032,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   28F  
 offset       = 13F560  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 18      
 trackindex   =  1      
@@ -17713,7 +17058,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   290  
 offset       = 13FD30  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 17      
 trackindex   =  1      
@@ -17740,7 +17084,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   291  
 offset       = 140500  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 16      
 trackindex   =  1      
@@ -17767,7 +17110,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   292  
 offset       = 140CD0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 15      
 trackindex   =  1      
@@ -17794,7 +17136,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   293  
 offset       = 1414A0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 14      
 trackindex   =  1      
@@ -17821,7 +17162,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   294  
 offset       = 141C70  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 13      
 trackindex   =  1      
@@ -17848,7 +17188,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   295  
 offset       = 142440  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 12      
 trackindex   =  1      
@@ -17875,7 +17214,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   296  
 offset       = 142C10  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 11      
 trackindex   =  1      
@@ -17902,7 +17240,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   297  
 offset       = 1433E0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 10      
 trackindex   =  1      
@@ -17929,7 +17266,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   298  
 offset       = 143BB0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  F      
 trackindex   =  1      
@@ -17956,7 +17292,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   299  
 offset       = 144380  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  E      
 trackindex   =  1      
@@ -17983,7 +17318,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   29A  
 offset       = 144B50  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  D      
 trackindex   =  1      
@@ -18010,7 +17344,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   29B  
 offset       = 145320  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  C      
 trackindex   =  1      
@@ -18037,7 +17370,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   29C  
 offset       = 145AF0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  B      
 trackindex   =  1      
@@ -18064,7 +17396,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   29D  
 offset       = 1462C0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  A      
 trackindex   =  1      
@@ -18091,7 +17422,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   29E  
 offset       = 146A90  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  9      
 trackindex   =  1      
@@ -18118,7 +17448,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   29F  
 offset       = 147260  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  8      
 trackindex   =  1      
@@ -18145,7 +17474,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   2A0  
 offset       = 147A30  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  7      
 trackindex   =  1      
@@ -18172,7 +17500,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   2A1  
 offset       = 148200  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  6      
 trackindex   =  1      
@@ -18199,7 +17526,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   2A2  
 offset       = 1489D0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  5      
 trackindex   =  1      
@@ -18226,7 +17552,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   2A3  
 offset       = 1491A0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  4      
 trackindex   =  1      
@@ -18253,7 +17578,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   2A4  
 offset       = 149970  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  3      
 trackindex   =  1      
@@ -18280,7 +17604,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   2A5  
 offset       = 14A140  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  2      
 trackindex   =  1      
@@ -18307,7 +17630,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   2A6  
 offset       = 14A910  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  1      
 trackindex   =  1      
@@ -18334,7 +17656,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   2A7  
 offset       = 14B0E0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 19      
 trackindex   =  3      
@@ -18361,7 +17682,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   2A8  
 offset       = 14B8B0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 18      
 trackindex   =  3      
@@ -18388,7 +17708,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   2A9  
 offset       = 14C080  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 17      
 trackindex   =  3      
@@ -18415,7 +17734,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   2AA  
 offset       = 14C850  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 16      
 trackindex   =  3      
@@ -18442,7 +17760,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   2AB  
 offset       = 14D020  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 15      
 trackindex   =  3      
@@ -18469,7 +17786,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   2AC  
 offset       = 14D7F0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 14      
 trackindex   =  3      
@@ -18496,7 +17812,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   2AD  
 offset       = 14DFC0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 13      
 trackindex   =  3      
@@ -18523,7 +17838,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   2AE  
 offset       = 14E790  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 12      
 trackindex   =  3      
@@ -18550,7 +17864,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   2AF  
 offset       = 14EF60  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 11      
 trackindex   =  3      
@@ -18577,7 +17890,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   2B0  
 offset       = 14F730  
-backbuffer   = 0       
 speed        = 19      
 speedcount   = 10      
 trackindex   =  3      
@@ -18604,7 +17916,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   2B1  
 offset       = 14FF00  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  F      
 trackindex   =  3      
@@ -18631,7 +17942,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   2B2  
 offset       = 1506D0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  E      
 trackindex   =  3      
@@ -18658,7 +17968,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   2B3  
 offset       = 150EA0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  D      
 trackindex   =  3      
@@ -18685,7 +17994,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   2B4  
 offset       = 151670  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  C      
 trackindex   =  3      
@@ -18712,7 +18020,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   2B5  
 offset       = 151E40  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  B      
 trackindex   =  3      
@@ -18739,7 +18046,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   2B6  
 offset       = 152610  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  A      
 trackindex   =  3      
@@ -18766,7 +18072,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   2B7  
 offset       = 152DE0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  9      
 trackindex   =  3      
@@ -18793,7 +18098,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   2B8  
 offset       = 1535B0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  8      
 trackindex   =  3      
@@ -18820,7 +18124,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   2B9  
 offset       = 153D80  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  7      
 trackindex   =  3      
@@ -18847,7 +18150,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   2BA  
 offset       = 154550  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  6      
 trackindex   =  3      
@@ -18874,7 +18176,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   2BB  
 offset       = 154D20  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  5      
 trackindex   =  3      
@@ -18901,7 +18202,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   2BC  
 offset       = 1554F0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  4      
 trackindex   =  3      
@@ -18928,7 +18228,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   2BD  
 offset       = 155CC0  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  3      
 trackindex   =  3      
@@ -18955,7 +18254,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   2BE  
 offset       = 156490  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  2      
 trackindex   =  3      
@@ -18982,7 +18280,6 @@ arpegioOfset =  0       arpegioOfset =  0       arpegioOfset =  0       arpegioO
 
 PLAYER --------   2BF  
 offset       = 156C60  
-backbuffer   = 0       
 speed        = 19      
 speedcount   =  1      
 trackindex   =  3      

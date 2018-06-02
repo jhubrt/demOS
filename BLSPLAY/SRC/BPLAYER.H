@@ -37,9 +37,20 @@ void PlayerBacktask (FSM* _fsm);
 
 void PlayerSetParam (int argc, char** argv);
 
+
+STRUCT(PlayerText)
+{
+    u8    state;
+    u8    currentpos;
+    u8    currentline;
+    u8    currentchar;
+    s16   animatecount;
+};
+
 STRUCT(Player)
 {
     BLSplayer player;
+    PlayerText text;
     
     void* framebuffer;
     s8*   pcmcopy;

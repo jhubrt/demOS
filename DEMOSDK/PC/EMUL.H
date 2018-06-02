@@ -39,7 +39,7 @@
 #define EMULrender()
 #define EMULbufferSize(SIZE)	SIZE
 #define EMULalignBuffer(BUFFER)	BUFFER
-#define EMULcreateSoundBuffer(LENGTH, STEREO)
+#define EMULcreateSoundBuffer(LENGTH, STEREO, DMAFREQ)
 #define EMULplaysound(DATA, BYTESLENGTH, OFFSET)
 #define EMULblit()
 #define EMULwait(ms)
@@ -57,7 +57,7 @@ PREDECLARE_STRUCT(WINdow);
 EXTERN_C void    EMULinit              (void* _buffer);
 EXTERN_C void    EMULrender            (void);
 EXTERN_C WINdow* EMULgetWindow         (void);
-EXTERN_C void    EMULcreateSoundBuffer (u32 _length, bool _stereo);
+EXTERN_C void    EMULcreateSoundBuffer (u32 _length, bool _stereo, u32 _dmafreq);
 EXTERN_C void    EMULplaysound         (void* _data, u32 _byteslength, u32 _offset);
 EXTERN_C void    EMULleftChannel       (void);
 EXTERN_C void    EMULrightChannel      (void);

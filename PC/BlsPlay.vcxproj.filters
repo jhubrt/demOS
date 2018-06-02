@@ -208,6 +208,9 @@
     </None>
     <None Include="BlsAutotest.bat" />
     <None Include="BlsComparePC_ST.bat" />
+    <None Include="..\BLSPLAYC.PRJ">
+      <Filter>SPECIFIC\PURE_C</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="..\DEMOSDK\BITMAP.S">

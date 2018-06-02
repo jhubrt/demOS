@@ -146,6 +146,7 @@
   <ItemGroup>
     <None Include="..\BLSPLAY.PRJ" />
     <None Include="..\BLSPLAYB.PRJ" />
+    <None Include="..\BLSPLAYC.PRJ" />
     <None Include="..\BLSPLAY\SRC\BPLAYER.S" />
     <None Include="..\DEMOSDK\BLITSNDP.S" />
     <None Include="..\EXTERN\RELOCATE.S" />

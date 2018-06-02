@@ -46,7 +46,11 @@ static void doNothing(FSM* _fsm)
 
 static void stepNext(FSM* _fsm)	
 { 
-    STDmset (HW_COLOR_LUT+1, -1, 30);
+    HW_COLOR_LUT[0] = 0;
+    HW_COLOR_LUT[1] = PCENDIANSWAP16(0xFFF);
+    HW_COLOR_LUT[2] = PCENDIANSWAP16(0xF00);
+    HW_COLOR_LUT[3] = PCENDIANSWAP16(0xFFF);
+
     FSMgotoNextState (_fsm);
     FSMgotoNextState (&g_stateMachine);
 }

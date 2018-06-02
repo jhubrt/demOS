@@ -37,8 +37,7 @@ extern "C"
     #include "DEMOSDK\STANDARD.H"
     #include "DEMOSDK\HARDWARE.H"
     #include "DEMOSDK\SYSTEM.H"
-    #include "DEMOSDK\SYNTH.H"
-
+    
     #include "DEMOSDK\PC\WINDOW.H"
     #include "DEMOSDK\PC\EMUL.H"
     #include "DEMOSDK\PC\BITCONVR.H"
@@ -218,7 +217,7 @@ extern "C" u32 EMULgetPlayOffset (void)
 }
 
 
-extern "C" void EMULcreateSoundBuffer (u32 _length, bool _stereo)
+extern "C" void EMULcreateSoundBuffer (u32 _length, bool _stereo, u32 _dmafreq)
 {
 	WAVEFORMATEX waveFormat;
 	DSBUFFERDESC bufferDesc;
@@ -235,7 +234,7 @@ extern "C" void EMULcreateSoundBuffer (u32 _length, bool _stereo)
 
 	// Set the wave format of secondary buffer that this wave file will be loaded onto.
 	waveFormat.wFormatTag      = WAVE_FORMAT_PCM;
-	waveFormat.nSamplesPerSec  = SND_DMA_FREQ;
+	waveFormat.nSamplesPerSec  = _dmafreq;
 	waveFormat.wBitsPerSample  = 8;
 	waveFormat.nChannels       = nbChannels;
 	waveFormat.nBlockAlign     = (waveFormat.wBitsPerSample / 8) * waveFormat.nChannels;

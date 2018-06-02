@@ -74,6 +74,11 @@ void SYSwriteVideoBase (u32 _val)
 	*HW_VIDEO_BASE_L = (u8) _val;
 }
 
+u32 SYSlmovep (void* _adr)
+{
+    return 0;
+}
+
 #endif
 
 

@@ -33,7 +33,7 @@ managevolumeoffset:     set 0
 exportall:  set 0   
 
     IFNE    exportall
-    xdef    ablsUpAllVoices,ablsUpSoundBuffers,ablsUpScore,ablsUpRunningEffects
+    xdef    ablsUpAllVoices,ablsUpSoundBuffers,ablsUpScore,ablsUpRunningEffects,ablsSetDMABuffer
     ELSE
     xdef    aBLSupdate,ablsUpdAsync
     ENDC
@@ -42,7 +42,14 @@ exportall:  set 0
 BLS_NBSAMPLES_PERFRAME:  set 1000
 BLS_NBBYTES_PERFRAME:    set BLS_NBSAMPLES_PERFRAME*2
 BLS_NBBYTES_OVERHEAD:    set 4
+BLS_NBBYTES_CLEARFLAGS:  set 4
+BLS_STEP_PERFRAME:       set (BLS_NBBYTES_PERFRAME+BLS_NBBYTES_OVERHEAD+BLS_NBBYTES_CLEARFLAGS)
 BLS_NBPATTERNROWS:       set 64
+
+BLSbs_STEP0:             set 0
+BLSbs_STEP1:             set 4
+BLSbs_STEP2:             set 8
+BLSbs_START:             set 12
 
 HW_BLITTER_HTONE:        set $FFFF8A00
 HW_BLITTER_XINC_SOURCE:  set $FFFF8A20
@@ -86,49 +93,57 @@ HW_DMASOUND_ENDADR_H:		    set $FFFF890F
 HW_DMASOUND_ENDADR_M:		    set $FFFF8911
 HW_DMASOUND_ENDADR_L:		    set $FFFF8913
 
+HW_DMASOUND_COUNTER_H:          set $FFFF8909
+HW_DMASOUND_COUNTER_M:          set $FFFF890B
+HW_DMASOUND_COUNTER_L:          set $FFFF890D
+
 HW_DMASOUND_CONTROL:            set $FFFF8901
 
 HW_DMASOUND_CONTROL_PLAYONCE:   set	1
+HW_DMASOUND_CONTROL_PLAYLOOP:   set	3
 
-ArpeggioState_STOPPED:   set 0
-ArpeggioState_STARTING:  set 4
-ArpeggioState_RUNNING:   set 8
-ArpeggioState_STOPPING:  set 12
+ArpeggioState_STOPPED:    set 0
+ArpeggioState_STARTING:   set 4
+ArpeggioState_RUNNING:    set 8
+ArpeggioState_STOPPING:   set 12
 
-BLSvoice_sizeof:         set 42
-BLSvoice_samples:        set 0
-BLSvoice_keys:           set 12
-BLSvoice_current:        set 24
-BLSvoice_currentsource:  set 28
-BLSvoice_mask:           set 32
-BLSvoice_mute:           set 34
-BLSvoice_volume:         set 35
-BLSvoice_volumeoffset:   set 36
-BLSvoice_storageshift:   set 37
-BLSvoice_retrigger:      set 38
-BLSvoice_retriggercount: set 39
-BLSvoice_arpeggioState:  set 40
-BLSvoice_arpeggioOffset: set 41
+BLSvoice_sizeof:          set 42
+BLSvoice_samples:         set 0
+BLSvoice_keys:            set 12
+BLSvoice_current:         set 24
+BLSvoice_currentsource:   set 28
+BLSvoice_mask:            set 32
+BLSvoice_mute:            set 34
+BLSvoice_volume:          set 35
+BLSvoice_volumeoffset:    set 36
+BLSvoice_storageshift:    set 37
+BLSvoice_retrigger:       set 38
+BLSvoice_retriggercount:  set 39
+BLSvoice_arpeggioState:   set 40
+BLSvoice_arpeggioOffset:  set 41
 
-BLSplayer_sndtrack:      set BLSvoice_sizeof*4
-BLSplayer_dmabuffers:    set BLSplayer_sndtrack+8
-BLSplayer_backbuffer:    set BLSplayer_dmabuffers+10
-BLSplayer_speed:         set BLSplayer_backbuffer+2
-BLSplayer_speedcount:    set BLSplayer_speed+1
-BLSplayer_trackindex:    set BLSplayer_speedcount+1
-BLSplayer_pattern:       set BLSplayer_trackindex+1
-BLSplayer_row:           set BLSplayer_pattern+1
-BLSplayer_loopstart:     set BLSplayer_row+1
-BLSplayer_loopcount:     set BLSplayer_loopstart+1
-BLSplayer_volumeLeft:    set BLSplayer_loopcount+1
-BLSplayer_volumeRight:   set BLSplayer_volumeLeft+1
-BLSplayer_clientEvent:   set BLSplayer_volumeRight+1
+BLSplayer_sndtrack:       set BLSvoice_sizeof*4
+BLSplayer_buffer:         set BLSplayer_sndtrack+4
+BLSplayer_buffertoupdate: set BLSplayer_buffer+4
+BLSplayer_dmabufstart:    set BLSplayer_buffertoupdate+4
+BLSplayer_dmabufend:      set BLSplayer_dmabufstart+4
+BLSplayer_bufferstate:    set BLSplayer_dmabufend+4
+BLSplayer_speed:          set BLSplayer_bufferstate+2
+BLSplayer_speedcount:     set BLSplayer_speed+1
+BLSplayer_trackindex:     set BLSplayer_speedcount+1
+BLSplayer_pattern:        set BLSplayer_trackindex+1
+BLSplayer_row:            set BLSplayer_pattern+1
+BLSplayer_loopstart:      set BLSplayer_row+1
+BLSplayer_loopcount:      set BLSplayer_loopstart+1
+BLSplayer_volumeLeft:     set BLSplayer_loopcount+1
+BLSplayer_volumeRight:    set BLSplayer_volumeLeft+1
+BLSplayer_clientEvent:    set BLSplayer_volumeRight+1
 
-BLSsndtrack_samples:     set 4
-BLSsndtrack_keys:        set 12
-BLSsndtrack_patterns:    set 24
-BLSsndtrack_track:       set 28
-BLSsndtrack_tracklen:    set 38
+BLSsndtrack_samples:      set 4
+BLSsndtrack_keys:         set 12
+BLSsndtrack_patterns:     set 24
+BLSsndtrack_track:        set 28
+BLSsndtrack_tracklen:     set 38
 
 BLSprecomputedKey_sampleIndex:      set 0
 BLSprecomputedKey_blitterTranspose: set 1
@@ -231,48 +246,95 @@ ablsUpSoundBuffers:
     RASTERIZE   UPDBUFFER_COLOR
 
     IFNE        exportall
-    move.l      a2,-(sp)
-    move.l      d1,-(sp)
-    move.w      d0,-(sp)
+    movem.l     d0-d4/a1-a2,-(sp)
     ENDC
 
-    lea         BLSplayer_backbuffer(a0),a2
+    lea         HW_DMASOUND_COUNTER_H-2.w,a1
+    movep.l     (a1),d0
+    and.l       #$FFFFFF,d0                         ; d0 = readcursor
 
-    move.w      (a2),d0
+    move.l      BLSplayer_dmabufstart(a0),d3        ; d3 = dmabufstart
+    move.l      BLSplayer_dmabufend(a0),d4          ; d4 = dmabufend
 
-    move.l      BLSplayer_dmabuffers-BLSplayer_backbuffer(a2,d0.w),d1
-    eor.w       #4,d0
-    move.w      d0,(a2)
+    move.l      BLSplayer_buffer(a0),d1             ; d1 = buffer
 
-    IFEQ        exportall
-    move.l      BLSplayer_dmabuffers-BLSplayer_backbuffer(a2,d0.w),a1
-    ENDC
+    move.w      BLSplayer_bufferstate(a0),d2        ; switch(_player->bufferstate)
+    move.l      .switchBufferState(pc,d2.w),a2      
+    jmp         (a2)
 
-    lea         HW_DMASOUND_CONTROL.w,a2
+.switchBufferState:
+    dc.l        .BLSbs_STEP0_CASE
+    dc.l        .BLSbs_STEP1_CASE
+    dc.l        .BLSbs_STEP2_CASE
+    dc.l        .BLSbs_START
+
+.BLSbs_STEP0_CASE:
+    move.w      #BLSbs_STEP1,BLSplayer_bufferstate(a0)
+    move.l      d1,BLSplayer_buffertoupdate(a0)     
+    add.l       #BLS_STEP_PERFRAME+BLS_STEP_PERFRAME,d1
+    bra.s       .endswitch
+      
+.BLSbs_STEP1_CASE:
+    move.w      #BLSbs_STEP2,BLSplayer_bufferstate(a0)
+    move.l      d1,d2
+    add.l       #BLS_STEP_PERFRAME,d2
+    move.l      d2,BLSplayer_buffertoupdate(a0)
+    bra.s       .endswitch
+
+.BLSbs_START:
+    lea         HW_DMASOUND_STARTADR_M.w,a1
+    swap        d1
+    move.b      d1,HW_DMASOUND_STARTADR_H.w
+    swap        d1
+    movep.w     d1,(a1)
+
+    lea         HW_DMASOUND_ENDADR_M.w,a1
+    move.l      d1,d2
+    add.l       #BLS_NBBYTES_PERFRAME+BLS_NBBYTES_OVERHEAD,d2
+    swap        d2
+    move.b      d2,HW_DMASOUND_ENDADR_H.w
+    swap        d2
+    movep.w     d2,(a1)
+
+    move.b      #HW_DMASOUND_CONTROL_PLAYLOOP,HW_DMASOUND_CONTROL.w
     
-    movep.l     d1,(a2)
+    moveq.l     #-1,d0                              ; readcursor = -1
 
+.BLSbs_STEP2_CASE:
+    move.w      #BLSbs_STEP0,BLSplayer_bufferstate(a0)
+    move.l      d1,d2
+    add.l       #BLS_STEP_PERFRAME+BLS_STEP_PERFRAME,d2
+    move.l      d2,BLSplayer_buffertoupdate(a0)
+    add.l       #BLS_STEP_PERFRAME,d1
+
+.endswitch:
+    move.l      d1,BLSplayer_dmabufstart(a0)
+    
     add.l       #BLS_NBBYTES_PERFRAME,d1
 
-    movep.l     d1,HW_DMASOUND_ENDADR_H-2-HW_DMASOUND_CONTROL(a2)
+    cmp.l       d0,d3
+    bgt.s       .donotenlargeplaybuffer
+    cmp.l       d0,d4
+    blt.s       .donotenlargeplaybuffer
+    addq.l      #BLS_NBBYTES_OVERHEAD,d1
+.donotenlargeplaybuffer:
 
-    move.b      #HW_DMASOUND_CONTROL_PLAYONCE,(a2)
+    move.l      d1,BLSplayer_dmabufend(a0)
 
     IFNE        exportall
-    move.w      (sp)+,d0
-    move.l      (sp)+,d1
-    move.l      (sp)+,a2
+    movem.l     (sp)+,d0-d4/a1-a2
     rts
     ELSE
     bra.s       ablsUpScore
     ENDC
 
 ; ------------------------------------------------------------------------
-; void ablsUpdAsync(BLSplayer* _player,void* _backbuffer)
+; void ablsUpdAsync(BLSplayer* _player)
 ; ------------------------------------------------------------------------
     IFEQ        exportall
 ablsUpdAsync:
     movem.l     a1-a6/d0-d7,-(sp)
+    clr.l       BLSplayer_dmabufstart(a0)
     ENDC
 
 ; ------------------------------------------------------------------------
@@ -644,7 +706,7 @@ ablsUpRunningEffects:
     ENDC
 
 ; ------------------------------------------------------------------------
-; void ablsUpAllVoices (BLSplayer* _player, void* backbuf)
+; void ablsUpAllVoices (BLSplayer* _player)
 ; ------------------------------------------------------------------------
 ablsUpAllVoices:
 
@@ -653,6 +715,8 @@ ablsUpAllVoices:
     IFNE exportall
     movem.l d3-d7/a2-a6,-(sp)
     ENDC
+
+    move.l  BLSplayer_buffertoupdate(a0),a1
 
     moveq.l #-1,d0   
     lea     HW_BLITTER_XINC_DEST.w,a5
@@ -685,10 +749,44 @@ ablsUpAllVoices:
     lea     -2(a1),a1
     bsr.s   ablsUpdateVoiceFrame   
     
-    move.l  BLS_NBSAMPLES_PERFRAME*2-4(a1),BLS_NBSAMPLES_PERFRAME*2(a1)
+    move.l  BLS_NBBYTES_PERFRAME-4(a1),BLS_NBBYTES_PERFRAME(a1)
 
     IFNE exportall
     movem.l (sp)+,d3-d7/a2-a6
+    rts
+    ENDC
+
+;---------------------------------------------------------------------------------------
+; ablsSetDMABuffer(BLSplayer* _player)
+;---------------------------------------------------------------------------------------
+; a0 = _player
+;---------------------------------------------------------------------------------------
+ablsSetDMABuffer:
+
+    IFNE exportall
+    move.l d0,-(sp)
+    move.l a1,-(sp)
+    ENDC
+
+    move.l      BLSplayer_dmabufstart(a0),d0
+    beq.s       .end
+    swap        d0
+    move.b      d0,HW_DMASOUND_STARTADR_H.w
+    swap        d0
+    lea         HW_DMASOUND_STARTADR_M.w,a1
+    movep.w     d0,(a1)
+
+    move.l      BLSplayer_dmabufend(a0),d0
+    swap        d0
+    move.b      d0,HW_DMASOUND_ENDADR_H.w
+    swap        d0
+    lea         HW_DMASOUND_ENDADR_M.w,a1
+    movep.w     d0,(a1)
+
+.end:
+    IFNE exportall
+    move.l (sp)+,a1
+    move.l (sp)+,d0
     ELSE
     movem.l (sp)+,d0-d7/a1-a6
     ENDC

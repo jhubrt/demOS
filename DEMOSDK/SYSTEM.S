@@ -41,6 +41,8 @@
     xdef    SYSinitDbgBreak,SYSdbgBreak
 	xdef    SYSfontbitmap,SYSfontchars,SYSfastPrint
 
+    xdef    SYSwmovep,SYSlmovep
+
     ; imports
 	xref	RASnextOpList
     xref    LOADdeconnectAndStartRequest,LOADtoggleDriveStartRequest
@@ -138,6 +140,15 @@ SYSwriteVideoBase:
 	lsr.w	#8,d0
 	move.b	d0,$ffff820d.w
 	rts
+
+SYSwmovep:
+    movep.w (a0),d0
+    rts
+
+SYSlmovep:
+    movep.l (a0),d0
+    rts
+
 
 *-------------------------------------------------------------------------
 * void SYSemptyKb (void);

@@ -14,6 +14,7 @@
 #include "DEMOSDK\BLITSND.C"
 #include "DEMOSDK\BLITSNDP.C"
 #include "DEMOSDK\SYSTEM.C"
+#include "DEMOSDK\TRACE.C"
 #include "DEMOSDK\DATA\DATA.C"
 
 #include "BLSPLAY\SRC\SCREENS.C"
