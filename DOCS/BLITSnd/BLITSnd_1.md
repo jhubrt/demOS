@@ -11,7 +11,7 @@ prototype to demonstrate this approach (2 voices).
 I think it would have been cool to use this stuff in parallel with YM voices. 
 But it would have been necessary to integrate it into an existing YM tracker
 which I was not able to do...
-* [Synthetic sound prototype](http://cyber.savina.net/sound.htm)
+* [Synthetic sound prototype](http://cyber.savina.net/sound/sound.htm)
 * [Discussion thread on Atari forum](http://www.atari-forum.com/viewtopic.php?f=16&t=29097)
 
 In november 2017 at the Alchemy 12 party, I have discussed with the

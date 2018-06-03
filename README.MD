@@ -53,7 +53,9 @@ Prototype using blitter to mix PCM sounds on 2 voices (proof of concept)
 
 [BLITSnd documentation](https://github.com/gibs75/demOS/blob/master/DOCS/BLITSnd/README.md) 
 
-[BLITSnd](https://youtu.be/Xc0zv4YFitI)
+[Prototype](https://youtu.be/Xc0zv4YFitI)
+
+[Release](https://youtu.be/ehSvjL8RLo4)
 
 ![](README_B.PNG) 
 
