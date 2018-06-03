@@ -25,6 +25,7 @@ extern "C"
 #   include "DEMOSDK\BASTYPES.H"
 #   include "DEMOSDK\STANDARD.H"
 #   include "DEMOSDK\BLITSND.H"
+#   include "DEMOSDK\HARDWARE.H"
 }
 
 #include <string.h>
@@ -878,6 +879,8 @@ u8 Sndtrack::FindPrecomputedKeyIndex (u8 _instrument, const Key& _key)
 
 static void Sndtrack_SetBalanceValue (const Pattern::Cell& _sc, u16 _value, bool _balanceused[4], u32 _p, u32 _r, u32 _voice, BLScell& _dc)
 {
+    u16 val;
+
     _dc.fx = BLSfx_SETBALANCE;
 
     _balanceused[_voice] = true;
@@ -891,6 +894,8 @@ static void Sndtrack_SetBalanceValue (const Pattern::Cell& _sc, u16 _value, bool
             BLS_CONVERT_OUTPUT_POSITION("WARNING", _p, _r, _voice);
             BLS_CONVERT_OUTPUT("balance FX used on other voice 0 from same channel\n");
         }
+    case 0:
+        val = HW_MICROWIRE_VOLUME_LEFT;
         break;
 
     case 2:
@@ -899,18 +904,23 @@ static void Sndtrack_SetBalanceValue (const Pattern::Cell& _sc, u16 _value, bool
             BLS_CONVERT_OUTPUT_POSITION("WARNING", _p, _r, _voice);
             BLS_CONVERT_OUTPUT("balance FX used on other voice 1 from same channel\n");
         }
+    case 1:
+        val = HW_MICROWIRE_VOLUME_RIGHT;
+        break;
     }
 
     if (_value < ARRAYSIZE(g_AmplitudeToLMC))
     {
-        _dc.value = g_AmplitudeToLMC[_value];
+        val |= g_AmplitudeToLMC[_value];
     }
     else
     {
         BLS_CONVERT_OUTPUT_POSITION("ERROR", _p, _r, _voice);
         BLS_CONVERT_OUTPUT("balance volume exceeds %d (0x%x|%d)\n", sizeof(g_AmplitudeToLMC), _value, _value);
-        _dc.value = g_AmplitudeToLMC[ARRAYSIZE(g_AmplitudeToLMC)-1];
+        val |= g_AmplitudeToLMC[ARRAYSIZE(g_AmplitudeToLMC)-1];
     }
+
+    *(u16*)&_dc.value = PCENDIANSWAP16(val);
 }
 
 
@@ -1230,7 +1240,7 @@ int main (char argc, char* _argv[])
 
     if (argc == 1)
     {
-        printf ("BlsConvert v 0.9.1\n\n");
+        printf ("BlsConvert v 1.0.0\n\n");
         printf ("blsconvert [-v1] [-amigapal] filename\n\n");
 
         return 1;

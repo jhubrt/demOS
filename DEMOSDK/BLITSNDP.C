@@ -30,8 +30,6 @@
 #include "DEMOSDK\PC\EMUL.H"
 
 
-#define blsUSE_STE_BALANCE 0 /* does not work correctly yet */
-
 #define blsBENCHMARK 1
 
 #if blsBENCHMARK
@@ -79,8 +77,7 @@ void BLSplayerInit(MEMallocator* _allocator, BLSplayer* _player, BLSsoundTrack* 
 
     DEFAULT_CONSTRUCT(_player);
 
-    _player->volumeLeft = 20;
-    _player->volumeRight = 20;
+    _player->volumeLeft = _player->volumeLeft2 = _player->volumeRight = _player->volumeRight2 = 0;
 
     _player->speed = 6;         /* default speed    */
     _player->speedcount = 1;    /* play at next vbl */
@@ -137,6 +134,12 @@ static void blsUpdateSoundBuffers (BLSplayer* _player)
     u32 dmabufend   = _player->dmabufend;
 
 
+    if (_player->volumeLeft)
+    {
+        *HW_MICROWIRE_MASK = HW_MICROWIRE_MASK_SOUND;    
+        *HW_MICROWIRE_DATA = _player->volumeLeft;
+    }
+
     switch (_player->bufferstate)
     {
     case BLSbs_STEP0:
@@ -184,6 +187,17 @@ static void blsUpdateSoundBuffers (BLSplayer* _player)
     {
         _player->dmabufend += BLS_NBBYTES_OVERHEAD;
     }
+
+    if (_player->volumeRight)
+    {
+        *HW_MICROWIRE_MASK = HW_MICROWIRE_MASK_SOUND;    
+        *HW_MICROWIRE_DATA = _player->volumeRight;
+    }
+
+    _player->volumeLeft   = _player->volumeLeft2;
+    _player->volumeRight  = _player->volumeRight2;
+    _player->volumeLeft2  = 0;
+    _player->volumeRight2 = 0;
 
 #   if blsLOGDMA
     TRAClogNumberS("frame"    , (u32) g_nbframes             , 4, 0);
@@ -628,11 +642,13 @@ static void blsUpdateScore(BLSplayer* _player)
                 case BLSfx_SETBALANCE:
                     if ((i == 0) || (i == 3))
                     {
-                        _player->volumeLeft = cell->value;
+                        _player->volumeLeft2 = *(u16*)&cell->value;
+                        _player->volumeLeft2 = PCENDIANSWAP16(_player->volumeLeft2);
                     }
                     else
                     {
-                        _player->volumeRight = cell->value;                    
+                        _player->volumeRight2 = *(u16*)&cell->value;
+                        _player->volumeRight2 = PCENDIANSWAP16(_player->volumeRight2);
                     }
                     break;
 
@@ -784,20 +800,7 @@ void BLSupdate (BLSplayer* _player)
 
     blsRASTER(0x50);
 
-#   if blsUSE_STE_BALANCE
-    *HW_MICROWIRE_MASK = HW_MICROWIRE_MASK_SOUND;    
-    *HW_MICROWIRE_DATA = HW_MICROWIRE_VOLUME_LEFT | _player->volumeLeft;
-    EMULleftChannel();
-#   endif
-
     blsUpdateSoundBuffers(_player);
-
-#   if blsUSE_STE_BALANCE
-    while (*HW_MICROWIRE_MASK != HW_MICROWIRE_MASK_SOUND);
-    *HW_MICROWIRE_MASK = HW_MICROWIRE_MASK_SOUND;    
-    *HW_MICROWIRE_DATA = HW_MICROWIRE_VOLUME_RIGHT | _player->volumeRight;
-    EMULrightChannel();
-#   endif
 
     blsUpdateScore (_player);
 
@@ -808,6 +811,24 @@ void BLSupdate (BLSplayer* _player)
     blsSetDMABuffer (_player);
 
 #   ifndef __TOS__
+    if (_player->volumeLeft2)
+    {
+        _player->volumeLeft = _player->volumeLeft2;
+        *HW_MICROWIRE_MASK  = HW_MICROWIRE_MASK_SOUND;    
+        *HW_MICROWIRE_DATA  = _player->volumeLeft;
+        _player->volumeLeft2 = 0;
+        EMULleftChannel();
+    }
+
+    if (_player->volumeRight2)
+    {
+        _player->volumeRight = _player->volumeRight2;
+        *HW_MICROWIRE_MASK  = HW_MICROWIRE_MASK_SOUND;    
+        *HW_MICROWIRE_DATA  = _player->volumeRight;
+        _player->volumeRight2 = 0;
+        EMULrightChannel();
+    }
+
     EMULplaysound (_player->buffertoupdate, BLS_NBBYTES_PERFRAME, playBuffer != 0 ? 0 : BLS_NBBYTES_PERFRAME);
 #   endif
 }
@@ -918,8 +939,8 @@ static void blsDumpPlayerState (BLSplayer* _player, u32 _offset, FILE* _file)
     STDuxtoa(&tracep[i], _player->row, 2);          i += w;
     STDuxtoa(&tracep[i], _player->loopstart, 2);    i += w;
     STDuxtoa(&tracep[i], _player->loopcount, 2);    i += w;
-    STDuxtoa(&tracep[i], _player->volumeLeft, 2);   i += w;
-    STDuxtoa(&tracep[i], _player->volumeRight, 2);  i += w;
+    STDuxtoa(&tracep[i], _player->volumeLeft2, 4);  i += w;
+    STDuxtoa(&tracep[i], _player->volumeRight2, 4); i += w;
     STDuxtoa(&tracep[i], _player->clientEvent, 2);
 
     fwrite (tracep, sizeof(tracep) - 1, 1, _file);

@@ -26,7 +26,7 @@
 #include "DEMOSDK\BASTYPES.H"
 
 #define BLS_FORMAT              0xB50D
-#define BLS_FORMAT_REVISION     6
+#define BLS_FORMAT_REVISION     7
 
 #define BLS_NBVOICES            4
 #define BLS_NBPATTERNROWS       64
@@ -174,11 +174,12 @@ STRUCT(BLSplayer)
     u8  row;
     u8  loopstart;
     s8  loopcount;
-
-    u8  volumeLeft;
-    u8  volumeRight;
-
     u8  clientEvent;
+
+    u16 volumeLeft;
+    u16 volumeRight;
+    u16 volumeLeft2;
+    u16 volumeRight2;
 };
 
 typedef void (*BLSinitCallback)(u16 _index, u16 _nb);

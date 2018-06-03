@@ -39,7 +39,7 @@
 
 #include <time.h>
 
-#define BLSPLAY_TITLE "BLSplay v1.0.0"
+#define BLSPLAY_TITLE "BLSplay v1.1.0"
 
 #ifdef __TOS__
 #   define bplayerUSEASM 1
@@ -126,6 +126,9 @@ void PlayerEntry (void)
     
     g_player.currentchannel = 0;
     g_player.currentmask = 0;
+
+    g_player.leftvolume  = 20;
+    g_player.rightvolume = 20;
 
     RINGallocatorFreeSize(&sys.mem, &info);
     deltasize = info.size;
@@ -305,6 +308,31 @@ void PlayerActivity	(FSM* _fsm)
     }
 
     *HW_COLOR_LUT = g_player.player.clientEvent;
+
+#   ifdef __TOS__
+    {
+        u16  mask = (g_player.player.dmabufend - g_player.player.dmabufstart) > BLS_NBBYTES_PERFRAME ? 0xFFFF : 0;
+        u8* framebuffer = (u8*)g_player.framebuffer;
+
+        *(u16*)(framebuffer +         (74 * 2 + 160 * 32))           = mask;
+        *(u16*)(framebuffer + 32000 + (74 * 2 + 160 * 32))           = mask;
+
+        mask = ~mask;
+
+        *(u16*)(framebuffer +         (74 * 2 + 160 * 32 + 160 * 7)) = mask;
+        *(u16*)(framebuffer + 32000 + (74 * 2 + 160 * 32 + 160 * 7)) = mask;
+    }
+#   endif
+
+    if (g_player.player.volumeLeft != 0)
+    {
+        g_player.leftvolume = g_player.player.volumeLeft & 0x1F;
+    }
+
+    if (g_player.player.volumeRight != 0)
+    {
+        g_player.rightvolume = g_player.player.volumeRight & 0x1F;
+    }
 
     if ( SYSkbHit )
     {
@@ -526,13 +554,8 @@ void PlayerBacktask (FSM* _fsm)
 
         {
             u8* line = (u8*) backframebuffer + ((200 - 140) * 160);
-            bool sync = (g_player.player.dmabufend - g_player.player.dmabufstart) > BLS_NBBYTES_PERFRAME;
-    
 
 #           ifdef __TOS__
-            *(u16*)(backframebuffer + (74 * 2 + 160 * 32))           = sync ? 0xFFFF : 0;
-            *(u16*)(backframebuffer + (74 * 2 + 160 * 32 + 160 * 7)) = sync ? 0      : 0xFFFF;
-
             line += 70*160;
 #           endif
 
@@ -556,7 +579,7 @@ void PlayerBacktask (FSM* _fsm)
             BLSplayer* player = &g_player.player;
             BLSvoice*  voice;
             BLSsoundTrack* sndtrack = g_player.player.sndtrack;
-            static char text [] = "trk=  /   pat=   row=  ";
+            static char text [] = "trk=  /   pat=   row=   L=   R=   ";
             static char text2[] = " s=   v=  t=  vo=   ";
             u16 t, i;
 
@@ -571,6 +594,8 @@ void PlayerBacktask (FSM* _fsm)
             STDuxtoa(&text[7] , player->sndtrack->trackLen, 2);
             STDuxtoa(&text[14], player->sndtrack->track[player->trackindex], 2);
             STDuxtoa(&text[21], player->row, 2);
+            STDuxtoa(&text[26], g_player.leftvolume, 2);
+            STDuxtoa(&text[31], g_player.rightvolume, 2);
 
             SYSdebugPrint(line, 160, 2, 0, 0, text);
 

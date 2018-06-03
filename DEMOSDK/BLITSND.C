@@ -28,10 +28,10 @@
 
 
 #ifdef __TOS__
-STATIC_ASSERT(sizeof(BLSplayer)         == 200);
+STATIC_ASSERT(sizeof(BLSplayer)         == 206);
 STATIC_ASSERT(sizeof(BLSvoice)          == 42);
 #else
-STATIC_ASSERT(sizeof(BLSplayer)         == 208);
+STATIC_ASSERT(sizeof(BLSplayer)         == 216);
 STATIC_ASSERT(sizeof(BLSvoice)          == 44);
 #endif
 

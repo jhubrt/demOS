@@ -62,6 +62,8 @@ STRUCT(Player)
 
     bool  play;
     bool  startdisplay;
+    u8    leftvolume;
+    u8    rightvolume;
 };
 
 #endif

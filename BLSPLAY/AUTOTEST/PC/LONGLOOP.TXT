@@ -21,8 +21,8 @@ pattern      =  0
 row          =  0      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         = FF       key0         = FF       key0         = FF       key0         = FF      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -47,8 +47,8 @@ pattern      =  0
 row          =  1      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -73,8 +73,8 @@ pattern      =  0
 row          =  1      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -99,8 +99,8 @@ pattern      =  0
 row          =  1      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -125,8 +125,8 @@ pattern      =  0
 row          =  1      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -151,8 +151,8 @@ pattern      =  0
 row          =  2      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -177,8 +177,8 @@ pattern      =  0
 row          =  2      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -203,8 +203,8 @@ pattern      =  0
 row          =  2      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -229,8 +229,8 @@ pattern      =  0
 row          =  2      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -255,8 +255,8 @@ pattern      =  0
 row          =  3      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -281,8 +281,8 @@ pattern      =  0
 row          =  3      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -307,8 +307,8 @@ pattern      =  0
 row          =  3      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -333,8 +333,8 @@ pattern      =  0
 row          =  3      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -359,8 +359,8 @@ pattern      =  0
 row          =  4      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -385,8 +385,8 @@ pattern      =  0
 row          =  4      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -411,8 +411,8 @@ pattern      =  0
 row          =  4      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -437,8 +437,8 @@ pattern      =  0
 row          =  4      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -463,8 +463,8 @@ pattern      =  0
 row          =  5      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -489,8 +489,8 @@ pattern      =  0
 row          =  5      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -515,8 +515,8 @@ pattern      =  0
 row          =  5      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -541,8 +541,8 @@ pattern      =  0
 row          =  5      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -567,8 +567,8 @@ pattern      =  0
 row          =  6      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -593,8 +593,8 @@ pattern      =  0
 row          =  6      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -619,8 +619,8 @@ pattern      =  0
 row          =  6      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -645,8 +645,8 @@ pattern      =  0
 row          =  6      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -671,8 +671,8 @@ pattern      =  0
 row          =  7      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -697,8 +697,8 @@ pattern      =  0
 row          =  7      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -723,8 +723,8 @@ pattern      =  0
 row          =  7      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -749,8 +749,8 @@ pattern      =  0
 row          =  7      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -775,8 +775,8 @@ pattern      =  0
 row          =  8      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -801,8 +801,8 @@ pattern      =  0
 row          =  8      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -827,8 +827,8 @@ pattern      =  0
 row          =  8      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -853,8 +853,8 @@ pattern      =  0
 row          =  8      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -879,8 +879,8 @@ pattern      =  0
 row          =  9      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -905,8 +905,8 @@ pattern      =  0
 row          =  9      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -931,8 +931,8 @@ pattern      =  0
 row          =  9      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -957,8 +957,8 @@ pattern      =  0
 row          =  9      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -983,8 +983,8 @@ pattern      =  0
 row          =  A      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -1009,8 +1009,8 @@ pattern      =  0
 row          =  A      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -1035,8 +1035,8 @@ pattern      =  0
 row          =  A      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -1061,8 +1061,8 @@ pattern      =  0
 row          =  A      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -1087,8 +1087,8 @@ pattern      =  0
 row          =  B      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -1113,8 +1113,8 @@ pattern      =  0
 row          =  B      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -1139,8 +1139,8 @@ pattern      =  0
 row          =  B      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -1165,8 +1165,8 @@ pattern      =  0
 row          =  B      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -1191,8 +1191,8 @@ pattern      =  0
 row          =  C      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -1217,8 +1217,8 @@ pattern      =  0
 row          =  C      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -1243,8 +1243,8 @@ pattern      =  0
 row          =  C      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -1269,8 +1269,8 @@ pattern      =  0
 row          =  C      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -1295,8 +1295,8 @@ pattern      =  0
 row          =  D      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -1321,8 +1321,8 @@ pattern      =  0
 row          =  D      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -1347,8 +1347,8 @@ pattern      =  0
 row          =  D      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -1373,8 +1373,8 @@ pattern      =  0
 row          =  D      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -1399,8 +1399,8 @@ pattern      =  0
 row          =  E      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -1425,8 +1425,8 @@ pattern      =  0
 row          =  E      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -1451,8 +1451,8 @@ pattern      =  0
 row          =  E      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -1477,8 +1477,8 @@ pattern      =  0
 row          =  E      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -1503,8 +1503,8 @@ pattern      =  0
 row          =  F      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -1529,8 +1529,8 @@ pattern      =  0
 row          =  F      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -1555,8 +1555,8 @@ pattern      =  0
 row          =  F      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -1581,8 +1581,8 @@ pattern      =  0
 row          =  F      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -1607,8 +1607,8 @@ pattern      =  0
 row          = 10      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -1633,8 +1633,8 @@ pattern      =  0
 row          = 10      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -1659,8 +1659,8 @@ pattern      =  0
 row          = 10      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -1685,8 +1685,8 @@ pattern      =  0
 row          = 10      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -1711,8 +1711,8 @@ pattern      =  0
 row          = 11      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -1737,8 +1737,8 @@ pattern      =  0
 row          = 11      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -1763,8 +1763,8 @@ pattern      =  0
 row          = 11      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -1789,8 +1789,8 @@ pattern      =  0
 row          = 11      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -1815,8 +1815,8 @@ pattern      =  0
 row          = 12      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -1841,8 +1841,8 @@ pattern      =  0
 row          = 12      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -1867,8 +1867,8 @@ pattern      =  0
 row          = 12      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -1893,8 +1893,8 @@ pattern      =  0
 row          = 12      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -1919,8 +1919,8 @@ pattern      =  0
 row          = 13      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -1945,8 +1945,8 @@ pattern      =  0
 row          = 13      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -1971,8 +1971,8 @@ pattern      =  0
 row          = 13      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -1997,8 +1997,8 @@ pattern      =  0
 row          = 13      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -2023,8 +2023,8 @@ pattern      =  0
 row          = 14      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -2049,8 +2049,8 @@ pattern      =  0
 row          = 14      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -2075,8 +2075,8 @@ pattern      =  0
 row          = 14      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -2101,8 +2101,8 @@ pattern      =  0
 row          = 14      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -2127,8 +2127,8 @@ pattern      =  0
 row          = 15      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -2153,8 +2153,8 @@ pattern      =  0
 row          = 15      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -2179,8 +2179,8 @@ pattern      =  0
 row          = 15      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -2205,8 +2205,8 @@ pattern      =  0
 row          = 15      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -2231,8 +2231,8 @@ pattern      =  0
 row          = 16      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -2257,8 +2257,8 @@ pattern      =  0
 row          = 16      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -2283,8 +2283,8 @@ pattern      =  0
 row          = 16      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -2309,8 +2309,8 @@ pattern      =  0
 row          = 16      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -2335,8 +2335,8 @@ pattern      =  0
 row          = 17      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -2361,8 +2361,8 @@ pattern      =  0
 row          = 17      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -2387,8 +2387,8 @@ pattern      =  0
 row          = 17      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -2413,8 +2413,8 @@ pattern      =  0
 row          = 17      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -2439,8 +2439,8 @@ pattern      =  0
 row          = 18      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -2465,8 +2465,8 @@ pattern      =  0
 row          = 18      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -2491,8 +2491,8 @@ pattern      =  0
 row          = 18      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -2517,8 +2517,8 @@ pattern      =  0
 row          = 18      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -2543,8 +2543,8 @@ pattern      =  0
 row          = 19      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -2569,8 +2569,8 @@ pattern      =  0
 row          = 19      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -2595,8 +2595,8 @@ pattern      =  0
 row          = 19      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -2621,8 +2621,8 @@ pattern      =  0
 row          = 19      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -2647,8 +2647,8 @@ pattern      =  0
 row          = 1A      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -2673,8 +2673,8 @@ pattern      =  0
 row          = 1A      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -2699,8 +2699,8 @@ pattern      =  0
 row          = 1A      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -2725,8 +2725,8 @@ pattern      =  0
 row          = 1A      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -2751,8 +2751,8 @@ pattern      =  0
 row          = 1B      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -2777,8 +2777,8 @@ pattern      =  0
 row          = 1B      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -2803,8 +2803,8 @@ pattern      =  0
 row          = 1B      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -2829,8 +2829,8 @@ pattern      =  0
 row          = 1B      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -2855,8 +2855,8 @@ pattern      =  0
 row          = 1C      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -2881,8 +2881,8 @@ pattern      =  0
 row          = 1C      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -2907,8 +2907,8 @@ pattern      =  0
 row          = 1C      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -2933,8 +2933,8 @@ pattern      =  0
 row          = 1C      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -2959,8 +2959,8 @@ pattern      =  0
 row          = 1D      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -2985,8 +2985,8 @@ pattern      =  0
 row          = 1D      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -3011,8 +3011,8 @@ pattern      =  0
 row          = 1D      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -3037,8 +3037,8 @@ pattern      =  0
 row          = 1D      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -3063,8 +3063,8 @@ pattern      =  0
 row          = 1E      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -3089,8 +3089,8 @@ pattern      =  0
 row          = 1E      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -3115,8 +3115,8 @@ pattern      =  0
 row          = 1E      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -3141,8 +3141,8 @@ pattern      =  0
 row          = 1E      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -3167,8 +3167,8 @@ pattern      =  0
 row          = 1F      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -3193,8 +3193,8 @@ pattern      =  0
 row          = 1F      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -3219,8 +3219,8 @@ pattern      =  0
 row          = 1F      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -3245,8 +3245,8 @@ pattern      =  0
 row          = 1F      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -3271,8 +3271,8 @@ pattern      =  0
 row          = 20      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -3297,8 +3297,8 @@ pattern      =  0
 row          = 20      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -3323,8 +3323,8 @@ pattern      =  0
 row          = 20      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -3349,8 +3349,8 @@ pattern      =  0
 row          = 20      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -3375,8 +3375,8 @@ pattern      =  0
 row          = 21      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -3401,8 +3401,8 @@ pattern      =  0
 row          = 21      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -3427,8 +3427,8 @@ pattern      =  0
 row          = 21      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -3453,8 +3453,8 @@ pattern      =  0
 row          = 21      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -3479,8 +3479,8 @@ pattern      =  0
 row          = 22      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -3505,8 +3505,8 @@ pattern      =  0
 row          = 22      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -3531,8 +3531,8 @@ pattern      =  0
 row          = 22      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -3557,8 +3557,8 @@ pattern      =  0
 row          = 22      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -3583,8 +3583,8 @@ pattern      =  0
 row          = 23      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -3609,8 +3609,8 @@ pattern      =  0
 row          = 23      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -3635,8 +3635,8 @@ pattern      =  0
 row          = 23      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -3661,8 +3661,8 @@ pattern      =  0
 row          = 23      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -3687,8 +3687,8 @@ pattern      =  0
 row          = 24      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -3713,8 +3713,8 @@ pattern      =  0
 row          = 24      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -3739,8 +3739,8 @@ pattern      =  0
 row          = 24      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -3765,8 +3765,8 @@ pattern      =  0
 row          = 24      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -3791,8 +3791,8 @@ pattern      =  0
 row          = 25      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -3817,8 +3817,8 @@ pattern      =  0
 row          = 25      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -3843,8 +3843,8 @@ pattern      =  0
 row          = 25      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -3869,8 +3869,8 @@ pattern      =  0
 row          = 25      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -3895,8 +3895,8 @@ pattern      =  0
 row          = 26      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -3921,8 +3921,8 @@ pattern      =  0
 row          = 26      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -3947,8 +3947,8 @@ pattern      =  0
 row          = 26      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -3973,8 +3973,8 @@ pattern      =  0
 row          = 26      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -3999,8 +3999,8 @@ pattern      =  0
 row          = 27      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -4025,8 +4025,8 @@ pattern      =  0
 row          = 27      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -4051,8 +4051,8 @@ pattern      =  0
 row          = 27      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -4077,8 +4077,8 @@ pattern      =  0
 row          = 27      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -4103,8 +4103,8 @@ pattern      =  0
 row          = 28      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -4129,8 +4129,8 @@ pattern      =  0
 row          = 28      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -4155,8 +4155,8 @@ pattern      =  0
 row          = 28      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -4181,8 +4181,8 @@ pattern      =  0
 row          = 28      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -4207,8 +4207,8 @@ pattern      =  0
 row          = 29      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -4233,8 +4233,8 @@ pattern      =  0
 row          = 29      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -4259,8 +4259,8 @@ pattern      =  0
 row          = 29      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -4285,8 +4285,8 @@ pattern      =  0
 row          = 29      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -4311,8 +4311,8 @@ pattern      =  0
 row          = 2A      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -4337,8 +4337,8 @@ pattern      =  0
 row          = 2A      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -4363,8 +4363,8 @@ pattern      =  0
 row          = 2A      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -4389,8 +4389,8 @@ pattern      =  0
 row          = 2A      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -4415,8 +4415,8 @@ pattern      =  0
 row          = 2B      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -4441,8 +4441,8 @@ pattern      =  0
 row          = 2B      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -4467,8 +4467,8 @@ pattern      =  0
 row          = 2B      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -4493,8 +4493,8 @@ pattern      =  0
 row          = 2B      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -4519,8 +4519,8 @@ pattern      =  0
 row          = 2C      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -4545,8 +4545,8 @@ pattern      =  0
 row          = 2C      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -4571,8 +4571,8 @@ pattern      =  0
 row          = 2C      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -4597,8 +4597,8 @@ pattern      =  0
 row          = 2C      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -4623,8 +4623,8 @@ pattern      =  0
 row          = 2D      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -4649,8 +4649,8 @@ pattern      =  0
 row          = 2D      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -4675,8 +4675,8 @@ pattern      =  0
 row          = 2D      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -4701,8 +4701,8 @@ pattern      =  0
 row          = 2D      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -4727,8 +4727,8 @@ pattern      =  0
 row          = 2E      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -4753,8 +4753,8 @@ pattern      =  0
 row          = 2E      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -4779,8 +4779,8 @@ pattern      =  0
 row          = 2E      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -4805,8 +4805,8 @@ pattern      =  0
 row          = 2E      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -4831,8 +4831,8 @@ pattern      =  0
 row          = 2F      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -4857,8 +4857,8 @@ pattern      =  0
 row          = 2F      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -4883,8 +4883,8 @@ pattern      =  0
 row          = 2F      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -4909,8 +4909,8 @@ pattern      =  0
 row          = 2F      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -4935,8 +4935,8 @@ pattern      =  0
 row          = 30      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -4961,8 +4961,8 @@ pattern      =  0
 row          = 30      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -4987,8 +4987,8 @@ pattern      =  0
 row          = 30      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -5013,8 +5013,8 @@ pattern      =  0
 row          = 30      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -5039,8 +5039,8 @@ pattern      =  0
 row          = 31      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -5065,8 +5065,8 @@ pattern      =  0
 row          = 31      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -5091,8 +5091,8 @@ pattern      =  0
 row          = 31      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -5117,8 +5117,8 @@ pattern      =  0
 row          = 31      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -5143,8 +5143,8 @@ pattern      =  0
 row          = 32      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -5169,8 +5169,8 @@ pattern      =  0
 row          = 32      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -5195,8 +5195,8 @@ pattern      =  0
 row          = 32      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -5221,8 +5221,8 @@ pattern      =  0
 row          = 32      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -5247,8 +5247,8 @@ pattern      =  0
 row          = 33      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -5273,8 +5273,8 @@ pattern      =  0
 row          = 33      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -5299,8 +5299,8 @@ pattern      =  0
 row          = 33      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -5325,8 +5325,8 @@ pattern      =  0
 row          = 33      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -5351,8 +5351,8 @@ pattern      =  0
 row          = 34      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -5377,8 +5377,8 @@ pattern      =  0
 row          = 34      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -5403,8 +5403,8 @@ pattern      =  0
 row          = 34      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -5429,8 +5429,8 @@ pattern      =  0
 row          = 34      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -5455,8 +5455,8 @@ pattern      =  0
 row          = 35      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -5481,8 +5481,8 @@ pattern      =  0
 row          = 35      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -5507,8 +5507,8 @@ pattern      =  0
 row          = 35      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -5533,8 +5533,8 @@ pattern      =  0
 row          = 35      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -5559,8 +5559,8 @@ pattern      =  0
 row          =  0      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -5585,8 +5585,8 @@ pattern      =  0
 row          =  0      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
@@ -5611,8 +5611,8 @@ pattern      =  0
 row          =  0      
 loopstart    =  0      
 loopcount    =  0      
-volumeLeft   = 14      
-volumeRight  = 14      
+volumeLeft   =    0    
+volumeRight  =    0    
 clientEvent  =  0      
 key0         =  0       key0         = FF       key0         = FF       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      

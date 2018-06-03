@@ -102,6 +102,12 @@ HW_DMASOUND_CONTROL:            set $FFFF8901
 HW_DMASOUND_CONTROL_PLAYONCE:   set	1
 HW_DMASOUND_CONTROL_PLAYLOOP:   set	3
 
+HW_MICROWIRE_MASK_SOUND:        set	$7FF
+HW_MICROWIRE_VOLUME_LEFT:       set $540
+HW_MICROWIRE_VOLUME_RIGHT:      set	$500
+HW_MICROWIRE_DATA:              set $FFFF8922
+HW_MICROWIRE_MASK:              set $FFFF8924
+
 ArpeggioState_STOPPED:    set 0
 ArpeggioState_STARTING:   set 4
 ArpeggioState_RUNNING:    set 8
@@ -135,9 +141,11 @@ BLSplayer_pattern:        set BLSplayer_trackindex+1
 BLSplayer_row:            set BLSplayer_pattern+1
 BLSplayer_loopstart:      set BLSplayer_row+1
 BLSplayer_loopcount:      set BLSplayer_loopstart+1
-BLSplayer_volumeLeft:     set BLSplayer_loopcount+1
-BLSplayer_volumeRight:    set BLSplayer_volumeLeft+1
-BLSplayer_clientEvent:    set BLSplayer_volumeRight+1
+BLSplayer_clientEvent:    set BLSplayer_loopcount+1
+BLSplayer_volumeLeft:     set BLSplayer_clientEvent+1
+BLSplayer_volumeRight:    set BLSplayer_volumeLeft+2
+BLSplayer_volumeLeft2:    set BLSplayer_volumeRight+2
+BLSplayer_volumeRight2    set BLSplayer_volumeLeft2+2
 
 BLSsndtrack_samples:      set 4
 BLSsndtrack_keys:         set 12
@@ -253,6 +261,12 @@ ablsUpSoundBuffers:
     movep.l     (a1),d0
     and.l       #$FFFFFF,d0                         ; d0 = readcursor
 
+    move.w      BLSplayer_volumeLeft(a0),d1
+    beq.s       .donotsetvolumeleft
+    move.w      #HW_MICROWIRE_MASK_SOUND,HW_MICROWIRE_MASK.w
+    move.w      d1,HW_MICROWIRE_DATA.w
+.donotsetvolumeleft:
+
     move.l      BLSplayer_dmabufstart(a0),d3        ; d3 = dmabufstart
     move.l      BLSplayer_dmabufend(a0),d4          ; d4 = dmabufend
 
@@ -320,6 +334,15 @@ ablsUpSoundBuffers:
 .donotenlargeplaybuffer:
 
     move.l      d1,BLSplayer_dmabufend(a0)
+
+    move.w      BLSplayer_volumeRight(a0),d1
+    beq.s       .donotsetvolumeright
+    move.w      #HW_MICROWIRE_MASK_SOUND,HW_MICROWIRE_MASK.w
+    move.w      d1,HW_MICROWIRE_DATA.w
+.donotsetvolumeright:
+
+    move.l      BLSplayer_volumeLeft2(a0),BLSplayer_volumeLeft(a0)
+    clr.l       BLSplayer_volumeLeft2(a0)
 
     IFNE        exportall
     movem.l     (sp)+,d0-d4/a1-a2
@@ -519,11 +542,11 @@ ablsUpScore:
     beq.s   .leftvolume
     cmp.b   #3,d5
     beq.s   .leftvolume
-    move.b  BLScell_value(a3),BLSplayer_volumeRight(a0)     ; _player->volumeRight = cell->value;
+    move.w  BLScell_value(a3),BLSplayer_volumeRight2(a0)    ; _player->volumeRight = *(u16*)&cell->value;
     SCORE_END_LOOP 
 
 .leftvolume:
-    move.b  BLScell_value(a3),BLSplayer_volumeLeft(a0)      ; _player->volumeLeft = cell->value;
+    move.w  BLScell_value(a3),BLSplayer_volumeLeft2(a0)     ; _player->volumeLeft = *(u16*)&cell->value;
     SCORE_END_LOOP 
 
 ; ------------------------------------------------------------------------
