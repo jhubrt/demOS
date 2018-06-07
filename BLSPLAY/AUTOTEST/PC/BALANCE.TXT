@@ -14,6 +14,14 @@ freqdiv      = 2AD2
 freqmulshift =  D      
 freqdivshift = 10      
 
+PKEY ---------- 2      
+sampleindex  =  2      
+blittertrans =  1      
+freqmul      = CAAF    
+freqdiv      = A1AB    
+freqmulshift = 10      
+freqdivshift =  F      
+
 SAMPLE -------- 0      
 length       =    F92  
 loopstart    =    E83  
@@ -24,6 +32,12 @@ SAMPLE -------- 1
 length       =    256  
 loopstart    =      0  
 looplength   =  255    
+flags        =    C    
+
+SAMPLE -------- 2      
+length       =     4F  
+loopstart    =      0  
+looplength   =   4F    
 flags        =    C    
 
 PLAYER --------     1  
@@ -40000,10 +40014,10 @@ loopcount    =  0
 volumeLeft   =  554    
 volumeRight  =  514    
 clientEvent  =  0      
-key0         =  0       key0         =  0       key0         =  0       key0         =  0      
+key0         =  2       key0         =  0       key0         =  0       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
 key2         = FF       key2         = FF       key2         = FF       key2         = FF      
-current      =        0 current      =        0 current      =        0 current      =        0
+current      =       1A current      =        0 current      =        0 current      =        0
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
@@ -40026,10 +40040,10 @@ loopcount    =  0
 volumeLeft   =  554    
 volumeRight  =  514    
 clientEvent  =  0      
-key0         =  0       key0         =  0       key0         =  0       key0         =  0      
+key0         =  2       key0         =  0       key0         =  0       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
 key2         = FF       key2         = FF       key2         = FF       key2         = FF      
-current      =        0 current      =        0 current      =        0 current      =        0
+current      =       34 current      =        0 current      =        0 current      =        0
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
@@ -40052,10 +40066,10 @@ loopcount    =  0
 volumeLeft   =  554    
 volumeRight  =  514    
 clientEvent  =  0      
-key0         =  0       key0         =  0       key0         =  0       key0         =  0      
+key0         =  2       key0         =  0       key0         =  0       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
 key2         = FF       key2         = FF       key2         = FF       key2         = FF      
-current      =        0 current      =        0 current      =        0 current      =        0
+current      =       4E current      =        0 current      =        0 current      =        0
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
@@ -40078,10 +40092,10 @@ loopcount    =  0
 volumeLeft   =  554    
 volumeRight  =  514    
 clientEvent  =  0      
-key0         =  0       key0         =  0       key0         =  0       key0         =  0      
+key0         =  2       key0         =  0       key0         =  0       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
 key2         = FF       key2         = FF       key2         = FF       key2         = FF      
-current      =        0 current      =        0 current      =        0 current      =        0
+current      =       19 current      =        0 current      =        0 current      =        0
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
@@ -40104,10 +40118,10 @@ loopcount    =  0
 volumeLeft   =  554    
 volumeRight  =  514    
 clientEvent  =  0      
-key0         =  0       key0         =  0       key0         =  0       key0         =  0      
+key0         =  2       key0         =  0       key0         =  0       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
 key2         = FF       key2         = FF       key2         = FF       key2         = FF      
-current      =        0 current      =        0 current      =        0 current      =        0
+current      =       33 current      =        0 current      =        0 current      =        0
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
@@ -40130,10 +40144,10 @@ loopcount    =  0
 volumeLeft   =  554    
 volumeRight  =  514    
 clientEvent  =  0      
-key0         =  0       key0         =  0       key0         =  0       key0         =  0      
+key0         =  2       key0         =  0       key0         =  0       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
 key2         = FF       key2         = FF       key2         = FF       key2         = FF      
-current      =        0 current      =        0 current      =        0 current      =        0
+current      =       4D current      =        0 current      =        0 current      =        0
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
@@ -40156,10 +40170,10 @@ loopcount    =  0
 volumeLeft   =  554    
 volumeRight  =  514    
 clientEvent  =  0      
-key0         =  0       key0         =  0       key0         =  0       key0         =  0      
+key0         =  2       key0         =  0       key0         =  0       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
 key2         = FF       key2         = FF       key2         = FF       key2         = FF      
-current      =        0 current      =        0 current      =        0 current      =        0
+current      =       18 current      =        0 current      =        0 current      =        0
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
@@ -40182,10 +40196,10 @@ loopcount    =  0
 volumeLeft   =  554    
 volumeRight  =  514    
 clientEvent  =  0      
-key0         =  0       key0         =  0       key0         =  0       key0         =  0      
+key0         =  2       key0         =  0       key0         =  0       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
 key2         = FF       key2         = FF       key2         = FF       key2         = FF      
-current      =        0 current      =        0 current      =        0 current      =        0
+current      =       32 current      =        0 current      =        0 current      =        0
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
@@ -40208,10 +40222,10 @@ loopcount    =  0
 volumeLeft   =  554    
 volumeRight  =  514    
 clientEvent  =  0      
-key0         =  0       key0         =  0       key0         =  0       key0         =  0      
+key0         =  2       key0         =  0       key0         =  0       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
 key2         = FF       key2         = FF       key2         = FF       key2         = FF      
-current      =        0 current      =        0 current      =        0 current      =        0
+current      =       4C current      =        0 current      =        0 current      =        0
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
@@ -40234,10 +40248,10 @@ loopcount    =  0
 volumeLeft   =  554    
 volumeRight  =  514    
 clientEvent  =  0      
-key0         =  0       key0         =  0       key0         =  0       key0         =  0      
+key0         =  2       key0         =  0       key0         =  0       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
 key2         = FF       key2         = FF       key2         = FF       key2         = FF      
-current      =        0 current      =        0 current      =        0 current      =        0
+current      =       17 current      =        0 current      =        0 current      =        0
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
@@ -40260,10 +40274,10 @@ loopcount    =  0
 volumeLeft   =  554    
 volumeRight  =  514    
 clientEvent  =  0      
-key0         =  0       key0         =  0       key0         =  0       key0         =  0      
+key0         =  2       key0         =  0       key0         =  0       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
 key2         = FF       key2         = FF       key2         = FF       key2         = FF      
-current      =        0 current      =        0 current      =        0 current      =        0
+current      =       31 current      =        0 current      =        0 current      =        0
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
@@ -40286,10 +40300,10 @@ loopcount    =  0
 volumeLeft   =  554    
 volumeRight  =  514    
 clientEvent  =  0      
-key0         =  0       key0         =  0       key0         =  0       key0         =  0      
+key0         =  2       key0         =  0       key0         =  0       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
 key2         = FF       key2         = FF       key2         = FF       key2         = FF      
-current      =        0 current      =        0 current      =        0 current      =        0
+current      =       4B current      =        0 current      =        0 current      =        0
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
@@ -40312,10 +40326,10 @@ loopcount    =  0
 volumeLeft   =  554    
 volumeRight  =  514    
 clientEvent  =  0      
-key0         =  0       key0         =  0       key0         =  0       key0         =  0      
+key0         =  2       key0         =  0       key0         =  0       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
 key2         = FF       key2         = FF       key2         = FF       key2         = FF      
-current      =        0 current      =        0 current      =        0 current      =        0
+current      =       16 current      =        0 current      =        0 current      =        0
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
@@ -40338,10 +40352,10 @@ loopcount    =  0
 volumeLeft   =  554    
 volumeRight  =  514    
 clientEvent  =  0      
-key0         =  0       key0         =  0       key0         =  0       key0         =  0      
+key0         =  2       key0         =  0       key0         =  0       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
 key2         = FF       key2         = FF       key2         = FF       key2         = FF      
-current      =        0 current      =        0 current      =        0 current      =        0
+current      =       30 current      =        0 current      =        0 current      =        0
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
@@ -40364,10 +40378,10 @@ loopcount    =  0
 volumeLeft   =  554    
 volumeRight  =  514    
 clientEvent  =  0      
-key0         =  0       key0         =  0       key0         =  0       key0         =  0      
+key0         =  2       key0         =  0       key0         =  0       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
 key2         = FF       key2         = FF       key2         = FF       key2         = FF      
-current      =        0 current      =        0 current      =        0 current      =        0
+current      =       4A current      =        0 current      =        0 current      =        0
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
@@ -40390,10 +40404,10 @@ loopcount    =  0
 volumeLeft   =  554    
 volumeRight  =  514    
 clientEvent  =  0      
-key0         =  0       key0         =  0       key0         =  0       key0         =  0      
+key0         =  2       key0         =  0       key0         =  0       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
 key2         = FF       key2         = FF       key2         = FF       key2         = FF      
-current      =        0 current      =        0 current      =        0 current      =        0
+current      =       15 current      =        0 current      =        0 current      =        0
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
@@ -40416,10 +40430,10 @@ loopcount    =  0
 volumeLeft   =  554    
 volumeRight  =  514    
 clientEvent  =  0      
-key0         =  0       key0         =  0       key0         =  0       key0         =  0      
+key0         =  2       key0         =  0       key0         =  0       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
 key2         = FF       key2         = FF       key2         = FF       key2         = FF      
-current      =        0 current      =        0 current      =        0 current      =        0
+current      =       2F current      =        0 current      =        0 current      =        0
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
@@ -40442,10 +40456,10 @@ loopcount    =  0
 volumeLeft   =  554    
 volumeRight  =  514    
 clientEvent  =  0      
-key0         =  0       key0         =  0       key0         =  0       key0         =  0      
+key0         =  2       key0         =  0       key0         =  0       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
 key2         = FF       key2         = FF       key2         = FF       key2         = FF      
-current      =        0 current      =        0 current      =        0 current      =        0
+current      =       49 current      =        0 current      =        0 current      =        0
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
@@ -40468,10 +40482,10 @@ loopcount    =  0
 volumeLeft   =  554    
 volumeRight  =  514    
 clientEvent  =  0      
-key0         =  0       key0         =  0       key0         =  0       key0         =  0      
+key0         =  2       key0         =  0       key0         =  0       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
 key2         = FF       key2         = FF       key2         = FF       key2         = FF      
-current      =        0 current      =        0 current      =        0 current      =        0
+current      =       14 current      =        0 current      =        0 current      =        0
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
@@ -40494,10 +40508,10 @@ loopcount    =  0
 volumeLeft   =  554    
 volumeRight  =  514    
 clientEvent  =  0      
-key0         =  0       key0         =  0       key0         =  0       key0         =  0      
+key0         =  2       key0         =  0       key0         =  0       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
 key2         = FF       key2         = FF       key2         = FF       key2         = FF      
-current      =        0 current      =        0 current      =        0 current      =        0
+current      =       2E current      =        0 current      =        0 current      =        0
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
@@ -40520,10 +40534,10 @@ loopcount    =  0
 volumeLeft   =  554    
 volumeRight  =  514    
 clientEvent  =  0      
-key0         =  0       key0         =  0       key0         =  0       key0         =  0      
+key0         =  2       key0         =  0       key0         =  0       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
 key2         = FF       key2         = FF       key2         = FF       key2         = FF      
-current      =        0 current      =        0 current      =        0 current      =        0
+current      =       48 current      =        0 current      =        0 current      =        0
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
@@ -40546,10 +40560,10 @@ loopcount    =  0
 volumeLeft   =  554    
 volumeRight  =  514    
 clientEvent  =  0      
-key0         =  0       key0         =  0       key0         =  0       key0         =  0      
+key0         =  2       key0         =  0       key0         =  0       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
 key2         = FF       key2         = FF       key2         = FF       key2         = FF      
-current      =        0 current      =        0 current      =        0 current      =        0
+current      =       13 current      =        0 current      =        0 current      =        0
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
@@ -40572,10 +40586,10 @@ loopcount    =  0
 volumeLeft   =  554    
 volumeRight  =  514    
 clientEvent  =  0      
-key0         =  0       key0         =  0       key0         =  0       key0         =  0      
+key0         =  2       key0         =  0       key0         =  0       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
 key2         = FF       key2         = FF       key2         = FF       key2         = FF      
-current      =        0 current      =        0 current      =        0 current      =        0
+current      =       2D current      =        0 current      =        0 current      =        0
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
@@ -40598,10 +40612,10 @@ loopcount    =  0
 volumeLeft   =  554    
 volumeRight  =  514    
 clientEvent  =  0      
-key0         =  0       key0         =  0       key0         =  0       key0         =  0      
+key0         =  2       key0         =  0       key0         =  0       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
 key2         = FF       key2         = FF       key2         = FF       key2         = FF      
-current      =        0 current      =        0 current      =        0 current      =        0
+current      =       47 current      =        0 current      =        0 current      =        0
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
@@ -40624,10 +40638,10 @@ loopcount    =  0
 volumeLeft   =  554    
 volumeRight  =  514    
 clientEvent  =  0      
-key0         =  0       key0         =  0       key0         =  0       key0         =  0      
+key0         =  2       key0         =  0       key0         =  0       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
 key2         = FF       key2         = FF       key2         = FF       key2         = FF      
-current      =        0 current      =        0 current      =        0 current      =        0
+current      =       12 current      =        0 current      =        0 current      =        0
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
@@ -40650,10 +40664,10 @@ loopcount    =  0
 volumeLeft   =  554    
 volumeRight  =  514    
 clientEvent  =  0      
-key0         =  0       key0         =  0       key0         =  0       key0         =  0      
+key0         =  2       key0         =  0       key0         =  0       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
 key2         = FF       key2         = FF       key2         = FF       key2         = FF      
-current      =        0 current      =        0 current      =        0 current      =        0
+current      =       2C current      =        0 current      =        0 current      =        0
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
@@ -40676,10 +40690,10 @@ loopcount    =  0
 volumeLeft   =  554    
 volumeRight  =  514    
 clientEvent  =  0      
-key0         =  0       key0         =  0       key0         =  0       key0         =  0      
+key0         =  2       key0         =  0       key0         =  0       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
 key2         = FF       key2         = FF       key2         = FF       key2         = FF      
-current      =        0 current      =        0 current      =        0 current      =        0
+current      =       46 current      =        0 current      =        0 current      =        0
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
@@ -40702,10 +40716,10 @@ loopcount    =  0
 volumeLeft   =  554    
 volumeRight  =  514    
 clientEvent  =  0      
-key0         =  0       key0         =  0       key0         =  0       key0         =  0      
+key0         =  2       key0         =  0       key0         =  0       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
 key2         = FF       key2         = FF       key2         = FF       key2         = FF      
-current      =        0 current      =        0 current      =        0 current      =        0
+current      =       11 current      =        0 current      =        0 current      =        0
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
@@ -40728,10 +40742,10 @@ loopcount    =  0
 volumeLeft   =  554    
 volumeRight  =  514    
 clientEvent  =  0      
-key0         =  0       key0         =  0       key0         =  0       key0         =  0      
+key0         =  2       key0         =  0       key0         =  0       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
 key2         = FF       key2         = FF       key2         = FF       key2         = FF      
-current      =        0 current      =        0 current      =        0 current      =        0
+current      =       2B current      =        0 current      =        0 current      =        0
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
@@ -40754,10 +40768,10 @@ loopcount    =  0
 volumeLeft   =  554    
 volumeRight  =  514    
 clientEvent  =  0      
-key0         =  0       key0         =  0       key0         =  0       key0         =  0      
+key0         =  2       key0         =  0       key0         =  0       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
 key2         = FF       key2         = FF       key2         = FF       key2         = FF      
-current      =        0 current      =        0 current      =        0 current      =        0
+current      =       45 current      =        0 current      =        0 current      =        0
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
@@ -40780,10 +40794,10 @@ loopcount    =  0
 volumeLeft   =  554    
 volumeRight  =  514    
 clientEvent  =  0      
-key0         =  0       key0         =  0       key0         =  0       key0         =  0      
+key0         =  2       key0         =  0       key0         =  0       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
 key2         = FF       key2         = FF       key2         = FF       key2         = FF      
-current      =        0 current      =        0 current      =        0 current      =        0
+current      =       10 current      =        0 current      =        0 current      =        0
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
@@ -40806,10 +40820,10 @@ loopcount    =  0
 volumeLeft   =  554    
 volumeRight  =  514    
 clientEvent  =  0      
-key0         =  0       key0         =  0       key0         =  0       key0         =  0      
+key0         =  2       key0         =  0       key0         =  0       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
 key2         = FF       key2         = FF       key2         = FF       key2         = FF      
-current      =        0 current      =        0 current      =        0 current      =        0
+current      =       2A current      =        0 current      =        0 current      =        0
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
@@ -40832,10 +40846,10 @@ loopcount    =  0
 volumeLeft   =  554    
 volumeRight  =  514    
 clientEvent  =  0      
-key0         =  0       key0         =  0       key0         =  0       key0         =  0      
+key0         =  2       key0         =  0       key0         =  0       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
 key2         = FF       key2         = FF       key2         = FF       key2         = FF      
-current      =        0 current      =        0 current      =        0 current      =        0
+current      =       44 current      =        0 current      =        0 current      =        0
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
@@ -40858,10 +40872,10 @@ loopcount    =  0
 volumeLeft   =  554    
 volumeRight  =  514    
 clientEvent  =  0      
-key0         =  0       key0         =  0       key0         =  0       key0         =  0      
+key0         =  2       key0         =  0       key0         =  0       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
 key2         = FF       key2         = FF       key2         = FF       key2         = FF      
-current      =        0 current      =        0 current      =        0 current      =        0
+current      =        F current      =        0 current      =        0 current      =        0
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
@@ -40884,10 +40898,10 @@ loopcount    =  0
 volumeLeft   =  554    
 volumeRight  =  514    
 clientEvent  =  0      
-key0         =  0       key0         =  0       key0         =  0       key0         =  0      
+key0         =  2       key0         =  0       key0         =  0       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
 key2         = FF       key2         = FF       key2         = FF       key2         = FF      
-current      =        0 current      =        0 current      =        0 current      =        0
+current      =       29 current      =        0 current      =        0 current      =        0
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
@@ -40910,10 +40924,10 @@ loopcount    =  0
 volumeLeft   =  554    
 volumeRight  =  514    
 clientEvent  =  0      
-key0         =  0       key0         =  0       key0         =  0       key0         =  0      
+key0         =  2       key0         =  0       key0         =  0       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
 key2         = FF       key2         = FF       key2         = FF       key2         = FF      
-current      =        0 current      =        0 current      =        0 current      =        0
+current      =       43 current      =        0 current      =        0 current      =        0
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
@@ -40936,10 +40950,10 @@ loopcount    =  0
 volumeLeft   =  554    
 volumeRight  =  514    
 clientEvent  =  0      
-key0         =  0       key0         =  0       key0         =  0       key0         =  0      
+key0         =  2       key0         =  0       key0         =  0       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
 key2         = FF       key2         = FF       key2         = FF       key2         = FF      
-current      =        0 current      =        0 current      =        0 current      =        0
+current      =        E current      =        0 current      =        0 current      =        0
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
@@ -40962,10 +40976,10 @@ loopcount    =  0
 volumeLeft   =  554    
 volumeRight  =  514    
 clientEvent  =  0      
-key0         =  0       key0         =  0       key0         =  0       key0         =  0      
+key0         =  2       key0         =  0       key0         =  0       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
 key2         = FF       key2         = FF       key2         = FF       key2         = FF      
-current      =        0 current      =        0 current      =        0 current      =        0
+current      =       28 current      =        0 current      =        0 current      =        0
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
@@ -40988,10 +41002,10 @@ loopcount    =  0
 volumeLeft   =  554    
 volumeRight  =  514    
 clientEvent  =  0      
-key0         =  0       key0         =  0       key0         =  0       key0         =  0      
+key0         =  2       key0         =  0       key0         =  0       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
 key2         = FF       key2         = FF       key2         = FF       key2         = FF      
-current      =        0 current      =        0 current      =        0 current      =        0
+current      =       42 current      =        0 current      =        0 current      =        0
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
@@ -41014,10 +41028,10 @@ loopcount    =  0
 volumeLeft   =  554    
 volumeRight  =  514    
 clientEvent  =  0      
-key0         =  0       key0         =  0       key0         =  0       key0         =  0      
+key0         =  2       key0         =  0       key0         =  0       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
 key2         = FF       key2         = FF       key2         = FF       key2         = FF      
-current      =        0 current      =        0 current      =        0 current      =        0
+current      =        D current      =        0 current      =        0 current      =        0
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
@@ -41040,10 +41054,10 @@ loopcount    =  0
 volumeLeft   =  554    
 volumeRight  =  514    
 clientEvent  =  0      
-key0         =  0       key0         =  0       key0         =  0       key0         =  0      
+key0         =  2       key0         =  0       key0         =  0       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
 key2         = FF       key2         = FF       key2         = FF       key2         = FF      
-current      =        0 current      =        0 current      =        0 current      =        0
+current      =       27 current      =        0 current      =        0 current      =        0
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
@@ -41066,10 +41080,10 @@ loopcount    =  0
 volumeLeft   =  554    
 volumeRight  =  514    
 clientEvent  =  0      
-key0         =  0       key0         =  0       key0         =  0       key0         =  0      
+key0         =  2       key0         =  0       key0         =  0       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
 key2         = FF       key2         = FF       key2         = FF       key2         = FF      
-current      =        0 current      =        0 current      =        0 current      =        0
+current      =       41 current      =        0 current      =        0 current      =        0
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
@@ -41092,10 +41106,10 @@ loopcount    =  0
 volumeLeft   =  554    
 volumeRight  =  514    
 clientEvent  =  0      
-key0         =  0       key0         =  0       key0         =  0       key0         =  0      
+key0         =  2       key0         =  0       key0         =  0       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
 key2         = FF       key2         = FF       key2         = FF       key2         = FF      
-current      =        0 current      =        0 current      =        0 current      =        0
+current      =        C current      =        0 current      =        0 current      =        0
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
@@ -41118,10 +41132,10 @@ loopcount    =  0
 volumeLeft   =  554    
 volumeRight  =  514    
 clientEvent  =  0      
-key0         =  0       key0         =  0       key0         =  0       key0         =  0      
+key0         =  2       key0         =  0       key0         =  0       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
 key2         = FF       key2         = FF       key2         = FF       key2         = FF      
-current      =        0 current      =        0 current      =        0 current      =        0
+current      =       26 current      =        0 current      =        0 current      =        0
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
@@ -41144,10 +41158,10 @@ loopcount    =  0
 volumeLeft   =  554    
 volumeRight  =  514    
 clientEvent  =  0      
-key0         =  0       key0         =  0       key0         =  0       key0         =  0      
+key0         =  2       key0         =  0       key0         =  0       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
 key2         = FF       key2         = FF       key2         = FF       key2         = FF      
-current      =        0 current      =        0 current      =        0 current      =        0
+current      =       40 current      =        0 current      =        0 current      =        0
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
@@ -41170,10 +41184,10 @@ loopcount    =  0
 volumeLeft   =  554    
 volumeRight  =  514    
 clientEvent  =  0      
-key0         =  0       key0         =  0       key0         =  0       key0         =  0      
+key0         =  2       key0         =  0       key0         =  0       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
 key2         = FF       key2         = FF       key2         = FF       key2         = FF      
-current      =        0 current      =        0 current      =        0 current      =        0
+current      =        B current      =        0 current      =        0 current      =        0
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
@@ -41196,10 +41210,10 @@ loopcount    =  0
 volumeLeft   =  554    
 volumeRight  =  514    
 clientEvent  =  0      
-key0         =  0       key0         =  0       key0         =  0       key0         =  0      
+key0         =  2       key0         =  0       key0         =  0       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
 key2         = FF       key2         = FF       key2         = FF       key2         = FF      
-current      =        0 current      =        0 current      =        0 current      =        0
+current      =       25 current      =        0 current      =        0 current      =        0
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
@@ -41222,10 +41236,10 @@ loopcount    =  0
 volumeLeft   =  554    
 volumeRight  =  514    
 clientEvent  =  0      
-key0         =  0       key0         =  0       key0         =  0       key0         =  0      
+key0         =  2       key0         =  0       key0         =  0       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
 key2         = FF       key2         = FF       key2         = FF       key2         = FF      
-current      =        0 current      =        0 current      =        0 current      =        0
+current      =       3F current      =        0 current      =        0 current      =        0
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
@@ -41248,10 +41262,10 @@ loopcount    =  0
 volumeLeft   =  554    
 volumeRight  =  514    
 clientEvent  =  0      
-key0         =  0       key0         =  0       key0         =  0       key0         =  0      
+key0         =  2       key0         =  0       key0         =  0       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
 key2         = FF       key2         = FF       key2         = FF       key2         = FF      
-current      =        0 current      =        0 current      =        0 current      =        0
+current      =        A current      =        0 current      =        0 current      =        0
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
@@ -41274,10 +41288,10 @@ loopcount    =  0
 volumeLeft   =  554    
 volumeRight  =  514    
 clientEvent  =  0      
-key0         =  0       key0         =  0       key0         =  0       key0         =  0      
+key0         =  2       key0         =  0       key0         =  0       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
 key2         = FF       key2         = FF       key2         = FF       key2         = FF      
-current      =        0 current      =        0 current      =        0 current      =        0
+current      =       24 current      =        0 current      =        0 current      =        0
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
@@ -41300,10 +41314,10 @@ loopcount    =  0
 volumeLeft   =  554    
 volumeRight  =  514    
 clientEvent  =  0      
-key0         =  0       key0         =  0       key0         =  0       key0         =  0      
+key0         =  2       key0         =  0       key0         =  0       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
 key2         = FF       key2         = FF       key2         = FF       key2         = FF      
-current      =        0 current      =        0 current      =        0 current      =        0
+current      =       3E current      =        0 current      =        0 current      =        0
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
@@ -41326,10 +41340,10 @@ loopcount    =  0
 volumeLeft   =  554    
 volumeRight  =  514    
 clientEvent  =  0      
-key0         =  0       key0         =  0       key0         =  0       key0         =  0      
+key0         =  2       key0         =  0       key0         =  0       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
 key2         = FF       key2         = FF       key2         = FF       key2         = FF      
-current      =        0 current      =        0 current      =        0 current      =        0
+current      =        9 current      =        0 current      =        0 current      =        0
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
@@ -41352,10 +41366,10 @@ loopcount    =  0
 volumeLeft   =  554    
 volumeRight  =  514    
 clientEvent  =  0      
-key0         =  0       key0         =  0       key0         =  0       key0         =  0      
+key0         =  2       key0         =  0       key0         =  0       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
 key2         = FF       key2         = FF       key2         = FF       key2         = FF      
-current      =        0 current      =        0 current      =        0 current      =        0
+current      =       23 current      =        0 current      =        0 current      =        0
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
@@ -41378,10 +41392,10 @@ loopcount    =  0
 volumeLeft   =  554    
 volumeRight  =  514    
 clientEvent  =  0      
-key0         =  0       key0         =  0       key0         =  0       key0         =  0      
+key0         =  2       key0         =  0       key0         =  0       key0         =  0      
 key1         = FF       key1         = FF       key1         = FF       key1         = FF      
 key2         = FF       key2         = FF       key2         = FF       key2         = FF      
-current      =        0 current      =        0 current      =        0 current      =        0
+current      =       3D current      =        0 current      =        0 current      =        0
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      

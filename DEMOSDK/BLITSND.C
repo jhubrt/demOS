@@ -42,9 +42,21 @@ STATIC_ASSERT(sizeof(BLScell)           == 4);
 STATIC_ASSERT(sizeof(BLSrow)            == (sizeof(BLScell) * BLS_NBVOICES));
 
 
+#if blsUSEASM
+#   define blsINITUSEASM 1
+
+#   if blsINITUSEASM
+    void ablsIIWsample(void* sourcesample_sample, void* _dest, u32 samplelen, u32 divprecision_precisionmask, u32 freqdiv);
+    void ablsIIBsample(void* sourcesample_sample, void* _dest, u32 samplelen, u32 divprecision_precisionmask, u32 freqdiv);
+    void ablsINWsample(void* sourcesample_sample, void* _dest, u32 samplelen, u16 divprecision, u32 freqdiv);
+    void ablsINBsample(void* sourcesample_sample, void* _dest, u32 samplelen, u16 divprecision, u32 freqdiv);
+#   endif
+#endif
+
+
 void BLSinitSample (s8* _sampleBuffer, u32* _sampleHeap, BLSsample* _sourceSample, BLSsample* _transposedSample, BLSprecomputedKey* _key, u16 _storagemode)
 {
-    u32 i, acc = 0, size;
+    u32 size;
     s8* d = NULL;
     u32 roundvalue = 1UL << (_key->freqmulshift - 1);
 
@@ -83,12 +95,14 @@ void BLSinitSample (s8* _sampleBuffer, u32* _sampleHeap, BLSsample* _sourceSampl
     {
         u32 sampleLen = _transposedSample->sampleLen;
         s8* s = _sourceSample->sample;
+        u8  divprecision = _key->freqdivshift;
+        u16 freqdiv = _key->freqdiv;
+#       if blsINITUSEASM==0
+        u32 i, acc = 0;
         s32 sampl1, sampl2;
         s8  sampl;
         s16 interp1, interp2;
-        u8  divprecision = _key->freqdivshift;
-        u16 freqdiv = _key->freqdiv;
-
+#       endif
 
         if (_sourceSample->flags & BLS_SAMPLE_INTERPOLATE)
         {
@@ -102,19 +116,18 @@ void BLSinitSample (s8* _sampleBuffer, u32* _sampleHeap, BLSsample* _sourceSampl
            
             precisionmask = (1 << divprecision) - 1;
 
+#           if blsINITUSEASM
+            if (_storagemode == BLS_STORAGE_WORD)
+                ablsIIWsample(s, d, sampleLen, ((u32)divprecision << 16) | (u32)precisionmask, freqdiv);
+            else
+                ablsIIBsample(s, d, sampleLen, ((u32)divprecision << 16) | (u32)precisionmask, freqdiv);
+#           else
             for (i = 0 ; i < sampleLen ; i++)
             {
                 u32 index = acc  >> divprecision;
 
                 sampl1 = *(s + index);
-                if ((index + 1) < _sourceSample->sampleLen)
-                {
-                    sampl2 = *(s + (index + 1));
-                }
-                else
-                {
-                    sampl2 = sampl1;
-                }
+                sampl2 = *(s + (index + 1));
 
                 interp2 = acc & precisionmask;
                 interp1 = precisionmask - interp2;
@@ -134,9 +147,16 @@ void BLSinitSample (s8* _sampleBuffer, u32* _sampleHeap, BLSsample* _sourceSampl
 
                 acc += freqdiv;
             }
+#           endif
         }
         else
         {
+#           if blsINITUSEASM
+            if (_storagemode == BLS_STORAGE_WORD)
+                ablsINWsample(s, d, sampleLen, divprecision, freqdiv);
+            else
+                ablsINBsample(s, d, sampleLen, divprecision, freqdiv);
+#           else
             for (i = 0 ; i < sampleLen ; i++)
             {
                 sampl = *(s + (acc  >> divprecision));
@@ -151,15 +171,16 @@ void BLSinitSample (s8* _sampleBuffer, u32* _sampleHeap, BLSsample* _sourceSampl
 
                 acc += freqdiv;
             }
+#           endif
         }
 
         if (_storagemode == BLS_STORAGE_WORD)
         {
-            *d = sampl < 0 ? 0xFF : 0;
+            *d = *(d-2);
         }
         d++;
 
-        *d++ = sampl;
+        *d = *(d-2);
     }
 }
 
@@ -256,8 +277,9 @@ BLSsoundTrack* BLSread(MEMallocator* _allocator, void* _buffer)
             STD_READ_W(p,s->sampleLoopLength);
             STD_READ_W(p,s->flags);
 
-            s->sample = (s8*) MEM_ALLOCTEMP(_allocator, s->sampleLen);
+            s->sample = (s8*) MEM_ALLOCTEMP(_allocator, s->sampleLen + 1UL);
             STDmcpy(s->sample, p, s->sampleLen); 
+            s->sample[s->sampleLen] = s->sample[s->sampleLen - 1];  /* duplicate last byte to simplify interpolate */
             p += s->sampleLen;
         }
     }

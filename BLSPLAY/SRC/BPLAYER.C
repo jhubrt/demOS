@@ -39,7 +39,7 @@
 
 #include <time.h>
 
-#define BLSPLAY_TITLE "BLSplay v1.1.0"
+#define BLSPLAY_TITLE "BLSplay v1.2.0"
 
 #ifdef __TOS__
 #   define bplayerUSEASM 1
@@ -103,7 +103,7 @@ static void playerInit (u16 _i, u16 _nb)
 
     STDuxtoa(temp, _i, 3);
     STDuxtoa(&temp[4], _nb, 3);
-    SYSdebugPrint(framebuffer, 160, 2, 0, 0, temp);
+    SYSdebugPrint(framebuffer, 160, 2, 0, 16, temp);
 }
 
 #define PCMCOPYSIZE 16*160
@@ -116,8 +116,6 @@ void PlayerEntry (void)
     RINGallocatorFreeArea info;
     s32 deltasize;
     
-    STDmset((void*)SYSreadVideoBase(), 0, 32000);
-
     (*HW_VIDEO_MODE) = HW_VIDEO_MODE_2P;
 
     DEFAULT_CONSTRUCT(&g_player.player);
