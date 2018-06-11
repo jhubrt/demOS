@@ -39,7 +39,7 @@
 
 #include <time.h>
 
-#define BLSPLAY_TITLE "BLSplay v1.2.0"
+#define BLSPLAY_TITLE "BLSplay v1.3.1"
 
 #ifdef __TOS__
 #   define bplayerUSEASM 1
@@ -268,18 +268,6 @@ static void drawXorPass (void* _screen)
 }
 #endif
 
-u8 VoiceOrder(u16 i)
-{
-    switch(i)
-    {
-    default:
-    case 0: return 0;
-    case 1: return 3;
-    case 2: return 1;
-    case 3: return 2;
-    }
-}
-
 
 void PlayerActivity	(FSM* _fsm)
 {
@@ -342,18 +330,59 @@ void PlayerActivity	(FSM* _fsm)
 
             switch (scancode)
             {
+            case HW_KEY_LEFT:
+                {
+                    s16 index = (s16) g_player.player.trackindex - 1;
+                    if (index < 0)
+                    {
+                        index = (s16) g_player.player.sndtrack->trackLen - 1;
+                    }
+
+                    BLSgoto(&(g_player.player), (u8) index);
+                }
+                break;
+
+            case HW_KEY_RIGHT:
+                {
+                    u8 index = g_player.player.trackindex + 1;
+                    if (index < g_player.player.sndtrack->trackLen)
+                    {
+                        BLSgoto(&(g_player.player), index);
+                    }
+                }
+                break;
+
+            case HW_KEY_F1:
+            case HW_KEY_F2:
+            case HW_KEY_F3:
+            case HW_KEY_F4:
+            case HW_KEY_F5:
+            case HW_KEY_F6:
+            case HW_KEY_F7:
+            case HW_KEY_F8:
+            case HW_KEY_F9:
+            case HW_KEY_F10:
+                {
+                    u8 index = scancode - HW_KEY_F1;
+                    if (index < g_player.player.sndtrack->trackLen)
+                    {
+                        BLSgoto(&(g_player.player), index);
+                    }
+                }
+                break;
+
             case HW_KEY_1:
             case HW_KEY_2:
             case HW_KEY_3:
             case HW_KEY_4:
-                g_player.currentchannel = VoiceOrder(scancode - HW_KEY_1);
+                g_player.currentchannel = scancode - HW_KEY_1;
                 break;
 
             case HW_KEY_5:
             case HW_KEY_6:
             case HW_KEY_8:
             case HW_KEY_7:
-                g_player.player.voices[VoiceOrder(scancode - HW_KEY_5)].mute ^= 1;
+                g_player.player.voices[scancode - HW_KEY_5].mute ^= 1;
                 break;
 
             case HW_KEY_NUMPAD_7:
@@ -558,9 +587,9 @@ void PlayerBacktask (FSM* _fsm)
 #           endif
 
             drawCurve ( g_player.pcmcopy   , 160, 12, (u8*) line);
-            drawCurve ( g_player.pcmcopy+2 , 160, 12, (u8*) line + 40);
-            drawCurve ( g_player.pcmcopy+1 , 160, 12, (u8*) line + 80);
-            drawCurve ( g_player.pcmcopy+3 , 160, 12, (u8*) line + 120);
+            drawCurve ( g_player.pcmcopy+1 , 160, 12, (u8*) line + 40);
+            drawCurve ( g_player.pcmcopy+3 , 160, 12, (u8*) line + 80);
+            drawCurve ( g_player.pcmcopy+2 , 160, 12, (u8*) line + 120);
             drawXorPass (line);
 
 #           ifndef __TOS__
@@ -579,7 +608,7 @@ void PlayerBacktask (FSM* _fsm)
             BLSsoundTrack* sndtrack = g_player.player.sndtrack;
             static char text [] = "trk=  /   pat=   row=   L=   R=   ";
             static char text2[] = " s=   v=  t=  vo=   ";
-            u16 t, i;
+            u16 t;
 
             
 #           ifdef __TOS__
@@ -599,11 +628,10 @@ void PlayerBacktask (FSM* _fsm)
 
             line += 10 * 160;
 
-            for (i = 0 ; i < 4 ; i++, line += 40, voice++)
+            for (t = 0 ; t < 4 ; t++, line += 40, voice++)
             {
                 u16* d = (u16*)(line - 20*160);
                 
-                t = VoiceOrder(i);
                 voice = &player->voices[t];
 
                 text2[0] = t == g_player.currentchannel ? '>' : ' ';

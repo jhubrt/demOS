@@ -116,6 +116,23 @@ void BLSplayerInit(MEMallocator* _allocator, BLSplayer* _player, BLSsoundTrack* 
 }
 
 
+void BLSgoto (BLSplayer* _player, u8 _trackIndex)
+{
+    u16 i;
+
+    _player->trackindex = _trackIndex;
+    _player->row = 0;
+    _player->loopstart = 0;
+    _player->loopcount = 0;
+    _player->speedcount = 1;
+
+    for (i = 0 ; i < BLS_NBVOICES ; i++)
+    {
+        _player->voices[i].samples[0]    = NULL;
+        _player->voices[i].arpeggioState = ArpeggioState_STOPPED;
+    }
+}
+
 /* -------------------------------------------------------------------------------
     C versions of play routines, useful for : 
     - PC version
@@ -266,7 +283,7 @@ static void blsUpdateVoiceFrame (BLSvoice* _voice, u8* _buffer, bool _firstpass)
             bool storageshift     = (sample->flags & BLS_SAMPLE_STORAGE_SHIFT) != 0;
             u8   volume           = _voice->volume;
 
-            ASSERT((volume == 0) || ((sample->flags & BLS_SAMPLE_STORAGE_INTERLACE) == 0));
+            ASSERT((volume == 0) || (volume == 8) || ((sample->flags & BLS_SAMPLE_STORAGE_INTERLACE) == 0));
 
             if ((sample->flags & BLS_SAMPLE_STORAGE_INTERLACE) == 0)
             {

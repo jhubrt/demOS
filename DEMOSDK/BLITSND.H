@@ -205,6 +205,7 @@ void            BLSfree       (MEMallocator* _allocator, BLSsoundTrack* _sndtrac
 void            BLSplayerFree (MEMallocator* _allocator, BLSplayer* _player);
 void            BLSupdate     (BLSplayer* _player);
 u32             BLSasyncPlay  (BLSplayer* _player, u8 _trackindex, void* _buffer, u32 _buffersize);
+void            BLSgoto       (BLSplayer* _player, u8 _trackIndex);
 
 #if blsDUMP
 void            BLSdumpHeap   (BLSsoundTrack* _sndtrack, char* _filename);

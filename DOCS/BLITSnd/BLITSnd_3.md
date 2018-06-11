@@ -420,6 +420,8 @@ buffer on PC) while playing. Some keys allows you to modify the replay :
 *   **RETURN** resets max raster time on ST
 *   **NUMPAD 1-2-4-5-6-7-8-9** increase bitshift volume if current instrument supports volume.  
 	Support for this option is disabled by default into the Atari ST ASM routine.
+*   **CURSOR LEFT-CURSOR RIGHT** decrement / increment song track index
+*   **F1-F10** set song track index to 0..9
 
 In the console output, the player displays the whole memory allocated by the player in bytes.
 
