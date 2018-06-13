@@ -196,7 +196,7 @@ heapsize 154512 155884
 *   **Sample loop length** should not exceed 16k in the transposed sample
     (more constraining than standard .MOD format). BLSconvert will output
     a warning if the size value is over this limit.
-*   **Sample name** : naming convention in samples change the behavior of
+*   **Sample name** : naming convention in samples change the behaviour of
     the converter
 
     -   Instrument which names begins by :
@@ -240,22 +240,22 @@ heapsize 154512 155884
         If you do not customize bit masks, default values will be used by OxE0 effect :
 
         ```
-        bitmask [0] = FFFF 
-        bitmask [1] = FEFE 
-        bitmask [2] = FCFC 
-        bitmask [3] = F8F8 
-        bitmask [4] = F0F0 
-        bitmask [5] = E0E0 
-        bitmask [6] = C0C0 
-        bitmask [7] = 8080 
-        bitmask [8] = EEEE 
-        bitmask [9] = CCCC 
-        bitmask [A] = 8888 
-        bitmask [B] = 7F7F 
-        bitmask [C] = 3F3F 
-        bitmask [D] = 1F1F 
-        bitmask [E] = 0F0F 
-        bitmask [F] = 0000 
+        bitmask [0x0] = FFFF 
+        bitmask [0x1] = FEFE 
+        bitmask [0x2] = FCFC 
+        bitmask [0x3] = F8F8 
+        bitmask [0x4] = F0F0 
+        bitmask [0x5] = E0E0 
+        bitmask [0x6] = C0C0 
+        bitmask [0x7] = 8080 
+        bitmask [0x8] = EEEE 
+        bitmask [0x9] = CCCC 
+        bitmask [0xA] = 8888 
+        bitmask [0xB] = 7F7F 
+        bitmask [0xC] = 3F3F 
+        bitmask [0xD] = 1F1F 
+        bitmask [0xE] = 0F0F 
+        bitmask [0xF] = 0000 
         ```
 
 #### Patterns FX
@@ -287,39 +287,39 @@ Here is the list of effects that can be used :
         in the high volume is very low).
 
 ```
-| 1.  -40db | 33. -6db |
-| 2.  -36db | 34. -6db |
-| 3.  -30db | 35. -6db |
-| 4.  -26db | 36. -6db |
-| 5.  -24db | 37. -4db |
-| 6.  -22db | 38. -4db |
-| 7.  -20db | 39. -4db |
-| 8.  -20db | 40. -4db |
-| 9.  -18db | 41. -4db |
-| 10. -18db | 42. -4db |
-| 11. -16db | 43. -4db |
-| 12. -16db | 44. -4db |
-| 13. -14db | 45. -4db |
-| 14. -14db | 46. -4db |
-| 15. -14db | 47. -2db |
-| 16. -12db | 48. -2db |
-| 17. -12db | 49. -2db |
-| 18. -12db | 50. -2db |
-| 19. -12db | 51. -2db |
-| 20. -10db | 52. -2db |
-| 21. -10db | 53. -2db |
-| 22. -10db | 54. -2db |
-| 23. -10db | 55. -2db |
-| 24. -8db  | 56. -2db |
-| 25. -8db  | 57. -2db |
-| 26. -8db  | 58. -2db |
-| 27. -8db  | 59. -0db |
-| 28. -8db  | 60. -0db |
-| 29. -8db  | 61. -0db |
-| 30. -6db  | 62. -0db |
-| 31. -6db  | 63. -0db |
-| 32. -6db  | 64. -0db |
-|           | 65. -0db |
+| 0  (0x00) -40db | 32 (0x20) -6db |
+| 1  (0x01) -36db | 33 (0x21) -6db |
+| 2  (0x02) -30db | 34 (0x22) -6db |
+| 3  (0x03) -26db | 35 (0x23) -6db |
+| 4  (0x04) -24db | 36 (0x24) -6db |
+| 5  (0x05) -22db | 37 (0x25) -4db |
+| 6  (0x06) -20db | 38 (0x26) -4db |
+| 7  (0x07) -20db | 39 (0x27) -4db |
+| 8  (0x08) -18db | 40 (0x28) -4db |
+| 9  (0x09) -18db | 41 (0x29) -4db |
+| 10 (0x0A) -16db | 42 (0x2A) -4db |
+| 11 (0x0B) -16db | 43 (0x2B) -4db |
+| 12 (0x0C) -14db | 44 (0x2C) -4db |
+| 13 (0x0D) -14db | 45 (0x2D) -4db |
+| 14 (0x0E) -14db | 46 (0x2E) -4db |
+| 15 (0x0F) -12db | 47 (0x2F) -2db |
+| 16 (0x10) -12db | 48 (0x30) -2db |
+| 17 (0x11) -12db | 49 (0x31) -2db |
+| 18 (0x12) -12db | 50 (0x32) -2db |
+| 19 (0x13) -10db | 51 (0x33) -2db |
+| 20 (0x14) -10db | 52 (0x34) -2db |
+| 21 (0x15) -10db | 53 (0x35) -2db |
+| 22 (0x16) -10db | 54 (0x36) -2db |
+| 23 (0x17) -8db  | 55 (0x37) -2db |
+| 24 (0x18) -8db  | 56 (0x38) -2db |
+| 25 (0x19) -8db  | 57 (0x39) -2db |
+| 26 (0x1A) -8db  | 58 (0x3A) -2db |
+| 27 (0x1B) -8db  | 59 (0x3B) -0db |
+| 28 (0x1C) -8db  | 60 (0x3C) -0db |
+| 29 (0x1D) -6db  | 61 (0x3D) -0db |
+| 30 (0x1E) -6db  | 62 (0x3E) -0db |
+| 31 (0x1F) -6db  | 63 (0x3F) -0db |
+|                 | 64 (0x40) -0db |
 ```
 
 -   **0x9XY** : set sample offset (corresponding to source sample offset not
@@ -334,14 +334,14 @@ Here is the list of effects that can be used :
     LMC balance like described for effect 0x8
 	
 ```
-    64 >= vol > 48 shift = 0   0db
-    48 >= vol > 24 shift = 1  -6db
-    24 >= vol > 12 shift = 2  -12db
-    12 >= vol > 6  shift = 3  -18db
-    8  >= vol > 3  shift = 4  -24db
-    3  >= vol > 1  shift = 5  -30db
-    1  >= vol > 0  shift = 6  -36db
-    vol = 0        shift = 8   mute
+    64 (0x40) >= vol > 48 (0x30) | shift = 0   0db
+    48 (0x30) >= vol > 24 (0x18) | shift = 1  -6db
+    24 (0x18) >= vol > 12 (0x0C) | shift = 2  -12db
+    12 (0x0C) >= vol > 6  (0x06) | shift = 3  -18db
+    6  (0x06) >= vol > 3  (0x03) | shift = 4  -24db
+    3  (0x03) >= vol > 1  (0x01) | shift = 5  -30db
+    1  (0x01) >= vol > 0  (0x00) | shift = 6  -36db
+    vol = 0                      | shift = 8   mute
 ```
 
 -   **0xDXX** : pattern break
@@ -411,12 +411,33 @@ Keep in mind :
 The program displays the 4 voices samples (and also the multiplexed
 buffer on PC) while playing. Some keys allows you to modify the replay :
 
+![](keyb.png)
+
 *   **ESC** quits player
-*   **BACKSPACE** toggles sync to first display line / sync to VBL start (strangely it removes clicks to run at VBL start in Hatari ?)
+*   **BACKSPACE** toggles sync to first display line / sync to VBL start (strangely there is less clicks when running out of display area at VBL start on STe)
 *   **1-4** (! not the numpad) select a voice to modify
 *   **5-8** (! not the numpad) mute / unmute a voice
 *   **SPACE** mutes / unmutes selected voice
-*   **QWERTYUIOPASDF** apply a mask effect on the selected voice
+*   **Q W E R T Y U I O P A S D F G H** apply a mask effect on the selected voice
+    ```
+	Q   bitmask [0x0] | off       FFFF 
+	W   bitmask [0x1] | default = FEFE 
+	E   bitmask [0x2] | default = FCFC 
+	R   bitmask [0x3] | default = F8F8 
+	T   bitmask [0x4] | default = F0F0 
+	Y   bitmask [0x5] | default = E0E0 
+	U   bitmask [0x6] | default = C0C0 
+	I   bitmask [0x7] | default = 8080 
+	O   bitmask [0x8] | default = EEEE 
+	P   bitmask [0x9] | default = CCCC 
+	A   bitmask [0xA] | default = 8888 
+	S   bitmask [0xB] | default = 7F7F 
+	D   bitmask [0xC] | default = 3F3F 
+	F   bitmask [0xD] | default = 1F1F 
+	G   bitmask [0xE] | default = 0F0F 
+	H   bitmask [0xF] | default = 0000 
+    ```
+
 *   **RETURN** resets max raster time on ST
 *   **NUMPAD 1-2-4-5-6-7-8-9** increase bitshift volume if current instrument supports volume.  
 	Support for this option is disabled by default into the Atari ST ASM routine.
@@ -432,7 +453,10 @@ The routine is :
     (it can be useful to play with this when you are in a critical performance part of your application).  
 	The modified version _QUICKIE.MOD (inverted channels) demonstrates this...
 
-BLITSnd uses up to 16% of a 50hz VBL on a 8mhz STe approximately.
+BLITSnd uses up to 16% of a 50hz VBL on a 8mhz STe approximately. 
+ 
+When BLITsnd synchronizes DMA sound correctly, the hyphen position after "DMA sync" changes regularly  
+(it works correctly on my STe and with Hatari 2.1.0 but it does not work with Steem 3.2 debug where the replay routine gets out of sync with DMA loop after a while)
 
 ![](img22.png)
 
