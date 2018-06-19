@@ -1149,6 +1149,10 @@ void Sndtrack::ConvertToBlitSoundtrack_Patterns (BLSsoundTrack* sndtrack)
                             dc.fx    = BLSfx_RETRIGGER_SAMPLE;
                             dc.value = sc.m_fx_l;
                             break;
+                        case 0xD:
+                            dc.fx    = BLSfx_DELAY_SAMPLE;
+                            dc.value = sc.m_fx_l;
+                            break;
                         case 0xE:
                             dc.fx    = BLSfx_DELAY_PATTERN;
                             dc.value = sc.m_fx_l;
@@ -1240,7 +1244,7 @@ int main (char argc, char* _argv[])
 
     if (argc == 1)
     {
-        printf ("BlsConvert v 1.0.0\n\n");
+        printf ("BlsConvert v 1.1.0\n\n");
         printf ("blsconvert [-v1] [-amigapal] filename\n\n");
 
         return 1;

@@ -31,7 +31,7 @@ current      =        0 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -57,7 +57,7 @@ current      =      1F4 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -83,7 +83,7 @@ current      =      3E8 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -109,7 +109,7 @@ current      =      5DC current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -135,7 +135,7 @@ current      =      7D0 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -161,7 +161,7 @@ current      =      9C4 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -187,7 +187,7 @@ current      =      BB8 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -213,7 +213,7 @@ current      =      DAC current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -239,7 +239,7 @@ current      =      FA0 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -265,7 +265,7 @@ current      =     1194 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -291,7 +291,7 @@ current      =     1388 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -317,7 +317,7 @@ current      =     157C current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -343,7 +343,7 @@ current      =     1770 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -369,7 +369,7 @@ current      =     1964 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -395,7 +395,7 @@ current      =     1B58 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -421,7 +421,7 @@ current      =     1D4C current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -447,7 +447,7 @@ current      =     1F40 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -473,7 +473,7 @@ current      =     2134 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -499,7 +499,7 @@ current      =     2328 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -525,7 +525,7 @@ current      =     251C current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -551,7 +551,7 @@ current      =     2710 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -577,7 +577,7 @@ current      =     2904 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -603,7 +603,7 @@ current      =     2AF8 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -629,7 +629,7 @@ current      =     2CEC current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -655,7 +655,7 @@ current      =     2EE0 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -681,7 +681,7 @@ current      =     30D4 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -707,7 +707,7 @@ current      =     32C8 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -733,7 +733,7 @@ current      =     34BC current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -759,7 +759,7 @@ current      =     36B0 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -785,7 +785,7 @@ current      =     38A4 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -811,7 +811,7 @@ current      =     3A98 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -837,7 +837,7 @@ current      =     3C8C current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -863,7 +863,7 @@ current      =     3E80 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -889,7 +889,7 @@ current      =     4074 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -915,7 +915,7 @@ current      =     4268 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -941,7 +941,7 @@ current      =     445C current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -967,7 +967,7 @@ current      =     4650 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -993,7 +993,7 @@ current      =     4844 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -1019,7 +1019,7 @@ current      =     4A38 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -1045,7 +1045,7 @@ current      =     4C2C current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -1071,7 +1071,7 @@ current      =     4E20 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -1097,7 +1097,7 @@ current      =     5014 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -1123,7 +1123,7 @@ current      =     5208 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -1149,7 +1149,7 @@ current      =     53FC current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -1175,7 +1175,7 @@ current      =     55F0 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -1201,7 +1201,7 @@ current      =     57E4 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -1227,7 +1227,7 @@ current      =     59D8 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -1253,7 +1253,7 @@ current      =     5BCC current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -1279,7 +1279,7 @@ current      =     5DC0 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -1305,7 +1305,7 @@ current      =     5FB4 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -1331,7 +1331,7 @@ current      =     61A8 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -1357,7 +1357,7 @@ current      =     639C current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -1383,7 +1383,7 @@ current      =     6590 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -1409,7 +1409,7 @@ current      =     6784 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -1435,7 +1435,7 @@ current      =     6978 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -1461,7 +1461,7 @@ current      =     6B6C current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -1487,7 +1487,7 @@ current      =     6D60 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -1513,7 +1513,7 @@ current      =     6F54 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -1539,7 +1539,7 @@ current      =     7148 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -1565,7 +1565,7 @@ current      =     733C current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -1591,7 +1591,7 @@ current      =     7530 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -1617,7 +1617,7 @@ current      =     7724 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -1643,7 +1643,7 @@ current      =     7918 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -1669,7 +1669,7 @@ current      =     7B0C current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -1695,7 +1695,7 @@ current      =     7D00 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -1721,7 +1721,7 @@ current      =     7EF4 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -1747,7 +1747,7 @@ current      =     80E8 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -1773,7 +1773,7 @@ current      =     82DC current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -1799,7 +1799,7 @@ current      =     84D0 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -1825,7 +1825,7 @@ current      =     86C4 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -1851,7 +1851,7 @@ current      =     88B8 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -1877,7 +1877,7 @@ current      =     8AAC current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -1903,7 +1903,7 @@ current      =     8CA0 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -1929,7 +1929,7 @@ current      =     8E94 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -1955,7 +1955,7 @@ current      =     9088 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -1981,7 +1981,7 @@ current      =     927C current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -2007,7 +2007,7 @@ current      =     9470 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -2033,7 +2033,7 @@ current      =     9664 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -2059,7 +2059,7 @@ current      =     9858 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -2085,7 +2085,7 @@ current      =     9A4C current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -2111,7 +2111,7 @@ current      =     9C40 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -2137,7 +2137,7 @@ current      =     9E34 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -2163,7 +2163,7 @@ current      =     A028 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -2189,7 +2189,7 @@ current      =     A21C current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -2215,7 +2215,7 @@ current      =     A410 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -2241,7 +2241,7 @@ current      =     A604 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -2267,7 +2267,7 @@ current      =     A7F8 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -2293,7 +2293,7 @@ current      =     A9EC current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -2319,7 +2319,7 @@ current      =     ABE0 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -2345,7 +2345,7 @@ current      =     ADD4 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -2371,7 +2371,7 @@ current      =     AFC8 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -2397,7 +2397,7 @@ current      =     B1BC current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -2423,7 +2423,7 @@ current      =     B3B0 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -2449,7 +2449,7 @@ current      =     B5A4 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -2475,7 +2475,7 @@ current      =     B798 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -2501,7 +2501,7 @@ current      =     B98C current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -2527,7 +2527,7 @@ current      =     BB80 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -2553,7 +2553,7 @@ current      =     BD74 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -2579,7 +2579,7 @@ current      =     BF68 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -2605,7 +2605,7 @@ current      =     C15C current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -2631,7 +2631,7 @@ current      =     C350 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -2657,7 +2657,7 @@ current      =     C544 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -2683,7 +2683,7 @@ current      =     C738 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -2709,7 +2709,7 @@ current      =     C92C current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -2735,7 +2735,7 @@ current      =     CB20 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -2761,7 +2761,7 @@ current      =     CD14 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -2787,7 +2787,7 @@ current      =     CF08 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -2813,7 +2813,7 @@ current      =     D0FC current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -2839,7 +2839,7 @@ current      =     D2F0 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -2865,7 +2865,7 @@ current      =     D4E4 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -2891,7 +2891,7 @@ current      =     D6D8 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -2917,7 +2917,7 @@ current      =     D8CC current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -2943,7 +2943,7 @@ current      =     DAC0 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -2969,7 +2969,7 @@ current      =     DCB4 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -2995,7 +2995,7 @@ current      =     DEA8 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -3021,7 +3021,7 @@ current      =     E09C current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -3047,7 +3047,7 @@ current      =     E290 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -3073,7 +3073,7 @@ current      =     E484 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -3099,7 +3099,7 @@ current      =     E678 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -3125,7 +3125,7 @@ current      =     E86C current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -3151,7 +3151,7 @@ current      =     EA60 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -3177,7 +3177,7 @@ current      =     EC54 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -3203,7 +3203,7 @@ current      =     EE48 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -3229,7 +3229,7 @@ current      =     F03C current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -3255,7 +3255,7 @@ current      =     F230 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -3281,7 +3281,7 @@ current      =     F424 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -3307,7 +3307,7 @@ current      =     F618 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -3333,7 +3333,7 @@ current      =     F80C current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -3359,7 +3359,7 @@ current      =     FA00 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -3385,7 +3385,7 @@ current      =     FBF4 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -3411,7 +3411,7 @@ current      =     FDE8 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -3437,7 +3437,7 @@ current      =     FFDC current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -3463,7 +3463,7 @@ current      =    101D0 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -3489,7 +3489,7 @@ current      =    103C4 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -3515,7 +3515,7 @@ current      =    105B8 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -3541,7 +3541,7 @@ current      =    107AC current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -3567,7 +3567,7 @@ current      =    109A0 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -3593,7 +3593,7 @@ current      =    10B94 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -3619,7 +3619,7 @@ current      =    10D88 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -3645,7 +3645,7 @@ current      =    10F7C current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -3671,7 +3671,7 @@ current      =    11170 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -3697,7 +3697,7 @@ current      =    11364 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -3723,7 +3723,7 @@ current      =    11558 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -3749,7 +3749,7 @@ current      =    1174C current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -3775,7 +3775,7 @@ current      =    11940 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -3801,7 +3801,7 @@ current      =    11B34 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -3827,7 +3827,7 @@ current      =    11D28 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -3853,7 +3853,7 @@ current      =    11F1C current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -3879,7 +3879,7 @@ current      =    12110 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -3905,7 +3905,7 @@ current      =    12304 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -3931,7 +3931,7 @@ current      =    124F8 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -3957,7 +3957,7 @@ current      =    126EC current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -3983,7 +3983,7 @@ current      =    128E0 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -4009,7 +4009,7 @@ current      =    12AD4 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -4035,7 +4035,7 @@ current      =    12CC8 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -4061,7 +4061,7 @@ current      =    12EBC current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -4087,7 +4087,7 @@ current      =    130B0 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -4113,7 +4113,7 @@ current      =    132A4 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -4139,7 +4139,7 @@ current      =    13498 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -4165,7 +4165,7 @@ current      =    1368C current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -4191,7 +4191,7 @@ current      =    13880 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -4217,7 +4217,7 @@ current      =    13A74 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -4243,7 +4243,7 @@ current      =    13C68 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -4269,7 +4269,7 @@ current      =    13E5C current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -4295,7 +4295,7 @@ current      =    14050 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -4321,7 +4321,7 @@ current      =    14244 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -4347,7 +4347,7 @@ current      =    14438 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -4373,7 +4373,7 @@ current      =    1462C current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -4399,7 +4399,7 @@ current      =    14820 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -4425,7 +4425,7 @@ current      =    14A14 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -4451,7 +4451,7 @@ current      =    14C08 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -4477,7 +4477,7 @@ current      =    14DFC current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -4503,7 +4503,7 @@ current      =    14FF0 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -4529,7 +4529,7 @@ current      =    151E4 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -4555,7 +4555,7 @@ current      =    153D8 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -4581,7 +4581,7 @@ current      =    155CC current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -4607,7 +4607,7 @@ current      =    157C0 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -4633,7 +4633,7 @@ current      =    159B4 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -4659,7 +4659,7 @@ current      =    15BA8 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -4685,7 +4685,7 @@ current      =    15D9C current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -4711,7 +4711,7 @@ current      =    15F90 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -4737,7 +4737,7 @@ current      =    16184 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -4763,7 +4763,7 @@ current      =    16378 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -4789,7 +4789,7 @@ current      =    1656C current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -4815,7 +4815,7 @@ current      =    16760 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -4841,7 +4841,7 @@ current      =    16954 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -4867,7 +4867,7 @@ current      =    16B48 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -4893,7 +4893,7 @@ current      =    16D3C current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -4919,7 +4919,7 @@ current      =    16F30 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -4945,7 +4945,7 @@ current      =    17124 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -4971,7 +4971,7 @@ current      =    17318 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -4997,7 +4997,7 @@ current      =    1750C current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -5023,7 +5023,7 @@ current      =    17700 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -5049,7 +5049,7 @@ current      =    178F4 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -5075,7 +5075,7 @@ current      =    17AE8 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -5101,7 +5101,7 @@ current      =    17CDC current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -5127,7 +5127,7 @@ current      =    17ED0 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -5153,7 +5153,7 @@ current      =    180C4 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -5179,7 +5179,7 @@ current      =    182B8 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -5205,7 +5205,7 @@ current      =    184AC current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -5231,7 +5231,7 @@ current      =    186A0 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -5257,7 +5257,7 @@ current      =    18894 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -5283,7 +5283,7 @@ current      =    18A88 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -5309,7 +5309,7 @@ current      =    18C7C current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -5335,7 +5335,7 @@ current      =    18E70 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -5361,7 +5361,7 @@ current      =    19064 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -5387,7 +5387,7 @@ current      =    19258 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -5413,7 +5413,7 @@ current      =    1944C current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -5439,7 +5439,7 @@ current      =    19640 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -5465,7 +5465,7 @@ current      =    19834 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -5491,7 +5491,7 @@ current      =    19A28 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -5517,7 +5517,7 @@ current      =    19C1C current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -5543,7 +5543,7 @@ current      =    19E10 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -5569,7 +5569,7 @@ current      =    1A004 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -5595,7 +5595,7 @@ current      =    1A1F8 current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      
@@ -5621,7 +5621,7 @@ current      =    1A3EC current      =        0 current      =        0 current 
 currentsourc =        0 currentsourc =        0 currentsourc =        0 currentsourc =        0
 mask         = FFFF     mask         = FFFF     mask         = FFFF     mask         = FFFF    
 volume       =  0       volume       =  0       volume       =  0       volume       =  0      
-storageshift =  0       storageshift =  0       storageshift =  0       storageshift =  0      
+sampledelay  =  0       sampledelay  =  0       sampledelay  =  0       sampledelay  =  0      
 retrigr      =  0       retrigr      =  0       retrigr      =  0       retrigr      =  0      
 retrigrcount =  0       retrigrcount =  0       retrigrcount =  0       retrigrcount =  0      
 arpegioState =  0       arpegioState =  0       arpegioState =  0       arpegioState =  0      

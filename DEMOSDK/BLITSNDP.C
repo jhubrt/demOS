@@ -248,6 +248,8 @@ static void blsUpdateVoiceFrame (BLSvoice* _voice, u8* _buffer, bool _firstpass)
     u8   arpeggioIndex = _voice->arpeggioOffset >> 2;
     u8*  cleared2 = _buffer + BLS_NBBYTES_PERFRAME + BLS_NBBYTES_OVERHEAD;
     u8*  cleared  = cleared2 + _firstpass;
+    u16* mute_sampledelay = (u16*)&_voice->mute;
+
 
     blsRASTER(0x70);
 
@@ -255,10 +257,16 @@ static void blsUpdateVoiceFrame (BLSvoice* _voice, u8* _buffer, bool _firstpass)
     
     ASSERT( ((*cleared) & 0xFE) == 0 );
 
-    if ((_voice->samples[0] == NULL) || (_voice->mute))
+    if ((_voice->samples[0] == NULL) || (*mute_sampledelay != 0))
     {
         if (*cleared)
+        {
+            if (_voice->sampledelay)
+            {
+                _voice->sampledelay--;
+            }
             return;
+        }
 
         *cleared  = true;
         *cleared2 = true;
@@ -451,9 +459,9 @@ static void blsUpdateVoiceFrame (BLSvoice* _voice, u8* _buffer, bool _firstpass)
         }
     }   
 
-clear:
     if (remain > 0)
     {
+clear:
         *HW_BLITTER_CTRL2 = 0;
         *HW_BLITTER_ADDR_SOURCE = (u32)_buffer;
         *HW_BLITTER_HOP   = HW_BLITTER_HOP_BIT1;
@@ -465,6 +473,12 @@ clear:
         *HW_BLITTER_CTRL1 = HW_BLITTER_CTRL1_HOGMODE_BLIT | HW_BLITTER_CTRL1_BUSY;        /* run */
         EMULblit();
         blsRASTER(0x70);
+
+        if ( _voice->sampledelay ) 
+        {
+            _voice->sampledelay--;
+            return;
+        }
 
         _voice->samples[0]    = NULL;
         _voice->arpeggioState = ArpeggioState_STOPPED;
@@ -598,6 +612,7 @@ static void blsUpdateScore(BLSplayer* _player)
                     voice->volume        = 0;
                     voice->arpeggioState = ArpeggioState_STOPPED;
                     voice->retrigger     = 0;
+                    voice->sampledelay   = 0;
                 }
 
                 switch (cell->fx)
@@ -714,6 +729,10 @@ static void blsUpdateScore(BLSplayer* _player)
                             _player->row = _player->loopstart;
                         }
                     }
+                    break;
+
+                case BLSfx_DELAY_SAMPLE:
+                    voice->sampledelay = cell->value;
                     break;
 
                 case BLSfx_DELAY_PATTERN:
@@ -939,7 +958,7 @@ static void blsDumpPlayerState (BLSplayer* _player, u32 _offset, FILE* _file)
         "currentsourc =          " "currentsourc =          " "currentsourc =          " "currentsourc =         \n"
         "mask         =          " "mask         =          " "mask         =          " "mask         =         \n"
         "volume       =          " "volume       =          " "volume       =          " "volume       =         \n"
-        "storageshift =          " "storageshift =          " "storageshift =          " "storageshift =         \n"
+        "sampledelay  =          " "sampledelay  =          " "sampledelay  =          " "sampledelay  =         \n"
         "retrigr      =          " "retrigr      =          " "retrigr      =          " "retrigr      =         \n"
         "retrigrcount =          " "retrigrcount =          " "retrigrcount =          " "retrigrcount =         \n"
         "arpegioState =          " "arpegioState =          " "arpegioState =          " "arpegioState =         \n"
@@ -979,7 +998,7 @@ static void blsDumpPlayerState (BLSplayer* _player, u32 _offset, FILE* _file)
         STDuxtoa(&trace[i], voice->currentsource  , 8); i += w2;
         STDuxtoa(&trace[i], voice->mask           , 4); i += w2;
         STDuxtoa(&trace[i], voice->volume         , 2); i += w2;
-        STDuxtoa(&trace[i], voice->storageshift   , 2); i += w2;
+        STDuxtoa(&trace[i], voice->sampledelay    , 2); i += w2;
         STDuxtoa(&trace[i], voice->retrigger      , 2); i += w2;
         STDuxtoa(&trace[i], voice->retriggercount , 2); i += w2;
         STDuxtoa(&trace[i], voice->arpeggioState  , 2); i += w2;

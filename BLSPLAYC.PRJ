@@ -12,6 +12,7 @@ BLSPLAYC.TTP		; name of executable program
 PCSTART.O        ; standard startup code
 
 OUTPUT\BLITSNDP.O
+OUTPUT\BLITSND.O
 OUTPUT\BPLAYER.O
 OUTPUT\LOAD.O
 OUTPUT\RASTERS.O

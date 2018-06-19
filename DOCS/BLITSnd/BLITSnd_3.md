@@ -269,7 +269,7 @@ in particular)
 Here is the list of effects that can be used :
 
 -   **0x0XY** : arpeggio for chiptune style ;) (samples using arpeggio should not 
-    exceed 64KB once transposed !)
+    exceed 64KB once transposed !) : "play note, note + X semitones, note + Y semitones, then return to original note" stepping at each tick
 
 -   **0x8XX** : balance (when not using -v1 volume conversion mode !) =\>
     panning effect is used for balance (different but gives an idea if
@@ -278,7 +278,7 @@ Here is the list of effects that can be used :
     -   For voice 1 & 3, use 0x880 to 0x8FF to set left volume
     -   For voice 2 & 4, use 0x87F to 0x800 to set right volume
     -   If you use two effects 0x8 on voices of same channel on the same
-        division, the last in voice order will be considered
+        row, the last in voice order will be considered
     -   Values are rounded to sets volume at STe LMC balance resolution
         of -2db steps.  
 		XX value determines 0 to 127 range for each side.
@@ -286,46 +286,47 @@ Here is the list of effects that can be used :
         the equivalent STe balance channel value (you can see resolution
         in the high volume is very low).
 
-```
-| 0  (0x00) -40db | 32 (0x20) -6db |
-| 1  (0x01) -36db | 33 (0x21) -6db |
-| 2  (0x02) -30db | 34 (0x22) -6db |
-| 3  (0x03) -26db | 35 (0x23) -6db |
-| 4  (0x04) -24db | 36 (0x24) -6db |
-| 5  (0x05) -22db | 37 (0x25) -4db |
-| 6  (0x06) -20db | 38 (0x26) -4db |
-| 7  (0x07) -20db | 39 (0x27) -4db |
-| 8  (0x08) -18db | 40 (0x28) -4db |
-| 9  (0x09) -18db | 41 (0x29) -4db |
-| 10 (0x0A) -16db | 42 (0x2A) -4db |
-| 11 (0x0B) -16db | 43 (0x2B) -4db |
-| 12 (0x0C) -14db | 44 (0x2C) -4db |
-| 13 (0x0D) -14db | 45 (0x2D) -4db |
-| 14 (0x0E) -14db | 46 (0x2E) -4db |
-| 15 (0x0F) -12db | 47 (0x2F) -2db |
-| 16 (0x10) -12db | 48 (0x30) -2db |
-| 17 (0x11) -12db | 49 (0x31) -2db |
-| 18 (0x12) -12db | 50 (0x32) -2db |
-| 19 (0x13) -10db | 51 (0x33) -2db |
-| 20 (0x14) -10db | 52 (0x34) -2db |
-| 21 (0x15) -10db | 53 (0x35) -2db |
-| 22 (0x16) -10db | 54 (0x36) -2db |
-| 23 (0x17) -8db  | 55 (0x37) -2db |
-| 24 (0x18) -8db  | 56 (0x38) -2db |
-| 25 (0x19) -8db  | 57 (0x39) -2db |
-| 26 (0x1A) -8db  | 58 (0x3A) -2db |
-| 27 (0x1B) -8db  | 59 (0x3B) -0db |
-| 28 (0x1C) -8db  | 60 (0x3C) -0db |
-| 29 (0x1D) -6db  | 61 (0x3D) -0db |
-| 30 (0x1E) -6db  | 62 (0x3E) -0db |
-| 31 (0x1F) -6db  | 63 (0x3F) -0db |
-|                 | 64 (0x40) -0db |
-```
+         ```
+         | 0  (0x00) -40db | 32 (0x20) -6db |
+         | 1  (0x01) -36db | 33 (0x21) -6db |
+         | 2  (0x02) -30db | 34 (0x22) -6db |
+         | 3  (0x03) -26db | 35 (0x23) -6db |
+         | 4  (0x04) -24db | 36 (0x24) -6db |
+         | 5  (0x05) -22db | 37 (0x25) -4db |
+         | 6  (0x06) -20db | 38 (0x26) -4db |
+         | 7  (0x07) -20db | 39 (0x27) -4db |
+         | 8  (0x08) -18db | 40 (0x28) -4db |
+         | 9  (0x09) -18db | 41 (0x29) -4db |
+         | 10 (0x0A) -16db | 42 (0x2A) -4db |
+         | 11 (0x0B) -16db | 43 (0x2B) -4db |
+         | 12 (0x0C) -14db | 44 (0x2C) -4db |
+         | 13 (0x0D) -14db | 45 (0x2D) -4db |
+         | 14 (0x0E) -14db | 46 (0x2E) -4db |
+         | 15 (0x0F) -12db | 47 (0x2F) -2db |
+         | 16 (0x10) -12db | 48 (0x30) -2db |
+         | 17 (0x11) -12db | 49 (0x31) -2db |
+         | 18 (0x12) -12db | 50 (0x32) -2db |
+         | 19 (0x13) -10db | 51 (0x33) -2db |
+         | 20 (0x14) -10db | 52 (0x34) -2db |
+         | 21 (0x15) -10db | 53 (0x35) -2db |
+         | 22 (0x16) -10db | 54 (0x36) -2db |
+         | 23 (0x17) -8db  | 55 (0x37) -2db |
+         | 24 (0x18) -8db  | 56 (0x38) -2db |
+         | 25 (0x19) -8db  | 57 (0x39) -2db |
+         | 26 (0x1A) -8db  | 58 (0x3A) -2db |
+         | 27 (0x1B) -8db  | 59 (0x3B) -0db |
+         | 28 (0x1C) -8db  | 60 (0x3C) -0db |
+         | 29 (0x1D) -6db  | 61 (0x3D) -0db |
+         | 30 (0x1E) -6db  | 62 (0x3E) -0db |
+         | 31 (0x1F) -6db  | 63 (0x3F) -0db |
+         |                 | 64 (0x40) -0db |
+         ```
 
 -   **0x9XY** : set sample offset (corresponding to source sample offset not
     transposed). Offset = X\*4096 + Y\*256.
 
--   **0xBXX** : jump
+-   **0xBXX** : jump to song position 0xXX : stop the pattern after this row,
+    and continue the song at song position
 
 -   **0xCXX** : volume effect. As it is far less precise, values are
     converted like this (one shift = -6 db).  
@@ -344,7 +345,8 @@ Here is the list of effects that can be used :
     vol = 0                      | shift = 8   mute
 ```
 
--   **0xDXX** : pattern break
+-   **0xDXX** : pattern break : stop the pattern after this row, and
+     continue the song at the next pattern at row X * 10 (0xA) + Y"
 
 -   **0xE0X** : use specified bitmask \[0 -\> 15\].  
 	On Amiga 0xE0 effect is used
@@ -355,7 +357,11 @@ Here is the list of effects that can be used :
     standard soundtracker =\> you will have to test with BLSplay to
     render it
 
--   **0xE6X** : loop pattern
+-   **0xE6X** : loop pattern : set the start of a loop to this row if
+     X is 0, otherwise after this row, jump back to the start of a
+     loop and play it another X times before continuing. If the start
+     of the loop was not set, it will default to the start of the
+     current pattern. Loop only happens into current pattern. Loops can not be nested.
 
 -   **0xE8X** : client event \[0 -\> 15\]. This effect is not used by
     soundtrackers. It is available to hold client data into the score,
@@ -365,9 +371,13 @@ Here is the list of effects that can be used :
 
 -   **0xE9X** : retrigger sample every X ticks (0 do not retrigger)
 
+-   **0xEDX** : delay sample by X ticks
+
 -   **0xEEX** : delay pattern next row interpretation by X ticks
 
--   **0xFXX** : set speed
+-   **0xFXX** : set speed : with speed = X * 16 + Y  
+                if speed < 32 then each row will last speed ticks  
+                else each row will last 60*50 / speed
 
 #### Optimizations
 

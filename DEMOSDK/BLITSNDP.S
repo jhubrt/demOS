@@ -32,8 +32,6 @@ managevolumeoffset:     set 0
 ;-------------------------------------------------------------------------------------
 exportall:  set 0   
 
-    xdef    ablsIIWsample,ablsIIBsample,ablsINWsample,ablsINBsample
-
     IFNE    exportall
     xdef    ablsUpAllVoices,ablsUpSoundBuffers,ablsUpScore,ablsUpRunningEffects,ablsSetDMABuffer
     ELSE
@@ -121,14 +119,14 @@ BLSvoice_keys:            set 12
 BLSvoice_current:         set 24
 BLSvoice_currentsource:   set 28
 BLSvoice_mask:            set 32
-BLSvoice_mute:            set 34
-BLSvoice_volume:          set 35
-BLSvoice_volumeoffset:    set 36
-BLSvoice_storageshift:    set 37
-BLSvoice_retrigger:       set 38
-BLSvoice_retriggercount:  set 39
-BLSvoice_arpeggioState:   set 40
-BLSvoice_arpeggioOffset:  set 41
+BLSvoice_mute:            set 34    ; should be contiguous to sampledelay and aligned on 2 (optimization) 
+BLSvoice_sampledelay:     set 35
+BLSvoice_volume:          set 36    ; should be contiguous to retrigger and aligned on 2 (optimization)
+BLSvoice_retrigger:       set 37
+BLSvoice_retriggercount:  set 38
+BLSvoice_arpeggioState:   set 39
+BLSvoice_arpeggioOffset:  set 40
+BLSvoice_volumeoffset:    set 41
 
 BLSplayer_sndtrack:       set BLSvoice_sizeof*4
 BLSplayer_buffer:         set BLSplayer_sndtrack+4
@@ -197,179 +195,6 @@ RASTERIZE MACRO
     ENDM
 
     ENDC
-
-
-;-------------------------------------------------------------------------------------------------
-; void ablsIIWsample(void* sourcesample_sample, void* _dest, u32 samplelen, u32 (divprecision << 16) | precisionmask, u32 freqdiv)
-;-------------------------------------------------------------------------------------------------
-ablsIIWsample:
-    
-    movem.l d3-d7/a2,-(sp)
-
-    ; _sourceSample->sample => a0
-    ; _dest                 => a1
-       
-    ; u32 samplelen         => d0
-    ; u16 divprecision      => d1
-    ; u16 precisionmask     => d4
-    ; u32 freqdiv           => d2
-    ; u32 acc               => d7
-
-    move.w  d1,d4
-    swap    d1
-    
-    moveq.l #0,d7           
-            
-.loop:
-    move.l  d7,d6               ; d6 = index
-    lsr.l   d1,d6               ; u32 index = acc  >> divprecision;
-
-    move.l  a0,a2               
-    add.l   d6,a2               ; a2 = s + index
-
-    move.w  d7,d6           
-    and.w   d4,d6               ; d6: interp2 = acc & precisionmask;
-
-    move.w  d4,d5           
-    sub.w   d6,d5               ; d5: interp1 = precisionmask - interp2;
-
-    move.b  (a2)+,d3            ; sampl1 = *(s + index);
-    ext.w   d3
-    muls.w  d3,d5               ; sampl1 = STDmuls((s16)sampl1, interp1); 
-
-    move.b  (a2)+,d3            ; sampl2 = *(s + (index + 1));
-    ext.w   d3
-    muls.w  d3,d6               ; sampl2 = STDmuls((s16)sampl2, interp2);
-
-    add.l   d6,d5
-    asr.l   d1,d5               ; sampl = (s8)((sampl1 + sampl2) >> divprecision);
-
-    tst.b   d5                  ; *d++ = sampl < 0 ? 0xFF : 0;
-    slt.b   (a1)+
-    move.b  d5,(a1)+            ; *d++ = sampl;
-
-    add.l   d2,d7               ; acc += freqdiv;
-
-    subq.l  #1,d0               ; for (i = 0 ; i < sampleLen ; i++)
-    bne.s   .loop
-
-    movem.l (sp)+,d3-d7/a2
-
-    rts
-
-;-------------------------------------------------------------------------------------------------
-; void ablsIIBsample(void* sourcesample_sample, void* _dest, u32 samplelen, u32 (divprecision << 16) | precisionmask, u32 freqdiv)
-;-------------------------------------------------------------------------------------------------
-ablsIIBsample:
-    movem.l d3-d7/a2,-(sp)
-
-    ; _sourceSample->sample => a0
-    ; _dest                 => a1
-       
-    ; u32 samplelen         => d0
-    ; u16 divprecision      => d1
-    ; u16 precisionmask     => d4
-    ; u32 freqdiv           => d2
-    ; u32 acc               => d7
-
-    move.w  d1,d4
-    swap    d1
-    
-    moveq.l #0,d7           
-            
-.loop:
-    move.l  d7,d6               ; d6 = index
-    lsr.l   d1,d6               ; u32 index = acc  >> divprecision;
-
-    move.l  a0,a2               
-    add.l   d6,a2               ; a2 = s + index
-
-    move.w  d7,d6           
-    and.w   d4,d6               ; d6: interp2 = acc & precisionmask;
-
-    move.w  d4,d5           
-    sub.w   d6,d5               ; d5: interp1 = precisionmask - interp2;
-
-    move.b  (a2)+,d3            ; sampl1 = *(s + index);
-    ext.w   d3
-    muls.w  d3,d5               ; sampl1 = STDmuls((s16)sampl1, interp1); 
-
-    move.b  (a2)+,d3            ; sampl2 = *(s + (index + 1));
-    ext.w   d3
-    muls.w  d3,d6               ; sampl2 = STDmuls((s16)sampl2, interp2);
-
-    add.l   d6,d5
-    asr.l   d1,d5               ; sampl = (s8)((sampl1 + sampl2) >> divprecision);
-
-    addq.l  #1,a1
-    move.b  d5,(a1)+            ; *d++ = sampl;
-
-    add.l   d2,d7               ; acc += freqdiv;
-
-    subq.l  #1,d0               ; for (i = 0 ; i < sampleLen ; i++)
-    bne.s   .loop
-
-    movem.l (sp)+,d3-d7/a2
-
-    rts
-
-;-------------------------------------------------------------------------------------------------
-; void ablsINWsample(void* sourcesample_sample, void* _dest, u32 samplelen, u16 divprecision, u32 freqdiv)
-;-------------------------------------------------------------------------------------------------
-ablsINWsample:
-    movem.l d3-d7/a2,-(sp)    
-    
-    moveq.l #0,d7   
-
-.loop:
-    move.l  d7,d6               ; sampl = *(s + (acc  >> divprecision));
-    lsr.l   d1,d6
-
-    move.l  a0,a2
-    add.l   d6,a2
-
-    move.b  (a2)+,d3            ; sampl1 = *(s + index);
-    slt.b   (a1)+               ; *d = sampl < 0 ? 0xFF : 0;
-    move.b  d3,(a1)+            ; *d++ = sampl;
-
-    add.l   d2,d7               ; acc += freqdiv;
-
-    subq.l  #1,d0
-    bne.s   .loop
-    
-    movem.l (sp)+,d3-d7/a2
-
-    rts
-
-;-------------------------------------------------------------------------------------------------
-; void ablsINBsample(void* sourcesample_sample, void* _dest, u32 samplelen, u16 divprecision, u32 freqdiv)
-;-------------------------------------------------------------------------------------------------
-ablsINBsample:
-    movem.l d3-d7/a2,-(sp)    
-    
-    moveq.l #0,d7  
-    
- .loop:
-    move.l  d7,d6               ; sampl = *(s + (acc  >> divprecision));
-    lsr.l   d1,d6
-
-    move.l  a0,a2
-    add.l   d6,a2
-
-    addq.l  #1,a1               ; d++
-    move.b  (a2)+,(a1)+         ; sampl1 = *(s + index); *d++ = sampl;
-
-    add.l   d2,d7               ; acc += freqdiv;
-
-    subq.l  #1,d0
-    bne.s   .loop
-    
-    movem.l (sp)+,d3-d7/a2
-
-    rts
-
-
-
 
 
 ; (BLSsoundTrack* sndtrack, u8 pkindex, u8 arpeggioOffset, BLSvoice* voice)
@@ -610,16 +435,13 @@ ablsUpScore:
 
     clr.l       BLSvoice_current(a4)
     clr.l       BLSvoice_currentsource(a4)
-    clr.b       BLSvoice_volume(a4)
+    clr.w       BLSvoice_volume(a4)                         ; _voice->volume = 0; _voice->retrigger = 0;
     clr.b       BLSvoice_arpeggioState(a4)
-    clr.b       BLSvoice_retrigger(a4)    
 
 .nokey:
 
     moveq.l     #0,d7    
     move.b      BLScell_fx(a3),d7
-    add.w       d7,d7
-    add.w       d7,d7
     move.l      .fxswitch(pc,d7.w),a5
     jmp         (a5)                                        ; switch (cell->fx)
 
@@ -639,6 +461,7 @@ ablsUpScore:
     dc.l        .BLSfx_LOOP_START_SET_CASE
     dc.l        .BLSfx_LOOP_CASE
     dc.l        .BLSfx_DELAY_PATTERN_CASE
+    dc.l        .BLSfx_DELAY_SAMPLE_CASE
 
 
 ; ------------------------------------------------------------------------
@@ -793,7 +616,12 @@ ablsUpScore:
     moveq.l #0,d4
     move.b  BLSplayer_speed(a0),d4
     move.b  BLScell_value(a3),d6
-    mulu.w  d6,d4                                           ; delay = _player->speed * cell->value;
+    mulu.w  d6,d4                                               ; delay = _player->speed * cell->value;
+    SCORE_END_LOOP 
+
+; ------------------------------------------------------------------------
+.BLSfx_DELAY_SAMPLE_CASE:
+    move.b  BLScell_value(a3),BLSvoice_sampledelay(a4)          ; _voice->sampledelay = cell->value;
     SCORE_END_LOOP 
 
 ; ------------------------------------------------------------------------
@@ -1027,12 +855,19 @@ ablsUpdateVoiceFrame:
     
     tst.l   (a0)                             
     beq.s   .managecleared                              ; if ((_voice->samples[0] != NULL)
-    tst.b   BLSvoice_mute(a0)
-    beq.s   .play                                       ; && (_voice->mute == false))
+    tst.w   BLSvoice_mute(a0)
+    beq.s   .play                                       ; && (_voice->mute == false) && (_voice->sampledelay == 0))
 
 .managecleared:   
     tst.b   (a2)
-    bne     .norunningfx                                ; if (*cleared) return;
+    beq.s   .needtoclear                                ; if (*cleared) return;
+    tst.b   BLSvoice_sampledelay(a0)
+    beq.s   .return
+    subq.b  #1,BLSvoice_sampledelay(a0)
+.return:
+    rts
+
+.needtoclear:
     moveq.l #1,d1
     move.b  d1,(a2)                                     ; (*cleared2) = true;
     move.b  d1,(a3)                                     ; (*cleared)  = true;
@@ -1313,6 +1148,12 @@ ablsUpdateVoiceFrame:
 
     RASTERIZE   NOBLIT_COLOR
 
+    tst.b   BLSvoice_sampledelay(a0)
+    beq.s   .stop
+    subq.b  #1,BLSvoice_sampledelay(a0)
+    rts
+
+.stop:
     clr.l   (a0)                                    ; BLSvoice_samples(a0)          _voice->samples[0]    = NULL;
     clr.b   BLSvoice_arpeggioState(a0)              ;                               _voice->arpeggioState = ArpeggioState_STOPPED;
 

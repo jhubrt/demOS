@@ -26,7 +26,7 @@
 #include "DEMOSDK\BASTYPES.H"
 
 #define BLS_FORMAT              0xB50D
-#define BLS_FORMAT_REVISION     7
+#define BLS_FORMAT_REVISION     8
 
 #define BLS_NBVOICES            4
 #define BLS_NBPATTERNROWS       64
@@ -71,21 +71,22 @@ STRUCT(BLSprecomputedKey)
 
 ENUM(BLSfxType)
 {
-    BLSfx_NONE,
-    BLSfx_VOLUME,
-    BLSfx_SPEED,
-    BLSfx_JUMP,
-    BLSfx_ARPEGGIO,
-    BLSfx_SETBALANCE,
-    BLSfx_PATTERN_BREAK,
-    BLSfx_BITMASK,
-    BLSfx_SETSAMPLEOFFSET,
-    BLSfx_RETRIGGER_SAMPLE,
-    BLSfx_CLIENT_EVENT,
-    BLSfx_VOICE_OFF,
-    BLSfx_LOOP_START_SET,
-    BLSfx_LOOP,
-    BLSfx_DELAY_PATTERN
+    BLSfx_NONE              = 0,         /* pre shift value for ASM optims */
+    BLSfx_VOLUME            = 4,
+    BLSfx_SPEED             = 8,
+    BLSfx_JUMP              = 12,
+    BLSfx_ARPEGGIO          = 16,
+    BLSfx_SETBALANCE        = 20,
+    BLSfx_PATTERN_BREAK     = 24,
+    BLSfx_BITMASK           = 28,
+    BLSfx_SETSAMPLEOFFSET   = 32,
+    BLSfx_RETRIGGER_SAMPLE  = 36,
+    BLSfx_CLIENT_EVENT      = 40,
+    BLSfx_VOICE_OFF         = 44,
+    BLSfx_LOOP_START_SET    = 48,
+    BLSfx_LOOP              = 52,
+    BLSfx_DELAY_PATTERN     = 56,
+    BLSfx_DELAY_SAMPLE      = 60
 };
 
 STRUCT(BLScell)
@@ -144,15 +145,15 @@ STRUCT(BLSvoice)
 
     u16   mask;
 
-    bool  mute;
+    bool  mute;             /* should be contiguous to sampledelay and aligned on 2 (optimization) */
+    u8    sampledelay;
 
     u8    volume;
-    u8    volumeoffset;
-    u8    storageshift;
     u8    retrigger;
-    u8    retriggercount;
+    u8    retriggercount;   /* should be contiguous to sampledelay and aligned on 2 (optimization) */
     u8    arpeggioState;
-    u8    arpeggioOffset; /* = index * 4 */   
+    u8    arpeggioOffset;   /* = index * 4 */   
+    u8    volumeoffset;
 };
 
 STRUCT(BLSplayer)

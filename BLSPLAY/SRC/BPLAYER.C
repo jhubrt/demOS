@@ -39,7 +39,7 @@
 
 #include <time.h>
 
-#define BLSPLAY_TITLE "BLSplay v1.3.1"
+#define BLSPLAY_TITLE "BLSplay v1.4.0"
 
 #ifdef __TOS__
 #   define bplayerUSEASM 1
@@ -308,6 +308,11 @@ void PlayerActivity	(FSM* _fsm)
         *(u16*)(framebuffer +         (74 * 2 + 160 * 32 + 160 * 7)) = mask;
         *(u16*)(framebuffer + 32000 + (74 * 2 + 160 * 32 + 160 * 7)) = mask;
     }
+#   else
+    if ( WINisClosed(EMULgetWindow()) )
+    {
+        FSMgotoNextState(&g_stateMachineIdle);
+    }
 #   endif
 
     if (g_player.player.volumeLeft != 0)
@@ -426,9 +431,6 @@ void PlayerActivity	(FSM* _fsm)
             case HW_KEY_F:
             case HW_KEY_G:
             case HW_KEY_H:
-            case HW_KEY_J:
-            case HW_KEY_K:
-            case HW_KEY_L:
                 {
                     u16 index = scancode - HW_KEY_A + 10;
                     

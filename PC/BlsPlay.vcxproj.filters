@@ -211,6 +211,9 @@
     <None Include="..\BLSPLAYC.PRJ">
       <Filter>SPECIFIC\PURE_C</Filter>
     </None>
+    <None Include="..\DEMOSDK\BLITSND.S">
+      <Filter>DEMOSDK</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="..\DEMOSDK\BITMAP.S">
