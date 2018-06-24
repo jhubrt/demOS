@@ -113,7 +113,7 @@ ArpeggioState_STARTING:   set 4
 ArpeggioState_RUNNING:    set 8
 ArpeggioState_STOPPING:   set 12
 
-BLSvoice_sizeof:          set 42
+BLSvoice_sizeof:          set 44
 BLSvoice_samples:         set 0
 BLSvoice_keys:            set 12
 BLSvoice_current:         set 24
@@ -121,12 +121,13 @@ BLSvoice_currentsource:   set 28
 BLSvoice_mask:            set 32
 BLSvoice_mute:            set 34    ; should be contiguous to sampledelay and aligned on 2 (optimization) 
 BLSvoice_sampledelay:     set 35
-BLSvoice_volume:          set 36    ; should be contiguous to retrigger and aligned on 2 (optimization)
+BLSvoice_volume:          set 36    ; should be contiguous to retrigger and arpeggioState and aligned on 2 (optimization)
 BLSvoice_retrigger:       set 37
-BLSvoice_retriggercount:  set 38
-BLSvoice_arpeggioState:   set 39
-BLSvoice_arpeggioOffset:  set 40
-BLSvoice_volumeoffset:    set 41
+BLSvoice_arpeggioState:   set 38
+BLSvoice_padding:         set 39
+BLSvoice_retriggercount:  set 40
+BLSvoice_arpeggioOffset:  set 41
+BLSvoice_volumeoffset:    set 42
 
 BLSplayer_sndtrack:       set BLSvoice_sizeof*4
 BLSplayer_buffer:         set BLSplayer_sndtrack+4
@@ -435,8 +436,7 @@ ablsUpScore:
 
     clr.l       BLSvoice_current(a4)
     clr.l       BLSvoice_currentsource(a4)
-    clr.w       BLSvoice_volume(a4)                         ; _voice->volume = 0; _voice->retrigger = 0;
-    clr.b       BLSvoice_arpeggioState(a4)
+    clr.l       BLSvoice_volume(a4)                         ; _voice->volume = 0; _voice->retrigger = 0; _voice->arpeggioState = 0;
 
 .nokey:
 

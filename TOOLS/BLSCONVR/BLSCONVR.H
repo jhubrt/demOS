@@ -326,6 +326,8 @@ class Sndtrack
     u16                         m_nbPrecomputedSamples;
     std::map<u8, std::set<u8>>  m_instrFXVolumes;
 
+    typedef std::multimap<u32,u16> SamplesMapOrderBySize;
+
 public:
 
     bool DoesInstrumentHaveVolumeFX (u8 _instrument) const
@@ -349,8 +351,8 @@ public:
     u8 FindPrecomputedKeyIndex (u8 _instrument, const Key& _key);
     void ConvertToBlitSoundtrack_InitBitmasks(BLSsoundTrack* sndtrack);
     void ConvertToBlitSoundtrack_SourceSamplesTable (BLSsoundTrack* sndtrack, std::map<u8,u8>& instrumentToSourceSample);
-    void ConvertToBlitSoundtrack_PrecomputedKeys(BLSsoundTrack* sndtrack, const std::map<u8,u8>& instrumentToSourceSample, std::map<u32,u16> &sizeordertopkindex);
-    void ConvertToBlitSoundtrack_SamplesAllocOrder(BLSsoundTrack* sndtrack, const std::map<u32,u16>& sizeordertopkindex);
+    void ConvertToBlitSoundtrack_PrecomputedKeys(BLSsoundTrack* sndtrack, const std::map<u8,u8>& instrumentToSourceSample, SamplesMapOrderBySize& sizeordertopkindex);
+    void ConvertToBlitSoundtrack_SamplesAllocOrder(BLSsoundTrack* sndtrack, const SamplesMapOrderBySize& sizeordertopkindex);
     void ConvertToBlitSoundtrack_Patterns (BLSsoundTrack* sndtrack);
     BLSsoundTrack* ConvertToBlitSoundtrack ();
 };

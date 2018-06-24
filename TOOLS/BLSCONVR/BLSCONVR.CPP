@@ -772,7 +772,7 @@ static void computeFloat16 (double _value, u16* _num, u8* _shift)
 }
 
 
-void Sndtrack::ConvertToBlitSoundtrack_PrecomputedKeys(BLSsoundTrack* sndtrack, const std::map<u8,u8>& instrumentToSourceSample, std::map<u32,u16> &sizeordertopkindex)
+void Sndtrack::ConvertToBlitSoundtrack_PrecomputedKeys(BLSsoundTrack* sndtrack, const std::map<u8,u8>& instrumentToSourceSample, SamplesMapOrderBySize& sizeordertopkindex)
 {
     for (u32 pi = 0, si = 0 ; pi < m_precomputedKeys.size() ; pi++)
     {
@@ -799,7 +799,7 @@ void Sndtrack::ConvertToBlitSoundtrack_PrecomputedKeys(BLSsoundTrack* sndtrack, 
             {
                 size += 0x8000000;
             }
-            sizeordertopkindex[size] = (u16) pi;
+            sizeordertopkindex.insert (std::pair<u32,u16>(size, (u16) pi));
 
             baseKeyFlag = BLS_BASEKEY_FLAG;
         }
@@ -823,7 +823,7 @@ void Sndtrack::ConvertToBlitSoundtrack_PrecomputedKeys(BLSsoundTrack* sndtrack, 
 }
 
 
-void Sndtrack::ConvertToBlitSoundtrack_SamplesAllocOrder(BLSsoundTrack* sndtrack, const std::map<u32,u16>& sizeordertopkindex)
+void Sndtrack::ConvertToBlitSoundtrack_SamplesAllocOrder(BLSsoundTrack* sndtrack, const SamplesMapOrderBySize& sizeordertopkindex)
 {
     u32 heapsize[2] = {0, 0};
 
@@ -1216,7 +1216,7 @@ BLSsoundTrack* Sndtrack::ConvertToBlitSoundtrack ()
 
     ConvertToBlitSoundtrack_SourceSamplesTable(sndtrack, instrumentToSourceSample);
 
-    std::map<u32,u16> sizeordertopkindex;
+    SamplesMapOrderBySize sizeordertopkindex;
 
     ConvertToBlitSoundtrack_PrecomputedKeys(sndtrack, instrumentToSourceSample, sizeordertopkindex);
 
@@ -1244,7 +1244,7 @@ int main (char argc, char* _argv[])
 
     if (argc == 1)
     {
-        printf ("BlsConvert v 1.1.0\n\n");
+        printf ("BlsConvert v 1.1.1\n\n");
         printf ("blsconvert [-v1] [-amigapal] filename\n\n");
 
         return 1;

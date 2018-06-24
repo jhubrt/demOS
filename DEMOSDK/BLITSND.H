@@ -148,10 +148,11 @@ STRUCT(BLSvoice)
     bool  mute;             /* should be contiguous to sampledelay and aligned on 2 (optimization) */
     u8    sampledelay;
 
-    u8    volume;
+    u8    volume;           /* should be contiguous to retrigger and arpeggioState and aligned on 2 (optimization) */
     u8    retrigger;
-    u8    retriggercount;   /* should be contiguous to sampledelay and aligned on 2 (optimization) */
     u8    arpeggioState;
+    u8    padding;
+    u8    retriggercount;   
     u8    arpeggioOffset;   /* = index * 4 */   
     u8    volumeoffset;
 };

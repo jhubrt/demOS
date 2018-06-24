@@ -27,19 +27,18 @@
 #include "DEMOSDK\HARDWARE.H"
 
 
-#ifdef __TOS__
-STATIC_ASSERT(sizeof(BLSplayer)         == 206);
-STATIC_ASSERT(sizeof(BLSvoice)          == 42);
-#else
-STATIC_ASSERT(sizeof(BLSplayer)         == 216);
 STATIC_ASSERT(sizeof(BLSvoice)          == 44);
-#endif
-
 STATIC_ASSERT(sizeof(BLSsoundTrack)     == 40);
 STATIC_ASSERT(sizeof(BLSsample)         == 16);
 STATIC_ASSERT(sizeof(BLSprecomputedKey) == 8);
 STATIC_ASSERT(sizeof(BLScell)           == 4);
 STATIC_ASSERT(sizeof(BLSrow)            == (sizeof(BLScell) * BLS_NBVOICES));
+
+#ifdef __TOS__
+STATIC_ASSERT(sizeof(BLSplayer)         == 214);
+#else
+STATIC_ASSERT(sizeof(BLSplayer)         == 216);
+#endif
 
 
 #if blsUSEASM

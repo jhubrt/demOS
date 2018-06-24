@@ -39,7 +39,7 @@
 
 #include <time.h>
 
-#define BLSPLAY_TITLE "BLSplay v1.4.0"
+#define BLSPLAY_TITLE "BLSplay v1.5.0"
 
 #ifdef __TOS__
 #   define bplayerUSEASM 1
@@ -576,9 +576,17 @@ void PlayerBacktask (FSM* _fsm)
 
     SYSvsync;
     {
+        char cleared[4];
+
         if (g_player.player.buffertoupdate != NULL)
         {
+            s8* bufclearflags = g_player.player.buffertoupdate + BLS_NBBYTES_PERFRAME + BLS_NBBYTES_OVERHEAD;
             STDmcpy (g_player.pcmcopy, g_player.player.buffertoupdate, BLS_NBBYTES_PERFRAME + BLS_NBBYTES_OVERHEAD);
+            
+            cleared[0] = bufclearflags[0];
+            cleared[1] = bufclearflags[1];
+            cleared[2] = bufclearflags[3];
+            cleared[3] = bufclearflags[2];
         }
 
         {
@@ -648,7 +656,14 @@ void PlayerBacktask (FSM* _fsm)
                     text2[4] = '-';
                 }
 
-                STDuxtoa(&text2[8], voice->volume, 1);
+                if (cleared[t])
+                {
+                    text2[8] = '*';
+                }
+                else
+                {
+                    STDuxtoa(&text2[8], voice->volume, 1);
+                }
 
                 if (voice->keys[0] != NULL)
                 {
