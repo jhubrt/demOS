@@ -275,51 +275,52 @@ Here is the list of effects that can be used :
     panning effect is used for balance (different but gives an idea if
     you listen to only left or right channel). Also in modern mod
     trackers you have an option to ignore 0x8 FX.
-    -   For voice 1 & 3, use 0x880 to 0x8FF to set left volume
-    -   For voice 2 & 4, use 0x87F to 0x800 to set right volume
+    -   For voice 0 & 3, use 0x880 to 0x8FF to set left volume
+    -   For voice 1 & 2, use 0x87F to 0x800 to set right volume
     -   If you use two effects 0x8 on voices of same channel on the same
         row, the last in voice order will be considered
     -   Values are rounded to sets volume at STe LMC balance resolution
         of -2db steps.  
 		XX value determines 0 to 127 range for each side.
-        This value is divided by 2 and goes through this table to obtain
-        the equivalent STe balance channel value (you can see resolution
-        in the high volume is very low).
+        This value is divided by 2 and goes through LMC values conversion table to obtain the equivalent STe balance channel value.
+
 
          ```
-         | 0  (0x00) -40db | 32 (0x20) -6db |
-         | 1  (0x01) -36db | 33 (0x21) -6db |
-         | 2  (0x02) -30db | 34 (0x22) -6db |
-         | 3  (0x03) -26db | 35 (0x23) -6db |
-         | 4  (0x04) -24db | 36 (0x24) -6db |
-         | 5  (0x05) -22db | 37 (0x25) -4db |
-         | 6  (0x06) -20db | 38 (0x26) -4db |
-         | 7  (0x07) -20db | 39 (0x27) -4db |
-         | 8  (0x08) -18db | 40 (0x28) -4db |
-         | 9  (0x09) -18db | 41 (0x29) -4db |
-         | 10 (0x0A) -16db | 42 (0x2A) -4db |
-         | 11 (0x0B) -16db | 43 (0x2B) -4db |
-         | 12 (0x0C) -14db | 44 (0x2C) -4db |
-         | 13 (0x0D) -14db | 45 (0x2D) -4db |
-         | 14 (0x0E) -14db | 46 (0x2E) -4db |
-         | 15 (0x0F) -12db | 47 (0x2F) -2db |
-         | 16 (0x10) -12db | 48 (0x30) -2db |
-         | 17 (0x11) -12db | 49 (0x31) -2db |
-         | 18 (0x12) -12db | 50 (0x32) -2db |
-         | 19 (0x13) -10db | 51 (0x33) -2db |
-         | 20 (0x14) -10db | 52 (0x34) -2db |
-         | 21 (0x15) -10db | 53 (0x35) -2db |
-         | 22 (0x16) -10db | 54 (0x36) -2db |
-         | 23 (0x17) -8db  | 55 (0x37) -2db |
-         | 24 (0x18) -8db  | 56 (0x38) -2db |
-         | 25 (0x19) -8db  | 57 (0x39) -2db |
-         | 26 (0x1A) -8db  | 58 (0x3A) -2db |
-         | 27 (0x1B) -8db  | 59 (0x3B) -0db |
-         | 28 (0x1C) -8db  | 60 (0x3C) -0db |
-         | 29 (0x1D) -6db  | 61 (0x3D) -0db |
-         | 30 (0x1E) -6db  | 62 (0x3E) -0db |
-         | 31 (0x1F) -6db  | 63 (0x3F) -0db |
-         |                 | 64 (0x40) -0db |
+         | LEFT CHANNEL (voice 0 & 3)       | RIGHT CHANNEL (voice 1 & 2)      |
+         |----------------------------------|----------------------------------|
+         | 0 (<=0x80) 0db | 32 (0xC0) -6db  | 0  (0x00) -40db | 32 (0x40) -6db |
+         | 1  (0x82)  0db | 33 (0xC2) -6db  | 1  (0x02) -36db | 33 (0x42) -6db |
+         | 2  (0x84)  0db | 34 (0xC4) -6db  | 2  (0x04) -30db | 34 (0x44) -6db |
+         | 3  (0x86)  0db | 35 (0xC6) -6db  | 3  (0x06) -26db | 35 (0x46) -6db |
+         | 4  (0x88)  0db | 36 (0xC8) -8db  | 4  (0x08) -24db | 36 (0x48) -6db |
+         | 5  (0x8A)  0db | 37 (0xCA) -8db  | 5  (0x0A) -22db | 37 (0x4A) -4db |
+         | 6  (0x8C) -2db | 38 (0xCC) -8db  | 6  (0x0C) -20db | 38 (0x4C) -4db |
+         | 7  (0x8E) -2db | 39 (0xCE) -8db  | 7  (0x0E) -20db | 39 (0x4E) -4db |
+         | 8  (0x90) -2db | 40 (0xD0) -8db  | 8  (0x10) -18db | 40 (0x50) -4db |
+         | 9  (0x92) -2db | 41 (0xD2) -8db  | 9  (0x12) -18db | 41 (0x52) -4db |
+         | 10 (0x94) -2db | 42 (0xD4) -10db | 10 (0x14) -16db | 42 (0x54) -4db |
+         | 11 (0x96) -2db | 43 (0xD6) -10db | 11 (0x16) -16db | 43 (0x56) -4db |
+         | 12 (0x98) -2db | 44 (0xD8) -10db | 12 (0x18) -14db | 44 (0x58) -4db |
+         | 13 (0x9A) -2db | 45 (0xDA) -10db | 13 (0x1A) -14db | 45 (0x5A) -4db |
+         | 14 (0x9C) -2db | 46 (0xDC) -12db | 14 (0x1C) -14db | 46 (0x5C) -4db |
+         | 15 (0x9E) -2db | 47 (0xDE) -12db | 15 (0x1E) -12db | 47 (0x5E) -2db |
+         | 16 (0xA0) -2db | 48 (0xE0) -12db | 16 (0x20) -12db | 48 (0x60) -2db |
+         | 17 (0xA2) -2db | 49 (0xE2) -12db | 17 (0x22) -12db | 49 (0x62) -2db |
+         | 18 (0xA4) -4db | 50 (0xE4) -14db | 18 (0x24) -12db | 50 (0x64) -2db |
+         | 19 (0xA6) -4db | 51 (0xE6) -14db | 19 (0x26) -10db | 51 (0x66) -2db |
+         | 20 (0xA8) -4db | 52 (0xE8) -14db | 20 (0x28) -10db | 52 (0x68) -2db |
+         | 21 (0xAA) -4db | 53 (0xEA) -16db | 21 (0x2A) -10db | 53 (0x6A) -2db |
+         | 22 (0xAC) -4db | 54 (0xEC) -16db | 22 (0x2C) -10db | 54 (0x6C) -2db |
+         | 23 (0xAE) -4db | 55 (0xEE) -18db | 23 (0x2E) -8db  | 55 (0x6E) -2db |
+         | 24 (0xB0) -4db | 56 (0xF0) -18db | 24 (0x30) -8db  | 56 (0x70) -2db |
+         | 25 (0xB2) -4db | 57 (0xF2) -20db | 25 (0x32) -8db  | 57 (0x72) -2db |
+         | 26 (0xB4) -4db | 58 (0xF4) -20db | 26 (0x34) -8db  | 58 (0x74) -2db |
+         | 27 (0xB6) -4db | 59 (0xF6) -22db | 27 (0x36) -8db  | 59 (0x76) -0db |
+         | 28 (0xB8) -6db | 60 (0xF8) -24db | 28 (0x38) -8db  | 60 (0x78) -0db |
+         | 29 (0xBA) -6db | 61 (0xFA) -26db | 29 (0x3A) -6db  | 61 (0x7A) -0db |
+         | 30 (0xBC) -6db | 62 (0xFC) -30db | 30 (0x3C) -6db  | 62 (0x7C) -0db |
+         | 31 (0xBE) -6db | 63 (0xFE) -36db | 31 (0x3E) -6db  | 63 (0x7E) -0db |
+         |                | 64 (0xFF) -40db |                 | 64(>=0x7F)-0db |
          ```
 
 -   **0x9XY** : set sample offset (corresponding to source sample offset not
@@ -330,9 +331,6 @@ Here is the list of effects that can be used :
 
 -   **0xCXX** : volume effect. As it is far less precise, values are
     converted like this (one shift = -6 db).  
-    But when using -v1 volume conversion mode, even values are used to
-    control bitshift like described here, but odd values control the STe
-    LMC balance like described for effect 0x8
 	
 ```
     64 (0x40) >= vol > 48 (0x30) | shift = 0   0db
@@ -344,6 +342,29 @@ Here is the list of effects that can be used :
     1  (0x01) >= vol > 0  (0x00) | shift = 6  -36db
     vol = 0                      | shift = 8   mute
 ```
+
+But when using -v1 volume conversion mode, even values are used to
+control bitshift like described here, but odd values control the STe
+LMC balance like described for effect 0x8 in -v0 mode
+
+```
+         | 1  (0x01) -36db | 33 (0x21) -6db |
+         | 3  (0x03) -26db | 35 (0x23) -6db |
+         | 5  (0x05) -22db | 37 (0x25) -4db |
+         | 7  (0x07) -20db | 39 (0x27) -4db |
+         | 9  (0x09) -18db | 41 (0x29) -4db |
+         | 11 (0x0B) -16db | 43 (0x2B) -4db |
+         | 13 (0x0D) -14db | 45 (0x2D) -4db |
+         | 15 (0x0F) -12db | 47 (0x2F) -2db |
+         | 17 (0x11) -12db | 49 (0x31) -2db |
+         | 19 (0x13) -10db | 51 (0x33) -2db |
+         | 21 (0x15) -10db | 53 (0x35) -2db |
+         | 23 (0x17) -8db  | 55 (0x37) -2db |
+         | 25 (0x19) -8db  | 57 (0x39) -2db |
+         | 27 (0x1B) -8db  | 59 (0x3B) -0db |
+         | 29 (0x1D) -6db  | 61 (0x3D) -0db |
+         | 31 (0x1F) -6db  | 63 (0x3F) -0db |
+ ```
 
 -   **0xDXX** : pattern break : stop the pattern after this row, and
      continue the song at the next pattern at row X * 10 (0xA) + Y"
