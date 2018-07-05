@@ -70,7 +70,7 @@ void WInpoint			 (WINdow* _m,s32 _iX, s32 _iY);
 void WINrectangle		 (WINdow* _m,s32 _iX1, s32 _iY1, s32 _iX2, s32 _iY2);
 void WINsetColor		 (WINdow* _m,u8 _uiR, u8 _uiG, u8 _uiB);
 void WINtext			 (WINdow* _m,s32 _iX, s32 _iY, char* _string);
-void WINrender			 (WINdow* _m, u32 _waitms);
+void WINrender			 (WINdow* _m);
 bool WINisClosed		 (WINdow* _m);
 void WINgetMouse		 (WINdow* _m,s32* _piX, s32* _piY, s32* _piK, s32* _z);
 bool WINisKeyHit		 (WINdow* _m);

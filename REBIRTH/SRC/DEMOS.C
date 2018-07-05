@@ -170,7 +170,7 @@ int main(int argc, char** argv)
 
 		/* STDmset (buffer, 0, size); */
 
-		EMULinit (corebuffer);
+		EMULinit (corebuffer, -1, -1, 0);
   
 		FSMinit (&g_stateMachine	, states    , statesSize    , 0);
 		FSMinit (&g_stateMachineIdle, statesIdle, statesIdleSize, 0);
@@ -193,6 +193,12 @@ int main(int argc, char** argv)
             SYSinitThreading ( &threadParam );
 
 			SNDinit (&sys.coremem, 89008UL);
+
+#           ifdef DEMOS_LOAD_FROMHD
+            LOADpreloadMedia(&RSC_DISK1);
+            LOADpreloadMedia(&RSC_DISK2);
+#           endif
+
             LOADinit (&RSC_DISK1, RSC_DISK1_NBENTRIES, RSC_DISK1_NBMETADATA);
             if (sys.has2Drives)
             {

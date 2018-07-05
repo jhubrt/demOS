@@ -57,6 +57,14 @@
 #   endif
 #endif
 
+#ifndef __TOS__
+u32 blsSecondaryBufferFreq = BLS_DMA_FREQ;
+
+void BLSsetSecondaryBufferFreq(u32 _freq)
+{
+    blsSecondaryBufferFreq = _freq;
+}
+#endif
 
 ENUM(BLSbufferState)
 {
@@ -111,7 +119,7 @@ void BLSplayerInit(MEMallocator* _allocator, BLSplayer* _player, BLSsoundTrack* 
 
         _player->bufferstate = BLSbs_START;
 
-        EMULcreateSoundBuffer (BLS_NBSAMPLES_PERFRAME * 2, true, BLS_DMA_FREQ);
+        EMULcreateSoundBuffer (BLS_NBSAMPLES_PERFRAME * 2, true, blsSecondaryBufferFreq);
     }
 }
 

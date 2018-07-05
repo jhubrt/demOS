@@ -89,7 +89,7 @@ void TOOLdisplayImage (WINdow* _window, BITsurface* _surface)
             surface->format == BITformat_8bits ? surface->lut.data.p : NULL,
             (WINDOW_WIDTH - surface->width) / 2, (WINDOW_HEIGHT - surface->height) / 2);
 
-        WINrender (_window, 0);
+        WINrender (_window);
         WINwaitForGUI(_window);
 
         if ( surface == &temp )

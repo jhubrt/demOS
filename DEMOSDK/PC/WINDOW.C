@@ -396,10 +396,9 @@ bool WINisClosed (WINdow* _m)
 }
 
 
-void WINrender(WINdow* _m, u32 _waitms)
+void WINrender(WINdow* _m)
 {
 	BitBlt (_m->windowDC, 0, 0, _m->width, _m->height, _m->pixmapDC, 0, 0, SRCCOPY);       
-    Sleep (_waitms);
 }
 
 static s32 WINconvertMapping (WPARAM _wparam)

@@ -462,7 +462,7 @@ static void VISgenerateCode( s16* sin )
                 WINsetColor  ( EMULgetWindow(), 128 + (rand() & 127), 128 + (rand() & 127), 128 + (rand() & 127));
                 WINrectangle ( EMULgetWindow(), srcx * 10 - 1, srcy * 10 - 1, srcx * 10 + 1, srcy * 10 + 1);
                 WINline ( EMULgetWindow(), srcx * 10, srcy * 10, (x + halfw) * 10, (y + halfh) * 10);
-                WINrender ( EMULgetWindow(), 0);
+                WINrender ( EMULgetWindow() );
 #               endif
             }
         }

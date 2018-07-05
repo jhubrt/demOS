@@ -207,6 +207,15 @@ struct Sample
 
         TOOLreadcheck(&m_sampleLoopLength, sizeof(m_sampleLoopLength), _file);
         m_sampleLoopLength = PCENDIANSWAP16(m_sampleLoopLength) << 1;
+
+        if (isLooping())
+        {
+            if (m_sampleLen > (m_sampleLoopStart + m_sampleLoopLength))
+            {
+                printf ("#WARNING cropping sample '%s' len from %u to %u\n", m_sampleName, m_sampleLen, m_sampleLoopStart + m_sampleLoopLength);
+                m_sampleLen = m_sampleLoopStart + m_sampleLoopLength;
+            }
+        }
     }
 
     void Dump (const char* _filename)

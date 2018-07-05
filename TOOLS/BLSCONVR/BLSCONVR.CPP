@@ -1244,7 +1244,7 @@ int main (char argc, char* _argv[])
 
     if (argc == 1)
     {
-        printf ("BlsConvert v 1.1.1\n\n");
+        printf ("BlsConvert v 1.1.2\n\n");
         printf ("blsconvert [-v1] [-amigapal] filename\n\n");
 
         return 1;

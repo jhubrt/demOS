@@ -47,6 +47,9 @@ STRUCT(MiniEmul)
 {
 	WINdow* w;
 
+    u16                     width;
+    u16                     height;
+    u16                     width_ext;
 	u8                      image [640*400];
 	u32                     imagelut [256];
     size_t                  buffermask;
@@ -244,7 +247,7 @@ extern "C" void EMULcreateSoundBuffer (u32 _length, bool _stereo, u32 _dmafreq)
 	// Set the buffer description of the secondary sound buffer that the wave file will be loaded onto.
 	bufferDesc.dwSize = sizeof(DSBUFFERDESC);
 	bufferDesc.dwFlags = DSBCAPS_CTRLVOLUME;
-	bufferDesc.dwBufferBytes = _length * nbChannels;
+	bufferDesc.dwBufferBytes = _length * 2; // double buffer
 	bufferDesc.dwReserved = 0;
 	bufferDesc.lpwfxFormat = &waveFormat;
 	bufferDesc.guid3DAlgorithm = GUID_NULL;
@@ -266,7 +269,7 @@ extern "C" void EMULcreateSoundBuffer (u32 _length, bool _stereo, u32 _dmafreq)
     void* bufferPtr = NULL;
     DWORD bufferSize = 0;
 
-    result = g_miniEmul.secondaryBuffer->Lock(0, _length * nbChannels, (void**)&bufferPtr, (DWORD*)&bufferSize, NULL, 0, DSBLOCK_ENTIREBUFFER);
+    result = g_miniEmul.secondaryBuffer->Lock(0, _length * 2, (void**)&bufferPtr, (DWORD*)&bufferSize, NULL, 0, DSBLOCK_ENTIREBUFFER);
     ASSERT ( result == DS_OK );
 
     STDmset (bufferPtr, 0, bufferSize);
@@ -314,7 +317,7 @@ static void ShutdownDirectSound(MiniEmul* _emul)
 }
 
 
-extern "C" void EMULinit (void* _buffer)
+extern "C" void EMULinit (void* _buffer, s16 _width, s16 _height, s16 _width_ext)
 {
 	WINinitParam param;
     bool result;
@@ -322,10 +325,15 @@ extern "C" void EMULinit (void* _buffer)
     DEFAULT_CONSTRUCT(&g_miniEmul);
 
 	param.x = param.y = WINDOW_CENTER;
-	param.w = EMUL_WINDOW_WIDTH + EMUL_WINDOW_PCAREA_WIDTH;
-	param.h = EMUL_WINDOW_HEIGHT;
+    param.w = _width  == -1 ? EMUL_WINDOW_WIDTH  : _width;
+    param.h = _height == -1 ? EMUL_WINDOW_HEIGHT : _height;
 	param.title = NULL;
 	param.hInstance = NULL;
+
+    g_miniEmul.width  = (u16) param.w;
+    g_miniEmul.height = (u16) param.h;
+
+    param.w += _width_ext;
 
 	g_miniEmul.w = WINconstruct (&param);
 
@@ -374,6 +382,8 @@ extern "C" void EMULrender ()
 	u32   i = 0;
     void* adr = (void*) SYSreadVideoBase();
 	u16   steaddpixels = 0;
+    u16   width = 0;
+    u16   height = 0;
 
 
     ST2PCLut(HW_COLOR_LUT, g_miniEmul.imagelut);
@@ -387,17 +397,23 @@ extern "C" void EMULrender ()
     {
     case HW_VIDEO_MODE_1P:
         BITfromChunk1PTo8b (adr, 80, NULL, g_miniEmul.image, 640, 400, 640);
+        width  = 640;
+        height = 400;
         break;
     case HW_VIDEO_MODE_2P:
         BITfromChunk2PTo8b (adr, 160, NULL, g_miniEmul.image, 640, 200, 640);
+        width  = 640;
+        height = 200;
         break;
     case HW_VIDEO_MODE_4P:
     	BITfromChunk4PTo8b (adr, 160 + (steaddpixels >> 1), NULL, g_miniEmul.image, 320 + steaddpixels, 200, 640);
+        width  = 320;
+        height = 200;
         break;
     }
 
-    WINdrawImage (g_miniEmul.w, g_miniEmul.image, 640, 400, 8, (u8*) g_miniEmul.imagelut, (EMUL_WINDOW_WIDTH - 640) / 2, (EMUL_WINDOW_HEIGHT - 400) / 2);
-	WINrender (g_miniEmul.w, 0);
+    WINdrawImage (g_miniEmul.w, g_miniEmul.image, width, height, 8, (u8*) g_miniEmul.imagelut, (g_miniEmul.width - width) / 2, (g_miniEmul.height - height) / 2);
+	WINrender (g_miniEmul.w);
    
     {
         u32 extrakey = WINgetKeyExtraState (g_miniEmul.w);

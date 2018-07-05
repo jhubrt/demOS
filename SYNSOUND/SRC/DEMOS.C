@@ -165,7 +165,7 @@ int main(int argc, char** argv)
 
 		/* STDmset (buffer, 0, size); */
 
-		EMULinit (corebuffer1);
+		EMULinit (corebuffer1, -1, -1, 0);
    
 		FSMinit (&g_stateMachine	, states    , statesSize    , 0);
 		FSMinit (&g_stateMachineIdle, statesIdle, statesIdleSize, 0);

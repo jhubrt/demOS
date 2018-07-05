@@ -85,6 +85,13 @@ static void SetParam (int argc, char** argv)
             {
                 g_player.testMode = true;
             }
+
+#	        ifndef __TOS__
+            if ( strncmp(argv[t], "-freq", 5) == 0)
+            {
+                BLSsetSecondaryBufferFreq(atoi(&argv[t][5]));
+            }
+#           endif
         }
 
         strcpy(g_player.filename , argv[1]);
@@ -136,7 +143,7 @@ int main(int argc, char** argv)
         corebuffer1 = (u8*) malloc( EMULbufferSize(coresize + size) );
         corebuffer  = (u8*) EMULalignBuffer (corebuffer1);
         ASSERT(corebuffer != NULL);
-        EMULinit (corebuffer1);
+        EMULinit (corebuffer1, 660, 220, 0);
         buffer      = corebuffer + coresize;
 
         {

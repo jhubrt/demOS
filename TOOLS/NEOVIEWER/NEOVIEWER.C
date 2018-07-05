@@ -43,7 +43,7 @@ static void stdFree(void* _alloc, void* _adr)
 	free(_adr);
 }
 
-MEMallocator stdAllocator = { NULL, stdAlloc, stdFree };
+MEMallocator stdAllocator = { NULL, stdAlloc, stdAlloc, stdFree };
 
 
 int main(int argc, char** argv)
@@ -96,7 +96,7 @@ int main(int argc, char** argv)
                 BITsurfaceConvert(&stdAllocator, &surface, &surface2, BITformat_8bits);
 
                 WINdrawImage (window, surface2.buffer, 320, 200, 8, surface2.lut.data.p, (384 - 320) / 2, (288- 200) / 2);
-                WINrender (window, 0);
+                WINrender (window);
                 {
                     s32 k = 0;
 
@@ -122,7 +122,7 @@ int main(int argc, char** argv)
                                         WINsetColor(window, 255, 0, 0);
                                         WINtext(window, 0, 0, "cannot save file");
                                     }
-                                    WINrender (window, 0);
+                                    WINrender (window);
                                 }
                             }
                         }

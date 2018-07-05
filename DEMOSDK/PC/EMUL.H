@@ -33,7 +33,7 @@
 
 #ifdef __TOS__
 
-#define EMULinit(BUFFER)
+#define EMULinit(BUFFER,W,H)
 #define EMULleftChannel()
 #define EMULrightChannel()
 #define EMULrender()
@@ -54,7 +54,7 @@
 
 PREDECLARE_STRUCT(WINdow);
 
-EXTERN_C void    EMULinit              (void* _buffer);
+EXTERN_C void    EMULinit              (void* _buffer, s16 _width, s16 _height, s16 _width_ext);
 EXTERN_C void    EMULrender            (void);
 EXTERN_C WINdow* EMULgetWindow         (void);
 EXTERN_C void    EMULcreateSoundBuffer (u32 _length, bool _stereo, u32 _dmafreq);

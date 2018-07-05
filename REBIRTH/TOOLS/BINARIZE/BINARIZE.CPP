@@ -131,7 +131,7 @@ static void displayImage (WINdow* _window, BITsurface* _surface)
             surface->format == BITformat_8bits ? surface->lut.data.p : NULL,
             (768 - surface->width) / 2, (576 - surface->height) / 2);
 
-        WINrender (_window, 0);
+        WINrender (_window);
         waitForGUI(_window);
 
         if ( surface == &temp )
@@ -253,7 +253,7 @@ static void binarizeSystemFont (WINdow* _window)
                 }
             }
 
-            WINrender (_window, 0);
+            WINrender (_window);
             waitForGUI(_window);
         }
 
@@ -407,7 +407,7 @@ static void binarizeRebirthLogo( WINdow* window )
         BITsurfaceConvert (&stdAllocator, &surface, &surface2, BITformat_8bits);
 
         WINdrawImage (window, surface2.buffer, surface2.width, surface2.height, 8, surface2.lut.data.p, (768 - surface2.width) / 2, (576 - surface2.height) / 2);
-        WINrender (window, 0);
+        WINrender (window);
 
         waitForGUI(window);
 
@@ -479,7 +479,7 @@ static void binarizeVisualizerTexts( WINdow* _window )
             nbbits = 32;
 
         WINdrawImage (_window, surface2.buffer, surface2.width, surface2.height, nbbits, surface2.lut.data.p, (768 - surface2.width) / 2, (576 - surface2.height) / 2);
-        WINrender (_window, 0);
+        WINrender (_window);
 
         waitForGUI(_window);
     }
@@ -539,7 +539,7 @@ static void binarizeSlidePicture (char* _src, char* _destdir, WINdow* _window)
         BITsurfaceConvert (&stdAllocator, &surface, &surface2, BITformat_x888);
 
         WINdrawImage (_window, surface2.buffer, surface2.width, surface2.height, 32, NULL, (768 - surface2.width) / 2, (576 - surface2.height) / 2);
-        WINrender (_window, 0);
+        WINrender (_window);
 
         waitForGUI(_window);
     }
@@ -570,7 +570,7 @@ static void binarizeFugit( WINdow* _window )
     if ( _window != NULL )
     {
         WINdrawImage (_window, surface2.buffer, surface2.width, surface2.height, 8, surface2.lut.data.p, (768 - surface2.width) / 2, (576 - surface2.height) / 2);
-        WINrender (_window, 0); 
+        WINrender (_window); 
         waitForGUI(_window);
     }
 
@@ -680,7 +680,7 @@ static void binarizeFugit( WINdow* _window )
         BITsurfaceConvert (&stdAllocator, &surface, &surface2, BITformat_8bits);
 
         WINdrawImage (_window, surface2.buffer, surface2.width, surface2.height, 8, surface2.lut.data.p, (768 - surface2.width) / 2, (576 - surface2.height) / 2);
-        WINrender (_window, 0);
+        WINrender (_window);
         waitForGUI(_window);
     }
 

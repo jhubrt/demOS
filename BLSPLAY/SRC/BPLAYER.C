@@ -39,7 +39,7 @@
 
 #include <time.h>
 
-#define BLSPLAY_TITLE "BLSplay v1.5.0"
+#define BLSPLAY_TITLE "BLSplay v1.5.1"
 
 #ifdef __TOS__
 #   define bplayerUSEASM 1

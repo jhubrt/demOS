@@ -594,7 +594,8 @@ u32 pzloop(void* _ecran, u16* _dlist, u16 _polycount)
 
 	WINsetColor  ( EMULgetWindow(), 255, 255, 255);
 	WINrectangle ( EMULgetWindow(), -1, -1, SCREEN_WIDTH, SCREEN_HEIGHT);
-	WINrender ( EMULgetWindow(), 40);
+	WINrender    ( EMULgetWindow() );
+    EMULwait     (40);
 
 	return (u32) _dlist;
 }
