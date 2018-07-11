@@ -41,8 +41,6 @@ extern "C"
 #include "TOOLS\BLSCONVR\BLSCONVR.H"
 
 
-#define BLS_CONVERT_OUTPUT(FORMAT, ...) { printf (FORMAT, __VA_ARGS__ ); fprintf (stderr, FORMAT, __VA_ARGS__ ); }
-
 #define BLS_CONVERT_OUTPUT_POSITION(MESSAGE_TYPE, p, r, v) {\
     printf (MESSAGE_TYPE ": pat=0x%x|%d row=0x%x|%d voice=%d/4 - ", p, p, r, r, v + 1);\
     fprintf (stderr, MESSAGE_TYPE ": pat=0x%x|%d row=0x%x|%d voice=%d/4 - ", p, p, r, r, v + 1); }
@@ -261,7 +259,7 @@ bool Sndtrack::LoadModule (const char* _filename)
 
         for (u32 p = 0 ; p < nb ; p++)
         {
-            printf ("\n\nPattern %d\n", p);
+            printf ("\n\nPattern 0x%x|%d\n", p, p);
             u8  lastinstrument[NBVOICES] = {0,0,0,0};
             Key lastkey[NBVOICES];
 
@@ -377,11 +375,17 @@ bool Sndtrack::LoadModule (const char* _filename)
                         auto it = m_instrFXVolumes.find(lastinstrument[v]);
                         if (it == m_instrFXVolumes.end())
                         {
-                            m_instrFXVolumes.insert(std::make_pair(lastinstrument[v], std::set<u8>())).second;
+                            m_instrFXVolumes.insert(std::make_pair(lastinstrument[v], std::map<u8,u32>())).second;
                             it = m_instrFXVolumes.find(lastinstrument[v]);
                         }
 
-                        it->second.insert(currentVolume);
+                        auto& volumemap = it->second;
+                        auto it2 = volumemap.find(currentVolume);
+                        if (it2 == volumemap.end())
+                        {
+                            it2 = volumemap.insert(std::make_pair(currentVolume,0UL)).first;
+                        }
+                        it2->second++;
                     }
                 }
             }
@@ -415,7 +419,7 @@ void Sndtrack::DisplayUsedInstruments ()
     {
         for (auto k = it->second.begin() ; k != it->second.end() ; k++)
         {
-            printf ("Instr = %u - Key %2s %u\n", it->first, Key::m_names[k->m_semitone], k->m_octave);
+            printf ("instr = %-2u - Key %2s %u\n", it->first, Key::m_names[k->m_semitone], k->m_octave);
         }
     }
 }
@@ -481,7 +485,7 @@ void Sndtrack::DisplayVolumeFXUsageByInstrument(const std::map<u8,u32>& instrToS
 {
     for (auto it = instrToSize.begin() ; it != instrToSize.end() ; it++)
     {
-        printf ("instrument %ld size = %-7u ", it->first, it->second);
+        printf ("instr %-2ld '%-22s' size = %-7u ", it->first, m_samples[it->first - 1].m_sampleName, it->second);
 
         if ( DoesInstrumentHaveVolumeFX(it->first) == false )
         {
@@ -496,7 +500,7 @@ void Sndtrack::DisplayVolumeFXUsageByInstrument(const std::map<u8,u32>& instrToS
 
             for (auto it3 = it2->second.begin() ; it3 != it2->second.end() ; it3++)
             {
-                printf ("0x%x ", *it3);
+                printf ("0x%x[%d] ", it3->first, it3->second);
             }
 
             printf (")\n");
@@ -523,7 +527,7 @@ void Sndtrack::ComputeSamplesTransposeTable ()
 
         if (lastinstru != ipkey->m_instrument)
         {
-            printf ("\nInstr = %3u (%5u): ", ipkey->m_instrument, sourceSample.m_sampleLen);
+            printf ("\ninstr %-2u '%-22s' (%5u): ", ipkey->m_instrument, m_samples[ipkey->m_instrument-1].m_sampleName, sourceSample.m_sampleLen);
             lastinstru = ipkey->m_instrument;
         }
     
@@ -596,7 +600,7 @@ void Sndtrack::ComputeSamplesTransposeTable ()
 
             ipkey->m_freqmul = freqmul;
 
-            printf ("[%u/%u (%u) >%d] ", ipkey->m_key.m_octave, ipkey->m_key.m_semitone, nbSTsamples >> freqmullog2, ipkey->m_blitterTranspose);            
+            printf ("[%s %u/%u (%u) >%d] ", Key::m_names[ipkey->m_key.m_semitone], ipkey->m_key.m_octave, ipkey->m_key.m_semitone, nbSTsamples >> freqmullog2, ipkey->m_blitterTranspose);            
 
             m_nbPrecomputedSamples++;
 
@@ -1244,7 +1248,7 @@ int main (char argc, char* _argv[])
 
     if (argc == 1)
     {
-        printf ("BlsConvert v 1.1.2\n\n");
+        printf ("BlsConvert v 1.2.0\n\n");
         printf ("blsconvert [-v1] [-amigapal] filename\n\n");
 
         return 1;

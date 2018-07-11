@@ -400,6 +400,8 @@ LMC balance like described for effect 0x8 in -v0 mode
                 if speed < 32 then each row will last speed ticks  
                 else each row will last 60*50 / speed
 
+Note that BLS specific effects (STE balance and bitmask set) are not reset when a new key is entered => the last value is kept to allow cumulating with other standard effects. So you need to be carefully end these effects where appropriate.
+
 #### Optimizations
 
 Obviously, BLITSnd is not a standard .MOD replay routine. It is more
@@ -472,7 +474,9 @@ buffer on PC) while playing. Some keys allows you to modify the replay :
 *   **RETURN** resets max raster time on ST
 *   **NUMPAD 1-2-4-5-6-7-8-9** increase bitshift volume if current instrument supports volume.  
 	Support for this option is disabled by default into the Atari ST ASM routine.
+*   **NUMPAD 0** reset currently running STe balance and bitmaks effects on all channels
 *   **CURSOR LEFT-CURSOR RIGHT** decrement / increment song track index
+*   **CURSOR UP** return to beginning of current pattern
 *   **F1-F10** set song track index to 0..9
 
 In the console output, the player displays the whole memory allocated by the player in bytes.

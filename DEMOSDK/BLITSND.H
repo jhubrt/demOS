@@ -182,6 +182,8 @@ STRUCT(BLSplayer)
     u16 volumeRight;
     u16 volumeLeft2;
     u16 volumeRight2;
+
+    u32 framenum;
 };
 
 typedef void (*BLSinitCallback)(u16 _index, u16 _nb);

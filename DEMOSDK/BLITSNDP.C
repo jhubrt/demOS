@@ -74,10 +74,7 @@ ENUM(BLSbufferState)
     BLSbs_START = 12
 };
 
-
-int g_nbframes = 0;
-
-
+ 
 void BLSplayerInit(MEMallocator* _allocator, BLSplayer* _player, BLSsoundTrack* _sndtrack, bool _initaudio)
 {
     u16 v;
@@ -219,13 +216,15 @@ static void blsUpdateSoundBuffers (BLSplayer* _player)
         *HW_MICROWIRE_DATA = _player->volumeRight;
     }
 
+#   ifdef __TOS__
     _player->volumeLeft   = _player->volumeLeft2;
     _player->volumeRight  = _player->volumeRight2;
     _player->volumeLeft2  = 0;
     _player->volumeRight2 = 0;
+#   endif
 
 #   if blsLOGDMA
-    TRAClogNumberS("frame"    , (u32) g_nbframes             , 4, 0);
+    TRAClogNumberS("frame"    , (u32) _player->framenum, 4, 0);
 
     if ((readcursor >= dmabufstart) && (readcursor <= dmabufend))
     {
@@ -840,7 +839,7 @@ void BLSupdate (BLSplayer* _player)
     }
 #   endif
 
-    g_nbframes++;
+    _player->framenum++;
 
     blsRASTER(0x50);
 
@@ -974,7 +973,7 @@ static void blsDumpPlayerState (BLSplayer* _player, u32 _offset, FILE* _file)
 		"\n\n"
     };
 
-    STDuxtoa(&tracep[i], g_nbframes, 6);            i += w;
+    STDuxtoa(&tracep[i], _player->framenum, 6);     i += w;
     STDuxtoa(&tracep[i], _offset            , 6);   i += w;
     STDuxtoa(&tracep[i], _player->speed, 2);        i += w;
     STDuxtoa(&tracep[i], _player->speedcount, 2);   i += w;
@@ -1095,7 +1094,7 @@ void BLStestPlay (BLSplayer* _player, u8 _trackindex, char* _filesamplename, cha
 
     do
     {
-        g_nbframes++;
+        _player->framenum++;
 
         blsDumpPlayerState(_player, offset, filetrace);
 

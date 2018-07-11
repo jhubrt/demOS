@@ -31,6 +31,8 @@ const float AMIGA_PAL_C2_FREQ  = 8287.1369f;
 
 const float STFREQ = (float) BLS_DMA_FREQ / 2.0f;
 
+#define BLS_CONVERT_OUTPUT(FORMAT, ...) { printf (FORMAT, __VA_ARGS__ ); fprintf (stderr, FORMAT, __VA_ARGS__ ); }
+
 struct Key
 {
     u8      m_octave;
@@ -212,7 +214,7 @@ struct Sample
         {
             if (m_sampleLen > (m_sampleLoopStart + m_sampleLoopLength))
             {
-                printf ("#WARNING cropping sample '%s' len from %u to %u\n", m_sampleName, m_sampleLen, m_sampleLoopStart + m_sampleLoopLength);
+                BLS_CONVERT_OUTPUT ("#WARNING cropping sample '%s' len from %u to %u\n", m_sampleName, m_sampleLen, m_sampleLoopStart + m_sampleLoopLength);
                 m_sampleLen = m_sampleLoopStart + m_sampleLoopLength;
             }
         }
@@ -327,13 +329,13 @@ class Sndtrack
     bool m_useVolumeForBalance;
     u16  m_bitmasks[16];
 
-    std::vector<Sample>         m_samples;
-    std::map<u8,std::set<Key>>  m_instrumentUsedKeys;
-    std::vector<Pattern>        m_patterns;
-    std::vector<PrecomputedKey> m_precomputedKeys;
-    std::map<u32,u32>           m_keyInstr2precomputedKeys;
-    u16                         m_nbPrecomputedSamples;
-    std::map<u8, std::set<u8>>  m_instrFXVolumes;
+    std::vector<Sample>            m_samples;
+    std::map<u8,std::set<Key>>     m_instrumentUsedKeys;
+    std::vector<Pattern>           m_patterns;
+    std::vector<PrecomputedKey>    m_precomputedKeys;
+    std::map<u32,u32>              m_keyInstr2precomputedKeys;
+    u16                            m_nbPrecomputedSamples;
+    std::map<u8, std::map<u8,u32>> m_instrFXVolumes;
 
     typedef std::multimap<u32,u16> SamplesMapOrderBySize;
 

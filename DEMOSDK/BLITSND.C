@@ -35,9 +35,9 @@ STATIC_ASSERT(sizeof(BLScell)           == 4);
 STATIC_ASSERT(sizeof(BLSrow)            == (sizeof(BLScell) * BLS_NBVOICES));
 
 #ifdef __TOS__
-STATIC_ASSERT(sizeof(BLSplayer)         == 214);
+STATIC_ASSERT(sizeof(BLSplayer)         == 218);
 #else
-STATIC_ASSERT(sizeof(BLSplayer)         == 216);
+STATIC_ASSERT(sizeof(BLSplayer)         == 220);
 #endif
 
 

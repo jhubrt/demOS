@@ -33,7 +33,7 @@
 
 #ifdef __TOS__
 
-#define EMULinit(BUFFER,W,H)
+#define EMULinit(BUFFER,W,H,E)
 #define EMULleftChannel()
 #define EMULrightChannel()
 #define EMULrender()

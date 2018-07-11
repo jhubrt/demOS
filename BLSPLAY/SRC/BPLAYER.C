@@ -39,7 +39,7 @@
 
 #include <time.h>
 
-#define BLSPLAY_TITLE "BLSplay v1.5.1"
+#define BLSPLAY_TITLE "BLSplay v1.6.0"
 
 #ifdef __TOS__
 #   define bplayerUSEASM 1
@@ -335,6 +335,10 @@ void PlayerActivity	(FSM* _fsm)
 
             switch (scancode)
             {
+            case HW_KEY_UP:
+                BLSgoto(&(g_player.player), g_player.player.trackindex);
+                break;
+
             case HW_KEY_LEFT:
                 {
                     s16 index = (s16) g_player.player.trackindex - 1;
@@ -451,6 +455,20 @@ void PlayerActivity	(FSM* _fsm)
 
             case HW_KEY_BACKSPACE:
                 g_player.startdisplay = !g_player.startdisplay;
+                break;
+
+            case HW_KEY_NUMPAD_0:
+                {
+                    u16 t;
+
+                    for (t = 0; t < BLS_NBVOICES ; t++)
+                    {
+                        g_player.player.voices[t].mask = 0xFFFF;
+                    }
+                    g_player.player.volumeLeft2   = 20 | HW_MICROWIRE_VOLUME_LEFT;
+                    g_player.player.volumeRight2  = 20 | HW_MICROWIRE_VOLUME_RIGHT;
+                    break;
+                }
             }
         }
     }

@@ -191,6 +191,8 @@ int main(int argc, char** argv)
             *HW_KEYBOARD_DATA = 0x12; /* deactivate mouse management on ACIA */
 
             {
+                u32 lastframe = -1;
+
                 do
                 {
                     SYSswitchIdle();
@@ -207,7 +209,13 @@ int main(int argc, char** argv)
                         SYSkbReset();
                     }
 
-                    EMULrender();
+#                   ifndef __TOS__
+                    if (lastframe != g_player.player.framenum)
+                    {
+                        EMULrender();
+                        lastframe = g_player.player.framenum;
+                    }
+#                   endif
                 }
                 while (g_player.play);
 
