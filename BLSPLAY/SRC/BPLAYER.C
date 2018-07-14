@@ -39,7 +39,7 @@
 
 #include <time.h>
 
-#define BLSPLAY_TITLE "BLSplay v1.6.0"
+#define BLSPLAY_TITLE "BLSplay v1.6.1"
 
 #ifdef __TOS__
 #   define bplayerUSEASM 1
@@ -82,7 +82,7 @@ ENUM(TextdisplayState)
 #ifdef __TOS__
 #   define TDS_WAITLINECOUNT   50
 #else
-#   define TDS_WAITLINECOUNT   1000
+#   define TDS_WAITLINECOUNT   100
 #endif
 
 char* g_textdisplayContent[] =
@@ -588,6 +588,16 @@ void PlayerBacktask (FSM* _fsm)
     static u8 flip = 0;
     u8* backframebuffer = (u8*)g_player.framebuffer;
     
+
+#   ifndef __TOS__
+    static u32 framenum = 0;
+    if (framenum == g_player.player.framenum)
+    {
+        return;
+    }
+    framenum = g_player.player.framenum;
+#   endif
+
     IGNORE_PARAM(_fsm);
 
     backframebuffer += flip ? 32000 : 0;
