@@ -142,9 +142,6 @@ static void InterludeInitRasters (void)
     u16 t;
 
 
-    *((RASinterupt*) p) = RASvbl2;
-    p += sizeof(RASinterupt);
-
     {
         RASopVbl2* opVbl = (RASopVbl2*) p;
 
@@ -281,6 +278,7 @@ void InterludeEntry (FSM* _fsm)
     RASsetColReg (0x825C);
 
     RASnextOpList = g_screens.interlude->rasters;
+    SYSvblroutines[0] = RASvbl2;
 
     FSMgotoNextState (&g_stateMachineIdle);
     FSMgotoNextState (&g_stateMachine);
@@ -503,7 +501,7 @@ void InterludeBacktask (FSM* _fsm)
     STDmcpy(g_screens.interlude->framebuffers[1], g_screens.interlude->framebuffers[0], INTERLUDE_FB_SIZE);
 
     {
-            ASSERT (sizeof(g_screens.interlude->gradient) == sizeof(interludeGrad));
+            STATIC_ASSERT (sizeof(g_screens.interlude->gradient) == sizeof(interludeGrad));
 
             STDmcpy (g_screens.interlude->gradient, interludeGrad, sizeof(interludeGrad));
 
@@ -620,7 +618,7 @@ void InterludeBacktask (FSM* _fsm)
         }
     }
 
-    RASnextOpList = NULL;
+    SYSvblroutines[0] = RASvbldonothing; 
 
     snd.playerClientStep++;
 

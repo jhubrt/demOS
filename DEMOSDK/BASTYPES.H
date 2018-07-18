@@ -49,7 +49,6 @@
 
 #	define DEMOS_DEBUG
 #	define DEMOS_ASSERT
-/*#   define DEMOS_ALLOW_DEBUGGER */
 /*#   define DEMOS_LOAD_FROMHD */
 
 #	if defined(DEMOS_ASSERT) && defined(DEMOS_DEBUG)

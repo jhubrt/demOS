@@ -37,11 +37,7 @@
 volatile u8		SNDleftVolume;
 volatile u8		SNDrightVolume;
 volatile s8		SNDmasterVolume;	/* ready only - debug purpose */
-
-void SNDsynMonitor (void) {}
 #endif
-
-void SNDsynMonitor (void);
 
 /*
 20   0db = 1.0
@@ -522,8 +518,6 @@ void SNDsynSound_drawCurve (SNDsynSample* _sample, void* _screen)
 
 void SNDsynPlayerInit(RINGallocator* _allocator, SNDsynPlayerInitParam* _init)
 {
-    SYSsoundtrackUpdate = (void*) SNDsynMonitor;   /* setup synth routine into VBL */
-
     DEFAULT_CONSTRUCT(&synth);
 
 	synth.dmabufferlen = (SND_DMA_FREQ / SND_SCREEN_FREQ * 2UL);    /* stereo sample */ 

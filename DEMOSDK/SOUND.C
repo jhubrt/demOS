@@ -107,11 +107,11 @@ static void SND_waitMicrowire (void)
 	while (*HW_MICROWIRE_MASK != 0x7FF);
 }
 
-void SNDinit(RINGallocator* _allocator, u32 _sampleLen)
+void SNDinit(RINGallocator* _allocator, u32 _sampleLen, u16 _routineindex)
 {
 	u32 dmaSampleBufferLen = ((_sampleLen * 2UL) + 1023UL) & 0xFFFFFC00UL;    /* stereo sample and round to 1024 for vbl copy routine */ 
 
-    SYSsoundtrackUpdate = (void*) SNDsoundtrackMonitor;   /* setup streamer routine into VBL */
+    SYSvblroutines[_routineindex] = SNDsoundtrackMonitor;
 
 	snd.cache		 = (u8*) RINGallocatorAlloc (_allocator, LOADroundBufferSize(_sampleLen));
 	snd.dmaBuffer	 = (u8*) RINGallocatorAlloc (_allocator, dmaSampleBufferLen);

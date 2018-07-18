@@ -40,13 +40,13 @@ SND_TRANSFER_LEN:   set 16
 
 *-------------------------------------------------------------------------
 SNDsoundtrackMonitor:
-
+    
 	; ------------------------------------
 	; things to do each time the DMA loops
 	; ------------------------------------
 
-	lea		$FFFF8907.w,a0
-	movep.l	(a0),d0						; determine if DMA sound has looped during the frame
+	lea		$FFFF8907.w,a1
+	movep.l	(a1),d0						; determine if DMA sound has looped during the frame
 	and.l	#$FFFFFF,d0					; without using interruption (Timer A or screen)
     move.l  d0,a1
 
@@ -83,14 +83,14 @@ noloop:									;
 	cmp.l	SNDendSourceTransfer(pc),d0
 	bge		notransfer
 
-	movem.l	a1/d1-d7,-(sp)
+	movem.l	d1-d7/a2,-(sp)
 
 	move.l	SNDdestTransfer(pc),a1
-	move.l	d0,a0
+	move.l	d0,a2
 
 var:	set 0
 	rept SND_TRANSFER_LEN
-	movem.l (a0)+,d0-d7
+	movem.l (a2)+,d0-d7
 	movep.l	d0,var(a1) 
 	movep.l	d1,var+8(a1) 
 	movep.l	d2,var+16(a1) 
@@ -103,10 +103,10 @@ var:	set var+64
 	endr
 
 	lea		64*SND_TRANSFER_LEN(a1),a1
-	move.l	a0,SNDsourceTransfer
+	move.l	a2,SNDsourceTransfer
 	move.l	a1,SNDdestTransfer
 
-	movem.l	(sp)+,a1/d1-d7
+	movem.l	(sp)+,d1-d7/a2
 
 notransfer:
 
@@ -135,7 +135,8 @@ notransfer:
     move.w	#$7FF,$FFFF8924.w
 	move.w	d0,$FFFF8922.w
 
-	rts
+    move.l  (a0)+,a1                    ; next routine
+    jmp     (a1)
 
 fadeout:
 	subq.b	#1,SNDfadecount
@@ -153,13 +154,15 @@ fadeout:
     move.w	#$7FF,$FFFF8924.w
 	move.w	d0,$FFFF8922.w
 
-	rts
+	move.l  (a0)+,a1                    ; next routine
+    jmp     (a1)
 
 endsetvolume:
 	clr.b	SNDfademasterVolume		    ; fade range limit reached
 
 donotsetvolume:
-    rts
+	move.l  (a0)+,a1                    ; next routine
+    jmp     (a1)
 
    
 managerightvolume:
@@ -181,8 +184,10 @@ waitmicrowire:                          ; wait in case we have sent an order for
 	move.w	d0,$FFFF8922.w				; send order to Microwire
 
 donotsetright:
+	move.l  (a0)+,a1                    ; next routine
+    jmp     (a1)
 
-	rts
+;--------------------------------------------------------------------------------
 
 
 SNDplayNoise:

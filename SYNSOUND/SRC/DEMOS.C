@@ -122,36 +122,34 @@ static void registerTraceServices(void)
 #   endif
 
 
+
+#define demOS_COREHEAPSIZE      (64UL  * 1024UL)
+#define demOS_HEAPSIZE          (512UL * 1024UL)
+
+
 int main(int argc, char** argv)
 {
     u8* base = (u8*) STDgetSP();
 
-	u32 coresize    = 64UL  * 1024UL;
-	u32 size	    = 512UL * 1024UL; /*768UL * 1024UL;*/
 
-
-	/*STD_unitTest();*/
-
-	IGNORE_PARAM(argc);
+    IGNORE_PARAM(argc);
 	IGNORE_PARAM(argv);
 
 	{
 #       if defined(DEMOS_OPTIMIZED) || defined(DEMOS_USES_BOOTSECTOR)
-        u8*   corebuffer    = base + 64;
+        sys.heapsBase = base + 64;
 #       else
-		u8*   corebuffer1   = (u8*) malloc( EMULbufferSize(coresize + size) );
-        u8*   corebuffer    = (u8*) EMULalignBuffer (corebuffer1);
+		sys.heapsBase = (u8*) malloc( EMULbufferSize(demOS_COREHEAPSIZE + demOS_HEAPSIZE) );
 #       endif
-		void* buffer        = corebuffer + coresize;
-
+        
 #       ifdef DEMOS_DEBUG
-        u32   logsize   = 256UL * 1024UL;
+#           define demOS_LOGSIZE (256UL * 1024UL)
 #           ifdef __TOS__
-            void* logmem = (void*) 0x3A0000UL;
-            u8*   bufferend = corebuffer + coresize + size;
+            sys.debugBuffer = (u8*) 0x3A0000UL;
 #           else
-            void* logmem = malloc(logsize);
+            sys.debugBuffer = (u8*) malloc(demOS_LOGSIZE);
 #           endif
+            sys.debugBufferSize = demOS_LOGSIZE;
 #       endif
 
 #       ifndef DEMOS_USES_BOOTSECTOR
@@ -160,12 +158,12 @@ int main(int argc, char** argv)
 
         SYSinitPrint ();
 
-        ASSERT(corebuffer != NULL);
+        ASSERT(sys.heapsBase != NULL);
         IGNORE_PARAM(base);
 
 		/* STDmset (buffer, 0, size); */
 
-		EMULinit (corebuffer1, -1, -1, 0);
+        EMULinit (sys.heapsBase, -1, -1, 0);
    
 		FSMinit (&g_stateMachine	, states    , statesSize    , 0);
 		FSMinit (&g_stateMachineIdle, statesIdle, statesIdleSize, 0);
@@ -182,10 +180,10 @@ int main(int argc, char** argv)
             SYSinitThreadParam      threadParam;
             SNDsynPlayerInitParam   sndparam;
 
-			sysparam.adr	     = buffer;
-			sysparam.size	     = size;
-			sysparam.coreAdr     = corebuffer;
-			sysparam.coreSize    = coresize;
+            sysparam.adr	     = EMULalignBuffer(sys.heapsBase + demOS_COREHEAPSIZE);
+			sysparam.size	     = demOS_HEAPSIZE;
+			sysparam.coreAdr     = sys.heapsBase;
+			sysparam.coreSize    = demOS_COREHEAPSIZE;
 			threadParam.idleThread  = DEMOSidleThread;
             threadParam.idleThreadStackSize = 1024;
 
@@ -193,7 +191,7 @@ int main(int argc, char** argv)
             SYSinitHW ();
             SYSinitThreading ( &threadParam ); 
 			SNDsynPlayerInit (&sys.coremem, &sndparam);
-			TRACinit (logmem, logsize);
+            TRACinit (sys.debugBuffer, sys.debugBufferSize);
             SYScheckHWRequirements ();
 
             SYSfastPrint(DEMOSbuildversion, (u8*)(SYSreadVideoBase()) + 160 * 192 + 152, 160, 4);
@@ -246,7 +244,7 @@ int main(int argc, char** argv)
 
 			SYSgemdosSetMode(sys.bakGemdos32);
 
-			free (corebuffer1);
+            free (sys.heapsBase);
 #			else
 			SYSreset ();
 #           endif

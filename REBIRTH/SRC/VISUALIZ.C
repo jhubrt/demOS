@@ -654,8 +654,9 @@ void VisualizerEntryFast (FSM* _fsm)
     HW_COLOR_LUT[1] = 0;
     HW_COLOR_LUT[2] = 0x444;
     HW_COLOR_LUT[3] = 0xFFF;
-
-    RASnextOpList = &g_screens.visualizer->rasterBootFunc;
+   
+    RASnextOpList     = &g_screens.visualizer->rasterBootOp;
+    SYSvblroutines[0] = g_screens.visualizer->rasterBootFunc;
 
     g_screens.visualizer->entryClientStep = snd.playerClientStep;
     g_screens.visualizer->displaysample = true;    
@@ -1439,7 +1440,7 @@ void VisualizerBacktask (FSM* _fsm)
         }
         SNDwaitClientStep(g_screens.visualizer->entryClientStep + 3);
         g_screens.visualizerIndex++;
-        RASnextOpList = NULL;
+        SYSvblroutines[0] = RASvbldonothing; 
         FSMgotoNextState (&g_stateMachine);
         ScreenWaitMainDonothing();
     }

@@ -753,7 +753,7 @@ static void SlidePointsGradientSequenceStartEnd(u16 _index, bool _end)
     for (t = 0 ; t < 16 ; t++)
     {
         s16 i;
-        u16* c = HW_COLOR_LUT + 1;
+        u16* c = (u16*) HW_COLOR_LUT + 1;
 
         SYSvsync;
         SYSvsync;
@@ -840,7 +840,7 @@ void SlidesBacktask (FSM* _fsm)
 
     for (t = 0 ; t < SLI_MORPHFRAMES ; t++)
     {
-        u16* c = HW_COLOR_LUT;
+        u16* c = (u16*) HW_COLOR_LUT;
 
         SYSvsync;
 
@@ -905,7 +905,9 @@ void SlidesBacktask (FSM* _fsm)
         }
 
         SYSvsync;
-        RASnextOpList = &g_screens.slides->rasterBootFunc;
+        
+        RASnextOpList = &g_screens.slides->rasterBootOp;
+        SYSvblroutines[0] = g_screens.slides->rasterBootFunc; 
 
         SYSwriteVideoBase((u32) g_screens.slides->framebuffers[0]);
 
@@ -968,8 +970,9 @@ void SlidesBacktask (FSM* _fsm)
         /* set colors to grey */
         SYSvsync;
         SYSwriteVideoBase((u32) g_screens.slides->framebuffers[1]);
+        SYSvblroutines[0] = RASvbldonothing; 
         RASnextOpList = NULL;
-
+ 
         SYSvsync;
         
         for (t = 0 ; t < 8 ; t++)
@@ -1034,7 +1037,7 @@ void SlidesBacktask (FSM* _fsm)
             {
                 SYSvsync;
 
-                c = HW_COLOR_LUT;
+                c = (u16*) HW_COLOR_LUT;
 
                 if ( t >= (SLI_MORPHFRAMES / 2 - 16 ) )
                 {
@@ -1079,7 +1082,7 @@ void SlidesBacktask (FSM* _fsm)
             {
                 SYSvsync;
 
-                c = HW_COLOR_LUT;
+                c = (u16*) HW_COLOR_LUT;
 
                 if ( t < (SLI_MORPHFRAMES / 2 + 16 ) )
                 {
@@ -1138,7 +1141,7 @@ void SlidesBacktask (FSM* _fsm)
     {
         snd.playerClientStep = STEP_SLIDES_STOPPED;
         SNDwaitDMALoop();
-        RASnextOpList = NULL;
+        SYSvblroutines[0] = RASvbldonothing; 
         FSMgotoNextState (&g_stateMachine);
         ScreenWaitMainDonothing();
     }

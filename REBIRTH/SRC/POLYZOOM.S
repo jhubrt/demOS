@@ -148,16 +148,12 @@ pzsetrasters:
 
 nbcolors: set 48
 
-	xref RASnextOpList
-
 	; a0 : rasterop buffer
 	; a1 : pal data
 	; d0 : miny
 	; d1 : maxy
 	
-	movem.l	d2-d4/a2-a3,-(sp)
-
-	move.l	a0,a2
+	movem.l	d2-d4/a3,-(sp)
 
 	move.w d1,d2		
 	sub.w  d0,d2        ; d2 = dy
@@ -167,8 +163,6 @@ nbcolors: set 48
 	swap	d3
 	sub.w	d3,d3
 	lsr.l	#7,d3
-
-	move.l	#RASvbl2,(a0)+
 
 	moveq.l	#3,d4		; d4 = firstline
 
@@ -262,9 +256,7 @@ pzsetrasters_noloop:
 	move.w	#255,(a0)+
 	clr.l	(a0)+	
 
-	move.l	a2,RASnextOpList
-
-	movem.l	(sp)+,d2-d4/a2-a3
+	movem.l	(sp)+,d2-d4/a3
 
 	rts
 

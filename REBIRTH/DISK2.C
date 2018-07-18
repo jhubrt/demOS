@@ -9,7 +9,7 @@ LOADdisk RSC_DISK2 =
     1,                            /* Prefered drive */
     NULL, 520UL * 1024UL,         /* Media preload */
     NULL,                         /* File preload table */
-    "DISK2.ST"                    /* Image filename */
+    "REBIRTH2.ST"                 /* Image filename */
 };
 
 #undef DISK2_C

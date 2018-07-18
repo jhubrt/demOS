@@ -26,12 +26,13 @@
 #include "DEMOSDK\RASTERS.H"
 
 #ifndef __TOS__
-void RASsetColReg (u16 _shortregaddress) {}
-void RASvbl1	  (void) {}
-void RASvbl2	  (void) {}
-void RAStop1	  (void) {}
-void RASmid1	  (void) {}
-void RASbot1	  (void) {}
+void RASsetColReg   (u16 _shortregaddress) {}
+void RASvbl1	    (void) {}
+void RASvbl2	    (void) {}
+void RAStop1	    (void) {}
+void RASmid1	    (void) {}
+void RASbot1	    (void) {}
+void RASvbldonothing(void) {}
 
 void* RASnextOpList = NULL;
 #endif

@@ -30,13 +30,9 @@
 	
 	opt 	o+
 
-    xdef    SNDsynMonitor
     xdef	SNDleftVolume,SNDrightVolume,SNDmasterVolume
     xdef    SNDplayNoise,SNDstopNoise,SNDsynTranspose
     
-*-------------------------------------------------------------------------
-SNDsynMonitor:
-    rts
 
 ;-------------------------------------------------------------------------
 ; void SNDsynTranspose (s8* _sourcesample, s8* _dest, u16 _destlen, u32 _inc)

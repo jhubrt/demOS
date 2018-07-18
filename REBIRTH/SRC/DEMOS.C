@@ -80,24 +80,24 @@
 #include "REBIRTH\DISK1.H"
 #include "REBIRTH\DISK2.H"
 
-static char* DEMOSbuildversion = "vB";
+static char* DEMOSbuildversion = "vC";
 
 static void DEMOSidleThread(void)
 {
 #	ifdef __TOS__
     STDcpuSetSR(0x2300);
-	while (true)
+    while (true)
 #	endif
-	{
-		FSMupdate (&g_stateMachineIdle);
-	}
+    {
+        FSMupdate (&g_stateMachineIdle);
+    }
 }
 
 #ifdef DEMOS_DEBUG
 static u16 DEMOStrace (void* _image, u16 _pitch, u16 _planePitch, u16 _y)
 {
     u16 y = _y;
-        
+
     y += FSMtrace (&g_stateMachine    , _image, _pitch, _planePitch, y);
     y += FSMtrace (&g_stateMachineIdle, _image, _pitch, _planePitch, y);
 
@@ -107,14 +107,14 @@ static u16 DEMOStrace (void* _image, u16 _pitch, u16 _planePitch, u16 _y)
 static u16 DEMOStraceversion (void* _image, u16 _pitch, u16 _planePitch, u16 _y)
 {
     SYSdebugPrint ( _image, _pitch, _planePitch, 30, _y, DEMOSbuildversion);
-    
+
     return _y + 8;
 }
 
 static void registerTraceServices(void)
 {
     TRACregisterDisplayService (SYStraceFPS,         1);   /* F1 */
-	TRACregisterDisplayService (SYStraceHW,		     2);   /* F2 */
+    TRACregisterDisplayService (SYStraceHW,		     2);   /* F2 */
     TRACregisterDisplayService (SYStraceAllocators,  4);   /* F3 */
     TRACregisterDisplayService (LOADtrace,           8);   /* F4 */
     TRACregisterDisplayService (SNDtrace,           16);   /* F5 */
@@ -124,155 +124,162 @@ static void registerTraceServices(void)
 #   endif
 
 
+#define demOS_COREHEAPSIZE      (264UL * 1024UL)
+#define demOS_HEAPSIZE          (700UL * 1024UL)
+#define demOS_PRELOADSIZE       (1024UL * 1024UL)
+
+
 int main(int argc, char** argv)
 {
     u8* base = (u8*) STDgetSP();
 
-	u32 coresize    = 264UL * 1024UL;
-	u32 size	    = 700UL * 1024UL;
-    u32 preloadsize = 1024UL * 1024UL;
- 
+    /*STD_unitTest();*/
 
-	/*STD_unitTest();*/
+    IGNORE_PARAM(argc);
+    IGNORE_PARAM(argv);
 
-	IGNORE_PARAM(argc);
-	IGNORE_PARAM(argv);
-
-	{
+    {
 #       if defined(DEMOS_OPTIMIZED) || defined(DEMOS_USES_BOOTSECTOR)
-        u8*   corebuffer    = base + 64;
+        sys.heapsBase = base + 64;
 #       else
-		u8*   corebuffer    = (u8*) malloc( EMULbufferSize(coresize + size) );
+        sys.heapsBase = (u8*) malloc( EMULbufferSize(demOS_COREHEAPSIZE + demOS_HEAPSIZE) );
 #       endif
-		u8*   buffer        = (u8*) EMULalignBuffer (corebuffer + coresize);
-        u8*   preloadbuffer = NULL;
 
 #       ifdef DEMOS_DEBUG
-        u32   logsize   = 65536UL;
+#           define demOS_LOGSIZE 65536UL
+
 #           ifdef __TOS__
-            void* logmem = (void*) 0x3A0000UL;
-            u8*   bufferend = corebuffer + coresize + size;
-            ASSERT(logmem >= bufferend);
+            sys.debugBuffer = (u8*) 0x3A0000UL;
+            ASSERT(sys.debugBuffer >= (sys.heapsBase + demOS_COREHEAPSIZE + demOS_HEAPSIZE));
 #           else
-            void* logmem = malloc(logsize);
+            sys.debugBuffer = (u8*) malloc(demOS_LOGSIZE);
 #           endif
+
+            sys.debugBufferSize = demOS_LOGSIZE;
 #       endif
 
 #       ifndef DEMOS_USES_BOOTSECTOR
-		sys.bakGemdos32 = SYSgemdosSetMode(NULL);
+        sys.bakGemdos32 = SYSgemdosSetMode(NULL);
 #       endif
 
         SYSinitPrint ();
+
+        ASSERT(sys.heapsBase != NULL);
+
         SYScheckHWRequirements ();
 
-        ASSERT(corebuffer != NULL);
         IGNORE_PARAM(base);
 
-		/* STDmset (buffer, 0, size); */
+        /* STDmset (buffer, 0, size); */
 
-		EMULinit (corebuffer, -1, -1, 0);
-  
-		FSMinit (&g_stateMachine	, states    , statesSize    , 0);
-		FSMinit (&g_stateMachineIdle, statesIdle, statesIdleSize, 0);
+        EMULinit (sys.heapsBase, -1, -1, 0);
 
-		/* RingAllocator_unitTest(); */
+        FSMinit (&g_stateMachine	, states    , statesSize    , 0);
+        FSMinit (&g_stateMachineIdle, statesIdle, statesIdleSize, 0);
 
-		{
-			SYSinitParam        param;
-            SYSinitThreadParam  threadParam;
+        /* RingAllocator_unitTest(); */
 
-			param.adr	     = buffer;
-			param.size	     = size;
-			param.coreAdr    = corebuffer;
-			param.coreSize   = coresize;
-			threadParam.idleThread = DEMOSidleThread;
-            threadParam.idleThreadStackSize = 1024;
-
-			SYSinit ( &param );
-            SYSinitHW ();
-            SYSinitThreading ( &threadParam );
-
-			SNDinit (&sys.coremem, 89008UL);
-
-#           ifdef DEMOS_LOAD_FROMHD
-            LOADpreloadMedia(&RSC_DISK1);
-            LOADpreloadMedia(&RSC_DISK2);
-#           endif
-
-            LOADinit (&RSC_DISK1, RSC_DISK1_NBENTRIES, RSC_DISK1_NBMETADATA);
-            if (sys.has2Drives)
-            {
-                LOADinitFAT (1, &RSC_DISK2, RSC_DISK2_NBENTRIES, RSC_DISK2_NBMETADATA);
-            }
-			TRACinit (logmem, logsize);
-
-            SYSfastPrint(DEMOSbuildversion, (u8*)(SYSreadVideoBase()) + 160 * 192 + 152, 160, 4);
-
-#           ifdef DEMOS_DEBUG
-            registerTraceServices();
-#           endif
-
-			/* BIT_unitTest(); */
-		}
-
-        if ( sys.has2Drives == false )
         {
-#           if defined(DEMOS_OPTIMIZED) || defined(DEMOS_USES_BOOTSECTOR)
-            preloadbuffer = buffer + size;
-#           else
-            preloadbuffer = (u8*) malloc( EMULbufferSize(preloadsize) );
-#           endif
-        }
-
-		ScreensInit (preloadbuffer, preloadsize);		
-		{
-			u16* color = HW_COLOR_LUT;
-
-			do
-			{
-				SYSswitchIdle();
-
-				/* no need to vsync here as main thread context is reset by idle thread switch */
-    			SYSbeginFrameNum = SYSvblLcount;
-				
-				SYSkbAcquire;
-				
-				FSMupdate (&g_stateMachine);
-
-				snd.playerContext = playTrack ();
-
-#               if !defined(DEMOS_OPTIMIZED)
-				TRACdisplay((u16*)(((u32)*HW_VIDEO_BASE_H << 16) | ((u32)*HW_VIDEO_BASE_M << 8) | ((u32)*HW_VIDEO_BASE_L)) + 1);
-
-				if ( SYSkbHit )
-				{
-					TRACmanage(sys.key);
-                    SYSkbReset();					
-				}
-
-				EMULrender();
-#               endif
-			}
-			while( sys.key != (HW_KEY_SPACEBAR | HW_KEYBOARD_KEYRELEASE) );
-
-#           if !defined(DEMOS_OPTIMIZED) && !defined(DEMOS_USES_BOOTSECTOR)	
-			*color = -1;
-
-			SNDshutdown (&sys.coremem);
-			SYSshutdown ();
-
-			SYSgemdosSetMode(sys.bakGemdos32);
-
-            if (preloadbuffer != NULL)
+            u8* preloadbuffer = NULL;
             {
-                free(preloadbuffer);
-            }
-			free (corebuffer);
-#			else
-			SYSreset ();
-#           endif
-		}
-	}
+                SYSinitParam        param;
+                SYSinitThreadParam  threadParam;
 
-	return 0;
+                param.adr	     = (u8*) EMULalignBuffer (sys.heapsBase + demOS_COREHEAPSIZE);
+                param.size	     = demOS_HEAPSIZE;
+                param.coreAdr    = sys.heapsBase;
+                param.coreSize   = demOS_COREHEAPSIZE;
+
+                threadParam.idleThread          = DEMOSidleThread;
+                threadParam.idleThreadStackSize = 1024;
+
+                SYSinit ( &param );
+                SYSinitHW ();
+
+                SYSinitThreading ( &threadParam );
+
+                SNDinit (&sys.coremem, 89008UL, 1);
+
+#               ifdef DEMOS_LOAD_FROMHD
+                LOADpreloadMedia(&RSC_DISK1);
+                LOADpreloadMedia(&RSC_DISK2);
+#               endif
+
+                LOADinit (&RSC_DISK1, RSC_DISK1_NBENTRIES, RSC_DISK1_NBMETADATA);
+                if (sys.has2Drives)
+                {
+                    LOADinitFAT (1, &RSC_DISK2, RSC_DISK2_NBENTRIES, RSC_DISK2_NBMETADATA);
+                }
+                TRACinit (sys.debugBuffer, sys.debugBufferSize);
+
+                SYSfastPrint(DEMOSbuildversion, (u8*)(SYSreadVideoBase()) + 160 * 192 + 152, 160, 4);
+
+#               ifdef DEMOS_DEBUG
+                registerTraceServices();
+#               endif
+
+                /* BIT_unitTest(); */
+            }
+
+            if ( sys.has2Drives == false )
+            {
+#               if defined(DEMOS_OPTIMIZED) || defined(DEMOS_USES_BOOTSECTOR)
+                preloadbuffer = sys.heapsBase + demOS_COREHEAPSIZE + demOS_HEAPSIZE;
+#               else
+                preloadbuffer = (u8*) malloc( EMULbufferSize(demOS_PRELOADSIZE) );
+#               endif
+            }
+
+            ScreensInit (preloadbuffer, demOS_PRELOADSIZE);		
+            {
+                volatile u16* color = HW_COLOR_LUT;
+
+                do
+                {
+                    SYSswitchIdle();
+
+                    /* no need to vsync here as main thread context is reset by idle thread switch */
+                    SYSbeginFrameNum = SYSvblLcount;
+
+                    SYSkbAcquire;
+
+                    FSMupdate (&g_stateMachine);
+
+                    snd.playerContext = playTrack ();
+
+#                   if !defined(DEMOS_OPTIMIZED)
+                    TRACdisplay((u16*)(((u32)*HW_VIDEO_BASE_H << 16) | ((u32)*HW_VIDEO_BASE_M << 8) | ((u32)*HW_VIDEO_BASE_L)) + 1);
+
+                    if ( SYSkbHit )
+                    {
+                        TRACmanage(sys.key);
+                        SYSkbReset();					
+                    }
+
+                    EMULrender();
+#                   endif
+                }
+                while( sys.key != (HW_KEY_SPACEBAR | HW_KEYBOARD_KEYRELEASE) );
+
+#               if !defined(DEMOS_OPTIMIZED) && !defined(DEMOS_USES_BOOTSECTOR)	
+                *color = -1;
+
+                SNDshutdown (&sys.coremem);
+                SYSshutdown ();
+
+                SYSgemdosSetMode(sys.bakGemdos32);
+
+                if (preloadbuffer != NULL)
+                {
+                    free(preloadbuffer);
+                }
+                free (sys.heapsBase);
+#			    else
+                SYSreset ();
+#               endif
+            }
+        }
+    }
+
+    return 0;
 }

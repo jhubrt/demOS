@@ -35,6 +35,7 @@
 	xdef	RASsetColReg
 	xdef	RASvbl1,RASvbl2,RAStop1,RASmid1,RASbot1
 	xdef	RASnextOpList
+    xdef    RASvbldonothing
 
 RASsetColReg:
 	move.w	d0,RAStop1_automod+2			* set the color register address that will be affected
@@ -51,11 +52,20 @@ RASsetColReg:
 	* [.l]	next raster routine
 	* -----------------------------------------
 RASvbl1:
-	move.w	(a0)+,$ffff8240.w
-	move.w	(a0)+,$fffffa20.w
-	move.l	(a0)+,$120.w
-	move.l	a0,usp
-	rts
+    and.b	#$FE,$fffffa07.w			; disable timer B
+	clr.b	$fffffa1b.w    
+
+    move.l  RASnextOpList(pc),a1
+	move.w	(a1)+,$ffff8240.w
+	move.w	(a1)+,$fffffa20.w
+	move.l	(a1)+,$120.w
+	move.l	a1,usp
+
+	or.b	#1,$fffffa07.w
+	move.b	#8,$fffffa1b.w
+
+    move.l  (a0)+,a1
+    jmp     (a1)
 
 	* -----------------------------------------
 	* OpList for VBL routine
@@ -65,13 +75,23 @@ RASvbl1:
 	* [.l]	next raster routine
 	* -----------------------------------------
 RASvbl2:
-	move.w	(a0)+,$ffff8240.w
+    and.b	#$FE,$fffffa07.w			; disable timer B
+	clr.b	$fffffa1b.w
+    
+    move.l  RASnextOpList(pc),a1
+
+	move.w	(a1)+,$ffff8240.w
 RASvbl2_automod:
-	move.w	(a0)+,$ffff8242.w
-	move.w	(a0)+,$fffffa20.w
-	move.l	(a0)+,$120.w
-	move.l	a0,usp
-	rts
+	move.w	(a1)+,$ffff8242.w
+	move.w	(a1)+,$fffffa20.w
+	move.l	(a1)+,$120.w
+	move.l	a1,usp
+
+	or.b	#1,$fffffa07.w
+	move.b	#8,$fffffa1b.w
+
+    move.l  (a0)+,a1
+    jmp     (a1)
 
 	* -----------------------------------------
 	* OpList for RAStop1
@@ -138,7 +158,14 @@ RASbot1_automod:
 	move.l	(sp)+,a0
 	rte
 
+RASvbldonothing:
+	
+    and.b	#$FE,$fffffa07.w			; disable timer B
+	clr.b	$fffffa1b.w
+
+    move.l  (a0)+,a1
+    jmp     (a1)
+
 RASnextOpList:	dc.l	0
-RASopList:		dc.l	0
 
 	END

@@ -144,7 +144,7 @@ static void SCRfade2black (FSM* _fsm)
 
     STDmset (black, 0, sizeof(black));
    
-    COLcomputeGradient (HW_COLOR_LUT, black, 16, 16, &gradient[0][0]);
+    COLcomputeGradient ((u16*)HW_COLOR_LUT, black, 16, 16, &gradient[0][0]);
 
 	SNDwaitClientStep (STEP_SOUNDTRACK_STARTED);
 
@@ -381,6 +381,8 @@ void ScreenWaitMainDonothing (void)
 
 void ScreensInit (void* _preload, u32 _preloadsize)
 {
+    SYSvblroutines[0] = RASvbldonothing;
+
     STDmset (&g_screens, 0, sizeof(g_screens));
     snd.syncWithSoundtrack = statesSize >= 20;
 

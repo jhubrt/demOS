@@ -34,12 +34,18 @@ u16	SYSbeginFrameNum = 0;
 
 #ifdef __TOS__
 u32* SYSdetectEmu (void);
+extern SYSinterupt SYSvblroutines[SYS_NBMAX_VBLROUTINES];
+void SYSvblroutines_end (void);
 #else
 
+SYSinterupt  SYSvblroutines[SYS_NBMAX_VBLROUTINES];
+void*        SYSvblroutines_end = (void*) 0x1234;
 volatile u32 SYSvblcount;
 volatile u16 SYSvblLcount;
-void* SYSsoundtrackUpdate;
+
 static SYSthread SYSidleThread = NULL;
+
+void SYSvbldonothing (void) {}
 
 u32* SYSdetectEmu (void)
 {
@@ -191,8 +197,6 @@ void SYSdebugPrint(void* _screen, u16 _screenPitch, u16 _bitplanPitchShift, u16 
 #endif
 
 
-ASMIMPORT u32 SYSOSVBL;		/* this vector allow to re-root old vbl interrupt from DEMOS DK vbl (used in DEMOS_ALLOW_DEBUGGER mode only) */
-
 void  SYSvblinterrupt   (void)       PCSTUB;
 void* SYSgemdosSetMode  (void* _adr) PCSTUBRET;
 void  SYSemptyKb        (void)       PCSTUB;
@@ -341,15 +345,10 @@ void SYSinitHW (void)
 
 	STDcpuSetSR(0x2700);
 
-#	ifdef DEMOS_ALLOW_DEBUGGER
-	SYSOSVBL = sys.bakvbl;
-#	else
 	*HW_MFP_INTERRUPT_ENABLE_A = 0;
 	*HW_MFP_INTERRUPT_ENABLE_B = 0;
 	
 /*	SYS_tune(); */
-
-#	endif
 
 	*HW_MICROWIRE_MASK = 0x7FF;
 	*HW_VECTOR_VBL = (u32) SYSvblinterrupt;
@@ -371,7 +370,7 @@ void SYSinitThreading(SYSinitThreadParam* _param)
 {
     sys.idleThreadStackBase = (u8*) RINGallocatorAlloc ( &sys.coremem, _param->idleThreadStackSize );
     ASSERT(sys.idleThreadStackBase != NULL);
-
+    
 #	ifdef __TOS__
     if ( SYSsetIdlethread (sys.idleThreadStackBase, sys.idleThreadStackBase + _param->idleThreadStackSize) )
     {

@@ -393,6 +393,7 @@ void CybervectorEntry (FSM* _fsm)
     SNDwaitDMALoop();
 
     SYSvsync;
+    SYSvblroutines[0] = RASvbldonothing;
 
 	FSMgotoNextState (&g_stateMachineIdle);
 	FSMgotoNextState (&g_stateMachine);
@@ -616,10 +617,6 @@ void pzsetrasters(void* _rasteropbuf, void* _pal, s16 _miny, s16 _maxy)
 
 	u32 inc = ((NBCOLORS-3) << 16) / dy;	    /* *2 because we put a raster every 2 scanlines */
 
-
-	*((RASinterupt*)p) = RASvbl2;
-	p += sizeof(RASinterupt);
-
 	firstline = 3;
 
 	if (_miny < 0)
@@ -717,9 +714,6 @@ void pzsetrasters(void* _rasteropbuf, void* _pal, s16 _miny, s16 _maxy)
 	}
 
 	/* printf ("%d %d %d %d %f %d\n", _miny, _maxy, firstline, dy, (float)inc / 256.0f, (-NBCOLORS * _miny) / dy); */
-
-	RASnextOpList = _rasteropbuf;
-
     (*HW_COLOR_LUT) = 0;
     STDmset (&HW_COLOR_LUT[1], 0x07000700UL, 30);
 }
@@ -731,6 +725,7 @@ void CybervectorActivity (FSM* _fsm)
 	s16 miny, maxy;
 	void* image = g_screens.cybervector->framebuffers[g_screens.cybervector->flipbuffer];
     u16 vblcount = SYSvblLcount;        /* I really dont get why it does not work with SYSbeginFrameNum... */
+    void* rasterop;
 
 	g_screens.cybervector->flipbuffer++;
 	if (g_screens.cybervector->flipbuffer == 3)
@@ -745,7 +740,10 @@ void CybervectorActivity (FSM* _fsm)
 		
 	g_screens.cybervector->displistp = (u16*) pzloop (image, g_screens.cybervector->displistp, ARRAYSIZE(fileoffsets));
 
-	pzsetrasters(g_screens.cybervector->rastersop[g_screens.cybervector->fliprasterop], g_screens.cybervector->pal, miny, maxy);
+    rasterop = g_screens.cybervector->rastersop[g_screens.cybervector->fliprasterop];
+	pzsetrasters(rasterop, g_screens.cybervector->pal, miny, maxy);
+    RASnextOpList = rasterop;
+    SYSvblroutines[0] = RASvbl2;
 
 	g_screens.cybervector->fliprasterop ^= 1;
 
@@ -868,7 +866,7 @@ void CybervectorBacktask (FSM* _fsm)
     else
     {
         snd.playerClientStep = STEP_POLYZOOM_STOP;
-        RASnextOpList = NULL;               
+        SYSvblroutines[0] = RASvbldonothing;
         FSMgotoNextState (&g_stateMachine);
         ScreenWaitMainDonothing();
     }
@@ -878,6 +876,8 @@ void CybervectorBacktask (FSM* _fsm)
 void CybervectorExit (FSM* _fsm)
 {
 	IGNORE_PARAM(_fsm);
+
+    SYSvblroutines[0] = RASvbldonothing;
 
 	RINGallocatorFree (&sys.mem, g_screens.cybervector->framebuffers[0]);
 	RINGallocatorFree (&sys.mem, g_screens.cybervector->rastersop[0]);

@@ -32,10 +32,9 @@
 	opt 	o+
 
     ; exports
-    xdef    SYSsoundtrackUpdate
     xdef    SYSdetectEmu,SYSlockIdle,SYSlockMain,SYSreadVideoBase,SYSwriteVideoBase,SYSvidCountRead,SYSemptyKb
 
-	xdef	SYSvblinterrupt,SYSvblcount,SYSvblLcount,SYSOSVBL
+	xdef	SYSvblinterrupt,SYSvblcount,SYSvblLcount,SYSvblroutines,SYSvbldonothing;
 	xdef	SYSsetIdlethread,SYSswitchIdle
     xdef    SYSgemdosSetMode,SYSmalloc,SYSreset
     xdef    SYSinitDbgBreak,SYSdbgBreak
@@ -44,7 +43,6 @@
     xdef    SYSwmovep,SYSlmovep
 
     ; imports
-	xref	RASnextOpList
     xref    LOADdeconnectAndStartRequest,LOADtoggleDriveStartRequest
 
 
@@ -358,6 +356,10 @@ SYSswitchIdle:
 
 	rte									; trick: use rte instead of rts while we were called by bsr
 
+SYSvbldonothing:
+    move.l  (a0)+,a1
+    jmp     (a1)
+
 *-------------------------------------------------------------------------
 * Interupt routines
 *-------------------------------------------------------------------------
@@ -365,8 +367,35 @@ SYSswitchIdle:
 SYSvblinterrupt:
 	move.w	#$2700,sr					; blocks all interupts => will be restored by rte
 
-	and.b	#$FE,$fffffa07.w			; disable timer B
-	clr.b	$fffffa1b.w
+	move.l	d0,-(sp)
+    move.l  a0,-(sp)
+    move.l  a1,-(sp)
+
+    lea     SYSvblroutines(pc),a0
+    move.l  (a0)+,a1
+    jmp     (a1)
+
+SYSvblroutines_end:
+
+	* -------------------- floppy management -------------------------
+
+    move.l  LOADdeconnectAndStartRequest(pc),a0
+    move.l  a0,d0
+    beq.s   SYSvblinterrupt_nodrivedeselect
+
+	move.w	#$80,$FFFF8606.w			; select FDC register control
+    move.w  $FFFF8604.w,d0              ; get FDC status register
+    btst    #7,d0
+    bne.s   SYSvblinterrupt_nodrivedeselect
+
+    clr.l   LOADdeconnectAndStartRequest
+    bsr     LOADtoggleDriveStartRequest
+
+SYSvblinterrupt_nodrivedeselect:
+
+    move.l  (sp)+,a1
+    move.l  (sp)+,a0
+	move.l	(sp)+,d0
 
 	* -------------------- idle thread management ------------------------
 
@@ -385,68 +414,19 @@ SYSvblinterrupt:
 	movem.l	(sp)+,d0-d7/a0-a6
 
 donotswitchthread:
-
-	move.l	d0,-(sp)
-	move.l	a0,-(sp)
-    move.l	a1,-(sp)
-	
-	* -------------------- rasters start management ----------------------
-
-	move.l	RASnextOpList(pc),a0
-	move.l	a0,d0
-	beq.s	SYSvblinterrupt_noraster
-
-	move.l	(a0)+,a1
-	jsr		(a1)
-
-	or.b	#1,$fffffa07.w
-	move.b	#8,$fffffa1b.w
-
-SYSvblinterrupt_noraster:
-
-	* -------------------- soundtrack management -------------------------
-
-    move.l  SYSsoundtrackUpdate(pc),d0
-    beq.s   SYSvblinterrupt_nosoundtrack
-    move.l  d0,a0
-	jsr		(a0)
-
-SYSvblinterrupt_nosoundtrack:
-
-    move.l  LOADdeconnectAndStartRequest(pc),a0
-    move.l  a0,d0
-    beq.s   SYSvblinterrupt_nodrivedeselect
-
-	move.w	#$80,$FFFF8606.w			; select FDC register control
-    move.w  $FFFF8604.w,d0              ; get FDC status register
-    btst    #7,d0
-    bne.s   SYSvblinterrupt_nodrivedeselect
-
-    clr.l   LOADdeconnectAndStartRequest
-    bsr     LOADtoggleDriveStartRequest
-
-SYSvblinterrupt_nodrivedeselect:
-
-	move.l	(sp)+,a1
-	move.l	(sp)+,a0
-	move.l	(sp)+,d0
 	
 	addq.l	#1,SYSvblcount
 
-	tst.w	SYSOSVBL+2					; debug feature: call TOS vbl routine when running into support debugger mode
-	beq.s	endvbl
-
-	move.l	SYSOSVBL(pc),automodjmp+2	
-	nop
-automodjmp:
-	jmp		SYSOSVBL
-
-endvbl:
 	rte
 
 
-SYSsoundtrackUpdate:
-    dc.l    0
+SYSvblroutines:
+    dc.l    SYSvblroutines_end 
+    dc.l    SYSvblroutines_end 
+    dc.l    SYSvblroutines_end 
+    dc.l    SYSvblroutines_end 
+    dc.l    SYSvblroutines_end 
+    dc.l    SYSvblroutines_end 
 
 SYSemuDescriptor:
     dc.l    0
@@ -457,9 +437,6 @@ SYSvblcount:
 	dc.w	0
 SYSvblLcount:
 	dc.w	0
-
-SYSOSVBL:
-	dc.l	0
 
 mainthreadcontext:
 	dc.l	0		; current sp backup

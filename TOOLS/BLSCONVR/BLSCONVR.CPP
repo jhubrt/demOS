@@ -1057,9 +1057,9 @@ void Sndtrack::ConvertToBlitSoundtrack_Patterns (BLSsoundTrack* sndtrack)
 
                     case 9:
                         {
-                            u16 volume = (sc.m_fx_m << 12) + (sc.m_fx_l << 8);
+                            u16 offset = (sc.m_fx_m << 12) + (sc.m_fx_l << 8);
                             dc.fx = BLSfx_SETSAMPLEOFFSET;
-                            *(u16*)&dc.value = PCENDIANSWAP16(volume);
+                            *(u16*)&dc.value = PCENDIANSWAP16(offset);
                         }
                         break;
 

@@ -109,6 +109,8 @@ static void DEMOSidleThread(void)
     }
 }
 
+#define demOS_COREHEAPSIZE (64UL  * 1024UL)
+
 
 int main(int argc, char** argv)
 {
@@ -117,11 +119,7 @@ int main(int argc, char** argv)
     sys.bakGemdos32 = SYSgemdosSetMode(NULL);
 
     {
-        u32   coresize  = 64UL  * 1024UL;
         u32   size;
-        u8*   corebuffer1;
-        u8*   corebuffer;
-        void* buffer;
         u32   screenadr;
         u16   colors[16];
         u8    mode;
@@ -132,7 +130,7 @@ int main(int argc, char** argv)
             size_t maxsize = (u32) SYSmalloc(-1UL) - 12000UL;
 
             printf ("free mem= %lu bytes\n", maxsize);
-            size = maxsize - coresize;
+            size = maxsize - demOS_COREHEAPSIZE;
         }
 #       else
         size = 15 * 1024 * 1024;
@@ -140,19 +138,17 @@ int main(int argc, char** argv)
 
         SYSinitPrint ();
 
-        corebuffer1 = (u8*) malloc( EMULbufferSize(coresize + size) );
-        corebuffer  = (u8*) EMULalignBuffer (corebuffer1);
-        ASSERT(corebuffer != NULL);
-        EMULinit (corebuffer1, 660, 220, 0);
-        buffer      = corebuffer + coresize;
+        sys.heapsBase = (u8*) malloc( EMULbufferSize(demOS_COREHEAPSIZE + size) );
+        ASSERT(sys.heapsBase != NULL);
+        EMULinit (sys.heapsBase, 660, 220, 0);
 
         {
             SYSinitParam sysparam;
 
-            sysparam.adr	     = buffer;
+            sysparam.adr	     = (u8*) EMULalignBuffer ((sys.heapsBase + demOS_COREHEAPSIZE));
             sysparam.size	     = size;
-            sysparam.coreAdr     = corebuffer;
-            sysparam.coreSize    = coresize;
+            sysparam.coreAdr     = sys.heapsBase;
+            sysparam.coreSize    = demOS_COREHEAPSIZE;
 
             SYSinit ( &sysparam );
         }
@@ -231,7 +227,7 @@ int main(int argc, char** argv)
         STDmcpy (HW_COLOR_LUT, colors, 32);
         SYSwriteVideoBase (screenadr);
 
-        free (corebuffer1);
+        free (sys.heapsBase);
     }
 
     SYSgemdosSetMode(sys.bakGemdos32);

@@ -174,7 +174,8 @@ void FugitEntry (FSM* _fsm)
 
     RASsetColReg(0x8242);
 
-    g_screens.fugit->rasters[0].bootFunc                      = RASvbl1;
+    g_screens.fugit->bootFunc = RASvbl1;
+
     g_screens.fugit->rasters[0].bootOp.scanLinesTo1stInterupt = FUG_FIRST_SCANLINE;
     g_screens.fugit->rasters[0].bootOp.backgroundColor        = 0;
     g_screens.fugit->rasters[0].bootOp.nextRasterRoutine      = RAStop1;
@@ -207,7 +208,9 @@ void FugitEntry (FSM* _fsm)
 
 void FugitActivity (FSM* _fsm)
 {
-    RASnextOpList = &g_screens.fugit->rasters[g_screens.fugit->currentrasterbuffer].bootFunc;
+    RASnextOpList = &g_screens.fugit->rasters[g_screens.fugit->currentrasterbuffer];
+    SYSvblroutines[0] = g_screens.fugit->bootFunc;
+
     g_screens.fugit->currentrasterbuffer ^= 1;
 
     if (g_screens.fugit->currentdeltabuffer != NULL)
@@ -279,7 +282,7 @@ void FugitExit (FSM* _fsm)
 {
     IGNORE_PARAM(_fsm);
 
-    RASnextOpList = NULL;
+    SYSvblroutines[0] = RASvbldonothing;
 
     RINGallocatorFree ( &sys.mem, g_screens.fugit->auxbuffer );    
     RINGallocatorFree ( &sys.mem, g_screens.fugit->deltapacked );

@@ -34,7 +34,6 @@ void FugitBacktask  (FSM* _fsm);
 
 STRUCT(FugitRasters)
 {
-    RASinterupt     bootFunc;
 	RASopVbl1	    bootOp;
     RASopTop1	    topOp;
     u16             colors[97];
@@ -58,6 +57,7 @@ STRUCT(Fugit)
 
     volatile u8* currentdeltabuffer;
 
+    RASinterupt  bootFunc;
     FugitRasters rasters[2];
 };
 

@@ -40,12 +40,13 @@
 #include "DEMOSDK\BASTYPES.H"
 
 
-void RASsetColReg (u16 _shortregaddress);
-void RASvbl1	  (void);
-void RASvbl2	  (void);
-void RAStop1	  (void);
-void RASmid1	  (void);
-void RASbot1	  (void);
+void RASsetColReg   (u16 _shortregaddress);
+void RASvbl1	    (void);
+void RASvbl2	    (void);
+void RAStop1	    (void);
+void RASmid1	    (void);
+void RASbot1	    (void);
+void RASvbldonothing(void);
 
 #ifndef RASTERS_C
 extern void* RASnextOpList;

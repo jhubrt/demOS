@@ -50,6 +50,10 @@
 #include "DEMOSDK\BASTYPES.H"
 #include "DEMOSDK\ALLOC.H"
 
+#define SYS_NBMAX_VBLROUTINES 5
+
+typedef void(*SYSinterupt)(void);
+
 enum SYSemulator_
 {
     SYSemulator_NOTDETECTED,
@@ -65,6 +69,9 @@ STRUCT(SYScore)
 	RINGallocator	mem;
 	void*			bakGemdos32;
 	void*			bakUSP;
+    u8*             heapsBase;        
+    u8*             debugBuffer;
+    u32             debugBufferSize;
 	u8				bakvideoMode;
 	u8				bakmfpInterruptEnableA;
 	u8				bakmfpInterruptMaskA;
@@ -112,9 +119,9 @@ STRUCT(SYSinitParam)
 };
 
 #ifndef SYSTEM_C
-	extern SYScore sys;
-	extern u16	   SYSbeginFrameNum;
-
+	extern SYScore      sys;
+	extern u16	        SYSbeginFrameNum;
+    extern SYSinterupt  SYSvblroutines[SYS_NBMAX_VBLROUTINES];
 #endif
 
 void SYSinitPrint           (void);
@@ -126,10 +133,10 @@ void SYSvsync		        (void);
 void SYScheckHWRequirements (void);
 bool SYSgetCookie           (u32 _id, u32* _value);
 void SYSdbgBreak            (void);
+void SYSvbldonothing        (void); 
 
 extern volatile u32	SYSvblcount;
 extern volatile u16	SYSvblLcount;
-extern void*        SYSsoundtrackUpdate;
 
 #ifdef __TOS__
 #	define SYSvsync {	u16 currentvblcount = SYSvblLcount; while (SYSvblLcount == currentvblcount); }

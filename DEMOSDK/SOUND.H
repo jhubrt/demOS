@@ -109,7 +109,7 @@ extern u8 SNDchannelVolume[];
 #define SND_RESTART							return 0;
 #define SND_WAIT_CLIENTSTEP(COUNT)          case __LINE__: if (( snd.playerClientStep < COUNT ) && snd.syncWithSoundtrack ) return __LINE__;
 
-void SNDinit        (RINGallocator* _allocator, u32 _sampleLen);
+void SNDinit        (RINGallocator* _allocator, u32 _sampleLen, u16 _routineindex);
 void SNDshutdown    (RINGallocator* _allocator);
 void SNDcopySample  (u8* _source, u8* _dest, u32 _length);
 void SNDwaitDMALoop (void);
