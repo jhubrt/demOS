@@ -401,18 +401,18 @@ extern "C" void EMULrender ()
         height = 400;
         break;
     case HW_VIDEO_MODE_2P:
-        BITfromChunk2PTo8b (adr, 160, NULL, g_miniEmul.image, 640, 200, 640);
-        width  = 640;
+        BITfromChunk2PTo8b (adr, 160 + (steaddpixels >> 1), NULL, g_miniEmul.image, 640, 200, 640);
+        width  = 640 + steaddpixels;
         height = 200;
         break;
     case HW_VIDEO_MODE_4P:
     	BITfromChunk4PTo8b (adr, 160 + (steaddpixels >> 1), NULL, g_miniEmul.image, 320 + steaddpixels, 200, 640);
-        width  = 320;
+        width  = 320 + steaddpixels;
         height = 200;
         break;
     }
 
-    WINdrawImage (g_miniEmul.w, g_miniEmul.image, width, height, 8, (u8*) g_miniEmul.imagelut, (g_miniEmul.width - width) / 2, (g_miniEmul.height - height) / 2);
+    WINdrawImage (g_miniEmul.w, g_miniEmul.image, 640, 400, 8, (u8*) g_miniEmul.imagelut, (g_miniEmul.width - width) / 2, (g_miniEmul.height - height) / 2);
 	WINrender (g_miniEmul.w);
    
     {
