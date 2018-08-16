@@ -105,11 +105,11 @@ void main (int argc, char* argv)
 {
 	bool result;
 
-	result = writeST ("REBIRTH1", 10, 2, 82, g_disk1, 0, argc <= 2);	
+	result = writeST ("DISK1", 10, 2, 82, g_disk1, 0, argc <= 2);	
 
     if ( result )
     {
-	    result = writeST ("REBIRTH2", 10, 2, 82, g_disk2, 1, argc <= 1);
+	    result = writeST ("DISK2", 10, 2, 82, g_disk2, 1, argc <= 1);
     }
 
     if (result == false)

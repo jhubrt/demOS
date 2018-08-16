@@ -138,20 +138,16 @@ int main(int argc, char** argv)
 
         SYSinitPrint ();
 
-        sys.heapsBase = (u8*) malloc( EMULbufferSize(demOS_COREHEAPSIZE + size) );
-        ASSERT(sys.heapsBase != NULL);
-        EMULinit (sys.heapsBase, 660, 220, 0);
+        sys.membase = (u8*) malloc( EMULbufferSize(demOS_COREHEAPSIZE + size) );
+        ASSERT(sys.membase != NULL);
+        EMULinit (sys.membase, 660, 220, 0);
 
-        {
-            SYSinitParam sysparam;
+        sys.coreHeapbase = EMULalignBuffer(sys.membase);
+        sys.coreHeapsize = demOS_COREHEAPSIZE;
+        sys.mainHeapbase = sys.coreHeapbase + demOS_COREHEAPSIZE;
+        sys.mainHeapsize = size;
 
-            sysparam.adr	     = (u8*) EMULalignBuffer ((sys.heapsBase + demOS_COREHEAPSIZE));
-            sysparam.size	     = size;
-            sysparam.coreAdr     = sys.heapsBase;
-            sysparam.coreSize    = demOS_COREHEAPSIZE;
-
-            SYSinit ( &sysparam );
-        }
+        SYSinit ();
 
         screenadr = SYSreadVideoBase();
         mode      = *HW_VIDEO_MODE;
@@ -227,7 +223,7 @@ int main(int argc, char** argv)
         STDmcpy (HW_COLOR_LUT, colors, 32);
         SYSwriteVideoBase (screenadr);
 
-        free (sys.heapsBase);
+        free (sys.membase);
     }
 
     SYSgemdosSetMode(sys.bakGemdos32);

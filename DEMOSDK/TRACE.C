@@ -20,6 +20,7 @@
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 -------------------------------------------------------------------------------------------------*/
 
+#define TRACE_C
 
 #include "DEMOSDK\BASTYPES.H"
 #include "DEMOSDK\STANDARD.H"
@@ -58,21 +59,20 @@ STRUCT(trac_DisplayParam)
 static trac_DisplayParam trac_displayParam;
 static trac_DisplayParam trac_displayParamLast;
 
-STRUCT(trac_Logger)
+STRUCT(TRACloggerState)
 {
-    u8*     m_logmem;
-    u32     m_logmemsize;
-    u32     m_current;
-    bool    m_haslooped;
+    u32     current;
+    bool    haslooped;
 };
 
-static trac_Logger trac_logger = {NULL, 0, 0, false};
+TRAClogger              tracLogger      = {NULL, 0};
+static TRACloggerState  tracLoggerState = {0, false};
 
 #ifndef __TOS__
 u16 TRAmaxraster (u16 maxraster) { return 0; }
 #endif
 
-void TRACinit (void* _logmem, u32 _logmemsize)
+void TRACinit (void)
 {
 	trac_displayParam.h			 = 0;
 	trac_displayParam.pitch		 = 160;
@@ -84,14 +84,12 @@ void TRACinit (void* _logmem, u32 _logmemsize)
 
     STDmset (g_displayServices, 0, sizeof(g_displayServices));
 
-    trac_logger.m_logmem     = (u8*) _logmem;
-    trac_logger.m_logmemsize = _logmemsize;
-    STDmset(_logmem, 0UL, _logmemsize);
+    STDmset(tracLogger.logbase, 0UL, tracLogger.logSize);
 }
 
 void TRAClog (char* _str, char _separator)
 {
-    u8* p = trac_logger.m_logmem + trac_logger.m_current;
+    u8* p = tracLogger.logbase + tracLoggerState.current;
 
 #   if TRAC_KEEPLASTLOG
     {
@@ -99,32 +97,32 @@ void TRAClog (char* _str, char _separator)
         {
             *p++ = *_str++;
 
-            trac_logger.m_current++;
+            tracLoggerState.current++;
 
-            if (trac_logger.m_current >= trac_logger.m_logmemsize)
+            if (tracLoggerState.current >= tracLogger.logSize)
             {
-                trac_logger.m_current = 0;
-                trac_logger.m_haslooped = true;
+                tracLoggerState.current = 0;
+                tracLoggerState.haslooped = true;
             }
         }
 
         if (_separator)
         {
             *p++ = _separator;
-            trac_logger.m_current++;
+            tracLoggerState.current++;
         }
 
-        if (trac_logger.m_current >= trac_logger.m_logmemsize)
+        if (tracLoggerState.current >= tracLogger.logSize)
         {
-            trac_logger.m_current = 0;
-            trac_logger.m_haslooped = true;
+            tracLoggerState.current = 0;
+            tracLoggerState.haslooped = true;
         }
     }
 #   else
     {
         while (*_str != 0)
         {
-            if (trac_logger.m_current < trac_logger.m_logmemsize)
+            if (trac_logger.m_current < trac_logger.m_logSize)
             {
                 trac_logger.m_current++;
                 *p++ = *_str++;
@@ -135,7 +133,7 @@ void TRAClog (char* _str, char _separator)
             }
         }
 
-        if (trac_logger.m_current < trac_logger.m_logmemsize)
+        if (trac_logger.m_current < trac_logger.m_logSize)
         {
             if (_separator)
             {
@@ -150,10 +148,10 @@ void TRAClog (char* _str, char _separator)
 
 void TRAClogClear()
 {
-    trac_logger.m_current = 0,
-    trac_logger.m_haslooped = false;
+    tracLoggerState.current = 0,
+    tracLoggerState.haslooped = false;
     
-    STDmset(trac_logger.m_logmem, 0UL, trac_logger.m_logmemsize);
+    STDmset(tracLogger.logbase, 0UL, tracLogger.logSize);
 }
 
 static void trac_clear (void* _image, trac_DisplayParam* _displayParam)

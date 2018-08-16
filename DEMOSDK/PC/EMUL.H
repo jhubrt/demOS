@@ -71,7 +71,7 @@ EXTERN_C void    EMULwait              (u32 _ms);
 #define EMUL_WINDOW_PCAREA_WIDTH  768
 
 #define EMULbufferSize(SIZE)		((SIZE) | 0x1000000UL)
-#define EMULalignBuffer(BUFFER)	(void*)((0x1000000 + (u32)(BUFFER)) & 0xFF000000)	/* align on 16 mb for emulation features */
+#define EMULalignBuffer(BUFFER)	(u8*)((0x1000000 + (u32)(BUFFER)) & 0xFF000000)	/* align on 16 mb for emulation features */
 
 /* 68k port helpers */
 

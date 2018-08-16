@@ -45,7 +45,9 @@ volatile u16 SYSvblLcount;
 
 static SYSthread SYSidleThread = NULL;
 
-void SYSvbldonothing (void) {}
+void SYSvbldonothing    (void) {}
+void SYSvblrunRTSroutine(void) {}
+
 
 u32* SYSdetectEmu (void)
 {
@@ -245,17 +247,21 @@ bool SYSgetCookie(u32 _id, u32* _value)
 
 void SYSinitDbgBreak(void) PCSTUB;
 
-void SYSinit(SYSinitParam* _param)
+void SYSinit(void)
 {
     void* bakGemdos32 = sys.bakGemdos32;
+    u32   offsetofcoremem = (u32)&(((SYScore*)0)->coremem);
+
+    ASSERT(sys.coreHeapbase != NULL);
+    ASSERT(sys.mainHeapbase != NULL);
 
     SYSinitDbgBreak ();
 
-    STDmset (&sys, 0, sizeof(sys));
+    STDmset (&sys.coremem, 0, sizeof(sys) - offsetofcoremem);
+
     sys.bakGemdos32 = bakGemdos32;
 
-	ASSERT(_param->adr != NULL);
-	RINGallocatorInit ( &sys.mem, _param->adr, _param->size );
+    RINGallocatorInit ( &sys.mem, sys.mainHeapbase, sys.mainHeapsize );
 
     {
 #   ifdef DEMOS_USES_BOOTSECTOR
@@ -297,7 +303,7 @@ void SYSinit(SYSinitParam* _param)
         }
     }
 #   else
-    sys.memoryMapHigh = ((u32)_param->adr) & 0xFF000000;
+    sys.memoryMapHigh = ((u32)sys.coreHeapbase) & 0xFF000000;
 #   endif
 
     sys.has2Drives = *OS_NFLOPS >= 2;
@@ -305,9 +311,7 @@ void SYSinit(SYSinitParam* _param)
 
 	sys.bakUSP = STDgetUSP();
 
-	ASSERT(_param->coreAdr != NULL);
-
-	RINGallocatorInit ( &sys.coremem, _param->coreAdr, _param->coreSize );
+    RINGallocatorInit ( &sys.coremem, sys.coreHeapbase, sys.coreHeapsize );
 
     sys.allocatorMem.alloc     = (MEMallocFunc) RINGallocatorAlloc;
     sys.allocatorMem.alloctemp = (MEMallocFunc) RINGallocatorAllocTemp;

@@ -65,13 +65,18 @@ typedef enum SYSemulator_ SYSemulator;
 
 STRUCT(SYScore)
 {
+    /* should be set into main start */
+	void*			bakGemdos32;
+    u8*             membase;
+    u8*             coreHeapbase;
+    u32             coreHeapsize;
+    u8*             mainHeapbase;
+    u32             mainHeapsize;
+
+    /* init after */
 	RINGallocator	coremem;
 	RINGallocator	mem;
-	void*			bakGemdos32;
 	void*			bakUSP;
-    u8*             heapsBase;        
-    u8*             debugBuffer;
-    u32             debugBufferSize;
 	u8				bakvideoMode;
 	u8				bakmfpInterruptEnableA;
 	u8				bakmfpInterruptMaskA;
@@ -90,11 +95,11 @@ STRUCT(SYScore)
     u8*             idleThreadStackBase;
     u32             phytop;
 
-	MEMallocator		allocatorCoreMem;
-	MEMallocator		allocatorMem;
+	MEMallocator	allocatorCoreMem;
+	MEMallocator	allocatorMem;
 
 #   if !defined(DEMOS_OPTIMIZED) && !defined(DEMOS_USES_BOOTSECTOR)	
-	MEMallocator		allocatorStandard;
+	MEMallocator	allocatorStandard;
 #	endif
 
 #	ifndef __TOS__
@@ -110,14 +115,6 @@ STRUCT(SYSinitThreadParam)
     u16             idleThreadStackSize;
 };
 
-STRUCT(SYSinitParam)
-{
-	void*			coreAdr;
-	u32				coreSize;
-	void*			adr;
-	u32				size;
-};
-
 #ifndef SYSTEM_C
 	extern SYScore      sys;
 	extern u16	        SYSbeginFrameNum;
@@ -125,7 +122,7 @@ STRUCT(SYSinitParam)
 #endif
 
 void SYSinitPrint           (void);
-void SYSinit		        (SYSinitParam* _param);
+void SYSinit		        (void);
 void SYSinitHW              (void);
 void SYSinitThreading       (SYSinitThreadParam* _param);
 void SYSshutdown	        (void);
@@ -134,6 +131,7 @@ void SYScheckHWRequirements (void);
 bool SYSgetCookie           (u32 _id, u32* _value);
 void SYSdbgBreak            (void);
 void SYSvbldonothing        (void); 
+void SYSvblrunRTSroutine    (void);
 
 extern volatile u32	SYSvblcount;
 extern volatile u16	SYSvblLcount;

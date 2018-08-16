@@ -140,22 +140,27 @@ int main(int argc, char** argv)
 
     {
 #       if defined(DEMOS_OPTIMIZED) || defined(DEMOS_USES_BOOTSECTOR)
-        sys.heapsBase = base + 64;
+        sys.membase = base + 64;
 #       else
-        sys.heapsBase = (u8*) malloc( EMULbufferSize(demOS_COREHEAPSIZE + demOS_HEAPSIZE) );
+        sys.membase = (u8*) malloc( EMULbufferSize(demOS_COREHEAPSIZE + demOS_HEAPSIZE) );
 #       endif
+
+        sys.coreHeapbase = EMULalignBuffer(sys.membase);
+        sys.coreHeapsize = demOS_COREHEAPSIZE;
+        sys.mainHeapbase = sys.coreHeapbase + demOS_COREHEAPSIZE;
+        sys.mainHeapsize = demOS_HEAPSIZE;
 
 #       ifdef DEMOS_DEBUG
 #           define demOS_LOGSIZE 65536UL
 
 #           ifdef __TOS__
-            sys.debugBuffer = (u8*) 0x3A0000UL;
-            ASSERT(sys.debugBuffer >= (sys.heapsBase + demOS_COREHEAPSIZE + demOS_HEAPSIZE));
+            tracLogger.logbase = (u8*) 0x3A0000UL;
+            ASSERT(tracLogger.logbase >= (sys.coreHeapbase + demOS_COREHEAPSIZE + demOS_HEAPSIZE));
 #           else
-            sys.debugBuffer = (u8*) malloc(demOS_LOGSIZE);
+            tracLogger.logbase = (u8*) malloc(demOS_LOGSIZE);
 #           endif
 
-            sys.debugBufferSize = demOS_LOGSIZE;
+            tracLogger.logSize = demOS_LOGSIZE;
 #       endif
 
 #       ifndef DEMOS_USES_BOOTSECTOR
@@ -164,7 +169,7 @@ int main(int argc, char** argv)
 
         SYSinitPrint ();
 
-        ASSERT(sys.heapsBase != NULL);
+        ASSERT(sys.membase != NULL);
 
         SYScheckHWRequirements ();
 
@@ -172,7 +177,7 @@ int main(int argc, char** argv)
 
         /* STDmset (buffer, 0, size); */
 
-        EMULinit (sys.heapsBase, -1, -1, 0);
+        EMULinit (sys.membase, -1, -1, 0);
 
         FSMinit (&g_stateMachine	, states    , statesSize    , 0);
         FSMinit (&g_stateMachineIdle, statesIdle, statesIdleSize, 0);
@@ -182,18 +187,13 @@ int main(int argc, char** argv)
         {
             u8* preloadbuffer = NULL;
             {
-                SYSinitParam        param;
                 SYSinitThreadParam  threadParam;
 
-                param.adr	     = (u8*) EMULalignBuffer (sys.heapsBase + demOS_COREHEAPSIZE);
-                param.size	     = demOS_HEAPSIZE;
-                param.coreAdr    = sys.heapsBase;
-                param.coreSize   = demOS_COREHEAPSIZE;
+                SYSinit ();
 
                 threadParam.idleThread          = DEMOSidleThread;
                 threadParam.idleThreadStackSize = 1024;
 
-                SYSinit ( &param );
                 SYSinitHW ();
 
                 SYSinitThreading ( &threadParam );
@@ -210,7 +210,7 @@ int main(int argc, char** argv)
                 {
                     LOADinitFAT (1, &RSC_DISK2, RSC_DISK2_NBENTRIES, RSC_DISK2_NBMETADATA);
                 }
-                TRACinit (sys.debugBuffer, sys.debugBufferSize);
+                TRACinit ();
 
                 SYSfastPrint(DEMOSbuildversion, (u8*)(SYSreadVideoBase()) + 160 * 192 + 152, 160, 4);
 
@@ -273,7 +273,7 @@ int main(int argc, char** argv)
                 {
                     free(preloadbuffer);
                 }
-                free (sys.heapsBase);
+                free (sys.membase);
 #			    else
                 SYSreset ();
 #               endif
