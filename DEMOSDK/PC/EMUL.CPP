@@ -43,6 +43,29 @@ extern "C"
     #include "DEMOSDK\PC\BITCONVR.H"
 }
 
+#define emul_WIDTH  1024
+#define emul_HEIGHT (313*2)
+
+STRUCT(FBext)
+{    
+    bool    enable;
+    s16     width;
+    s16     height;
+    s16     pitch;
+
+    u32     currentindex;
+
+    u32     commands [1024*1024];
+};
+
+ENUM(FBextCommand)
+{
+    FBEXT_SETCOLOR,
+    FBEXT_SETWIDTH,
+    FBEXT_SETADR,
+    FBEXT_SETVIDEOMODE
+};
+
 STRUCT(MiniEmul)
 {
 	WINdow* w;
@@ -50,17 +73,100 @@ STRUCT(MiniEmul)
     u16                     width;
     u16                     height;
     u16                     width_ext;
-	u8                      image [640*400];
-	u32                     imagelut [256];
+
+    FBext                   fbext;
+
     size_t                  buffermask;
     IDirectSound8*          directSound;
 	IDirectSoundBuffer*     primaryBuffer;
 	IDirectSoundBuffer8*    secondaryBuffer;
     u32                     lastExtraKey;
     bool                    captureSound;
+
+    u32                     imagelut [256];
+    u8                      image [emul_WIDTH*emul_HEIGHT*sizeof(u32)];
 };
 
 MiniEmul g_miniEmul;
+
+
+
+extern "C" void EMULfbExStart (u8 _videomode, u16 _startx, u16 _starty, u16 _endx, u16 _endy, u16 _pitch)
+{
+    g_miniEmul.fbext.currentindex = 0;
+    g_miniEmul.fbext.commands[g_miniEmul.fbext.currentindex++] = _videomode;
+    g_miniEmul.fbext.commands[g_miniEmul.fbext.currentindex++] = _startx;
+    g_miniEmul.fbext.commands[g_miniEmul.fbext.currentindex++] = _starty;
+    g_miniEmul.fbext.commands[g_miniEmul.fbext.currentindex++] = _endx;
+    g_miniEmul.fbext.commands[g_miniEmul.fbext.currentindex++] = _endy;
+    g_miniEmul.fbext.commands[g_miniEmul.fbext.currentindex++] = _pitch;
+}
+
+extern "C" void EMULfbExSetVideoMode (u32 _startcycle, u8 _videomode)
+{
+    g_miniEmul.fbext.commands[g_miniEmul.fbext.currentindex++] = _startcycle;
+    g_miniEmul.fbext.commands[g_miniEmul.fbext.currentindex++] = FBEXT_SETVIDEOMODE;
+    g_miniEmul.fbext.commands[g_miniEmul.fbext.currentindex++] = _videomode;
+}
+
+extern "C" void EMULfbExSetColor (u32 _startcycle, u16 _index, u16 _value)
+{
+    g_miniEmul.fbext.commands[g_miniEmul.fbext.currentindex++] = _startcycle;
+    g_miniEmul.fbext.commands[g_miniEmul.fbext.currentindex++] = FBEXT_SETCOLOR;
+    g_miniEmul.fbext.commands[g_miniEmul.fbext.currentindex++] = _index;
+    g_miniEmul.fbext.commands[g_miniEmul.fbext.currentindex++] = _value;
+}
+
+extern "C" void EMULfbExSetAdr (u32 _startcycle, u32 _adr)
+{
+    g_miniEmul.fbext.commands[g_miniEmul.fbext.currentindex++] = _startcycle;
+    g_miniEmul.fbext.commands[g_miniEmul.fbext.currentindex++] = FBEXT_SETADR;
+    g_miniEmul.fbext.commands[g_miniEmul.fbext.currentindex++] = _adr;
+}
+
+extern "C" void EMULfbExSetWidth (u32 _startcycle, u16 _startx, u16 _endx, u16 _pitch)
+{
+    g_miniEmul.fbext.commands[g_miniEmul.fbext.currentindex++] = _startcycle;
+    g_miniEmul.fbext.commands[g_miniEmul.fbext.currentindex++] = FBEXT_SETWIDTH;
+    g_miniEmul.fbext.commands[g_miniEmul.fbext.currentindex++] = _startx;    
+    g_miniEmul.fbext.commands[g_miniEmul.fbext.currentindex++] = _endx;
+    g_miniEmul.fbext.commands[g_miniEmul.fbext.currentindex++] = _pitch;
+}
+
+extern "C" void EMULfbExEnd (void)
+{
+    g_miniEmul.fbext.commands[g_miniEmul.fbext.currentindex++] = 0xFFFFFFFF;
+    g_miniEmul.fbext.enable = true;
+}
+
+extern "C" void EMULfbExDisable (void)
+{
+    g_miniEmul.fbext.enable = false;
+}
+
+extern "C" u32 EMULfbExComputeCycle (u8 _videosync, u16 _x, u16 _y)
+{
+    u32 cyclesperline = 0;
+
+    switch (_videosync)
+    {
+    case HW_VIDEO_SYNC_50HZ:
+        cyclesperline = 512;
+        break;
+
+    case HW_VIDEO_SYNC_60HZ:
+        cyclesperline = 508;
+        break;
+
+    case HW_VIDEO_SYNC_EXTERN:
+        cyclesperline = 256; /* ? */
+        break;
+
+    default: ASSERT(0);
+    }
+
+    return ((u32)_y * cyclesperline) + (u32)_x;
+}
 
 
 extern "C" WINdow* EMULgetWindow (void)
@@ -333,6 +439,8 @@ extern "C" void EMULinit (void* _buffer, s16 _width, s16 _height, s16 _width_ext
     g_miniEmul.width  = (u16) param.w;
     g_miniEmul.height = (u16) param.h;
 
+    memset (g_miniEmul.image, 0, sizeof(g_miniEmul.image));
+
     param.w += _width_ext;
 
 	g_miniEmul.w = WINconstruct (&param);
@@ -341,36 +449,210 @@ extern "C" void EMULinit (void* _buffer, s16 _width, s16 _height, s16 _width_ext
     ASSERT (result);    
 }
 
-static void ST2PCLut (u16* _STlut, u32* _PClut)
+static u32 ST2RVBcolor (u16 _color)
 {
-	u32 i;
-	
-	for ( i = 0 ; i < 16 ; i++ )
-	{
-		u16 color = PCENDIANSWAP16 (_STlut[i]);
-		u8 R = (u8)(color >> 8);
-		u8 G = (u8)(color >> 4);
-		u8 B = (u8)(color);
+    u16 color = PCENDIANSWAP16(_color);
 
-		R <<= 1;
-		G <<= 1;
-		B <<= 1;
+    u8 R = (u8)(color >> 8);
+    u8 G = (u8)(color >> 4);
+    u8 B = (u8)(color);
 
-		R |= (R & 0x10) != 0;
-		G |= (G & 0x10) != 0;
-		B |= (B & 0x10) != 0;
+    R <<= 1;
+    G <<= 1;
+    B <<= 1;
 
-		R &= 0xF;
-		G &= 0xF;
-		B &= 0xF;
+    R |= (R & 0x10) != 0;
+    G |= (G & 0x10) != 0;
+    B |= (B & 0x10) != 0;
 
-		R <<= 4;
-		G <<= 4;
-		B <<= 4;
+    R &= 0xF;
+    G &= 0xF;
+    B &= 0xF;
 
-		_PClut[i] = ((u32)R << 16) | ((u32)G << 8) | (u32)B;
-	}
+    R <<= 4;
+    G <<= 4;
+    B <<= 4;
+
+	return ((u32)R << 16) | ((u32)G << 8) | (u32)B;
 }
+
+static void ST2PCLut(u16* _STlut, u32* _PClut)
+{
+    u8 i;
+
+    for (i = 0 ; i < 16 ; i++)
+    {
+        _PClut[i] = ST2RVBcolor(_STlut[i]);
+    }
+}
+
+static u8 emulVideoMode2NBP(u8 _videomode)
+{
+    switch (_videomode)
+    {
+    case HW_VIDEO_MODE_1P: return 1;
+    case HW_VIDEO_MODE_2P: return 2;
+    case HW_VIDEO_MODE_4P: return 4;
+    default: ASSERT(0);    return 0;
+    }
+}
+
+static void emulfromChunkToRVB (void* _base, u8 _videomode)
+{
+    u8*  source       = (u8*)  _base;
+    u32* dest         = (u32*) g_miniEmul.image;
+    u32* commands     = g_miniEmul.fbext.commands;
+    u8   videomode    = (u8)  *commands++;
+    u16  startx       = (u16) *commands++;
+    u16  starty       = (u16) *commands++;
+    u16  endx         = (u16) *commands++;
+    u16  endy         = (u16) *commands++;
+    u16  pitch        = (u16) *commands++;
+    u32  currentcycle = 0;
+    u16  y;
+    u8   nbP = emulVideoMode2NBP(videomode);
+
+
+    ASSERT(g_miniEmul.fbext.enable);
+    ASSERT(nbP <= 4);
+
+    for (y = 0 ; y < emul_HEIGHT ; y++)
+    {
+        u16 planes[4];
+        u16 x;
+        u16* s = (u16*) source;
+        u32* d = dest;
+
+
+        if (nbP != 1)
+        {
+            if (y == (emul_HEIGHT / 2))
+            {
+                break;
+            }
+        }
+
+        for (x = 0 ; x < emul_WIDTH ; x++)
+        {
+            u16 p,i;
+
+            while (currentcycle == *commands)
+            {
+                commands++;
+
+                switch (*commands++)
+                {
+                case FBEXT_SETCOLOR:
+                    {
+                        u16 index = (u16) *commands++;
+                        u16 value = (u16) *commands++;
+
+                        HW_COLOR_LUT[index] = value;
+                    }
+                    break;
+
+                case FBEXT_SETVIDEOMODE:
+                    videomode = (u8) *commands++;
+                    nbP = emulVideoMode2NBP(videomode);
+                    break;
+
+                case FBEXT_SETWIDTH:
+                    startx = (u16) *commands++;
+                    endx   = (u16) *commands++;
+                    pitch  = (u16) *commands++;
+                    break;
+
+                case FBEXT_SETADR:
+                    source = (u8*) *commands++;
+                    break;
+
+                default:
+                    ASSERT(0);
+                }
+            }
+
+            if ((x & 15) == 0)
+            {
+                if ((x >= startx) && (x <= endx) && (y >= starty) && (y <= endy))
+                {
+                    for (p = 0 ; p < nbP ; p++)
+                    {
+                        planes[p] = PCENDIANSWAP16( *s );
+                        s++;
+                    }
+
+                    for (i = 0 ; i < 8 ; i++)
+                    {
+                        u8  pix1 = 0;
+                        u8  pix2 = 0;
+                        u8  val  = 1 << nbP;
+
+
+                        for (p = 0 ; p < nbP ; p++)
+                        {
+                            pix1 |= (planes[p] & 0x8000) != 0 ? val : 0;
+                            pix1 >>= 1;
+                            planes[p] <<= 1;
+                        }
+
+                        for (p = 0 ; p < nbP ; p++)
+                        {
+                            pix2 |= (planes[p] & 0x8000) != 0 ? val : 0;
+                            pix2 >>= 1;
+                            planes[p] <<= 1;
+                        }
+
+                        {
+                            u32 v1 = ST2RVBcolor( HW_COLOR_LUT[pix1] );                        
+                            u32 v2 = ST2RVBcolor( HW_COLOR_LUT[pix2] );
+
+                            if (nbP == 4)
+                            {
+                                *d++ = v1;
+                                *d++ = v1;
+                                *d++ = v2;
+                                *d++ = v2;
+                            }
+                            else
+                            {
+                                *d++ = v1;
+                                *d++ = v2;
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    u32 v = ST2RVBcolor( HW_COLOR_LUT[0] );   
+                    
+                    for (i = 0 ; i < 8 ; i++)
+                    {
+                        *d++ = v;
+                        if (nbP == 4)
+                        {
+                            *d++ = v;
+                        }
+                    }
+                }
+            }
+
+            currentcycle++;
+        }
+
+        if ((y >= starty) && (y <= endy))
+        {
+            if (nbP != 1)
+            {
+                memset(dest + emul_WIDTH, 0, emul_WIDTH * sizeof(u32));
+                dest += emul_WIDTH;
+            }
+            source += pitch;
+        }
+
+        dest += emul_WIDTH;
+    }
+}
+
 
 extern "C" void EMULwait (u32 _ms)
 {
@@ -379,45 +661,61 @@ extern "C" void EMULwait (u32 _ms)
 
 extern "C" void EMULrender ()
 {
-	u32   i = 0;
-    void* adr = (void*) SYSreadVideoBase();
-	u16   steaddpixels = 0;
-    u16   width = 0;
-    u16   height = 0;
+    void* adr       = (void*) SYSreadVideoBase();
+    u8    videomode = *HW_VIDEO_MODE;
+    u16   steaddpixels = 0;
 
 
     ST2PCLut(HW_COLOR_LUT, g_miniEmul.imagelut);
 
-	if ((*HW_VIDEO_PIXOFFSET != 0) && (*HW_VIDEO_PIXOFFSET_HIDDEN == 0))
-	{
-		steaddpixels = 16;
-	}
-
-    switch (*HW_VIDEO_MODE)
+    if ((*HW_VIDEO_PIXOFFSET != 0) && (*HW_VIDEO_PIXOFFSET_HIDDEN == 0))
     {
-    case HW_VIDEO_MODE_1P:
-        BITfromChunk1PTo8b (adr, 80, NULL, g_miniEmul.image, 640, 400, 640);
-        width  = 640;
-        height = 400;
-        break;
-    case HW_VIDEO_MODE_2P:
-        BITfromChunk2PTo8b (adr, 160 + (steaddpixels >> 1), NULL, g_miniEmul.image, 640, 200, 640);
-        width  = 640 + steaddpixels;
-        height = 200;
-        break;
-    case HW_VIDEO_MODE_4P:
-    	BITfromChunk4PTo8b (adr, 160 + (steaddpixels >> 1), NULL, g_miniEmul.image, 320 + steaddpixels, 200, 640);
-        width  = 320 + steaddpixels;
-        height = 200;
-        break;
+        steaddpixels = 16;
     }
 
-    WINdrawImage (g_miniEmul.w, g_miniEmul.image, 640, 400, 8, (u8*) g_miniEmul.imagelut, (g_miniEmul.width - width) / 2, (g_miniEmul.height - height) / 2);
-	WINrender (g_miniEmul.w);
-   
+    if (g_miniEmul.fbext.enable)
+    {
+        emulfromChunkToRVB (adr, videomode);
+        WINdrawImage (g_miniEmul.w, g_miniEmul.image, emul_WIDTH, emul_HEIGHT, 32, NULL, 0, 0);
+    }
+    else
+    {
+        u16  width  = 0;
+        u16  height = 0;
+        u16  pitch  = 0;
+
+        switch (videomode)
+        {
+        case HW_VIDEO_MODE_1P:
+            width  = 640 + steaddpixels;
+            height = 400;
+            pitch  = width / 8;
+            BITfromChunk1PTo8b (adr, pitch, NULL, g_miniEmul.image, width, height, width);
+            break;
+
+        case HW_VIDEO_MODE_2P:
+            width  = 640 + steaddpixels;
+            height = 200;
+            pitch  = width / 4;
+            BITfromChunk2PTo8b (adr, pitch, NULL, g_miniEmul.image, width, height, width);
+            break;
+
+        case HW_VIDEO_MODE_4P:
+            width  = 320 + steaddpixels;
+            height = 200;
+            pitch  = width / 2;
+            BITfromChunk4PTo8b (adr, pitch, NULL, g_miniEmul.image, width, height, width);
+            break;
+        }
+
+        WINdrawImage (g_miniEmul.w, g_miniEmul.image, width, height, 8, (u8*) g_miniEmul.imagelut, (g_miniEmul.width - width) / 2, (g_miniEmul.height - height) / 2);
+    }
+
+    WINrender (g_miniEmul.w);
+
     {
         u32 extrakey = WINgetKeyExtraState (g_miniEmul.w);
-        
+
         if ( extrakey != g_miniEmul.lastExtraKey )
         {
             g_miniEmul.lastExtraKey = extrakey;

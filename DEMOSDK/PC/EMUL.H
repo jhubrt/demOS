@@ -44,6 +44,15 @@
 #define EMULblit()
 #define EMULwait(ms)
 
+#define EMUMfbExStart(VIDEOMODE,STARTX,STARTY,ENDX,ENDY,PITCH)
+#define EMULfbExSetVideoMode(STARTCYCLE,VIDEOMODE)
+#define EMULfbExSetColor(STARTCYCLE,INDEX,VALUE)
+#define EMULfbExSetAdr(STARTCYCLE,ADR)
+#define EMULfbExSetWidth(STARTCYCLE,STARTX,ENDX,PITCH)
+#define EMUMfbExEnd()
+#define EMULfbExDisable()
+#define EMULfbExComputeCycle(VIDEOSYNC,X,Y) 0
+
 #else
 
 #ifdef  __cplusplus 
@@ -65,6 +74,15 @@ EXTERN_C u32     EMULgetPlayOffset     (void);
 EXTERN_C void    EMULblit              (void);
 EXTERN_C void    EMULgetSound          (void* _data, u32 _byteslength);
 EXTERN_C void    EMULwait              (u32 _ms);
+
+EXTERN_C void    EMULfbExStart         (u8 _videomode, u16 _startx, u16 _starty, u16 _endx, u16 _endy, u16 _pitch);
+EXTERN_C void    EMULfbExSetVideoMode  (u32 _startcycle, u8 _videomode);
+EXTERN_C void    EMULfbExSetColor      (u32 _startcycle, u16 _index, u16 _value);
+EXTERN_C void    EMULfbExSetAdr        (u32 _startcycle, u32 _adr);
+EXTERN_C void    EMULfbExSetWidth      (u32 _startcycle, u16 _startx, u16 _endx, u16 _pitch);
+EXTERN_C void    EMULfbExEnd           (void);
+EXTERN_C void    EMULfbExDisable       (void);
+EXTERN_C u32     EMULfbExComputeCycle  (u8 _videosync, u16 _x, u16 _y);
 
 #define EMUL_WINDOW_WIDTH         768
 #define EMUL_WINDOW_HEIGHT        576
