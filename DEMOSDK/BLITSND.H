@@ -198,8 +198,14 @@ typedef void (*BLSinitCallback)(u16 _index, u16 _nb);
 #   endif
 
 #   define BLSsetSecondaryBufferFreq(_freq)
+    
 #else
     void BLSsetSecondaryBufferFreq(u32 _freq);
+#endif
+
+#if blsUSEASM || !defined(__TOS__)
+    void aBLSvbl(void);
+    extern void* aBLSvblPlayer;
 #endif
 
 #define blsDUMP 1 /* if you want to call BLStestPlay, you need to activate this flag and in this case stdlib should be included */

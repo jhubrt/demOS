@@ -36,6 +36,7 @@ exportall:  set 0
     xdef    ablsUpAllVoices,ablsUpSoundBuffers,ablsUpScore,ablsUpRunningEffects,ablsSetDMABuffer
     ELSE
     xdef    aBLSupdate,ablsUpdAsync
+    xdef    aBLSvbl,aBLSvblPlayer
     ENDC
 
 
@@ -237,11 +238,24 @@ SCORE_END_LOOP MACRO
     bra         .end
     ENDM
 
+    IFEQ        exportall
+; ------------------------------------------------------------------------
+; vbl wrapper
+; ------------------------------------------------------------------------
+aBLSvbl:
+    move.l  a0,-(sp)
+    move.l  aBLSvblPlayer(pc),a0
+    bsr.s   aBLSupdate
+    move.l  (sp)+,a0
+
+    move.l  (a0)+,a1
+    jmp     (a1)
+
+aBLSvblPlayer:  dc.l    0
 
 ; ------------------------------------------------------------------------
 ; void ablsUpdate (BLSplayer* _player)
 ; ------------------------------------------------------------------------
-    IFEQ        exportall
 aBLSupdate:
     movem.l     a1-a6/d0-d7,-(sp)    
     ENDC
