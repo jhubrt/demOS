@@ -17,6 +17,8 @@
 
 #include "DEMOSDK\DATA\DATA.C"
 
+#include "FX\SNDSHADE\SNDSHADE.C"
+
 #include "REBIRTH\DISK1.C"
 #include "REBIRTH\DISK2.C"
 

@@ -20,47 +20,47 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 *--------------------------------------------------------------------------------------------------------
 
-	output  D:\PROJECTS\DEMOS\OUTPUT\VISUALIZ.O
+	output  D:\PROJECTS\DEMOS\OUTPUT\SNDSHADE.O
 
 	opt	o+
 
-    xdef VISinit,VISfade,VISfade3,VIScopy,VISfilsampl
-	xdef VIStc,VIScolor,VIStrace,VIStunX1,VIStunX2,VIStunX3,VIStunX4
-	xdef VISireg,VISload,VISstore
-	xdef VISlines
+    xdef SNSinit,SNSfade,SNSfade3,SNScopy,SNSfilsampl
+	xdef SNStc,SNScolor,SNStrace
+    xdef SNStunX1,SNStunX2,SNStunX3,SNStunX4
+	xdef SNSireg,SNSload,SNSstore
+	xdef SNSlines
 
 
 TC_WIDTH:       set 48
-SAMPLOFFSET:    set 20
 
 ;-----------------------------------------------
-; void VISinit(void* _tcbuf, void* _lines, u16 _TCwidth, u16 _TCheight);
+; void SNSinit(void* _tcbuf, void* _lines, u16 _TCwidth, u16 _TCheight);
 ;-----------------------------------------------
-VISinit:
+SNSinit:
 	move.l	#-1,$ffff8a28.w				; Mask 1 - 2
 	move.w	#-1,$ffff8a2c.w				; Mask 3
 	clr.l	$ffff8a2e.w					; Inc X & Y dest
 	move.l	#$ffff8240,$ffff8a32.w		; Adr dest
 	move.w	d0,$ffff8a36.w				; Width
-    move.w  d0,VISw
+    move.w  d0,SNSw
 	add.w	d0,d0
-	move.w	d0,VISpitch
+	move.w	d0,SNSpitch
 	move.w	#2,$ffff8a20.w				: Inc X source
 	neg.w	d0
     addq.w  #2,d0
 	move.w	d0,$ffff8a22.w				: Inc Y source
 	move.w	#$203,$ffff8a3a.w			; op
     subq.w  #1,d1
-	move.w	d1,VISh                     ; 4 pixels hight
-	move.l	a0,VIStcBuf
-	move.l	a1,VISlines
+	move.w	d1,SNSh                     ; 4 pixels hight
+	move.l	a0,SNStcBuf
+	move.l	a1,SNSlines
 
 	rts
 
 ; -----------------------------------------
-; void VIScopy(void* _source, void* _dest, u16 _nbwords);
+; void SNScopy(void* _source, void* _dest, u16 _nbwords);
 ; -----------------------------------------
-VIScopy:	
+SNScopy:	
     move.l	a0,$ffff8a24.w              ; Adr source
     move.w	#2,$ffff8a2e.w				; Inc X
 	move.l	a1,$ffff8a32.w		        ; Adr dest
@@ -71,9 +71,9 @@ VIScopy:
 	rts
 
 ; -----------------------------------------
-; VIStc display interruption
+; SNStc display interruption
 ; -----------------------------------------
-VIStc:
+SNStc:
     move.w  #$2700,sr		; cut all interrupts
 
 	move.w	d0,-(sp)
@@ -85,10 +85,10 @@ VIStc:
     ; synchro lsl to be perfectly synchronized with display
 
     move.b  (a6),d0
-VIStc_lslSync:		
+.lslSync:		
 	move.b	(a6),d1
     cmp.b   d0,d1
-	beq.s	VIStc_lslSync
+	beq.s	.lslSync
 
     sub.b	d1,d0
 	add.w	#31,d0
@@ -98,27 +98,27 @@ VIStc_lslSync:
   
     ; re-param blitter 
 
-    move.l	VIStcBuf(pc),$ffff8a24.w    , Adr source
+    move.l	SNStcBuf(pc),$ffff8a24.w    , Adr source
     clr.l	$ffff8a2e.w					; Inc X & Y dest
     move.l	#$ffff8240,$ffff8a32.w		; Adr dest
-    move.w	VISw(pc),$ffff8a36.w	    ; Width
+    move.w	SNSw(pc),$ffff8a36.w	    ; Width
     move.w	#$203,$ffff8a3a.w			; op
 
 	movem.l	d2-d7/a5,-(sp)
 
-    movem.w VISregs(pc),d0-d7
+    movem.w SNSregs(pc),d0-d7
 
     ext.l   d2
-	move.l	VISlines(pc),a5
+	move.l	SNSlines(pc),a5
     lea     $ffff8a38.w,a6
 
-VIStc_tunLoop:
-	dbra.w	d6,VIStc_tunLoop
+.tunLoop:
+	dbra.w	d6,.tunLoop
     
-	move.w	VIStunX2(pc),d6
+	move.w	SNStunX2(pc),d6
 	lsl.l	d6,d7
    
-VIStc_loop:
+.loop:
 
     move.w	d1,(a6)
 	move.w	d3,4(a6)
@@ -154,7 +154,7 @@ VIStc_loop:
 
     add.l   d2,$ffff8a24.w
 
-	dbra.w	d0,VIStc_loop
+	dbra.w	d0,.loop
 
     movem.l	(sp)+,d2-d7/a5
 
@@ -167,9 +167,9 @@ VIStc_loop:
 	rte
 
 ; -----------------------------------------
-; void VISfade (void* _source, void* _table, u32 _dest, u32 _pitch, u32 _count);
+; void SNSfade (void* _source, void* _table, u32 _dest, u32 _pitch, u32 _count);
 ; -----------------------------------------
-VISfade:
+SNSfade:
 
     movem.l	d3-d7/a2-a3,-(sp)
 
@@ -178,7 +178,7 @@ VISfade:
 
     move.w  d2,-(sp)
 
-VISfade_loop:
+.loop:
 
     movem.w (a0)+,d0-d7
 
@@ -250,7 +250,7 @@ VISfade_loop:
     add.l   a3,a0
 
     subq.w  #1,(sp)
-    bne     VISfade_loop
+    bne     .loop
 
     lea     2(sp),sp
 
@@ -260,9 +260,9 @@ VISfade_loop:
 
 
 ; -----------------------------------------
-; void VISfade3 (void* _source, void* _table, u32 _dest, u32 _pitch, u32 _count);
+; void SNSfade3 (void* _source, void* _table, u32 _dest, u32 _pitch, u32 _count);
 ; -----------------------------------------
-VISfade3:
+SNSfade3:
 
     movem.l	d3-d7/a2-a3,-(sp)
 
@@ -272,7 +272,7 @@ VISfade3:
 
     move.w  d2,-(sp)
 
-VISfade3_loop:
+.loop:
 
     movem.w (a0)+,d0-d7
 
@@ -311,7 +311,7 @@ VISfade3_loop:
     add.l   a3,a0
 
     subq.w  #1,(sp)
-    bne.s   VISfade3_loop
+    bne.s   .loop
 
     lea     2(sp),sp
 
@@ -320,13 +320,13 @@ VISfade3_loop:
     rts
 
 ; -----------------------------------------
-; u16 VISfilsampl (void* _sample, void* _startcolors, u32 _dest, u16 _width);
+; u16 SNSfilsampl (void* _sample, void* _startcolors, u32 _dest, u16 _width, s16 _sampleoffset);
 ; -----------------------------------------
-VISfilsampl:
+SNSfilsampl:
 
-    move.w  d2,-(sp)
     move.w  d3,-(sp)
     move.w  d4,-(sp)
+    move.w  d5,-(sp)
     move.l  a2,-(sp)
     move.l  a3,-(sp)
 
@@ -336,90 +336,90 @@ VISfilsampl:
 
 	moveq.l	#0,d0
 
-VISfilsampl_loop:
+.loop:
     
-    move.w  (a1)+,d2
+    move.w  (a1)+,d5
 
     move.b  (a0),d4
-    bge.s   VISfilsampl_pos
+    bge.s   .pos
 
     neg.b   d4
     lsr.b   #1,d4
     and.w   d3,d4
-    beq.s   VISfilsampl_zero
+    beq.s   .zero
 	add.w	d4,d0
     neg.w   d4
-    jmp     VISfilsampl_jmp1+2(pc,d4.w)
+    jmp     .jmp1+2(pc,d4.w)
     
 offset: set 21*TC_WIDTH*2
     rept 20
 offset: set offset-TC_WIDTH*2
-    move.w  d2,offset(a2)
+    move.w  d5,offset(a2)
     endr
-    move.w  d2,(a2)+
-VISfilsampl_jmp1:
+    move.w  d5,(a2)+
+.jmp1:
     
-    lea     SAMPLOFFSET(a0),a0
-    dbra.w  d1,VISfilsampl_loop
+    lea     (a0,d2.w),a0
+    dbra.w  d1,.loop
 
-    bra.s   VISfilsampl_end
+    bra.s   .end
 
-VISfilsampl_zero:
+.zero:
     lea     2(a2),a2
-    lea     SAMPLOFFSET(a0),a0
-    dbra.w  d1,VISfilsampl_loop
+    lea     (a0,d2.w),a0
+    dbra.w  d1,.loop
 
-    bra.s   VISfilsampl_end
+    bra.s   .end
 
-VISfilsampl_pos:
+.pos:
 
     lsr.b   #1,d4
     and.w   d3,d4
-    beq.s   VISfilsampl_zero
+    beq.s   .zero
 	add.w	d4,d0
     neg.w   d4
-    jmp     VISfilsampl_jmp2+2(pc,d4.w)
+    jmp     .jmp2+2(pc,d4.w)
     
 offset: set -21*TC_WIDTH*2
     rept 20
 offset: set offset+TC_WIDTH*2
-    move.w  d2,offset(a2)
+    move.w  d5,offset(a2)
     endr
-    move.w  d2,(a2)+
-VISfilsampl_jmp2:
+    move.w  d5,(a2)+
+.jmp2:
 
-    lea     SAMPLOFFSET(a0),a0
-    dbra.w  d1,VISfilsampl_loop
+    lea     (a0,d2.w),a0
+    dbra.w  d1,.loop
 
-VISfilsampl_end:
+.end:
 
     move.l  (sp)+,a3
     move.l  (sp)+,a2
+    move.w  (sp)+,d5
     move.w  (sp)+,d4
     move.w  (sp)+,d3
-    move.w  (sp)+,d2
 
     rts
 
 
-VISregs:
+SNSregs:
 
-VISh:		dc.w	0		; d0
+SNSh:		dc.w	0		; d0
             dc.w	1		; d1
-VISpitch:	dc.w	0		; d2
+SNSpitch:	dc.w	0		; d2
     		dc.w	$C000	; d3
-VIStunX3:	dc.w	31		; d4
-VIStunX4:	dc.w	13		; d5
-VIStunX1:	dc.w	6       ; d6
+SNStunX3:	dc.w	31		; d4
+SNStunX4:	dc.w	13		; d5
+SNStunX1:	dc.w	6       ; d6
             dc.w    0       ; d7
 
-VIStunX2:	dc.w	2
-VISw:       dc.w    0
-VIScolor:	dc.w	0
-VIStcBuf:	dc.l	0
-VISlines:	dc.l	0
-VIStrace:   dc.l    0
+SNStunX2:	dc.w	2
+SNSw:       dc.w    0
+SNScolor:	dc.w	0
+SNStcBuf:	dc.l	0
+SNSlines:	dc.l	0
+SNStrace:   dc.l    0
 
-VISireg:	move.l	d0,a2
-VISload:	move.w	$AA(a0),d0
-VISstore:	move.w	(a1,d0.w),(a2)+
+SNSireg:	move.l	d0,a2
+SNSload:	move.w	$AA(a0),d0
+SNSstore:	move.w	(a1,d0.w),(a2)+

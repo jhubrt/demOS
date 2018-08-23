@@ -35,6 +35,8 @@
 #include "DEMOSDK\PC\WINDOW.H"
 #include "DEMOSDK\PC\EMUL.H"
 
+#include "FX\SNDSHADE\SNDSHADE.H"
+
 #include "REBIRTH\SRC\SCREENS.H"
 #include "REBIRTH\SRC\VISUALIZ.H"
 #include "REBIRTH\SRC\SNDTRACK.H"
@@ -43,7 +45,6 @@
 
 #include "REBIRTH\DISK1.H"
 
-#define VIS_WIDTH               48
 #define VIS_HEIGHT              46
 #define VIS_LINES               (VIS_HEIGHT << 2)
 #define VIS_NBSTARTCOLORS       80
@@ -62,32 +63,10 @@
 
 #define VIS_SCREEN_PITCH        160
 
-
-void VISinit     (void* _tcbuf, void* _lines, u16 _tcWidth, u16 _tcHeight) PCSTUB;
-void VIStc       (void) PCSTUB;
-void VISfade     (void* _source, void* _table, u32 _dest, s32 _pitch, u32 _count);
-void VISfade3	 (void* _source, void* _table, u32 _dest, s32 _pitch, u32 _count) PCSTUB;
-void VIScopy     (void* _source, void* _dest, u16 _nbwords) PCSTUB;
-u16  VISfilsampl (void* _sample, void* _startcolors, u32 _dest, u16 _width);
-
-ASMIMPORT u16 VIScolor;
-ASMIMPORT u32 VIStrace;
-
-ASMIMPORT u16 VIStunX1;
-ASMIMPORT u16 VIStunX2;
-ASMIMPORT u16 VIStunX3;
-ASMIMPORT u16 VIStunX4;
-
-ASMIMPORT u16 VISireg;
-ASMIMPORT u16 VISload;
-ASMIMPORT u32 VISstore;
-
-ASMIMPORT void* VISlines;
-
 /* 
-VISireg:	move.l	d0,a2
-VISload:	move.w	$AA(a0),d0
-VISstore:	move.w	(a1,d0.w),(a2)+ 
+SNSireg:	move.l	d0,a2
+SNSload:	move.w	$AA(a0),d0
+SNSstore:	move.w	(a1,d0.w),(a2)+ 
 */
 
 ENUM(VisualizerState)
@@ -358,7 +337,7 @@ static void VISgenerateCode( s16* sin )
 
         u16* p = g_screens.visualizer->routines[0];
 
-        *p++ = VISireg;
+        *p++ = SNSireg;
 
         for (y = -halfh ; y < halfh ; y++)
         {
@@ -374,9 +353,9 @@ static void VISgenerateCode( s16* sin )
                 srcx /= 64;
                 srcx += halfw;
 
-                *p++ = VISload;
+                *p++ = SNSload;
                 *p++ = (srcx << 1) + (srcy * (VIS_WIDTH << 1));
-                *((u32*)p) = VISstore;
+                *((u32*)p) = SNSstore;
                 p += 2;
             }
         }
@@ -408,7 +387,7 @@ static void VISgenerateCode( s16* sin )
         cs = PCENDIANSWAP16 ( cs );
         sn = PCENDIANSWAP16 ( sn );
 
-        *p++ = VISireg;
+        *p++ = SNSireg;
 
         for (y = -halfh ; y < halfh ; y++)
         {
@@ -453,9 +432,9 @@ static void VISgenerateCode( s16* sin )
                 srcx = (u16) x2;
                 srcy = (u16) y2;
 
-                *p++ = VISload;
+                *p++ = SNSload;
                 *p++ = (srcx << 1) + (srcy * (VIS_WIDTH << 1));
-                *((u32*)p) = VISstore;
+                *((u32*)p) = SNSstore;
                 p += 2;
 
 #               ifndef __TOS__
@@ -567,7 +546,7 @@ void VisualizerEntry (FSM* _fsm)
         }
     }
 
-    VIScolor = 0;
+    SNScolor = 0;
 
     LOADwaitRequestCompleted ( loadRequest );   /* colors available ---------------------------------------------- */
 
@@ -603,15 +582,15 @@ void VisualizerEntry (FSM* _fsm)
         while(1); */
     }
   
-    VIStunX1 = 4;
-    VIStunX2 = 5;
-    VIStunX3 = 10;
-    VIStunX4 = 1;
+    SNStunX1 = 4;
+    SNStunX2 = 5;
+    SNStunX3 = 10;
+    SNStunX4 = 1;
 
     if ( sys.isMegaSTe )
     {
-        VIStunX3--;
-        VIStunX4--;
+        SNStunX3--;
+        SNStunX4--;
     }
 
     /* VISdisplayTestImage(); */
@@ -628,7 +607,7 @@ void VisualizerEntryFast (FSM* _fsm)
 
     IGNORE_PARAM(_fsm);
 
-    VISinit (g_screens.visualizer->tcbuffers[1], g_screens.visualizer->animations, VIS_WIDTH, VIS_HEIGHT);
+    SNSinit (g_screens.visualizer->tcbuffers[1], g_screens.visualizer->animations, VIS_WIDTH, VIS_HEIGHT);
 
     STDmset(HW_COLOR_LUT + 1, 0, 6);
     SYSwriteVideoBase ((u32) g_screens.visualizer->bitmaps);
@@ -643,7 +622,7 @@ void VisualizerEntryFast (FSM* _fsm)
     g_screens.visualizer->rasterBootFunc = RASvbl1;
     g_screens.visualizer->rasterBootOp.scanLinesTo1stInterupt = VIS_FIRST_SCANLINE;
     g_screens.visualizer->rasterBootOp.backgroundColor   = 0;
-    g_screens.visualizer->rasterBootOp.nextRasterRoutine = VIStc;
+    g_screens.visualizer->rasterBootOp.nextRasterRoutine = SNStc;
 
     g_screens.visualizer->trackcounter = 0;
 
@@ -681,83 +660,6 @@ static void VISdisplayFlash (u16* _buffer)
     }
 }
 
-#ifndef __TOS__
-
-void VISfade (void* _source, void* _table, u32 _dest, s32 _pitch, u32 _count)
-{
-    u16* m  = (u16*) _dest;
-    s16* m2 = (s16*) _source;
-    u16 t, i;
-
-
-    _pitch >>= 1;
-
-    for (t = 0 ; t < (u16)_count ; t++)
-    {
-        for (i = 0 ; i < VIS_WIDTH; i++)
-        {
-            *m = *(u16*)((u8*)_table + *m2);
-            m++;
-            m2++;
-        }
-
-        m  += _pitch;
-        m2 += _pitch;
-    }
-}
-
-u16 VISfilsampl (void* _sample, void* _startcolors, u32 _dest, u16 _width)
-{
-    s8* p = (s8*)_sample;
-    u16 i;
-    u16* m = (u16*) _dest;
-    u16* startcolors = (u16*) _startcolors;
-    u16 total = 0;
-
-
-    for (i = 0 ; i < _width ; i++)
-    {
-        s8   sample = *p;
-        s16  t;
-        u16* pix = (u16*) m;
-        u16 color = startcolors[i];
-
-
-        if ( sample < 0 )
-        {
-            sample = -sample;
-            sample >>= 3;
-
-            total += sample;
-
-            for (t = 0 ; t < sample ; t++)
-            {
-                *pix = color;
-                pix += VIS_WIDTH;
-            }
-        }
-        else
-        {
-            sample >>= 3;
-
-            total += sample;
-
-            for (t = 0 ; t < sample ; t++)
-            {
-                *pix = color;
-                pix -= VIS_WIDTH;
-            }
-        }
-
-        p += 20;
-        m += 2;
-    }
-
-    return total;
-}
-
-#endif
-
 static void VisualizerStepTrack (VisualizerTrack* _track)
 {
     g_screens.visualizer->trackcounter++;
@@ -794,13 +696,13 @@ void VisualizerActivity (FSM* _fsm)
             /* *HW_COLOR_LUT = 0x70; */
             g_screens.visualizer->animationframe = 0;
             g_screens.visualizer->animationframescount = *g_screens.visualizer->currentanimation++;
-            VISlines = g_screens.visualizer->currentanimation;
+            SNSlines = g_screens.visualizer->currentanimation;
             g_screens.visualizer->currentanimation += VIS_LINES;
         }
     }
 
     /* copy true color pixels back to front buffer */
-    VIScopy (backbuffer, frontbuffer, VIS_WIDTH * VIS_HEIGHT);
+    SNScopy (backbuffer, frontbuffer, VIS_WIDTH * VIS_HEIGHT);
 
     {
         /* clip display window to end or beginning of buffer (closest case) */
@@ -833,14 +735,14 @@ void VisualizerActivity (FSM* _fsm)
     case VIS_VERTICAL:
         {
             if ( g_screens.visualizer->colorscroll & 1 )
-                VISfade (
+                SNSfade (
                     backbuffer + VIS_WIDTH, 
                     g_screens.visualizer->opAdd, 
                     (u32) backbuffer, 
                     0, 
                     VIS_HEIGHT >> 1);
             else
-                VISfade (
+                SNSfade (
                     backbuffer + ((VIS_HEIGHT - 2) * VIS_WIDTH), 
                     g_screens.visualizer->opAdd, 
                     (u32) (backbuffer + ((VIS_HEIGHT - 1) * VIS_WIDTH)),
@@ -853,14 +755,14 @@ void VisualizerActivity (FSM* _fsm)
         {
             if ( g_screens.visualizer->colorscroll & 1 )
             {
-                VISfade3 (
+                SNSfade3 (
                     backbuffer + VIS_WIDTH + 1, 
                     g_screens.visualizer->opAdd, 
                     (u32) (backbuffer), 
                     0, 
                     VIS_HEIGHT >> 1);
 
-                VISfade3 (
+                SNSfade3 (
                     backbuffer + VIS_WIDTH + (VIS_WIDTH >> 1) - 1, 
                     g_screens.visualizer->opAdd, 
                     (u32) (backbuffer + (VIS_WIDTH >> 1) ), 
@@ -869,14 +771,14 @@ void VisualizerActivity (FSM* _fsm)
             }
             else
             {
-                VISfade3 (
+                SNSfade3 (
                     backbuffer + 1 + ((VIS_HEIGHT - 2) * VIS_WIDTH), 
                     g_screens.visualizer->opAdd, 
                     (u32) (backbuffer + ((VIS_HEIGHT - 1) * VIS_WIDTH)),
                     -VIS_WIDTH * 4, 
                     VIS_HEIGHT >> 1);
 
-                VISfade3 (
+                SNSfade3 (
                     backbuffer + (VIS_WIDTH >> 1) - 1 + ((VIS_HEIGHT - 2) * VIS_WIDTH), 
                     g_screens.visualizer->opAdd, 
                     (u32) (backbuffer + (VIS_WIDTH >> 1) + ((VIS_HEIGHT - 1) * VIS_WIDTH)),
@@ -928,7 +830,7 @@ void VisualizerActivity (FSM* _fsm)
   
         if ( g_screens.visualizer->displaysample )
         {
-            vol = VISfilsampl (sampled, startc , (u32) m, VIS_WIDTH);
+            vol = SNSfilsampl (sampled, startc , (u32) m, VIS_WIDTH, 20);
         }
 
         if ( g_screens.visualizer->lastcount != SNDdmaLoopCount ) 
@@ -997,7 +899,7 @@ void VisualizerActivity (FSM* _fsm)
     }
 
     /* display sample sum to tune beat threshold...
-    STD_uxtoa (temp, VIStrace, 8);
+    STD_uxtoa (temp, SNStrace, 8);
     SYS_debugPrint (g_screens.visualizer->framebuffers[0], VIS_SCREEN_PITCH, 8, 0, 100, temp);*/
 }
 

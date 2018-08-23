@@ -1,4 +1,0 @@
-#define DEMOS_OPTIMIZED
-#define DEMOS_USES_BOOTSECTOR
-#define DEMOS_INVERT_DRIVE 0
-#include "BUILD.C"
