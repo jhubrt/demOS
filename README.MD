@@ -57,6 +57,8 @@ Have a look at DOCS/BLITsnd.md in the git depot for more info...
 
 [Release](https://youtu.be/ehSvjL8RLo4)
 
+[Documentation](./DOCS/BLITSnd/README.md)
+
 ![](README_B.PNG) 
 
 ## Todo list
