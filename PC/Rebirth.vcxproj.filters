@@ -50,6 +50,12 @@
     <Filter Include="SPECIFIC\SNDH_VERSION">
       <UniqueIdentifier>{7a8bcdcd-d7a6-4202-b028-b212168b51e0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="FX">
+      <UniqueIdentifier>{46ea0fef-1863-4d50-8ab5-7e87a5d6b9ac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FX\VREGANIM">
+      <UniqueIdentifier>{994bc0c0-4012-4497-a265-c8a8b0e5bf39}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\REBIRTH\SRC\POLYZOOM.C">
@@ -106,13 +112,7 @@
     <ClCompile Include="..\DEMOSDK\SOUND.C">
       <Filter>DEMOSDK</Filter>
     </ClCompile>
-    <ClCompile Include="..\REBIRTH\BUILD.C">
-      <Filter>SPECIFIC\MAIN</Filter>
-    </ClCompile>
     <ClCompile Include="..\REBIRTH\SRC\DEMOS.C">
-      <Filter>SPECIFIC\MAIN</Filter>
-    </ClCompile>
-    <ClCompile Include="..\REBIRTH\OPTBUILD.C">
       <Filter>SPECIFIC\MAIN</Filter>
     </ClCompile>
     <ClCompile Include="..\REBIRTH\SRC\MORPH.C">
@@ -138,6 +138,15 @@
     </ClCompile>
     <ClCompile Include="..\DEMOSDK\DATA\DATA.C">
       <Filter>DEMOSDK\DATA</Filter>
+    </ClCompile>
+    <ClCompile Include="..\REBIRTH\BUILD.C">
+      <Filter>SPECIFIC\PURE_C</Filter>
+    </ClCompile>
+    <ClCompile Include="..\REBIRTH\SRC\SNDSHADE.C">
+      <Filter>SPECIFIC\SRC\VISUALIZER</Filter>
+    </ClCompile>
+    <ClCompile Include="..\FX\VREGANIM\VREGANIM.C">
+      <Filter>FX\VREGANIM</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -225,6 +234,12 @@
     <ClInclude Include="..\DEMOSDK\DATA\SYSTFNT.H">
       <Filter>DEMOSDK\DATA</Filter>
     </ClInclude>
+    <ClInclude Include="..\REBIRTH\SRC\SNDSHADE.H">
+      <Filter>SPECIFIC\SRC\VISUALIZER</Filter>
+    </ClInclude>
+    <ClInclude Include="..\FX\VREGANIM\VREGANIM.H">
+      <Filter>FX\VREGANIM</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\REBIRTH\SRC\POLYZOOM.S">
@@ -244,9 +259,6 @@
     </None>
     <None Include="..\DEMOSDK\LOAD.S">
       <Filter>DEMOSDK</Filter>
-    </None>
-    <None Include="..\REBIRTH\SRC\VISUALIZ.S">
-      <Filter>SPECIFIC\SRC\VISUALIZER</Filter>
     </None>
     <None Include="..\REBIRTH\SRC\SLIDES.S">
       <Filter>SPECIFIC\SRC\SLIDES</Filter>
@@ -287,11 +299,14 @@
     <None Include="..\REBIRTH\DISK2.LOG">
       <Filter>SPECIFIC\DISK</Filter>
     </None>
-    <None Include="..\REBIRTH\SRC\BOOTSTRA.S">
-      <Filter>SPECIFIC\SRC</Filter>
-    </None>
     <None Include="..\SNDH\SNDH.S">
       <Filter>SPECIFIC\SNDH_VERSION</Filter>
+    </None>
+    <None Include="..\REBIRTH\SRC\BOOTSTRA.S">
+      <Filter>SPECIFIC\SRC\BOOT</Filter>
+    </None>
+    <None Include="..\REBIRTH\SRC\SNDSHADE.S">
+      <Filter>SPECIFIC\SRC\VISUALIZER</Filter>
     </None>
   </ItemGroup>
 </Project>

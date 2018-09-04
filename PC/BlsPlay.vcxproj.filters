@@ -85,17 +85,17 @@
     <ClCompile Include="..\BLSPLAY\SRC\BPLAYER.C">
       <Filter>SPECIFIC\SRC</Filter>
     </ClCompile>
-    <ClCompile Include="..\BLSPLAY\SRC\DEMOS.C">
-      <Filter>SPECIFIC\SRC</Filter>
-    </ClCompile>
     <ClCompile Include="..\BLSPLAY\SRC\SCREENS.C">
       <Filter>SPECIFIC\SRC</Filter>
     </ClCompile>
-    <ClCompile Include="..\BLSPLAY\BUILD.C">
-      <Filter>SPECIFIC\MAIN</Filter>
-    </ClCompile>
     <ClCompile Include="..\DEMOSDK\TRACE.C">
       <Filter>DEMOSDK</Filter>
+    </ClCompile>
+    <ClCompile Include="..\BLSPLAY\BUILD.C">
+      <Filter>SPECIFIC\PURE_C</Filter>
+    </ClCompile>
+    <ClCompile Include="..\BLSPLAY\SRC\DEMOS.C">
+      <Filter>SPECIFIC\MAIN</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
