@@ -35,9 +35,10 @@
 #include "DEMOSDK\PC\WINDOW.H"
 #include "DEMOSDK\PC\EMUL.H"
 
-#include "FX\SNDSHADE\SNDSHADE.H"
+#include "FX\VREGANIM\VREGANIM.H"
 
 #include "REBIRTH\SRC\SCREENS.H"
+#include "REBIRTH\SRC\SNDSHADE.H"
 #include "REBIRTH\SRC\VISUALIZ.H"
 #include "REBIRTH\SRC\SNDTRACK.H"
 
@@ -905,20 +906,9 @@ void VisualizerActivity (FSM* _fsm)
 
 /* Logo base class -------------------------------- */ 
 
-typedef struct VisualizerLogo_ VisualizerLogo;
+typedef bool (*VisualizerAnimateFunc)(VANIanimation*, u16* _p);
 
-typedef bool (*VisualizerAnimateFunc)(VisualizerLogo*, u16* _p);
-
-struct VisualizerLogo_
-{
-    s16                     ysrc;
-    u16                     height;  
-    u16                     nbFrames;
-    s16                     y;
-    VisualizerAnimateFunc   animateFunc;
-};
-
-static u16* VisualizeLogoAnimate(VisualizerLogo** _logos, u16 _nbLogos, u16* _p)
+static u16* VisualizeLogoAnimate(VANIanimation** _logos, u16 _nbLogos, u16* _p)
 {
     u16 t;
     bool run;
@@ -970,11 +960,11 @@ static u16* VisualizeLogoAnimate(VisualizerLogo** _logos, u16 _nbLogos, u16* _p)
 
 STRUCT(VisualizerLogoMove)
 {
-    VisualizerLogo logo;
+    VANIanimation logo;
     s16 speedy;
 };
 
-static bool VisualizerLogoMoveUpdate(VisualizerLogo* _this, u16* _p)
+static bool VisualizerLogoMoveUpdate(VANIanimation* _this, u16* _p)
 {
     VisualizerLogoMove* me = (VisualizerLogoMove*) _this;
 
@@ -1020,14 +1010,14 @@ static void VisualizerLogoMoveConstruct(VisualizerLogoMove* _this, u16 _ysrc, u1
 
 STRUCT(VisualizerLogoGlitch)
 {
-    VisualizerLogo logo;
+    VANIanimation logo;
     u16 ysrcglitch;
     s16 glitchnbframes;
     u16 y1glitch;
     u16 y2glitch;
 };
 
-static bool VisualizerLogoGlitchUpdate(VisualizerLogo* _this, u16* _p)
+static bool VisualizerLogoGlitchUpdate(VANIanimation* _this, u16* _p)
 {
     VisualizerLogoGlitch* me = (VisualizerLogoGlitch*) _this;
 
@@ -1129,14 +1119,14 @@ static void VisualizerLogoGlitchConstruct (VisualizerLogoGlitch* _this, u16 _ysr
 
 STRUCT(VisualizerLogoSpread)
 {
-    VisualizerLogo logo;
+    VANIanimation logo;
     u16 start;
     s16 acceleration;
     s16 *slicedy;
     s16 *slicespeed;
 };
 
-static bool VisualizerLogoSpreadUpdate(VisualizerLogo* _this, u16* _p)
+static bool VisualizerLogoSpreadUpdate(VANIanimation* _this, u16* _p)
 {
     VisualizerLogoSpread* me = (VisualizerLogoSpread*) _this;
 
@@ -1223,7 +1213,7 @@ static void VisualizerLogoSpreadConstruct (VisualizerLogoSpread* _this, u16 _ysr
 static u16* VisualizerAnimation1(u16* _p, s16* _ypos)
 {
     VisualizerLogoMove movingLogos[2];
-    VisualizerLogo*    logos[2];
+    VANIanimation*    logos[2];
     u16* anim;
 
     VisualizerLogoMoveConstruct (&movingLogos[0], VIS_BITMAP_BASE, VIS_LOGO0_H, -VIS_LOGO0_H, 40, 2);
@@ -1243,7 +1233,7 @@ static u16* VisualizerAnimation1(u16* _p, s16* _ypos)
 static u16* VisualizerAnimation2(u16* _p, s16* _ypos)
 {
     VisualizerLogoGlitch glitchLogos[2];
-    VisualizerLogo*      logos[2];
+    VANIanimation*      logos[2];
 
 
     VisualizerLogoGlitchConstruct (&glitchLogos[0], VIS_BITMAP_BASE, VIS_LOGO0_H, _ypos[0], 284, -20, VIS_LOGO0_GLITCH_Y + VIS_BITMAP_BASE);
@@ -1258,7 +1248,7 @@ static u16* VisualizerAnimation2(u16* _p, s16* _ypos)
 
 static u16* VisualizerAnimation3(u16* _p, s16* _ypos)
 {
-    VisualizerLogo*      logos[2];
+    VANIanimation*       logos[2];
     VisualizerLogoMove   movingLogos;
     VisualizerLogoSpread spreadLogos;
     u16*                 anim;
@@ -1282,7 +1272,7 @@ static u16* VisualizerAnimation3(u16* _p, s16* _ypos)
 static u16* VisualizerAnimation4(u16* _p, s16* _ypos)
 {
     VisualizerLogoSpread spreadLogos;
-    VisualizerLogo*      logos = &spreadLogos.logo;
+    VANIanimation*       logos = &spreadLogos.logo;
     u16*                 anim;
 
 

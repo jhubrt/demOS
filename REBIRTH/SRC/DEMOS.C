@@ -167,6 +167,7 @@ int main(int argc, char** argv)
         sys.bakGemdos32 = SYSgemdosSetMode(NULL);
 #       endif
 
+        TRACinit ();
         SYSinitPrint ();
 
         ASSERT(sys.membase != NULL);
@@ -210,7 +211,6 @@ int main(int argc, char** argv)
                 {
                     LOADinitFAT (1, &RSC_DISK2, RSC_DISK2_NBENTRIES, RSC_DISK2_NBMETADATA);
                 }
-                TRACinit ();
 
                 SYSfastPrint(DEMOSbuildversion, (u8*)(SYSreadVideoBase()) + 160 * 192 + 152, 160, 4);
 

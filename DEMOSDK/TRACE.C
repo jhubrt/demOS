@@ -70,6 +70,18 @@ static TRACloggerState  tracLoggerState = {0, false};
 
 #ifndef __TOS__
 u16 TRAmaxraster (u16 maxraster) { return 0; }
+
+void TRACsaveLog(char* _filename)
+{
+    FILE* file = fopen(_filename, "wt");
+    ASSERT(file != NULL);
+
+    if (file != NULL)
+    {
+        fwrite (tracLogger.logbase, tracLogger.logSize, 1, file);
+        fclose(file);
+    }
+}
 #endif
 
 void TRACinit (void)
@@ -90,6 +102,11 @@ void TRACinit (void)
 void TRAClog (char* _str, char _separator)
 {
     u8* p = tracLogger.logbase + tracLoggerState.current;
+
+    if (p == NULL)
+    {
+        return;
+    }
 
 #   if TRAC_KEEPLASTLOG
     {

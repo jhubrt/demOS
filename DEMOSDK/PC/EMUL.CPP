@@ -37,6 +37,7 @@ extern "C"
     #include "DEMOSDK\STANDARD.H"
     #include "DEMOSDK\HARDWARE.H"
     #include "DEMOSDK\SYSTEM.H"
+    #include "DEMOSDK\TRACE.H"
     
     #include "DEMOSDK\PC\WINDOW.H"
     #include "DEMOSDK\PC\EMUL.H"
@@ -720,9 +721,14 @@ extern "C" void EMULrender ()
         {
             g_miniEmul.lastExtraKey = extrakey;
 
-            if ( extrakey == VK_END )
+            switch ( extrakey )
             {
+            case VK_PAUSE:
                 g_miniEmul.captureSound ^= 1;
+                break;
+            case VK_END:
+                TRACsaveLog("logPC.txt");
+                break;
             }
         }
     }

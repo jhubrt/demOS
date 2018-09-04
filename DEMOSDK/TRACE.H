@@ -63,10 +63,16 @@
 
 #   define TRAClogNumber(STR,NUM,NBCHARS) TRAClogNumberS(STR,NUM,NBCHARS,'\n')
 #   define TRAClogNumberS(STR,NUM,NBCHARS,SEPARATOR) { static char trace[] = STR ":         "; STDuxtoa(&trace[sizeof(trace) - 9], (NUM), (NBCHARS)); TRAClog(trace, SEPARATOR); }
-
+#   define TRAClogFrameNum() TRAClogNumber("frame",SYSvblcount,8)
+    
 #	ifdef DEMOS_UNITTEST
 	void TRACunitTest (void* _screen);
 #	endif
+
+#   ifndef __TOS__
+    void TRACsaveLog(char* _filename);
+#   endif
+
 #else
 #   define TRACinit()
 #   define TRAClog(_str,_separator)
@@ -78,6 +84,7 @@
 
 #   define TRAClogNumber(STR,NUM,NBCHARS)
 #   define TRAClogNumberS(STR,NUM,NBCHARS,SEPARATOR)
+#   define TRAClogFrameNum()
 
 #endif
 

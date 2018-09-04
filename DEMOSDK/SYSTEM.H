@@ -131,6 +131,7 @@ void SYScheckHWRequirements (void);
 bool SYSgetCookie           (u32 _id, u32* _value);
 void SYSdbgBreak            (void);
 void SYSvbldonothing        (void); 
+void SYSvblend              (void);
 void SYSvblrunRTSroutine    (void);
 
 extern volatile u32	SYSvblcount;

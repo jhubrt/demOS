@@ -379,6 +379,18 @@ void ScreenWaitMainDonothing (void)
 
 #define SCREEN_PRELOAD_H    160
 
+void PreloadDisplay (u16 _preloadResourceIndex, LOADrequest* _request, void* _clientData)
+{
+    static char line[] = "preloading    -      ";
+
+
+    STDuxtoa(&line[11], RSC_DISK1_NBENTRIES - RSC_DISK1_POLYZOOM__CYBERVECTOR_BIN - _preloadResourceIndex - 1, 2);
+    STDuxtoa(&line[16], _request->nbsectors, 4);
+    
+    SYSfastPrint (line, _clientData, 160, 4);
+}
+
+
 void ScreensInit (void* _preload, u32 _preloadsize)
 {
     SYSvblroutines[0] = RASvbldonothing;
@@ -409,7 +421,7 @@ void ScreensInit (void* _preload, u32 _preloadsize)
         STDmset (diplayarea, 0, (200 - SCREEN_PRELOAD_H) * 160);
         SYSfastPrint ("only 1 drive but extra memory...", diplayarea, 160, 4);
 
-        current = LOADpreload (&diplayarea[160*10], 160, 4, _preload, _preloadsize, current, &RSC_DISK1, disk1Preload, ARRAYSIZE(disk1Preload));
+        current = LOADpreload (_preload, _preloadsize, current, &RSC_DISK1, disk1Preload, ARRAYSIZE(disk1Preload), PreloadDisplay, &diplayarea[160*10]);
 
         {
             bool goon = true;
@@ -453,7 +465,7 @@ void ScreensInit (void* _preload, u32 _preloadsize)
                     RSC_DISK2_FUGIT__FONT_ARJX 
                 };
 
-                LOADpreload (&diplayarea[160*30], 160, 4, _preload, _preloadsize, current, &RSC_DISK2, disk2Preload, ARRAYSIZE(disk2Preload));
+                LOADpreload (_preload, _preloadsize, current, &RSC_DISK2, disk2Preload, ARRAYSIZE(disk2Preload), PreloadDisplay, &diplayarea[160*10]);
             }
         }
 

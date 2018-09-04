@@ -23,6 +23,7 @@
 
 #include "DEMOSDK\FSM.H"
 #include "DEMOSDK\STANDARD.H"
+#include "DEMOSDK\TRACE.H"
 #include "DEMOSDK\SYSTEM.H"
 
 void FSMinit (FSM* _m, FSMfunction* _states, u16 _nbStates, u16 _startState)
@@ -33,10 +34,18 @@ void FSMinit (FSM* _m, FSMfunction* _states, u16 _nbStates, u16 _startState)
 
 #   ifdef DEMOS_DEBUG
     {
+        static char fsmstate[] = "fsm 0xFFFFFF = 0x  ";
+
         STDmset(_m->trace, 0x20202020UL, sizeof(_m->trace));
         _m->trace[sizeof(_m->trace) - 1] = 0;
         _m->traceCurrent = -1;
         _m->traceLastState = 0xFFFF;
+
+        TRAClogFrameNum();
+
+        STDuxtoa (&fsmstate[6] , (u32)_m    , 6);
+        STDuxtoa (&fsmstate[17], _startState, 2);
+        TRAClog(fsmstate, '\n');
     }
 #   endif
 }
@@ -45,6 +54,18 @@ void FSMgoto (FSM* _m, u16 _newState)
 {
     ASSERT(_newState < _m->nbStates);
     _m->activeState = _newState;
+
+#   ifdef DEMOS_DEBUG
+    {
+        static char fsmstate[] = "fsm 0xFFFFFF = 0x  ";
+
+        TRAClogFrameNum();
+
+        STDuxtoa (&fsmstate[6] , (u32)_m    , 6);
+        STDuxtoa (&fsmstate[17], _newState, 2);
+        TRAClog(fsmstate, '\n');
+    }
+#   endif
 }
 
 

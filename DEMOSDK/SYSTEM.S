@@ -34,7 +34,7 @@
     ; exports
     xdef    SYSdetectEmu,SYSlockIdle,SYSlockMain,SYSreadVideoBase,SYSwriteVideoBase,SYSvidCountRead,SYSemptyKb
 
-	xdef	SYSvblinterrupt,SYSvblcount,SYSvblLcount,SYSvblroutines,SYSvbldonothing,SYSvblrunRTSroutine
+	xdef	SYSvblinterrupt,SYSvblcount,SYSvblLcount,SYSvblroutines,SYSvbldonothing,SYSvblrunRTSroutine,SYSvblend
 	xdef	SYSsetIdlethread,SYSswitchIdle
     xdef    SYSgemdosSetMode,SYSmalloc,SYSreset
     xdef    SYSinitDbgBreak,SYSdbgBreak
@@ -388,7 +388,7 @@ SYSvblinterrupt:
     move.l  (a0)+,a1
     jmp     (a1)
 
-SYSvblroutines_end:
+SYSvblend:
 
 	* -------------------- floppy management -------------------------
 
@@ -434,12 +434,12 @@ donotswitchthread:
 
 
 SYSvblroutines:
-    dc.l    SYSvblroutines_end 
-    dc.l    SYSvblroutines_end 
-    dc.l    SYSvblroutines_end 
-    dc.l    SYSvblroutines_end 
-    dc.l    SYSvblroutines_end 
-    dc.l    SYSvblroutines_end 
+    dc.l    SYSvblend 
+    dc.l    SYSvblend 
+    dc.l    SYSvblend 
+    dc.l    SYSvblend 
+    dc.l    SYSvblend 
+    dc.l    SYSvblend 
 
 SYSemuDescriptor:
     dc.l    0

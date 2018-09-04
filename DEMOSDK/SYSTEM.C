@@ -35,11 +35,10 @@ u16	SYSbeginFrameNum = 0;
 #ifdef __TOS__
 u32* SYSdetectEmu (void);
 extern SYSinterupt SYSvblroutines[SYS_NBMAX_VBLROUTINES];
-void SYSvblroutines_end (void);
+void SYSvblend (void);
 #else
 
 SYSinterupt  SYSvblroutines[SYS_NBMAX_VBLROUTINES];
-void*        SYSvblroutines_end = (void*) 0x1234;
 volatile u32 SYSvblcount;
 volatile u16 SYSvblLcount;
 
@@ -47,7 +46,7 @@ static SYSthread SYSidleThread = NULL;
 
 void SYSvbldonothing    (void) {}
 void SYSvblrunRTSroutine(void) {}
-
+void SYSvblend          (void) {}
 
 u32* SYSdetectEmu (void)
 {
@@ -61,6 +60,11 @@ void SYSswitchIdle(void)
 	{
 		SYSidleThread();
 	}
+
+#   ifndef __TOS__
+    SYSvblcount++;
+    SYSvblLcount++;
+#   endif
 }
 
 u32 SYSvidCountRead (void) 

@@ -17,7 +17,7 @@
 
 #include "DEMOSDK\DATA\DATA.C"
 
-#include "FX\SNDSHADE\SNDSHADE.C"
+#include "FX\VREGANIM\VREGANIM.C"
 
 #include "REBIRTH\DISK1.C"
 #include "REBIRTH\DISK2.C"
@@ -29,3 +29,4 @@
 #include "REBIRTH\SRC\FUGIT.C"
 #include "REBIRTH\SRC\INTERLUD.C"
 #include "REBIRTH\SRC\MORPH.C"
+#include "REBIRTH\SRC\SNDSHADE.C"

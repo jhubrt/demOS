@@ -986,7 +986,7 @@ void SlidesBacktask (FSM* _fsm)
         if ( currentpicture < ARRAYSIZE(SlidePhotoIndexes) ) 
         {
             /* here we have bitmap[bitmapcurrent] loaded => launch loading on bitmap[!bitmapcurrent] */
-            loadRequest = LOADrequestLoad (&RSC_DISK2, SlidePhotoIndexes[currentpicture + 1], palette, LOAD_PRIORITY_INORDER);
+            loadRequest = LOADdata (&RSC_DISK2, SlidePhotoIndexes[currentpicture + 1], palette, LOAD_PRIORITY_INORDER);
         }
         else
         {

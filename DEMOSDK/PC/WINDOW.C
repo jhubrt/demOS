@@ -523,6 +523,7 @@ static WINmappingTypeEnum WINgetMappingType (WPARAM _wparam)
         return WINmappingType_KEY;
 
     case VK_END:
+    case VK_PAUSE:
         return WINmappingType_EXTRAKEY;
 
     case VK_MENU:

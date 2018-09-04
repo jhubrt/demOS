@@ -127,7 +127,8 @@ extern u16 LOADorder;
 #ifdef DEMOS_LOAD_FROMHD
 void          LOADpreloadMedia          (LOADdisk* _media);
 #else
-void*         LOADpreload               (void* _framebuffer, u16 _pitch, u16 _planepitch, void* _preload, u32 _preloadsize, void* _current, LOADdisk* _disk, u8* _resources, u16 _nbResources);
+typedef void (*LOADpreloadCallback)     (u16 _preloadResourceIndex, LOADrequest* _request, void* _clientData);
+void*         LOADpreload               (void* _preload, u32 _preloadsize, void* _current, LOADdisk* _disk, u8* _resources, u16 _nbResources, LOADpreloadCallback _callback, void* _clientData);
 #endif
 
 void          LOADinit          		(LOADdisk* _firstmedia, u16 _nbEntries, u16 _nbMetaData);
@@ -148,6 +149,7 @@ u32           LOADmetadataSize          (LOADdisk* _media, u16 _metaDataIndex);
 u32           LOADmetadataOriginalSize  (LOADdisk* _media, u16 _metaDataIndex);
 #define LOAD_METADATA_NOTPACKEDSIZE     0x1FFFFF
 
+u32           LOADcomputeExactSize      (LOADdisk* _media, u16 _entryIndex);
 
 #ifdef DEMOS_DEBUG
 u16 LOADtrace (void* _image, u16 _pitch, u16 _planePitch, u16 _y);

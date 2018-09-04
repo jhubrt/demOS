@@ -136,6 +136,22 @@ int main(int argc, char** argv)
         size = 15 * 1024 * 1024;
 #       endif
 
+#       if blsLOGDMA
+#           define demOS_LOGSIZE (256UL * 1024UL)
+#           ifdef __TOS__
+            tracLogger.logbase = (u8*) 0x3A0000UL;
+            ASSERT(tracLogger.logbase >= (sys.coreHeapbase + demOS_COREHEAPSIZE + demOS_HEAPSIZE));
+#           else
+            tracLogger.logbase = (u8*) malloc(demOS_LOGSIZE);
+#           endif
+
+            tracLogger.logSize = demOS_LOGSIZE;
+#       else
+            tracLogger.logbase = 0;
+            tracLogger.logSize = 0;
+#       endif
+
+        TRACinit ();
         SYSinitPrint ();
 
         sys.membase = (u8*) malloc( EMULbufferSize(demOS_COREHEAPSIZE + size) );
@@ -175,10 +191,6 @@ int main(int argc, char** argv)
             SYSinitThreading (&threadParam);
 
             SYScheckHWRequirements ();
-
-#           if blsLOGDMA
-            TRACinit ((void*) 0x3A0000UL, 256UL * 1024UL);
-#           endif
 
             *HW_KEYBOARD_DATA = 0x12; /* deactivate mouse management on ACIA */
 

@@ -169,12 +169,6 @@ LOADrequest* LOADrequestLoad (LOADdisk* _media, u16 _resourceid, void* _buffer, 
     return NULL;
 }
 
-void* LOADpreload (void* _framebuffer, u16 _pitch, u16 _planepitch, void* _preload, u32 _preloadsize, void* _current, LOADdisk* _disk, u8* _resources, u16 _nbResources)
-{
-    ASSERT(0);
-    return NULL;
-}
-
 #else
 
 LOADrequest* LOADrequestLoad (LOADdisk* _media, u16 _resourceid, void* _buffer, u16 _order)
@@ -225,9 +219,8 @@ LOADrequest* LOADrequestLoad (LOADdisk* _media, u16 _resourceid, void* _buffer, 
     return loadRequest;
 }
 
-void* LOADpreload (void* _framebuffer, u16 _pitch, u16 _planepitch, void* _preload, u32 _preloadsize, void* _current, LOADdisk* _disk, u8* _resources, u16 _nbResources)
+void* LOADpreload (void* _preload, u32 _preloadsize, void* _current, LOADdisk* _disk, u8* _resources, u16 _nbResources, LOADpreloadCallback _callback, void* _clientData)
 {
-    static char line[] = "preloading    -      ";
     u8* currentpreload = (u8*) _current;
     u16 t;
 
@@ -245,10 +238,7 @@ void* LOADpreload (void* _framebuffer, u16 _pitch, u16 _planepitch, void* _prelo
 
             while (request->processed == false)
             {
-                STDuxtoa(&line[11], _nbResources - t - 1, 2);
-                STDuxtoa(&line[16], request->nbsectors, 4);
-
-                SYSfastPrint (line, _framebuffer, _pitch, _planepitch);
+                _callback (t, request, _clientData);
             }
 
             LOADfreeRequest (request);
@@ -314,6 +304,30 @@ u32 LOADmetadataOriginalSize (LOADdisk* _media, u16 _metaDataIndex)
 {
     ASSERT(_metaDataIndex < _media->nbMetaData);
     return _media->metaData[_metaDataIndex].originalsizesizel >> LOAD_METADATA_RSHIFT_ORIGINALSIZE;
+}
+
+u32 LOADcomputeExactSize (LOADdisk* _media, u16 _entryIndex)
+{
+    u16 startIndex = _media->FAT[_entryIndex].metadataindextrack;
+    u16 endIndex, t;
+    u32 size = 0;
+
+
+    if ((_entryIndex + 1) < _media->nbEntries)
+    {
+        endIndex = _media->FAT[_entryIndex + 1].metadataindextrack;
+    }
+    else
+    {
+        endIndex = _media->nbMetaData;
+    }
+
+    for (t = startIndex ; t < endIndex ; t++)
+    {
+        size += LOADmetadataSize(_media, t);
+    }
+
+    return size;
 }
 
 void LOADwaitFDCIdle (void)
