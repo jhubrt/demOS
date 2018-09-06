@@ -38,7 +38,7 @@ extern SYSinterupt SYSvblroutines[SYS_NBMAX_VBLROUTINES];
 void SYSvblend (void);
 #else
 
-SYSinterupt  SYSvblroutines[SYS_NBMAX_VBLROUTINES];
+SYSinterupt  SYSvblroutines[SYS_NBMAX_VBLROUTINES] = {SYSvblend, SYSvblend, SYSvblend, SYSvblend, SYSvblend};
 volatile u32 SYSvblcount;
 volatile u16 SYSvblLcount;
 
@@ -62,6 +62,19 @@ void SYSswitchIdle(void)
 	}
 
 #   ifndef __TOS__
+    {
+        u16 i;
+
+        for (i = 0 ; i < ARRAYSIZE(SYSvblroutines) ; i++)
+        {
+            if (SYSvblroutines[i] == SYSvblend)
+            {
+                break;
+            }
+            SYSvblroutines[i]();
+        }
+    }
+
     SYSvblcount++;
     SYSvblLcount++;
 #   endif

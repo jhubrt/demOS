@@ -65,8 +65,12 @@ void BLSsetSecondaryBufferFreq(u32 _freq)
     blsSecondaryBufferFreq = _freq;
 }
 
-void aBLSvbl(void) {}
-void* aBLSvblPlayer = NULL;
+void aBLSvbl(void) 
+{
+    BLSupdate(aBLSvblPlayer);
+}
+
+BLSplayer* aBLSvblPlayer = NULL;
 
 #endif
 

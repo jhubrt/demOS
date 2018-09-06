@@ -205,7 +205,7 @@ typedef void (*BLSinitCallback)(u16 _index, u16 _nb);
 
 #if blsUSEASM || !defined(__TOS__)
     void aBLSvbl(void);
-    extern void* aBLSvblPlayer;
+    extern BLSplayer* aBLSvblPlayer;
 #endif
 
 #define blsDUMP 1 /* if you want to call BLStestPlay, you need to activate this flag and in this case stdlib should be included */

@@ -75,7 +75,7 @@ EXTERN_C void    EMULblit              (void);
 EXTERN_C void    EMULgetSound          (void* _data, u32 _byteslength);
 EXTERN_C void    EMULwait              (u32 _ms);
 
-EXTERN_C void    EMULfbExStart         (u8 _videomode, u16 _startx, u16 _starty, u16 _endx, u16 _endy, u16 _pitch);
+EXTERN_C void    EMULfbExStart         (u8 _videomode, u16 _startcyclex, u16 _starty, u16 _endcyclex, u16 _endy, u16 _pitch);
 EXTERN_C void    EMULfbExSetVideoMode  (u32 _startcycle, u8 _videomode);
 EXTERN_C void    EMULfbExSetColor      (u32 _startcycle, u16 _index, u16 _value);
 EXTERN_C void    EMULfbExSetAdr        (u32 _startcycle, u32 _adr);

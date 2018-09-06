@@ -92,13 +92,13 @@ MiniEmul g_miniEmul;
 
 
 
-extern "C" void EMULfbExStart (u8 _videomode, u16 _startx, u16 _starty, u16 _endx, u16 _endy, u16 _pitch)
+extern "C" void EMULfbExStart (u8 _videomode, u16 _startcyclex, u16 _starty, u16 _endcyclex, u16 _endy, u16 _pitch)
 {
     g_miniEmul.fbext.currentindex = 0;
     g_miniEmul.fbext.commands[g_miniEmul.fbext.currentindex++] = _videomode;
-    g_miniEmul.fbext.commands[g_miniEmul.fbext.currentindex++] = _startx;
+    g_miniEmul.fbext.commands[g_miniEmul.fbext.currentindex++] = _startcyclex;
     g_miniEmul.fbext.commands[g_miniEmul.fbext.currentindex++] = _starty;
-    g_miniEmul.fbext.commands[g_miniEmul.fbext.currentindex++] = _endx;
+    g_miniEmul.fbext.commands[g_miniEmul.fbext.currentindex++] = _endcyclex;
     g_miniEmul.fbext.commands[g_miniEmul.fbext.currentindex++] = _endy;
     g_miniEmul.fbext.commands[g_miniEmul.fbext.currentindex++] = _pitch;
 }
@@ -500,16 +500,16 @@ static u8 emulVideoMode2NBP(u8 _videomode)
 
 static void emulfromChunkToRVB (void* _base, u8 _videomode)
 {
-    u8*  source       = (u8*)  _base;
-    u32* dest         = (u32*) g_miniEmul.image;
-    u32* commands     = g_miniEmul.fbext.commands;
-    u8   videomode    = (u8)  *commands++;
-    u16  startx       = (u16) *commands++;
-    u16  starty       = (u16) *commands++;
-    u16  endx         = (u16) *commands++;
-    u16  endy         = (u16) *commands++;
-    u16  pitch        = (u16) *commands++;
-    u32  currentcycle = 0;
+    u8*  source        = (u8*)  _base;
+    u32* dest          = (u32*) g_miniEmul.image;
+    u32* commands      = g_miniEmul.fbext.commands;
+    u8   videomode     = (u8)  *commands++;
+    u16  startcyclex   = (u16) *commands++;
+    u16  starty        = (u16) *commands++;
+    u16  endcyclex     = (u16) *commands++;
+    u16  endy          = (u16) *commands++;
+    u16  pitch         = (u16) *commands++;
+    u32  currentcycley = 0;
     u16  y;
     u8   nbP = emulVideoMode2NBP(videomode);
 
@@ -519,8 +519,9 @@ static void emulfromChunkToRVB (void* _base, u8 _videomode)
 
     for (y = 0 ; y < emul_HEIGHT ; y++)
     {
+        u16 currentcyclex = 0;
         u16 planes[4];
-        u16 x;
+        u16 x, shifterx = 0;
         u16* s = (u16*) source;
         u32* d = dest;
 
@@ -535,7 +536,9 @@ static void emulfromChunkToRVB (void* _base, u8 _videomode)
 
         for (x = 0 ; x < emul_WIDTH ; x++)
         {
-            u16 p,i;
+            u32 currentcycle = currentcycley + currentcyclex;
+            u16 p;
+
 
             while (currentcycle == *commands)
             {
@@ -558,9 +561,9 @@ static void emulfromChunkToRVB (void* _base, u8 _videomode)
                     break;
 
                 case FBEXT_SETWIDTH:
-                    startx = (u16) *commands++;
-                    endx   = (u16) *commands++;
-                    pitch  = (u16) *commands++;
+                    startcyclex = (u16) *commands++;
+                    endcyclex   = (u16) *commands++;
+                    pitch       = (u16) *commands++;
                     break;
 
                 case FBEXT_SETADR:
@@ -572,82 +575,84 @@ static void emulfromChunkToRVB (void* _base, u8 _videomode)
                 }
             }
 
-            if ((x & 15) == 0)
+            if ((currentcyclex >= startcyclex) && (currentcyclex <= endcyclex) && (y >= starty) && (y <= endy))
             {
-                if ((x >= startx) && (x <= endx) && (y >= starty) && (y <= endy))
+                u8 pix = 0;
+                u8 val = 1 << nbP;
+
+                if ((shifterx++ & 15) == 0)
                 {
                     for (p = 0 ; p < nbP ; p++)
                     {
                         planes[p] = PCENDIANSWAP16( *s );
                         s++;
                     }
-
-                    for (i = 0 ; i < 8 ; i++)
-                    {
-                        u8  pix1 = 0;
-                        u8  pix2 = 0;
-                        u8  val  = 1 << nbP;
-
-
-                        for (p = 0 ; p < nbP ; p++)
-                        {
-                            pix1 |= (planes[p] & 0x8000) != 0 ? val : 0;
-                            pix1 >>= 1;
-                            planes[p] <<= 1;
-                        }
-
-                        for (p = 0 ; p < nbP ; p++)
-                        {
-                            pix2 |= (planes[p] & 0x8000) != 0 ? val : 0;
-                            pix2 >>= 1;
-                            planes[p] <<= 1;
-                        }
-
-                        {
-                            u32 v1 = ST2RVBcolor( HW_COLOR_LUT[pix1] );                        
-                            u32 v2 = ST2RVBcolor( HW_COLOR_LUT[pix2] );
-
-                            if (nbP == 4)
-                            {
-                                *d++ = v1;
-                                *d++ = v1;
-                                *d++ = v2;
-                                *d++ = v2;
-                            }
-                            else
-                            {
-                                *d++ = v1;
-                                *d++ = v2;
-                            }
-                        }
-                    }
                 }
-                else
+
+                for (p = 0 ; p < nbP ; p++)
                 {
-                    u32 v = ST2RVBcolor( HW_COLOR_LUT[0] );   
-                    
-                    for (i = 0 ; i < 8 ; i++)
+                    pix |= (planes[p] & 0x8000) != 0 ? val : 0;
+                    pix >>= 1;
+                    planes[p] <<= 1;
+                }
+           
+                {
+                    u32 v = ST2RVBcolor( HW_COLOR_LUT[pix] );                        
+
+                    *d++ = v;
+
+                    if (nbP == 4)
                     {
                         *d++ = v;
-                        if (nbP == 4)
-                        {
-                            *d++ = v;
-                        }
                     }
                 }
             }
+            else
+            {
+                u32 v = ST2RVBcolor( HW_COLOR_LUT[0] );   
 
-            currentcycle++;
+                *d++ = v;
+                if (nbP == 4)
+                {
+                    *d++ = v;
+                }
+            }
+
+            switch (nbP)
+            {
+            case 4:
+                currentcyclex++;
+                x++;
+                break;
+            case 2:
+                currentcyclex += x & 1;
+                break;
+            case 1:
+                currentcyclex += (x & 3) == 3;
+                break;
+            }
+        }
+
+        switch (nbP)
+        {
+        case 4:
+        case 2:
+            currentcycley += 512;
+            break;
+        case 1:
+            currentcycley += 256;
+            break;
         }
 
         if ((y >= starty) && (y <= endy))
         {
-            if (nbP != 1)
-            {
-                memset(dest + emul_WIDTH, 0, emul_WIDTH * sizeof(u32));
-                dest += emul_WIDTH;
-            }
             source += pitch;
+        }
+
+        if (nbP != 1)
+        {
+            memset(dest + emul_WIDTH, 0, emul_WIDTH * sizeof(u32));
+            dest += emul_WIDTH;
         }
 
         dest += emul_WIDTH;
