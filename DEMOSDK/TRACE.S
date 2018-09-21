@@ -24,12 +24,12 @@
 	
 	opt 	o+
 
-    xdef    TRAmaxraster
+    xdef    TRACmaxraster
 
 ;---------------------------------------
-; u16 TRAmaxraster (u16 maxraster)
+; u16 TRACmaxraster (u16 maxraster)
 ;---------------------------------------
-TRAmaxraster:
+TRACmaxraster:
     move.l  d1,-(sp)
     move.l  d2,-(sp)
 

@@ -69,7 +69,7 @@ TRAClogger              tracLogger      = {NULL, 0};
 static TRACloggerState  tracLoggerState = {0, false};
 
 #ifndef __TOS__
-u16 TRAmaxraster (u16 maxraster) { return 0; }
+u16 TRACmaxraster (u16 maxraster) { return 0; }
 
 void TRACsaveLog(char* _filename)
 {
@@ -354,6 +354,38 @@ void TRACdrawScanlinesScale (void* _image, u16 _screenPitch, u16 _bitplanPitchSh
 }
 
 
+void TRACdisplayVBLcountAsColors(s16 _index)
+{
+    static u16 vbl = 0;
+
+    switch(SYSvblLcount - vbl)
+    {
+    case 0:
+        ASSERT(0);
+        break;
+    case 1:
+        HW_COLOR_LUT[_index] = 0x70;    /* GREEN */
+        break;
+    case 2:
+        HW_COLOR_LUT[_index] = 0x77;    /* CYAN */
+        break;
+    case 3:
+        HW_COLOR_LUT[_index] = 0x770;   /* YELLOW */
+        break;
+    case 4:
+        HW_COLOR_LUT[_index] = 0x700;   /* RED */
+        break;
+    case 5:
+        HW_COLOR_LUT[_index] = 0x707;   /* MAGENTA */
+        break;
+    default:
+        HW_COLOR_LUT[_index] = 0x777;   /* WHITE */
+        break;
+    }
+
+    vbl = SYSvblLcount;
+}
+
 
 #ifdef DEMOS_UNITTEST
 void TRACunitTest (void* _screen)
@@ -364,6 +396,3 @@ void TRACunitTest (void* _screen)
 #endif
 
 #endif /* DEMOS_DEBUG */
-
-
-

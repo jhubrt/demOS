@@ -20,6 +20,7 @@
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 -------------------------------------------------------------------------------------------------*/
 
+
 /*! @brief @ref SYS @file */
 
 /*! @defgroup  SYS
@@ -121,7 +122,6 @@ STRUCT(SYSinitThreadParam)
     extern SYSinterupt  SYSvblroutines[SYS_NBMAX_VBLROUTINES];
 #endif
 
-void SYSinitPrint           (void);
 void SYSinit		        (void);
 void SYSinitHW              (void);
 void SYSinitThreading       (SYSinitThreadParam* _param);
@@ -145,14 +145,13 @@ extern volatile u16	SYSvblLcount;
 #	define SYSmemoryHighMap sys.memoryMapHigh
 #endif
 
-void SYSswitchIdle(void);
-bool SYSsetIdlethread(void* _stacklow, void*_stackhigh);
-void SYStune(void);
-u32	 SYSreadVideoBase (void);
-void SYSwriteVideoBase (u32 _val);
-u32  SYSvidCountRead (void);
-u16  SYSwmovep              (void* _adr);
-u32  SYSlmovep              (void* _adr);
+void SYSswitchIdle      (void);
+bool SYSsetIdlethread   (void* _stacklow, void*_stackhigh);
+u32	 SYSreadVideoBase   (void);
+void SYSwriteVideoBase  (u32 _val);
+u32  SYSvidCountRead    (void);
+u16  SYSwmovep          (void* _adr);
+u32  SYSlmovep          (void* _adr);
 
 #define SYSkbAcquire  sys.key = *HW_KEYBOARD_DATA
 #define SYSkbHit  (sys.lastKey != sys.key)

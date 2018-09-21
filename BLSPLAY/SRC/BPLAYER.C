@@ -20,7 +20,6 @@
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 -------------------------------------------------------------------------------------------------*/
 
-
 #include "DEMOSDK\BASTYPES.H"
 #include "DEMOSDK\FSM.H"
 #include "DEMOSDK\SYSTEM.H"
@@ -290,7 +289,7 @@ void PlayerActivity	(FSM* _fsm)
         BLSupdate (&(g_player.player));
 
         *HW_COLOR_LUT = 0x34;
-        g_player.rastermax = TRAmaxraster(g_player.rastermax);
+        g_player.rastermax = TRACmaxraster(g_player.rastermax);
     }
 
     *HW_COLOR_LUT = g_player.player.clientEvent;
@@ -637,7 +636,6 @@ void PlayerBacktask (FSM* _fsm)
             drawXorPass (line);
 #           endif
         }
-
 
         {
             u8* line = (u8*) backframebuffer + (50 * 160);

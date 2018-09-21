@@ -152,7 +152,6 @@ int main(int argc, char** argv)
 #       endif
 
         TRACinit ();
-        SYSinitPrint ();
 
         sys.membase = (u8*) malloc( EMULbufferSize(demOS_COREHEAPSIZE + size) );
         ASSERT(sys.membase != NULL);

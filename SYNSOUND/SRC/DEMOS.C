@@ -131,7 +131,6 @@ int main(int argc, char** argv)
 {
     u8* base = (u8*) STDgetSP();
 
-
     IGNORE_PARAM(argc);
 	IGNORE_PARAM(argv);
 
@@ -160,8 +159,6 @@ int main(int argc, char** argv)
 #       ifndef DEMOS_USES_BOOTSECTOR
 		sys.bakGemdos32 = SYSgemdosSetMode(NULL);
 #       endif
-
-        SYSinitPrint ();
 
         ASSERT(sys.membase != NULL);
         IGNORE_PARAM(base);

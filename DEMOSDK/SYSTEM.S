@@ -38,12 +38,14 @@
 	xdef	SYSsetIdlethread,SYSswitchIdle
     xdef    SYSgemdosSetMode,SYSmalloc,SYSreset
     xdef    SYSinitDbgBreak,SYSdbgBreak
-	xdef    SYSfontbitmap,SYSfontchars,SYSfastPrint
+	xdef    SYSfastPrint
+    xdef    SYSbomb2,SYSbomb3,SYSbomb4,SYSbomb5,SYSbomb6,SYSbomb7,SYSbomb8
 
     xdef    SYSwmovep,SYSlmovep
 
     ; imports
     xref    LOADdeconnectAndStartRequest,LOADtoggleDriveStartRequest
+    xref    SYSfontdata,SYSfontchars
 
 
 *-------------------------------------------------------------------------
@@ -230,7 +232,7 @@ SYSfastPrint:
 
 SYS_debugPrint_noautomod:
 
-	move.l	SYSfontbitmap(pc),a3
+	lea	    SYSfontdata(pc),a3
 	lea 	SYSfontchars(pc),a2
 
 	subq.w  #1,d1
@@ -298,8 +300,138 @@ SYS_debugPrint_end:
 
 	rts
 
-SYSfontbitmap:	dc.l	0
-SYSfontchars:   ds.w    256
+
+;-----------------------------------------------------------------------------------------
+; SYSbomb
+;-----------------------------------------------------------------------------------------
+SYSbomb2:
+    move.w  #$2700,sr          ; disable interupts
+    movem.l d0-d7/a0-a7,buffer ; store regs at fixed address => we can trash code because we wont exit from here
+    moveq.l #'2',d7
+    bra.s   SYSbomb
+
+SYSbomb3:
+    move.w  #$2700,sr          ; disable interupts
+    movem.l d0-d7/a0-a7,buffer ; store regs at fixed address => we can trash code because we wont exit from here
+    moveq.l #'3',d7
+    bra.s   SYSbomb
+
+SYSbomb4:
+    move.w  #$2700,sr           ; disable interupts
+    movem.l d0-d7/a0-a7,buffer  ; store regs at fixed address => we can trash code because we wont exit from here
+    moveq.l #'4',d7
+    bra.s   SYSbomb
+
+SYSbomb5:
+    move.w  #$2700,sr           ; disable interupts
+    movem.l d0-d7/a0-a7,buffer  ; store regs at fixed address => we can trash code because we wont exit from here
+    moveq.l #'5',d7
+    bra.s   SYSbomb
+
+SYSbomb6:
+    move.w  #$2700,sr           ; disable interupts
+    movem.l d0-d7/a0-a7,buffer  ; store regs at fixed address => we can trash code because we wont exit from here
+    moveq.l #'6',d7
+    bra.s   SYSbomb
+
+SYSbomb7:
+    move.w  #$2700,sr           ; disable interupts
+    movem.l d0-d7/a0-a7,buffer  ; store regs at fixed address => we can trash code because we wont exit from here
+    moveq.l #'7',d7
+    bra.s   SYSbomb
+
+SYSbomb8:
+    move.w  #$2700,sr           ; disable interupts
+    movem.l d0-d7/a0-a7,buffer  ; store regs at fixed address => we can trash code because we wont exit from here
+    moveq.l #8,d7
+
+
+SYSbomb:
+    move.l  usp,a0
+    move.l  a0,buffer+64
+
+    lea     $ffff8201.w,a0      ; get the current screen adr
+    moveq.l #0,d0
+    movep.w (a0),d0
+    lsl.l   #8,d0
+    move.b  $ffff820d.w,d0
+    move.l  d0,a1
+
+    move.w  #$A00,$ffff8240.w   ; set colors
+    move.l  #-1,$ffff8242.w
+
+    clr.b   $ffff820f.w         ; video offset = 0
+    clr.b   $ffff8265.w         ; pixel offset = 0
+    move.b  #1,$ffff8260.w      ; video mode   = 2 planes
+
+    move.w  #7999,d0            ; erase screen
+    move.l  a1,a0
+.cls:
+    clr.l   (a0)+
+    dbf.w   d0,.cls
+    
+    lea     buffer+68(pc),a0   ; string adr
+    move.b  #'d',(a0)           
+    move.b  #'0',1(a0)              
+    move.b  #':',2(a0)          
+    move.b  #' ',3(a0)          
+    move.w  #160,d0             ; pitch
+    moveq.l #4,d1               ; bitplane pitch
+    lea     buffer(pc),a2       ; regs value adr
+    moveq.l #16,d2              ; 16 registers + usp
+.loop:
+    move.l  (a2)+,d3            ; get current reg value
+    
+    lea     4(a0),a3            ; compose string
+
+    moveq.l #7,d5               ; write current reg values
+.loop2:
+    rol.l   #4,d3
+    moveq.l #$F,d4
+    and.l   d3,d4
+    cmp.b   #10,d4
+    blt.s   .deci
+    add.b   #'A'-'0'-10,d4
+.deci:
+    add.b   #'0',d4
+    move.b  d4,(a3)+            ; output char
+    dbf.w   d5,.loop2
+    clr.b   (a3)+
+
+    movem.l d0-d1/a0-a1,-(sp)
+    bsr     SYSfastPrint
+    movem.l (sp)+,d0-d1/a0-a1
+
+    lea     160*8(a1),a1
+
+    cmp.w   #9,d2
+    bne.s   .donotinc
+    move.b  #'a',(a0)
+    move.b  #'0'-1,1(a0)
+.donotinc:
+    addq.b  #1,1(a0)
+
+    dbf.w   d2,.loop
+
+    lea     160*8(a1),a1
+    move.l  a0,a3
+    move.b  d7,(a3)+
+    move.b  #' ',(a3)+
+    move.b  #'B',(a3)+
+    move.b  #'O',(a3)+
+    move.b  #'M',(a3)+
+    move.b  #'B',(a3)+
+    move.b  #'S',(a3)+
+    clr.b   (a3)+
+
+    bsr     SYSfastPrint
+
+.endlessloop:
+    bra.s   .endlessloop
+
+    rte
+    
+buffer:
 
 *-------------------------------------------------------------------------
 * bool SYSlockMain (SYSlock* _lock);
@@ -378,6 +510,7 @@ SYSvblrunRTSroutine:
 *-------------------------------------------------------------------------
 
 SYSvblinterrupt:
+
 	move.w	#$2700,sr					; blocks all interupts => will be restored by rte
 
 	move.l	d0,-(sp)

@@ -108,10 +108,6 @@ SNDsynPlayer synth;
 #define SND_SYN_FREE_TEMP(A)    free(A)
 #define SND_SYN_ALLOC_SAMPLE(A) malloc (A)
 
-
-
-
-
 static char* SNDsyndelims = "\n\r";
 
 SNDsynSoundSet* soundSet1 = NULL;

@@ -20,7 +20,6 @@
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 -------------------------------------------------------------------------------------------------*/
 
-
 #define SYSTEM_C
 
 #include "DEMOSDK\BASTYPES.H"
@@ -33,9 +32,19 @@ SYScore sys;
 u16	SYSbeginFrameNum = 0;
 
 #ifdef __TOS__
-u32* SYSdetectEmu (void);
+
+u32*   SYSdetectEmu (void);
 extern SYSinterupt SYSvblroutines[SYS_NBMAX_VBLROUTINES];
-void SYSvblend (void);
+void   SYSvblend (void);
+
+void   SYSbomb2 (void);
+void   SYSbomb3 (void);
+void   SYSbomb4 (void);
+void   SYSbomb5 (void);
+void   SYSbomb6 (void);
+void   SYSbomb7 (void);
+void   SYSbomb8 (void);
+
 #else
 
 SYSinterupt  SYSvblroutines[SYS_NBMAX_VBLROUTINES] = {SYSvblend, SYSvblend, SYSvblend, SYSvblend, SYSvblend};
@@ -47,6 +56,7 @@ static SYSthread SYSidleThread = NULL;
 void SYSvbldonothing    (void) {}
 void SYSvblrunRTSroutine(void) {}
 void SYSvblend          (void) {}
+void SYSdbgBreak        (void) {}
 
 u32* SYSdetectEmu (void)
 {
@@ -106,14 +116,11 @@ u32 SYSlmovep (void* _adr)
 
 #endif
 
-
 /*------------------------------------------------------------------
     SYSTEM FONT
 --------------------------------------------------------------------*/
-ASMIMPORT u8*  SYSfontbitmap ASMIMPORTDEFAULT(NULL);
-ASMIMPORT u16  SYSfontchars[256];
-
-extern u8  SYSfontdata[];
+extern u16  SYSfontchars[256];
+extern u8   SYSfontdata[];
 
 void SYSfastPrint(char* _s, void* _screenprintadr, u16 _screenPitch, u16 _bitplanPitch)
 #ifdef __TOS__
@@ -131,7 +138,7 @@ void SYSfastPrint(char* _s, void* _screenprintadr, u16 _screenPitch, u16 _bitpla
 
         if ( SYSfontchars[c] != 0xFFFF )
         {
-            u8* bitmap = SYSfontbitmap + SYSfontchars[c];
+            u8* bitmap = SYSfontdata + SYSfontchars[c];
 
             *d = *bitmap++;	d += _screenPitch;
             *d = *bitmap++;	d += _screenPitch;
@@ -155,46 +162,6 @@ void SYSfastPrint(char* _s, void* _screenprintadr, u16 _screenPitch, u16 _bitpla
 }
 #endif
 
-void SYSinitPrint(void)
-{
-	u16 c;
-
-	STDmset (SYSfontchars, 0xFFFFFFFFUL, sizeof(SYSfontchars));
-
-	for (c = 0 ; c < 26 ; c++)
-	{
-		SYSfontchars['A' + c] = c * 8;
-		SYSfontchars['a' + c] = (c + 54) * 8;
-	} 
-
-	for (c = 0 ; c < 10 ; c++)
-	{
-		SYSfontchars['0' + c] = (c + 26) * 8;
-	} 
-
-	SYSfontchars['-'] = 36 * 8;
-	SYSfontchars['+'] = 37 * 8;
-	SYSfontchars['.'] = 38 * 8;
-	SYSfontchars['\''] = 39 * 8;
-	SYSfontchars['/'] = 40 * 8;
-	SYSfontchars['\\'] = 40 * 8;
-	SYSfontchars['*'] = 41 * 8;
-	SYSfontchars['<'] = 42 * 8;
-	SYSfontchars['>'] = 43 * 8;
-	SYSfontchars['='] = 44 * 8;
-	SYSfontchars[':'] = 45 * 8;
-	SYSfontchars[';'] = 46 * 8;
-	SYSfontchars[','] = 47 * 8;
-	SYSfontchars['?'] = 48 * 8;
-	SYSfontchars['!'] = 49 * 8;
-	SYSfontchars['['] = 50 * 8;
-	SYSfontchars[']'] = 51 * 8;
-	SYSfontchars['%'] = 52 * 8;
-	SYSfontchars['|'] = 53 * 8;
-	SYSfontchars[' '] = 80 * 8;
-
-    SYSfontbitmap = SYSfontdata;
-}
 
 #ifdef DEMOS_DEBUG
 void SYSdebugPrint(void* _screen, u16 _screenPitch, u16 _bitplanPitchShift, u16 _col, u16 _y, char* _s)
@@ -309,6 +276,7 @@ void SYSinit(void)
     {   /* detect mega ste */
         u32 machineType = 0;
         u8  id[4] = {'_','M','C','H'};
+
         bool cookieFound = SYSgetCookie( *(u32*)id, &machineType );        
         sys.isMegaSTe = machineType == 0x10010UL;
         if (cookieFound)
@@ -369,8 +337,6 @@ void SYSinitHW (void)
 	*HW_MFP_INTERRUPT_ENABLE_A = 0;
 	*HW_MFP_INTERRUPT_ENABLE_B = 0;
 	
-/*	SYS_tune(); */
-
 	*HW_MICROWIRE_MASK = 0x7FF;
 	*HW_VECTOR_VBL = (u32) SYSvblinterrupt;
 
@@ -385,6 +351,16 @@ void SYSinitHW (void)
 	*HW_MFP_INTERRUPT_MASK_A   |= 0x1;	/* enable Timer B mask */
 
 	sys.lastKey = sys.key = 0;
+
+#   ifdef __TOS__
+    *(u32*) 0x08UL = (u32) SYSbomb2;
+    *(u32*) 0x0CUL = (u32) SYSbomb3;
+    *(u32*) 0x10UL = (u32) SYSbomb4;
+    *(u32*) 0x14UL = (u32) SYSbomb5;
+    *(u32*) 0x18UL = (u32) SYSbomb6;
+    *(u32*) 0x18UL = (u32) SYSbomb7;
+    *(u32*) 0x20UL = (u32) SYSbomb8;
+#   endif
 }
 
 void SYSinitThreading(SYSinitThreadParam* _param)
@@ -472,22 +448,11 @@ void SYSassert(char* _message, char* _file, int _line)
 
     STDmset (HW_COLOR_LUT + 1, 0xFFFFFFFFUL, 30);
 
-    if (SYSfontbitmap != NULL)
-    {
-        SYSdebugPrint(sys.mem.buffer, 160, SYS_2P_BITSHIFT, 0,  0, "Assertion failed:");
-        SYSdebugPrint(sys.mem.buffer, 160, SYS_2P_BITSHIFT, 0,  8, _message);
-        SYSdebugPrint(sys.mem.buffer, 160, SYS_2P_BITSHIFT, 0, 16, _file);
-        SYSdebugPrint(sys.mem.buffer, 160, SYS_2P_BITSHIFT, 0, 24, line);
-        while(1);
-    }
-    else
-    {   /* early asserts management */
-        while(1)
-        {
-            (*HW_COLOR_LUT) = 0x700;  /* consider to use ASSERT_COLOR instead for a use specified color code */
-            (*HW_COLOR_LUT) = 0x600;
-        }
-    }
+    SYSdebugPrint(sys.mem.buffer, 160, SYS_2P_BITSHIFT, 0,  0, "Assertion failed:");
+    SYSdebugPrint(sys.mem.buffer, 160, SYS_2P_BITSHIFT, 0,  8, _message);
+    SYSdebugPrint(sys.mem.buffer, 160, SYS_2P_BITSHIFT, 0, 16, _file);
+    SYSdebugPrint(sys.mem.buffer, 160, SYS_2P_BITSHIFT, 0, 24, line);
+    while(1);
 }
 
 void SYSassertColor(u16 _c1, u16 _c2)

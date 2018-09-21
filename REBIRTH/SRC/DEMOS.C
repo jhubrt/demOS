@@ -20,6 +20,7 @@
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 -------------------------------------------------------------------------------------------------*/
 
+
 /*! @brief @ref MAIN @file */
 /*! @defgroup MAIN
    
@@ -168,7 +169,6 @@ int main(int argc, char** argv)
 #       endif
 
         TRACinit ();
-        SYSinitPrint ();
 
         ASSERT(sys.membase != NULL);
 

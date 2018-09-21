@@ -59,7 +59,8 @@
 	void TRACdisplay (void* _image);
 	void TRACmanage (u8 _key);
     void TRACdrawScanlinesScale (void* _image, u16 _screenPitch, u16 _bitplanPitchShift, u16 _h);
-    u16  TRAmaxraster (u16 maxraster);
+    u16  TRACmaxraster (u16 maxraster);
+    void TRACdisplayVBLcountAsColors(s16 _index);
 
 #   define TRAClogNumber(STR,NUM,NBCHARS) TRAClogNumberS(STR,NUM,NBCHARS,'\n')
 #   define TRAClogNumberS(STR,NUM,NBCHARS,SEPARATOR) { static char trace[] = STR ":         "; STDuxtoa(&trace[sizeof(trace) - 9], (NUM), (NBCHARS)); TRAClog(trace, SEPARATOR); }
@@ -74,6 +75,7 @@
 #   endif
 
 #else
+
 #   define TRACinit()
 #   define TRAClog(_str,_separator)
 #   define TRAClogClear()
@@ -85,6 +87,7 @@
 #   define TRAClogNumber(STR,NUM,NBCHARS)
 #   define TRAClogNumberS(STR,NUM,NBCHARS,SEPARATOR)
 #   define TRAClogFrameNum()
+#   define TRACdisplayVBLcountAsColors(A)
 
 #endif
 
