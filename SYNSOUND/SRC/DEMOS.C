@@ -162,6 +162,8 @@ int main(int argc, char** argv)
 
         ASSERT(sys.membase != NULL);
         IGNORE_PARAM(base);
+            
+        TRACinit ();
 
 		/* STDmset (buffer, 0, size); */
 
@@ -189,7 +191,6 @@ int main(int argc, char** argv)
             SYSinitHW ();
             SYSinitThreading ( &threadParam ); 
 			SNDsynPlayerInit (&sys.coremem, &sndparam);
-            TRACinit ();
             SYScheckHWRequirements ();
 
             SYSfastPrint(DEMOSbuildversion, (u8*)(SYSreadVideoBase()) + 160 * 192 + 152, 160, 4);

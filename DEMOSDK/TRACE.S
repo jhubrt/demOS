@@ -25,6 +25,139 @@
 	opt 	o+
 
     xdef    TRACmaxraster
+    xdef    TRAC2bomb,TRAC3bomb,TRAC4bomb,TRAC5bomb,TRAC6bomb,TRAC7bomb,TRAC8bomb
+
+    xref    SYSfastPrint
+
+;-----------------------------------------------------------------------------------------
+; TRACbomb
+;-----------------------------------------------------------------------------------------
+TRAC2bomb:
+    move.l  d0,buffer
+    moveq.l #'2',d0
+    bra.s   TRACbomb
+
+TRAC3bomb:
+    move.l  d0,buffer
+    moveq.l #'3',d0
+    bra.s   TRACbomb
+
+TRAC4bomb:
+    move.l  d0,buffer
+    moveq.l #'4',d0
+    bra.s   TRACbomb
+
+TRAC5bomb:
+    move.l  d0,buffer
+    moveq.l #'5',d0
+    bra.s   TRACbomb
+
+TRAC6bomb:
+    move.l  d0,buffer
+    moveq.l #'6',d0
+    bra.s   TRACbomb
+
+TRAC7bomb:
+    move.l  d0,buffer
+    moveq.l #'7',d0
+    bra.s   TRACbomb
+
+TRAC8bomb:
+    move.l  d0,buffer
+    moveq.l #8,d0
+
+
+TRACbomb:
+    move.w  #$2700,sr          ; disable interupts
+
+    movem.l d1-d7/a0-a7,buffer+4 ; store regs at fixed address => we can trash code because we wont exit from here
+    move.l  d0,d7
+
+    move.l  usp,a0
+    move.l  a0,buffer+64
+
+    lea     $ffff8201.w,a0      ; get the current screen adr
+    moveq.l #0,d0
+    movep.w (a0),d0
+    lsl.l   #8,d0
+    move.b  $ffff820d.w,d0
+    move.l  d0,a1
+
+    move.w  #$A00,$ffff8240.w   ; set colors
+    move.l  #-1,$ffff8242.w
+
+    clr.b   $ffff820f.w         ; video offset = 0
+    clr.b   $ffff8265.w         ; pixel offset = 0
+    move.b  #1,$ffff8260.w      ; video mode   = 2 planes
+
+    move.w  #7999,d0            ; erase screen
+    move.l  a1,a0
+.cls:
+    clr.l   (a0)+
+    dbf.w   d0,.cls
+    
+    lea     buffer+68(pc),a0   ; string adr
+    move.b  #'d',(a0)           
+    move.b  #'0',1(a0)              
+    move.b  #':',2(a0)          
+    move.b  #' ',3(a0)          
+    move.w  #160,d0             ; pitch
+    moveq.l #4,d1               ; bitplane pitch
+    lea     buffer(pc),a2       ; regs value adr
+    moveq.l #16,d2              ; 16 registers + usp
+.loop:
+    move.l  (a2)+,d3            ; get current reg value
+    
+    lea     4(a0),a3            ; compose string
+
+    moveq.l #7,d5               ; write current reg values
+.loop2:
+    rol.l   #4,d3
+    moveq.l #$F,d4
+    and.l   d3,d4
+    cmp.b   #10,d4
+    blt.s   .deci
+    add.b   #'A'-'0'-10,d4
+.deci:
+    add.b   #'0',d4
+    move.b  d4,(a3)+            ; output char
+    dbf.w   d5,.loop2
+    clr.b   (a3)+
+
+    movem.l d0-d1/a0-a1,-(sp)
+    bsr     SYSfastPrint
+    movem.l (sp)+,d0-d1/a0-a1
+
+    lea     160*8(a1),a1
+
+    cmp.w   #9,d2
+    bne.s   .donotinc
+    move.b  #'a',(a0)
+    move.b  #'0'-1,1(a0)
+.donotinc:
+    addq.b  #1,1(a0)
+
+    dbf.w   d2,.loop
+
+    lea     160*8(a1),a1
+    move.l  a0,a3
+    move.b  d7,(a3)+
+    move.b  #' ',(a3)+
+    move.b  #'B',(a3)+
+    move.b  #'O',(a3)+
+    move.b  #'M',(a3)+
+    move.b  #'B',(a3)+
+    move.b  #'S',(a3)+
+    clr.b   (a3)+
+
+    bsr     SYSfastPrint
+
+.endlessloop:
+    bra.s   .endlessloop
+
+    rte
+    
+buffer:
 
 ;---------------------------------------
 ; u16 TRACmaxraster (u16 maxraster)

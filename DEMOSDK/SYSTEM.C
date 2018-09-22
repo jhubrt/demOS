@@ -37,14 +37,6 @@ u32*   SYSdetectEmu (void);
 extern SYSinterupt SYSvblroutines[SYS_NBMAX_VBLROUTINES];
 void   SYSvblend (void);
 
-void   SYSbomb2 (void);
-void   SYSbomb3 (void);
-void   SYSbomb4 (void);
-void   SYSbomb5 (void);
-void   SYSbomb6 (void);
-void   SYSbomb7 (void);
-void   SYSbomb8 (void);
-
 #else
 
 SYSinterupt  SYSvblroutines[SYS_NBMAX_VBLROUTINES] = {SYSvblend, SYSvblend, SYSvblend, SYSvblend, SYSvblend};
@@ -351,16 +343,6 @@ void SYSinitHW (void)
 	*HW_MFP_INTERRUPT_MASK_A   |= 0x1;	/* enable Timer B mask */
 
 	sys.lastKey = sys.key = 0;
-
-#   ifdef __TOS__
-    *(u32*) 0x08UL = (u32) SYSbomb2;
-    *(u32*) 0x0CUL = (u32) SYSbomb3;
-    *(u32*) 0x10UL = (u32) SYSbomb4;
-    *(u32*) 0x14UL = (u32) SYSbomb5;
-    *(u32*) 0x18UL = (u32) SYSbomb6;
-    *(u32*) 0x18UL = (u32) SYSbomb7;
-    *(u32*) 0x20UL = (u32) SYSbomb8;
-#   endif
 }
 
 void SYSinitThreading(SYSinitThreadParam* _param)

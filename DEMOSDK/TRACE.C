@@ -68,7 +68,18 @@ STRUCT(TRACloggerState)
 TRAClogger              tracLogger      = {NULL, 0};
 static TRACloggerState  tracLoggerState = {0, false};
 
-#ifndef __TOS__
+#ifdef __TOS__
+
+void   TRAC2bomb (void);
+void   TRAC3bomb (void);
+void   TRAC4bomb (void);
+void   TRAC5bomb (void);
+void   TRAC6bomb (void);
+void   TRAC7bomb (void);
+void   TRAC8bomb (void);
+
+#else
+
 u16 TRACmaxraster (u16 maxraster) { return 0; }
 
 void TRACsaveLog(char* _filename)
@@ -82,10 +93,21 @@ void TRACsaveLog(char* _filename)
         fclose(file);
     }
 }
+
 #endif
 
 void TRACinit (void)
 {
+#   ifdef __TOS__
+    *(void**) 0x08UL = (void*) TRAC2bomb;
+    *(void**) 0x0CUL = (void*) TRAC3bomb;
+    *(void**) 0x10UL = (void*) TRAC4bomb;
+    *(void**) 0x14UL = (void*) TRAC5bomb;
+    *(void**) 0x18UL = (void*) TRAC6bomb;
+    *(void**) 0x18UL = (void*) TRAC7bomb;
+    *(void**) 0x20UL = (void*) TRAC8bomb;
+#   endif
+
 	trac_displayParam.h			 = 0;
 	trac_displayParam.pitch		 = 160;
 	trac_displayParam.plane		 = 0;
@@ -94,9 +116,9 @@ void TRACinit (void)
 
 	trac_displayParamLast.refresh = 0;
 
-    STDmset (g_displayServices, 0, sizeof(g_displayServices));
+    STDmset (g_displayServices, 0UL, sizeof(g_displayServices));
 
-    STDmset(tracLogger.logbase, 0UL, tracLogger.logSize);
+    STDmset (tracLogger.logbase, 0UL, tracLogger.logSize);
 }
 
 void TRAClog (char* _str, char _separator)
