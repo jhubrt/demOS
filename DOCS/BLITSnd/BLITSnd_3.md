@@ -150,11 +150,11 @@ Instr = 6 - Key A# 3
 ```
 Instrument precompute...
 
-Instr = 1 ( 1886): [1/2 (10137) >0] [1/3 (9568) >0] [1/7 (7594) >0] [1/10 (6386) >0] [2/0 (5689) >0] {2/2 >1} {2/3 >1} [2/5 (4262) >0] {2/7 >1} {2/10 >1}
-Instr = 2 ( 5088): [3/0 (7674) >0] 
-Instr = 3 ( 4752): [3/0 (7167) >0]
-Instr = 4 ( 2034): [3/9 (1824) >0]
-Instr = 6 ( 4388): [2/0 (6618) >-1] [2/2 (5896) >-1] [2/5 (4958) >-1] [2/7 (4417) >-1][2/9 (7870) >0] [2/10 (7429) >0] {3/0 >0} {3/2 >0} [3/3 (5565)>0] {3/5 >0} [3/6 (4680) >0]{3/7 >0} {3/9 >1} {3/10 >1}
+instr 1  ( 1886): [D 1/2 (10138) >0] [D# 1/3 (9569) >0] [G 1/7 (7595) >0] [A# 1/10 (6386) >0] [C 2/0 (5690) >0] {2/2 >1} {2/3 >1} [F 2/5 (4262) >0] {2/7 >1} {2/10 >1} 
+instr 2  ( 5088): [C 3/0 (7675) >0] 
+instr 3  ( 4752): [C 3/0 (7168) >0] 
+instr 4  ( 2034): [A 3/9 (1824) >0] 
+instr 6  ( 4388): [C 2/0 (6618) >-1] [D 2/2 (5896) >-1] [F 2/5 (4958) >-1] [G 2/7 (4417) >-1] [A 2/9 (7871) >0] [A# 2/10 (7429) >0] {3/0 >0} {3/2 >0} [D# 3/3 (5566) >0] {3/5 >0} [F# 3/6 (4680) >0] {3/7 >0} {3/9 >1} {3/10 >1} 
 ```
 
 *Cumulated byte size for all precomputed samples of an instrument*
@@ -162,23 +162,23 @@ Instr = 6 ( 4388): [2/0 (6618) >-1] [2/2 (5896) >-1] [2/5 (4958) >-1] [2/7 (4417
   =\> it impacts the computed byte size of the instrument*
 
 ```
-instrument 1 size = 43636 no volume effect found
-instrument 2 size = 7674  no volume effect found
-instrument 3 size = 7167  no volume effect found
-instrument 4 size = 1824  no volume effect found
-instrument 6 size = 94868 volume used
+instr 1  size = 43640   no volume effect found >0
+instr 2  size = 7675    no volume effect found >0
+instr 3  size = 7168    no volume effect found >0
+instr 4  size = 1824    no volume effect found >0
+instr 6  size = 94874   volume used >0 [133](0x40)  >2 [10](0x10)  
 ```
 
 *Estimated total size used by samples in memory when .BLS file will be loaded*
 
 ```
-total size = 155169 for 17 precomputed samples and 27 keys
+total size = 155181 for 17 precomputed samples and 27 keys
 ```
 
 *A heap of a size of max of these two values will be allocated for samples at init of the BLITsnd player (sizes for even addresses / odd addresses heaps)*
 
 ```
-heapsize 154512 155884
+heapsize 154524 155896
 ```
 
 #### Sample section
