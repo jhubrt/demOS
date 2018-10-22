@@ -29,8 +29,9 @@
 
 #include "DEMOSDK\PC\EMUL.H"
 
-
-#define blsBENCHMARK 1
+#ifndef blsBENCHMARK
+#   define blsBENCHMARK 1
+#endif
 
 #if blsBENCHMARK
 #   define blsRASTER(COLOR) *HW_COLOR_LUT = COLOR;

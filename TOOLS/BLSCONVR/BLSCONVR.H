@@ -326,6 +326,46 @@ struct PrecomputedKey
     }
 };
 
+struct VolFXLevel
+{
+    u32             m_nbOccurences;
+    std::set<u8>    m_modVolumes;
+
+    static u8 GetShiftFromVolume (u16 vol)
+    {
+        if (vol > 48)
+            return 0;
+        else if (vol > 24)  
+            return 1;
+        else if (vol > 12) 
+            return 2;
+        else if (vol > 6) 
+            return 3;
+        else if (vol > 3) 
+            return 4;
+        else if (vol > 1) 
+            return 5;
+        else if (vol > 0)
+            return 6;
+        else if (vol == 0)
+            return 8;
+
+        ASSERT(0);
+        return 8;
+    }
+
+    VolFXLevel (u8 _modVolume)
+        : m_nbOccurences (1)
+    {
+        m_modVolumes.insert(_modVolume);
+    }
+
+    void add (u8 _modVolume)
+    {
+        m_modVolumes.insert(_modVolume);
+        m_nbOccurences++;       
+    }
+};
 
 class Sndtrack
 {
@@ -343,19 +383,23 @@ class Sndtrack
     std::vector<PrecomputedKey>    m_precomputedKeys;
     std::map<u32,u32>              m_keyInstr2precomputedKeys;
     u16                            m_nbPrecomputedSamples;
-    std::map<u8, std::map<u8,u32>> m_instrFXVolumes;
+    
+    std::map<u8, std::map<u8,VolFXLevel>> m_instrFXVolumes;
 
     typedef std::multimap<u32,u16> SamplesMapOrderBySize;
-
+    
 public:
 
-    bool DoesInstrumentHaveVolumeFX (u8 _instrument) const
+    u32 GetNbVolFXLevelForInstrument (u8 _instrument) const
     {
         auto it = m_instrFXVolumes.find(_instrument);
-        ASSERT(it != m_instrFXVolumes.end());
-        return it->second.size() > 1;
+        
+        if (it != m_instrFXVolumes.end())
+            return it->second.size();
+        else
+            return 0;
     }
-    
+   
     Sndtrack(bool _useVolumeForBalance) : m_useVolumeForBalance (_useVolumeForBalance) {}
 
     bool LoadModule (const char* _filename);

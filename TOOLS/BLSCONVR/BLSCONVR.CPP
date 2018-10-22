@@ -389,17 +389,23 @@ bool Sndtrack::LoadModule (const char* _filename)
                         auto it = m_instrFXVolumes.find(lastinstrument[v]);
                         if (it == m_instrFXVolumes.end())
                         {
-                            m_instrFXVolumes.insert(std::make_pair(lastinstrument[v], std::map<u8,u32>())).second;
+                            m_instrFXVolumes.insert(std::make_pair(lastinstrument[v], std::map<u8,VolFXLevel>()));
                             it = m_instrFXVolumes.find(lastinstrument[v]);
                         }
 
+                        u8 shift = VolFXLevel::GetShiftFromVolume(currentVolume);
+                        VolFXLevel volFXLevel(currentVolume);
+
                         auto& volumemap = it->second;
-                        auto it2 = volumemap.find(currentVolume);
+                        auto it2 = volumemap.find(shift);
                         if (it2 == volumemap.end())
                         {
-                            it2 = volumemap.insert(std::make_pair(currentVolume,0UL)).first;
+                            volumemap.insert(std::make_pair(shift,volFXLevel));
                         }
-                        it2->second++;
+                        else
+                        {
+                            it2->second.add(currentVolume);   
+                        }
                     }
                 }
             }
@@ -499,25 +505,51 @@ void Sndtrack::DisplayVolumeFXUsageByInstrument(const std::map<u8,u32>& instrToS
 {
     for (auto it = instrToSize.begin() ; it != instrToSize.end() ; it++)
     {
+        u32 nbVolFXLevel = GetNbVolFXLevelForInstrument(it->first);
+        auto itv = m_instrFXVolumes.find(it->first);
+        ASSERT(itv != m_instrFXVolumes.end());
+
+
         printf ("instr %-2ld '%-22s' size = %-7u ", it->first, m_samples[it->first - 1].m_sampleName, it->second);
 
-        if ( DoesInstrumentHaveVolumeFX(it->first) == false )
+        switch ( nbVolFXLevel )
         {
-            printf ("no volume effect found\n");
-        }
-        else
-        {
-            printf ("volume used (");
+        case 0:
+        case 1:
+            printf ("no volume effect found ");
 
-            auto it2 = m_instrFXVolumes.find(it->first);
-            ASSERT(it2 != m_instrFXVolumes.end());
-
-            for (auto it3 = it2->second.begin() ; it3 != it2->second.end() ; it3++)
+            if (nbVolFXLevel == 1)
             {
-                printf ("0x%x[%d] ", it3->first, it3->second);
+                printf (">%d", itv->second.begin()->first);
             }
 
-            printf (")\n");
+            printf ("\n");
+            break;
+
+        default:
+            printf ("volume used ");
+
+            for (auto itl = itv->second.begin() ; itl != itv->second.end() ; itl++)
+            {
+                printf (">%d [%d](", itl->first, itl->second.m_nbOccurences);
+
+                for (auto itmv = itl->second.m_modVolumes.begin() ; itmv != itl->second.m_modVolumes.end() ; )
+                {
+                    printf ("0x%x" , *itmv );
+
+                    itmv++;
+
+                    if (itmv != itl->second.m_modVolumes.end())
+                    {
+                        printf(",");
+                    }
+                }
+
+                printf (")  ");
+            }
+
+            printf ("\n");
+            break;
         }
     }
 }
@@ -618,7 +650,7 @@ void Sndtrack::ComputeSamplesTransposeTable ()
 
             m_nbPrecomputedSamples++;
 
-            const bool hasVolumeEffect = DoesInstrumentHaveVolumeFX(ipkey->m_instrument);
+            const bool hasVolumeEffect = GetNbVolFXLevelForInstrument(ipkey->m_instrument) > 1;
             ipkey->AssignStorageCharac (nbSTsamples, hasVolumeEffect, freqmullog2 );
 
             auto its = instrToSize.find(ipkey->m_instrument);
@@ -730,7 +762,9 @@ void Sndtrack::ConvertToBlitSoundtrack_SourceSamplesTable (BLSsoundTrack* sndtra
 
     for (auto i = m_instrumentUsedKeys.begin() ; i != m_instrumentUsedKeys.end() ; i++, ssi++)
     {
+        bool copysample = true;
         u8 instrumentIndex = i->first;
+        u8 shift = 0;
         instrumentToSourceSample[instrumentIndex] = ssi;
 
         auto ss = &m_samples[instrumentIndex - 1];
@@ -742,6 +776,19 @@ void Sndtrack::ConvertToBlitSoundtrack_SourceSamplesTable (BLSsoundTrack* sndtra
         sd->sample            = new s8[sd->sampleLen];
         sd->flags             = 0;
         
+        if (ss->m_sampleVolume != 64)
+        {
+            copysample = false;
+        }
+        
+        if (GetNbVolFXLevelForInstrument(instrumentIndex) == 1)
+        {
+            shift = m_instrFXVolumes.find(instrumentIndex)->second.begin()->first;
+            ASSERT(shift <= 8);
+            if (shift != 0)            
+                copysample = false;
+        }
+
         switch (ss->m_transposeType)
         {
         case Sample::TransposeType::LINEAR_INTERPOL:
@@ -753,7 +800,7 @@ void Sndtrack::ConvertToBlitSoundtrack_SourceSamplesTable (BLSsoundTrack* sndtra
             break;*/
         }
 
-        if (ss->m_sampleVolume == 64)
+        if (copysample)
         {
             memcpy (sd->sample, &ss->m_data[0], sd->sampleLen);
         }
@@ -761,7 +808,7 @@ void Sndtrack::ConvertToBlitSoundtrack_SourceSamplesTable (BLSsoundTrack* sndtra
         {
             for (u32 t = 0 ; t < sd->sampleLen ; t++)
             {
-                sd->sample[t] = (ss->m_data[t] * ss->m_sampleVolume + 32) >> 6;
+                sd->sample[t] = (ss->m_data[t] * ss->m_sampleVolume + 32) >> (6 + shift);
             }
         }
     }
@@ -941,7 +988,6 @@ static void Sndtrack_SetBalanceValue (const Pattern::Cell& _sc, u16 _value, bool
     *(u16*)&_dc.value = PCENDIANSWAP16(val);
 }
 
-
 void Sndtrack::ConvertToBlitSoundtrack_Patterns (BLSsoundTrack* sndtrack)
 {
     for (u32 p = 0 ; p < m_patterns.size() ; p++)
@@ -1104,25 +1150,9 @@ void Sndtrack::ConvertToBlitSoundtrack_Patterns (BLSsoundTrack* sndtrack)
                             {
                                 Sndtrack_SetBalanceValue(sc, vol, balanceused, p, r, v, dc);
                             }
-                            else
-                            {
-                                if (vol > 48)
-                                    dc.value = 0;
-                                else if (vol > 24)  
-                                    dc.value = 1;
-                                else if (vol > 12) 
-                                    dc.value = 2;
-                                else if (vol > 6) 
-                                    dc.value = 3;
-                                else if (vol > 3) 
-                                    dc.value = 4;
-                                else if (vol > 1) 
-                                    dc.value = 5;
-                                else if (vol > 0)
-                                    dc.value = 6;
-                                else if (vol == 0)
-                                    dc.value = 8;
-
+                            else if ((lastinstrument[v] == 0) || (GetNbVolFXLevelForInstrument(lastinstrument[v]) > 1))
+                            {   
+                                dc.value = VolFXLevel::GetShiftFromVolume (vol);
                                 dc.fx = BLSfx_VOLUME;
                             }
                         }
@@ -1262,7 +1292,7 @@ int main (char argc, char* _argv[])
 
     if (argc == 1)
     {
-        printf ("BlsConvert v 1.3.0\n\n");
+        printf ("BlsConvert v 1.4.0\n\n");
         printf ("blsconvert [-v1] [-amigapal] filename\n\n");
 
         return 1;
