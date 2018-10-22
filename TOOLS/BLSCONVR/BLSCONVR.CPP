@@ -186,6 +186,20 @@ void Key::Init (bool _palFreq)
     m_period2Key[63 ] = Key(4,9);
     m_period2Key[60 ] = Key(4,10);
     m_period2Key[56 ] = Key(4,11);
+
+    // extended octave...
+    m_period2Key[53 ] = Key(5,0);
+    m_period2Key[50 ] = Key(5,1);
+    m_period2Key[47 ] = Key(5,2);
+    m_period2Key[45 ] = Key(5,3);
+    m_period2Key[42 ] = Key(5,4);
+    m_period2Key[40 ] = Key(5,5);
+    m_period2Key[37 ] = Key(5,6);
+    m_period2Key[35 ] = Key(5,7);
+    m_period2Key[33 ] = Key(5,8);
+    m_period2Key[31 ] = Key(5,9);
+    m_period2Key[30 ] = Key(5,10);
+    m_period2Key[28 ] = Key(5,11);
 }
 
 
@@ -1248,7 +1262,7 @@ int main (char argc, char* _argv[])
 
     if (argc == 1)
     {
-        printf ("BlsConvert v 1.2.0\n\n");
+        printf ("BlsConvert v 1.3.0\n\n");
         printf ("blsconvert [-v1] [-amigapal] filename\n\n");
 
         return 1;

@@ -8,6 +8,7 @@ PC\Debug\BLSconvert.exe U:\HDisk\STE_D\PROJECTS\DEMOS\BLSPLAY\DATA\UNITTEST\ARPE
 PC\Debug\BLSconvert.exe U:\HDisk\STE_D\PROJECTS\DEMOS\BLSPLAY\DATA\UNITTEST\BALANCE.MOD  > _logs\blsconvert_balance.txt
 PC\Debug\BLSconvert.exe U:\HDisk\STE_D\PROJECTS\DEMOS\BLSPLAY\DATA\UNITTEST\CLIENT.MOD   > _logs\blsconvert_client.txt
 PC\Debug\BLSconvert.exe U:\HDisk\STE_D\PROJECTS\DEMOS\BLSPLAY\DATA\UNITTEST\DELAY.MOD    > _logs\blsconvert_delay.txt
+PC\Debug\BLSconvert.exe U:\HDisk\STE_D\PROJECTS\DEMOS\BLSPLAY\DATA\UNITTEST\EXTENDED.MOD > _logs\blsconvert_extended.txt
 PC\Debug\BLSconvert.exe U:\HDisk\STE_D\PROJECTS\DEMOS\BLSPLAY\DATA\UNITTEST\FINETUNE.MOD > _logs\blsconvert_finetune.txt
 PC\Debug\BLSconvert.exe U:\HDisk\STE_D\PROJECTS\DEMOS\BLSPLAY\DATA\UNITTEST\JUMPS.MOD    > _logs\blsconvert_jumps.txt
 PC\Debug\BLSconvert.exe U:\HDisk\STE_D\PROJECTS\DEMOS\BLSPLAY\DATA\UNITTEST\LONGLOOP.MOD > _logs\blsconvert_longloop.txt
@@ -25,6 +26,7 @@ start "C:\Program Files (x86)\Notepad++\notepad++.exe" _logs\blsconvert_arpeggio
 start "C:\Program Files (x86)\Notepad++\notepad++.exe" _logs\blsconvert_balance.txt
 start "C:\Program Files (x86)\Notepad++\notepad++.exe" _logs\blsconvert_client.txt
 start "C:\Program Files (x86)\Notepad++\notepad++.exe" _logs\blsconvert_delay.txt
+start "C:\Program Files (x86)\Notepad++\notepad++.exe" _logs\blsconvert_extended.txt
 start "C:\Program Files (x86)\Notepad++\notepad++.exe" _logs\blsconvert_finetune.txt
 start "C:\Program Files (x86)\Notepad++\notepad++.exe" _logs\blsconvert_jumps.txt
 start "C:\Program Files (x86)\Notepad++\notepad++.exe" _logs\blsconvert_longloop.txt

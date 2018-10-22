@@ -267,17 +267,25 @@ struct Pattern
         }
 
         void Print ()
-        {
-            char name[32] = "-";
-            
+        {           
             if (m_period != 0)
             {
                 auto it = FindKey();
-                ASSERT (it != Key::m_period2Key.end());
-                sprintf (name, "%-2s%x", Key::m_names[it->second.m_semitone], it->second.m_octave);
+                if (it != Key::m_period2Key.end())
+                {
+                    printf (" %-2s%x", Key::m_names[it->second.m_semitone], it->second.m_octave);
+                }
+                else
+                {
+                    printf ("\n#ERROR unknown period %d\n", m_period);
+                }
+            }
+            else
+            {
+                printf(" - -");
             }
 
-            printf (" %-3s %-2u [%x %x %x]", name, m_instrument, m_fx_h, m_fx_m, m_fx_l);
+            printf (" %-2u [%x %x %x]", m_instrument, m_fx_h, m_fx_m, m_fx_l);
         }
 
         std::map<unsigned, Key>::iterator FindKey () const
