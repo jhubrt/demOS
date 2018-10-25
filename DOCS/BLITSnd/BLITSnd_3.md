@@ -373,7 +373,9 @@ LMC balance like described for effect 0x8 in -v0 mode
 	On Amiga 0xE0 effect is used
     to activate / disable the Paula analog filters. This fx is often
     ignored by soundtrackers, reason why I have used it for blitter
-    specific stuff.  
+    specific stuff. You need to explicitly start / stop the effect
+	meaning the effect is not reset by new keys => it allows you to easily
+	stack this effect with other standard mod effects.
 	But you will not be able to listen to it with a
     standard soundtracker =\> you will have to test with BLSplay to
     render it
@@ -399,6 +401,11 @@ LMC balance like described for effect 0x8 in -v0 mode
 -   **0xFXX** : set speed : with speed = X * 16 + Y  
                 if speed < 32 then each row will last speed ticks  
                 else each row will last 60*50 / speed
+				BLS score is decoded in VBL interrupt at 50hz. 
+				=> the tempo control for high rate is not very precise 
+				(20ms => 40ms for row decoding when changing F01 => F02 for example)
+				Do not play with BPM control in modern tracker like Milkytracker if
+				you want to have equivalent tempo when playing in BLSplay
 
 Note that BLS specific effects (STE balance and bitmask set) are not reset when a new key is entered => the last value is kept to allow cumulating with other standard effects. So you need to be carefully end these effects where appropriate.
 
