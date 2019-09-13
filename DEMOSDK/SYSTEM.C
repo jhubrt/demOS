@@ -29,7 +29,10 @@
 
 
 SYScore sys;
+
+#ifdef DEMOS_DEBUG
 u16	SYSbeginFrameNum = 0;
+#endif
 
 #ifdef __TOS__
 
@@ -80,6 +83,11 @@ void SYSswitchIdle(void)
     SYSvblcount++;
     SYSvblLcount++;
 #   endif
+
+#   ifdef DEMOS_DEBUG
+    SYSbeginFrameNum = SYSvblLcount;
+#   endif
+
 }
 
 u32 SYSvidCountRead (void) 
@@ -111,8 +119,8 @@ u32 SYSlmovep (void* _adr)
 /*------------------------------------------------------------------
     SYSTEM FONT
 --------------------------------------------------------------------*/
-extern u16  SYSfontchars[256];
-extern u8   SYSfontdata[];
+extern u8  SYSfontchars[256];
+extern u8  SYSfontdata[];
 
 void SYSfastPrint(char* _s, void* _screenprintadr, u16 _screenPitch, u16 _bitplanPitch)
 #ifdef __TOS__
@@ -127,10 +135,11 @@ void SYSfastPrint(char* _s, void* _screenprintadr, u16 _screenPitch, u16 _bitpla
 	{
 		u8  c = *_s++;
 		u8* d = adr;
+        u16 index = SYSfontchars[c];
 
-        if ( SYSfontchars[c] != 0xFFFF )
+        if ( index != 0 )
         {
-            u8* bitmap = SYSfontdata + SYSfontchars[c];
+            u8* bitmap = SYSfontdata + (index << 2) - 4;
 
             *d = *bitmap++;	d += _screenPitch;
             *d = *bitmap++;	d += _screenPitch;

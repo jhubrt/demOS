@@ -246,11 +246,12 @@ SYS_debugPrint_loop:
     move.b  (a0)+,d4
 	beq.s	SYS_debugPrint_end
 
-	add.w	d4,d4
-	move.w	(a2,d4.w),d4
-	blt.s	SYS_debugPrint_noprint
+	move.b	(a2,d4.w),d4
+	beq.s	SYS_debugPrint_noprint
 
-	lea		(a3,d4.w),a4		    ; a4 = char bitmap adr
+    add.w   d4,d4
+	add.w   d4,d4
+	lea		-4(a3,d4.w),a4		    ; a4 = char bitmap adr
 
 	move.b	(a4)+,(a1)			
 SYSfastPrintautomod:
@@ -271,11 +272,12 @@ SYS_debugPrint_loop_part2:
     move.b  (a0)+,d4
     beq.s   SYS_debugPrint_end
 
+	move.b	(a2,d4.w),d4
+	beq.s	SYS_debugPrint_noprint2
 	add.w	d4,d4
-	move.w	(a2,d4.w),d4
-	blt.s	SYS_debugPrint_noprint2
+	add.w	d4,d4
 
-	lea		(a3,d4.w),a4		    ; a4 = char bitmap adr
+	lea		-4(a3,d4.w),a4		    ; a4 = char bitmap adr
 
 	move.b	(a4)+,(a1)			
 SYSfastPrintautomod2:

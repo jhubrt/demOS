@@ -80,6 +80,8 @@ void   TRAC8bomb (void);
 
 #else
 
+FILE* g_loggerFile = NULL;
+
 u16 TRACmaxraster (u16 maxraster) { return 0; }
 
 void TRACsaveLog(char* _filename)
@@ -106,6 +108,9 @@ void TRACinit (void)
     *(void**) 0x18UL = (void*) TRAC6bomb;
     *(void**) 0x18UL = (void*) TRAC7bomb;
     *(void**) 0x20UL = (void*) TRAC8bomb;
+#   else
+    g_loggerFile = fopen("..\\_logs\\traclogpc.log", "wt");
+    ASSERT(g_loggerFile != NULL);
 #   endif
 
 	trac_displayParam.h			 = 0;
@@ -129,6 +134,10 @@ void TRAClog (char* _str, char _separator)
     {
         return;
     }
+
+#   ifndef __TOS__
+    fprintf (g_loggerFile, "%s%c", _str, _separator);
+#   endif
 
 #   if TRAC_KEEPLASTLOG
     {

@@ -21,7 +21,9 @@
 -------------------------------------------------------------------------------------------------*/
 
 
-#define _CRT_SECURE_NO_WARNINGS
+#ifndef _CRT_SECURE_NO_WARNINGS
+#	define _CRT_SECURE_NO_WARNINGS
+#endif
 
 #include <windows.h>
 #include <windowsx.h>
@@ -82,7 +84,7 @@ WINdow* WINconstruct (WINinitParam* _param)
 {
 	WINdow* _m = (WINdow*) malloc(sizeof(WINdow));
 
-	_m->instance    = _param->hInstance;
+	_m->instance    = (HINSTANCE) _param->hInstance;
 
     _m->isDestroyed = false;
 	_m->mouseX      = 0;
@@ -490,6 +492,9 @@ static s32 WINconvertMapping (WPARAM _wparam)
     case '8':               key = HW_KEY_8;                 break;
     case '9':               key = HW_KEY_9;                 break;
 
+    case VK_OEM_MINUS:      key = HW_KEY_MINUS;             break;
+    case VK_OEM_PLUS:       key = HW_KEY_EQUAL;             break;
+
     case VK_OEM_6:          key = HW_KEY_BRACKET_LEFT;      break;
     case VK_OEM_1:          key = HW_KEY_BRACKET_RIGHT;     break;
     }
@@ -524,6 +529,8 @@ static WINmappingTypeEnum WINgetMappingType (WPARAM _wparam)
 
     case VK_END:
     case VK_PAUSE:
+    case VK_SCROLL:
+    case VK_OEM_7:
         return WINmappingType_EXTRAKEY;
 
     case VK_MENU:
@@ -690,45 +697,48 @@ LRESULT CALLBACK Window_wndProc (HWND _wnd, UINT _message, WPARAM _wparam, LPARA
 
         if ( thisWindow != NULL)
         {
-            WINmappingTypeEnum mappingType = WINgetMappingType (_wparam);
-            s32 key = WINconvertMapping (_wparam);
-
-            if ( key != -1 )
+            if ((_lparam & (1 << 30)) == 0) // do not key auto key repeat signal
             {
-                thisWindow->keyState = key;
-            }
+                WINmappingTypeEnum mappingType = WINgetMappingType (_wparam);
+                s32 key = WINconvertMapping (_wparam);
 
-            switch ( mappingType )
-            {
-            case WINmappingType_EXTRAKEY:
-                thisWindow->keyExtraState = _wparam;
-                break;
-
-            case WINmappingType_KEY:
+                if ( key != -1 )
                 {
-                    s32 i;
-
-                    for (i = 0 ; i < (_lparam & 15) ; i++)
-                    {
-                        WINinsertKey(thisWindow, key);
-                    }
-
-                    processDefault = false;
+                    thisWindow->keyState = key;
                 }
-                break;
 
-            case WINmappingType_CTRLKEY:
+                switch ( mappingType )
                 {
-                    processDefault = false;
+                case WINmappingType_EXTRAKEY:
+                    thisWindow->keyExtraState = _wparam;
+                    break;
 
-                    switch (_wparam)
+                case WINmappingType_KEY:
                     {
-                    case VK_MENU:       thisWindow->controlKeys |= CONTROLKEY_ALT;      break;
-                    case VK_CONTROL:    thisWindow->controlKeys |= CONTROLKEY_CTRL;     break;
-                    case VK_SHIFT:      thisWindow->controlKeys |= CONTROLKEY_SHIFT;    break;
+                        s32 i;
+
+                        for (i = 0 ; i < (_lparam & 15) ; i++)
+                        {
+                            WINinsertKey(thisWindow, key);
+                        }
+
+                        processDefault = false;
                     }
+                    break;
+
+                case WINmappingType_CTRLKEY:
+                    {
+                        processDefault = false;
+
+                        switch (_wparam)
+                        {
+                        case VK_MENU:       thisWindow->controlKeys |= CONTROLKEY_ALT;      break;
+                        case VK_CONTROL:    thisWindow->controlKeys |= CONTROLKEY_CTRL;     break;
+                        case VK_SHIFT:      thisWindow->controlKeys |= CONTROLKEY_SHIFT;    break;
+                        }
+                    }
+                    break;
                 }
-                break;
             }
         }
 
@@ -747,6 +757,8 @@ LRESULT CALLBACK Window_wndProc (HWND _wnd, UINT _message, WPARAM _wparam, LPARA
             {
                 thisWindow->keyState = key | HW_KEYBOARD_KEYRELEASE;
             }
+            
+            thisWindow->keyExtraState = 0;
 
             switch ( mappingType )
             {
@@ -764,7 +776,7 @@ LRESULT CALLBACK Window_wndProc (HWND _wnd, UINT _message, WPARAM _wparam, LPARA
                 break;
 
             case WINmappingType_EXTRAKEY:
-                thisWindow->keyExtraState = _wparam | HW_KEYBOARD_KEYRELEASE;
+                thisWindow->keyExtraState = _wparam | 0x100;
                 break;
             }
 		}

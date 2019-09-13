@@ -665,7 +665,13 @@ extern "C" void EMULwait (u32 _ms)
     Sleep(_ms);
 }
 
-extern "C" void EMULrender ()
+extern "C" void EMULcls (void)
+{
+    WINsetColor (g_miniEmul.w, 0,0,0);
+    WINclear (g_miniEmul.w);
+}
+
+extern "C" void EMULrender (void)
 {
     void* adr       = (void*) SYSreadVideoBase();
     u8    videomode = *HW_VIDEO_MODE;

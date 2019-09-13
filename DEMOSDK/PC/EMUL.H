@@ -43,6 +43,7 @@
 #define EMULplaysound(DATA, BYTESLENGTH, OFFSET)
 #define EMULblit()
 #define EMULwait(ms)
+#define EMULcls()
 
 #define EMUMfbExStart(VIDEOMODE,STARTX,STARTY,ENDX,ENDY,PITCH)
 #define EMULfbExSetVideoMode(STARTCYCLE,VIDEOMODE)
@@ -65,6 +66,7 @@ PREDECLARE_STRUCT(WINdow);
 
 EXTERN_C void    EMULinit              (void* _buffer, s16 _width, s16 _height, s16 _width_ext);
 EXTERN_C void    EMULrender            (void);
+EXTERN_C void    EMULcls               (void);
 EXTERN_C WINdow* EMULgetWindow         (void);
 EXTERN_C void    EMULcreateSoundBuffer (u32 _length, bool _stereo, u32 _dmafreq);
 EXTERN_C void    EMULplaysound         (void* _data, u32 _byteslength, u32 _offset);

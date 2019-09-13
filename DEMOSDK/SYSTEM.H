@@ -118,8 +118,10 @@ STRUCT(SYSinitThreadParam)
 
 #ifndef SYSTEM_C
 	extern SYScore      sys;
-	extern u16	        SYSbeginFrameNum;
     extern SYSinterupt  SYSvblroutines[SYS_NBMAX_VBLROUTINES];
+#   ifdef DEMOS_DEBUG
+    extern u16	        SYSbeginFrameNum;
+#   endif
 #endif
 
 void SYSinit		        (void);

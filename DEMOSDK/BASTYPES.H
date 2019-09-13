@@ -68,7 +68,9 @@
 /* OS standards */
 #if !defined(DEMOS_OPTIMIZED) || !defined(__TOS__) || defined(DEMOS_LOAD_FROMHD)
 #	ifndef __TOS__
-#		define _CRT_SECURE_NO_WARNINGS
+#		ifndef _CRT_SECURE_NO_WARNINGS
+#			define _CRT_SECURE_NO_WARNINGS
+#		endif
 #       include <assert.h>
 #	endif
 #	include <stdio.h>
@@ -162,7 +164,6 @@ STRUCT(MEMallocator)
 #   endif
 #	define ASSERT_ST(A) ASSERT(A)
 #else
-#   define _CRT_SECURE_NO_WARNINGS
 #   define ASSERT(A) assert(A)
 #	define ASSERT_COLOR(A,COLOR1,COLOR2) assert(A)
 #	define ASSERT_ST(A) if (!(A)) {}        /* just check compilation */

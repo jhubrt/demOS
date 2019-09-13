@@ -25,4 +25,8 @@
 
 #include "DEMOSDK\HARDWARE.H"
 
+#ifndef __TOS__
+
 SThardware g_STHardware;
+
+#endif
