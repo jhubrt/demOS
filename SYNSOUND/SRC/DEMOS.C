@@ -63,6 +63,8 @@
     
 ------------------------------------------------------------------------------  */
 
+#include "DEMOSDK\BASTYPES.H"
+
 #include "DEMOSDK\STANDARD.H"
 #include "DEMOSDK\SYSTEM.H"
 #include "DEMOSDK\HARDWARE.H"
@@ -163,7 +165,7 @@ int main(int argc, char** argv)
         ASSERT(sys.membase != NULL);
         IGNORE_PARAM(base);
             
-        TRACinit ();
+        TRACinit ("_logs\\traclogpc.log");
 
 		/* STDmset (buffer, 0, size); */
 
@@ -211,9 +213,7 @@ int main(int argc, char** argv)
 			{
 				SYSswitchIdle();
 
-				/* no need to vsync here as main thread context is reset by idle thread switch */
-    			SYSbeginFrameNum = SYSvblLcount;
-                
+				/* no need to vsync here as main thread context is reset by idle thread switch */               
                 SYSkbAcquire;
 
 				FSMupdate (&g_stateMachine);

@@ -37,9 +37,6 @@
 #ifndef RASTERS_H
 #define RASTERS_H
 
-#include "DEMOSDK\BASTYPES.H"
-
-
 void RASsetColReg   (u16 _shortregaddress);
 void RASvbl1	    (void);
 void RASvbl2	    (void);

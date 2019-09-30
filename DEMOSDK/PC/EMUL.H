@@ -28,9 +28,6 @@
     Very basic frame buffer emulation to test basic stuffs into demo code directly on PC.
 */
 
-
-#include "DEMOSDK\BASTYPES.H"
-
 #ifdef __TOS__
 
 #define EMULinit(BUFFER,W,H,E)

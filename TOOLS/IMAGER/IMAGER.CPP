@@ -20,6 +20,7 @@
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 -------------------------------------------------------------------------------------------------*/
 
+#include "DEMOSDK\BASTYPES.H"
 
 #include "TOOLS\IMAGER\IMAGER.H"
 
@@ -594,7 +595,7 @@ bool writeST (char* _filename, u16 _nbSectorsPerTrack, u16 _nbsides, u16 _nbtrac
 			char* p;
 			bool  singleFile;
 			u32   size = 0;
-            u16   metadataIndexBak = fileMetaData.size();
+            u16   metadataIndexBak = static_cast<u16>(fileMetaData.size());
 
 			makeId (s1, filename);
             fileEntry.name = filename;

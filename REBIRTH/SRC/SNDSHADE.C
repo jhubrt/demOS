@@ -20,6 +20,8 @@
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 -------------------------------------------------------------------------------------------------*/
 
+#include "DEMOSDK\BASTYPES.H"
+
 #define SNDSHADE_C
 
 #include "DEMOSDK\HARDWARE.H"
@@ -34,6 +36,8 @@ ASMIMPORT u16 SNStunX2;
 ASMIMPORT u16 SNStunX3;
 ASMIMPORT u16 SNStunX4;
 
+ASMIMPORT u16 SNSpushreg;
+ASMIMPORT u16 SNSpopreg;
 ASMIMPORT u16 SNSireg;
 ASMIMPORT u16 SNSload;
 ASMIMPORT u32 SNSstore;
@@ -42,7 +46,6 @@ ASMIMPORT void* SNSlines;
 
 void SNSinit     (void* _tcbuf, void* _lines, u16 _tcWidth, u16 _tcHeight) PCSTUB;
 void SNStc       (void) PCSTUB;
-void SNSfade3	 (void* _source, void* _table, u32 _dest, s32 _pitch, u32 _count) PCSTUB;
 void SNScopy     (void* _source, void* _dest, u16 _nbwords) PCSTUB;
 
 #ifndef __TOS__
@@ -69,6 +72,30 @@ void SNSfade (void* _source, void* _table, u32 _dest, s32 _pitch, u32 _count)
         m2 += _pitch;
     }
 }
+
+void SNSfade3 (void* _source, void* _table, u32 _dest, s32 _pitch, u32 _count)
+{
+    u16* m  = (u16*) _dest;
+    s16* m2 = (s16*) _source;
+    u16 t, i;
+
+
+    _pitch >>= 1;
+
+    for (t = 0 ; t < (u16)_count ; t++)
+    {
+        for (i = 0 ; i < (VIS_WIDTH / 2); i++)
+        {
+            *m = *(u16*)((u8*)_table + *m2);
+            m++;
+            m2++;
+        }
+
+        m  += _pitch + (VIS_WIDTH / 2);
+        m2 += _pitch + (VIS_WIDTH / 2);
+    }
+}
+
 
 u16 SNSfilsampl (void* _sample, void* _startcolors, u32 _dest, u16 _width, s16 _sampleoffset)
 {

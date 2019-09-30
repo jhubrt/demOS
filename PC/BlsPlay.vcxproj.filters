@@ -4,9 +4,6 @@
     <Filter Include="DEMOSDK">
       <UniqueIdentifier>{0166929c-daf7-48fc-b266-2567060771d4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="PC">
-      <UniqueIdentifier>{2a38062b-912a-4a4c-9792-94520b1cd38a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="EXTERN">
       <UniqueIdentifier>{02c5f3d6-462e-4937-923f-89abacefdd41}</UniqueIdentifier>
     </Filter>
@@ -26,7 +23,10 @@
     <Filter Include="DEMOSDK\DATA">
       <UniqueIdentifier>{3b252f99-899e-4dbb-9086-bc30e5ec9fa2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="PC\BUILD">
+    <Filter Include="DEMOSDK\PC">
+      <UniqueIdentifier>{2a38062b-912a-4a4c-9792-94520b1cd38a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DEMOSDK\PC\BUILD">
       <UniqueIdentifier>{0b6a3c62-3ec4-40fd-90a0-51a92fe89594}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -56,7 +56,7 @@
       <Filter>DEMOSDK</Filter>
     </ClCompile>
     <ClCompile Include="..\DEMOSDK\PC\WINDOW.C">
-      <Filter>PC</Filter>
+      <Filter>DEMOSDK\PC</Filter>
     </ClCompile>
     <ClCompile Include="..\DEMOSDK\COLORS.C">
       <Filter>DEMOSDK</Filter>
@@ -68,10 +68,10 @@
       <Filter>EXTERN</Filter>
     </ClCompile>
     <ClCompile Include="..\DEMOSDK\PC\BITCONVR.C">
-      <Filter>PC</Filter>
+      <Filter>DEMOSDK\PC</Filter>
     </ClCompile>
     <ClCompile Include="..\DEMOSDK\PC\EMUL.CPP">
-      <Filter>PC</Filter>
+      <Filter>DEMOSDK\PC</Filter>
     </ClCompile>
     <ClCompile Include="..\DEMOSDK\DATA\DATA.C">
       <Filter>DEMOSDK\DATA</Filter>
@@ -96,6 +96,9 @@
     </ClCompile>
     <ClCompile Include="..\BLSPLAY\SRC\DEMOS.C">
       <Filter>SPECIFIC\MAIN</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\PC\_PRECOMP.C">
+      <Filter>DEMOSDK\PC</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -130,13 +133,13 @@
       <Filter>DEMOSDK</Filter>
     </ClInclude>
     <ClInclude Include="..\DEMOSDK\PC\WINDOW.H">
-      <Filter>PC</Filter>
+      <Filter>DEMOSDK\PC</Filter>
     </ClInclude>
     <ClInclude Include="..\DEMOSDK\COLORS.H">
       <Filter>DEMOSDK</Filter>
     </ClInclude>
     <ClInclude Include="..\DEMOSDK\PC\EMUL.H">
-      <Filter>PC</Filter>
+      <Filter>DEMOSDK\PC</Filter>
     </ClInclude>
     <ClInclude Include="..\DEMOSDK\LOADDEFS.H">
       <Filter>DEMOSDK</Filter>
@@ -145,7 +148,7 @@
       <Filter>EXTERN</Filter>
     </ClInclude>
     <ClInclude Include="..\DEMOSDK\PC\BITCONVR.H">
-      <Filter>PC</Filter>
+      <Filter>DEMOSDK\PC</Filter>
     </ClInclude>
     <ClInclude Include="..\DEMOSDK\DATA\SYSTFNT.H">
       <Filter>DEMOSDK\DATA</Filter>
@@ -204,7 +207,7 @@
       <Filter>SPECIFIC\SRC</Filter>
     </None>
     <None Include="VASM_BUILD.BAT">
-      <Filter>PC\BUILD</Filter>
+      <Filter>DEMOSDK\PC\BUILD</Filter>
     </None>
     <None Include="BlsAutotest.bat" />
     <None Include="BlsComparePC_ST.bat" />
@@ -214,10 +217,5 @@
     <None Include="..\DEMOSDK\BLITSND.S">
       <Filter>DEMOSDK</Filter>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <CustomBuild Include="..\DEMOSDK\BITMAP.S">
-      <Filter>DEMOSDK</Filter>
-    </CustomBuild>
   </ItemGroup>
 </Project>

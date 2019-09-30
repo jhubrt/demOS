@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
@@ -14,18 +14,21 @@
     <ProjectGuid>{46CA3CC9-D57C-4A22-ACB5-B79A5C21DE1E}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>SyntheticSound</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v141</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v141</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -47,13 +50,11 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <DisableLanguageExtensions>true</DisableLanguageExtensions>
-      <PrecompiledHeaderFile>
-      </PrecompiledHeaderFile>
+      <PrecompiledHeaderFile>DEMOSDK\BASTYPES.H</PrecompiledHeaderFile>
       <AdditionalIncludeDirectories>..\</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
@@ -66,15 +67,14 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeader>Use</PrecompiledHeader>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <DisableLanguageExtensions>true</DisableLanguageExtensions>
-      <PrecompiledHeaderFile>
-      </PrecompiledHeaderFile>
+      <PrecompiledHeaderFile>DEMOSDK\BASTYPES.H</PrecompiledHeaderFile>
       <AdditionalIncludeDirectories>..\</AdditionalIncludeDirectories>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -83,12 +83,16 @@
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;dsound.lib;dxguid.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>C:\Program Files (x86)\Windows Kits\8.1\Lib\winv6.3\um\x86</AdditionalLibraryDirectories>
+      <LinkTimeCodeGeneration>Default</LinkTimeCodeGeneration>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\DEMOSDK\PC\BITCONVR.C" />
+    <ClCompile Include="..\DEMOSDK\PC\_PRECOMP.C">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="..\DEMOSDK\SYNTH.C" />
-    <ClCompile Include="..\EXTERN\RELOCATE.C" />
     <ClCompile Include="..\SYNSOUND\BUILD.C">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
@@ -103,6 +107,8 @@
     <ClCompile Include="..\DEMOSDK\PC\EMUL.CPP">
       <DisableLanguageExtensions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</DisableLanguageExtensions>
       <DisableLanguageExtensions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</DisableLanguageExtensions>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="..\DEMOSDK\RASTERS.C" />
     <ClCompile Include="..\DEMOSDK\STANDARD.C" />
@@ -112,7 +118,6 @@
       <DisableLanguageExtensions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</DisableLanguageExtensions>
       <DisableLanguageExtensions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</DisableLanguageExtensions>
     </ClCompile>
-    <ClCompile Include="..\EXTERN\ARJDEP.C" />
     <ClCompile Include="..\SYNSOUND\SRC\PLAYER.C" />
     <ClCompile Include="..\SYNSOUND\SRC\SCREENS.C" />
     <ClCompile Include="..\DEMOSDK\DATA\DATA.C" />
@@ -134,15 +139,12 @@
     <ClInclude Include="..\DEMOSDK\SYNTH.H" />
     <ClInclude Include="..\DEMOSDK\SYSTEM.H" />
     <ClInclude Include="..\DEMOSDK\TRACE.H" />
-    <ClInclude Include="..\EXTERN\ARJDEP.H" />
-    <ClInclude Include="..\EXTERN\RELOCATE.H" />
     <ClInclude Include="..\SYNSOUND\SRC\PLAYER.H" />
     <ClInclude Include="..\SYNSOUND\SRC\SCREENS.H" />
     <ClInclude Include="..\DEMOSDK\DATA\SYSTFNT.H" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\DEMOSDK\SYNTH.S" />
-    <None Include="..\EXTERN\RELOCATE.S" />
     <None Include="..\SYNSOUNB.PRJ" />
     <None Include="..\SYNSOUND.PRJ" />
     <None Include="..\DEMOSDK\SYSTEM.S" />
@@ -152,8 +154,6 @@
     <None Include="..\DEMOSDK\RASTERS.S" />
     <None Include="..\DEMOSDK\STANDARD.S" />
     <None Include="..\DEMOSDK\TRACE.S" />
-    <None Include="..\EXTERN\ARJDEP.S" />
-    <None Include="..\EXTERN\XSTARTUP.S" />
     <None Include="..\SYNSOUND\SYNTH.INI" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

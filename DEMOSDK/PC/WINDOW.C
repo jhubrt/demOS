@@ -20,6 +20,10 @@
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 -------------------------------------------------------------------------------------------------*/
 
+#include "DEMOSDK\BASTYPES.H"
+
+#undef ARRAYSIZE
+#undef MEM_FREE		/* collides with our MEM_FREE... */
 
 #ifndef _CRT_SECURE_NO_WARNINGS
 #	define _CRT_SECURE_NO_WARNINGS
@@ -29,10 +33,8 @@
 #include <windowsx.h>
 #include <malloc.h>
 
-#undef MEM_FREE /* collides with our MEM_FREE... */
-
-#include "DEMOSDK/PC/WINDOW.H"
-#include "DEMOSDK/HARDWARE.H"
+#include "DEMOSDK\PC\WINDOW.H"
+#include "DEMOSDK\HARDWARE.H"
 
 #define WINDOW_KEYBUFFER_SIZE 16
 #define WINDOW_MAXTITLELEN    256
@@ -141,16 +143,17 @@ WINdow* WINconstruct (WINinitParam* _param)
 
 	if ( _m->isValid )
 	{
-		s32   titleH;
+		s32   titleH, borderW;
 		RECT  clientRect;
 		RECT  windowRect;
 
 		GetClientRect ( _m->window, &clientRect );
 		GetWindowRect ( _m->window, &windowRect );
 
-		titleH = (windowRect.bottom - windowRect.top) - (clientRect.bottom - clientRect.top);
+		borderW = (windowRect.right - windowRect.left) - (clientRect.right - clientRect.left);
+		titleH  = (windowRect.bottom - windowRect.top) - (clientRect.bottom - clientRect.top);
 
-		SetWindowPos( _m->window, HWND_TOP, _param->x, _param->y, _param->w, _param->h + titleH, SWP_SHOWWINDOW);
+		SetWindowPos( _m->window, HWND_TOP, _param->x, _param->y, _param->w + borderW, _param->h + titleH, SWP_SHOWWINDOW);
 
 		Sleep(100);
 	}

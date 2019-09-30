@@ -8,6 +8,9 @@
     <Filter Include="Source Files\DEMOSDK">
       <UniqueIdentifier>{ea8b4534-b15e-43ba-84fd-200ff50bdc2d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\DEMOSDK\PC">
+      <UniqueIdentifier>{8d893977-4adf-41e6-9484-75099bfee137}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\DEMOSDK\HARDWARE.C">
@@ -33,6 +36,9 @@
     </ClCompile>
     <ClCompile Include="..\DEMOSDK\PC\BMPLOADER.C">
       <Filter>Source Files\DEMOSDK</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\PC\_PRECOMP.C">
+      <Filter>Source Files\DEMOSDK\PC</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

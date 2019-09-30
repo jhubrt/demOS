@@ -24,8 +24,6 @@
 #ifndef SCREENS_H
 #define SCREENS_H
 
-#include "DEMOSDK\BASTYPES.H"
-
 #include "REBIRTH\SRC\POLYZOOM.H"
 #include "REBIRTH\SRC\VISUALIZ.H"
 #include "REBIRTH\SRC\SLIDES.H"

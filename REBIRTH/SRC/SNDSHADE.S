@@ -359,14 +359,14 @@ offset: set offset-TC_WIDTH*2
     move.w  d5,(a2)+
 .jmp1:
     
-    lea     (a0,d2.w),a0
+    add.w   d2,a0
     dbra.w  d1,.loop
 
     bra.s   .end
 
 .zero:
     lea     2(a2),a2
-    lea     (a0,d2.w),a0
+    add.w   d2,a0
     dbra.w  d1,.loop
 
     bra.s   .end

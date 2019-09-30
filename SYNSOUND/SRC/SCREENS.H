@@ -24,7 +24,6 @@
 #ifndef SCREENS_H
 #define SCREENS_H
 
-#include "DEMOSDK\BASTYPES.H"
 #include "DEMOSDK\FSM.H"
 
 #include "SYNSOUND\SRC\PLAYER.H"

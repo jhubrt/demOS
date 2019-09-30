@@ -22,8 +22,6 @@
 
 #ifndef SNDSHADE_H
 
-#include "DEMOSDK\BASTYPES.H"
-
 #define VIS_WIDTH 48
 
 #ifndef SNDSHADE_C

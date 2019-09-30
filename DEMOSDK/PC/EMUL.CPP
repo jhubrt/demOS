@@ -20,16 +20,19 @@
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 -------------------------------------------------------------------------------------------------*/
 
-
-#define _CRT_SECURE_NO_WARNINGS
+#ifndef _CRT_SECURE_NO_WARNINGS
+#	define _CRT_SECURE_NO_WARNINGS
+#endif
 
 #include <windows.h>
 #include <string.h>
 #include <mmsystem.h>
 #include <dsound.h>
 #include <math.h>
+#include <malloc.h>
 
-#undef MEM_FREE  // collision...
+#undef ARRAY_SIZE // collision...
+#undef MEM_FREE   // collision...
 
 extern "C"
 {
@@ -43,6 +46,7 @@ extern "C"
     #include "DEMOSDK\PC\EMUL.H"
     #include "DEMOSDK\PC\BITCONVR.H"
 }
+
 
 #define emul_WIDTH  1024
 #define emul_HEIGHT (313*2)

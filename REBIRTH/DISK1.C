@@ -1,3 +1,5 @@
+#include "DEMOSDK\BASTYPES.H"
+
 #define DISK1_C
 
 #include "DISK1.H"

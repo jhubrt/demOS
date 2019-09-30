@@ -20,9 +20,10 @@
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 -------------------------------------------------------------------------------------------------*/
 
+#include "DEMOSDK\BASTYPES.H"
+
 #define TRACE_C
 
-#include "DEMOSDK\BASTYPES.H"
 #include "DEMOSDK\STANDARD.H"
 #include "DEMOSDK\SYSTEM.H"
 #include "DEMOSDK\TRACE.H"
@@ -98,7 +99,7 @@ void TRACsaveLog(char* _filename)
 
 #endif
 
-void TRACinit (void)
+void TRACinit (char* _pclogfilename)
 {
 #   ifdef __TOS__
     *(void**) 0x08UL = (void*) TRAC2bomb;
@@ -108,9 +109,13 @@ void TRACinit (void)
     *(void**) 0x18UL = (void*) TRAC6bomb;
     *(void**) 0x18UL = (void*) TRAC7bomb;
     *(void**) 0x20UL = (void*) TRAC8bomb;
+	IGNORE_PARAM(_pclogfilename);
 #   else
-    g_loggerFile = fopen("..\\_logs\\traclogpc.log", "wt");
-    ASSERT(g_loggerFile != NULL);
+    if (_pclogfilename != NULL)
+    {
+        g_loggerFile = fopen(_pclogfilename, "wt");
+        ASSERT(g_loggerFile != NULL);
+    }
 #   endif
 
 	trac_displayParam.h			 = 0;
@@ -136,7 +141,10 @@ void TRAClog (char* _str, char _separator)
     }
 
 #   ifndef __TOS__
-    fprintf (g_loggerFile, "%s%c", _str, _separator);
+    if (g_loggerFile != NULL)
+    {
+        fprintf (g_loggerFile, "%s%c", _str, _separator);
+    }
 #   endif
 
 #   if TRAC_KEEPLASTLOG

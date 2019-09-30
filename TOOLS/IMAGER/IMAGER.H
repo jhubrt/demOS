@@ -38,8 +38,6 @@
 #ifndef IMAGER_CPP
 #define IMAGER_CPP
 
-#include "DEMOSDK\BASTYPES.H"
-
 #define _CRT_SECURE_NO_WARNINGS
 #include <assert.h>
 

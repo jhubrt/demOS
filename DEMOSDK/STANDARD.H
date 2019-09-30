@@ -34,8 +34,6 @@
 #ifndef STANDARD_H
 #define STANDARD_H
 
-#include "DEMOSDK\BASTYPES.H"
-
 #define STD_SWAP(type,A,B) { type T = A; A = B; B = T; }
 
 #define STD_MIN(A,B) ((A)<(B) ? (A):(B))
@@ -43,6 +41,7 @@
 
 void  STDmset (void* _adr, u32 _value, u32 _length);
 void  STDmcpy (void* _dest, void* _src, u32 _length);
+void  STDfastmset (void* _dest, u32 _value, u32 _count);
 void  STDuxtoa(char* _text, u32 _value, s16 _nbchars);
 u16   STDmfrnd (void);
 u16   STDifrnd (void);
@@ -70,6 +69,12 @@ void STD_unitTest (void);
 #else
 #define STD_READ_W(S,W) { STATIC_ASSERT(sizeof(W)==2); u8* pW=(u8*)&(W); pW[1]=S[0]; pW[0]=S[1]; S+=2; }
 #define STD_READ_L(S,L) { STATIC_ASSERT(sizeof(L)==4); u8* pL=(u8*)&(L); pL[3]=S[0]; pL[2]=S[1]; pL[1]=S[2]; pL[0]=S[3]; S+=4; }
+#endif
+
+#ifdef DEMOS_LOAD_FROMHD
+void STDwriteB (FILE* _file, u8  _b);
+void STDwriteW (FILE* _file, u16 _w);
+void STDwriteL (FILE* _file, u32 _l);
 #endif
 
 #endif

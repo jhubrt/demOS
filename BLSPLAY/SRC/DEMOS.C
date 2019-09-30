@@ -34,6 +34,8 @@
                    (strangely it removes clicks to run at VBL start in Hatari ?)
 ------------------------------------------------------------------------------ */
 
+#include "DEMOSDK\BASTYPES.H"
+
 #include "DEMOSDK\STANDARD.H"
 #include "DEMOSDK\SYSTEM.H"
 #include "DEMOSDK\HARDWARE.H"
@@ -116,6 +118,8 @@ int main(int argc, char** argv)
 {
     SetParam(argc, argv);
 
+    printf("Build on " __DATE__ " " __TIME__ "\n");
+
     sys.bakGemdos32 = SYSgemdosSetMode(NULL);
 
     {
@@ -151,7 +155,7 @@ int main(int argc, char** argv)
             tracLogger.logSize = 0;
 #       endif
 
-        TRACinit ();
+        TRACinit ("_logs\\traclogpc.log");
 
         sys.membase = (u8*) malloc( EMULbufferSize(demOS_COREHEAPSIZE + size) );
         ASSERT(sys.membase != NULL);
@@ -182,7 +186,7 @@ int main(int argc, char** argv)
 
             FSMinit (&g_stateMachine, statesPlay, statesPlaySize, 0);
             FSMinit (&g_stateMachineIdle, statesIdle, statesIdleSize, 0);
-
+ 
             threadParam.idleThread = DEMOSidleThread;
             threadParam.idleThreadStackSize = 1024;
 
@@ -191,18 +195,14 @@ int main(int argc, char** argv)
 
             SYScheckHWRequirements ();
 
-            *HW_KEYBOARD_DATA = 0x12; /* deactivate mouse management on ACIA */
+            HW_DISABLE_MOUSE(); /* deactivate mouse management on ACIA */
 
             {
-                u32 lastframe = -1;
-
                 do
                 {
                     SYSswitchIdle();
 
                     /* no need to vsync here as main thread context is reset by idle thread switch */
-                    SYSbeginFrameNum = SYSvblLcount;
-
                     SYSkbAcquire;
 
                     FSMupdate (&g_stateMachine);
@@ -213,7 +213,8 @@ int main(int argc, char** argv)
                     }
 
 #                   ifndef __TOS__
-                    if (lastframe != g_player.player.framenum)
+					static u32 lastframe = -1;
+					if (lastframe != g_player.player.framenum)
                     {
                         EMULrender();
                         lastframe = g_player.player.framenum;

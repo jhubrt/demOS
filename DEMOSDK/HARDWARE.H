@@ -30,8 +30,6 @@
 #ifndef HARDWARE_H
 #define HARDWARE_H
 
-#include "DEMOSDK\BASTYPES.H"
-
 #define HW_BLACK		0x000
 #define HW_LIGHT_RED	0xF00 
 #define HW_LIGHT_GREEN  0x0F0 
@@ -272,10 +270,16 @@
 
 #   define HW_DEFINE_REGISTER(TYPE,ADR,NAME)   ((volatile TYPE*)ADR)
 
+#   define HW_YM_SET_REG(REGNUM,DATA)           { *HW_YM_REGSELECT = REGNUM; *HW_YM_REGDATA = DATA; }
+#   define HW_DISABLE_MOUSE()                   { *HW_KEYBOARD_DATA = 0x12; } /* deactivate mouse management on ACIA */
+
 #else
 
 #   define HW_DEFINE_REGISTER(TYPE,ADR,NAME)   (&g_STHardware.reg_##NAME)
 #   define HW_DECLARE_REGISTER(TYPE,NAME)      TYPE reg_##NAME
+
+#   define HW_DISABLE_MOUSE()
+#   define HW_YM_SET_REG(REGNUM,DATA)           { *HW_YM_REGSELECT = REGNUM; *HW_YM_REGDATA = DATA; }
 
 STRUCT(SThardware)
 {

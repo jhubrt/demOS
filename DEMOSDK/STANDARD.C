@@ -96,6 +96,34 @@ void STD_xtoa(char* _text, s32 _value, s16 _nbchars)
 	STDuxtoa(_text, _value, _nbchars);
 }
 
+#ifdef DEMOS_LOAD_FROMHD
+void STDwriteB (FILE* _file, u8  _b)
+{
+    bool result;
+    
+    result = fwrite (&_b, sizeof(_b), 1, _file) == 1;
+    ASSERT(result);
+}
+
+void STDwriteW (FILE* _file, u16 _w)
+{
+    bool result;
+    
+    _w = PCENDIANSWAP16(_w);
+    result = fwrite (&_w, sizeof(_w), 1, _file) == 1;
+    ASSERT(result);
+}
+
+void STDwriteL (FILE* _file, u32 _l)
+{
+    bool result;
+    
+    _l = PCENDIANSWAP32(_l);
+    result = fwrite (&_l, sizeof(_l), 1, _file) == 1;
+    ASSERT(result);
+}
+#endif
+
 #ifndef __TOS__
 static u32 seed1 = 0x12345678;
 static u32 seed2 = 0x87654321;
@@ -157,6 +185,19 @@ void STDmset (void* _adr, u32 _value, u32 _length)
 void STDmcpy (void* _dest, void* _src, u32 _length)
 {
 	memcpy(_dest, _src, _length);
+}
+
+void STDfastmset (void* _adr, u32 _value, u32 _length)
+{
+	u32* d = (u32*) _adr;
+    u32 t;
+
+    ASSERT((_length & 3) == 0);
+
+    for (t = 0 ; t < _length ; t += 4)
+    {
+        *d++ = _value;
+    }
 }
 
 void  STDcpuSetSR (u16 _status) { IGNORE_PARAM(_status); }

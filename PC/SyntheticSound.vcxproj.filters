@@ -4,9 +4,6 @@
     <Filter Include="DEMOSDK">
       <UniqueIdentifier>{0166929c-daf7-48fc-b266-2567060771d4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="PC">
-      <UniqueIdentifier>{2a38062b-912a-4a4c-9792-94520b1cd38a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="EXTERN">
       <UniqueIdentifier>{02c5f3d6-462e-4937-923f-89abacefdd41}</UniqueIdentifier>
     </Filter>
@@ -25,6 +22,9 @@
     </Filter>
     <Filter Include="DEMOSDK\DATA">
       <UniqueIdentifier>{3b252f99-899e-4dbb-9086-bc30e5ec9fa2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DEMOSDK\PC">
+      <UniqueIdentifier>{2a38062b-912a-4a4c-9792-94520b1cd38a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -53,13 +53,10 @@
       <Filter>DEMOSDK</Filter>
     </ClCompile>
     <ClCompile Include="..\DEMOSDK\PC\WINDOW.C">
-      <Filter>PC</Filter>
+      <Filter>DEMOSDK\PC</Filter>
     </ClCompile>
     <ClCompile Include="..\DEMOSDK\COLORS.C">
       <Filter>DEMOSDK</Filter>
-    </ClCompile>
-    <ClCompile Include="..\EXTERN\ARJDEP.C">
-      <Filter>EXTERN</Filter>
     </ClCompile>
     <ClCompile Include="..\DEMOSDK\TRACE.C">
       <Filter>DEMOSDK</Filter>
@@ -73,23 +70,23 @@
     <ClCompile Include="..\SYNSOUND\SRC\SCREENS.C">
       <Filter>SPECIFIC\SRC</Filter>
     </ClCompile>
-    <ClCompile Include="..\EXTERN\RELOCATE.C">
-      <Filter>EXTERN</Filter>
-    </ClCompile>
     <ClCompile Include="..\DEMOSDK\SYNTH.C">
       <Filter>DEMOSDK</Filter>
     </ClCompile>
     <ClCompile Include="..\DEMOSDK\PC\BITCONVR.C">
-      <Filter>PC</Filter>
+      <Filter>DEMOSDK\PC</Filter>
     </ClCompile>
     <ClCompile Include="..\DEMOSDK\PC\EMUL.CPP">
-      <Filter>PC</Filter>
+      <Filter>DEMOSDK\PC</Filter>
     </ClCompile>
     <ClCompile Include="..\DEMOSDK\DATA\DATA.C">
       <Filter>DEMOSDK\DATA</Filter>
     </ClCompile>
     <ClCompile Include="..\SYNSOUND\SRC\PLAYER.C">
       <Filter>SPECIFIC\SRC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\PC\_PRECOMP.C">
+      <Filter>DEMOSDK\PC</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -117,9 +114,6 @@
     <ClInclude Include="..\DEMOSDK\RASTERS.H">
       <Filter>DEMOSDK</Filter>
     </ClInclude>
-    <ClInclude Include="..\EXTERN\ARJDEP.H">
-      <Filter>EXTERN</Filter>
-    </ClInclude>
     <ClInclude Include="..\DEMOSDK\BITMAP.H">
       <Filter>DEMOSDK</Filter>
     </ClInclude>
@@ -127,13 +121,13 @@
       <Filter>DEMOSDK</Filter>
     </ClInclude>
     <ClInclude Include="..\DEMOSDK\PC\WINDOW.H">
-      <Filter>PC</Filter>
+      <Filter>DEMOSDK\PC</Filter>
     </ClInclude>
     <ClInclude Include="..\DEMOSDK\COLORS.H">
       <Filter>DEMOSDK</Filter>
     </ClInclude>
     <ClInclude Include="..\DEMOSDK\PC\EMUL.H">
-      <Filter>PC</Filter>
+      <Filter>DEMOSDK\PC</Filter>
     </ClInclude>
     <ClInclude Include="..\SYNSOUND\SRC\SCREENS.H">
       <Filter>SPECIFIC\SRC</Filter>
@@ -141,14 +135,11 @@
     <ClInclude Include="..\DEMOSDK\LOADDEFS.H">
       <Filter>DEMOSDK</Filter>
     </ClInclude>
-    <ClInclude Include="..\EXTERN\RELOCATE.H">
-      <Filter>EXTERN</Filter>
-    </ClInclude>
     <ClInclude Include="..\DEMOSDK\SYNTH.H">
       <Filter>DEMOSDK</Filter>
     </ClInclude>
     <ClInclude Include="..\DEMOSDK\PC\BITCONVR.H">
-      <Filter>PC</Filter>
+      <Filter>DEMOSDK\PC</Filter>
     </ClInclude>
     <ClInclude Include="..\DEMOSDK\DATA\SYSTFNT.H">
       <Filter>DEMOSDK\DATA</Filter>
@@ -158,9 +149,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\EXTERN\ARJDEP.S">
-      <Filter>EXTERN</Filter>
-    </None>
     <None Include="..\DEMOSDK\BITMAP.S">
       <Filter>DEMOSDK</Filter>
     </None>
@@ -181,12 +169,6 @@
     </None>
     <None Include="..\DEMOSDK\SYSTEM.S">
       <Filter>DEMOSDK</Filter>
-    </None>
-    <None Include="..\EXTERN\XSTARTUP.S">
-      <Filter>EXTERN</Filter>
-    </None>
-    <None Include="..\EXTERN\RELOCATE.S">
-      <Filter>EXTERN</Filter>
     </None>
     <None Include="..\DEMOSDK\SYNTH.S">
       <Filter>DEMOSDK</Filter>

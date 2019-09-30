@@ -1,3 +1,4 @@
+#include "DEMOSDK\BASTYPES.H"
 #include "DEMOSDK\SOUND.H"
 #include "REBIRTH\DISK1.H"
 #include "REBIRTH\DISK2.H"

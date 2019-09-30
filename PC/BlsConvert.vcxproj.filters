@@ -48,6 +48,9 @@
     <ClCompile Include="..\TOOLS\BLSCONVR\BLSCONVR.CPP">
       <Filter>TOOLS\BLSCONVR</Filter>
     </ClCompile>
+    <ClCompile Include="..\DEMOSDK\PC\_PRECOMP.C">
+      <Filter>DEMOSDK\PC</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\DEMOSDK\PC\SURFACE.H">

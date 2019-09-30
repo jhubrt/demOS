@@ -24,7 +24,9 @@
 	
 	opt 	o+
 
-	xdef	STDmset,STDmcpy,STDmfrnd,STDifrnd,STDmulu,STDmuls,STDdivu,STDdivs
+	xdef	STDmset,STDmcpy,STDfastmset
+    xdef    STDmfrnd,STDifrnd
+    xdef    STDmulu,STDmuls,STDdivu,STDdivs
 	xdef	STDcpuSetSR,STDgetUSP,STDsetUSP,STDgetSP
 
 
@@ -76,6 +78,46 @@ STDdivs:
         divs.w  d1,d0
         rts
 
+;-------------------------------------------------------------------------
+; void STDfastmset (void* _dest, u32 _value, u32 _count);
+;-------------------------------------------------------------------------
+STDfastmset:
+    movem.l     d2-d7/a1-a2,-(sp)
+    
+    move.w      d1,d2
+    and.w       #31,d2
+    lsr.w       #2,d2
+    subq.w      #1,d2
+    blt.s       .nohead
+
+.loop1:
+    move.l      d0,(a0)+    
+    dbf.w       d2,.loop1
+
+.nohead
+    lsr.l       #5,d1
+    subq.w      #1,d1
+    blt.s       .end
+
+    move.l      d0,d2
+    move.l      d0,d3
+    move.l      d0,d4
+    move.l      d0,d5
+    move.l      d0,d6
+    move.l      d0,d7
+    move.l      d0,a1
+    move.l      d0,a2
+
+.loop2:
+    movem.l     d2-d7/a1-a2,(a0)
+    lea         32(a0),a0
+    dbf.w       d1,.loop2
+    
+.end:
+
+    movem.l     (sp)+,d2-d7/a1-a2
+
+    rts
 
 ;-------------------------------------------------------------------------
 ; void STDmset (void* _adr, u32 _value, u32 _length);

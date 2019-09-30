@@ -20,6 +20,7 @@
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 -------------------------------------------------------------------------------------------------*/
 
+#include "DEMOSDK\BASTYPES.H"
 
 #include "DEMOSDK\HARDWARE.H"
 #include "DEMOSDK\SYSTEM.H"
@@ -724,7 +725,7 @@ void CybervectorActivity (FSM* _fsm)
 {
 	s16 miny, maxy;
 	void* image = g_screens.cybervector->framebuffers[g_screens.cybervector->flipbuffer];
-    u16 vblcount = SYSvblLcount;        /* I really dont get why it does not work with SYSbeginFrameNum... */
+    u16 vblcount = SYSvblLcount;
     void* rasterop;
 
 	g_screens.cybervector->flipbuffer++;

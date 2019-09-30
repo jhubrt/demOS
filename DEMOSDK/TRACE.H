@@ -35,8 +35,6 @@
 #ifndef TRACE_H
 #define TRACE_H
 
-#include "DEMOSDK\BASTYPES.H"
-
 #ifdef DEMOS_DEBUG
     
     STRUCT(TRAClogger)
@@ -51,7 +49,7 @@
 
     typedef u16 (*TRAC_DisplayCallback) (void* _image, u16 _pitch, u16 _planePitch, u16 _y);
 
-    void TRACinit (void);
+    void TRACinit (char*);
     void TRAClog (char* _str, char _separator);
     void TRAClogClear (void);
     void TRACsetVideoMode (u16 _pitch);
@@ -76,7 +74,7 @@
 
 #else
 
-#   define TRACinit()
+#   define TRACinit(FILENAME)
 #   define TRAClog(_str,_separator)
 #   define TRAClogClear()
 #   define TRACsetVideoMode(_pitch)

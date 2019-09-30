@@ -24,8 +24,6 @@
 #ifndef MORPH_H
 #define MORPH_H 
 
-#include "DEMOSDK\BASTYPES.H"
-
 u32  SLIgetMorphCodeLen (u16 _nbPoints);
 void SLIgenerateMorphCode (u8* _codeBuffer, u16 _nbPoints);
 void SLIinitMorph    (void* _verttable, void* _horitable, u16 _h, u16 _pitch, u16 _w);

@@ -42,7 +42,6 @@
 #ifndef SOUND_H
 #define SOUND_H
 
-#include "DEMOSDK\BASTYPES.H"
 #include "DEMOSDK\HARDWARE.H"
 #include "DEMOSDK\ALLOC.H"
 #include "DEMOSDK\LOAD.H"

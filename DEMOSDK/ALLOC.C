@@ -20,6 +20,8 @@
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 -------------------------------------------------------------------------------------------------*/
 
+#include "DEMOSDK\BASTYPES.H"
+
 #include "DEMOSDK\ALLOC.H"
 #include "DEMOSDK\STANDARD.H"
 
@@ -523,6 +525,8 @@ void RINGallocatorUnitTest (void)
     u32 size = 128UL*1024UL;
 
 	void* buffer = malloc(size);
+
+	IGNORE_PARAM(alloc);
 
 	RINGallocatorInit (&allocator, buffer, size);
 

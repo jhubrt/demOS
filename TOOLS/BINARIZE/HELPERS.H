@@ -29,6 +29,16 @@
 PREDECLARE_STRUCT(WINdow);
 PREDECLARE_STRUCT(BITsurface);
 
+STRUCT(TOOLerror)
+{
+    char m_message[256];
+
+    TOOLerror(const char* _message) 
+    {
+        strcpy(m_message, _message);
+    }
+};
+
 u32  TOOLfileSize       (FILE* _file);
 void TOOLreadcheck      (void* _buf, u32 _size, FILE* _file);
 void TOOLwritecheck     (void* _buf, u32 _size, FILE* _file);

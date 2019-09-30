@@ -20,6 +20,7 @@
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 -------------------------------------------------------------------------------------------------*/
 
+#include "DEMOSDK\BASTYPES.H"
 
 #define SYNTH_C
 
@@ -1303,7 +1304,6 @@ SNDsynSoundSet* SNDsynthLoad (char* _filename)
 
     return soundSet;
 }
-
 
 
 void SNDsynPlayerShutdown(RINGallocator* _allocator)

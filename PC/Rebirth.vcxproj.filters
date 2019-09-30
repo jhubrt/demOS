@@ -4,9 +4,6 @@
     <Filter Include="DEMOSDK">
       <UniqueIdentifier>{0166929c-daf7-48fc-b266-2567060771d4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="PC">
-      <UniqueIdentifier>{2a38062b-912a-4a4c-9792-94520b1cd38a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="EXTERN">
       <UniqueIdentifier>{02c5f3d6-462e-4937-923f-89abacefdd41}</UniqueIdentifier>
     </Filter>
@@ -56,6 +53,9 @@
     <Filter Include="FX\VREGANIM">
       <UniqueIdentifier>{994bc0c0-4012-4497-a265-c8a8b0e5bf39}</UniqueIdentifier>
     </Filter>
+    <Filter Include="DEMOSDK\PC">
+      <UniqueIdentifier>{2a38062b-912a-4a4c-9792-94520b1cd38a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\REBIRTH\SRC\POLYZOOM.C">
@@ -86,10 +86,7 @@
       <Filter>DEMOSDK</Filter>
     </ClCompile>
     <ClCompile Include="..\DEMOSDK\PC\WINDOW.C">
-      <Filter>PC</Filter>
-    </ClCompile>
-    <ClCompile Include="..\REBIRTH\SRC\VISUALIZ.C">
-      <Filter>SPECIFIC\SRC\VISUALIZER</Filter>
+      <Filter>DEMOSDK\PC</Filter>
     </ClCompile>
     <ClCompile Include="..\DEMOSDK\COLORS.C">
       <Filter>DEMOSDK</Filter>
@@ -131,10 +128,10 @@
       <Filter>SPECIFIC\DISK</Filter>
     </ClCompile>
     <ClCompile Include="..\DEMOSDK\PC\BITCONVR.C">
-      <Filter>PC</Filter>
+      <Filter>DEMOSDK\PC</Filter>
     </ClCompile>
     <ClCompile Include="..\DEMOSDK\PC\EMUL.CPP">
-      <Filter>PC</Filter>
+      <Filter>DEMOSDK\PC</Filter>
     </ClCompile>
     <ClCompile Include="..\DEMOSDK\DATA\DATA.C">
       <Filter>DEMOSDK\DATA</Filter>
@@ -147,6 +144,12 @@
     </ClCompile>
     <ClCompile Include="..\FX\VREGANIM\VREGANIM.C">
       <Filter>FX\VREGANIM</Filter>
+    </ClCompile>
+    <ClCompile Include="..\REBIRTH\SRC\VISUALIZ.C">
+      <Filter>SPECIFIC\SRC\VISUALIZER</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\PC\_PRECOMP.C">
+      <Filter>DEMOSDK\PC</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -187,16 +190,13 @@
       <Filter>DEMOSDK</Filter>
     </ClInclude>
     <ClInclude Include="..\DEMOSDK\PC\WINDOW.H">
-      <Filter>PC</Filter>
-    </ClInclude>
-    <ClInclude Include="..\REBIRTH\SRC\VISUALIZ.H">
-      <Filter>SPECIFIC\SRC\VISUALIZER</Filter>
+      <Filter>DEMOSDK\PC</Filter>
     </ClInclude>
     <ClInclude Include="..\DEMOSDK\COLORS.H">
       <Filter>DEMOSDK</Filter>
     </ClInclude>
     <ClInclude Include="..\DEMOSDK\PC\EMUL.H">
-      <Filter>PC</Filter>
+      <Filter>DEMOSDK\PC</Filter>
     </ClInclude>
     <ClInclude Include="..\REBIRTH\SRC\SLIDES.H">
       <Filter>SPECIFIC\SRC\SLIDES</Filter>
@@ -229,7 +229,7 @@
       <Filter>DEMOSDK</Filter>
     </ClInclude>
     <ClInclude Include="..\DEMOSDK\PC\BITCONVR.H">
-      <Filter>PC</Filter>
+      <Filter>DEMOSDK\PC</Filter>
     </ClInclude>
     <ClInclude Include="..\DEMOSDK\DATA\SYSTFNT.H">
       <Filter>DEMOSDK\DATA</Filter>
@@ -239,6 +239,9 @@
     </ClInclude>
     <ClInclude Include="..\FX\VREGANIM\VREGANIM.H">
       <Filter>FX\VREGANIM</Filter>
+    </ClInclude>
+    <ClInclude Include="..\REBIRTH\SRC\VISUALIZ.H">
+      <Filter>SPECIFIC\SRC\VISUALIZER</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -22,8 +22,10 @@
 
 
 #include "DEMOSDK\BASTYPES.H"
+#include "DEMOSDK\STANDARD.H"
 #include "DEMOSDK\HARDWARE.H"
 #include "DEMOSDK\BITMAP.H"
+
 
 void BITpl2chunk(void* _src, u16 _h, u16 _nbchunks, u16 _endlinepitch, void* _dst) PCSTUB;
 

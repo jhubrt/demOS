@@ -32,7 +32,6 @@ extern "C"
 
 #include "TOOLS\BINARIZE\HELPERS.H"
 
-
 extern MEMallocator stdAllocator;
 
 
@@ -53,6 +52,7 @@ void TOOLreadcheck (void* _buf, u32 _size, FILE* _file)
     if ( fread (_buf, _size, 1, _file) != 1 )
     {
         printf ("#ERROR while reading %d bytes\n", _size);
+        throw TOOLerror ("read file error");
     }
 }
 
@@ -61,6 +61,7 @@ void TOOLwritecheck (void* _buf, u32 _size, FILE* _file)
     if ( fwrite (_buf, _size, 1, _file) != 1 )
     {
         printf ("#ERROR while writing %d bytes\n", _size);
+        throw TOOLerror ("write file error");
     }
 }
 

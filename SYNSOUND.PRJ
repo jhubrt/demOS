@@ -13,9 +13,6 @@ SYNSOUND.PRG       ; name of executable program
 
 PCSTART.O        ; standard startup code
 
-OUTPUT\ARJDEP.O
-OUTPUT\RELOCATE.O
-
 OUTPUT\BITMAP.O
 OUTPUT\SYNTH.O
 OUTPUT\LOAD.O

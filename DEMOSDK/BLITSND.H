@@ -23,8 +23,6 @@
 #ifndef BLITSND_H
 #define BLITSND_H
 
-#include "DEMOSDK\BASTYPES.H"
-
 #define BLS_FORMAT              0xB50D
 #define BLS_FORMAT_REVISION     8
 

@@ -36,8 +36,6 @@
 #ifndef SURFACE_H
 #define SURFACE_H 
 
-#include "DEMOSDK\BASTYPES.H"
-
 #define BIT_DEFAULT_PITCH 0xFFFF
 
 ENUM(BITlutFormat)

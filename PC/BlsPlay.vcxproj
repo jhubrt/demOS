@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
@@ -14,18 +14,21 @@
     <ProjectGuid>{41CDAB10-F36A-40DB-8377-A10BFF4BDCE9}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>BlsPlay</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v141</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v141</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -47,15 +50,13 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <DisableLanguageExtensions>true</DisableLanguageExtensions>
-      <PrecompiledHeaderFile>
-      </PrecompiledHeaderFile>
+      <PrecompiledHeaderFile>DEMOSDK\BASTYPES.H</PrecompiledHeaderFile>
       <AdditionalIncludeDirectories>..\</AdditionalIncludeDirectories>
-      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -67,16 +68,15 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeader>Use</PrecompiledHeader>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <DisableLanguageExtensions>true</DisableLanguageExtensions>
-      <PrecompiledHeaderFile>
-      </PrecompiledHeaderFile>
+      <PrecompiledHeaderFile>DEMOSDK\BASTYPES.H</PrecompiledHeaderFile>
       <AdditionalIncludeDirectories>..\</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -85,6 +85,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;dsound.lib;dxguid.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>C:\Program Files (x86)\Windows Kits\8.1\Lib\winv6.3\um\x86</AdditionalLibraryDirectories>
+      <LinkTimeCodeGeneration>Default</LinkTimeCodeGeneration>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -98,6 +99,12 @@
     <ClCompile Include="..\DEMOSDK\BLITSND.C" />
     <ClCompile Include="..\DEMOSDK\BLITSNDP.C" />
     <ClCompile Include="..\DEMOSDK\PC\BITCONVR.C" />
+    <ClCompile Include="..\DEMOSDK\PC\_PRECOMP.C">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">DEMOSDK\BASTYPES.H</PrecompiledHeaderFile>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">DEMOSDK\BASTYPES.H</PrecompiledHeaderFile>
+    </ClCompile>
     <ClCompile Include="..\DEMOSDK\TRACE.C" />
     <ClCompile Include="..\EXTERN\RELOCATE.C" />
     <ClCompile Include="..\DEMOSDK\ALLOC.C" />
@@ -109,6 +116,8 @@
     <ClCompile Include="..\DEMOSDK\PC\EMUL.CPP">
       <DisableLanguageExtensions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</DisableLanguageExtensions>
       <DisableLanguageExtensions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</DisableLanguageExtensions>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="..\DEMOSDK\RASTERS.C" />
     <ClCompile Include="..\DEMOSDK\STANDARD.C" />
@@ -116,6 +125,8 @@
     <ClCompile Include="..\DEMOSDK\PC\WINDOW.C">
       <DisableLanguageExtensions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</DisableLanguageExtensions>
       <DisableLanguageExtensions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</DisableLanguageExtensions>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="..\EXTERN\ARJDEP.C" />
     <ClCompile Include="..\DEMOSDK\DATA\DATA.C" />
@@ -152,16 +163,6 @@
     <None Include="..\DEMOSDK\BLITSNDP.S" />
     <None Include="..\EXTERN\RELOCATE.S" />
     <None Include="..\DEMOSDK\SYSTEM.S" />
-    <CustomBuild Include="..\DEMOSDK\BITMAP.S">
-      <FileType>Document</FileType>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">VASM_BUILD.BAT %(FullPath) $(SolutionDir)..\OUTPUT\%(Filename).O</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">VASM_BUILD.BAT %(FullPath) $(SolutionDir)..\OUTPUT\%(Filename).O</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">VASM_BUILD.BAT %(FullPath) $(SolutionDir)..\OUTPUT\%(Filename).O</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)..\OUTPUT\%(Filename).O</Outputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">VASM_BUILD.BAT %(FullPath) $(SolutionDir)..\OUTPUT\%(Filename).O</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)..\OUTPUT\%(Filename).O</Outputs>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </CustomBuild>
     <None Include="..\DEMOSDK\LOAD.S" />
     <None Include="..\DEMOSDK\RASTERS.S" />
     <None Include="..\DEMOSDK\STANDARD.S" />

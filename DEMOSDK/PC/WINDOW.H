@@ -33,8 +33,6 @@
 
 #ifndef __TOS__
 
-#include "DEMOSDK\BASTYPES.H"
-
 #define WINDOW_CENTER -1
 
 #define MOUSE_LBUT  0x01

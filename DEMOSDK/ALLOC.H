@@ -41,8 +41,6 @@
 #ifndef ALLOC_H
 #define ALLOC_H
 
-#include "DEMOSDK\BASTYPES.H"
-
 STRUCT(RINGallocator)
 {
 	u8*	buffer;

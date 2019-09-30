@@ -63,6 +63,8 @@
     
 ------------------------------------------------------------------------------  */
 
+#include "DEMOSDK\BASTYPES.H"
+
 #include "DEMOSDK\STANDARD.H"
 #include "DEMOSDK\SYSTEM.H"
 #include "DEMOSDK\HARDWARE.H"
@@ -168,7 +170,7 @@ int main(int argc, char** argv)
         sys.bakGemdos32 = SYSgemdosSetMode(NULL);
 #       endif
 
-        TRACinit ();
+        TRACinit ("_logs\\traclogpc.log");
 
         ASSERT(sys.membase != NULL);
 
@@ -239,8 +241,6 @@ int main(int argc, char** argv)
                     SYSswitchIdle();
 
                     /* no need to vsync here as main thread context is reset by idle thread switch */
-                    SYSbeginFrameNum = SYSvblLcount;
-
                     SYSkbAcquire;
 
                     FSMupdate (&g_stateMachine);

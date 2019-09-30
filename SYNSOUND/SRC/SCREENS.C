@@ -20,6 +20,7 @@
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 -------------------------------------------------------------------------------------------------*/
 
+#include "DEMOSDK\BASTYPES.H"
 
 #define SCREENS_C
 
@@ -33,11 +34,6 @@
 
 #include "SYNSOUND\SRC\SCREENS.H"
 
-#include "REBIRTH\DISK1.H"
-#include "REBIRTH\DISK2.H"
-
-
-#define DISK2_BOOT_CHECKSUM_DIFF 0x7d25
 
 Screens	g_screens;
 

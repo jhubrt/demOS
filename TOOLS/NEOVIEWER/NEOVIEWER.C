@@ -20,10 +20,11 @@
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 -------------------------------------------------------------------------------------------------*/
 
+#include "DEMOSDK\BASTYPES.H"
+
 #define _CRT_SECURE_NO_WARNINGS
 #include <conio.h>
 
-#include "DEMOSDK\BASTYPES.H"
 #include "DEMOSDK\STANDARD.H"
 
 #include "DEMOSDK\PC\WINDOW.H"

@@ -231,8 +231,8 @@ SYSfastPrint:
 
 SYS_debugPrint_noautomod:
 
-	lea	    SYSfontdata(pc),a3
-	lea 	SYSfontchars(pc),a2
+	move.l	#SYSfontdata,a3		; lea	SYSfontdata(pc),a3 => use absolute to avoid overflow at link
+	move.l	#SYSfontchars,a2	; lea 	SYSfontchars(pc),a2
 
 	subq.w  #1,d1
 

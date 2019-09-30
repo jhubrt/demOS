@@ -44,7 +44,6 @@
 #ifndef LOAD_H
 #define LOAD_H
 
-#include "DEMOSDK\BASTYPES.H"
 #include "DEMOSDK\LOADDEFS.H"
 
 /*! @struct LOADdisk

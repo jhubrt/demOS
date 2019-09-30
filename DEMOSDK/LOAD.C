@@ -20,10 +20,10 @@
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 -------------------------------------------------------------------------------------------------*/
 
+#include "DEMOSDK\BASTYPES.H"
 
 #define LOAD_C
 
-#include "DEMOSDK\BASTYPES.H"
 #include "DEMOSDK\LOAD.H"
 #include "DEMOSDK\HARDWARE.H"
 #include "DEMOSDK\STANDARD.H"

@@ -35,8 +35,6 @@
 #ifndef COLORS_H
 #define COLORS_H
 
-#include "DEMOSDK\BASTYPES.H"
-
 #ifndef COLORS_C
 extern u8 COLST24b[16];
 extern u8 COL4b2ST[16];

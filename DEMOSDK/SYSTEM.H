@@ -48,7 +48,6 @@
 #ifndef SYSTEM_H
 #define SYSTEM_H
 
-#include "DEMOSDK\BASTYPES.H"
 #include "DEMOSDK\ALLOC.H"
 
 #define SYS_NBMAX_VBLROUTINES 5
@@ -183,7 +182,7 @@ bool SYSlockMain (SYSlock* _lock); /* when called from main thread => you should
 void SYSlockIdle (SYSlock* _lock); /* when called from idle thread, it will spin till it is unlocked by main thread (blocking strategy) */
 
 void* SYSgemdosSetMode (void* _adr);
-void* SYSmalloc (size_t _size);
+void* SYSmalloc (unsigned long _size);
 void  SYSreset (void);
 
 #endif

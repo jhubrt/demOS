@@ -32,8 +32,6 @@
 #ifndef FSM_H
 #define FSM_H
 
-#include "DEMOSDK\BASTYPES.H"
-
 typedef struct FSM_ FSM;
 typedef void (*FSMfunction)(FSM* _fsm);
 
