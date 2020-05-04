@@ -78,31 +78,67 @@ void BITfrom8bTo888 (void* _source, u16 _pitchSource, u32* _lut, void* _dest, u1
 }
 
 
+static int bitCompareColor(const void* _p1, const void* _p2)
+{
+    s32 v1 = *(s32*)_p1;
+    s32 v2 = *(s32*)_p2;
+
+
+    return v1 - v2;
+}
+
 void BITfromx888To8b (void* _source, u16 _pitchSource, u32* _lut, void* _dest, u16 _w, u16 _h, u16 _pitchDest)
 {
-    u8* source = (u8*) _source;
-    u8* dest   = (u8*) _dest;
-    u16 x,y;
+    u8*  source = (u8*) _source;
+    u8*  dest   = (u8*) _dest;
+    u16  x,y;
+    u32  palconv[256][2];
 
 
-    for (y = 0 ; y < _h ; y++)
+    if (_lut != NULL)
+    {
+        u32 i;
+
+        for (i = 0 ; i < 256 ; i++)
+        {
+            palconv[i][0] = _lut[i];
+            palconv[i][1] = i;
+        }
+
+        qsort(palconv, 256, sizeof(u32) * 2, bitCompareColor);
+    }
+
+    for (y = 0; y < _h; y++)
     {
         u8* s = source;
         u8* d = dest;
 
 
-        for (x = 0 ; x < _w ; x++)
+        for (x = 0; x < _w; x++)
         {
-            u16 grey = (s[0] * 14) + (s[2] * 37) + (s[1] * 77);
-            
-            grey >>= 7;
+            if (_lut != NULL)
+            {
+                u32* p;
+                
+                p = (u32*) bsearch(s, palconv, 256, sizeof(u32) * 2, bitCompareColor);
+                ASSERT(p != NULL);
 
-            *d++ = (u8) grey;
+                *d++ = (u8)p[1];
+            }
+            else
+            {
+                u16 grey = (s[0] * 14) + (s[2] * 37) + (s[1] * 77);
+
+                grey >>= 7;
+
+                *d++ = (u8)grey;
+            }
+
             s += 4;
         }
 
         source += _pitchSource;
-        dest   += _pitchDest;
+        dest += _pitchDest;
     }
 }
 
