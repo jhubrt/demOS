@@ -156,6 +156,8 @@ void LOADinitFAT (u8 _drive, LOADdisk* _media, u16 _nbEntries, u16 _nbMetaData)
             p += nbsectors * LOAD_SECTORSIZE;
         }
     }
+    IGNORE_PARAM(_drive);
+
 #   else
     RINGallocatorFree (&sys.mem, temp);
 #   endif
@@ -165,7 +167,13 @@ void LOADinitFAT (u8 _drive, LOADdisk* _media, u16 _nbEntries, u16 _nbMetaData)
 
 LOADrequest* LOADrequestLoad (LOADdisk* _media, u16 _resourceid, void* _buffer, u16 _order)
 {
+    IGNORE_PARAM(_media);
+    IGNORE_PARAM(_resourceid);
+    IGNORE_PARAM(_buffer);
+    IGNORE_PARAM(_order);
+
     ASSERT(0);
+
     return NULL;
 }
 
@@ -264,6 +272,8 @@ LOADrequest* LOADdata (LOADdisk* _media, u16 _resource, void* _buffer, u16 _orde
         return LOADrequestLoad (_media, _resource, _buffer, _order);
     }
 #   endif
+
+    IGNORE_PARAM(_order);
 
     return NULL;
 }
