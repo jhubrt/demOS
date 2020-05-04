@@ -157,6 +157,11 @@ BITloadResult BITbmpLoad (BITsurface* _surface, MEMallocator* _allocator, char* 
         height      = (u16) getDWord(bmpInfoHeader  + 8);
         bitPerPixel = getWord (bmpInfoHeader  + 14);
         paletteSize = (u16) getDWord(bmpInfoHeader  + 32);
+
+        if (paletteSize == 0)  /* fix loading for BMP saved from Grafx2 */
+            if (bitPerPixel > 1)
+                paletteSize = 1 << bitPerPixel;
+
         if ( (getWord(bmpInfoHeader+12) != 1) || (getDWord(bmpInfoHeader+16) != 0) )
             goto Error;  /* number of planes is not 1 or compressed format -> not supported */
         break;
