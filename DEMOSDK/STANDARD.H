@@ -55,6 +55,7 @@ void  STDcpuSetSR (u16 _status);
 void* STDgetSP(void);
 void* STDgetUSP(void);
 void  STDsetUSP(void* _adr);
+u16   STDstrLen(char* _str);
  
 #ifdef DEMOS_UNITTEST
 void STD_unitTest (void);
@@ -75,6 +76,8 @@ void STD_unitTest (void);
 void STDwriteB (FILE* _file, u8  _b);
 void STDwriteW (FILE* _file, u16 _w);
 void STDwriteL (FILE* _file, u32 _l);
+
+void* STDloadfile(MEMallocator* _allocator, char* _filename);
 #endif
 
 #endif

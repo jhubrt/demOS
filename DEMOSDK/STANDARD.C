@@ -96,6 +96,19 @@ void STD_xtoa(char* _text, s32 _value, s16 _nbchars)
 	STDuxtoa(_text, _value, _nbchars);
 }
 
+u16 STDstrLen(char* _str)
+{
+    u16 nb = 0;
+
+    while (*_str++ != 0)
+    {
+        nb++;
+    }
+
+    return nb;
+}
+
+
 #ifdef DEMOS_LOAD_FROMHD
 void STDwriteB (FILE* _file, u8  _b)
 {
@@ -205,6 +218,33 @@ void* STDgetSP(void)            { return NULL; }
 void* STDgetUSP(void)           { return NULL; }
 void  STDsetUSP(void* _adr)     {}
 
+#endif
+
+#ifdef DEMOS_LOAD_FROMHD
+void* STDloadfile(MEMallocator* _allocator, char* _filename)
+{
+    void* buffer;
+    u32 size, readbytes;
+    FILE* file = fopen(_filename, "rb");
+    ASSERT(file != NULL);
+
+    if (file != NULL)
+    {
+        fseek(file, 0, SEEK_END);
+        size = ftell(file);
+        fseek(file, 0, SEEK_SET);
+
+        buffer = MEM_ALLOCTEMP(_allocator, size);
+        ASSERT(buffer != NULL);
+
+        readbytes = fread(buffer, 1, size, file);
+        ASSERT(size == readbytes);
+
+        fclose(file);
+    }
+
+    return buffer;
+}
 #endif
 
 #ifdef DEMOS_UNITTEST
