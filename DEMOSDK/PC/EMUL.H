@@ -20,7 +20,8 @@
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 -------------------------------------------------------------------------------------------------*/
 
-
+#ifndef EMUL_H
+#define EMUL_H
 /*! @brief @ref EMUL @file */
 
 /*! @defgroup EMUL
@@ -128,3 +129,5 @@ void EMUL_SUB_B (EMULregister* _source, EMULregister* _dest, EMUL68k* _p);
 bool EMUL_BTST  (u32 _data, u8 _bit);
 
 #endif
+
+#endif /* EMUL_H */
