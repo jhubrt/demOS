@@ -91,7 +91,7 @@
 #define HW_MICROWIRE_VOLUME_TREBLE	0x480	/* 0 1000 0000  values 0 to 12 */
 #define HW_MICROWIRE_VOLUME_BASS  	0x440	/* 0 0100 0000  values 0 to 12 */
 
-#define HW_MICROWIRE_MIXER_YM_12DB	0x400
+#define HW_MICROWIRE_MIXER_YM_12DB	0x410   /* for fixed hardware this is 0x10 not 0x00 */
 #define HW_MICROWIRE_MIXER_YM		0x401
 #define HW_MICROWIRE_MIXER_NO_YM	0x402
 
