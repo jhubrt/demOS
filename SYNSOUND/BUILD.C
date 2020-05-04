@@ -13,11 +13,10 @@
 #include "DEMOSDK\LOAD.C"
 #include "DEMOSDK\RASTERS.C"
 #include "DEMOSDK\STANDARD.C"
-#include "DEMOSDK\SYNTH.C"
 #include "DEMOSDK\SYSTEM.C"
 #include "DEMOSDK\TRACE.C"
 #include "DEMOSDK\DATA\DATA.C"
 
-
+#include "SYNSOUND\SRC\SYNTH.C"
 #include "SYNSOUND\SRC\SCREENS.C"
 #include "SYNSOUND\SRC\PLAYER.C"

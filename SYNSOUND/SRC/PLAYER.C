@@ -27,7 +27,7 @@
 #include "DEMOSDK\STANDARD.H"
 #include "DEMOSDK\TRACE.H"
 
-#include "DEMOSDK\SYNTH.H"
+#include "SYNSOUND\SRC\SYNTH.H"
 
 #include "SYNSOUND\SRC\SCREENS.H"
 

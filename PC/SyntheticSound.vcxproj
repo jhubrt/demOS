@@ -92,7 +92,6 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="..\DEMOSDK\SYNTH.C" />
     <ClCompile Include="..\SYNSOUND\BUILD.C">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
@@ -121,6 +120,7 @@
     <ClCompile Include="..\SYNSOUND\SRC\PLAYER.C" />
     <ClCompile Include="..\SYNSOUND\SRC\SCREENS.C" />
     <ClCompile Include="..\DEMOSDK\DATA\DATA.C" />
+    <ClCompile Include="..\SYNSOUND\SRC\SYNTH.C" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\DEMOSDK\ALLOC.H" />
@@ -136,7 +136,6 @@
     <ClInclude Include="..\DEMOSDK\PC\WINDOW.H" />
     <ClInclude Include="..\DEMOSDK\RASTERS.H" />
     <ClInclude Include="..\DEMOSDK\STANDARD.H" />
-    <ClInclude Include="..\DEMOSDK\SYNTH.H" />
     <ClInclude Include="..\DEMOSDK\SYSTEM.H" />
     <ClInclude Include="..\DEMOSDK\TRACE.H" />
     <ClInclude Include="..\SYNSOUND\SRC\PLAYER.H" />
@@ -144,7 +143,6 @@
     <ClInclude Include="..\DEMOSDK\DATA\SYSTFNT.H" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\DEMOSDK\SYNTH.S" />
     <None Include="..\SYNSOUNB.PRJ" />
     <None Include="..\SYNSOUND.PRJ" />
     <None Include="..\DEMOSDK\SYSTEM.S" />
@@ -154,6 +152,7 @@
     <None Include="..\DEMOSDK\RASTERS.S" />
     <None Include="..\DEMOSDK\STANDARD.S" />
     <None Include="..\DEMOSDK\TRACE.S" />
+    <None Include="..\SYNSOUND\SRC\SYNTH.S" />
     <None Include="..\SYNSOUND\SYNTH.INI" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

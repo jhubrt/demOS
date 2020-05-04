@@ -24,12 +24,13 @@
 
 #define SYNTH_C
 
-#include "DEMOSDK\SYNTH.H"
 #include "DEMOSDK\SYSTEM.H"
 #include "DEMOSDK\STANDARD.H"
 
 #include "DEMOSDK\PC\WINDOW.H"
 #include "DEMOSDK\PC\EMUL.H"
+
+#include "SYNSOUND\SRC\SYNTH.H"
 
 #include <math.h>
 
@@ -109,7 +110,7 @@ SNDsynPlayer synth;
 #define SND_SYN_FREE_TEMP(A)    free(A)
 #define SND_SYN_ALLOC_SAMPLE(A) malloc (A)
 
-static char* SNDsyndelims = "\n\r";
+static char* sndYMdelims = "\n\r";
 
 SNDsynSoundSet* soundSet1 = NULL;
 SNDsynSoundSet* soundSet2 = NULL;
@@ -1025,11 +1026,11 @@ void SNDsynSoundSet_generate(SNDsynSoundSet* _soundset, SNDsynConfig* _config, b
 }
 
 
-static char* SNDsynToken (char* _init, char* _p)
+static char* sndYMtoken (char* _init, char* _p)
 {
     do
     {
-        _p = strtok(_init, SNDsyndelims);
+        _p = strtok(_init, sndYMdelims);
         _init = NULL;
         if (_p == NULL)
         {
@@ -1054,14 +1055,14 @@ static char* SNDsynToken (char* _init, char* _p)
     return NULL;
 }
 
-static char* SNDsynFirsttoken (char* _init)
+static char* sndYMfirstToken (char* _init)
 {
-    return SNDsynToken(_init, _init);
+    return sndYMtoken(_init, _init);
 }
 
-static char* SNDsynNexttoken (char* _p)
+static char* sndYMnextToken (char* _p)
 {
-    return SNDsynToken(NULL, _p);
+    return sndYMtoken(NULL, _p);
 }
 
 
@@ -1154,16 +1155,16 @@ char* SNDsynSoundSet_load(SNDsynSoundSet* _soundset, char* _p)
     u8 samplescaps[16];
     
 
-    _p = SNDsynNexttoken (_p);
+    _p = sndYMnextToken (_p);
     freq = (float) atof(_p);
 
-    _p = SNDsynNexttoken (_p);
+    _p = sndYMnextToken (_p);
     refsemitone = atoi(_p);
 
-    _p = SNDsynNexttoken (_p);
+    _p = sndYMnextToken (_p);
     transposerange = atoi(_p);
 
-    _p = SNDsynNexttoken (_p);
+    _p = sndYMnextToken (_p);
     nbsamples = atoi(_p);    
 
     while ( refsemitone > 0 )
@@ -1188,7 +1189,7 @@ char* SNDsynSoundSet_load(SNDsynSoundSet* _soundset, char* _p)
         s8*   sourcesample;
         u16   nbperiods;
 
-        _p = SNDsynNexttoken (_p);
+        _p = sndYMnextToken (_p);
 
         {
             u32 result;
@@ -1202,10 +1203,10 @@ char* SNDsynSoundSet_load(SNDsynSoundSet* _soundset, char* _p)
             ASSERT(result == filesize);
         }
 
-        _p = SNDsynNexttoken (_p);
+        _p = sndYMnextToken (_p);
         nbperiods = (u16) atoi(_p);
 
-        _p = SNDsynNexttoken (_p);
+        _p = sndYMnextToken (_p);
         samplescaps[s] = *_p;
 
         /* compute the 12 semi tones */
@@ -1289,7 +1290,7 @@ SNDsynSoundSet* SNDsynthLoad (char* _filename)
     fclose (file);
     buffer[filesize] = 0;
 
-    p = SNDsynFirsttoken(buffer);
+    p = sndYMfirstToken(buffer);
 
     nbsoundsets = atoi(p);
     printf ("nb sound sets: %d\n", nbsoundsets);

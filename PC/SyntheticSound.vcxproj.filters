@@ -70,9 +70,6 @@
     <ClCompile Include="..\SYNSOUND\SRC\SCREENS.C">
       <Filter>SPECIFIC\SRC</Filter>
     </ClCompile>
-    <ClCompile Include="..\DEMOSDK\SYNTH.C">
-      <Filter>DEMOSDK</Filter>
-    </ClCompile>
     <ClCompile Include="..\DEMOSDK\PC\BITCONVR.C">
       <Filter>DEMOSDK\PC</Filter>
     </ClCompile>
@@ -87,6 +84,9 @@
     </ClCompile>
     <ClCompile Include="..\DEMOSDK\PC\_PRECOMP.C">
       <Filter>DEMOSDK\PC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SYNSOUND\SRC\SYNTH.C">
+      <Filter>SPECIFIC\SRC</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -135,9 +135,6 @@
     <ClInclude Include="..\DEMOSDK\LOADDEFS.H">
       <Filter>DEMOSDK</Filter>
     </ClInclude>
-    <ClInclude Include="..\DEMOSDK\SYNTH.H">
-      <Filter>DEMOSDK</Filter>
-    </ClInclude>
     <ClInclude Include="..\DEMOSDK\PC\BITCONVR.H">
       <Filter>DEMOSDK\PC</Filter>
     </ClInclude>
@@ -145,6 +142,9 @@
       <Filter>DEMOSDK\DATA</Filter>
     </ClInclude>
     <ClInclude Include="..\SYNSOUND\SRC\PLAYER.H">
+      <Filter>SPECIFIC\SRC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SYNSOUND\SRC\SYNTH.H">
       <Filter>SPECIFIC\SRC</Filter>
     </ClInclude>
   </ItemGroup>
@@ -170,9 +170,6 @@
     <None Include="..\DEMOSDK\SYSTEM.S">
       <Filter>DEMOSDK</Filter>
     </None>
-    <None Include="..\DEMOSDK\SYNTH.S">
-      <Filter>DEMOSDK</Filter>
-    </None>
     <None Include="..\SYNSOUND.PRJ">
       <Filter>SPECIFIC\PURE_C</Filter>
     </None>
@@ -181,6 +178,9 @@
     </None>
     <None Include="..\SYNSOUND\SYNTH.INI">
       <Filter>SPECIFIC</Filter>
+    </None>
+    <None Include="..\SYNSOUND\SRC\SYNTH.S">
+      <Filter>SPECIFIC\SRC</Filter>
     </None>
   </ItemGroup>
 </Project>

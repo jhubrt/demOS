@@ -70,7 +70,6 @@
 #include "DEMOSDK\HARDWARE.H"
 #include "DEMOSDK\FSM.H"
 #include "DEMOSDK\LOAD.H"
-#include "DEMOSDK\SYNTH.H"
 #include "DEMOSDK\TRACE.H"
 
 #include "DEMOSDK\BITMAP.H"
@@ -78,6 +77,7 @@
 #include "DEMOSDK\PC\EMUL.H"
 
 #include "SYNSOUND\SRC\SCREENS.H"
+#include "SYNSOUND\SRC\SYNTH.H"
 
 
 static char* DEMOSbuildversion = "v0";
