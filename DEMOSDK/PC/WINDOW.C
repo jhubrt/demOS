@@ -227,7 +227,18 @@ void WINdrawImage (WINdow* _m, void* _image, u32 _width, u32 _height, u32 _bitsP
 	bmpi->bmiHeader.biPlanes        = 1;
 	bmpi->bmiHeader.biBitCount      = (u16)_bitsPerPixel;
 	bmpi->bmiHeader.biCompression   = BI_RGB;
-	bmpi->bmiHeader.biSizeImage     = _width * _height * (_bitsPerPixel == 32 ? 4 : 1);
+    switch (_bitsPerPixel)
+    {
+    case 32:
+        bmpi->bmiHeader.biSizeImage = _width * _height * 4;
+        break;
+    case 1:
+        bmpi->bmiHeader.biSizeImage = _width * _height / 8;
+        break;
+    default:
+        bmpi->bmiHeader.biSizeImage = _width * _height;
+        break;
+    }
 	bmpi->bmiHeader.biXPelsPerMeter = 0;
 	bmpi->bmiHeader.biYPelsPerMeter = 0;
 	bmpi->bmiHeader.biClrUsed       = 0;
@@ -481,8 +492,10 @@ static s32 WINconvertMapping (WPARAM _wparam)
     case 'V':               key = HW_KEY_V;                 break;
     case 'B':               key = HW_KEY_B;                 break;
     case 'N':               key = HW_KEY_N;                 break;
-    case '?':
-    case ',':               key = HW_KEY_M;                 break;
+    case VK_OEM_COMMA:      key = HW_KEY_M;                 break;
+    case VK_OEM_PERIOD:     key = HW_KEY_COMMA;             break;
+    case VK_OEM_2:          key = HW_KEY_DOT;               break;
+    case VK_OEM_8:          key = HW_KEY_SLASH;             break;
 
     case '0':               key = HW_KEY_0;                 break;
     case '1':               key = HW_KEY_1;                 break;
@@ -495,6 +508,7 @@ static s32 WINconvertMapping (WPARAM _wparam)
     case '8':               key = HW_KEY_8;                 break;
     case '9':               key = HW_KEY_9;                 break;
 
+	case VK_OEM_4:			key = HW_KEY_MINUS;				break;
     case VK_OEM_MINUS:      key = HW_KEY_MINUS;             break;
     case VK_OEM_PLUS:       key = HW_KEY_EQUAL;             break;
 
