@@ -56,7 +56,7 @@ void TOOLreadcheck (void* _buf, u32 _size, FILE* _file)
     }
 }
 
-void TOOLwritecheck (void* _buf, u32 _size, FILE* _file)
+void TOOLwritecheck (const void* _buf, u32 _size, FILE* _file)
 {
     if ( fwrite (_buf, _size, 1, _file) != 1 )
     {
@@ -65,6 +65,25 @@ void TOOLwritecheck (void* _buf, u32 _size, FILE* _file)
     }
 }
 
+void TOOLwritecheck(const u32& _val, FILE* _file)
+{
+    u32 val = PCENDIANSWAP32(_val);
+    TOOLwritecheck(&val, sizeof(val), _file);
+}
+
+void TOOLwritecheck(const u16& _val, FILE* _file)
+{
+    u16 val = PCENDIANSWAP16(_val);
+    TOOLwritecheck(&val, sizeof(val), _file);
+}
+
+void TOOLwritecheck(const u8& _val, FILE* _file)
+{
+    TOOLwritecheck(&_val, sizeof(_val), _file);
+}
+
+void TOOLwritecheck(const u32& _val, FILE* _file);
+void TOOLwritecheck(const u16& _val, FILE* _file);
 
 void TOOLdisplayImage (WINdow* _window, BITsurface* _surface)
 {

@@ -41,10 +41,15 @@ STRUCT(TOOLerror)
 
 u32  TOOLfileSize       (FILE* _file);
 void TOOLreadcheck      (void* _buf, u32 _size, FILE* _file);
-void TOOLwritecheck     (void* _buf, u32 _size, FILE* _file);
+void TOOLwritecheck     (const void* _buf, u32 _size, FILE* _file);
+
+void TOOLwritecheck     (const u32& _val, FILE* _file);
+void TOOLwritecheck     (const u16& _val, FILE* _file);
+void TOOLwritecheck     (const u8&  _val, FILE* _file);
+
 void TOOLtruncateFile   (const char* _source, const char* _dest, u32 _size);
 
-void TOOLdisplayImage   (WINdow* _window, BITsurface* _surface);
+void TOOLdisplayImage   (struct WINdow_* _window, struct BITsurface_* _surface);
 
 void TOOLwriteStaticData(char* _filename, char* _sourcefile, char* _symbolName);
 
