@@ -70,13 +70,15 @@ void  RINGallocatorFreeSize  (RINGallocator* _m, RINGallocatorFreeArea* _info);
 
 #ifdef DEMOS_DEBUG
 
-void  RINGallocatorDump  (RINGallocator* _m, FILE* _output);
-u32   RINGallocatorList  (RINGallocator* _m, void** _list, u32 _maxSize);
-u32   RINGallocatorCheck (RINGallocator* _m);
+void  RINGallocatorDump      (RINGallocator* _m, FILE* _output);
+void  RINGallocatorDumpAlloc(RINGallocator* _m, void* _address, FILE* _output);
+u32   RINGallocatorList      (RINGallocator* _m, void** _list, u32 _maxSize);
+u32   RINGallocatorCheck     (RINGallocator* _m);
 
 #else
 
 #	define RINGallocatorDump(A, B)
+#	define RINGallocatorDumpAlloc(A, B, C)
 #	define RINGallocatorList(A, B, C)
 #   define RINGallocatorCheck(A)
 

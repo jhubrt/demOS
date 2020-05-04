@@ -133,6 +133,12 @@ typedef u8 bool;
 #endif
 
 /* memory allocator interface */
+#ifdef DEMOS_DEBUG
+#   ifndef DEMOS_MEMDEBUG
+#       define DEMOS_MEMDEBUG 0
+#   endif
+#endif
+
 typedef void* (*MEMallocFunc)(void* _allocator, u32 _size);
 typedef void  (*MEMfreeFunc)(void* _allocator, void* _adr);
 
@@ -144,12 +150,39 @@ STRUCT(MEMallocator)
 	MEMfreeFunc  free;
 };
 
+#if DEMOS_MEMDEBUG
+
+typedef void(*TRACmemDumpCallback)(MEMallocator* _allocator, void* _address, FILE* _file);
+
+void* TRACmemdebugAlloc     (MEMallocator* _allocator, u32 _size , char* _filename, u16 _line);
+void* TRACmemdebugAllocTemp (MEMallocator* _allocator, u32 _size , char* _filename, u16 _line);
+void  TRACmemdebugFree      (MEMallocator* _allocator, void* _adr);
+void  TRACmemDump           (MEMallocator* _allocator, FILE* _file, TRACmemDumpCallback _callback);
+
+#ifdef __TOS__
+#define MEM_ALLOC(ALLOCATOR,SIZE)     TRACmemdebugAlloc(ALLOCATOR, SIZE, __FILE__, (u16)__LINE__)
+#define MEM_ALLOCTEMP(ALLOCATOR,SIZE) TRACmemdebugAllocTemp(ALLOCATOR, SIZE, __FILE__, (u16)__LINE__)
+#define MEM_ALLOC_STRUCT(ALLOCATOR,NAME)     (NAME*) TRACmemdebugAlloc(ALLOCATOR, sizeof(NAME), __FILE__ " struct " #NAME, (u16)__LINE__)
+#define MEM_ALLOCTEMP_STRUCT(ALLOCATOR,NAME) (NAME*) TRACmemdebugAlloctemp(ALLOCATOR, sizeof(NAME), __FILE__ " struct " #NAME, (u16)__LINE__)
+#else
+#define MEM_ALLOC(ALLOCATOR,SIZE)     TRACmemdebugAlloc(ALLOCATOR, SIZE, __FILE__ " >"__FUNCTION__, (u16)__LINE__)
+#define MEM_ALLOCTEMP(ALLOCATOR,SIZE) TRACmemdebugAllocTemp(ALLOCATOR, SIZE, __FILE__ " >"__FUNCTION__, (u16)__LINE__)
+#define MEM_ALLOC_STRUCT(ALLOCATOR,NAME)     (NAME*) TRACmemdebugAlloc(ALLOCATOR, sizeof(NAME), __FILE__ " >"__FUNCTION__ " struct " #NAME, (u16)__LINE__)
+#define MEM_ALLOCTEMP_STRUCT(ALLOCATOR,NAME) (NAME*) TRACmemdebugAlloctemp(ALLOCATOR, sizeof(NAME), __FILE__ " >"__FUNCTION__ " struct " #NAME, (u16)__LINE__)
+#endif
+
+#define MEM_FREE(ALLOCATOR,ADR)       TRACmemdebugFree(ALLOCATOR,ADR)
+
+#else
+
 #define MEM_ALLOC(ALLOCATOR,SIZE)     (ALLOCATOR)->alloc((ALLOCATOR)->allocator,(SIZE))
 #define MEM_ALLOCTEMP(ALLOCATOR,SIZE) (ALLOCATOR)->alloctemp((ALLOCATOR)->allocator,(SIZE))
 #define MEM_FREE(ALLOCATOR,ADR)       (ALLOCATOR)->free((ALLOCATOR)->allocator,(ADR))
 
 #define MEM_ALLOC_STRUCT(ALLOCATOR,NAME)     (NAME*) (ALLOCATOR)->alloc((ALLOCATOR)->allocator, sizeof(NAME))
 #define MEM_ALLOCTEMP_STRUCT(ALLOCATOR,NAME) (NAME*) (ALLOCATOR)->alloctemp((ALLOCATOR)->allocator, sizeof(NAME))
+
+#endif
 
 /* assertion */
 #ifdef __TOS__

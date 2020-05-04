@@ -434,4 +434,115 @@ void TRACunitTest (void* _screen)
 }
 #endif
 
+#if DEMOS_MEMDEBUG
+
+#define TRAC_NBMAX_ALLOCS 1024
+
+static u32 g_tracNbAllocs = 0;
+
+STRUCT(tracAlloc)
+{
+    void*         adr;
+    MEMallocator* allocator;
+    char*         filename;
+    u16           line;
+};
+
+static tracAlloc g_tracAllocs[TRAC_NBMAX_ALLOCS];
+
+static void tracAddalloc(MEMallocator* _allocator, void* _adr, char* _filename, u16 _line)
+{
+    u32 t;
+    tracAlloc* tracalloc = NULL;
+
+
+    for (t = 0; t < g_tracNbAllocs; t++)
+    {
+        ASSERT(g_tracAllocs[t].adr != _adr);
+    }
+
+    for (t = 0; t < g_tracNbAllocs; t++)
+    {
+        if (g_tracAllocs[t].adr == NULL)
+        {
+            tracalloc = &g_tracAllocs[t];
+            break;
+        }
+    }
+
+    if (tracalloc == NULL)
+    {
+        ASSERT(g_tracNbAllocs < TRAC_NBMAX_ALLOCS);
+        tracalloc = &g_tracAllocs[g_tracNbAllocs++];
+    }
+
+    tracalloc->adr      = _adr;
+    tracalloc->allocator= _allocator;
+    tracalloc->filename = _filename;
+    tracalloc->line     = _line;
+}
+
+void* TRACmemdebugAlloc(MEMallocator* _allocator, u32 _size, char* _filename, u16 _line)
+{
+    void* adr = _allocator->alloc (_allocator->allocator, _size);
+    tracAddalloc(_allocator, adr, _filename, _line);
+    return adr;
+}
+
+void* TRACmemdebugAllocTemp(MEMallocator* _allocator, u32 _size, char* _filename, u16 _line)
+{
+    void* adr = _allocator->alloctemp (_allocator->allocator, _size);
+    tracAddalloc(_allocator, adr, _filename, _line);
+    return adr;
+}
+
+void TRACmemdebugFree(MEMallocator* _allocator, void* _adr)
+{
+    u32 t;
+
+    for (t = 0; t < g_tracNbAllocs; t++)
+    {
+        if (g_tracAllocs[t].adr == _adr)
+        {
+            g_tracAllocs[t].adr = NULL;
+            ASSERT(g_tracAllocs[t].allocator == _allocator);
+            break;
+        }
+    }
+
+    ASSERT(t < g_tracNbAllocs);
+
+    if ((t + 1) == g_tracNbAllocs)
+    {
+        g_tracNbAllocs--;
+    }
+
+    _allocator->free (_allocator->allocator, _adr);
+}
+
+void TRACmemDump(MEMallocator* _allocator, FILE* _file, TRACmemDumpCallback _callback)
+{
+    u32 t;
+
+
+    for (t = 0; t < g_tracNbAllocs; t++)
+    {
+        if (g_tracAllocs[t].adr != NULL)
+        {
+            if ((_allocator == NULL) || (g_tracAllocs[t].allocator == _allocator))
+            {
+                if (_callback != NULL)
+                {
+                    _callback(_allocator, g_tracAllocs[t].adr, _file);
+                }
+
+                fprintf(_file, "%s(%d): %p\n", g_tracAllocs[t].filename, g_tracAllocs[t].line, g_tracAllocs[t].adr);
+            }
+        }
+    }
+}
+
+#endif
+
+
 #endif /* DEMOS_DEBUG */

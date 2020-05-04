@@ -353,7 +353,7 @@ void RINGallocatorFreeSize(RINGallocator* _m, RINGallocatorFreeArea* _info)
 
 #ifdef DEMOS_DEBUG
 
-void RINGallocatorDump (RINGallocator* _m, FILE* _output)
+void RINGallocatorDumpAlloc (RINGallocator* _m, void* _address, FILE* _output)
 {
 	AllocCell* cell = (AllocCell*) _m->head;
     u32 nbcells = 0;
@@ -364,11 +364,14 @@ void RINGallocatorDump (RINGallocator* _m, FILE* _output)
     u32 totalallocated = 0;
 
 
-    STDmset(line, 0x20202020UL, dsize);
-    line[dsize] = 0;
+    if (_address == NULL)
+    {
+        STDmset(line, 0x20202020UL, dsize);
+        line[dsize] = 0;
 
-	fprintf (_output, "Allocator %p\n", _m);
-	fprintf (_output, "buf: %-8p size: %-8ld head: %-8p tail: %p last: %p\n\n", _m->buffer, _m->size, _m->head, _m->tail, _m->last);
+        fprintf(_output, "Allocator %p\n", _m);
+        fprintf(_output, "buf: %-8p size: %-8ld head: %-8p tail: %p last: %p\n\n", _m->buffer, _m->size, _m->head, _m->tail, _m->last);
+    }
 
     if (_m->last != NULL)
     {
@@ -412,28 +415,34 @@ void RINGallocatorDump (RINGallocator* _m, FILE* _output)
 
             nbcells++;
 
-            fprintf (_output, "%-8p %s prev: %-8p next: %-8p user: %p rsiz: %ld %c\n", 
-                cell, 
-                ALLOCCELL_isFree(cell) ? "[ ]" : "[X]", 
-                cell->prev, 
-                cell->next, 
-                cell + 1,
-                size,
-                endofbuffer ? '+' : ' ');
-
+            if ((_address == NULL) || (_address == (cell + 1)))
             {
-                s16 start = (s16)(((u8*)cell - _m->buffer) * dsize / _m->size);
-                s16 end   = (s16)(start + size * dsize / _m->size);
-                s16 j;
-                char cr = ALLOCCELL_isFree(cell) ? '_' : occupied;
-            
-                ASSERT(end < dsize);
-                for (j = start ; j <= end ; j++)
-                {
-                    line[j] = cr;
-                }
+                fprintf(_output, "%-8p %s prev: %-8p next: %-8p user: %-8p rsiz: %-8ld %c",
+                    cell,
+                    ALLOCCELL_isFree(cell) ? "[ ]" : "[X]",
+                    cell->prev,
+                    cell->next,
+                    cell + 1,
+                    size,
+                    endofbuffer ? '+' : ' ');
 
-                occupied ^= 'X' ^ 'x';
+                if (_address == NULL)
+                {
+                    s16 start = (s16)(((u8*)cell - _m->buffer) * dsize / _m->size);
+                    s16 end = (s16)(start + size * dsize / _m->size);
+                    s16 j;
+                    char cr = ALLOCCELL_isFree(cell) ? '_' : occupied;
+
+                    ASSERT(end < dsize);
+                    for (j = start; j <= end; j++)
+                    {
+                        line[j] = cr;
+                    }
+
+                    occupied ^= 'X' ^ 'x';
+
+                    fprintf(_output, "\n");
+                }
             }
 
             cell = cell->next;
@@ -441,22 +450,30 @@ void RINGallocatorDump (RINGallocator* _m, FILE* _output)
         while (cell != NULL);
     }
 
-    line [(_m->head - _m->buffer) * dsize / _m->size] = '[';
-    line [(_m->tail - _m->buffer) * dsize / _m->size] = ']';
-    fprintf (_output, "\n%s\n", line);
-
-    if (_m->last != NULL)
+    if (_address == NULL)
     {
-        STDmset(line, 0x20202020UL, dsize);
-        line [(_m->last - _m->buffer) * dsize / _m->size] = '^';
-        fprintf (_output, "%s\n", line);
-    }
+        line[(_m->head - _m->buffer) * dsize / _m->size] = '[';
+        line[(_m->tail - _m->buffer) * dsize / _m->size] = ']';
+        fprintf(_output, "\n%s\n", line);
 
-	fprintf (_output, "cells: %lu - allocs: %lu - freecells: %lu - total allocated bytes: %lu\n\n", nbcells, nbcells - nbfreecells, nbfreecells, totalallocated);
+        if (_m->last != NULL)
+        {
+            STDmset(line, 0x20202020UL, dsize);
+            line[(_m->last - _m->buffer) * dsize / _m->size] = '^';
+            fprintf(_output, "%s\n", line);
+        }
+
+        fprintf(_output, "cells: %lu - allocs: %lu - freecells: %lu - total allocated bytes: %lu\n\n", nbcells, nbcells - nbfreecells, nbfreecells, totalallocated);
+    }
 
     RINGallocatorCheck(_m);    
 }
 
+
+void RINGallocatorDump(RINGallocator* _m, FILE* _output)
+{
+    RINGallocatorDumpAlloc(_m, NULL, _output);
+}
 
 u32 RINGallocatorList (RINGallocator* _m, void** _list, u32 _maxSize)
 {
