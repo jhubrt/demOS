@@ -410,7 +410,7 @@ void SYSkbReset(void)
 
 void SYSassert(char* _message, char* _file, int _line)
 {
-    static char line[16] = "line=0x       ";
+    static char line[] = "line=       ";
 #   ifdef __TOS__
     u8 buffer[1];
 #   else
@@ -423,7 +423,7 @@ void SYSassert(char* _message, char* _file, int _line)
     _message[79] = 0;
     _file   [79] = 0;
 
-    STDuxtoa (&line[7], _line, 6);
+    STDutoa (&line[5], _line, 6);
 
     if ( sys.mem.buffer == NULL )
     {

@@ -43,6 +43,8 @@ void  STDmset (void* _adr, u32 _value, u32 _length);
 void  STDmcpy (void* _dest, void* _src, u32 _length);
 void  STDfastmset (void* _dest, u32 _value, u32 _count);
 void  STDuxtoa(char* _text, u32 _value, s16 _nbchars);
+void  STDstoa(char* _text, s32 _value, s16 _nbchars); 
+void  STDutoa(char* _text, u32 _value, s16 _nbchars);
 u16   STDmfrnd (void);
 u16   STDifrnd (void);
 u16   STDswap16(u16 _v);

@@ -85,16 +85,53 @@ void STDuxtoa(char* _text, u32 _value, s16 _nbchars)
     } 
 }
 
-void STD_xtoa(char* _text, s32 _value, s16 _nbchars)
+void STDutoa(char* _text, u32 _value, s16 _nbchars) 
+{
+    static u32 powof10[] = {1000000000, 100000000, 10000000, 1000000, 100000, 10000, 1000, 100, 10, 1};
+    u32*  p = powof10;
+    u8    i = 10;
+    u8*   end = _text + _nbchars;
+
+
+    while (_value < *p) 
+    {
+        p++;
+        if (--i == 1)
+            break;
+    }
+
+    while (i--) 
+    {
+        u32 sub = *p++;
+        char n = '0';
+
+        while (_value >= sub) 
+        {
+            _value -= sub;
+            n++;
+        }
+        *_text++ = n;
+    }
+
+    while (_text < end)
+    {
+        *_text++ = ' ';
+    }
+}
+
+void STD_stoa(char* _text, s32 _value, s16 _nbchars)
 {
 	if ( _value < 0 )
 	{
 		_value = -_value;
-		*_text = '-';
+        *_text++ = '-';
+        _nbchars--;
 	}
 
-	STDuxtoa(_text, _value, _nbchars);
+    STDutoa(_text, _value, _nbchars);
 }
+
+
 
 u16 STDstrLen(char* _str)
 {
@@ -364,10 +401,29 @@ static void STD_unitTest_mcpy (void)
     free(buf[0]);
 }
 
-void STD_unitTest ()
+void STD_unitTest_utoa (void)
 {
+    char temp[32];
+    char temp2[32];
+    u32 i;
+
+    
+    memset (temp, 0, sizeof(temp));
+
+    for (i = 0; i < 0x20000; i++)
+    {
+        STDutoa(temp, i, 10);
+        sprintf(temp2, "%-10d", i);
+        ASSERT(strcmp(temp, temp2) == 0);
+    }
+}
+
+void STD_unitTest (void)
+{
+    STD_unitTest_utoa();
     STD_unitTest_convertions();
     STD_unitTest_mcpy();
     STD_unitTest_mset();
 }
+
 #endif
