@@ -87,7 +87,7 @@ void STDuxtoa(char* _text, u32 _value, s16 _nbchars)
 
 void STDutoa(char* _text, u32 _value, s16 _nbchars) 
 {
-    static u32 powof10[] = {1000000000, 100000000, 10000000, 1000000, 100000, 10000, 1000, 100, 10, 1};
+    static u32 powof10[] = {1000000000UL, 100000000UL, 10000000UL, 1000000UL, 100000UL, 10000UL, 1000UL, 100UL, 10UL, 1UL};
     u32*  p = powof10;
     u8    i = 10;
     u8*   end = _text + _nbchars;
@@ -121,12 +121,12 @@ void STDutoa(char* _text, u32 _value, s16 _nbchars)
 
 void STD_stoa(char* _text, s32 _value, s16 _nbchars)
 {
-	if ( _value < 0 )
-	{
-		_value = -_value;
+    if ( _value < 0 )
+    {
+        _value = -_value;
         *_text++ = '-';
         _nbchars--;
-	}
+    }
 
     STDutoa(_text, _value, _nbchars);
 }
@@ -410,7 +410,7 @@ void STD_unitTest_utoa (void)
     
     memset (temp, 0, sizeof(temp));
 
-    for (i = 0; i < 0x20000; i++)
+    for (i = 0; i < 0x20000UL; i++)
     {
         STDutoa(temp, i, 10);
         sprintf(temp2, "%-10d", i);

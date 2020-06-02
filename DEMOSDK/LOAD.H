@@ -139,6 +139,7 @@ void		  LOADwaitFDCIdle			(void);
 #define       LOADfreeRequest(_request) if (_request != NULL) _request->allocated = false;
 
 
+u16           LOADresourceNbSectors     (LOADdisk* _media, u16 _entryIndex);
 u32           LOADresourceRoundedSize   (LOADdisk* _media, u16 _entryIndex);
 u16           LOADresourceMetaDataIndex (LOADdisk* _media, u16 _entryIndex);
 #define LOAD_RESOURCE_NOMETADATA        0x1FF

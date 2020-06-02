@@ -67,8 +67,8 @@ void STD_unitTest (void);
 #define STD_READ_B(S,B) { STATIC_ASSERT(sizeof(B)==1); B=*S++; }
 
 #ifdef __TOS__
-#define STD_READ_W(S,W) { STATIC_ASSERT(sizeof(W)==2); u8* pW=(u8*)&(W); *pW++=*S++; *pW++=*S++; }
-#define STD_READ_L(S,L) { STATIC_ASSERT(sizeof(L)==4); u8* pL=(u8*)&(L); *pL++=*S++; *pL++=*S++; *pL++=*S++; *pL++=*S++; }
+#define STD_READ_W(S,W) { u8* pW=(u8*)&(W); STATIC_ASSERT(sizeof(W)==2); *pW++=*S++; *pW++=*S++;    }
+#define STD_READ_L(S,L) { u8* pL=(u8*)&(L); STATIC_ASSERT(sizeof(L)==4); *pL++=*S++; *pL++=*S++; *pL++=*S++; *pL++=*S++;         }
 #else
 #define STD_READ_W(S,W) { STATIC_ASSERT(sizeof(W)==2); u8* pW=(u8*)&(W); pW[1]=S[0]; pW[0]=S[1]; S+=2; }
 #define STD_READ_L(S,L) { STATIC_ASSERT(sizeof(L)==4); u8* pL=(u8*)&(L); pL[3]=S[0]; pL[2]=S[1]; pL[1]=S[2]; pL[0]=S[3]; S+=4; }

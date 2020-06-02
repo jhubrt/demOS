@@ -171,8 +171,8 @@ int main(int argc, char** argv)
 
         EMULinit (sys.membase, -1, -1, 0);
    
-		FSMinit (&g_stateMachine	, states    , statesSize    , 0);
-		FSMinit (&g_stateMachineIdle, statesIdle, statesIdleSize, 0);
+		FSMinit (&g_stateMachine	, states    , statesSize    , 0, DEBUG_STRING("main"));
+		FSMinit (&g_stateMachineIdle, statesIdle, statesIdleSize, 0, DEBUG_STRING("idle"));
 
         {
             SNDsynSoundSet* soundSet = SNDsynthLoad ("SYNSOUND\\SYNTH.INI");

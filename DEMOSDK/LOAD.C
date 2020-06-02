@@ -279,10 +279,15 @@ LOADrequest* LOADdata (LOADdisk* _media, u16 _resource, void* _buffer, u16 _orde
 }
 
 
-u32 LOADresourceRoundedSize (LOADdisk* _media, u16 _entryIndex)
+u16 LOADresourceNbSectors (LOADdisk* _media, u16 _entryIndex)
 {
     ASSERT(_entryIndex < _media->nbEntries);
-    return (u32)(_media->FAT[_entryIndex].startsectorsidenbsectors & LOAD_RESOURCE_MASK_NBSECTORS) * LOAD_SECTORSIZE;
+    return _media->FAT[_entryIndex].startsectorsidenbsectors & LOAD_RESOURCE_MASK_NBSECTORS;
+}
+
+u32 LOADresourceRoundedSize (LOADdisk* _media, u16 _entryIndex)
+{
+    return ((u32)LOADresourceNbSectors(_media, _entryIndex)) * LOAD_SECTORSIZE;
 }
 
 u16 LOADresourceMetaDataIndex (LOADdisk* _media, u16 _entryIndex)

@@ -374,7 +374,7 @@ u16 statesIdleSize = (u16) ARRAYSIZE(statesIdle);
 
 void ScreenWaitMainDonothing (void)
 {
-    while (g_stateMachine.states[g_stateMachine.activeState] != doNothing);
+    while (g_stateMachine.states[FSMgetCurrentState(&g_stateMachine)] != doNothing);
 }
 
 

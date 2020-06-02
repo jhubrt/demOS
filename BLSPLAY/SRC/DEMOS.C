@@ -184,8 +184,8 @@ int main(int argc, char** argv)
         {
             SYSinitThreadParam threadParam;
 
-            FSMinit (&g_stateMachine, statesPlay, statesPlaySize, 0);
-            FSMinit (&g_stateMachineIdle, statesIdle, statesIdleSize, 0);
+            FSMinit (&g_stateMachine    , statesPlay, statesPlaySize, 0, DEBUG_STRING("main"));
+            FSMinit (&g_stateMachineIdle, statesIdle, statesIdleSize, 0, DEBUG_STRING("idle"));
  
             threadParam.idleThread = DEMOSidleThread;
             threadParam.idleThreadStackSize = 1024;

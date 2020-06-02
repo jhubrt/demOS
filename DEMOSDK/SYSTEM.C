@@ -311,8 +311,9 @@ void SYSinit(void)
 	sys.allocatorCoreMem.allocator = &sys.coremem;
 
 #   if !defined(DEMOS_OPTIMIZED) && !defined(DEMOS_USES_BOOTSECTOR)	
-    sys.allocatorStandard.alloc = SYSstdAlloc;
-	sys.allocatorStandard.free  = SYSstdFree;
+    sys.allocatorStandard.alloc     = SYSstdAlloc;
+    sys.allocatorStandard.alloctemp = SYSstdAlloc;
+	sys.allocatorStandard.free      = SYSstdFree;
 	sys.allocatorStandard.allocator = NULL;
 #	endif
 }

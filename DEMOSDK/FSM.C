@@ -27,50 +27,22 @@
 #include "DEMOSDK\TRACE.H"
 #include "DEMOSDK\SYSTEM.H"
 
-void FSMinit (FSM* _m, FSMfunction* _states, u16 _nbStates, u16 _startState)
-{
-	_m->states		= _states;
-    _m->nbStates    = _nbStates;
-	_m->activeState = _startState;
-
-#   ifdef DEMOS_DEBUG
-    {
-        static char fsmstate[] = "fsm 0xFFFFFF = 0x  ";
-
-        STDmset(_m->trace, 0x20202020UL, sizeof(_m->trace));
-        _m->trace[sizeof(_m->trace) - 1] = 0;
-        _m->traceCurrent = -1;
-        _m->traceLastState = 0xFFFF;
-
-        TRAClogFrameNum();
-
-        STDuxtoa (&fsmstate[6] , (u32)_m    , 6);
-        STDuxtoa (&fsmstate[17], _startState, 2);
-        TRAClog(fsmstate, '\n');
-    }
-#   endif
-}
-
-void FSMgoto (FSM* _m, u16 _newState)
-{
-    ASSERT(_newState < _m->nbStates);
-    _m->activeState = _newState;
-
-#   ifdef DEMOS_DEBUG
-    {
-        static char fsmstate[] = "fsm 0xFFFFFF = 0x  ";
-
-        TRAClogFrameNum();
-
-        STDuxtoa (&fsmstate[6] , (u32)_m    , 6);
-        STDuxtoa (&fsmstate[17], _newState, 2);
-        TRAClog(fsmstate, '\n');
-    }
-#   endif
-}
-
 
 #ifdef DEMOS_DEBUG
+
+static char fsmstatesdesc[] = "fsm          = 0  ";
+
+static void fsmLogTrace(FSM* _m, char* _funcname)
+{
+    TRAClogFrameNum();
+    TRAClog(_funcname, ' ');
+
+    STDmcpy  (&fsmstatesdesc[4] , _m->name , sizeof(_m->name));
+    STDutoa  (&fsmstatesdesc[15], FSMgetCurrentState(_m), 3);
+
+    TRAClog(fsmstatesdesc, '\n');
+}
+
 u16 FSMtrace (FSM* _m, void* _image, u16 _pitch, u16 _planePitch, u16 _y)
 {
     if (_m->traceLastState != _m->activeState)
@@ -102,4 +74,68 @@ u16 FSMtrace (FSM* _m, void* _image, u16 _pitch, u16 _planePitch, u16 _y)
 
 	return 8;
 }
+
+#else
+
+#define fsmLogTrace(FSM,FUNCNAME)
+
 #endif
+
+
+void FSMinit (FSM* _m, FSMfunction* _states, u16 _nbStates, u16 _startState, char* _name)
+{
+	_m->states		= _states;
+    _m->nbStates    = _nbStates;
+	_m->activeState = _startState;
+
+#   ifdef DEMOS_DEBUG
+    {
+        char* d = _m->name;
+        u8    i = 0;
+
+        /* machine name */
+        while ((i < sizeof(_m->name)) && _name[i])
+        {
+            *d++ = _name[i++];
+        }
+
+        while (i++ < sizeof(_m->name))
+        {
+            *d++ = ' ';
+        }
+
+        STDmset(_m->trace, 0x20202020UL, sizeof(_m->trace));
+        _m->trace[sizeof(_m->trace) - 1] = 0;
+        _m->traceCurrent = -1;
+        _m->traceLastState = 0xFFFF;
+
+        fsmLogTrace(_m,"FSMinit");
+    }
+#   endif
+}
+
+void FSMgoto (FSM* _m, u16 _newState)
+{
+    ASSERT(_newState < _m->nbStates);
+    _m->activeState = _newState;
+
+    fsmLogTrace(_m,"FSMgoto");
+}
+
+s16 FSMlookForStateIndex(FSM* _m, FSMfunction _func)
+{
+    u16 t;
+
+
+    for (t = 0; t < _m->nbStates; t++)
+    {
+        if (_m->states[t] == _func)
+        {
+            return t;
+        }
+    }
+
+    ASSERT(0);
+
+    return -1;
+}

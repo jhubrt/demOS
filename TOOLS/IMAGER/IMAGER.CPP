@@ -29,7 +29,7 @@
 
 #include <vector>
 #include <string>
-
+#include <algorithm>
 
 struct FileEntry
 {
@@ -392,7 +392,9 @@ static void* loadDataFile( const char* _currentName, u32& _filesize, s32& _origi
         _filesize = ftell(data);
         fseek (data, 0, SEEK_SET);
 
-        buffer = (u8*) malloc (_filesize);
+        u32 allocsize = std::max<u32>(_filesize, LOAD_SECTORSIZE);
+
+        buffer = (u8*) malloc (allocsize);
         assert(buffer != NULL);
 
         u32 result = fread (buffer, 1, _filesize, data);
@@ -610,6 +612,7 @@ bool writeST (char* _filename, u16 _nbSectorsPerTrack, u16 _nbsides, u16 _nbtrac
 			{
                 u32 fsize = 0;
                 s32 originalsize = LOAD_NOTPACKED;
+                u32 filepadding = 0;
 
                 {
                     void* buffer = loadDataFile(p, fsize, originalsize, _executableBootSector );
@@ -643,6 +646,13 @@ bool writeST (char* _filename, u16 _nbSectorsPerTrack, u16 _nbsides, u16 _nbtrac
                     printf ("write %s at %d\n", filename, ftell(fileImage));
                     u32 result = fwrite (buffer, 1, fsize, fileImage);
                     assert(result == fsize);
+                    filepadding = fsize & 1;
+                    if (filepadding)
+                    {
+                        u8 val = 0;
+                        result = fwrite (&val, 1, 1, fileImage);
+                        assert(result == 1);
+                    }
 
                     free(buffer);
                 }
@@ -673,7 +683,7 @@ bool writeST (char* _filename, u16 _nbSectorsPerTrack, u16 _nbsides, u16 _nbtrac
                     fileMetaData.push_back(metaData);
                 }
 
-				size += fsize;
+				size += fsize + filepadding;
 				p = strtok (NULL, ";");
 			}
 

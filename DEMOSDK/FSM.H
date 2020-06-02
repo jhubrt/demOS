@@ -42,14 +42,16 @@ struct FSM_
 	u16	            activeState;
 
 #   ifdef DEMOS_DEBUG
+    char   name[8];
     char   trace[40];
     s16    traceCurrent;
     u16	   traceLastState;
 #   endif
 };
 
-void  FSMinit	(FSM* _m, FSMfunction* _states, u16 _nbStates, u16 _startState);
+void  FSMinit	(FSM* _m, FSMfunction* _states, u16 _nbStates, u16 _startState, char* _name);
 void  FSMgoto	(FSM* _m, u16 _newState);
+s16   FSMlookForStateIndex(FSM* _m, FSMfunction _func);
 
 #define FSMupdate(FSM)          (FSM)->states[(FSM)->activeState](FSM)
 #define FSMgotoNextState(FSM)   FSMgoto((FSM),(FSM)->activeState+1)
