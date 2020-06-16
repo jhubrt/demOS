@@ -60,8 +60,14 @@
     u16  TRACmaxraster (u16 maxraster);
     void TRACdisplayVBLcountAsColors(s16 _index);
 
-#   define TRAClogNumber(STR,NUM,NBCHARS) TRAClogNumberS(STR,NUM,NBCHARS,'\n')
+#   define TRAClogNumber(STR,NUM,NBCHARS) TRAClogNumberS(STR,NUM,NBCHARS,' ')
 #   define TRAClogNumberS(STR,NUM,NBCHARS,SEPARATOR) { static char trace[] = STR ":         "; STDuxtoa(&trace[sizeof(trace) - 9], (NUM), (NBCHARS)); TRAClog(trace, SEPARATOR); }
+
+#   define TRAClogNumber10(STR,NUM,NBCHARS) TRAClogNumber10S(STR,NUM,NBCHARS,' ')
+#   define TRAClogNumber10S(STR,NUM,NBCHARS,SEPARATOR) { static char trace[] = STR ":         "; STDutoa(&trace[sizeof(trace) - 9], (NUM), (NBCHARS)); TRAClog(trace, SEPARATOR); }
+
+#   define TRAClogSourceLine() { static char trace[] = "Exec line:        "; STDutoa(&trace[sizeof(trace) - 8], __LINE__, 6); TRAClog(trace); TRAClog(__FILE__, '\n'); }
+
 #   define TRAClogFrameNum() TRAClogNumber("frame",SYSvblcount,8)
     
 #	ifdef DEMOS_UNITTEST
@@ -84,6 +90,9 @@
 
 #   define TRAClogNumber(STR,NUM,NBCHARS)
 #   define TRAClogNumberS(STR,NUM,NBCHARS,SEPARATOR)
+#   define TRAClogNumber10(STR,NUM,NBCHARS)
+#   define TRAClogNumber10S(STR,NUM,NBCHARS,SEPARATOR)
+#   define TRAClogSourceLine()
 #   define TRAClogFrameNum()
 #   define TRACdisplayVBLcountAsColors(A)
 

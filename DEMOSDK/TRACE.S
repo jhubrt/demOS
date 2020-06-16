@@ -67,6 +67,8 @@ TRAC8bomb:
     moveq.l #8,d0
 
 
+tracREGSTORAGESIZE: set 72
+
 TRACbomb:
     move.w  #$2700,sr          ; disable interupts
 
@@ -75,6 +77,8 @@ TRACbomb:
 
     move.l  usp,a0
     move.l  a0,buffer+64
+
+	move.l	10(a7),buffer+68	; retrieve faulty instruction address
 
     lea     $ffff8201.w,a0      ; get the current screen adr
     moveq.l #0,d0
@@ -96,7 +100,7 @@ TRACbomb:
     clr.l   (a0)+
     dbf.w   d0,.cls
     
-    lea     buffer+68(pc),a0   ; string adr
+    lea     buffer+tracREGSTORAGESIZE(pc),a0   ; string adr
     move.b  #'d',(a0)           
     move.b  #'0',1(a0)              
     move.b  #':',2(a0)          
@@ -104,7 +108,7 @@ TRACbomb:
     move.w  #160,d0             ; pitch
     moveq.l #4,d1               ; bitplane pitch
     lea     buffer(pc),a2       ; regs value adr
-    moveq.l #16,d2              ; 16 registers + usp
+    moveq.l #17,d2              ; 16 registers + usp + faulty pc
 .loop:
     move.l  (a2)+,d3            ; get current reg value
     
@@ -130,12 +134,16 @@ TRACbomb:
 
     lea     160*8(a1),a1
 
-    cmp.w   #9,d2
+    cmp.w   #10,d2
     bne.s   .donotinc
-    move.b  #'a',(a0)
-    move.b  #'0'-1,1(a0)
+    move.w  #'a'*256+'0'-1,(a0)
 .donotinc:
     addq.b  #1,1(a0)
+
+	cmp.w	#1,d2
+	bne.s	.notpc
+    move.w  #'pc',(a0)
+.notpc:
 
     dbf.w   d2,.loop
 
