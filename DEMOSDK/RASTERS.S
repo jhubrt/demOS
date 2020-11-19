@@ -29,11 +29,12 @@
 *-------------------------------------------------------------------------
 
 	* void RASsetColReg (u16 shortregaddress);
-	* void* (function pointers) RAStop1, RASmid1, RASbot1
+	* void* (function pointers) RAStop1,RASmid1,RASbot1,RASlowB
 	* void* RASNextOpList
 
 	xdef	RASsetColReg
-	xdef	RASvbl1,RASvbl2,RAStop1,RASmid1,RASbot1
+	xdef	RASvbl1,RASvbl2,RAStop1,RASmid1,RASbot1,RASlowB
+	xdef    RASvbl15,RASmid15,RASlowB15
 	xdef	RASnextOpList
     xdef    RASvbldonothing
 
@@ -94,6 +95,37 @@ RASvbl2_automod:
     jmp     (a1)
 
 	* -----------------------------------------
+	* OpList for VBL routine
+	* [.w]	15 colors
+	* [.w]	scan lines count to next inter call (timerb data register)
+	* [.l]	next raster routine
+	* -----------------------------------------
+RASvbl15:
+    and.b	#$FE,$fffffa07.w			; disable timer B
+	clr.b	$fffffa1b.w
+    
+    move.l  RASnextOpList(pc),a1
+
+	move.l	(a1)+,$ffff8242.w
+	move.l	(a1)+,$ffff8246.w
+	move.l	(a1)+,$ffff824A.w
+	move.l	(a1)+,$ffff824E.w
+	move.l	(a1)+,$ffff8252.w
+	move.l	(a1)+,$ffff8256.w
+	move.l	(a1)+,$ffff825A.w
+	move.w	(a1)+,$ffff825E.w
+
+	move.w	(a1)+,$fffffa20.w
+	move.l	(a1)+,$120.w
+	move.l	a1,usp
+
+	or.b	#1,$fffffa07.w
+	move.b	#8,$fffffa1b.w
+
+    move.l  (a0)+,a1
+    jmp     (a1)
+
+	* -----------------------------------------
 	* OpList for RAStop1
 	* [.w]	background color
 	* [.w]	color change
@@ -142,6 +174,41 @@ RASmid1_gonext:
 	rte
 
 	* -----------------------------------------
+	* OpList for RASmid15
+	* [.w]	15 colors
+	* if color value < 0 (means last call)
+	*		[.w]	scan lines count to next inter call (timerb data register)
+	*		[.l]	next raster routine
+	* -----------------------------------------
+RASmid15:
+	move.l	a0,-(sp)
+	move.l	usp,a0
+
+	move.l	(a0)+,$ffff8242.w
+	move.l	(a0)+,$ffff8246.w
+	move.l	(a0)+,$ffff824A.w
+	move.l	(a0)+,$ffff824E.w
+	move.l	(a0)+,$ffff8252.w
+	move.l	(a0)+,$ffff8256.w
+	move.l	(a0)+,$ffff825A.w
+	move.w	(a0)+,$ffff825E.w
+
+	blt.s	RASmid2_gonext			* short branches are faster when condition is not verified
+	move.l	a0,usp
+	move.l	(sp)+,a0
+	rte
+
+RASmid2_gonext:
+	clr.b	$fffffa1b.w
+	move.w	(a0)+,$fffffa20.w
+	move.l	(a0)+,$120.w
+	move.b	#8,$fffffa1b.w
+	move.l	a0,usp
+	move.l	(sp)+,a0
+	rte
+
+
+	* -----------------------------------------
 	* OpList for RASbot1
 	* [.w]	background color
 	* [.w]	color change
@@ -155,6 +222,53 @@ RASbot1_automod:
 	move.w	(a0)+,$ffff8242.w
 	move.l	a0,usp
 	clr.b	$fffffa1b.w
+	move.l	(sp)+,a0
+	rte
+
+	* -----------------------------------------
+	* OpList for RASlowB
+	* [.w]	scan lines count to next inter call (timerb data register)
+	* [.l]	next raster routine
+	* -----------------------------------------
+RASlowB:
+	clr.b	$ffff820a.w					; 60hz
+	move.l	a0,-(sp)
+	move.l	usp,a0
+	move.b	#2,$ffff820a.w		        ; 50hz
+	clr.b	$fffffa1b.w
+	move.w	(a0)+,$fffffa20.w
+	move.l	(a0)+,$120.w
+	move.b	#8,$fffffa1b.w
+	move.l	a0,usp
+	move.l	(sp)+,a0
+	rte
+
+	* -----------------------------------------
+	* OpList for RASlowB15
+	* [.w]	15 colors
+	* [.w]	scan lines count to next inter call (timerb data register)
+	* [.l]	next raster routine
+	* -----------------------------------------
+RASlowB15:
+	clr.b	$ffff820a.w					; 60hz
+	move.l	a0,-(sp)
+	move.l	usp,a0
+	move.b	#2,$ffff820a.w		        ; 50hz
+	
+	move.l	(a0)+,$ffff8242.w
+	move.l	(a0)+,$ffff8246.w
+	move.l	(a0)+,$ffff824A.w
+	move.l	(a0)+,$ffff824E.w
+	move.l	(a0)+,$ffff8252.w
+	move.l	(a0)+,$ffff8256.w
+	move.l	(a0)+,$ffff825A.w
+	move.w	(a0)+,$ffff825E.w
+
+	clr.b	$fffffa1b.w
+	move.w	(a0)+,$fffffa20.w
+	move.l	(a0)+,$120.w
+	move.b	#8,$fffffa1b.w
+	move.l	a0,usp
 	move.l	(sp)+,a0
 	rte
 

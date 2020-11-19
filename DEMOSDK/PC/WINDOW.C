@@ -509,7 +509,7 @@ static s32 WINconvertMapping (WPARAM _wparam)
     case '9':               key = HW_KEY_9;                 break;
 
 	case VK_OEM_4:			key = HW_KEY_MINUS;				break;
-    case VK_OEM_MINUS:      key = HW_KEY_MINUS;             break;
+	case VK_OEM_MINUS:      key = HW_KEY_MINUS;             break;
     case VK_OEM_PLUS:       key = HW_KEY_EQUAL;             break;
 
     case VK_OEM_6:          key = HW_KEY_BRACKET_LEFT;      break;

@@ -226,7 +226,7 @@ int main(int argc, char** argv)
             if ( sys.has2Drives == false )
             {
 #               if defined(DEMOS_OPTIMIZED) || defined(DEMOS_USES_BOOTSECTOR)
-                preloadbuffer = sys.heapsBase + demOS_COREHEAPSIZE + demOS_HEAPSIZE;
+                preloadbuffer = sys.membase + demOS_COREHEAPSIZE + demOS_HEAPSIZE;
 #               else
                 preloadbuffer = (u8*) malloc( EMULbufferSize(demOS_PRELOADSIZE) );
 #               endif

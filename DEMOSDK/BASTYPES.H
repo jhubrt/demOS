@@ -86,8 +86,7 @@
 #else
 #define ENUM(NAME)			                            typedef enum NAME##_ NAME; enum NAME##_
 #endif
-#define PREDECLARE_STRUCT(NAME)							typedef struct NAME##_ NAME
-#define STRUCT(NAME)									PREDECLARE_STRUCT(NAME); struct NAME##_ 
+#define STRUCT(NAME)									typedef struct NAME##_ NAME; struct NAME##_ 
 #define UNION(NAME)										typedef union NAME##_ NAME; union NAME##_ 
 
 #define DEFAULT_CONSTRUCT(INSTANCE_PTR)                 STDmset(INSTANCE_PTR,0,sizeof(*INSTANCE_PTR));
@@ -125,6 +124,7 @@ typedef u8 bool;
 #	define PCSTUBRET
 #	define ASMIMPORT			extern
 #   define ASMIMPORTDEFAULT(A)
+#   define CONST
 #else
 #	define PCENDIANSWAP16(V)	STDswap16(V)
 #	define PCENDIANSWAP32(V)	STDswap32(V)
@@ -132,6 +132,7 @@ typedef u8 bool;
 #	define PCSTUBRET            { return 0; }
 #	define ASMIMPORT
 #   define ASMIMPORTDEFAULT(A)   = A
+#   define CONST const
 #endif
 
 /* memory allocator interface */

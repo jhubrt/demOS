@@ -876,6 +876,7 @@ void SNDsynUpdate (u8 _keyb1, u8 _keyb2)
         {
             return;
         }
+
         oldBuffer = playBuffer;
     }
 #   endif

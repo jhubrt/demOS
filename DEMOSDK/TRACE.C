@@ -135,17 +135,18 @@ void TRAClog (char* _str, char _separator)
 {
     u8* p = tracLogger.logbase + tracLoggerState.current;
 
+#   ifndef __TOS__
+    if (g_loggerFile != NULL)
+    {
+        printf ("%s%c", _str, _separator);
+        fprintf (g_loggerFile, "%s%c", _str, _separator);
+    }
+#   endif
+
     if (p == NULL)
     {
         return;
     }
-
-#   ifndef __TOS__
-    if (g_loggerFile != NULL)
-    {
-        fprintf (g_loggerFile, "%s%c", _str, _separator);
-    }
-#   endif
 
 #   if TRAC_KEEPLASTLOG
     {

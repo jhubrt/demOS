@@ -144,9 +144,6 @@
     <ClInclude Include="..\SYNSOUND\SRC\PLAYER.H">
       <Filter>SPECIFIC\SRC</Filter>
     </ClInclude>
-    <ClInclude Include="..\SYNSOUND\SRC\SYNTH.H">
-      <Filter>SPECIFIC\SRC</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\DEMOSDK\BITMAP.S">

@@ -30,9 +30,13 @@
 void RASsetColReg   (u16 _shortregaddress) {}
 void RASvbl1	    (void) {}
 void RASvbl2	    (void) {}
+void RASvbl15	    (void) {}
 void RAStop1	    (void) {}
 void RASmid1	    (void) {}
+void RASmid15	    (void) {}
 void RASbot1	    (void) {}
+void RASlowBorder   (void) {}
+void RASlowBorder15 (void) {}
 void RASvbldonothing(void) {}
 
 void* RASnextOpList = NULL;

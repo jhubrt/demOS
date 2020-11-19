@@ -29,51 +29,44 @@
 
     xref    SYSfastPrint
 
+
+tracNBBOMBS:		set 72
+tracREGSTORAGESIZE: set 74
+
 ;-----------------------------------------------------------------------------------------
 ; TRACbomb
 ;-----------------------------------------------------------------------------------------
 TRAC2bomb:
-    move.l  d0,buffer
-    moveq.l #'2',d0
+    move.b  #'2',buffer+tracNBBOMBS
     bra.s   TRACbomb
 
 TRAC3bomb:
-    move.l  d0,buffer
-    moveq.l #'3',d0
+    move.b  #'3',buffer+tracNBBOMBS
     bra.s   TRACbomb
 
 TRAC4bomb:
-    move.l  d0,buffer
-    moveq.l #'4',d0
+    move.b  #'4',buffer+tracNBBOMBS
     bra.s   TRACbomb
 
 TRAC5bomb:
-    move.l  d0,buffer
-    moveq.l #'5',d0
+    move.b  #'5',buffer+tracNBBOMBS
     bra.s   TRACbomb
 
 TRAC6bomb:
-    move.l  d0,buffer
-    moveq.l #'6',d0
+    move.b  #'6',buffer+tracNBBOMBS
     bra.s   TRACbomb
 
 TRAC7bomb:
-    move.l  d0,buffer
-    moveq.l #'7',d0
+    move.b  #'7',buffer+tracNBBOMBS
     bra.s   TRACbomb
 
 TRAC8bomb:
-    move.l  d0,buffer
-    moveq.l #8,d0
-
-
-tracREGSTORAGESIZE: set 72
+    move.b  #'8',buffer+tracNBBOMBS
 
 TRACbomb:
-    move.w  #$2700,sr          ; disable interupts
+    move.w  #$2700,sr           ; disable interupts
 
-    movem.l d1-d7/a0-a7,buffer+4 ; store regs at fixed address => we can trash code because we wont exit from here
-    move.l  d0,d7
+    movem.l d0-d7/a0-a7,buffer  ; store regs at fixed address => we can trash code because we wont exit from here
 
     move.l  usp,a0
     move.l  a0,buffer+64
@@ -149,14 +142,11 @@ TRACbomb:
 
     lea     160*8(a1),a1
     move.l  a0,a3
-    move.b  d7,(a3)+
+    move.b  buffer+tracNBBOMBS,(a3)+
     move.b  #' ',(a3)+
-    move.b  #'B',(a3)+
-    move.b  #'O',(a3)+
-    move.b  #'M',(a3)+
-    move.b  #'B',(a3)+
-    move.b  #'S',(a3)+
-    clr.b   (a3)+
+    move.w  #'BO',(a3)+
+    move.w  #'MB',(a3)+
+    move.w  #'S'*256,(a3)+
 
     bsr     SYSfastPrint
 

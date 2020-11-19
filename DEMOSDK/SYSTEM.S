@@ -199,7 +199,7 @@ SYSdetectEmu:
 ;-----------------------------------------------------------------------------------------
 SYSfastPrint:
 
-	movem.l	a2-a4/d4,-(sp)
+	movem.l	a2-a4,-(sp)
 
     cmp.w   SYSfastPrintautomod+2(pc),d0
     beq.s   SYS_debugPrint_noautomod
@@ -207,27 +207,31 @@ SYSfastPrint:
     lea     SYSfastPrintautomod+2(pc),a4        ; check current automod state with current pitch
     lea     SYSfastPrintautomod2+2(pc),a3
 
-    move.w  d0,d4
-    move.w  d4,(a4)
-    move.w  d4,(a3)
-    add.w   d0,d4
-    move.w  d4,4(a4)
-    move.w  d4,4(a3)
-    add.w   d0,d4
-    move.w  d4,8(a4)
-    move.w  d4,8(a3)
-    add.w   d0,d4
-    move.w  d4,12(a4)
-    move.w  d4,12(a3)
-    add.w   d0,d4
-    move.w  d4,16(a4)
-    move.w  d4,16(a3)
-    add.w   d0,d4
-    move.w  d4,20(a4)
-    move.w  d4,20(a3)
-    add.w   d0,d4
-    move.w  d4,24(a4)
-    move.w  d4,24(a3)
+	move.w	d2,-(sp)
+
+    move.w  d0,d2
+    move.w  d2,(a4)
+    move.w  d2,(a3)
+    add.w   d0,d2
+    move.w  d2,4(a4)
+    move.w  d2,4(a3)
+    add.w   d0,d2
+    move.w  d2,8(a4)
+    move.w  d2,8(a3)
+    add.w   d0,d2
+    move.w  d2,12(a4)
+    move.w  d2,12(a3)
+    add.w   d0,d2
+    move.w  d2,16(a4)
+    move.w  d2,16(a3)
+    add.w   d0,d2
+    move.w  d2,20(a4)
+    move.w  d2,20(a3)
+    add.w   d0,d2
+    move.w  d2,24(a4)
+    move.w  d2,24(a3)
+
+	move.w	(sp)+,d2
 
 SYS_debugPrint_noautomod:
 
@@ -236,22 +240,20 @@ SYS_debugPrint_noautomod:
 
 	subq.w  #1,d1
 
-    move.w  a1,d4
-    and.w   #1,d4
+    move.w  a1,d0
+    and.w   #1,d0
     bne.s   SYS_debugPrint_loop_part2
 
 SYS_debugPrint_loop:
 
-	moveq.l	#0,d4
-    move.b  (a0)+,d4
+	sub.w	d0,d0
+    move.b  (a0)+,d0
 	beq.s	SYS_debugPrint_end
 
-	move.b	(a2,d4.w),d4
-	beq.s	SYS_debugPrint_noprint
-
-    add.w   d4,d4
-	add.w   d4,d4
-	lea		-4(a3,d4.w),a4		    ; a4 = char bitmap adr
+	move.b	(a2,d0.w),d0
+	add.w	d0,d0
+	add.w   d0,d0
+	lea		(a3,d0.w),a4		    ; a4 = char bitmap adr
 
 	move.b	(a4)+,(a1)			
 SYSfastPrintautomod:
@@ -263,21 +265,17 @@ SYSfastPrintautomod:
 	move.b	(a4)+,2(a1)			
 	move.b	(a4),2(a1)			
 
-SYS_debugPrint_noprint:
-	
 	addq.l	#1,a1
 
 SYS_debugPrint_loop_part2:
-    moveq.l #0,d4
-    move.b  (a0)+,d4
+    sub.w	d0,d0
+    move.b  (a0)+,d0
     beq.s   SYS_debugPrint_end
 
-	move.b	(a2,d4.w),d4
-	beq.s	SYS_debugPrint_noprint2
-	add.w	d4,d4
-	add.w	d4,d4
-
-	lea		-4(a3,d4.w),a4		    ; a4 = char bitmap adr
+	move.b	(a2,d0.w),d0
+	add.w	d0,d0
+	add.w	d0,d0
+	lea		(a3,d0.w),a4		    ; a4 = char bitmap adr
 
 	move.b	(a4)+,(a1)			
 SYSfastPrintautomod2:
@@ -289,15 +287,13 @@ SYSfastPrintautomod2:
 	move.b	(a4)+,2(a1)			
 	move.b	(a4),2(a1)			
 
-SYS_debugPrint_noprint2:
-
 	add.w	d1,a1                   ; add  bitplanepitch - 2
 
 	bra.s	SYS_debugPrint_loop
 
 SYS_debugPrint_end:
 
-	movem.l	(sp)+,a2-a4/d4
+	movem.l	(sp)+,a2-a4
 
 	rts
 

@@ -42,6 +42,7 @@ extern u8 COL4b2ST[16];
 
 u16* COLcomputeGradient         (u16* _startColors, u16* _endcolors, u16 _nbColors, s16 _nbSteps, u16* _destColors);
 u16* COLcomputeGradientStep     (u16* _startColors, u16* _endcolors, u16 _nbColors, s16 _nbSteps, s16 _step, u16* _destColors);
+u16* COLcomputeGradient16Steps  (u16* _startColors, u16* _endcolors, u16 _nbColors, s16 _step, u16* _destColors);
 
 u16  COLcomputeGradientEx       (u16* _startColors, u16* _endcolors, u16 _nbColors, s16 _nbSteps, u16* _destColors1, u16* _destColors2);
 

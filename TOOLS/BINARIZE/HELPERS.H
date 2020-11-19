@@ -26,9 +26,6 @@
 #define WINDOW_WIDTH  1024
 #define WINDOW_HEIGHT 1024
 
-PREDECLARE_STRUCT(WINdow);
-PREDECLARE_STRUCT(BITsurface);
-
 STRUCT(TOOLerror)
 {
     char m_message[256];

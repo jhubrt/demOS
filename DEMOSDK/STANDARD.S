@@ -193,7 +193,7 @@ STDmcpy:
 
 STD_mcpy_exec:
 
-    move.l  d1,-(sp)
+    move.w  d1,-(sp)
 
     move.w  a0,d1
     add.w   a1,d1
@@ -212,8 +212,8 @@ STD_mcpy_exec:
 
 STD_mcpy_notodd:
 
-    move.l  d0,d1               ; fill the rest
-    lsr.l   #4,d1               ; if length > 15
+    move.w  d0,d1               ; fill the rest
+    lsr.l   #5,d0               ; if length > 15
     
     beq.s   STD_mcpy_nolarge    ; use fast fill loop (16 bytes / 16 bytes)
 
@@ -222,23 +222,30 @@ STD_mcpy_loop:
     move.l  (a1)+,(a0)+
     move.l  (a1)+,(a0)+
     move.l  (a1)+,(a0)+
+    move.l  (a1)+,(a0)+
+    move.l  (a1)+,(a0)+
+    move.l  (a1)+,(a0)+
+    move.l  (a1)+,(a0)+
 
-    subq.l  #1,d1
+    subq.l  #1,d0
     bne.s   STD_mcpy_loop
 
-    and.w   #$F,d0              ; if length modulo 16 = 0 => end
+    and.w   #$1F,d1              ; if length modulo 16 = 0 => end
     beq.s   STD_mcpy_end
 
 STD_mcpy_nolarge:
-    subq.w  #1,d0               
 
-STD_mcpy_loop2:
+	add.w	d1,d1
+	neg.w   d1
+	jmp		STD_mcpy_end(pc,d1.w)
+
+	rept	32
     move.b  (a1)+,(a0)+         ; finish the last bytes
-    dbra.w  d0,STD_mcpy_loop2
+	endr
 
 STD_mcpy_end:
 
-    move.l  (sp)+,d1
+    move.w  (sp)+,d1
 
     rts
 
@@ -247,7 +254,7 @@ STD_mcpy_exec_memshifted:       ; unaligned => slow method (ok in our context =>
     subq.l  #1,d0
     bne.s   STD_mcpy_exec_memshifted
     
-    move.l  (sp)+,d1
+    move.w  (sp)+,d1
 
     rts
 

@@ -629,3 +629,67 @@ void BITsurfaceFSErrorDiffuse (MEMallocator* _allocator, BITsurface* _surface, u
 
     MEM_FREE(_allocator, delta);
 }
+
+
+void BITsurfaceRectCopy(BITsurface* srcSurface_, u16 x_, u16 y_, u16 w_, u16 h_, BITsurface* destSurface_, u16 destx_, u16 desty_)
+{
+    u16 t,i;
+    u8* s = srcSurface_->buffer;
+    u8* d = destSurface_->buffer;
+    u8  bytesize;
+
+
+    ASSERT(srcSurface_->format == destSurface_->format);
+    ASSERT((x_ + w_) <= srcSurface_->width);
+    ASSERT((y_ + h_) <= srcSurface_->height);
+
+    switch (srcSurface_->format)
+    {
+    case BITformat_8bits: 
+        bytesize = 1;
+        break;
+    case BITformat_888: 
+        bytesize = 3;
+        break;
+    case BITformat_x888: 
+        bytesize = 4;
+        break;
+    default:
+        ASSERT(0);
+    }
+
+    s += x_ * bytesize;
+    s += y_ * srcSurface_->pitch;
+
+    d += destx_ * bytesize;
+    d += desty_ * destSurface_->pitch;
+
+    for (i = 0; i < h_; i++)
+    {
+        u8* sp = s;
+        u8* dp = d;
+
+        if ((desty_ + i) >= destSurface_->height)
+            break;
+
+        for (t = 0; t < w_; t++)
+        {
+            if ((destx_ + t) >= destSurface_->width)
+                break;
+            
+            switch (srcSurface_->format)
+            {
+            case BITformat_x888: 
+                *dp++ = *sp++;
+            case BITformat_888: 
+                *dp++ = *sp++;
+                *dp++ = *sp++;
+            }
+
+            *dp++ = *sp++;
+        }
+
+        s += srcSurface_->pitch;
+        d += destSurface_->pitch;
+    }
+}

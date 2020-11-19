@@ -35,6 +35,8 @@
 #ifndef TRACE_H
 #define TRACE_H
 
+#include "DEMOSDK\SYSTEM.H"
+
 #ifdef DEMOS_DEBUG
     
     STRUCT(TRAClogger)
@@ -64,11 +66,11 @@
 #   define TRAClogNumberS(STR,NUM,NBCHARS,SEPARATOR) { static char trace[] = STR ":         "; STDuxtoa(&trace[sizeof(trace) - 9], (NUM), (NBCHARS)); TRAClog(trace, SEPARATOR); }
 
 #   define TRAClogNumber10(STR,NUM,NBCHARS) TRAClogNumber10S(STR,NUM,NBCHARS,' ')
-#   define TRAClogNumber10S(STR,NUM,NBCHARS,SEPARATOR) { static char trace[] = STR ":         "; STDutoa(&trace[sizeof(trace) - 9], (NUM), (NBCHARS)); TRAClog(trace, SEPARATOR); }
+#   define TRAClogNumber10S(STR,NUM,NBCHARS,SEPARATOR) { static char trace[] = STR ":         "; STDstoa(&trace[sizeof(trace) - 9], (NUM), (NBCHARS)); TRAClog(trace, SEPARATOR); }
 
-#   define TRAClogSourceLine() { static char trace[] = "Exec line:        "; STDutoa(&trace[sizeof(trace) - 8], __LINE__, 6); TRAClog(trace); TRAClog(__FILE__, '\n'); }
+#   define TRAClogSourceLine() { static char trace[] = "\nExec line:        "; STDutoa(&trace[sizeof(trace) - 8], __LINE__, 6); TRAClog(trace, ' '); TRAClog(__FILE__, '\n'); }
 
-#   define TRAClogFrameNum() TRAClogNumber("frame",SYSvblcount,8)
+#   define TRAClogFrameNum() TRAClogNumber10("frame",SYSvblcount,8)
     
 #	ifdef DEMOS_UNITTEST
 	void TRACunitTest (void* _screen);

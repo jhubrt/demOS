@@ -110,5 +110,6 @@ void BITsurfaceSetExternal    (BITsurface* _surface, void* _buffer, BITformat _f
 void BITsurfaceConvert        (MEMallocator* _allocator, BITsurface* _source, BITsurface* _dest, BITformat _destFormat);
 void BITsurfaceClear          (BITsurface* _surface);
 void BITsurfaceFSErrorDiffuse (MEMallocator* _allocator, BITsurface* _surface, u16 _rbits, u16 _gbits, u16 _bbits);
+void BITsurfaceRectCopy       (BITsurface* _srcSurface, u16 x_, u16 y_, u16 w_, u16 h_, BITsurface* _destSurface, u16 _destx, u16 _desty);
 
 #endif

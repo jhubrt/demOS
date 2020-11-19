@@ -478,7 +478,7 @@ void PlayerActivity	(FSM* _fsm)
 void PlayerTest	(void)
 {
     u16 t, last = 0;
-    u16 len = strlen(g_player.filename);
+    u16 len = (u16) strlen(g_player.filename);
     char* p;
     char filesample[128] = "_logs\\";
     char filetrace [128] = "";

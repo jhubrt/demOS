@@ -119,7 +119,7 @@ void STDutoa(char* _text, u32 _value, s16 _nbchars)
     }
 }
 
-void STD_stoa(char* _text, s32 _value, s16 _nbchars)
+void STDstoa(char* _text, s32 _value, s16 _nbchars)
 {
     if ( _value < 0 )
     {
@@ -170,6 +170,14 @@ void STDwriteL (FILE* _file, u32 _l)
     
     _l = PCENDIANSWAP32(_l);
     result = fwrite (&_l, sizeof(_l), 1, _file) == 1;
+    ASSERT(result);
+}
+
+void STDwrite(FILE* _file, void* _buf, u32 _size)
+{
+    bool result;
+
+    result = fwrite (_buf, 1, _size, _file) == _size;
     ASSERT(result);
 }
 #endif

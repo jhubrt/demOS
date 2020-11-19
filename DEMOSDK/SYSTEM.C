@@ -28,6 +28,7 @@
 #include "DEMOSDK\SYSTEM.H"
 #include "DEMOSDK\HARDWARE.H"
 
+#include "DEMOSDK\DATA\SYSTFNT.H"
 
 SYScore sys;
 
@@ -88,7 +89,6 @@ void SYSswitchIdle(void)
 #   ifdef DEMOS_DEBUG
     SYSbeginFrameNum = SYSvblLcount;
 #   endif
-
 }
 
 u32 SYSvidCountRead (void) 
@@ -120,9 +120,6 @@ u32 SYSlmovep (void* _adr)
 /*------------------------------------------------------------------
     SYSTEM FONT
 --------------------------------------------------------------------*/
-extern u8  SYSfontchars[256];
-extern u8  SYSfontdata[];
-
 void SYSfastPrint(char* _s, void* _screenprintadr, u16 _screenPitch, u16 _bitplanPitch)
 #ifdef __TOS__
 ;
@@ -137,20 +134,16 @@ void SYSfastPrint(char* _s, void* _screenprintadr, u16 _screenPitch, u16 _bitpla
 		u8  c = *_s++;
 		u8* d = adr;
         u16 index = SYSfontchars[c];
+        u8* bitmap = SYSfontdata + (index << SYS_FNT_OFFSETSHIFT);
 
-        if ( index != 0 )
-        {
-            u8* bitmap = SYSfontdata + (index << 2) - 4;
-
-            *d = *bitmap++;	d += _screenPitch;
-            *d = *bitmap++;	d += _screenPitch;
-            *d = *bitmap++;	d += _screenPitch;
-            *d = *bitmap++;	d += _screenPitch;
-            *d = *bitmap++;	d += _screenPitch;
-            *d = *bitmap++;	d += _screenPitch;
-            *d = *bitmap++;	d += _screenPitch;
-            *d = *bitmap++;	d += _screenPitch;
-        }
+        *d = *bitmap++;	d += _screenPitch;
+        *d = *bitmap++;	d += _screenPitch;
+        *d = *bitmap++;	d += _screenPitch;
+        *d = *bitmap++;	d += _screenPitch;
+        *d = *bitmap++;	d += _screenPitch;
+        *d = *bitmap++;	d += _screenPitch;
+        *d = *bitmap++;	d += _screenPitch;
+        *d = *bitmap++;	d += _screenPitch;
 
 		if (1 & (u32) adr)
 		{
