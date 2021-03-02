@@ -43,6 +43,9 @@ static void DEMOSidleThread(void)
 	}
 }
 
+
+u8 g_mixer;
+
 static void InitYM(void)
 {    
     u8 mixer;
@@ -66,9 +69,8 @@ static void InitYM(void)
 
     /* Setup YM */
     *HW_YM_REGSELECT = HW_YM_SEL_IO_AND_MIXER;
-    mixer = HW_YM_GET_REG();
-    mixer &= 0xC0;
-    mixer |= 0x37;        /* mixer : all square off, noise on A only */
+    g_mixer = HW_YM_GET_REG() & 0xC0;
+    mixer = g_mixer | 0x37; /* mixer : all square off, noise on A only */
 
     HW_YM_SET_REG(HW_YM_SEL_IO_AND_MIXER, mixer);
 
@@ -85,10 +87,17 @@ static void InitYM(void)
 #define LOW_MIN  0x62
 #define HIGH_MAX 0x10
 
+#define LOW_MIN2  0xFF0
+#define HIGH_MAX2 0x100
+
+
 static void PlayYM(void)
 {
     static char flip = 0;
-    static u16 freq = LOW_MIN;
+    static u16 freq  = LOW_MIN;
+    static u16 freq2 = LOW_MIN;
+    static bool twoplayers = false;
+    u8 mixer;
 
     void* adr = (void*) SYSreadVideoBase();
     static char temp[] = "               ";
@@ -96,29 +105,75 @@ static void PlayYM(void)
 
     flip ^= 1;
     if (flip)
+        if (twoplayers == false)
+            HW_YM_SET_REG (HW_YM_SEL_ENVELOPESHAPE, 10); /* restart triangle every 2 vbl */
+
+
+    if (twoplayers)
     {
-        HW_YM_SET_REG (HW_YM_SEL_ENVELOPESHAPE, 10);    /* restart triangle every 2 vbl */
+        u16 f  = freq;
+        u16 f2 = freq2 << 4;
+
+        HW_YM_SET_REG (HW_YM_SEL_FREQENVELOPE_H, f >> 8); 
+        HW_YM_SET_REG (HW_YM_SEL_FREQENVELOPE_L, f & 0xFF); 
+
+        HW_YM_SET_REG(HW_YM_SEL_FREQCHA_H, f2 >> 8);
+        HW_YM_SET_REG(HW_YM_SEL_FREQCHA_L, f2 & 0xFF);
+        f2++;
+
+        HW_YM_SET_REG(HW_YM_SEL_FREQCHB_H, f2 >> 8);
+        HW_YM_SET_REG(HW_YM_SEL_FREQCHB_L, f2 & 0xFF);
+        f2++;
+
+        HW_YM_SET_REG(HW_YM_SEL_FREQCHC_H, f2 >> 8);
+        HW_YM_SET_REG(HW_YM_SEL_FREQCHC_L, f2 & 0xFF);
+    }
+    else
+    {
+        HW_YM_SET_REG (HW_YM_SEL_FREQENVELOPE_H, freq >> 8); 
+        HW_YM_SET_REG (HW_YM_SEL_FREQENVELOPE_L, freq & 0xFF); 
     }
 
-    HW_YM_SET_REG (HW_YM_SEL_FREQENVELOPE_H, freq >> 8); 
-    HW_YM_SET_REG (HW_YM_SEL_FREQENVELOPE_L, freq & 0xFF); 
-
-    if (sys.key == HW_KEY_NUMPAD_MINUS)
+    switch (sys.key)
     {
+    case HW_KEY_LEFT:
         if (freq < LOW_MIN)
             freq++;
-
         HW_YM_SET_REG(HW_YM_SEL_FREQNOISE, 10);      /* set noise freq */
-    }
-    else if (sys.key == HW_KEY_NUMPAD_PLUS)
-    {
+        break;
+
+    case HW_KEY_RIGHT:
         if (freq > HIGH_MAX)
             freq--;
-
         HW_YM_SET_REG(HW_YM_SEL_FREQNOISE, 4);      /* set noise freq */
+        break;
+    
+    case HW_KEY_UP:
+        if (freq2 < LOW_MIN)
+            freq2 ++;
+        break;
+
+    case HW_KEY_DOWN:
+        if (freq2 > HIGH_MAX)
+            freq2 --;
+        break;
+
+    case HW_KEY_1:
+        mixer = g_mixer | 0x37;        /* mixer : all square off, noise on A only */
+        HW_YM_SET_REG(HW_YM_SEL_IO_AND_MIXER, mixer);
+        twoplayers = false;
+        break;
+
+    case HW_KEY_2:
+        mixer = g_mixer | 0x38;         /* mixer : all square on, noise off */
+        HW_YM_SET_REG(HW_YM_SEL_IO_AND_MIXER, mixer);
+        twoplayers = true;
+        break;
     }
 
-    STDutoa(temp, freq, 6);
+    STDutoa( temp   , freq, 6);
+    STDutoa(&temp[8], freq2, 6);
+    
     SYSdebugPrint(adr, 160, 2, 0, 0, temp);
 }
 
