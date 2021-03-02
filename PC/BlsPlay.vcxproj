@@ -99,6 +99,7 @@
     <ClCompile Include="..\DEMOSDK\BLITSND.C" />
     <ClCompile Include="..\DEMOSDK\BLITSNDP.C" />
     <ClCompile Include="..\DEMOSDK\PC\BITCONVR.C" />
+    <ClCompile Include="..\DEMOSDK\PC\VISUALASRT.C" />
     <ClCompile Include="..\DEMOSDK\PC\_PRECOMP.C">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">DEMOSDK\BASTYPES.H</PrecompiledHeaderFile>

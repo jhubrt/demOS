@@ -187,22 +187,11 @@ void  TRACmemDump           (MEMallocator* _allocator, FILE* _file, TRACmemDumpC
 
 #endif
 
-/* assertion */
-#ifdef __TOS__
-#   ifdef DEMOS_ASSERT
-	    void SYSassert(char* _message, char* _file, int _line);
-	    void SYSassertColor(u16 _c1, u16 _c2);
-#	    define ASSERT(A) if (!(A)) { SYSassert(#A, __FILE__, __LINE__); }
-#	    define ASSERT_COLOR(A,COLOR1,COLOR2) if (!(A)) { SYSassertColor(COLOR1,COLOR2); }
-#	else
-#	    define ASSERT(A)
-#	    define ASSERT_COLOR(A,COLOR1,COLOR2)
-#   endif
-#	define ASSERT_ST(A) ASSERT(A)
+#if defined(DEMOS_ASSERT) || !defined(__TOS__) /* always assert on PC */
+    void SYSassert(char* _message, char* _file, int _line);
+#	define ASSERT(A) if (!(A)) { SYSassert(#A, __FILE__, __LINE__); }
 #else
-#   define ASSERT(A) assert(A)
-#	define ASSERT_COLOR(A,COLOR1,COLOR2) assert(A)
-#	define ASSERT_ST(A) if (!(A)) {}        /* just check compilation */
+#   define ASSERT(A)
 #endif
 
 #endif

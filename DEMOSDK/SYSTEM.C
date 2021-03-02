@@ -286,8 +286,14 @@ void SYSinit(void)
     sys.memoryMapHigh = ((u32)sys.coreHeapbase) & 0xFF000000;
 #   endif
 
-    sys.has2Drives = *OS_NFLOPS >= 2;
-    sys.phytop = *OS_PHYTOP;
+    sys.invertDrive = DEMOS_INVERT_DRIVE;
+
+    *HW_YM_REGSELECT = HW_YM_SEL_IO_PORTA;
+    if ((HW_YM_GET_REG() & 0x4) == 0) /* if drive B selected into YM */
+        sys.invertDrive = true;
+
+    sys.has2Drives  = *OS_NFLOPS >= 2;
+    sys.phytop      = *OS_PHYTOP;
 
 	sys.bakUSP = STDgetUSP();
 
@@ -398,6 +404,8 @@ void SYSkbReset(void)
     SYSemptyKb();
 }
 
+#ifdef __TOS__
+
 #ifdef DEMOS_ASSERT
 
 #define SYS_ASSERT_COLOR 0xA00
@@ -440,28 +448,10 @@ void SYSassert(char* _message, char* _file, int _line)
     SYSdebugPrint(sys.mem.buffer, 160, SYS_2P_BITSHIFT, 0, 24, line);
     while(1);
 }
-
-void SYSassertColor(u16 _c1, u16 _c2)
-{
-    /* to display assertion before system initialization */
-    STDcpuSetSR(0x2700);
-
-    if ( sys.mem.buffer != NULL )
-    {
-        SYSwriteVideoBase((u32) sys.mem.buffer);
-        STDmset(sys.mem.buffer, 0, 32000);
-    }
-
-    STDmset (HW_COLOR_LUT + 1, 0xFFFFFFFFUL, 30);
-
-    while(1)
-    {
-        (*HW_COLOR_LUT) = _c1; 
-        (*HW_COLOR_LUT) = _c2;
-    }
-}
-
 #endif /* DEMOS_ASSERT */
+
+#endif /* !__TOS__ */
+
 
 #ifdef DEMOS_DEBUG
 

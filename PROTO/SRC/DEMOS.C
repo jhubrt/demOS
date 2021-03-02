@@ -26,18 +26,12 @@
 #include "DEMOSDK\SYSTEM.H"
 #include "DEMOSDK\HARDWARE.H"
 #include "DEMOSDK\FSM.H"
-#include "DEMOSDK\LOAD.H"
 #include "DEMOSDK\TRACE.H"
 
 #include "DEMOSDK\BITMAP.H"
 #include "DEMOSDK\PC\WINDOW.H"
 #include "DEMOSDK\PC\EMUL.H"
 
-#include "SYNSOUND\SRC\SCREENS.H"
-#include "SYNSOUND\SRC\SYNTH.H"
-
-
-static char* DEMOSbuildversion = "v0";
 
 static void DEMOSidleThread(void)
 {
@@ -46,39 +40,88 @@ static void DEMOSidleThread(void)
 	while (true)
 #	endif
 	{
-		FSMupdate (&g_stateMachineIdle);
 	}
 }
 
-#ifdef DEMOS_DEBUG
-static u16 DEMOStrace (void* _image, u16 _pitch, u16 _planePitch, u16 _y)
-{
-    u16 y = _y;
-        
-    y += FSMtrace (&g_stateMachine    , _image, _pitch, _planePitch, y);
-    y += FSMtrace (&g_stateMachineIdle, _image, _pitch, _planePitch, y);
+static void InitYM(void)
+{    
+    u8 mixer;
 
-    return y;
+    /* Setup microwire */
+    *HW_MICROWIRE_MASK = HW_MICROWIRE_MASK_SOUND;    
+    *HW_MICROWIRE_DATA = HW_MICROWIRE_MIXER_YM;     /* YM -12db does not work on default hardware unfortunately :( */
+    while (*HW_MICROWIRE_MASK != HW_MICROWIRE_MASK_SOUND);
+
+    *HW_MICROWIRE_MASK = HW_MICROWIRE_MASK_SOUND;    
+    *HW_MICROWIRE_DATA = HW_MICROWIRE_VOLUME | 40;
+    while (*HW_MICROWIRE_MASK != HW_MICROWIRE_MASK_SOUND);
+
+    *HW_MICROWIRE_MASK = HW_MICROWIRE_MASK_SOUND;    
+    *HW_MICROWIRE_DATA = HW_MICROWIRE_VOLUME_LEFT | 20;
+    while (*HW_MICROWIRE_MASK != HW_MICROWIRE_MASK_SOUND);
+
+    *HW_MICROWIRE_MASK = HW_MICROWIRE_MASK_SOUND;    
+    *HW_MICROWIRE_DATA = HW_MICROWIRE_VOLUME_RIGHT | 20;
+    while (*HW_MICROWIRE_MASK != HW_MICROWIRE_MASK_SOUND);
+
+    /* Setup YM */
+    *HW_YM_REGSELECT = HW_YM_SEL_IO_AND_MIXER;
+    mixer = HW_YM_GET_REG();
+    mixer &= 0xC0;
+    mixer |= 0x37;        /* mixer : all square off, noise on A only */
+
+    HW_YM_SET_REG(HW_YM_SEL_IO_AND_MIXER, mixer);
+
+    HW_YM_SET_REG(HW_YM_SEL_ENVELOPESHAPE, 10);  /* triangle */
+
+    HW_YM_SET_REG(HW_YM_SEL_LEVELCHA, 16);
+    HW_YM_SET_REG(HW_YM_SEL_LEVELCHB, 16);
+    HW_YM_SET_REG(HW_YM_SEL_LEVELCHC, 16);
+
+    HW_YM_SET_REG(HW_YM_SEL_FREQNOISE, 4);      /* set noise freq */
+} 
+
+
+#define LOW_MIN  0x62
+#define HIGH_MAX 0x10
+
+static void PlayYM(void)
+{
+    static char flip = 0;
+    static u16 freq = LOW_MIN;
+
+    void* adr = (void*) SYSreadVideoBase();
+    static char temp[] = "               ";
+
+
+    flip ^= 1;
+    if (flip)
+    {
+        HW_YM_SET_REG (HW_YM_SEL_ENVELOPESHAPE, 10);    /* restart triangle every 2 vbl */
+    }
+
+    HW_YM_SET_REG (HW_YM_SEL_FREQENVELOPE_H, freq >> 8); 
+    HW_YM_SET_REG (HW_YM_SEL_FREQENVELOPE_L, freq & 0xFF); 
+
+    if (sys.key == HW_KEY_NUMPAD_MINUS)
+    {
+        if (freq < LOW_MIN)
+            freq++;
+
+        HW_YM_SET_REG(HW_YM_SEL_FREQNOISE, 10);      /* set noise freq */
+    }
+    else if (sys.key == HW_KEY_NUMPAD_PLUS)
+    {
+        if (freq > HIGH_MAX)
+            freq--;
+
+        HW_YM_SET_REG(HW_YM_SEL_FREQNOISE, 4);      /* set noise freq */
+    }
+
+    STDutoa(temp, freq, 6);
+    SYSdebugPrint(adr, 160, 2, 0, 0, temp);
 }
 
-static u16 DEMOStraceversion (void* _image, u16 _pitch, u16 _planePitch, u16 _y)
-{
-    SYSdebugPrint ( _image, _pitch, _planePitch, 30, _y, DEMOSbuildversion);
-    
-    return _y + 8;
-}
-
-static void registerTraceServices(void)
-{
-    TRACregisterDisplayService (SYStraceFPS,         1);   /* F1 */
-	TRACregisterDisplayService (SYStraceHW,		     2);   /* F2 */
-    TRACregisterDisplayService (SYStraceAllocators,  4);   /* F3 */
-    TRACregisterDisplayService (LOADtrace,           8);   /* F4 */
-    TRACregisterDisplayService (SNDsynPlayerTrace,  16);   /* F5 */
-    TRACregisterDisplayService (DEMOStrace,         32);   /* F6 */
-    TRACregisterDisplayService (DEMOStraceversion, 128);   /* F8 */
-}
-#   endif
 
 
 
@@ -94,11 +137,7 @@ int main(int argc, char** argv)
 	IGNORE_PARAM(argv);
 
 	{
-#       if defined(DEMOS_OPTIMIZED) || defined(DEMOS_USES_BOOTSECTOR)
-        sys.membase = base + 64;
-#       else
 		sys.membase = (u8*) malloc( EMULbufferSize(demOS_COREHEAPSIZE + demOS_HEAPSIZE) );
-#       endif
 
         sys.coreHeapbase = EMULalignBuffer(sys.membase);
         sys.coreHeapsize = demOS_COREHEAPSIZE;
@@ -115,32 +154,17 @@ int main(int argc, char** argv)
             tracLogger.logSize = demOS_LOGSIZE;
 #       endif
 
-#       ifndef DEMOS_USES_BOOTSECTOR
 		sys.bakGemdos32 = SYSgemdosSetMode(NULL);
-#       endif
 
         ASSERT(sys.membase != NULL);
         IGNORE_PARAM(base);
             
         TRACinit ("_logs\\traclogpc.log");
 
-		/* STDmset (buffer, 0, size); */
-
         EMULinit (sys.membase, -1, -1, 0);
    
-		FSMinit (&g_stateMachine	, states    , statesSize    , 0, DEBUG_STRING("main"));
-		FSMinit (&g_stateMachineIdle, statesIdle, statesIdleSize, 0, DEBUG_STRING("idle"));
-
-        {
-            SNDsynSoundSet* soundSet = SNDsynthLoad ("SYNSOUND\\SYNTH.INI");
-            SNDtest (soundSet);
-        }
-
-		/* RingAllocator_unitTest(); */
-
 		{
             SYSinitThreadParam      threadParam;
-            SNDsynPlayerInitParam   sndparam;
 
 			SYSinit ();
 
@@ -149,61 +173,35 @@ int main(int argc, char** argv)
 
             SYSinitHW ();
             SYSinitThreading ( &threadParam ); 
-			SNDsynPlayerInit (&sys.coremem, &sndparam);
-            SYScheckHWRequirements ();
-
-            SYSfastPrint(DEMOSbuildversion, (u8*)(SYSreadVideoBase()) + 160 * 192 + 152, 160, 4);
-
-#           ifdef DEMOS_DEBUG
-            registerTraceServices();
-#           endif
-
-			/* BIT_unitTest(); */
 		}
-       
-		ScreensInit ();		
-
-		{
-			u16* color = HW_COLOR_LUT;
         
+        InitYM();
+
+		{       
             do
 			{
 				SYSswitchIdle();
 
+                PlayYM();
+
 				/* no need to vsync here as main thread context is reset by idle thread switch */               
                 SYSkbAcquire;
 
-				FSMupdate (&g_stateMachine);
 
-#               if !defined(DEMOS_OPTIMIZED)
-				TRACdisplay((u16*)(((u32)*HW_VIDEO_BASE_H << 16) | ((u32)*HW_VIDEO_BASE_M << 8) | ((u32)*HW_VIDEO_BASE_L)) + 1);
-
-				if ( SYSkbHit )
+                if ( SYSkbHit )
 				{
-                    if ( sys.key != HW_KEY_S )  /* do not allow 60hz  switch */  
-                    {
-					    TRACmanage(sys.key);
-                    }
                     SYSkbReset();
 				}
 
 				EMULrender();
-#               endif
 			}
-			while(1); /*  sys.key != (HW_KEY_SPACEBAR | HW_KEYBOARD_KEYRELEASE) );*/
+			while(sys.key != HW_KEY_ESC);
 
-#           if !defined(DEMOS_OPTIMIZED) && !defined(DEMOS_USES_BOOTSECTOR)	
-			*color = -1;
-
-            SNDsynPlayerShutdown (&sys.coremem);
 			SYSshutdown();
 
 			SYSgemdosSetMode(sys.bakGemdos32);
 
             free (sys.membase);
-#			else
-			SYSreset ();
-#           endif
 		}
 	}
 

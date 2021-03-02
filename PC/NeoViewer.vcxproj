@@ -88,6 +88,10 @@
     <ClCompile Include="..\DEMOSDK\PC\BITCONVR.C" />
     <ClCompile Include="..\DEMOSDK\PC\BMPLOADER.C" />
     <ClCompile Include="..\DEMOSDK\PC\SURFACE.C" />
+    <ClCompile Include="..\DEMOSDK\PC\VISUALASRT.C" />
+    <ClCompile Include="..\DEMOSDK\PC\VISUALOG.CPP">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="..\DEMOSDK\PC\WINDOW.C" />
     <ClCompile Include="..\DEMOSDK\PC\_PRECOMP.C">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -102,6 +106,7 @@
     <ClInclude Include="..\DEMOSDK\PC\BITCONVR.H" />
     <ClInclude Include="..\DEMOSDK\PC\BMPLOADER.H" />
     <ClInclude Include="..\DEMOSDK\PC\SURFACE.H" />
+    <ClInclude Include="..\DEMOSDK\PC\VISUALOG.H" />
     <ClInclude Include="..\DEMOSDK\PC\WINDOW.H" />
     <ClInclude Include="..\DEMOSDK\STANDARD.H" />
   </ItemGroup>

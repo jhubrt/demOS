@@ -22,37 +22,16 @@
 
 #include "DEMOSDK\BASTYPES.H"
 
-#define HARDWARE_C
-
-#include "DEMOSDK\HARDWARE.H"
-
-#ifndef __TOS__
-
-SThardware g_STHardware;
-
-void hwSetYMReg(u8 _regnum, u8 _data)
+void SYSassert(char* _message, char* _file, int _line)
 {
-    *HW_YM_REGSELECT = _regnum; 
+    u8* doerror = NULL; 
+    char assertion[1024]; 
 
-    /* emulate unused bit of ym for further reads */
-    switch (_regnum)
-    {
-    case HW_YM_SEL_FREQCHA_H: 
-    case HW_YM_SEL_FREQCHB_H: 
-    case HW_YM_SEL_FREQCHC_H: 
-    case HW_YM_SEL_ENVELOPESHAPE:
-        _data &= 0xF;
-        break;
+    void EMULlog (char* str); 
 
-    case HW_YM_SEL_FREQNOISE:
-    case HW_YM_SEL_LEVELCHA:
-    case HW_YM_SEL_LEVELCHB:
-    case HW_YM_SEL_LEVELCHC:
-        _data &= 0x1F;
-        break;
-    }
+    snprintf(assertion, sizeof(assertion), "%s(%d): ASSERTION failed '%s'\n", _file, _line, _message); 
+    printf("%s", assertion); 
+    EMULlog(assertion); 
 
-    (&g_STHardware.reg_HW_YM_REGDATA)[_regnum] = _data;
+    *doerror = *doerror; 
 }
-
-#endif

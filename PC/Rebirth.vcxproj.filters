@@ -151,6 +151,9 @@
     <ClCompile Include="..\DEMOSDK\PC\_PRECOMP.C">
       <Filter>DEMOSDK\PC</Filter>
     </ClCompile>
+    <ClCompile Include="..\DEMOSDK\PC\VISUALASRT.C">
+      <Filter>DEMOSDK\PC</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\REBIRTH\SRC\POLYZOOM.H">

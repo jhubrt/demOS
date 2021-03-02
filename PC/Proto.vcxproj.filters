@@ -4,18 +4,12 @@
     <Filter Include="DEMOSDK">
       <UniqueIdentifier>{0166929c-daf7-48fc-b266-2567060771d4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="EXTERN">
-      <UniqueIdentifier>{02c5f3d6-462e-4937-923f-89abacefdd41}</UniqueIdentifier>
-    </Filter>
     <Filter Include="SPECIFIC">
       <UniqueIdentifier>{4724582c-a246-4582-87cc-2960d08b5cb6}</UniqueIdentifier>
     </Filter>
     <Filter Include="SPECIFIC\MAIN">
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="SPECIFIC\SRC">
-      <UniqueIdentifier>{32e2bd30-aa0f-44fb-b3a5-9d0b88a7d0e6}</UniqueIdentifier>
     </Filter>
     <Filter Include="SPECIFIC\PURE_C">
       <UniqueIdentifier>{5a78965b-b5bc-422e-a6e8-6c6175fa83e3}</UniqueIdentifier>
@@ -40,35 +34,14 @@
     <ClCompile Include="..\DEMOSDK\SYSTEM.C">
       <Filter>DEMOSDK</Filter>
     </ClCompile>
-    <ClCompile Include="..\DEMOSDK\LOAD.C">
-      <Filter>DEMOSDK</Filter>
-    </ClCompile>
-    <ClCompile Include="..\DEMOSDK\RASTERS.C">
-      <Filter>DEMOSDK</Filter>
-    </ClCompile>
-    <ClCompile Include="..\DEMOSDK\BITMAP.C">
-      <Filter>DEMOSDK</Filter>
-    </ClCompile>
     <ClCompile Include="..\DEMOSDK\STANDARD.C">
       <Filter>DEMOSDK</Filter>
     </ClCompile>
     <ClCompile Include="..\DEMOSDK\PC\WINDOW.C">
       <Filter>DEMOSDK\PC</Filter>
     </ClCompile>
-    <ClCompile Include="..\DEMOSDK\COLORS.C">
-      <Filter>DEMOSDK</Filter>
-    </ClCompile>
     <ClCompile Include="..\DEMOSDK\TRACE.C">
       <Filter>DEMOSDK</Filter>
-    </ClCompile>
-    <ClCompile Include="..\SYNSOUND\BUILD.C">
-      <Filter>SPECIFIC\MAIN</Filter>
-    </ClCompile>
-    <ClCompile Include="..\SYNSOUND\SRC\DEMOS.C">
-      <Filter>SPECIFIC\MAIN</Filter>
-    </ClCompile>
-    <ClCompile Include="..\SYNSOUND\SRC\SCREENS.C">
-      <Filter>SPECIFIC\SRC</Filter>
     </ClCompile>
     <ClCompile Include="..\DEMOSDK\PC\BITCONVR.C">
       <Filter>DEMOSDK\PC</Filter>
@@ -79,17 +52,14 @@
     <ClCompile Include="..\DEMOSDK\DATA\DATA.C">
       <Filter>DEMOSDK\DATA</Filter>
     </ClCompile>
-    <ClCompile Include="..\SYNSOUND\SRC\PLAYER.C">
-      <Filter>SPECIFIC\SRC</Filter>
-    </ClCompile>
     <ClCompile Include="..\DEMOSDK\PC\_PRECOMP.C">
       <Filter>DEMOSDK\PC</Filter>
     </ClCompile>
-    <ClCompile Include="..\SYNSOUND\SRC\SYNTH.C">
-      <Filter>SPECIFIC\SRC</Filter>
-    </ClCompile>
     <ClCompile Include="..\DEMOSDK\PC\VISUALASRT.C">
       <Filter>DEMOSDK\PC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\PROTO\SRC\DEMOS.C">
+      <Filter>SPECIFIC\MAIN</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -108,16 +78,7 @@
     <ClInclude Include="..\DEMOSDK\SYSTEM.H">
       <Filter>DEMOSDK</Filter>
     </ClInclude>
-    <ClInclude Include="..\DEMOSDK\LOAD.H">
-      <Filter>DEMOSDK</Filter>
-    </ClInclude>
     <ClInclude Include="..\DEMOSDK\TRACE.H">
-      <Filter>DEMOSDK</Filter>
-    </ClInclude>
-    <ClInclude Include="..\DEMOSDK\RASTERS.H">
-      <Filter>DEMOSDK</Filter>
-    </ClInclude>
-    <ClInclude Include="..\DEMOSDK\BITMAP.H">
       <Filter>DEMOSDK</Filter>
     </ClInclude>
     <ClInclude Include="..\DEMOSDK\STANDARD.H">
@@ -126,17 +87,8 @@
     <ClInclude Include="..\DEMOSDK\PC\WINDOW.H">
       <Filter>DEMOSDK\PC</Filter>
     </ClInclude>
-    <ClInclude Include="..\DEMOSDK\COLORS.H">
-      <Filter>DEMOSDK</Filter>
-    </ClInclude>
     <ClInclude Include="..\DEMOSDK\PC\EMUL.H">
       <Filter>DEMOSDK\PC</Filter>
-    </ClInclude>
-    <ClInclude Include="..\SYNSOUND\SRC\SCREENS.H">
-      <Filter>SPECIFIC\SRC</Filter>
-    </ClInclude>
-    <ClInclude Include="..\DEMOSDK\LOADDEFS.H">
-      <Filter>DEMOSDK</Filter>
     </ClInclude>
     <ClInclude Include="..\DEMOSDK\PC\BITCONVR.H">
       <Filter>DEMOSDK\PC</Filter>
@@ -144,24 +96,12 @@
     <ClInclude Include="..\DEMOSDK\DATA\SYSTFNT.H">
       <Filter>DEMOSDK\DATA</Filter>
     </ClInclude>
-    <ClInclude Include="..\SYNSOUND\SRC\PLAYER.H">
-      <Filter>SPECIFIC\SRC</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\DEMOSDK\BITMAP.S">
-      <Filter>DEMOSDK</Filter>
-    </None>
     <None Include="..\DEMOSDK\STANDARD.S">
       <Filter>DEMOSDK</Filter>
     </None>
     <None Include="..\DEMOSDK\TRACE.S">
-      <Filter>DEMOSDK</Filter>
-    </None>
-    <None Include="..\DEMOSDK\LOAD.S">
-      <Filter>DEMOSDK</Filter>
-    </None>
-    <None Include="..\DEMOSDK\RASTERS.S">
       <Filter>DEMOSDK</Filter>
     </None>
     <None Include="..\DEMOSDK\BOOTSTRA.S">
@@ -170,17 +110,8 @@
     <None Include="..\DEMOSDK\SYSTEM.S">
       <Filter>DEMOSDK</Filter>
     </None>
-    <None Include="..\SYNSOUND.PRJ">
+    <None Include="..\PROTO.PRJ">
       <Filter>SPECIFIC\PURE_C</Filter>
-    </None>
-    <None Include="..\SYNSOUNB.PRJ">
-      <Filter>SPECIFIC\PURE_C</Filter>
-    </None>
-    <None Include="..\SYNSOUND\SYNTH.INI">
-      <Filter>SPECIFIC</Filter>
-    </None>
-    <None Include="..\SYNSOUND\SRC\SYNTH.S">
-      <Filter>SPECIFIC\SRC</Filter>
     </None>
   </ItemGroup>
 </Project>

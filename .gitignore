@@ -29,3 +29,5 @@ Copie de*.*
 ipch
 .vs
 TEMP/
+*.recipe
+*.FileListAbsolute.txt

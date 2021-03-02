@@ -35,6 +35,7 @@ u16 LOADorder = 1;
 ASMIMPORT volatile u8				LOADinprogress;
 ASMIMPORT volatile u16				LOADsecpertrack;
 ASMIMPORT		   LOADrequest		LOADreq;
+ASMIMPORT          u16              LOADlastdrive;
 ASMIMPORT volatile LOADrequest* 	LOADcurrentreq;
 ASMIMPORT          u16				LOADreqNb;
 ASMIMPORT volatile u32              LOADdeconnectAndStartRequest;
@@ -51,6 +52,9 @@ void LOADidle(void);
 
 void LOADinit (LOADdisk* _firstmedia, u16 _nbEntries, u16 _nbMetaData)
 {
+    if (sys.invertDrive)
+        LOADlastdrive = 0x200;    
+
 #	ifdef __TOS__
 	*HW_VECTOR_DMA = (u32) LOADidle;
 	LOADsecpertrack = LOAD_SECTORS_PER_TRACK;
@@ -92,7 +96,7 @@ void LOADinitFAT (u8 _drive, LOADdisk* _media, u16 _nbEntries, u16 _nbMetaData)
 #   else
     temp = (u16*) RINGallocatorAlloc (&sys.mem, LOAD_SECTORSIZE * LOAD_FAT_NBSECTORS);
 
-    _drive = sys.has2Drives & (_drive != DEMOS_INVERT_DRIVE);
+    _drive = sys.has2Drives & (_drive != sys.invertDrive);
 
     {
         LOADrequest* loadRequest = LOADpush (temp, LOAD_FAT_STARTSECTOR + 1, ((u32)_drive << 17), ((u32)LOAD_PRIOTITY_HIGH << 16) | LOAD_FAT_NBSECTORS);
@@ -188,7 +192,7 @@ LOADrequest* LOADrequestLoad (LOADdisk* _media, u16 _resourceid, void* _buffer, 
     u16 startsector = (rsc->startsectorsidenbsectors >> LOAD_RESOURCE_RSHIFT_STARTSECTOR) & LOAD_RESOURCE_MASK_STARTSECTOR;
     u32 nbsectors   = rsc->startsectorsidenbsectors & LOAD_RESOURCE_MASK_NBSECTORS;
 
-    u8 drive        = sys.has2Drives & (_media->preferedDrive != DEMOS_INVERT_DRIVE);
+    u8 drive        = sys.has2Drives & (_media->preferedDrive != sys.invertDrive);
     
 	LOADrequest* loadRequest = LOADpush (_buffer, startsector + 1, track | (side << 16) | ((u32) drive << 17), ((u32)_order << 16) | nbsectors);
 
@@ -294,6 +298,19 @@ u16 LOADresourceMetaDataIndex (LOADdisk* _media, u16 _entryIndex)
 {
     ASSERT(_entryIndex < _media->nbEntries);
     return _media->FAT[_entryIndex].metadataindextrack >> LOAD_RESOURCE_RSHIFT_METADATA;
+}
+
+u16 LOADresourceMetaDataNbs (LOADdisk* _media, u16 _entryIndex)
+{
+    ASSERT(_entryIndex < _media->nbEntries);
+    if ((_entryIndex + 1) >=  _media->nbEntries)
+    {
+        return _media->nbMetaData - LOADresourceMetaDataIndex (_media, _entryIndex);
+    }
+    else
+    {
+        return LOADresourceMetaDataIndex (_media, _entryIndex + 1) - LOADresourceMetaDataIndex (_media, _entryIndex);
+    }
 }
 
 u32 LOADmetadataOffset (LOADdisk* _media, u16 _metaDataIndex)

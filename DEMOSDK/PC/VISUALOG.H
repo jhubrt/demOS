@@ -20,39 +20,19 @@
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 -------------------------------------------------------------------------------------------------*/
 
-#include "DEMOSDK\BASTYPES.H"
-
-#define HARDWARE_C
-
-#include "DEMOSDK\HARDWARE.H"
+#ifndef VISUALOG_H
+#define VISUALOG_H
 
 #ifndef __TOS__
 
-SThardware g_STHardware;
+#ifdef  __cplusplus 
+#   define EXTERN_C extern "C"
+#else
+#   define EXTERN_C
+#endif
 
-void hwSetYMReg(u8 _regnum, u8 _data)
-{
-    *HW_YM_REGSELECT = _regnum; 
+EXTERN_C void EMULlog (char* str);
 
-    /* emulate unused bit of ym for further reads */
-    switch (_regnum)
-    {
-    case HW_YM_SEL_FREQCHA_H: 
-    case HW_YM_SEL_FREQCHB_H: 
-    case HW_YM_SEL_FREQCHC_H: 
-    case HW_YM_SEL_ENVELOPESHAPE:
-        _data &= 0xF;
-        break;
-
-    case HW_YM_SEL_FREQNOISE:
-    case HW_YM_SEL_LEVELCHA:
-    case HW_YM_SEL_LEVELCHB:
-    case HW_YM_SEL_LEVELCHC:
-        _data &= 0x1F;
-        break;
-    }
-
-    (&g_STHardware.reg_HW_YM_REGDATA)[_regnum] = _data;
-}
+#endif
 
 #endif

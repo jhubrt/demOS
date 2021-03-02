@@ -52,6 +52,8 @@
 #define EMULfbExDisable()
 #define EMULfbExComputeCycle(VIDEOSYNC,X,Y) 0
 
+#define EMULlog(STR)
+
 #else
 
 #ifdef  __cplusplus 
@@ -81,6 +83,7 @@ EXTERN_C void    EMULfbExSetWidth      (u32 _startcycle, u16 _startx, u16 _endx,
 EXTERN_C void    EMULfbExEnd           (void);
 EXTERN_C void    EMULfbExDisable       (void);
 EXTERN_C u32     EMULfbExComputeCycle  (u8 _videosync, u16 _x, u16 _y);
+EXTERN_C void    EMULlog               (char* str);
 
 #define EMUL_WINDOW_WIDTH         768
 #define EMUL_WINDOW_HEIGHT        576

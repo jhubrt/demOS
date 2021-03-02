@@ -396,6 +396,56 @@ Error:
 }
 
 
+bool BITdegasSave (BITsurface* _surface, char* _filename)
+{
+    FILE* file = fopen (_filename, "wb");
+
+    if ( file == NULL )
+        goto Error;
+
+    ASSERT(_surface->width  == 320);
+    ASSERT(_surface->height == 200);
+    ASSERT(_surface->pitch  == 160);
+
+    switch (_surface->format)
+    {
+    case BITformat_Chunk4P:
+        ASSERT(_surface->lut.format == BITlutFormat_STe);
+        STDwriteW(file, 0);
+        STDwrite(file, _surface->lut.data.p, 32);
+        break;
+    case BITformat_Chunk2P:
+        ASSERT(_surface->lut.format == BITlutFormat_STe);
+        STDwriteW(file, 1);
+        STDwrite(file, _surface->lut.data.p, 32);
+        break;
+    case BITformat_Plane1P:
+        ASSERT(_surface->lut.format == BITlutFormat_BnW);
+        STDwriteW(file, 2);
+        {
+            u16 pal[16] = { PCENDIANSWAP16(0xFFF), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+            STDwrite(file, pal, 32);
+        }
+        break;
+    default:
+        ASSERT(0);
+    }
+
+    STDwrite(file, _surface->buffer, 32000);
+  
+    fclose (file);
+
+    return true;
+
+Error:
+    if ( file != NULL )
+        fclose (file);
+
+    return false;
+}
+
+
+
 BITloadResult BITneoLoad (BITsurface* _surface, MEMallocator* _allocator, char* _filename)
 {
 	BITloadResult returnCode = BITloadResult_READERROR;

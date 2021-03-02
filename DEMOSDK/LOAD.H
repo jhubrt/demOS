@@ -142,6 +142,7 @@ void		  LOADwaitFDCIdle			(void);
 u16           LOADresourceNbSectors     (LOADdisk* _media, u16 _entryIndex);
 u32           LOADresourceRoundedSize   (LOADdisk* _media, u16 _entryIndex);
 u16           LOADresourceMetaDataIndex (LOADdisk* _media, u16 _entryIndex);
+u16           LOADresourceMetaDataNbs   (LOADdisk* _media, u16 _entryIndex);
 #define LOAD_RESOURCE_NOMETADATA        0x1FF
 
 u32           LOADmetadataOffset        (LOADdisk* _media, u16 _metaDataIndex);

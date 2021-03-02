@@ -846,8 +846,8 @@ extern "C" void EMULblit (void)
             case HW_BLITTER_OP_S_OR_D:              dw =  sw |  dw;      break;
             case HW_BLITTER_OP_NOT_S_AND_NOT_D:     dw = ~sw & ~dw;      break;
             case HW_BLITTER_OP_NOT_S_XOR_D:         dw = ~sw ^  dw;      break;
+            case HW_BLITTER_OP_NOT_D:               dw = ~dw;            break;
             case HW_BLITTER_OP_NOT_S:               dw = ~sw;            break;
-            case HW_BLITTER_OP_NOT_S_2:             dw = ~sw;            break;
             case HW_BLITTER_OP_S_OR_NOT_D:          dw = sw  | ~dw;      break;
             case HW_BLITTER_OP_NOT_S_OR_D:          dw = ~sw |  dw;      break;
             case HW_BLITTER_OP_NOT_S_OR_NOT_D:      dw = ~sw | ~dw;      break;
@@ -981,4 +981,9 @@ extern "C" void EMUL_SUB_B (EMULregister* _source, EMULregister* _dest, EMUL68k*
 extern "C" bool EMUL_BTST (u32 _data, u8 _bit)
 {
     return (_data & (1 << _bit)) != 0;
+}
+
+extern "C" void EMULlog(char* str)
+{
+    OutputDebugStringA(str);
 }

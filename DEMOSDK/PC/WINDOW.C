@@ -39,7 +39,7 @@
 #define WINDOW_KEYBUFFER_SIZE 16
 #define WINDOW_MAXTITLELEN    256
 
-STRUCT(WINdow)
+struct WINdow_
 {
 	HWND window;
 
@@ -514,6 +514,8 @@ static s32 WINconvertMapping (WPARAM _wparam)
 
     case VK_OEM_6:          key = HW_KEY_BRACKET_LEFT;      break;
     case VK_OEM_1:          key = HW_KEY_BRACKET_RIGHT;     break;
+
+	case VK_PAUSE:			key = HW_KEY_EMUL_PAUSE;		break;
     }
     
     return key;
@@ -563,7 +565,7 @@ static WINmappingTypeEnum WINgetMappingType (WPARAM _wparam)
 
 LRESULT CALLBACK Window_wndProc (HWND _wnd, UINT _message, WPARAM _wparam, LPARAM _lparam)
 {   
-	WINdow *thisWindow = (WINdow*)(GetWindowLongPtr(_wnd, 0));
+	WINdow *thisWindow = (WINdow*)(GetWindowLongPtr(_wnd, GWLP_USERDATA));
 	bool  processDefault = false;
 
 
@@ -580,7 +582,7 @@ LRESULT CALLBACK Window_wndProc (HWND _wnd, UINT _message, WPARAM _wparam, LPARA
 			thisWindow->pixmap   = CreateCompatibleBitmap (thisWindow->windowDC, thisWindow->width, thisWindow->height);
 
 			SelectObject (thisWindow->pixmapDC, thisWindow->pixmap);
-			SetWindowLongPtr (_wnd, 0, (LONG)thisWindow);
+			SetWindowLongPtr (_wnd, GWLP_USERDATA, (LONG)thisWindow);
 
 			processDefault = true;
 
@@ -840,45 +842,6 @@ LRESULT CALLBACK Window_wndProc (HWND _wnd, UINT _message, WPARAM _wparam, LPARA
 
 }
 
-BOOL Window_initInstance (WINdow* _m, HINSTANCE _instance, int _cmdShow)
-{
-	HWND wnd;
-
-
-	wnd = CreateWindow( WINDOWCLASS, _m->title, WS_OVERLAPPED | WS_MINIMIZEBOX | WS_SYSMENU, CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, NULL, NULL, _instance, _m);
-
-	if (!wnd)
-	{
-		return FALSE;
-	}
-
-	ShowWindow(wnd, _cmdShow);
-	UpdateWindow(wnd);
-
-	return TRUE;
-}
-
-ATOM Window_registerClass (WINdow* _m, HINSTANCE _hInstance)
-{
-	WNDCLASSEX wcex;
-
-	wcex.cbSize = sizeof(WNDCLASSEX); 
-
-	wcex.style			= CS_HREDRAW | CS_VREDRAW;
-	wcex.lpfnWndProc	= (WNDPROC) Window_wndProc;
-	wcex.cbClsExtra		= 0;
-	wcex.cbWndExtra		= sizeof(void*) * 2;
-	wcex.hInstance		= _hInstance;
-	wcex.hIcon			= NULL;
-	wcex.hCursor		= LoadCursor(NULL, IDC_ARROW);
-	wcex.hbrBackground	= (HBRUSH)(COLOR_WINDOW+1);
-	wcex.lpszMenuName	= NULL;
-	wcex.lpszClassName	= WINDOWCLASS;
-	wcex.hIconSm		= NULL;
-
-	return RegisterClassEx(&wcex);
-}
-
 static DWORD WINAPI Window_eventThread (void* _param)
 {
 	WINdow *thisWindow = (WINdow*) _param;
@@ -887,49 +850,73 @@ static DWORD WINAPI Window_eventThread (void* _param)
 
 	// Window must be created by the thread which will read message queue 
 	// (there is one message queue per thread)
-	Window_registerClass(thisWindow, thisWindow->instance);
+	WNDCLASSEX wcex;
 
-	// Perform application initialization
-	if ( !Window_initInstance (thisWindow, thisWindow->instance, SW_SHOWNORMAL) ) 
+	wcex.cbSize		= sizeof(wcex); 
+
+	wcex.style			= CS_HREDRAW | CS_VREDRAW;
+	wcex.lpfnWndProc	= (WNDPROC) Window_wndProc;
+	wcex.cbClsExtra		= 0;
+	wcex.cbWndExtra		= 0;
+	wcex.hInstance		= thisWindow->instance;
+	wcex.hIcon			= NULL;
+	wcex.hCursor		= LoadCursor(NULL, IDC_ARROW);
+	wcex.hbrBackground	= (HBRUSH) GetStockObject (BLACK_BRUSH);
+	wcex.lpszMenuName	= NULL;
+	wcex.lpszClassName	= WINDOWCLASS;
+	wcex.hIconSm		= NULL;
+
+	if (!RegisterClassEx(&wcex))
 	{
 		thisWindow->isValid = false;
 		thisWindow->isReady = true;
-	}
-	else
-	{      
-		// message loop
-		bool stop = false;
+		return 0;
+ 	}
 
-		while (!stop)
-		{
-			if (thisWindow->isDestroyed)
-			{
-				thisWindow->thread = INVALID_HANDLE_VALUE;
-				DestroyWindow (thisWindow->window);
-				stop = true;
-			}
-			else
-			{
-				while (PeekMessage (&msg, NULL, 0, 0, PM_REMOVE))
-				{
-					if (msg.message == WM_QUIT)
-					{
-						thisWindow->thread = INVALID_HANDLE_VALUE;
-						TranslateMessage (&msg);
-						DispatchMessage (&msg);
-						stop = true;
-					}
-					else
-					{
-						TranslateMessage (&msg);
-						DispatchMessage (&msg);
-					}
-				}
+	HWND wnd = CreateWindow( WINDOWCLASS, thisWindow->title, WS_OVERLAPPED | WS_MINIMIZEBOX | WS_SYSMENU, CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, NULL, NULL, thisWindow->instance, thisWindow);
 
-				Sleep (1);
-			}
-		}
+	if (!wnd)
+	{
+		thisWindow->isValid = false;
+		thisWindow->isReady = true;
+		return 0;
 	}
+
+	ShowWindow(wnd, SW_SHOWNORMAL);
+	UpdateWindow(wnd);
+
+    // message loop
+    bool stop = false;
+
+    while (!stop)
+    {
+        if (thisWindow->isDestroyed)
+        {
+            thisWindow->thread = INVALID_HANDLE_VALUE;
+            DestroyWindow(thisWindow->window);
+            stop = true;
+        }
+        else
+        {
+            while (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
+            {
+                if (msg.message == WM_QUIT)
+                {
+                    thisWindow->thread = INVALID_HANDLE_VALUE;
+                    TranslateMessage(&msg);
+                    DispatchMessage(&msg);
+                    stop = true;
+                }
+                else
+                {
+                    TranslateMessage(&msg);
+                    DispatchMessage(&msg);
+                }
+            }
+
+            Sleep(1);
+        }
+    }
 
 	return 0;
 }

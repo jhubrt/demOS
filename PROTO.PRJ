@@ -1,0 +1,34 @@
+;-------------------------------------------------------------------------------
+; PROTO / DemOS - debug target
+;-------------------------------------------------------------------------------
+
+; this project without metafile build is useful in particular to solve link errors
+
+PROTO.PRG       ; name of executable program
+
+.C [ -Y -P -K -C -M ]
+.L [ -G -L -Y ]
+.S [ -Y ]
+=
+
+PCSTART.O        ; standard startup code
+
+OUTPUT\STANDARD.O
+OUTPUT\SYSTEM.O
+OUTPUT\TRACE.O
+OUTPUT\LOAD.O
+
+PROTO\SRC\DEMOS.C
+
+DEMOSDK\ALLOC.C
+DEMOSDK\STANDARD.C
+DEMOSDK\SYSTEM.C
+DEMOSDK\TRACE.C
+
+DEMOSDK\DATA\DATA.C
+
+PCSTDLIB.LIB        ; standard library
+PCFLTLIB.LIB        ; floating point library
+
+; PCEXTLIB.LIB       ; extended library
+; PCTOSLIB.LIB       ; TOS library

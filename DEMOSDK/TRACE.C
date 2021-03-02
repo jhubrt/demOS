@@ -29,6 +29,8 @@
 #include "DEMOSDK\TRACE.H"
 #include "DEMOSDK\HARDWARE.H"
 
+#include "DEMOSDK\PC\EMUL.H"
+
 #ifdef DEMOS_DEBUG
 
 #define TRAC_KEEPLASTLOG 1   /* define 1 to keep last log (looping log) else 0 */
@@ -140,6 +142,11 @@ void TRAClog (char* _str, char _separator)
     {
         printf ("%s%c", _str, _separator);
         fprintf (g_loggerFile, "%s%c", _str, _separator);
+    }
+    {
+        char temp[2] = {_separator, 0};
+        EMULlog(_str);
+        EMULlog(temp);
     }
 #   endif
 

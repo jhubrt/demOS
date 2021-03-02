@@ -13,11 +13,11 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RebirthImager", "RebirthIma
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SyntheticSound", "SyntheticSound.vcxproj", "{46CA3CC9-D57C-4A22-ACB5-B79A5C21DE1E}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RebirthGCC68k", "RebirthGCC68k.vcxproj", "{E1415CBF-6C72-48CB-B7C9-110AEB8927F4}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BlsConvert", "BlsConvert.vcxproj", "{24452CF2-8EF4-4DA6-AAA1-F33A3644B3FA}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BlsPlay", "BlsPlay.vcxproj", "{41CDAB10-F36A-40DB-8377-A10BFF4BDCE9}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Proto", "Proto.vcxproj", "{949D1E31-5496-41F2-947E-D00FDDCE67B0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,10 +45,6 @@ Global
 		{46CA3CC9-D57C-4A22-ACB5-B79A5C21DE1E}.Debug|Win32.Build.0 = Debug|Win32
 		{46CA3CC9-D57C-4A22-ACB5-B79A5C21DE1E}.Release|Win32.ActiveCfg = Release|Win32
 		{46CA3CC9-D57C-4A22-ACB5-B79A5C21DE1E}.Release|Win32.Build.0 = Release|Win32
-		{E1415CBF-6C72-48CB-B7C9-110AEB8927F4}.Debug|Win32.ActiveCfg = 68k dev|Win32
-		{E1415CBF-6C72-48CB-B7C9-110AEB8927F4}.Debug|Win32.Build.0 = 68k dev|Win32
-		{E1415CBF-6C72-48CB-B7C9-110AEB8927F4}.Release|Win32.ActiveCfg = 68k dev|Win32
-		{E1415CBF-6C72-48CB-B7C9-110AEB8927F4}.Release|Win32.Build.0 = 68k dev|Win32
 		{24452CF2-8EF4-4DA6-AAA1-F33A3644B3FA}.Debug|Win32.ActiveCfg = Debug|Win32
 		{24452CF2-8EF4-4DA6-AAA1-F33A3644B3FA}.Debug|Win32.Build.0 = Debug|Win32
 		{24452CF2-8EF4-4DA6-AAA1-F33A3644B3FA}.Release|Win32.ActiveCfg = Release|Win32
@@ -57,6 +53,10 @@ Global
 		{41CDAB10-F36A-40DB-8377-A10BFF4BDCE9}.Debug|Win32.Build.0 = Debug|Win32
 		{41CDAB10-F36A-40DB-8377-A10BFF4BDCE9}.Release|Win32.ActiveCfg = Release|Win32
 		{41CDAB10-F36A-40DB-8377-A10BFF4BDCE9}.Release|Win32.Build.0 = Release|Win32
+		{949D1E31-5496-41F2-947E-D00FDDCE67B0}.Debug|Win32.ActiveCfg = Debug|Win32
+		{949D1E31-5496-41F2-947E-D00FDDCE67B0}.Debug|Win32.Build.0 = Debug|Win32
+		{949D1E31-5496-41F2-947E-D00FDDCE67B0}.Release|Win32.ActiveCfg = Release|Win32
+		{949D1E31-5496-41F2-947E-D00FDDCE67B0}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

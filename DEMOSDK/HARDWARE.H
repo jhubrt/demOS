@@ -215,6 +215,10 @@
 #define HW_KEY_NUMPAD_DOT           0x71
 #define HW_KEY_NUMPAD_ENTER         0x72
 
+#ifndef __TOS__
+#define HW_KEY_EMUL_PAUSE           0x7F
+#endif
+
 /* 68k opcodes */
 #define HW_68KOP_RTS                0x4E75
 
@@ -240,9 +244,9 @@
 #define HW_BLITTER_OP_S_OR_D            7
 #define HW_BLITTER_OP_NOT_S_AND_NOT_D   8
 #define HW_BLITTER_OP_NOT_S_XOR_D       9
-#define HW_BLITTER_OP_NOT_S             10
+#define HW_BLITTER_OP_NOT_D             10
 #define HW_BLITTER_OP_S_OR_NOT_D        11
-#define HW_BLITTER_OP_NOT_S_2           12
+#define HW_BLITTER_OP_NOT_S             12
 #define HW_BLITTER_OP_NOT_S_OR_D        13
 #define HW_BLITTER_OP_NOT_S_OR_NOT_D    14  
 #define HW_BLITTER_OP_BIT1              15
@@ -269,8 +273,9 @@
 #ifdef __TOS__
 
 #   define HW_DEFINE_REGISTER(TYPE,ADR,NAME)   ((volatile TYPE*)ADR)
+#   define HW_YM_SET_REG(REGNUM,DATA)   { *HW_YM_REGSELECT = (REGNUM); *HW_YM_REGDATA = (DATA); }
+#   define HW_YM_GET_REG()              (*HW_YM_REGSELECT)
 
-#   define HW_YM_SET_REG(REGNUM,DATA)           { *HW_YM_REGSELECT = REGNUM; *HW_YM_REGDATA = DATA; }
 #   define HW_DISABLE_MOUSE()                   { *HW_KEYBOARD_DATA = 0x12; } /* deactivate mouse management on ACIA */
 
 #else
@@ -279,9 +284,13 @@
 #   define HW_DECLARE_REGISTER(TYPE,NAME)      TYPE reg_##NAME
 
 #   define HW_DISABLE_MOUSE()
-#   define HW_YM_SET_REG(REGNUM,DATA)           { *HW_YM_REGSELECT = REGNUM; *HW_YM_REGDATA = DATA; }
 
-STRUCT(SThardware)
+void hwSetYMReg(u8 _regnum, u8 _data);
+
+#   define HW_YM_SET_REG(REGNUM,DATA)   { hwSetYMReg(REGNUM,DATA); }
+#   define HW_YM_GET_REG()              ((&g_STHardware.reg_HW_YM_REGDATA)[*HW_YM_REGSELECT])
+
+struct SThardware_
 {
     HW_DECLARE_REGISTER(u16 , HW_BLITTER_HTONE          ); 
     u16 reg_HW_BLITTER_HTONE_1TO15 [15];
@@ -312,6 +321,10 @@ STRUCT(SThardware)
     HW_DECLARE_REGISTER(u32 , HW_VECTOR_DMA		        ); 
     HW_DECLARE_REGISTER(u32 , HW_VECTOR_TIMERB          );
 
+    HW_DECLARE_REGISTER(u8  , HW_YM_REGSELECT           );
+    HW_DECLARE_REGISTER(u8  , HW_YM_REGDATA             );
+    u8 HW_YM_REGDATA_1TO15[15];
+
     HW_DECLARE_REGISTER(u16, HW_COLOR_LUT		        );
     u16 reg_HW_COLOR_LUT_1TO15 [15];
 
@@ -330,10 +343,6 @@ STRUCT(SThardware)
     HW_DECLARE_REGISTER(u8 , HW_VIDEO_OFFSET			); 
     HW_DECLARE_REGISTER(u8 , HW_VIDEO_PIXOFFSET	        ); 
     HW_DECLARE_REGISTER(u8 , HW_VIDEO_PIXOFFSET_HIDDEN  );
-
-    HW_DECLARE_REGISTER(u8 , HW_YM_REGSELECT            );
-    HW_DECLARE_REGISTER(u8 , HW_YM_REGDATA              );    
-
 
     HW_DECLARE_REGISTER(u8 , HW_DMASOUND_CONTROL		);
 
@@ -377,10 +386,12 @@ STRUCT(SThardware)
     HW_DECLARE_REGISTER(u8 , HW_MEGASTE_CPUMODE             ); 
 
     HW_DECLARE_REGISTER(u16 , OS_FLOPVBL		            );
+    HW_DECLARE_REGISTER(u16 , OS_BOOTDEV                    );
     HW_DECLARE_REGISTER(u16 , OS_NFLOPS		                );
     HW_DECLARE_REGISTER(u32 , OS_PHYTOP                     );
     HW_DECLARE_REGISTER(u32 , OS_COOKIEJAR                  );
 };
+typedef struct SThardware_ SThardware;
 
 #	ifndef HARDWARE_C
 	extern SThardware g_STHardware;
@@ -490,6 +501,7 @@ STRUCT(SThardware)
 #define HW_MEGASTE_CPUMODE              HW_DEFINE_REGISTER(u8 , 0xFFFF8E21UL ,HW_MEGASTE_CPUMODE            ) 
 
 #define OS_FLOPVBL		                HW_DEFINE_REGISTER(u16 , 0x43e ,      OS_FLOPVBL		            )
+#define OS_BOOTDEV  	                HW_DEFINE_REGISTER(u16 , 0x446 ,      OS_BOOTDEV	                )
 #define OS_NFLOPS		                HW_DEFINE_REGISTER(u16 , 0x4a6 ,      OS_NFLOPS		                )
 #define OS_PHYTOP                       HW_DEFINE_REGISTER(u32 , 0x42e ,      OS_PHYTOP                     )
 #define OS_COOKIEJAR                    HW_DEFINE_REGISTER(void, 0x5A0 ,      OS_COOKIEJAR                  )

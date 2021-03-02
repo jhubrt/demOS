@@ -89,6 +89,7 @@ STRUCT(SYScore)
     u8				key;
 	u8				lastKey;
 	bool			has2Drives;
+    bool            invertDrive;
     bool            isMegaSTe;
     bool            OSneedRestore;
     SYSemulator     emulator;
@@ -157,6 +158,7 @@ u32  SYSlmovep          (void* _adr);
 #define SYSkbAcquire  sys.key = *HW_KEYBOARD_DATA
 #define SYSkbHit  (sys.lastKey != sys.key)
 void SYSkbReset(void);
+void SYSemptyKb(void);
 
 void SYSfastPrint(char* _s, void* _screenprintadr, u16 _screenPitch, u16 _bitplanPitch);
 

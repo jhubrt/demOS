@@ -50,6 +50,7 @@ loadfloppysideselect			equ $E00
 
 	xdef LOADpush,LOADsecpertrack,LOADinprogress,LOADidle
     xdef LOADdeconnectAndStartRequest,LOADtoggleDriveStartRequest
+    xdef LOADlastdrive
 
 	; read only for debug only
 	xdef LOADreq,LOADcurrentreq,LOADreqNb
