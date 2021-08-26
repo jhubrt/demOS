@@ -1,22 +1,22 @@
 #include "DEMOSDK\BASTYPES.H"
 #include "DEMOSDK\SOUND.H"
-#include "REBIRTH\DISK1.H"
-#include "REBIRTH\DISK2.H"
+#include "REBIRTH\REBIRTH1.H"
+#include "REBIRTH\REBIRTH2.H"
 #include "REBIRTH\SRC\SNDTRACK.H"
 /* minimalist C co-routine system ;) => preprocess this file if you need to introspect more... */
 s16 playTrack (void) {	switch (snd.playerContext)	/* minimize line numbers to keep the switch jump table compact... */
 {   /*                                                | SYNC DIRECTIVE  |*/
 	SND_BEGIN  SND_SETPANNING(0)  SND_VOLUME_SET(0)                                                    
-    SND_LOADSAMPLE(DISK1,4190)							SND_WAIT_SAMPLELOADED       SND_SYNC_COPYCACHE_TO_LEFT(0, SAMPLE_S)  SND_SYNC_COPYCACHE_TO_LEFT(SAMPLE_S, SAMPLE_S)  
+    SND_LOADSAMPLE(REBIRTH1,4190)						SND_WAIT_SAMPLELOADED       SND_SYNC_COPYCACHE_TO_LEFT(0, SAMPLE_S)  SND_SYNC_COPYCACHE_TO_LEFT(SAMPLE_S, SAMPLE_S)  
     SND_DMALOOP_RESET                                   SND_WAIT_DMALOOP_REACH(1)   SND_VOLUME_SET(40)    snd.playerClientStep = STEP_SOUNDTRACK_STARTED;
-    SND_LOADSAMPLE(DISK1,360222)	                    SND_WAIT_SAMPLELOADED  
+    SND_LOADSAMPLE(REBIRTH1,360222)	                    SND_WAIT_SAMPLELOADED  
 	SND_COPYCACHE_TO_RIGHT(0, SAMPLE_S)					SND_WAIT_CACHECOPIED
 	SND_COPYCACHE_TO_RIGHT(SAMPLE_S, SAMPLE_S)			SND_WAIT_CACHECOPIED
-    SND_LOADSAMPLE(DISK1,1606334)						SND_WAIT_SAMPLELOADED
+    SND_LOADSAMPLE(REBIRTH1,1606334)					SND_WAIT_SAMPLELOADED
 	snd.playerClientStep = STEP_START_POLYZOOM;         SND_WAIT_CLIENTSTEP(STEP_POLYZOOM_STARTED)
 	SND_DMALOOP_RESET	SND_SETPANNING(6)	SND_WAIT_DMALOOP_REACH(1)
     SND_COPYCACHE_TO_LEFT(0, SAMPLE_L)                  SND_WAIT_CACHECOPIED
-	SND_LOADSAMPLE(DISK1, 1784382)      /* preload */
+	SND_LOADSAMPLE(REBIRTH1, 1784382)      /* preload */
 	SND_DMALOOP_RESET   SND_SETPANNING(5)				SND_WAIT_DMALOOP_REACH(1)
 						SND_SETPANNING(4)				SND_WAIT_DMALOOP_REACH(2)
 						SND_SETPANNING(3)				SND_WAIT_DMALOOP_REACH(3)
@@ -25,7 +25,7 @@ s16 playTrack (void) {	switch (snd.playerContext)	/* minimize line numbers to ke
 						SND_SETPANNING(0)				SND_WAIT_DMALOOP_REACH(6)
                                                         SND_WAIT_SAMPLELOADED
     SND_COPYCACHE_TO_RIGHT(0, SAMPLE_L)                 SND_WAIT_CACHECOPIED
-    SND_LOADSAMPLE(DISK1, 3475534)                      SND_WAIT_SAMPLELOADED
+    SND_LOADSAMPLE(REBIRTH1, 3475534)                     SND_WAIT_SAMPLELOADED
 														SND_WAIT_CLIENTSTEP(STEP_START_VISUALIZER)
 	SND_DMALOOP_RESET	SND_SETPANNING(6)				SND_WAIT_DMALOOP_REACH(1)
 	SND_COPYCACHE_TO_LEFT(0, SAMPLE_L)					SND_WAIT_CACHECOPIED
@@ -40,13 +40,13 @@ s16 playTrack (void) {	switch (snd.playerContext)	/* minimize line numbers to ke
                                                         snd.playerClientStep = STEP_STOP_VISUALIZER;
                                                         SND_WAIT_CLIENTSTEP(STEP_VISUALIZER_STOPPED);   
     snd.playerClientStep = STEP_START_INTERLUDE1;       /* Interlude 1 */
-    SND_LOADSAMPLE(DISK1, 3564542)                      SND_WAIT_SAMPLELOADED
+    SND_LOADSAMPLE(REBIRTH1, 3564542)                   SND_WAIT_SAMPLELOADED
 	SND_COPYCACHE_TO_RIGHT(0, SAMPLE_L)					SND_WAIT_CACHECOPIED
-    SND_LOADSAMPLE(DISK1, 5967758)						
+    SND_LOADSAMPLE(REBIRTH1, 5967758)						
 	SND_DMALOOP_RESET	SND_SETPANNING(6)				SND_WAIT_DMALOOP_REACH(1)
                                                         SND_WAIT_SAMPLELOADED
 	SND_COPYCACHE_TO_LEFT(0, SAMPLE_L)					SND_WAIT_CACHECOPIED
-	SND_LOADSAMPLE(DISK1, 6056766)  /* preload */       SND_WAIT_SAMPLELOADED
+	SND_LOADSAMPLE(REBIRTH1, 6056766)  /* preload */    SND_WAIT_SAMPLELOADED
                                                         SND_WAIT_DMALOOP_REACH(2)                                                        
                                                         SND_WAIT_CLIENTSTEP(STEP_INTERLUDE1_STOPPED);
 	SND_DMALOOP_RESET									SND_WAIT_DMALOOP_REACH(1)
@@ -60,9 +60,9 @@ s16 playTrack (void) {	switch (snd.playerContext)	/* minimize line numbers to ke
 	SND_COPYCACHE_TO_RIGHT(0, SAMPLE_L)					SND_WAIT_CACHECOPIED
 	SND_DMALOOP_RESET	SND_SETPANNING(6)				SND_WAIT_DMALOOP_REACH(2)
     snd.playerClientStep = STEP_STOP_VISUALIZER2;       SND_WAIT_CLIENTSTEP(STEP_VISUALIZER2_STOPPED);
-    SND_LOADSAMPLE(DISK1, 7391886)						SND_WAIT_SAMPLELOADED   /* Interlude 2 */ 
+    SND_LOADSAMPLE(REBIRTH1, 7391886)					SND_WAIT_SAMPLELOADED   /* Interlude 2 */ 
 	SND_COPYCACHE_TO_LEFT(0, SAMPLE_L)					SND_WAIT_CACHECOPIED
-    SND_LOADSAMPLE(DISK2, 7569902)	/* preload */       SND_WAIT_SAMPLELOADED
+    SND_LOADSAMPLE(REBIRTH2, 7569902)	/* preload */   SND_WAIT_SAMPLELOADED
                                                         SND_WAIT_CLIENTSTEP(STEP_INTERLUDE2_STOPPED);
 	SND_DMALOOP_RESET									SND_WAIT_DMALOOP_REACH(1)
 						SND_SETPANNING(6)				SND_WAIT_DMALOOP_REACH(2)
@@ -75,13 +75,13 @@ s16 playTrack (void) {	switch (snd.playerContext)	/* minimize line numbers to ke
 	SND_COPYCACHE_TO_RIGHT(0, SAMPLE_L)					SND_WAIT_CACHECOPIED
                                                         snd.playerClientStep = STEP_STOP_VISUALIZER3;
                                                         SND_WAIT_CLIENTSTEP(STEP_VISUALIZER3_STOPPED);
-    SND_LOADSAMPLE(DISK1, 6056766)	/* preload */       SND_WAIT_SAMPLELOADED
+    SND_LOADSAMPLE(REBIRTH1, 6056766)	/* preload */   SND_WAIT_SAMPLELOADED
 	SND_DMALOOP_RESET	SND_SETPANNING(6)				SND_WAIT_DMALOOP_REACH(1)
 	SND_COPYCACHE_TO_LEFT(0, SAMPLE_L)					SND_WAIT_CACHECOPIED
                                                         SND_WAIT_DMALOOP_REACH(8)
     SNDplayNoise (0,3);
     SND_DMALOOP_RESET	SND_SETPANNING(6)               SND_WAIT_CLIENTSTEP(STEP_SLIDES_NEAREND)    
-    SND_LOADSAMPLE(DISK2, 12465342)						
+    SND_LOADSAMPLE(REBIRTH2, 12465342)						
     SND_DMALOOP_RESET	SND_SETPANNING(0)				SND_WAIT_DMALOOP_REACH(1)
     SNDstopNoise ();                                    SND_WAIT_SAMPLELOADED
                                                         SND_WAIT_CLIENTSTEP(STEP_SLIDES_STOPPED)
@@ -95,16 +95,16 @@ s16 playTrack (void) {	switch (snd.playerContext)	/* minimize line numbers to ke
 						SND_SETPANNING(6)				SND_WAIT_DMALOOP_REACH(11)
                                                         snd.playerClientStep = STEP_STOP_VISUALIZER4;
                                                         SND_WAIT_CLIENTSTEP(STEP_VISUALIZER4_STOPPED);      
-    SND_LOADSAMPLE(DISK2, 14245502)						SND_WAIT_SAMPLELOADED
+    SND_LOADSAMPLE(REBIRTH2, 14245502)					SND_WAIT_SAMPLELOADED
 	SND_COPYCACHE_TO_LEFT(0, SAMPLE_S)					SND_WAIT_CACHECOPIED
 	SND_COPYCACHE_TO_LEFT(SAMPLE_S, SAMPLE_S)			SND_WAIT_CACHECOPIED
 	SND_DMALOOP_RESET	SND_SETPANNING(0)				SND_WAIT_DMALOOP_REACH(1)       snd.playerClientStep = STEP_START_FUGIT;
                                                         SND_WAIT_DMALOOP_REACH(3)
-    SND_LOADSAMPLE(DISK2, 14646038)						SND_WAIT_SAMPLELOADED
+    SND_LOADSAMPLE(REBIRTH2, 14646038)					SND_WAIT_SAMPLELOADED
 	SND_COPYCACHE_TO_RIGHT(0, SAMPLE_S)					SND_WAIT_CACHECOPIED
 	SND_COPYCACHE_TO_RIGHT(SAMPLE_S, SAMPLE_S)			SND_WAIT_CACHECOPIED
 	SND_DMALOOP_RESET	SND_SETPANNING(6)				SND_WAIT_DMALOOP_REACH(1)
-    SND_LOADSAMPLE(DISK1, 360222)						SND_WAIT_SAMPLELOADED
+    SND_LOADSAMPLE(REBIRTH1, 360222)					SND_WAIT_SAMPLELOADED
 	SND_COPYCACHE_TO_LEFT(0, SAMPLE_S)					SND_WAIT_CACHECOPIED
 	SND_COPYCACHE_TO_LEFT(SAMPLE_S, SAMPLE_S)			SND_WAIT_CACHECOPIED
                                                         SND_WAIT_DMALOOP_REACH(4)

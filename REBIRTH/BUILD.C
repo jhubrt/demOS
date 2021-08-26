@@ -19,8 +19,8 @@
 
 #include "FX\VREGANIM\VREGANIM.C"
 
-#include "REBIRTH\DISK1.C"
-#include "REBIRTH\DISK2.C"
+#include "REBIRTH\REBIRTH1.C"
+#include "REBIRTH\REBIRTH2.C"
 
 #include "REBIRTH\SRC\SCREENS.C"
 #include "REBIRTH\SRC\POLYZOOM.C"

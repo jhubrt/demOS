@@ -1,7 +1,7 @@
 /*-----------------------------------------------------------------------------------------------
   The MIT License (MIT)
 
-  Copyright (c) 2015-2018 J.Hubert
+  Copyright (c) 2015-2021 J.Hubert
 
   Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
   and associated documentation files (the "Software"), 
@@ -45,7 +45,7 @@
 
 #include "EXTERN\ARJDEP.H"
 
-#include "REBIRTH\DISK1.H"
+#include "REBIRTH\REBIRTH1.H"
 
 #define VIS_HEIGHT              46
 #define VIS_LINES               (VIS_HEIGHT << 2)
@@ -512,11 +512,11 @@ void VisualizerEntry (FSM* _fsm)
     g_screens.visualizer->colorscroll = 16 << 4;
     g_screens.visualizer->timmax = -1;
 
-    g_screens.visualizer->nbcolors      = (u16) (LOADmetadataOffset(&RSC_DISK1, RSC_DISK1_METADATA_VISUALIZ_TEXTOS_PAL) >> 1);
-    g_screens.visualizer->colors        = (u16*) RINGallocatorAlloc ( &sys.mem, LOADresourceRoundedSize(&RSC_DISK1, RSC_DISK1_VISUALIZ__PAL_BIN) );
+    g_screens.visualizer->nbcolors      = (u16) (LOADmetadataOffset(&RSC_REBIRTH1, RSC_REBIRTH1_METADATA_VISUALIZ_TEXTOS_PAL) >> 1);
+    g_screens.visualizer->colors        = (u16*) RINGallocatorAlloc ( &sys.mem, LOADresourceRoundedSize(&RSC_REBIRTH1, RSC_REBIRTH1_VISUALIZ_PAL_BIN) );
 
-    loadRequest  = LOADdata (&RSC_DISK1, RSC_DISK1_VISUALIZ__PAL_BIN, g_screens.visualizer->colors, LOAD_PRIORITY_INORDER);
-    loadRequest2 = LOADdata (&RSC_DISK1, RSC_DISK1_POLYZOOM__SIN_BIN, sin, LOAD_PRIORITY_INORDER);
+    loadRequest  = LOADdata (&RSC_REBIRTH1, RSC_REBIRTH1_VISUALIZ_PAL_BIN, g_screens.visualizer->colors, LOAD_PRIORITY_INORDER);
+    loadRequest2 = LOADdata (&RSC_REBIRTH1, RSC_REBIRTH1_POLYZOOM_SIN_BIN, sin, LOAD_PRIORITY_INORDER);
     
     g_screens.visualizer->startcolors   = (u16*) RINGallocatorAlloc ( &sys.mem, (VIS_NBSTARTCOLORS + VIS_WIDTH) << U16_SIZEOF_SHIFT );
     g_screens.visualizer->startcolflash = (u16*) RINGallocatorAlloc ( &sys.mem, ((8 + VIS_WIDTH) * 2) << U16_SIZEOF_SHIFT );
@@ -554,7 +554,7 @@ void VisualizerEntry (FSM* _fsm)
 
     if (visTracksList[g_screens.visualizerIndex].animateat != VIS_NOANIM)
     {
-        loadRequest = LOADdata(&RSC_DISK1, RSC_DISK1_VISUALIZ_TEXTOS_ARJX, g_screens.visualizer->animations, LOAD_PRIORITY_INORDER);
+        loadRequest = LOADdata(&RSC_REBIRTH1, RSC_REBIRTH1_VISUALIZ_TEXTOS_ARJX, g_screens.visualizer->animations, LOAD_PRIORITY_INORDER);
     }
     else
     {

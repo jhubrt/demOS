@@ -1,7 +1,7 @@
 /*-----------------------------------------------------------------------------------------------
   The MIT License (MIT)
 
-  Copyright (c) 2015-2018 J.Hubert
+  Copyright (c) 2015-2021 J.Hubert
 
   Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
   and associated documentation files (the "Software"), 
@@ -24,6 +24,16 @@
 
 #define TRACE_C
 
+/* #define TRAC_LOG_DEFAULT    TRAC_LOG_ALL */
+
+#ifdef __TOS__
+#   define TRAC_LOG_DEFAULT    (TRAC_LOG_FSM | TRAC_LOG_FLOW)
+/*#   define TRAC_LOG_DEFAULT    (TRAC_LOG_FSM | TRAC_LOG_FLOW | TRAC_LOG_COMMANDS | TRAC_LOG_SPECIFIC)*/
+#else
+#   define TRAC_LOG_DEFAULT    (TRAC_LOG_FSM | TRAC_LOG_FLOW | TRAC_LOG_COMMANDS | TRAC_LOG_MEMORY | TRAC_LOG_SPECIFIC)
+#endif
+
+
 #include "DEMOSDK\STANDARD.H"
 #include "DEMOSDK\SYSTEM.H"
 #include "DEMOSDK\TRACE.H"
@@ -37,11 +47,12 @@
 
 #define TRAC_NBMAXDISPLAYSERVICES 10
 
-STRUCT(trac_DisplayService)
+struct trac_DisplayService_
 {
     TRAC_DisplayCallback    m_callback;
     u16                     m_enableMask;
 };
+typedef struct trac_DisplayService_ trac_DisplayService;
 
 static u16                 g_displayServicesNb = 0;
 static trac_DisplayService g_displayServices[TRAC_NBMAXDISPLAYSERVICES];
@@ -50,7 +61,7 @@ static u16	g_activatedTraces		= 0;
 static bool g_verbose				= false;
 
 
-STRUCT(trac_DisplayParam)
+struct trac_DisplayParam_
 {
 	u16  planePitch;
 	u16  plane;
@@ -58,17 +69,19 @@ STRUCT(trac_DisplayParam)
 	u16	 h;
 	u8	 refresh;
 };
+typedef struct trac_DisplayParam_ trac_DisplayParam;
 
 static trac_DisplayParam trac_displayParam;
 static trac_DisplayParam trac_displayParamLast;
 
-STRUCT(TRACloggerState)
+struct TRACloggerState_
 {
     u32     current;
     bool    haslooped;
 };
+typedef struct TRACloggerState_ TRACloggerState;
 
-TRAClogger              tracLogger      = {NULL, 0};
+TRAClogger              tracLogger      = {NULL, 0, TRAC_LOG_DEFAULT};
 static TRACloggerState  tracLoggerState = {0, false};
 
 #ifdef __TOS__
@@ -133,7 +146,7 @@ void TRACinit (char* _pclogfilename)
     STDmset (tracLogger.logbase, 0UL, tracLogger.logSize);
 }
 
-void TRAClog (char* _str, char _separator)
+void TRAClogOut (char* _str, char _separator)
 {
     u8* p = tracLogger.logbase + tracLoggerState.current;
 

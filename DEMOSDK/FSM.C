@@ -1,7 +1,7 @@
 /*-----------------------------------------------------------------------------------------------
   The MIT License (MIT)
 
-  Copyright (c) 2015-2018 J.Hubert
+  Copyright (c) 2015-2021 J.Hubert
 
   Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
   and associated documentation files (the "Software"), 
@@ -34,13 +34,14 @@ static char fsmstatesdesc[] = "fsm          = 0  ";
 
 static void fsmLogTrace(FSM* _m, char* _funcname)
 {
-    TRAClogFrameNum();
-    TRAClog(_funcname, ' ');
+    TRAClogFrameNum(TRAC_LOG_FSM);
+    TRAClog(TRAC_LOG_FSM, _funcname, ' ');
 
     STDmcpy  (&fsmstatesdesc[4] , _m->name , sizeof(_m->name));
     STDutoa  (&fsmstatesdesc[15], FSMgetCurrentState(_m), 3);
 
-    TRAClog(fsmstatesdesc, '\n');
+    TRAClog(TRAC_LOG_FSM, fsmstatesdesc, ' ');
+    TRAClog(TRAC_LOG_FSM, _m->states[FSMgetCurrentState(_m)].name, '\n');
 }
 
 u16 FSMtrace (FSM* _m, void* _image, u16 _pitch, u16 _planePitch, u16 _y)
@@ -82,7 +83,7 @@ u16 FSMtrace (FSM* _m, void* _image, u16 _pitch, u16 _planePitch, u16 _y)
 #endif
 
 
-void FSMinit (FSM* _m, FSMfunction* _states, u16 _nbStates, u16 _startState, char* _name)
+void FSMinit (FSM* _m, FSMstate* _states, u16 _nbStates, u16 _startState, char* _name)
 {
 	_m->states		= _states;
     _m->nbStates    = _nbStates;
@@ -129,7 +130,7 @@ s16 FSMlookForStateIndex(FSM* _m, FSMfunction _func)
 
     for (t = 0; t < _m->nbStates; t++)
     {
-        if (_m->states[t] == _func)
+        if (_m->states[t].func == _func)
         {
             return t;
         }

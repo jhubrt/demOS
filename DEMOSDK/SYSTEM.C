@@ -1,7 +1,7 @@
 /*-----------------------------------------------------------------------------------------------
   The MIT License (MIT)
 
-  Copyright (c) 2015-2018 J.Hubert
+  Copyright (c) 2015-2021 J.Hubert
 
   Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
   and associated documentation files (the "Software"), 
@@ -120,12 +120,13 @@ u32 SYSlmovep (void* _adr)
 /*------------------------------------------------------------------
     SYSTEM FONT
 --------------------------------------------------------------------*/
-void SYSfastPrint(char* _s, void* _screenprintadr, u16 _screenPitch, u16 _bitplanPitch)
+void SYSfastPrint(char* _s, void* _screenprintadr, u16 _screenPitch, u16 _bitplanPitch, u32 _fontadr)
 #ifdef __TOS__
 ;
 #else
 {
     u8* adr = (u8*)_screenprintadr;
+    SYSFont* font = (SYSFont*) _fontadr;
 
     _bitplanPitch--;
 
@@ -133,8 +134,8 @@ void SYSfastPrint(char* _s, void* _screenprintadr, u16 _screenPitch, u16 _bitpla
 	{
 		u8  c = *_s++;
 		u8* d = adr;
-        u16 index = SYSfontchars[c];
-        u8* bitmap = SYSfontdata + (index << SYS_FNT_OFFSETSHIFT);
+        u16 index  = font->charsmap[c];
+        u8* bitmap = font->data + (index << SYS_FNT_OFFSETSHIFT);
 
         *d = *bitmap++;	d += _screenPitch;
         *d = *bitmap++;	d += _screenPitch;
@@ -173,7 +174,7 @@ void SYSdebugPrint(void* _screen, u16 _screenPitch, u16 _bitplanPitchShift, u16 
 	adr += (_col & 0xFFFE) << (_bitplanPitchShift - 1);
 	adr += _col & 1;
 
-    SYSfastPrint (_s, adr, _screenPitch, bitplanPitch);
+    SYSfastPrint (_s, adr, _screenPitch, bitplanPitch, (u32) &SYSfont);
 }
 #endif
 
@@ -182,7 +183,7 @@ void  SYSvblinterrupt   (void)       PCSTUB;
 void* SYSgemdosSetMode  (void* _adr) PCSTUBRET;
 void  SYSemptyKb        (void)       PCSTUB;
 
-#if !defined(DEMOS_OPTIMIZED) && !defined(DEMOS_USES_BOOTSECTOR)
+#ifndef DEMOS_USES_BOOTSECTOR
 static void* SYSstdAlloc(void* _alloc, u32 _size)
 {
 	IGNORE_PARAM(_alloc);
@@ -225,6 +226,17 @@ bool SYSgetCookie(u32 _id, u32* _value)
 }
 
 void SYSinitDbgBreak(void) PCSTUB;
+
+#ifndef DEMOS_USES_BOOTSECTOR
+void SYSinitStdAllocator(void)
+{
+    sys.allocatorStandard.alloc     = SYSstdAlloc;
+    sys.allocatorStandard.alloctemp = SYSstdAlloc;
+    sys.allocatorStandard.free      = SYSstdFree;
+    sys.allocatorStandard.allocator = NULL;
+}
+#endif
+
 
 void SYSinit(void)
 {
@@ -308,13 +320,6 @@ void SYSinit(void)
     sys.allocatorCoreMem.alloctemp = (MEMallocFunc) RINGallocatorAllocTemp;
 	sys.allocatorCoreMem.free      = (MEMfreeFunc)  RINGallocatorFree;
 	sys.allocatorCoreMem.allocator = &sys.coremem;
-
-#   if !defined(DEMOS_OPTIMIZED) && !defined(DEMOS_USES_BOOTSECTOR)	
-    sys.allocatorStandard.alloc     = SYSstdAlloc;
-    sys.allocatorStandard.alloctemp = SYSstdAlloc;
-	sys.allocatorStandard.free      = SYSstdFree;
-	sys.allocatorStandard.allocator = NULL;
-#	endif
 }
 
 void SYSinitHW (void)

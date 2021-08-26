@@ -1,7 +1,7 @@
 /*-----------------------------------------------------------------------------------------------
   The MIT License (MIT)
 
-  Copyright (c) 2015-2018 J.Hubert
+  Copyright (c) 2015-2021 J.Hubert
 
   Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
   and associated documentation files (the "Software"), 
@@ -167,20 +167,20 @@ FSMstate states[] =
 
 /* WHOLE DEMO -------------------------------------------*/
 
-FSMfunction states[] =
+FSMstate states[] =
 {
-	doNothing, 
-    IntroActivity, 
-	doNothing
+	FSM_STATE(doNothing), 
+    FSM_STATE(IntroActivity), 
+    FSM_STATE(doNothing)
 };
 
-FSMfunction statesIdle[] =
+FSMstate statesIdle[] =
 {
-    SCRswitch50hz, 
-    SCRfade2black, 
-    IntroEntry, 
-    IntroBacktask,
-    IntroExit
+    FSM_STATE(SCRswitch50hz), 
+    FSM_STATE(SCRfade2black), 
+    FSM_STATE(IntroEntry), 
+    FSM_STATE(IntroBacktask),
+    FSM_STATE(IntroExit)
 };
 
 u16 statesSize     = (u16) ARRAYSIZE(states);
@@ -189,7 +189,7 @@ u16 statesIdleSize = (u16) ARRAYSIZE(statesIdle);
 
 void ScreenWaitMainDonothing (void)
 {
-    while (g_stateMachine.states[FSMgetCurrentState(&g_stateMachine)] != doNothing);
+    while (g_stateMachine.states[FSMgetCurrentState(&g_stateMachine)].func != doNothing);
 }
 
 

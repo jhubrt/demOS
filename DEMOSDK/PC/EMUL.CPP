@@ -1,7 +1,7 @@
 /*-----------------------------------------------------------------------------------------------
   The MIT License (MIT)
 
-  Copyright (c) 2015-2018 J.Hubert
+  Copyright (c) 2015-2021 J.Hubert
 
   Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
   and associated documentation files (the "Software"), 
@@ -925,19 +925,25 @@ extern "C" u32* EMUL_L_I (EMULregister* _reg)
     return adr;
 }
 
-extern "C" void EMUL_ROR_W (EMULregister* _reg, u8 _shift)
+extern "C" bool EMUL_ROR_W (EMULregister* _reg, u8 _shift)
 {
+    bool carry = false;
+    
     if (_shift > 0)
     {
 	    u16 bits = _reg->w;
-	
+
         _shift &= 15;
+
+        carry = (bits & (1 << (_shift - 1))) != 0;
 
         bits <<= 16 - _shift;
 
 	    _reg->w >>= _shift;	
     	_reg->w |= bits;
     }
+
+    return carry;
 }
 
 extern "C" void EMUL_ROL_L (EMULregister* _reg, u8 _shift)
@@ -981,6 +987,14 @@ extern "C" void EMUL_SUB_B (EMULregister* _source, EMULregister* _dest, EMUL68k*
 extern "C" bool EMUL_BTST (u32 _data, u8 _bit)
 {
     return (_data & (1 << _bit)) != 0;
+}
+
+extern "C" void EMUL_SWAP(EMULregister * _reg)
+{
+    u32 h = _reg->l >> 16;
+    u32 l = _reg->w;
+
+    _reg->l = (l << 16) | h;
 }
 
 extern "C" void EMULlog(char* str)

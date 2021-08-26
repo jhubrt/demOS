@@ -1,7 +1,7 @@
 /*-----------------------------------------------------------------------------------------------
   The MIT License (MIT)
 
-  Copyright (c) 2015-2018 J.Hubert
+  Copyright (c) 2015-2021 J.Hubert
 
   Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
   and associated documentation files (the "Software"), 
@@ -43,6 +43,7 @@
 
 #define LOAD_FAT_STARTSECTOR                1
 #define LOAD_FAT_NBSECTORS                  2
+#define LOAD_MEDIAUSEDSIZE_SHIFT            4
 
 #define LOAD_SECTORSIZE	                    512UL
 

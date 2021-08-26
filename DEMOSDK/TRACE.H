@@ -1,7 +1,7 @@
 /*-----------------------------------------------------------------------------------------------
   The MIT License (MIT)
 
-  Copyright (c) 2015-2018 J.Hubert
+  Copyright (c) 2015-2021 J.Hubert
 
   Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
   and associated documentation files (the "Software"), 
@@ -21,15 +21,11 @@
 -------------------------------------------------------------------------------------------------*/
 
 
-/*! @brief @ref TRAC @file */
-
-/*! @defgroup  TRAC
-    
-    TRAC provides services to display traces.                                           <br>
-
-    It provides:                                                                        <br>
-    - a list of trace routines you can register. Then the user can 
-      activate / deactivate traces by pressing functions key.                           <br>
+/*  TRAC provides services for traces. It provides:
+    - basic logging features
+    - improved "bomb" crash screen
+    - advanced memory logging feature
+    - a list of trace routines you can register. Then the user can by pressing keys.                           
 */
 
 #ifndef TRACE_H
@@ -37,13 +33,25 @@
 
 #include "DEMOSDK\SYSTEM.H"
 
+#define TRAC_LOG_ALL        0xFFFFFFFFUL
+
+#define TRAC_LOG_MEMORY     0x00000001UL
+#define TRAC_LOG_FSM        0x00000002UL
+#define TRAC_LOG_FLOW       0x00000010UL
+#define TRAC_LOG_COMMANDS   0x40000000UL
+#define TRAC_LOG_SPECIFIC   0x80000000UL
+
+
+
 #ifdef DEMOS_DEBUG
     
-    STRUCT(TRAClogger)
+    struct TRAClogger_
     {
         u8* logbase;
         u32 logSize;
+        u32 filtermask;
     };
+    typedef struct TRAClogger_ TRAClogger;
 
 #   ifndef TRACE_C
     extern TRAClogger tracLogger;
@@ -52,7 +60,7 @@
     typedef u16 (*TRAC_DisplayCallback) (void* _image, u16 _pitch, u16 _planePitch, u16 _y);
 
     void TRACinit (char*);
-    void TRAClog (char* _str, char _separator);
+    void TRAClogOut (char* _str, char _separator);
     void TRAClogClear (void);
     void TRACsetVideoMode (u16 _pitch);
     void TRACregisterDisplayService (TRAC_DisplayCallback _callback, u16 _enableMask); 
@@ -62,15 +70,18 @@
     u16  TRACmaxraster (u16 maxraster);
     void TRACdisplayVBLcountAsColors(s16 _index);
 
-#   define TRAClogNumber(STR,NUM,NBCHARS) TRAClogNumberS(STR,NUM,NBCHARS,' ')
-#   define TRAClogNumberS(STR,NUM,NBCHARS,SEPARATOR) { static char trace[] = STR ":         "; STDuxtoa(&trace[sizeof(trace) - 9], (NUM), (NBCHARS)); TRAClog(trace, SEPARATOR); }
+#   define TRACselect(FILTER)                                   tracLogger.filtermask = (FILTER)
+#   define TRACisSelected(FILTER)                               ((FILTER) & tracLogger.filtermask)
+#   define TRAClog(FILTER, STR, SEPARATOR)                      while (TRACisSelected(FILTER)) { TRAClogOut(STR,SEPARATOR); break; }
+#   define TRAClogNumber(FILTER,STR,NUM,NBCHARS)                while (TRACisSelected(FILTER)) { static char trace[] = STR ":         "; STDuxtoa(&trace[sizeof(trace) - 9], (NUM), (NBCHARS)); TRAClogOut(trace, ' '      ); break; }
+#   define TRAClogNumberS(FILTER, STR,NUM,NBCHARS,SEPARATOR)    while (TRACisSelected(FILTER)) { static char trace[] = STR ":         "; STDuxtoa(&trace[sizeof(trace) - 9], (NUM), (NBCHARS)); TRAClogOut(trace, SEPARATOR); break; }
 
-#   define TRAClogNumber10(STR,NUM,NBCHARS) TRAClogNumber10S(STR,NUM,NBCHARS,' ')
-#   define TRAClogNumber10S(STR,NUM,NBCHARS,SEPARATOR) { static char trace[] = STR ":         "; STDstoa(&trace[sizeof(trace) - 9], (NUM), (NBCHARS)); TRAClog(trace, SEPARATOR); }
+#   define TRAClogNumber10(FILTER,STR,NUM,NBCHARS)              while (TRACisSelected(FILTER)) { static char trace[] = STR ":         "; STDstoa (&trace[sizeof(trace) - 9], (NUM), (NBCHARS)); TRAClogOut(trace, ' '      ); break; }
+#   define TRAClogNumber10S(FILTER,STR,NUM,NBCHARS,SEPARATOR)   while (TRACisSelected(FILTER)) { static char trace[] = STR ":         "; STDstoa (&trace[sizeof(trace) - 9], (NUM), (NBCHARS)); TRAClogOut(trace, SEPARATOR); break; }
 
-#   define TRAClogSourceLine() { static char trace[] = "\nExec line:        "; STDutoa(&trace[sizeof(trace) - 8], __LINE__, 6); TRAClog(trace, ' '); TRAClog(__FILE__, '\n'); }
+#   define TRAClogSourceLine(FILTER)                            while (TRACisSelected(FILTER)) { static char trace[] = "\nExec line:        "; STDutoa(&trace[sizeof(trace) - 8], __LINE__, 6); TRAClogOut(trace, ' '); TRAClogOut(__FILE__, '\n'); break; }
 
-#   define TRAClogFrameNum() TRAClogNumber10("frame",SYSvblcount,8)
+#   define TRAClogFrameNum(FILTER)                              TRAClogNumber10(FILTER,"frame",SYSvblcount,8)
     
 #	ifdef DEMOS_UNITTEST
 	void TRACunitTest (void* _screen);
@@ -83,19 +94,22 @@
 #else
 
 #   define TRACinit(FILENAME)
-#   define TRAClog(_str,_separator)
 #   define TRAClogClear()
 #   define TRACsetVideoMode(_pitch)
 #   define TRACregisterDisplayService(_callback, _enableMask)
 #	define TRACdisplay(_image)
 #	define TRACmanage(KEY) false
 
-#   define TRAClogNumber(STR,NUM,NBCHARS)
-#   define TRAClogNumberS(STR,NUM,NBCHARS,SEPARATOR)
-#   define TRAClogNumber10(STR,NUM,NBCHARS)
-#   define TRAClogNumber10S(STR,NUM,NBCHARS,SEPARATOR)
-#   define TRAClogSourceLine()
-#   define TRAClogFrameNum()
+#   define TRACselect(FILTER)
+#   define TRACisSelected(FILTER) false
+#   define TRAClog(FILTER,STR,SEPARATOR)
+#   define TRAClogNumber(FILTER,STR,NUM,NBCHARS)
+#   define TRAClogNumberS(FILTER,STR,NUM,NBCHARS,SEPARATOR)
+#   define TRAClogNumber10(FILTER,STR,NUM,NBCHARS)
+#   define TRAClogNumber10S(FILTER,STR,NUM,NBCHARS,SEPARATOR)
+#   define TRAClogSourceLine(FILTER)
+#   define TRAClogFrameNum(FILTER)
+
 #   define TRACdisplayVBLcountAsColors(A)
 
 #endif

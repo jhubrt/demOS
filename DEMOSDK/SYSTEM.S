@@ -1,7 +1,7 @@
 *-------------------------------------------------------------------------------------------------------
 * The MIT License (MIT)
 *
-* Copyright (c) 2015-2018 J.Hubert
+* Copyright (c) 2015-2021 J.Hubert
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
 * and associated documentation files (the "Software"), 
@@ -44,7 +44,6 @@
 
     ; imports
     xref    LOADdeconnectAndStartRequest,LOADtoggleDriveStartRequest
-    xref    SYSfontdata,SYSfontchars
 
 
 *-------------------------------------------------------------------------
@@ -191,23 +190,24 @@ SYSdetectEmu:
         rts
 
 ;-----------------------------------------------------------------------------------------
-; void SYSfastPrint (char* _s, void* _screenprintadr, u16 _screenPitch, u16 _bitplanPitch) 
+; void SYSfastPrint (char* _s, void* _screenprintadr, u16 _screenPitch, u16 _bitplanPitch, u32 _font) 
 ; a0 = string
 ; a1 = screendisplay
 ; d0 = screenpitch
 ; d1 = bitplanepitch
+; d2 = fontadr
 ;-----------------------------------------------------------------------------------------
 SYSfastPrint:
 
 	movem.l	a2-a4,-(sp)
+
+	move.l	d2,a2
 
     cmp.w   SYSfastPrintautomod+2(pc),d0
     beq.s   SYS_debugPrint_noautomod
 
     lea     SYSfastPrintautomod+2(pc),a4        ; check current automod state with current pitch
     lea     SYSfastPrintautomod2+2(pc),a3
-
-	move.w	d2,-(sp)
 
     move.w  d0,d2
     move.w  d2,(a4)
@@ -231,12 +231,9 @@ SYSfastPrint:
     move.w  d2,24(a4)
     move.w  d2,24(a3)
 
-	move.w	(sp)+,d2
-
 SYS_debugPrint_noautomod:
 
-	move.l	#SYSfontdata,a3		; lea	SYSfontdata(pc),a3 => use absolute to avoid overflow at link
-	move.l	#SYSfontchars,a2	; lea 	SYSfontchars(pc),a2
+	move.l	256(a2),a3
 
 	subq.w  #1,d1
 
@@ -329,7 +326,7 @@ SYSsetIdlethread:
 	move.l	a1,idlethreadcontext+8
 
 	move.l	(sp),-(a1)					; store the return address on the thread stack
-	move.w	sr,-(a1)						; store the sr state on the thread stack
+	move.w	sr,-(a1)					; store the sr state on the thread stack
 	moveq.l	#1,d0						; set the future return parameter
 	movem.l	d0-d7/a0-a6,-(a1)			; store the current registers state on the thread stack
 	move.l	a1,idlethreadcontext		; save the thread stack pointer

@@ -1,7 +1,7 @@
 /*-----------------------------------------------------------------------------------------------
   The MIT License (MIT)
 
-  Copyright (c) 2015-2018 J.Hubert
+  Copyright (c) 2015-2021 J.Hubert
 
   Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
   and associated documentation files (the "Software"), 
@@ -58,7 +58,8 @@ void* STDgetSP(void);
 void* STDgetUSP(void);
 void  STDsetUSP(void* _adr);
 u16   STDstrLen(char* _str);
- 
+void  STDstop2300(void);
+
 #ifdef DEMOS_UNITTEST
 void STD_unitTest (void);
 #endif

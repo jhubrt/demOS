@@ -1,7 +1,7 @@
 /*-----------------------------------------------------------------------------------------------
   The MIT License (MIT)
 
-  Copyright (c) 2015-2018 J.Hubert
+  Copyright (c) 2015-2021 J.Hubert
 
   Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
   and associated documentation files (the "Software"), 
@@ -186,7 +186,11 @@ void STDwrite(FILE* _file, void* _buf, u32 _size)
 static u32 seed1 = 0x12345678;
 static u32 seed2 = 0x87654321;
 
-u16 STDmfrnd()
+void STDstop2300(void)
+{
+}
+
+u16 STDmfrnd(void)
 {
 	u32 t = seed1;
     seed1 += seed2;
@@ -198,7 +202,7 @@ u16 STDmfrnd()
 static u32 seed3 = 0x12345678;
 static u32 seed4 = 0x87654321;
 
-u16 STDifrnd()
+u16 STDifrnd(void)
 {
 	u32 t = seed3;
     seed3 += seed4;

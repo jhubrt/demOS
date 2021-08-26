@@ -1,7 +1,7 @@
 /*-----------------------------------------------------------------------------------------------
   The MIT License (MIT)
 
-  Copyright (c) 2015-2018 J.Hubert
+  Copyright (c) 2015-2021 J.Hubert
 
   Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
   and associated documentation files (the "Software"), 
@@ -91,22 +91,21 @@ static void SCRfade2black (FSM* _fsm)
 
 /*----------------------------------------------*/
 
-FSMfunction statesPlay[] =
+FSMstate statesPlay[] =
 {
-	doNothing, 
-    PlayerActivity,
-    doNothing
+	FSM_STATE(doNothing), 
+    FSM_STATE(PlayerActivity),
+    FSM_STATE(doNothing)
 };
 
-FSMfunction statesIdle[] =
+FSMstate statesIdle[] =
 {
-    SCRswitch50hz, 
-    SCRfade2black, 
-    stepNext,
-    PlayerBacktask,
-    stepNext,
-    PlayerExit,
-    doNothing
+    FSM_STATE(SCRswitch50hz), 
+    FSM_STATE(SCRfade2black), 
+    FSM_STATE(stepNext),
+    FSM_STATE(PlayerBacktask),
+    FSM_STATE(PlayerExit),
+    FSM_STATE(doNothing)
 };
 
 u16 statesPlaySize = (u16) ARRAYSIZE(statesPlay);

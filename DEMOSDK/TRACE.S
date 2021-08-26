@@ -1,7 +1,7 @@
 *-------------------------------------------------------------------------------------------------------
 * The MIT License (MIT)
 *
-* Copyright (c) 2015-2018 J.Hubert
+* Copyright (c) 2015-2021 J.Hubert
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
 * and associated documentation files (the "Software"), 
@@ -27,7 +27,7 @@
     xdef    TRACmaxraster
     xdef    TRAC2bomb,TRAC3bomb,TRAC4bomb,TRAC5bomb,TRAC6bomb,TRAC7bomb,TRAC8bomb
 
-    xref    SYSfastPrint
+    xref    SYSfastPrint,SYSfont
 
 
 tracNBBOMBS:		set 72
@@ -121,9 +121,10 @@ TRACbomb:
     dbf.w   d5,.loop2
     clr.b   (a3)+
 
-    movem.l d0-d1/a0-a1,-(sp)
+    movem.l d0-d2/a0-a1,-(sp)
+    move.l  #SYSfont,d2
     bsr     SYSfastPrint
-    movem.l (sp)+,d0-d1/a0-a1
+    movem.l (sp)+,d0-d2/a0-a1
 
     lea     160*8(a1),a1
 
@@ -147,6 +148,7 @@ TRACbomb:
     move.w  #'BO',(a3)+
     move.w  #'MB',(a3)+
     move.w  #'S'*256,(a3)+
+    move.l  #SYSfont,d2
 
     bsr     SYSfastPrint
 

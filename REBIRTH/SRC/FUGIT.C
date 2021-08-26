@@ -1,7 +1,7 @@
 /*-----------------------------------------------------------------------------------------------
   The MIT License (MIT)
 
-  Copyright (c) 2015-2018 J.Hubert
+  Copyright (c) 2015-2021 J.Hubert
 
   Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
   and associated documentation files (the "Software"), 
@@ -41,7 +41,7 @@
 
 #include "EXTERN\ARJDEP.H"
 
-#include "REBIRTH\DISK2.H"
+#include "REBIRTH\REBIRTH2.H"
 
 
 #define FUG_FIRST_SCANLINE 50
@@ -143,9 +143,9 @@ static void FugitSetGradient(u16 c1, u16 c2, u16 g1, u16 g2)
 void FugitEntry (FSM* _fsm)
 {
     LOADrequest* loadRequest;
-    u32 fontoffsetsize = LOADmetadataSize         (&RSC_DISK2, RSC_DISK2_METADATA_FUGIT_FONTOFFS_BIN);
-    u32 fontsize       = LOADmetadataOriginalSize (&RSC_DISK2, RSC_DISK2_METADATA_FUGIT_FONT_ARJX );
-    u32 fontscansize   = LOADmetadataOriginalSize (&RSC_DISK2, RSC_DISK2_METADATA_FUGIT_FONTSCAN_ARJX);
+    u32 fontoffsetsize = LOADmetadataSize         (&RSC_REBIRTH2, RSC_REBIRTH2_METADATA_FUGIT_FONTOFFS_BIN);
+    u32 fontsize       = LOADmetadataOriginalSize (&RSC_REBIRTH2, RSC_REBIRTH2_METADATA_FUGIT_FONT_ARJX );
+    u32 fontscansize   = LOADmetadataOriginalSize (&RSC_REBIRTH2, RSC_REBIRTH2_METADATA_FUGIT_FONTSCAN_ARJX);
 
     
     IGNORE_PARAM(_fsm);
@@ -155,7 +155,7 @@ void FugitEntry (FSM* _fsm)
 
     g_screens.fugit->auxbuffer       = (u8*) RINGallocatorAlloc ( &sys.mem, 20000 );
 
-    loadRequest = LOADdata (&RSC_DISK2, RSC_DISK2_FUGIT__FONT_ARJX, g_screens.fugit->auxbuffer, LOAD_PRIORITY_INORDER);
+    loadRequest = LOADdata (&RSC_REBIRTH2, RSC_REBIRTH2_FUGIT_FONT_ARJX, g_screens.fugit->auxbuffer, LOAD_PRIORITY_INORDER);
     
     g_screens.fugit->deltapacked     = (u8*) RINGallocatorAlloc ( &sys.mem, 40000UL );
     g_screens.fugit->framebuffers[0] = (u8*) RINGallocatorAlloc ( &sys.mem, 32000UL * 2UL );
@@ -167,7 +167,7 @@ void FugitEntry (FSM* _fsm)
 
     g_screens.fugit->asmbuf          = (u8*) RINGallocatorAlloc ( &sys.mem, FUGbufsize );
 
-    ASSERT(LOADresourceRoundedSize(&RSC_DISK2, RSC_DISK2_FUGIT__FONT_ARJX) < 16000);
+    ASSERT(LOADresourceRoundedSize(&RSC_REBIRTH2, RSC_REBIRTH2_FUGIT_FONT_ARJX) < 16000);
 
     STDmset (g_screens.fugit->framebuffers[0], 0, 64000UL);
 
@@ -198,8 +198,8 @@ void FugitEntry (FSM* _fsm)
     LOADwaitRequestCompleted ( loadRequest );	
 
     ARJdepack(g_screens.fugit->font    , g_screens.fugit->auxbuffer);
-    ARJdepack(g_screens.fugit->fontscan, g_screens.fugit->auxbuffer + LOADmetadataOffset (&RSC_DISK2, RSC_DISK2_METADATA_FUGIT_FONTSCAN_ARJX));   
-    STDmcpy  (g_screens.fugit->fontoffset, g_screens.fugit->auxbuffer + LOADmetadataOffset (&RSC_DISK2, RSC_DISK2_METADATA_FUGIT_FONTOFFS_BIN), fontoffsetsize );
+    ARJdepack(g_screens.fugit->fontscan, g_screens.fugit->auxbuffer + LOADmetadataOffset (&RSC_REBIRTH2, RSC_REBIRTH2_METADATA_FUGIT_FONTSCAN_ARJX));   
+    STDmcpy  (g_screens.fugit->fontoffset, g_screens.fugit->auxbuffer + LOADmetadataOffset (&RSC_REBIRTH2, RSC_REBIRTH2_METADATA_FUGIT_FONTOFFS_BIN), fontoffsetsize );
 
     FUGsetData((u32) g_screens.fugit->fontoffset, (u32) g_screens.fugit->fontscan, (u32) g_screens.fugit->font, g_screens.fugit->asmbuf);
 

@@ -1,7 +1,7 @@
 /*-----------------------------------------------------------------------------------------------
   The MIT License (MIT)
 
-  Copyright (c) 2015-2018 J.Hubert
+  Copyright (c) 2015-2021 J.Hubert
 
   Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
   and associated documentation files (the "Software"), 
@@ -20,27 +20,19 @@
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 -------------------------------------------------------------------------------------------------*/
 
-/*! @brief @ref IMAGER @file */
-
-/*! @defgroup IMAGER
-
-  IMAGER is a tool that:
-  - creates the floppy disks image                                                          <br>
-  - generates H headers containing entries enums for your data                              <br>
-  - custom FAT sectors (2nd and 3rd sector of the disk) that maps exactly each entry        <br>
-  - LOG files listing FAT data in a human readable format                                   <br>
-  - strips .ARJ (mode 4) files (=> write shrinked .ARJX file)                               <br>
-  - consider .BOT file as bootsector program => strips its gemdos descriptor
-    and computes its checksum (delta to $1234) to make it executable                        <br>
+/* IMAGER is a tool that:
+    - creates the floppy disks image                                                          
+    - generates H headers containing entries enums for your data                              
+    - custom FAT sectors (2nd and 3rd sector of the disk) that maps exactly each entry        
+    - LOG files listing FAT data in a human readable format                                   
+    - strips .ARJ (mode 4) files (=> write shrinked .ARJX file)                               
+    - consider .BOT file as bootsector program => strips its gemdos descriptor
+      and computes its checksum (delta to $1234) to make it executable                        
 */
 
+#ifndef IMAGER_H
+#define IMAGER_H
 
-#ifndef IMAGER_CPP
-#define IMAGER_CPP
-
-#define _CRT_SECURE_NO_WARNINGS
-#include <assert.h>
-
-bool writeST (char* _filename, u16 _nbSectorsPerTrack, u16 _nbsides, u16 _nbtracks, char** _filesList, u16 _preferedUnit, bool _executableBootSector);
+bool writeST (const char* _sourcepath, const char* _imagepath, const char* _filename, u16 _nbSectorsPerTrack, u16 _nbsides, u16 _nbtracks, u16 _preferedUnit, bool _executableBootSector, const char** _filesList);
 
 #endif

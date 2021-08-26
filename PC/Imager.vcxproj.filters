@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Source Files\DEMOSDK">
+      <UniqueIdentifier>{91ea46fa-e9cb-4efb-982a-40110ee45874}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\DEMOSDK\PC">
+      <UniqueIdentifier>{55b803bc-6863-496e-809d-782f444f658f}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\TOOLS\IMAGER\IMAGER.CPP">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\PC\VISUALASRT.C">
+      <Filter>Source Files\DEMOSDK\PC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\PC\VISUALOG.CPP">
+      <Filter>Source Files\DEMOSDK\PC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\STANDARD.C">
+      <Filter>Source Files\DEMOSDK</Filter>
+    </ClCompile>
+    <ClCompile Include="..\TOOLS\IMAGER\SCRIPT.CPP">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\TOOLS\IMAGER\MAIN.CPP">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\TOOLS\IMAGER\IMAGER.H">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DEMOSDK\PC\VISUALOG.H">
+      <Filter>Source Files\DEMOSDK\PC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DEMOSDK\STANDARD.H">
+      <Filter>Source Files\DEMOSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="..\TOOLS\IMAGER\SCRIPT.H">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DEMOSDK\LOAD.H">
+      <Filter>Source Files\DEMOSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DEMOSDK\LOADDEFS.H">
+      <Filter>Source Files\DEMOSDK</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

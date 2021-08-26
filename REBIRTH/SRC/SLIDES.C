@@ -1,7 +1,7 @@
 /*-----------------------------------------------------------------------------------------------
   The MIT License (MIT)
 
-  Copyright (c) 2015-2018 J.Hubert
+  Copyright (c) 2015-2021 J.Hubert
 
   Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
   and associated documentation files (the "Software"), 
@@ -43,16 +43,16 @@
 
 #include "EXTERN\ARJDEP.H"
 
-#include "REBIRTH\DISK1.H"
-#include "REBIRTH\DISK2.H"
+#include "REBIRTH\REBIRTH1.H"
+#include "REBIRTH\REBIRTH2.H"
 
 
 static u8 SlidePhotoIndexes[] =
 {
-    RSC_DISK2_SLIDES__PHOTF_HC,
-    RSC_DISK2_SLIDES__PHOT5_HC,
-    RSC_DISK2_SLIDES__PHOT8_HC,
-    RSC_DISK2_SLIDES__PHOT6_HC
+    RSC_REBIRTH2_SLIDES_PHOTF_HC,
+    RSC_REBIRTH2_SLIDES_PHOT5_HC,
+    RSC_REBIRTH2_SLIDES_PHOT8_HC,
+    RSC_REBIRTH2_SLIDES_PHOT6_HC
 };
 
 void SLItc	          (void) PCSTUB;
@@ -299,7 +299,7 @@ static void SlidesDisplayArrow (u8* _p)
 
 void SlidesEntry (FSM* _fsm)
 {
-    u32 photoSize = LOADresourceRoundedSize(&RSC_DISK2, SlidePhotoIndexes[0]);
+    u32 photoSize = LOADresourceRoundedSize(&RSC_REBIRTH2, SlidePhotoIndexes[0]);
     LOADrequest* loadRequest;    
     LOADrequest* loadRequest2;
     u16 t;
@@ -333,10 +333,10 @@ void SlidesEntry (FSM* _fsm)
     g_screens.slides->startpos    = (u16*) RINGallocatorAlloc ( &sys.mem, SLI_MORPHPOINTS * sizeof(u16) * 2);
     g_screens.slides->endpos      = (u16*) RINGallocatorAlloc ( &sys.mem, SLI_MORPHPOINTS * sizeof(u16) * 2);
     g_screens.slides->pos         = (u16*) RINGallocatorAlloc ( &sys.mem, SLI_MORPHPOINTS * sizeof(u16) * 3);
-    g_screens.slides->points[0]   = (u16*) RINGallocatorAlloc ( &sys.mem, LOADresourceRoundedSize(&RSC_DISK2, RSC_DISK2_SLIDES__MASKS_PT) );
+    g_screens.slides->points[0]   = (u16*) RINGallocatorAlloc ( &sys.mem, LOADresourceRoundedSize(&RSC_REBIRTH2, RSC_REBIRTH2_SLIDES_MASKS_PT) );
 
-	loadRequest  = LOADdata (&RSC_DISK2, SlidePhotoIndexes[0], g_screens.slides->bitmaps[0], LOAD_PRIORITY_INORDER);
-    loadRequest2 = LOADdata (&RSC_DISK2, RSC_DISK2_SLIDES__MASKS_PT, g_screens.slides->points[0], LOAD_PRIORITY_INORDER);
+	loadRequest  = LOADdata (&RSC_REBIRTH2, SlidePhotoIndexes[0], g_screens.slides->bitmaps[0], LOAD_PRIORITY_INORDER);
+    loadRequest2 = LOADdata (&RSC_REBIRTH2, RSC_REBIRTH2_SLIDES_MASKS_PT, g_screens.slides->points[0], LOAD_PRIORITY_INORDER);
 
     SLIinitMorph (g_screens.slides->verttable, g_screens.slides->horitable, SLI_HEIGHT, SLI_WIDTH >> 1, SLI_WIDTH);
 
@@ -365,13 +365,13 @@ void SlidesEntry (FSM* _fsm)
 
         for (t = 1 ; t < ARRAYSIZE(SlidePhotoIndexes) ; t++)
         {
-            u8* p = ((u8*) g_screens.slides->points[0]) + LOADmetadataOffset (&RSC_DISK2, RSC_DISK2_METADATA_SLIDES_PHOTFMSK_PT + t);
+            u8* p = ((u8*) g_screens.slides->points[0]) + LOADmetadataOffset (&RSC_REBIRTH2, RSC_REBIRTH2_METADATA_SLIDES_PHOTFMSK_PT + t);
             g_screens.slides->points[t] = (u16*) p;
         }
 
         for (t = 0 ; t < ARRAYSIZE(SlidePhotoIndexes) ; t++)
         {
-            u8* p = ((u8*) g_screens.slides->points[0]) + LOADmetadataOffset ( &RSC_DISK2, RSC_DISK2_METADATA_SLIDES_PHOTFMSK_PT + t + ARRAYSIZE(SlidePhotoIndexes) );
+            u8* p = ((u8*) g_screens.slides->points[0]) + LOADmetadataOffset ( &RSC_REBIRTH2, RSC_REBIRTH2_METADATA_SLIDES_PHOTFMSK_PT + t + ARRAYSIZE(SlidePhotoIndexes) );
             g_screens.slides->pointspal[t+1] = (u16*) p;
         }
         
@@ -797,7 +797,7 @@ void SlidesBacktask (FSM* _fsm)
     u16 gradient[16];
     
 
-    loadRequest = LOADdata (&RSC_DISK2, SlidePhotoIndexes[currentpicture+1], g_screens.slides->bitmaps[!bitmapcurrent], LOAD_PRIORITY_INORDER);
+    loadRequest = LOADdata (&RSC_REBIRTH2, SlidePhotoIndexes[currentpicture+1], g_screens.slides->bitmaps[!bitmapcurrent], LOAD_PRIORITY_INORDER);
 
     SlideDeployPaletteFlipAndMask ((u16*) g_screens.slides->bitmaps[0], (u16*) g_screens.slides->palettes[2], SLI_HEIGHT);
 
@@ -987,7 +987,7 @@ void SlidesBacktask (FSM* _fsm)
         if ( currentpicture < ARRAYSIZE(SlidePhotoIndexes) ) 
         {
             /* here we have bitmap[bitmapcurrent] loaded => launch loading on bitmap[!bitmapcurrent] */
-            loadRequest = LOADdata (&RSC_DISK2, SlidePhotoIndexes[currentpicture + 1], palette, LOAD_PRIORITY_INORDER);
+            loadRequest = LOADdata (&RSC_REBIRTH2, SlidePhotoIndexes[currentpicture + 1], palette, LOAD_PRIORITY_INORDER);
         }
         else
         {

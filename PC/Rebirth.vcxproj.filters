@@ -121,12 +121,6 @@
     <ClCompile Include="..\REBIRTH\SRC\SNDTRACK.C">
       <Filter>SPECIFIC\SRC</Filter>
     </ClCompile>
-    <ClCompile Include="..\REBIRTH\DISK1.C">
-      <Filter>SPECIFIC\DISK</Filter>
-    </ClCompile>
-    <ClCompile Include="..\REBIRTH\DISK2.C">
-      <Filter>SPECIFIC\DISK</Filter>
-    </ClCompile>
     <ClCompile Include="..\DEMOSDK\PC\BITCONVR.C">
       <Filter>DEMOSDK\PC</Filter>
     </ClCompile>
@@ -153,6 +147,12 @@
     </ClCompile>
     <ClCompile Include="..\DEMOSDK\PC\VISUALASRT.C">
       <Filter>DEMOSDK\PC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\REBIRTH\REBIRTH1.C">
+      <Filter>SPECIFIC\DISK</Filter>
+    </ClCompile>
+    <ClCompile Include="..\REBIRTH\REBIRTH2.C">
+      <Filter>SPECIFIC\DISK</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -213,12 +213,6 @@
     <ClInclude Include="..\DEMOSDK\SOUND.H">
       <Filter>DEMOSDK</Filter>
     </ClInclude>
-    <ClInclude Include="..\REBIRTH\DISK1.H">
-      <Filter>SPECIFIC\DISK</Filter>
-    </ClInclude>
-    <ClInclude Include="..\REBIRTH\DISK2.H">
-      <Filter>SPECIFIC\DISK</Filter>
-    </ClInclude>
     <ClInclude Include="..\REBIRTH\SRC\SNDTRACK.H">
       <Filter>SPECIFIC\SRC</Filter>
     </ClInclude>
@@ -245,6 +239,12 @@
     </ClInclude>
     <ClInclude Include="..\REBIRTH\SRC\VISUALIZ.H">
       <Filter>SPECIFIC\SRC\VISUALIZER</Filter>
+    </ClInclude>
+    <ClInclude Include="..\REBIRTH\REBIRTH1.H">
+      <Filter>SPECIFIC\DISK</Filter>
+    </ClInclude>
+    <ClInclude Include="..\REBIRTH\REBIRTH2.H">
+      <Filter>SPECIFIC\DISK</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -299,12 +299,6 @@
     <None Include="..\REBIRTHB.PRJ">
       <Filter>SPECIFIC\PURE_C</Filter>
     </None>
-    <None Include="..\REBIRTH\DISK1.LOG">
-      <Filter>SPECIFIC\DISK</Filter>
-    </None>
-    <None Include="..\REBIRTH\DISK2.LOG">
-      <Filter>SPECIFIC\DISK</Filter>
-    </None>
     <None Include="..\SNDH\SNDH.S">
       <Filter>SPECIFIC\SNDH_VERSION</Filter>
     </None>
@@ -314,5 +308,19 @@
     <None Include="..\REBIRTH\SRC\SNDSHADE.S">
       <Filter>SPECIFIC\SRC\VISUALIZER</Filter>
     </None>
+    <None Include="..\REBIRTH\REBIRTH1.INI">
+      <Filter>SPECIFIC\DISK</Filter>
+    </None>
+    <None Include="..\REBIRTH\REBIRTH2.INI">
+      <Filter>SPECIFIC\DISK</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\REBIRTH\REBIRTH1.TXT">
+      <Filter>SPECIFIC\DISK</Filter>
+    </Text>
+    <Text Include="..\REBIRTH\REBIRTH2.TXT">
+      <Filter>SPECIFIC\DISK</Filter>
+    </Text>
   </ItemGroup>
 </Project>

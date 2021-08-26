@@ -1,7 +1,7 @@
 /*-----------------------------------------------------------------------------------------------
   The MIT License (MIT)
 
-  Copyright (c) 2015-2018 J.Hubert
+  Copyright (c) 2015-2021 J.Hubert
 
   Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
   and associated documentation files (the "Software"), 
@@ -93,37 +93,41 @@ EXTERN_C void    EMULlog               (char* str);
 #define EMULalignBuffer(BUFFER)	(u8*)((0x1000000 + (u32)(BUFFER)) & 0xFF000000)	/* align on 16 mb for emulation features */
 
 /* 68k port helpers */
-
-STRUCT(EMULregisterByte)
+struct EMULregisterByte_
 {
     u8 reg;
     u8 pad[3];
 };
+typedef struct EMULregisterByte_ EMULregisterByte;
 
-STRUCT(EMULregisterWord)
+struct EMULregisterWord_
 {
     u16 reg;
     u16 pad;
 };
+typedef struct EMULregisterWord_ EMULregisterWord;
 
-UNION(EMULregister)
+union EMULregister_
 {
     u32     l;
     u16     w;
     u8      b;
 };
+typedef union EMULregister_ EMULregister;
 
-STRUCT(EMUL68k)
+struct EMUL68k_
 {
     EMULregister a0,a1,a2,a3,a4,a5,a6,a7;
     EMULregister d0,d1,d2,d3,d4,d5,d6,d7;
 	bool carry;
 };
+typedef struct EMUL68k_ EMUL68k;
 
+void EMUL_SWAP  (EMULregister* _reg);
 u8*  EMUL_B_I   (EMULregister* _reg);
 u16* EMUL_W_I   (EMULregister* _reg);
 u32* EMUL_L_I   (EMULregister* _reg);
-void EMUL_ROR_W (EMULregister* _reg, u8 _shift);
+bool EMUL_ROR_W (EMULregister* _reg, u8 _shift);
 void EMUL_ROL_L (EMULregister* _reg, u8 _shift);
 void EMUL_LSL_L (EMULregister* _reg, u8 _shift);
 void EMUL_SUB_B (EMULregister* _source, EMULregister* _dest, EMUL68k* _p);

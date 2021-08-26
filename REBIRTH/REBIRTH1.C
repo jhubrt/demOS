@@ -1,17 +1,17 @@
 #include "DEMOSDK\BASTYPES.H"
 
-#define DISK1_C
+#define REBIRTH1_C
 
-#include "DISK1.H"
+#include "REBIRTH1.H"
 
-LOADdisk RSC_DISK1 = 
+LOADdisk RSC_REBIRTH1 = 
 {
-    NULL, RSC_DISK1_NBENTRIES,    /* FAT */
-    NULL, RSC_DISK1_NBMETADATA,   /* Meta data */
+    NULL, RSC_REBIRTH1_NBENTRIES, /* FAT */
+    NULL, RSC_REBIRTH1_NBMETADATA,/* Meta data */
     0,                            /* Prefered drive */
     NULL, 760UL * 1024UL,         /* Media preload */
     NULL,                         /* File preload table */
     "REBIRTH1.ST"                 /* Image filename */
 };
 
-#undef DISK1_C
+#undef REBIRTH1_C

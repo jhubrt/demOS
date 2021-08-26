@@ -1,7 +1,7 @@
 /*-----------------------------------------------------------------------------------------------
   The MIT License (MIT)
 
-  Copyright (c) 2015-2018 J.Hubert
+  Copyright (c) 2015-2021 J.Hubert
 
   Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
   and associated documentation files (the "Software"), 
@@ -41,7 +41,7 @@
 
 #include "EXTERN\ARJDEP.H"
 
-#include "REBIRTH\DISK1.H"
+#include "REBIRTH\REBIRTH1.H"
 
 #define SCREEN_WIDTH  320
 #define SCREEN_HEIGHT 200
@@ -51,25 +51,25 @@
 
 static u16 fileoffsets[] = 
 {
-	RSC_DISK1_METADATA_POLYZOOM_C_DAT,
-	RSC_DISK1_METADATA_POLYZOOM_Y_1_DAT,
-	RSC_DISK1_METADATA_POLYZOOM_Y_2_DAT,
-	RSC_DISK1_METADATA_POLYZOOM_B_1_DAT,
-	RSC_DISK1_METADATA_POLYZOOM_B_2_DAT,
-	RSC_DISK1_METADATA_POLYZOOM_E_1_DAT,
-	RSC_DISK1_METADATA_POLYZOOM_E_2_DAT,
-	RSC_DISK1_METADATA_POLYZOOM_R_1_DAT,
-	RSC_DISK1_METADATA_POLYZOOM_R_2_DAT,
-	RSC_DISK1_METADATA_POLYZOOM_N_DAT,
-	RSC_DISK1_METADATA_POLYZOOM_E_1_DAT,
-	RSC_DISK1_METADATA_POLYZOOM_E_2_DAT,
-	RSC_DISK1_METADATA_POLYZOOM_T_1_DAT,
-	RSC_DISK1_METADATA_POLYZOOM_T_2_DAT,
-	RSC_DISK1_METADATA_POLYZOOM_I_1_DAT,
-	RSC_DISK1_METADATA_POLYZOOM_I_2_DAT,
-	RSC_DISK1_METADATA_POLYZOOM_C_DAT,
-	RSC_DISK1_METADATA_POLYZOOM_S_1_DAT,
-	RSC_DISK1_METADATA_POLYZOOM_S_2_DAT
+	RSC_REBIRTH1_METADATA_POLYZOOM_C_DAT,
+	RSC_REBIRTH1_METADATA_POLYZOOM_Y_1_DAT,
+	RSC_REBIRTH1_METADATA_POLYZOOM_Y_2_DAT,
+	RSC_REBIRTH1_METADATA_POLYZOOM_B_1_DAT,
+	RSC_REBIRTH1_METADATA_POLYZOOM_B_2_DAT,
+	RSC_REBIRTH1_METADATA_POLYZOOM_E_1_DAT,
+	RSC_REBIRTH1_METADATA_POLYZOOM_E_2_DAT,
+	RSC_REBIRTH1_METADATA_POLYZOOM_R_1_DAT,
+	RSC_REBIRTH1_METADATA_POLYZOOM_R_2_DAT,
+	RSC_REBIRTH1_METADATA_POLYZOOM_N_DAT,
+	RSC_REBIRTH1_METADATA_POLYZOOM_E_1_DAT,
+	RSC_REBIRTH1_METADATA_POLYZOOM_E_2_DAT,
+	RSC_REBIRTH1_METADATA_POLYZOOM_T_1_DAT,
+	RSC_REBIRTH1_METADATA_POLYZOOM_T_2_DAT,
+	RSC_REBIRTH1_METADATA_POLYZOOM_I_1_DAT,
+	RSC_REBIRTH1_METADATA_POLYZOOM_I_2_DAT,
+	RSC_REBIRTH1_METADATA_POLYZOOM_C_DAT,
+	RSC_REBIRTH1_METADATA_POLYZOOM_S_1_DAT,
+	RSC_REBIRTH1_METADATA_POLYZOOM_S_2_DAT
 };
 
 u16* pzprecompute (u16* poly, s16 cs, s16 sn, u16 coef, s16 offsetx, s16 offsety, s16 centerx, s16 centery, u16* dlist);	/* ASM version lot faster (x5) */
@@ -77,7 +77,7 @@ u16* pzprecompute (u16* poly, s16 cs, s16 sn, u16 coef, s16 offsetx, s16 offsety
 void CybervectorEntry (FSM* _fsm)
 {
 	u16 polysDataMaxSize  = 690;
-	u16 polysDataTempSize = (u16) LOADresourceRoundedSize ( &RSC_DISK1, RSC_DISK1_POLYZOOM__CYBERVECTOR_BIN);
+	u16 polysDataTempSize = (u16) LOADresourceRoundedSize ( &RSC_REBIRTH1, RSC_REBIRTH1_POLYZOOM_CYBERVECTOR_BIN);
 	u32 polysDispListSize = 400UL * 1024UL;
 	u8* temp;
 	u16* pald;
@@ -124,8 +124,8 @@ void CybervectorEntry (FSM* _fsm)
 
 	temp = (u8*) RINGallocatorAlloc ( &sys.mem, polysDataTempSize );
 
-	loadRequest  = LOADdata (&RSC_DISK1, RSC_DISK1_POLYZOOM__CYBERVECTOR_BIN, temp, LOAD_PRIORITY_INORDER);
-	loadRequest2 = LOADdata (&RSC_DISK1, RSC_DISK1_POLYZOOM__SIN_BIN, g_screens.cybervector->sin, LOAD_PRIORITY_INORDER);
+	loadRequest  = LOADdata (&RSC_REBIRTH1, RSC_REBIRTH1_POLYZOOM_CYBERVECTOR_BIN, temp, LOAD_PRIORITY_INORDER);
+	loadRequest2 = LOADdata (&RSC_REBIRTH1, RSC_REBIRTH1_POLYZOOM_SIN_BIN, g_screens.cybervector->sin, LOAD_PRIORITY_INORDER);
 
     LOADwaitRequestCompleted ( loadRequest );	
 	
@@ -136,8 +136,8 @@ void CybervectorEntry (FSM* _fsm)
 		for ( i = 0 ; i < ARRAYSIZE(fileoffsets) ; i++ )
 		{
 			u16 rscOffsetId = fileoffsets[i];
-            u16 offset = (u16) LOADmetadataOffset (&RSC_DISK1, rscOffsetId);
-			u16 size   = (u16) LOADmetadataSize   (&RSC_DISK1, rscOffsetId);
+            u16 offset = (u16) LOADmetadataOffset (&RSC_REBIRTH1, rscOffsetId);
+			u16 size   = (u16) LOADmetadataSize   (&RSC_REBIRTH1, rscOffsetId);
 
 			*(void**)p = adr;
 			p += 3;
@@ -151,7 +151,7 @@ void CybervectorEntry (FSM* _fsm)
 		ASSERT( (adr - g_screens.cybervector->polygonsData) <= polysDataMaxSize );
 	}
 
-    pald = (u16*)(temp + LOADmetadataOffset (&RSC_DISK1, RSC_DISK1_METADATA_POLYZOOM_PAL1_PAL));
+    pald = (u16*)(temp + LOADmetadataOffset (&RSC_REBIRTH1, RSC_REBIRTH1_METADATA_POLYZOOM_PAL1_PAL));
 
 	for (i = 0 ; i < NBCOLORS ; i++)
 	{
@@ -768,16 +768,16 @@ void CybervectorBacktask (FSM* _fsm)
 	u16*	random;
 	u16		i, x, y, size;
     LOADrequest* loadRequest;
-    u16 logoSize = (u16) LOADmetadataOriginalSize(&RSC_DISK1, RSC_DISK1_METADATA_POLYZOOM__REBIRTH_ARJX);
+    u16 logoSize = (u16) LOADmetadataOriginalSize(&RSC_REBIRTH1, RSC_REBIRTH1_METADATA_POLYZOOM_REBIRTH_ARJX);
 
 
 	IGNORE_PARAM(_fsm);
 
-	packed = (u8*) RINGallocatorAlloc ( &sys.mem, LOADresourceRoundedSize(&RSC_DISK1, RSC_DISK1_POLYZOOM__REBIRTH_ARJX) );
+	packed = (u8*) RINGallocatorAlloc ( &sys.mem, LOADresourceRoundedSize(&RSC_REBIRTH1, RSC_REBIRTH1_POLYZOOM_REBIRTH_ARJX) );
     data   = (u8*) RINGallocatorAlloc ( &sys.mem, (logoSize / 3) * 4 );
 	random = (u16*) RINGallocatorAlloc  ( &sys.mem, GRIDMAXSIZE * sizeof(u16) * NBFRAMEBUFFERS );
 
-	loadRequest = LOADdata (&RSC_DISK1, RSC_DISK1_POLYZOOM__REBIRTH_ARJX, packed, LOAD_PRIORITY_INORDER);
+	loadRequest = LOADdata (&RSC_REBIRTH1, RSC_REBIRTH1_POLYZOOM_REBIRTH_ARJX, packed, LOAD_PRIORITY_INORDER);
 
     for (i = 1 ; i < 8 ; i++)
 	{

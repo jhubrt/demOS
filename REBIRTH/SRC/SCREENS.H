@@ -1,7 +1,7 @@
 /*-----------------------------------------------------------------------------------------------
   The MIT License (MIT)
 
-  Copyright (c) 2015-2018 J.Hubert
+  Copyright (c) 2015-2021 J.Hubert
 
   Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
   and associated documentation files (the "Software"), 
@@ -47,8 +47,8 @@ STRUCT(Screens)
 extern Screens      g_screens;
 extern FSM          g_stateMachine;
 extern FSM          g_stateMachineIdle;
-extern FSMfunction  states[];
-extern FSMfunction  statesIdle[];
+extern FSMstate     states[];
+extern FSMstate     statesIdle[];
 extern u16          statesSize;
 extern u16          statesIdleSize;
 #endif

@@ -1,7 +1,7 @@
 /*-----------------------------------------------------------------------------------------------
   The MIT License (MIT)
 
-  Copyright (c) 2015-2018 J.Hubert
+  Copyright (c) 2015-2021 J.Hubert
 
   Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
   and associated documentation files (the "Software"), 
@@ -21,9 +21,7 @@
 -------------------------------------------------------------------------------------------------*/
 
 
-/*! @brief @ref RING @file */
-
-/*! @defgroup  RING 
+/*! \defgroup RINGallocator
 
     RINGallocator implements a ring heap where you can allocate buffers of various sizes   <br>
     
@@ -41,7 +39,7 @@
 #ifndef ALLOC_H
 #define ALLOC_H
 
-STRUCT(RINGallocator)
+struct RINGallocator_
 {
 	u8*	buffer;
 	u32	size;
@@ -52,13 +50,15 @@ STRUCT(RINGallocator)
 	u8*	tail;
 	u8* last;
 };
+typedef struct RINGallocator_ RINGallocator;
 
-STRUCT(RINGallocatorFreeArea)
+struct RINGallocatorFreeArea_
 {
     u16 nbareas;
     u32 areasizes[2];
     u32 size;
 };
+typedef struct RINGallocatorFreeArea_ RINGallocatorFreeArea;
 
 void  RINGallocatorInit      (RINGallocator* _m, void* _buffer, u32 _size);
 void* RINGallocatorAlloc     (RINGallocator* _m, u32 _size);

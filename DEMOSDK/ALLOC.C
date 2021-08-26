@@ -1,7 +1,7 @@
 /*-----------------------------------------------------------------------------------------------
   The MIT License (MIT)
 
-  Copyright (c) 2015-2018 J.Hubert
+  Copyright (c) 2015-2021 J.Hubert
 
   Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
   and associated documentation files (the "Software"), 
@@ -33,6 +33,13 @@
 #	define RINGALLOCATOR_GUARD1		0x600D8EADUL
 #	define RINGALLOCATOR_GUARD2		0x600DF007UL
 #endif
+
+#if defined(DEMOS_OPTIMIZED) && defined(__TOS__)
+#	define RINGALLOCATOR_FAIL()	while(1) { *HW_COLOR_LUT = 0x300; *HW_COLOR_LUT = 0x700; } 
+#else
+#	define RINGALLOCATOR_FAIL()
+#endif
+
 
 STRUCT(AllocCell)
 {
@@ -80,19 +87,15 @@ void* RINGallocatorAlloc (RINGallocator* _m, u32 _size)
 
 	if ( _m->last == NULL )
 	{
-		if ( size <= _m->size )
-		{
-	        cell = (AllocCell*) _m->head;
-		    
-            cell->prev = cell->next = NULL;
-			
-            _m->tail += size;
-            _m->last = _m->head;
-		}
-		else
-		{
-			return NULL;
-		}
+		if ( size > _m->size )
+			goto Fail;
+
+        cell = (AllocCell*)_m->head;
+
+        cell->prev = cell->next = NULL;
+
+        _m->tail += size;
+        _m->last = _m->head;
 	}
 	else
 	{
@@ -118,19 +121,15 @@ void* RINGallocatorAlloc (RINGallocator* _m, u32 _size)
 			}
 			else
 			{
-				return NULL;
+				goto Fail;
 			}
 		}
 		else
 		{
-			if (( p + size ) <= _m->head )
-			{
-				p += size;
-			}
-			else
-			{
-				return NULL;
-			}
+			if (( p + size ) > _m->head )
+				goto Fail;
+			
+			p += size;
 		}
 
 		{
@@ -152,6 +151,10 @@ void* RINGallocatorAlloc (RINGallocator* _m, u32 _size)
 #	endif
 
 	return cell + 1;
+
+Fail:
+	RINGALLOCATOR_FAIL();
+	return NULL;
 }
 
 
@@ -163,19 +166,15 @@ void* RINGallocatorAllocTemp (RINGallocator* _m, u32 _size)
 
 	if ( _m->last == NULL )
 	{
-		if ( size <= _m->size )
-		{
-	        cell = (AllocCell*) _m->head;
+		if ( size > _m->size )
+			goto Fail;
+		
+		cell = (AllocCell*) _m->head;
 		    
-            cell->prev = cell->next = NULL;
-			
-            _m->tail += size;
-            _m->last = _m->head;
-		}
-		else
-		{
-			return NULL;
-		}
+        cell->prev = cell->next = NULL;
+
+        _m->tail += size;
+        _m->last = _m->head;
 	}
 	else
 	{
@@ -200,19 +199,15 @@ void* RINGallocatorAllocTemp (RINGallocator* _m, u32 _size)
 			}
 			else
 			{
-				return NULL;
+				goto Fail;
 			}
 		}
 		else
 		{
-            if (( _m->tail + size ) <= _m->head )
-			{
-				p -= size;
-			}
-			else
-			{
-				return NULL;
-			}
+            if (( _m->tail + size ) > _m->head )
+				goto Fail;
+			
+			p -= size;
 		}
 
 		{
@@ -234,6 +229,10 @@ void* RINGallocatorAllocTemp (RINGallocator* _m, u32 _size)
 #	endif
 
 	return cell + 1;
+
+Fail:
+	RINGALLOCATOR_FAIL();
+	return NULL;
 }
 
 

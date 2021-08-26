@@ -1,7 +1,7 @@
 /*-----------------------------------------------------------------------------------------------
   The MIT License (MIT)
 
-  Copyright (c) 2015-2018 J.Hubert
+  Copyright (c) 2015-2021 J.Hubert
 
   Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
   and associated documentation files (the "Software"), 
@@ -342,7 +342,7 @@ static void InterludeInitMorphPointsFromText(u16* _points, void* _printbuffer, I
         u16 dy = _message->texts[t].y - ybase;
 
         ASSERT( dy < (INTERLUD_MAX_H - 8) );
-        SYSfastPrint (_message->texts[t].text, ((u8*)_printbuffer) + (dy * 40) + _message->texts[t].col, 40, 2);
+        SYSfastPrint (_message->texts[t].text, ((u8*)_printbuffer) + (dy * 40) + _message->texts[t].col, 40, 2, (u32)&SYSfont);
     }
 
     {

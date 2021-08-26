@@ -1,7 +1,7 @@
 /*-----------------------------------------------------------------------------------------------
   The MIT License (MIT)
 
-  Copyright (c) 2015-2018 J.Hubert
+  Copyright (c) 2015-2021 J.Hubert
 
   Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
   and associated documentation files (the "Software"), 
@@ -21,39 +21,37 @@
 -------------------------------------------------------------------------------------------------*/
 
 
-/*! @brief @ref BIT @file */
-
-/*! @defgroup BIT
-   
-    provides services for bitmap management / conversion for data binarization tools      <br>
+/** \file   
+    BIT provides services for bitmap management / conversion for data binarization tools
 
     SURFACE implements the common structures representing a bitmap and its 
     associated color LUT in memory. Then surfaces can be used with load / save and convert 
     routines.
 */
 
-
 #ifndef SURFACE_H
 #define SURFACE_H 
 
 #define BIT_DEFAULT_PITCH 0xFFFF
 
-ENUM(BITlutFormat)
+enum BITlutFormat_
 {
     BITlutFormat_BnW,
 	BITlutFormat_STe,
 	BITlutFormat_444,
 	BITlutFormat_x888
 };
+typedef enum BITlutFormat_ BITlutFormat;
 
-UNION(BITlutPtr)
+union BITlutPtr_
 {
 	void*   p;
 	u16*	p16;
 	u32*	p32;
 };
+typedef union BITlutPtr_ BITlutPtr;
 
-STRUCT(BITlut)
+struct BITlut_
 {
     MEMallocator*   allocator;
 	BITlutFormat format;
@@ -61,6 +59,7 @@ STRUCT(BITlut)
 	u16		     size;
     bool         bufferowner;
 };
+typedef struct BITlut_ BITlut;
 
 #define BITlutConstruct(INSTANCE_PTR) DEFAULT_CONSTRUCT(INSTANCE_PTR)
 
@@ -70,7 +69,7 @@ void BITlutSet          (MEMallocator* _allocator, BITlut* _lut, BITlutFormat _f
 void BITlutSetExternal  (BITlut* _lut, BITlutFormat _format, void* _lutData, u16 _lutSize);
 void BITlutConvert      (MEMallocator* _allocator, BITlut* _source, BITlut* _dest, BITlutFormat _destFormat);
 
-ENUM(BITformat)
+enum BITformat_
 {
 	BITformat_Chunk4P,
 	BITformat_Chunk3P,
@@ -86,8 +85,9 @@ ENUM(BITformat)
     
     BITformat_NBMAX
 };
+typedef enum BITformat_ BITformat;
 
-STRUCT(BITsurface)
+struct BITsurface_
 {
 	u8*         buffer;
 	u16         width;
@@ -101,6 +101,7 @@ STRUCT(BITsurface)
 
     MEMallocator*  allocator;
 };
+typedef struct BITsurface_ BITsurface;
 
 #define BITsurfaceConstruct(INSTANCE_PTR) DEFAULT_CONSTRUCT(INSTANCE_PTR)
 

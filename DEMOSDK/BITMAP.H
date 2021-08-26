@@ -1,7 +1,7 @@
 /*-----------------------------------------------------------------------------------------------
   The MIT License (MIT)
 
-  Copyright (c) 2015-2018 J.Hubert
+  Copyright (c) 2015-2021 J.Hubert
 
   Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
   and associated documentation files (the "Software"), 
@@ -21,13 +21,9 @@
 -------------------------------------------------------------------------------------------------*/
 
 
-/*! @brief @ref BITMAP @file */
-
-/*! @defgroup  BITMAP 
-    
-    BITMAP implement optimized routine to unpack a picture from 4b by pixel to ST chunked planar 
-    4bits format.
-    Using 4bits pixels format achieves better compression ratio for storage 
+/*  BITMAP :
+    - Implements optimized routine to unpack a picture from 4b by pixel to ST chunked planar 4bits format.
+      Using 4bits pixels format achieves better compression ratio for storage 
 */
 
 #ifndef BITMAP_H

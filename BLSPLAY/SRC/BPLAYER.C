@@ -1,7 +1,7 @@
 /*-----------------------------------------------------------------------------------------------
   The MIT License (MIT)
 
-  Copyright (c) 2015-2018 J.Hubert
+  Copyright (c) 2015-2021 J.Hubert
 
   Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
   and associated documentation files (the "Software"), 
@@ -21,6 +21,7 @@
 -------------------------------------------------------------------------------------------------*/
 
 #include "DEMOSDK\BASTYPES.H"
+
 #include "DEMOSDK\FSM.H"
 #include "DEMOSDK\SYSTEM.H"
 #include "DEMOSDK\STANDARD.H"
@@ -176,8 +177,8 @@ void PlayerEntry (void)
                 STDmset(framebuffer + 32008, 0xFFFFFFFFUL, 120);
 
                 STDuxtoa(temp, t*5, 2);
-                SYSfastPrint (temp, framebuffer, 160, 4);
-                SYSfastPrint (temp, framebuffer + 32000, 160, 4);
+                SYSfastPrint (temp, framebuffer, 160, 4, (u32)&SYSfont);
+                SYSfastPrint (temp, framebuffer + 32000, 160, 4, (u32)&SYSfont);
             }
         }
 #       else

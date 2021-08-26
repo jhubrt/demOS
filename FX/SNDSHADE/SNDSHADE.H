@@ -1,7 +1,7 @@
 /*-----------------------------------------------------------------------------------------------
   The MIT License (MIT)
 
-  Copyright (c) 2015-2018 J.Hubert
+  Copyright (c) 2015-2021 J.Hubert
 
   Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
   and associated documentation files (the "Software"), 
@@ -21,6 +21,7 @@
 -------------------------------------------------------------------------------------------------*/
 
 #ifndef SNDSHADE_H
+#define SNDSHADE_H
 
 #define VIS_WIDTH 48
 

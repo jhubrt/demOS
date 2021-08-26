@@ -1,7 +1,7 @@
 /*-----------------------------------------------------------------------------------------------
   The MIT License (MIT)
 
-  Copyright (c) 2015-2018 J.Hubert
+  Copyright (c) 2015-2021 J.Hubert
 
   Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
   and associated documentation files (the "Software"), 
@@ -35,8 +35,8 @@
 #include "DEMOSDK\COLORS.H"
 #include "DEMOSDK\SOUND.H"
 
-#include "REBIRTH\DISK1.H"
-#include "REBIRTH\DISK2.H"
+#include "REBIRTH\REBIRTH1.H"
+#include "REBIRTH\REBIRTH2.H"
 
 
 #define DISK2_BOOT_CHECKSUM_DIFF 0x7d25
@@ -264,108 +264,108 @@ FSMstate states[] =
 
 /* WHOLE DEMO -------------------------------------------*/
 
-FSMfunction states[] =
+FSMstate states[] =
 {
-	doNothing, 
-    SCRswitch60hz, 
-    SCRswitch4P, 
-	CybervectorActivity, 
-	stepNext, 
-
-	doNothing, 
-    SCRswitch50hz, 
-    SCRswitch2P, 
-	VisualizerActivity, 
-    stepNext, 
+	FSM_STATE(doNothing), 
+    FSM_STATE(SCRswitch60hz), 
+    FSM_STATE(SCRswitch4P), 
+	FSM_STATE(CybervectorActivity), 
+	FSM_STATE(stepNext), 
     
-	doNothing, 
-    SCRswitch50hz, 
-    SCRswitch4P, 
-	InterludeActivity, 
-    stepNext, 
-
-	doNothing, 
-    SCRswitch50hz, 
-    SCRswitch2P, 
-	VisualizerActivity, 
-    stepNext, 
-
-	doNothing, 
-    SCRswitch50hz, 
-    SCRswitch4P, 
-	InterludeActivity, 
-    stepNext, 
-
-	doNothing, 
-    SCRswitch50hz, 
-    SCRswitch2P, 
-	VisualizerActivity, 
-    stepNext, 
-
-    doNothing, 
-    SCRswitch4P, 
-    SCRswitch336, 
-    SlidesInitActivity, 
-	SlidesActivity, 
-	stepNext, 
-
-	doNothing, 
-    SCRswitch320, 
-    SCRswitch2P, 
-	VisualizerActivity, 
-    stepNext, 
+	FSM_STATE(doNothing), 
+    FSM_STATE(SCRswitch50hz), 
+    FSM_STATE(SCRswitch2P), 
+	FSM_STATE(VisualizerActivity), 
+    FSM_STATE(stepNext), 
     
-    doNothing, 
-    SCRswitch320, 
-    SCRswitch2P, 
-	FugitActivity, 
-    stepNext, 
-
-	doNothing
+	FSM_STATE(doNothing), 
+    FSM_STATE(SCRswitch50hz), 
+    FSM_STATE(SCRswitch4P), 
+	FSM_STATE(InterludeActivity), 
+    FSM_STATE(stepNext), 
+    
+	FSM_STATE(doNothing), 
+    FSM_STATE(SCRswitch50hz), 
+    FSM_STATE(SCRswitch2P), 
+	FSM_STATE(VisualizerActivity), 
+    FSM_STATE(stepNext), 
+    
+	FSM_STATE(doNothing), 
+    FSM_STATE(SCRswitch50hz), 
+    FSM_STATE(SCRswitch4P), 
+	FSM_STATE(InterludeActivity), 
+    FSM_STATE(stepNext), 
+    
+	FSM_STATE(doNothing), 
+    FSM_STATE(SCRswitch50hz), 
+    FSM_STATE(SCRswitch2P), 
+	FSM_STATE(VisualizerActivity), 
+    FSM_STATE(stepNext), 
+    
+    FSM_STATE(doNothing), 
+    FSM_STATE(SCRswitch4P), 
+    FSM_STATE(SCRswitch336), 
+    FSM_STATE(SlidesInitActivity), 
+	FSM_STATE(SlidesActivity), 
+	FSM_STATE(stepNext), 
+    
+	FSM_STATE(doNothing), 
+    FSM_STATE(SCRswitch320), 
+    FSM_STATE(SCRswitch2P), 
+	FSM_STATE(VisualizerActivity), 
+    FSM_STATE(stepNext), 
+    
+    FSM_STATE(doNothing), 
+    FSM_STATE(SCRswitch320), 
+    FSM_STATE(SCRswitch2P), 
+	FSM_STATE(FugitActivity), 
+    FSM_STATE(stepNext), 
+    
+	FSM_STATE(doNothing)
 };
 
 
-FSMfunction statesIdle[] =
+FSMstate statesIdle[] =
 {
-    SCRfade2black, 
+    FSM_STATE(SCRfade2black), 
 
-    CybervectorEntry, 
-	CybervectorBacktask, 
-	CybervectorExit, 
-
-    VisualizerEntry, 
-    VisualizerEntryFast, 
-	VisualizerBacktask, 
+    FSM_STATE(CybervectorEntry), 
+	FSM_STATE(CybervectorBacktask), 
+	FSM_STATE(CybervectorExit), 
+    
+    FSM_STATE(VisualizerEntry), 
+    FSM_STATE(VisualizerEntryFast), 
+	FSM_STATE(VisualizerBacktask), 
 	
-    InterludeEntry, 
-	InterludeBacktask, 
-	InterludeExit, 
-
-    VisualizerEntryFast, 
-	VisualizerBacktask, 
-
-    InterludeEntry, 
-	InterludeBacktask, 
-	InterludeExit, 
-
-    VisualizerEntryFast, 
-	VisualizerBacktask, 
-	VisualizerExit, 
-
-    SlidesEntry, 
-	SlidesBacktask, 
-	SlidesExit, 
-
-	VisualizerEntry, 
-    VisualizerEntryFast, 
-	VisualizerBacktask, 
-	VisualizerExit, 
-
-    FugitEntry, 
-	FugitBacktask, 
-	FugitExit, 
+    FSM_STATE(InterludeEntry), 
+	FSM_STATE(InterludeBacktask), 
+	FSM_STATE(InterludeExit), 
+    
+    FSM_STATE(VisualizerEntryFast), 
+	FSM_STATE(VisualizerBacktask), 
+    
+    FSM_STATE(InterludeEntry), 
+	FSM_STATE(InterludeBacktask), 
+	FSM_STATE(InterludeExit), 
+    
+    FSM_STATE(VisualizerEntryFast), 
+	FSM_STATE(VisualizerBacktask), 
+	FSM_STATE(VisualizerExit), 
+    
+    FSM_STATE(SlidesEntry), 
+	FSM_STATE(SlidesBacktask), 
+	FSM_STATE(SlidesExit), 
+    
+	FSM_STATE(VisualizerEntry), 
+    FSM_STATE(VisualizerEntryFast), 
+	FSM_STATE(VisualizerBacktask), 
+	FSM_STATE(VisualizerExit), 
+    
+    FSM_STATE(FugitEntry), 
+	FSM_STATE(FugitBacktask), 
+	FSM_STATE(FugitExit), 
 	
-    doNothing
+    FSM_STATE(doNothing)
 };
 
 u16 statesSize     = (u16) ARRAYSIZE(states);
@@ -374,7 +374,7 @@ u16 statesIdleSize = (u16) ARRAYSIZE(statesIdle);
 
 void ScreenWaitMainDonothing (void)
 {
-    while (g_stateMachine.states[FSMgetCurrentState(&g_stateMachine)] != doNothing);
+    while (g_stateMachine.states[FSMgetCurrentState(&g_stateMachine)].func != doNothing);
 }
 
 
@@ -385,10 +385,10 @@ void PreloadDisplay (u16 _preloadResourceIndex, LOADrequest* _request, void* _cl
     static char line[] = "preloading    -      ";
 
 
-    STDuxtoa(&line[11], RSC_DISK1_NBENTRIES - RSC_DISK1_POLYZOOM__CYBERVECTOR_BIN - _preloadResourceIndex - 1, 2);
+    STDuxtoa(&line[11], RSC_REBIRTH1_NBENTRIES - RSC_REBIRTH1_POLYZOOM_CYBERVECTOR_BIN - _preloadResourceIndex - 1, 2);
     STDuxtoa(&line[16], _request->nbsectors, 4);
     
-    SYSfastPrint (line, _clientData, 160, 4);
+    SYSfastPrint (line, _clientData, 160, 4, (u32)&SYSfont);
 }
 
 
@@ -402,7 +402,7 @@ void ScreensInit (void* _preload, u32 _preloadsize)
 #   ifndef DEMOS_LOAD_FROMHD
     if ( _preload != NULL )
     {
-        u8 disk1Preload[RSC_DISK1_NBENTRIES - RSC_DISK1_POLYZOOM__CYBERVECTOR_BIN];
+        u8 disk1Preload[RSC_REBIRTH1_NBENTRIES - RSC_REBIRTH1_POLYZOOM_CYBERVECTOR_BIN];
         u8 t, i = 0;
         
         void* current = _preload;
@@ -414,20 +414,20 @@ void ScreensInit (void* _preload, u32 _preloadsize)
         SYSwriteVideoBase ((u32)screen);
         SYSvsync;
 
-        for (t = RSC_DISK1_POLYZOOM__CYBERVECTOR_BIN ; t < RSC_DISK1_NBENTRIES ; t++)
+        for (t = RSC_REBIRTH1_POLYZOOM_CYBERVECTOR_BIN ; t < RSC_REBIRTH1_NBENTRIES ; t++)
         {
             disk1Preload[i++] = t;
         }
 
         STDmset (diplayarea, 0, (200 - SCREEN_PRELOAD_H) * 160);
-        SYSfastPrint ("only 1 drive but extra memory...", diplayarea, 160, 4);
+        SYSfastPrint ("only 1 drive but extra memory...", diplayarea, 160, 4, (u32)&SYSfont);
 
-        current = LOADpreload (_preload, _preloadsize, current, &RSC_DISK1, disk1Preload, ARRAYSIZE(disk1Preload), PreloadDisplay, &diplayarea[160*10]);
+        current = LOADpreload (_preload, _preloadsize, current, &RSC_REBIRTH1, disk1Preload, ARRAYSIZE(disk1Preload), PreloadDisplay, &diplayarea[160*10]);
 
         {
             bool goon = true;
 
-            SYSfastPrint ("insert disk 2 and press space...", &diplayarea[160*20], 160, 4);
+            SYSfastPrint ("insert disk 2 and press space...", &diplayarea[160*20], 160, 4, (u32)&SYSfont);
 
             do 
             {
@@ -444,7 +444,7 @@ void ScreensInit (void* _preload, u32 _preloadsize)
                 }
                 while (goon);
 
-                request = LOADrequestLoad (&RSC_DISK1, 0, current, LOAD_PRIORITY_INORDER);  /* force sector 0 load */
+                request = LOADrequestLoad (&RSC_REBIRTH1, 0, current, LOAD_PRIORITY_INORDER);  /* force sector 0 load */
                 LOADwaitRequestCompleted (request);
                 LOADfreeRequest (request);
 
@@ -452,21 +452,21 @@ void ScreensInit (void* _preload, u32 _preloadsize)
             } 
             while (goon);
 
-            LOADinitFAT (0, &RSC_DISK2, RSC_DISK2_NBENTRIES, RSC_DISK2_NBMETADATA);
+            LOADinitFAT (0, &RSC_REBIRTH2, RSC_REBIRTH2_NBENTRIES, RSC_REBIRTH2_NBMETADATA);
 
             {
                 static u8 disk2Preload[] = 
                 {
-                    RSC_DISK2_ZIK__7569902_RAW,  
-                    RSC_DISK2_ZIK__12465342_RAW, 
-                    RSC_DISK2_ZIK__14245502_RAW, 
-                    RSC_DISK2_ZIK__14646038_RAW, 
-                    RSC_DISK1_VISUALIZ__PAL_BIN,
-                    RSC_DISK2_SLIDES__MASKS_PT, 
-                    RSC_DISK2_FUGIT__FONT_ARJX 
+                    RSC_REBIRTH2_ZIK_7569902_RAW,  
+                    RSC_REBIRTH2_ZIK_12465342_RAW, 
+                    RSC_REBIRTH2_ZIK_14245502_RAW, 
+                    RSC_REBIRTH2_ZIK_14646038_RAW, 
+                    RSC_REBIRTH1_VISUALIZ_PAL_BIN,
+                    RSC_REBIRTH2_SLIDES_MASKS_PT, 
+                    RSC_REBIRTH2_FUGIT_FONT_ARJX 
                 };
 
-                LOADpreload (_preload, _preloadsize, current, &RSC_DISK2, disk2Preload, ARRAYSIZE(disk2Preload), PreloadDisplay, &diplayarea[160*10]);
+                LOADpreload (_preload, _preloadsize, current, &RSC_REBIRTH2, disk2Preload, ARRAYSIZE(disk2Preload), PreloadDisplay, &diplayarea[160*10]);
             }
         }
 
@@ -506,8 +506,8 @@ void SYScheckHWRequirements (void)
 
         STDmset (&HW_COLOR_LUT[1], 0xFFFFFFFFUL, 30);
 
-        SYSfastPrint ("Hardware requirements:" , frameBuffer, 160, 8);
-        SYSfastPrint ("STe - 1mb + 2 drives or at least 2mb", &frameBuffer[160 * 8], 160, 8);
+        SYSfastPrint ("Hardware requirements:" , frameBuffer, 160, 8, (u32)&SYSfont);
+        SYSfastPrint ("STe - 1mb + 2 drives or at least 2mb", &frameBuffer[160 * 8], 160, 8, (u32)&SYSfont);
 
         while(1)
         {

@@ -1,7 +1,7 @@
 /*-----------------------------------------------------------------------------------------------
   The MIT License (MIT)
 
-  Copyright (c) 2015-2018 J.Hubert
+  Copyright (c) 2015-2021 J.Hubert
 
   Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
   and associated documentation files (the "Software"), 
@@ -21,34 +21,28 @@
 -------------------------------------------------------------------------------------------------*/
 
 
-/*! @brief @ref SYS @file */
-
-/*! @defgroup  SYS
-    
-    Implements DemOS core system services.                                                  <br>
+/*  Implements DemOS core system services.                                          
         
-    System provides:                                                                        <br>
-    - interrupt backup / setup / restore system                                             <br>
-    - standardized VBL routine                                                              <br>
-    - 2 ring buffers:                                                                       <br>
-        - one for core system (never freed)                                                 <br>
-        - another for transient demo screens data                                           <br>            
+    System provides:                                                                
+    - interrupt backup / setup / restore system                                     
+    - standardized VBL routine                                                      
+    - 2 ring buffers:                                                               
+        - one for core system (never freed)                                         
+        - another for transient demo screens data                                            
     - a bi-threaded system, mixed between cooperative (main => idle thread) 
-      and preemptive (idle thread => main)                                                  <br>
-        - one main thread: task executed here should be sliced by frame / 
-          synchronized with VBL                                                             <br>
-          At the end of main thread, main loop yield to idle thread background task 
-          with a call to SYSswitchIdle                                                      <br>
+      and preemptive (idle thread => main)                                          
+        - one main thread: task executed here should be sliced by frame / synchronized with VBL                                                     
+          At the end of main thread, main loop yield to idle thread background task with a call to SYSswitchIdle                                              
         - idle thread: executes a background task not synchronized with the VBL. 
-          The task is restored in its last state then it is interrupted by VBL              
-          rescheduling the main thread                                                      <br>
-        - some simple synchronization primitives                                            <br>
+          The task is restored in its last state then it is interrupted by VBL rescheduling the main thread                                              
+        - some simple synchronization primitives                             
 */
 
 #ifndef SYSTEM_H
 #define SYSTEM_H
 
 #include "DEMOSDK\ALLOC.H"
+#include "DEMOSDK\DATA\SYSTFNT.H"
 
 #define SYS_NBMAX_VBLROUTINES 5
 
@@ -63,7 +57,7 @@ enum SYSemulator_
 };
 typedef enum SYSemulator_ SYSemulator;
 
-STRUCT(SYScore)
+struct SYScore_
 {
     /* should be set into main start */
 	void*			bakGemdos32;
@@ -72,6 +66,10 @@ STRUCT(SYScore)
     u32             coreHeapsize;
     u8*             mainHeapbase;
     u32             mainHeapsize;
+
+#   ifndef DEMOS_USES_BOOTSECTOR
+    MEMallocator	allocatorStandard;
+#	endif
 
     /* init after */
 	RINGallocator	coremem;
@@ -99,22 +97,20 @@ STRUCT(SYScore)
 	MEMallocator	allocatorCoreMem;
 	MEMallocator	allocatorMem;
 
-#   if !defined(DEMOS_OPTIMIZED) && !defined(DEMOS_USES_BOOTSECTOR)	
-	MEMallocator	allocatorStandard;
-#	endif
-
 #	ifndef __TOS__
 	u32				memoryMapHigh;
 #	endif
 };
+typedef struct SYScore_ SYScore;
 
 typedef void (*SYSthread)(void);
 
-STRUCT(SYSinitThreadParam)
+struct SYSinitThreadParam_
 {
     SYSthread       idleThread;
     u16             idleThreadStackSize;
 };
+typedef struct SYSinitThreadParam_ SYSinitThreadParam;
 
 #ifndef SYSTEM_C
 	extern SYScore      sys;
@@ -122,6 +118,10 @@ STRUCT(SYSinitThreadParam)
 #   ifdef DEMOS_DEBUG
     extern u16	        SYSbeginFrameNum;
 #   endif
+#endif
+
+#ifndef DEMOS_USES_BOOTSECTOR
+void SYSinitStdAllocator    (void);
 #endif
 
 void SYSinit		        (void);
@@ -160,7 +160,7 @@ u32  SYSlmovep          (void* _adr);
 void SYSkbReset(void);
 void SYSemptyKb(void);
 
-void SYSfastPrint(char* _s, void* _screenprintadr, u16 _screenPitch, u16 _bitplanPitch);
+void SYSfastPrint(char* _s, void* _screenprintadr, u16 _screenPitch, u16 _bitplanPitch, u32 _fontadr);
 
 #define SYS_1P_BITSHIFT     1
 #define SYS_2P_BITSHIFT     2
@@ -169,7 +169,7 @@ void SYSfastPrint(char* _s, void* _screenprintadr, u16 _screenPitch, u16 _bitpla
 #ifdef DEMOS_DEBUG
 u16  SYStraceFPS        (void* _image, u16 _pitch, u16 _planePitch, u16 _y);
 u16  SYStraceAllocators (void* _image, u16 _pitch, u16 _planePitch, u16 _y);
-u16	 SYStraceHW		 (void* _image, u16 _pitch, u16 _planePitch, u16 _y);
+u16	 SYStraceHW		    (void* _image, u16 _pitch, u16 _planePitch, u16 _y);
 
 void SYSdebugPrint      (void* _screen, u16 _screenPitch, u16 _bitplanPitchShift, u16 _col, u16 _y, char* _s);
 #else

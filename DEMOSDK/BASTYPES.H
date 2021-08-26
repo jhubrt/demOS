@@ -1,7 +1,7 @@
 /*-----------------------------------------------------------------------------------------------
   The MIT License (MIT)
 
-  Copyright (c) 2015-2018 J.Hubert
+  Copyright (c) 2015-2021 J.Hubert
 
   Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
   and associated documentation files (the "Software"), 
@@ -113,6 +113,8 @@ typedef u8 bool;
 #	define NULL ((void*)0)
 #endif
 
+#define BAS_SWAP(TYPE,A,B) { TYPE tmp = A; A = B; B = tmp; }
+
 #define U16_SIZEOF_SHIFT 1
 #define U32_SIZEOF_SHIFT 2
 
@@ -145,13 +147,14 @@ typedef u8 bool;
 typedef void* (*MEMallocFunc)(void* _allocator, u32 _size);
 typedef void  (*MEMfreeFunc)(void* _allocator, void* _adr);
 
-STRUCT(MEMallocator)
+struct MEMallocator_
 {
 	void* allocator;
 	MEMallocFunc alloc;
     MEMallocFunc alloctemp;
 	MEMfreeFunc  free;
 };
+typedef struct MEMallocator_ MEMallocator;
 
 #if DEMOS_MEMDEBUG
 

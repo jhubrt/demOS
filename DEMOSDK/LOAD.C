@@ -1,7 +1,7 @@
 /*-----------------------------------------------------------------------------------------------
   The MIT License (MIT)
 
-  Copyright (c) 2015-2018 J.Hubert
+  Copyright (c) 2015-2021 J.Hubert
 
   Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
   and associated documentation files (the "Software"), 
@@ -50,6 +50,7 @@ void LOADidle(void);
 #endif
 
 
+#ifndef DEMOS_LOAD_FROMHD
 void LOADinit (LOADdisk* _firstmedia, u16 _nbEntries, u16 _nbMetaData)
 {
     if (sys.invertDrive)
@@ -63,93 +64,92 @@ void LOADinit (LOADdisk* _firstmedia, u16 _nbEntries, u16 _nbMetaData)
 
     LOADinitFAT (0, _firstmedia, _nbEntries, _nbMetaData);
 }
-
-
-#ifdef DEMOS_LOAD_FROMHD
-void LOADpreloadMedia (LOADdisk* _media)
-{
-    FILE* file = fopen(_media->filename, "rb");
-    u32 result;
-    u32 size = _media->mediapreloadsize - LOAD_SECTORSIZE; /* skip bootsector */
-
-
-    ASSERT(file != NULL);
-  
-    _media->mediapreload = malloc(size);
-    ASSERT(_media->mediapreload != NULL);
-
-    fseek(file, LOAD_SECTORSIZE, SEEK_SET); /* skip bootsector */
-    result = fread (_media->mediapreload, 1, size, file);
-    ASSERT(result == size);
-
-    fclose(file);
-}
 #endif
 
-
-void LOADinitFAT (u8 _drive, LOADdisk* _media, u16 _nbEntries, u16 _nbMetaData)
+static void loadReadFAT (MEMallocator* _allocator, u16* _readbuffer, LOADdisk* _media, u16 _nbEntries, u16 _nbMetaData)
 {
-    u16* temp;
-    
-#   ifdef DEMOS_LOAD_FROMHD
-    temp = (u16*) _media->mediapreload;
-#   else
-    temp = (u16*) RINGallocatorAlloc (&sys.mem, LOAD_SECTORSIZE * LOAD_FAT_NBSECTORS);
+    _media->nbEntries        = PCENDIANSWAP16(_readbuffer[0]);
+    _media->nbMetaData       = PCENDIANSWAP16(_readbuffer[1]);
 
-    _drive = sys.has2Drives & (_drive != sys.invertDrive);
-
-    {
-        LOADrequest* loadRequest = LOADpush (temp, LOAD_FAT_STARTSECTOR + 1, ((u32)_drive << 17), ((u32)LOAD_PRIOTITY_HIGH << 16) | LOAD_FAT_NBSECTORS);
-        LOADwaitRequestCompleted (loadRequest);
-    }
-#   endif
-
-    _media->nbEntries  = PCENDIANSWAP16(temp[0]);
-    _media->nbMetaData = PCENDIANSWAP16(temp[1]);
-
-    ASSERT(_media->nbEntries == _nbEntries);
+    ASSERT(_media->nbEntries  == _nbEntries);
     ASSERT(_media->nbMetaData == _nbMetaData);
 
+    _media->mediapreloadsize = PCENDIANSWAP16(_readbuffer[2]);
+    _media->mediapreloadsize <<= LOAD_MEDIAUSEDSIZE_SHIFT;
+    _media->mediapreloadsize -= LOAD_SECTORSIZE * (LOAD_FAT_NBSECTORS + 1); /* skip FAT + bootsector */
+
     {
-        u16 entriessize  = _media->nbEntries  * sizeof(LOADresource);
+        u16 entriessize  = _media->nbEntries * sizeof(LOADresource);
         u16 metadatasize = _media->nbMetaData * sizeof(LOADmetadata);
-        u16 preloadsize  = _media->nbEntries  * sizeof(void*);
-        
-        u8* FATbuffer = (u8*) RINGallocatorAlloc (&sys.coremem, entriessize + metadatasize + preloadsize);
+        u16 preloadsize  = _media->nbEntries * sizeof(void*);
+
+        u8* FATbuffer = (u8*)MEM_ALLOC(_allocator, entriessize + metadatasize + preloadsize);
         ASSERT(FATbuffer != NULL);
 
-        _media->FAT      = (LOADresource*) FATbuffer;
-        _media->metaData = (LOADmetadata*) (FATbuffer + entriessize);
-        _media->preload  = (void**) (FATbuffer + entriessize + metadatasize);
+        _media->FAT = (LOADresource*)FATbuffer;
+        _media->metaData = (LOADmetadata*)(FATbuffer + entriessize);
+        _media->preload = (void**)(FATbuffer + entriessize + metadatasize);
 
-        STDmcpy (FATbuffer, &temp[2], entriessize + metadatasize);
-        STDmset (_media->preload, 0, preloadsize);
+        STDmcpy(FATbuffer, &_readbuffer[3], entriessize + metadatasize);
+        STDmset(_media->preload, 0, preloadsize);
     }
 
 #   ifndef __TOS__
     {
         u16 t;
 
-        for (t = 0 ; t < _media->nbEntries ; t++)
+        for (t = 0; t < _media->nbEntries; t++)
         {
             _media->FAT[t].startsectorsidenbsectors = PCENDIANSWAP16(_media->FAT[t].startsectorsidenbsectors);
             _media->FAT[t].metadataindextrack       = PCENDIANSWAP16(_media->FAT[t].metadataindextrack);
         }
 
-        for (t = 0 ; t < _media->nbMetaData ; t++)
+        for (t = 0; t < _media->nbMetaData; t++)
         {
             _media->metaData[t].offsetsizeh       = PCENDIANSWAP32(_media->metaData[t].offsetsizeh);
             _media->metaData[t].originalsizesizel = PCENDIANSWAP32(_media->metaData[t].originalsizesizel);
         }
     }
 #   endif
+}
 
-#   ifdef DEMOS_LOAD_FROMHD
+#ifdef DEMOS_LOAD_FROMHD
+void LOADinitForHD (LOADdisk* _media, u16 _nbEntries, u16 _nbMetaData)
+{
+    u32 result;
+    FILE* file = fopen(_media->filename, "rb");
+
+    
+    ASSERT(file != NULL);    
+    {
+        u16* temp = (u16*) MEM_ALLOCTEMP (&sys.allocatorStandard, LOAD_SECTORSIZE * LOAD_FAT_NBSECTORS);
+
+        if (temp == NULL)
+            goto error;
+
+        fseek(file, LOAD_SECTORSIZE, SEEK_SET); /* skip bootsector */
+        result = fread(temp, 1, LOAD_SECTORSIZE * LOAD_FAT_NBSECTORS, file);
+        ASSERT(result == LOAD_SECTORSIZE * LOAD_FAT_NBSECTORS);
+
+        loadReadFAT(&sys.allocatorStandard, temp, _media, _nbEntries, _nbMetaData);
+
+        MEM_FREE(&sys.allocatorStandard, temp);
+    }
+
+    _media->mediapreload = MEM_ALLOC (&sys.allocatorStandard, _media->mediapreloadsize);
+    ASSERT(_media->mediapreload != NULL);
+    
+    if (_media->mediapreload == NULL)
+        goto error;
+
+    result = fread (_media->mediapreload, 1, _media->mediapreloadsize, file);
+    ASSERT(result == _media->mediapreloadsize);
+
+    fclose(file);
+
     {
         u8* p = (u8*) _media->mediapreload;
         u16 t;
-
-        p += LOAD_FAT_NBSECTORS * LOAD_SECTORSIZE;
 
         for (t = 1 ; t < _media->nbEntries ; t++)
         {
@@ -159,16 +159,37 @@ void LOADinitFAT (u8 _drive, LOADdisk* _media, u16 _nbEntries, u16 _nbMetaData)
 
             p += nbsectors * LOAD_SECTORSIZE;
         }
-    }
-    IGNORE_PARAM(_drive);
+    }    
 
-#   else
-    RINGallocatorFree (&sys.mem, temp);
-#   endif
+    return;
+
+error:
+    printf("Not enought RAM\n");
+    while(1);
 }
 
-#ifdef DEMOS_LOAD_FROMHD
+#else
 
+void LOADinitFAT (u8 _drive, LOADdisk* _media, u16 _nbEntries, u16 _nbMetaData)
+{
+    u16* temp = (u16*) RINGallocatorAlloc (&sys.mem, LOAD_SECTORSIZE * LOAD_FAT_NBSECTORS);
+
+    _drive = sys.has2Drives & (_drive != sys.invertDrive);
+
+    {
+        LOADrequest* loadRequest = LOADpush (temp, LOAD_FAT_STARTSECTOR + 1, ((u32)_drive << 17), ((u32)LOAD_PRIOTITY_HIGH << 16) | LOAD_FAT_NBSECTORS);
+        LOADwaitRequestCompleted (loadRequest);
+    }
+
+    loadReadFAT (&sys.allocatorCoreMem, temp, _media, _nbEntries, _nbMetaData);
+
+    RINGallocatorFree (&sys.mem, temp);
+}
+
+#endif
+
+
+#ifdef DEMOS_LOAD_FROMHD
 LOADrequest* LOADrequestLoad (LOADdisk* _media, u16 _resourceid, void* _buffer, u16 _order)
 {
     IGNORE_PARAM(_media);

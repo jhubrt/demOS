@@ -1,7 +1,7 @@
 *-------------------------------------------------------------------------------------------------------
 * The MIT License (MIT)
 *
-* Copyright (c) 2015-2018 J.Hubert
+* Copyright (c) 2015-2021 J.Hubert
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
 * and associated documentation files (the "Software"), 
@@ -27,7 +27,7 @@
 	xdef	STDmset,STDmcpy,STDfastmset
     xdef    STDmfrnd,STDifrnd
     xdef    STDmulu,STDmuls,STDdivu,STDdivs
-	xdef	STDcpuSetSR,STDgetUSP,STDsetUSP,STDgetSP
+	xdef	STDcpuSetSR,STDgetUSP,STDsetUSP,STDgetSP,STDstop2300
 
 
 ;-------------------------------------------------------------------------
@@ -77,6 +77,13 @@ STDdivu:
 STDdivs:    
         divs.w  d1,d0
         rts
+
+;-------------------------------------------------------------------------
+; void STDstop2300 (void);
+;-------------------------------------------------------------------------
+STDstop2300:
+    stop    #$2300
+    rts
 
 ;-------------------------------------------------------------------------
 ; void STDfastmset (void* _dest, u32 _value, u32 _count);

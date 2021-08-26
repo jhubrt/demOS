@@ -11,34 +11,40 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\REBIRTH\TOOLS\IMAGER\MAIN.CPP" />
+    <ClCompile Include="..\DEMOSDK\PC\VISUALASRT.C" />
+    <ClCompile Include="..\DEMOSDK\PC\VISUALOG.CPP" />
+    <ClCompile Include="..\DEMOSDK\STANDARD.C" />
     <ClCompile Include="..\TOOLS\IMAGER\IMAGER.CPP" />
+    <ClCompile Include="..\TOOLS\IMAGER\MAIN.CPP" />
+    <ClCompile Include="..\TOOLS\IMAGER\SCRIPT.CPP" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\DEMOSDK\LOAD.H" />
+    <ClInclude Include="..\DEMOSDK\LOADDEFS.H" />
+    <ClInclude Include="..\DEMOSDK\PC\VISUALOG.H" />
+    <ClInclude Include="..\DEMOSDK\STANDARD.H" />
     <ClInclude Include="..\TOOLS\IMAGER\IMAGER.H" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\REBIRTH\DISK1.LOG" />
-    <None Include="..\REBIRTH\DISK2.LOG" />
+    <ClInclude Include="..\TOOLS\IMAGER\SCRIPT.H" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{C5A504F1-3F1B-45AC-9607-9FD9EAF7B700}</ProjectGuid>
+    <ProjectGuid>{030EAB48-3FC6-4C28-A695-B32E9BE0BCF7}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>RebirthImager</RootNamespace>
+    <RootNamespace>BlitZikImager</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>Imager</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <CharacterSet>Unicode</CharacterSet>
+    <CharacterSet>MultiByte</CharacterSet>
     <PlatformToolset>v142</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <WholeProgramOptimization>true</WholeProgramOptimization>
-    <CharacterSet>Unicode</CharacterSet>
+    <CharacterSet>MultiByte</CharacterSet>
     <PlatformToolset>v142</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
@@ -53,11 +59,11 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IntDir>$(ProjectName)_$(Configuration)\</IntDir>
+    <IntDir>$(SolutionDir)..\TEMP\$(ProjectName)_$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IntDir>$(ProjectName)_$(Configuration)\</IntDir>
+    <IntDir>$(SolutionDir)..\TEMP\$(ProjectName)_$(Configuration)\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>

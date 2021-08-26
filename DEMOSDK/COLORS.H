@@ -1,7 +1,7 @@
 /*-----------------------------------------------------------------------------------------------
   The MIT License (MIT)
 
-  Copyright (c) 2015-2018 J.Hubert
+  Copyright (c) 2015-2021 J.Hubert
 
   Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
   and associated documentation files (the "Software"), 
@@ -21,15 +21,11 @@
 -------------------------------------------------------------------------------------------------*/
 
 
-/*! @brief @ref COLORS @file */
+/*  COLORS implement optimized services to help you in managing colors in the STe LUT format
 
-/*! @defgroup  COLORS
-
-    COLORS implement optimized services to help you in managing colors in the STe LUT format <br>
-
-    Provides:                                                                                <br>
-    - arrays to convert to /from 4b to STe rotated format                                    <br>
-    - routines to precompute gradients of color                                              <br>
+    Provides:                                                                               
+    - arrays to convert to /from 4b to STe rotated format                                   
+    - routines to precompute gradients of color                                             
 */
 
 #ifndef COLORS_H

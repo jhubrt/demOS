@@ -1,7 +1,7 @@
 /*-----------------------------------------------------------------------------------------------
   The MIT License (MIT)
 
-  Copyright (c) 2015-2018 J.Hubert
+  Copyright (c) 2015-2021 J.Hubert
 
   Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
   and associated documentation files (the "Software"), 
@@ -152,7 +152,7 @@ int main(int argc, char** argv)
 			SNDsynPlayerInit (&sys.coremem, &sndparam);
             SYScheckHWRequirements ();
 
-            SYSfastPrint(DEMOSbuildversion, (u8*)(SYSreadVideoBase()) + 160 * 192 + 152, 160, 4);
+            SYSfastPrint(DEMOSbuildversion, (u8*)(SYSreadVideoBase()) + 160 * 192 + 152, 160, 4, (u32)&SYSfont);
 
 #           ifdef DEMOS_DEBUG
             registerTraceServices();

@@ -1,7 +1,7 @@
 /*-----------------------------------------------------------------------------------------------
   The MIT License (MIT)
 
-  Copyright (c) 2015-2018 J.Hubert
+  Copyright (c) 2015-2021 J.Hubert
 
   Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
   and associated documentation files (the "Software"), 
@@ -80,8 +80,8 @@
 #include "REBIRTH\SRC\SCREENS.H"
 #include "REBIRTH\SRC\SNDTRACK.H"
 
-#include "REBIRTH\DISK1.H"
-#include "REBIRTH\DISK2.H"
+#include "REBIRTH\REBIRTH1.H"
+#include "REBIRTH\REBIRTH2.H"
 
 static char* DEMOSbuildversion = "vC";
 
@@ -140,6 +140,12 @@ int main(int argc, char** argv)
 
     IGNORE_PARAM(argc);
     IGNORE_PARAM(argv);
+
+#   ifdef DEMOS_LOAD_FROMHD
+    SYSinitStdAllocator();
+    LOADinitForHD(&RSC_REBIRTH1, RSC_REBIRTH1_NBENTRIES, RSC_REBIRTH1_NBMETADATA);
+    LOADinitForHD(&RSC_REBIRTH2, RSC_REBIRTH2_NBENTRIES, RSC_REBIRTH2_NBMETADATA);
+#   endif
 
     {
 #       if defined(DEMOS_OPTIMIZED) || defined(DEMOS_USES_BOOTSECTOR)
@@ -203,18 +209,15 @@ int main(int argc, char** argv)
 
                 SNDinit (&sys.coremem, 89008UL, 1);
 
-#               ifdef DEMOS_LOAD_FROMHD
-                LOADpreloadMedia(&RSC_DISK1);
-                LOADpreloadMedia(&RSC_DISK2);
-#               endif
-
-                LOADinit (&RSC_DISK1, RSC_DISK1_NBENTRIES, RSC_DISK1_NBMETADATA);
+#               ifndef DEMOS_LOAD_FROMHD
+                LOADinit (&RSC_REBIRTH1, RSC_REBIRTH1_NBENTRIES, RSC_REBIRTH1_NBMETADATA);
                 if (sys.has2Drives)
                 {
-                    LOADinitFAT (1, &RSC_DISK2, RSC_DISK2_NBENTRIES, RSC_DISK2_NBMETADATA);
+                    LOADinitFAT (1, &RSC_REBIRTH2, RSC_REBIRTH2_NBENTRIES, RSC_REBIRTH2_NBMETADATA);
                 }
+#               endif
 
-                SYSfastPrint(DEMOSbuildversion, (u8*)(SYSreadVideoBase()) + 160 * 192 + 152, 160, 4);
+                SYSfastPrint(DEMOSbuildversion, (u8*)(SYSreadVideoBase()) + 160 * 192 + 152, 160, 4, (u32)&SYSfont);
 
 #               ifdef DEMOS_DEBUG
                 registerTraceServices();

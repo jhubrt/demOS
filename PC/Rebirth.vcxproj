@@ -104,8 +104,8 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\REBIRTH\DISK1.C" />
-    <ClCompile Include="..\REBIRTH\DISK2.C" />
+    <ClCompile Include="..\REBIRTH\REBIRTH1.C" />
+    <ClCompile Include="..\REBIRTH\REBIRTH2.C" />
     <ClCompile Include="..\REBIRTH\SRC\DEMOS.C" />
     <ClCompile Include="..\DEMOSDK\ALLOC.C" />
     <ClCompile Include="..\DEMOSDK\BITMAP.C" />
@@ -156,8 +156,8 @@
     <ClInclude Include="..\DEMOSDK\TRACE.H" />
     <ClInclude Include="..\EXTERN\ARJDEP.H" />
     <ClInclude Include="..\FX\VREGANIM\VREGANIM.H" />
-    <ClInclude Include="..\REBIRTH\DISK1.H" />
-    <ClInclude Include="..\REBIRTH\DISK2.H" />
+    <ClInclude Include="..\REBIRTH\REBIRTH1.H" />
+    <ClInclude Include="..\REBIRTH\REBIRTH2.H" />
     <ClInclude Include="..\REBIRTH\SRC\FUGIT.H" />
     <ClInclude Include="..\REBIRTH\SRC\INTERLUD.H" />
     <ClInclude Include="..\REBIRTH\SRC\MORPH.H" />
@@ -183,8 +183,8 @@
     <None Include="..\DEMOSDK\TRACE.S" />
     <None Include="..\EXTERN\ARJDEP.S" />
     <None Include="..\EXTERN\XSTARTUP.S" />
-    <None Include="..\REBIRTH\DISK1.LOG" />
-    <None Include="..\REBIRTH\DISK2.LOG" />
+    <None Include="..\REBIRTH\REBIRTH1.INI" />
+    <None Include="..\REBIRTH\REBIRTH2.INI" />
     <None Include="..\REBIRTH\SRC\BOOTSEC2.S" />
     <None Include="..\REBIRTH\SRC\BOOTSTRA.S" />
     <None Include="..\REBIRTH\SRC\FUGIT.S" />
@@ -192,6 +192,10 @@
     <None Include="..\REBIRTH\SRC\SLIDES.S" />
     <None Include="..\REBIRTH\SRC\SNDSHADE.S" />
     <None Include="..\SNDH\SNDH.S" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\REBIRTH\REBIRTH1.TXT" />
+    <Text Include="..\REBIRTH\REBIRTH2.TXT" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,7 +1,7 @@
 /*-----------------------------------------------------------------------------------------------
   The MIT License (MIT)
 
-  Copyright (c) 2015-2018 J.Hubert
+  Copyright (c) 2015-2021 J.Hubert
 
   Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
   and associated documentation files (the "Software"), 
@@ -550,7 +550,8 @@ static WINmappingTypeEnum WINgetMappingType (WPARAM _wparam)
     case VK_PAUSE:
     case VK_SCROLL:
     case VK_OEM_7:
-        return WINmappingType_EXTRAKEY;
+	case VK_F11:
+		return WINmappingType_EXTRAKEY;
 
     case VK_MENU:
     case VK_CONTROL:

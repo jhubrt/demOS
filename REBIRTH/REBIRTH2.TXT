@@ -1,0 +1,45 @@
+LOG for REBIRTH2
+
+337408 bytes left on floppy (502272 bytes on 839680)
+
+FILE ENTRIES:
+
+       nbSectors | @sector | @side | @track | metadata | lostbytes | roundsize | 
+   0:          1 |       0 |     0 |      0 |        0 |         0 |       512 | ______OUTPUT_BOOTSEC2_BOT
+   1:        174 |       3 |     0 |      0 |        1 |        80 |     89088 | ZIK_7569902_RAW
+   2:        174 |       7 |     1 |      8 |        2 |        80 |     89088 | ZIK_12465342_RAW
+   3:         87 |       1 |     1 |     17 |        3 |        40 |     44544 | ZIK_14245502_RAW
+   4:         87 |       8 |     1 |     21 |        4 |        40 |     44544 | ZIK_14646038_RAW
+   5:        109 |       5 |     0 |     26 |        5 |        88 |     55808 | SLIDES_PHOTF_HC
+   6:        109 |       4 |     1 |     31 |        6 |        88 |     55808 | SLIDES_PHOT5_HC
+   7:        109 |       3 |     0 |     37 |        7 |        88 |     55808 | SLIDES_PHOT8_HC
+   8:        109 |       2 |     1 |     42 |        8 |        88 |     55808 | SLIDES_PHOT6_HC
+   9:         16 |       1 |     0 |     48 |        9 |       224 |      8192 | SLIDES_MASKS_PT
+  10:          4 |       7 |     1 |     48 |       17 |       348 |      2048 | FUGIT_FONT_ARJX
+
+
+METADATA ENTRIES:
+
+       offset | size   | originalsize |
+   0:       0 |    512 |           -1 | ______OUTPUT_BOOTSEC2_BOT
+   1:       0 |  89008 |           -1 | ZIK_7569902_RAW
+   2:       0 |  89008 |           -1 | ZIK_12465342_RAW
+   3:       0 |  44504 |           -1 | ZIK_14245502_RAW
+   4:       0 |  44504 |           -1 | ZIK_14646038_RAW
+   5:       0 |  55720 |           -1 | SLIDES_PHOTF_HC
+   6:       0 |  55720 |           -1 | SLIDES_PHOT5_HC
+   7:       0 |  55720 |           -1 | SLIDES_PHOT8_HC
+   8:       0 |  55720 |           -1 | SLIDES_PHOT6_HC
+   9:       0 |   1904 |           -1 | SLIDES_PHOTFMSK_PT
+  10:    1904 |   2438 |           -1 | SLIDES_PHOT5MSK_PT
+  11:    4342 |   2822 |           -1 | SLIDES_PHOT8MSK_PT
+  12:    7164 |    740 |           -1 | SLIDES_PHOT6MSK_PT
+  13:    7904 |     16 |           -1 | SLIDES_PHOTF_PA8
+  14:    7920 |     16 |           -1 | SLIDES_PHOT5_PA8
+  15:    7936 |     16 |           -1 | SLIDES_PHOT8_PA8
+  16:    7952 |     16 |           -1 | SLIDES_PHOT6_PA8
+  17:       0 |   1266 |         5264 | FUGIT_FONT_ARJX
+  18:    1266 |    330 |         1368 | FUGIT_FONTSCAN_ARJX
+  19:    1596 |    104 |           -1 | FUGIT_FONTOFFS_BIN
+
+

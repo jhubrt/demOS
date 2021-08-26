@@ -1,7 +1,7 @@
 /*-----------------------------------------------------------------------------------------------
   The MIT License (MIT)
 
-  Copyright (c) 2015-2018 J.Hubert
+  Copyright (c) 2015-2021 J.Hubert
 
   Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
   and associated documentation files (the "Software"), 
@@ -21,9 +21,7 @@
 -------------------------------------------------------------------------------------------------*/
 
 
-/*! @brief @ref FSM @file */
-
-/*! @defgroup  FSM 
+/*  FSM 
     
     Implements simple finite state machine.        
     FSM abstracts a list of states. Each state has an entry and exit action + activity routine
@@ -32,12 +30,21 @@
 #ifndef FSM_H
 #define FSM_H
 
-typedef struct FSM_ FSM;
-typedef void (*FSMfunction)(FSM* _fsm);
+typedef void (*FSMfunction)(struct FSM_* _fsm);
+
+struct FSMstate_
+{
+    FSMfunction func;
+
+#   ifdef DEMOS_DEBUG
+    char* name;
+#   endif
+};
+typedef struct FSMstate_ FSMstate;
 
 struct FSM_
 {
-	FSMfunction*    states;
+	FSMstate*       states;
     u16             nbStates;
 	u16	            activeState;
 
@@ -48,18 +55,22 @@ struct FSM_
     u16	   traceLastState;
 #   endif
 };
+typedef struct FSM_ FSM;
 
-void  FSMinit	(FSM* _m, FSMfunction* _states, u16 _nbStates, u16 _startState, char* _name);
+void  FSMinit	(FSM* _m, FSMstate* _states, u16 _nbStates, u16 _startState, char* _name);
 void  FSMgoto	(FSM* _m, u16 _newState);
 s16   FSMlookForStateIndex(FSM* _m, FSMfunction _func);
 
-#define FSMupdate(FSM)          (FSM)->states[(FSM)->activeState](FSM)
+#define FSMupdate(FSM)          (FSM)->states[(FSM)->activeState].func(FSM)
 #define FSMgotoNextState(FSM)   FSMgoto((FSM),(FSM)->activeState+1)
 #define	FSMgetCurrentState(FSM) (FSM)->activeState
 #define FSMisLastState(FSM)     (((FSM)->activeState+1) == (FSM)->nbStates)
 
 #ifdef DEMOS_DEBUG
+#define FSM_STATE(FUNC) { FUNC, #FUNC }
 u16 FSMtrace (FSM* _fsm, void* _image, u16 _pitch, u16 _planePitch, u16 _y);
+#else
+#define FSM_STATE(FUNC) { FUNC }
 #endif
 
 #endif
