@@ -402,7 +402,7 @@ void ScreensInit (void* _preload, u32 _preloadsize)
 #   ifndef DEMOS_LOAD_FROMHD
     if ( _preload != NULL )
     {
-        u8 disk1Preload[RSC_REBIRTH1_NBENTRIES - RSC_REBIRTH1_POLYZOOM_CYBERVECTOR_BIN];
+        u8 disk1Preload[RSC_REBIRTH1_NBENTRIES - RSC_REBIRTH1_POLYZOOM__CYBERVECTOR_BIN];
         u8 t, i = 0;
         
         void* current = _preload;
@@ -414,7 +414,7 @@ void ScreensInit (void* _preload, u32 _preloadsize)
         SYSwriteVideoBase ((u32)screen);
         SYSvsync;
 
-        for (t = RSC_REBIRTH1_POLYZOOM_CYBERVECTOR_BIN ; t < RSC_REBIRTH1_NBENTRIES ; t++)
+        for (t = RSC_REBIRTH1_POLYZOOM__CYBERVECTOR_BIN ; t < RSC_REBIRTH1_NBENTRIES ; t++)
         {
             disk1Preload[i++] = t;
         }
@@ -457,13 +457,13 @@ void ScreensInit (void* _preload, u32 _preloadsize)
             {
                 static u8 disk2Preload[] = 
                 {
-                    RSC_REBIRTH2_ZIK_7569902_RAW,  
-                    RSC_REBIRTH2_ZIK_12465342_RAW, 
-                    RSC_REBIRTH2_ZIK_14245502_RAW, 
-                    RSC_REBIRTH2_ZIK_14646038_RAW, 
-                    RSC_REBIRTH1_VISUALIZ_PAL_BIN,
-                    RSC_REBIRTH2_SLIDES_MASKS_PT, 
-                    RSC_REBIRTH2_FUGIT_FONT_ARJX 
+                    RSC_REBIRTH2_ZIK__7569902_RAW,  
+                    RSC_REBIRTH2_ZIK__12465342_RAW, 
+                    RSC_REBIRTH2_ZIK__14245502_RAW, 
+                    RSC_REBIRTH2_ZIK__14646038_RAW, 
+                    RSC_REBIRTH1_VISUALIZ__PAL_BIN,
+                    RSC_REBIRTH2_SLIDES__MASKS_PT, 
+                    RSC_REBIRTH2_FUGIT__FONT_ARJX 
                 };
 
                 LOADpreload (_preload, _preloadsize, current, &RSC_REBIRTH2, disk2Preload, ARRAYSIZE(disk2Preload), PreloadDisplay, &diplayarea[160*10]);

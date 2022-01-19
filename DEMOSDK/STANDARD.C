@@ -246,6 +246,17 @@ void STDmset (void* _adr, u32 _value, u32 _length)
 
 void STDmcpy (void* _dest, void* _src, u32 _length)
 {
+    ASSERT(_length < (64*65536));
+    memcpy(_dest, _src, _length);
+}
+
+void STDmcpy2 (void* _dest, void* _src, u32 _length)
+{
+    ASSERT((_length & 1) == 0);
+    ASSERT(_length < (64*65536));
+    ASSERT(((u32)_dest & 1) == 0);
+    ASSERT(((u32)_src  & 1) == 0);
+
 	memcpy(_dest, _src, _length);
 }
 
@@ -413,6 +424,66 @@ static void STD_unitTest_mcpy (void)
     free(buf[0]);
 }
 
+
+
+void STD_unitTest_mcpy2 (void)
+{
+    u16* buf[3];
+    u16 t;
+
+
+    buf[0] = (u16*) malloc(65536UL);
+    buf[1] = (u16*) malloc(65536UL);
+    buf[2] = (u16*) malloc(65536UL);
+
+    /* test STD_mcpy */
+    for (t = 0 ; t < 32768UL ; t++)
+    {
+        buf[2][t] = t & 0xFF;
+    }
+
+    for (t = 0 ; t < 20000 ; t++)
+    {
+        u8  val    = rand();
+        u16 index1 = rand() & 32767;
+        u16 index2 = rand() & 32767;
+        u16 size   = rand();
+
+        memset (buf[0],0,65536UL);
+        memset (buf[1],0,65536UL);
+
+        if (( index1 + size ) > 32768UL )
+        {
+            size = 32768UL - index1;
+        }
+
+        if (( index2 + size ) > 32768UL )
+        {
+            size = 32768UL - index2;
+        }
+
+        memcpy  (&buf[0][index1], &buf[2][index1], size << 1);
+        STDmcpy2(&buf[1][index1], &buf[2][index1], size << 1);
+
+        if ( memcmp(buf[0], buf[1], 65536UL) != 0 )
+        {
+            printf ("buf=%p i1=%u i2=%u siz=%u v=%u\n", buf[1], index1, index2, size << 1, val);
+            ASSERT(0);
+        }
+
+        if ((t & 127) == 0)
+        {
+            printf ("%u\n", t);
+        }    
+    }
+
+    free(buf[2]);
+    free(buf[1]);
+    free(buf[0]);
+}
+
+
+
 void STD_unitTest_utoa (void)
 {
     char temp[32];
@@ -435,6 +506,7 @@ void STD_unitTest (void)
     STD_unitTest_utoa();
     STD_unitTest_convertions();
     STD_unitTest_mcpy();
+    STD_unitTest_mcpy2();
     STD_unitTest_mset();
 }
 

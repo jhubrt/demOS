@@ -28,9 +28,13 @@
 
 #ifndef __TOS__
 void RASsetColReg   (u16 _shortregaddress) {}
+void RASvbl 	    (void) {}
 void RASvbl1	    (void) {}
 void RASvbl2	    (void) {}
 void RASvbl15	    (void) {}
+void RASvbl16	    (void) {}
+void RASlowB        (void) {}
+void RASlowB15      (void) {}
 void RAStop1	    (void) {}
 void RASmid1	    (void) {}
 void RASmid15	    (void) {}

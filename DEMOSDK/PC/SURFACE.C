@@ -34,11 +34,12 @@ typedef void (*BITconvertionFunc) (void* _source, u16 _pitchSource, u32* _lut, v
 
 #define BIT_CONVERTION_ALLOWS_INPLACE 1
 
-STRUCT(BITconvertion)
+struct BITconvertion_
 {
     BITconvertionFunc func;
     u32               flags;
 };
+typedef struct BITconvertion_ BITconvertion;
 
 static BITconvertion convert[BITformat_NBMAX][16];
 static bool isInit = false;
@@ -503,12 +504,14 @@ void BITsurfaceFSErrorDiffuse (MEMallocator* _allocator, BITsurface* _surface, u
 	u8  bmask = ~((1 << (8 - _bbits)) - 1);
 	
 
-	ENUM(Component)
+	enum Component_
 	{
 		_R = 0,
 		_G = 1,
 		_B = 2
 	};	
+    typedef enum Component_ Component;
+
 	
 	deltasize = (w + 2) * 3 * 2;
 	delta = (DeltaBuffer*) MEM_ALLOC(_allocator, deltasize);

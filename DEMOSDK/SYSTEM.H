@@ -92,6 +92,7 @@ struct SYScore_
     bool            OSneedRestore;
     SYSemulator     emulator;
     u8*             idleThreadStackBase;
+    u16             idleThreadStackSize;
     u32             phytop;
 
 	MEMallocator	allocatorCoreMem;
@@ -176,6 +177,7 @@ void SYSdebugPrint      (void* _screen, u16 _screenPitch, u16 _bitplanPitchShift
 #	define SYSdebugPrint(_screen, _screenPitch, _bitplanPitchShift, _col, _y, _s)
 #endif
 
+u16 SYSevaluateStackUsage(u8* p, u16 size_);
 typedef s8 SYSlock;
 
 #define SYSlockInit(_lock) { _lock = 0; }

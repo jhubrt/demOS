@@ -27,6 +27,7 @@
 #include "REBIRTH\SRC\MORPH.H"
 #include "DEMOSDK\STANDARD.H"
 #include "DEMOSDK\HARDWARE.H"
+#include "DEMOSDK\CODEGEN.H"
 
 ASMIMPORT u8 SLIcodepattern;
 ASMIMPORT u8 SLIendcodepattern;
@@ -53,6 +54,6 @@ void SLIgenerateMorphCode( u8* _codeBuffer, u16 _nbPoints )
         _codeBuffer += morphcodelen;
     }
 
-    *((u16*)_codeBuffer) = HW_68KOP_RTS;
+    *((u16*)_codeBuffer) = CGEN_OPCODE_RTS;
 }
 

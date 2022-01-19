@@ -41,7 +41,7 @@
 #endif
 
 
-STRUCT(AllocCell)
+struct AllocCell_
 {
 #	ifdef RINGALLOCATOR_DEBUG
 	u32 		guard1;
@@ -54,6 +54,7 @@ STRUCT(AllocCell)
 	u32 		guard2;
 #	endif
 };
+typedef struct AllocCell_ AllocCell;
 
 /* use bit 1 of prev pointer as a boolean to indicate if cell is free */
 #define ALLOCCELL_isFree(_cell)		(((u32)_cell->prev) & 1)

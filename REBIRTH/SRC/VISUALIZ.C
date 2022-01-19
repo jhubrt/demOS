@@ -32,6 +32,7 @@
 #include "DEMOSDK\STANDARD.H"
 #include "DEMOSDK\TRACE.H"
 #include "DEMOSDK\COLORS.H"
+#include "DEMOSDK\CODEGEN.H"
 
 #include "DEMOSDK\PC\WINDOW.H"
 #include "DEMOSDK\PC\EMUL.H"
@@ -362,7 +363,7 @@ static void VISgenerateCode( s16* sin )
             }
         }
 
-        *p++ = HW_68KOP_RTS;
+        *p++ = CGEN_OPCODE_RTS;
     }
 
     for (j = 0 ; j < 2 ; j++)
@@ -448,7 +449,7 @@ static void VISgenerateCode( s16* sin )
             }
         }
 
-        *p++ = HW_68KOP_RTS;
+        *p++ = CGEN_OPCODE_RTS;
     }
 }
 

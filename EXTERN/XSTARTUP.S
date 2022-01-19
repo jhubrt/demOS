@@ -101,7 +101,6 @@ Start:
         DC.L   _RedirTab
 
 ; Stack size entry
-
         DC.L   _StkSize
 
         EVEN
@@ -118,26 +117,30 @@ Run:
 ;  + stack size + base page size
 ; (base page size includes stack size)
 
-        MOVE.L  TextSegSize(A3),A0
-        ADD.L   DataSegSize(A3),A0
-        ADD.L   BssSegSize(A3),A0
-        ADD.W   #BasePageSize,A0
-        MOVE.L  A0,_PgmSize
+        MOVE.L  TextSegSize(A3),A1
+        ADD.L   DataSegSize(A3),A1
+        ADD.L   BssSegSize(A3),A1
+        ADD.W   #BasePageSize,A1
+        MOVE.L  A1,_PgmSize
 
 ; Setup longword aligned application stack
 
-        MOVE.L  A3,D0
-        ADD.L   A0,D0
-        AND.B   #$FC,D0
-        MOVE.L  D0,A7
+        MOVE.L  A3,D1
+        ADD.L   A1,D1
+        AND.B   #$FC,D1
+        MOVE.L  D1,A7
 
 ; Setup stack limit variable
 
-        SUB.L   #_StkSize-256,D0
-        MOVE.L  D0,_StkLim
+        SUB.L   #_StkSize-256,D1
+        MOVE.L  D1,_StkLim
 	
-		moveq.l	 #0,D0
-		lea		 0.w,A0
+        move.l  d1,a2
+        lea     256(a2),a2
+        move.w  #_StkSize-1,d2
+.signstack:
+        move.b  #$FA,(a2)+
+        dbf.w   d2,.signstack
 
         JSR     main
 

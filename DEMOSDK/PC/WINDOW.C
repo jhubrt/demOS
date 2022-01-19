@@ -334,6 +334,12 @@ u32 WINgetKeyExtraState (WINdow* _m)
     return _m->keyExtraState;
 }
 
+void WINresetKeyExtraState (WINdow* _m)
+{
+	_m->keyExtraState = 0;
+}
+
+
 u32 WINgetControlKeys (WINdow* _m)
 {
 	return _m->controlKeys;
@@ -360,7 +366,7 @@ void WINline (WINdow* _m, s32 _x1, s32 _y1, s32 _x2, s32 _y2)
 	LineTo   (_m->pixmapDC, _x2, _y2);   
 }
 
-void WInpoint (WINdow* _m, s32 _iX, s32 _iY)
+void WINpoint (WINdow* _m, s32 _iX, s32 _iY)
 {
 	SetPixel(_m->pixmapDC, _iX, _iY, _m->color);
 }
@@ -421,7 +427,7 @@ static s32 WINconvertMapping (WPARAM _wparam)
 {
     s32 key = -1;
 
-    switch (_wparam)
+    switch (_wparam)	// implemented for AZERTY keyboard here : would need proper convertion accorfing to current keyboard layout
     {
     case VK_DOWN:           key = HW_KEY_DOWN;              break;
     case VK_UP:             key = HW_KEY_UP;                break;
@@ -485,7 +491,10 @@ static s32 WINconvertMapping (WPARAM _wparam)
     case 'K':               key = HW_KEY_K;                 break;
     case 'L':               key = HW_KEY_L;                 break;
     case 'M':               key = HW_KEY_SEMICOLON;         break;
+	case VK_OEM_3:          key = HW_KEY_AT;		        break;	
+	case VK_OEM_5:			key = HW_KEY_SHARP;				break;
 
+	case VK_OEM_102:		key = HW_KEY_ANTI_SLASH;		break;
     case 'W':               key = HW_KEY_Z;                 break;
     case 'X':               key = HW_KEY_X;                 break;
     case 'C':               key = HW_KEY_C;                 break;
@@ -514,8 +523,6 @@ static s32 WINconvertMapping (WPARAM _wparam)
 
     case VK_OEM_6:          key = HW_KEY_BRACKET_LEFT;      break;
     case VK_OEM_1:          key = HW_KEY_BRACKET_RIGHT;     break;
-
-	case VK_PAUSE:			key = HW_KEY_EMUL_PAUSE;		break;
     }
     
     return key;
@@ -946,4 +953,10 @@ void WINwaitForGUI (WINdow* _m)
         }
         while (k);
     }
+}
+
+
+void WINwait(u32 _ms)
+{
+	Sleep(_ms);
 }

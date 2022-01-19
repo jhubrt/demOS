@@ -24,7 +24,7 @@
 	
 	opt 	o+
 
-	xdef	STDmset,STDmcpy,STDfastmset
+	xdef	STDmset,STDmcpy,STDmcpy2,STDfastmset
     xdef    STDmfrnd,STDifrnd
     xdef    STDmulu,STDmuls,STDdivu,STDdivs
 	xdef	STDcpuSetSR,STDgetUSP,STDsetUSP,STDgetSP,STDstop2300
@@ -194,76 +194,117 @@ STD_mset_end:
 ;-------------------------------------------------------------------------
 STDmcpy:
 
-    tst.l   d0                  ; test if length is null => do nothing
-    bne.s   STD_mcpy_exec
-    rts
-
-STD_mcpy_exec:
+.exec:
 
     move.w  d1,-(sp)
 
     move.w  a0,d1
     add.w   a1,d1
     and.w   #1,d1
-    bne.s   STD_mcpy_exec_memshifted
+    bne     .exec_memshifted
 
     move.w  a0,d1               ; is dest address odd ?
     and.w   #1,d1
 
-    beq.s   STD_mcpy_notodd
+    beq.s   .notodd
 
     move.b  (a1)+,(a0)+         ; if so fill the byte
     subq.l  #1,d0               ; if length was 1 => end
 
-    beq.s   STD_mcpy_end
+    beq     .end
 
-STD_mcpy_notodd:
+.notodd:
 
     move.w  d0,d1               ; fill the rest
-    lsr.l   #5,d0               ; if length > 15
+    lsr.l   #6,d0               ; if length > 64
     
-    beq.s   STD_mcpy_nolarge    ; use fast fill loop (16 bytes / 16 bytes)
+    beq.s   .small              ; use fast fill loop (64 bytes / 64 bytes)
 
-STD_mcpy_loop:
-    move.l  (a1)+,(a0)+
-    move.l  (a1)+,(a0)+
-    move.l  (a1)+,(a0)+
-    move.l  (a1)+,(a0)+
-    move.l  (a1)+,(a0)+
-    move.l  (a1)+,(a0)+
-    move.l  (a1)+,(a0)+
-    move.l  (a1)+,(a0)+
+.loop:
 
-    subq.l  #1,d0
-    bne.s   STD_mcpy_loop
+    rept    16
+    move.l  (a1)+,(a0)+
+    endr
 
-    and.w   #$1F,d1              ; if length modulo 16 = 0 => end
-    beq.s   STD_mcpy_end
+    subq.w  #1,d0                ; instead of subq.l => limit to 4MB transfer
+    bne.s   .loop
 
-STD_mcpy_nolarge:
+    and.w   #$3F,d1              ; if length modulo 64 = 0 => end
+    beq.s   .end
 
-	add.w	d1,d1
+.small:
+
+    moveq.l #1,d0
+    and.w   d1,d0
+    sub.w   d0,d1
 	neg.w   d1
-	jmp		STD_mcpy_end(pc,d1.w)
+	jmp		.copy(pc,d1.w)
 
 	rept	32
-    move.b  (a1)+,(a0)+         ; finish the last bytes
+    move.w  (a1)+,(a0)+         ; finish the last words
 	endr
+.copy:
 
-STD_mcpy_end:
+    tst.w   d0
+    beq.s   .end
+
+    move.b  (a1)+,(a0)+         ; finish the last byte
+
+.end:
 
     move.w  (sp)+,d1
 
     rts
 
-STD_mcpy_exec_memshifted:       ; unaligned => slow method (ok in our context => if I need fast cpy, just align...)
+.exec_memshifted:               ; unaligned => slow method (ok in our context => if I need fast cpy, just align...)
     move.b  (a1)+,(a0)+
     subq.l  #1,d0
-    bne.s   STD_mcpy_exec_memshifted
+    bne.s   .exec_memshifted
     
     move.w  (sp)+,d1
 
     rts
+
+
+;-------------------------------------------------------------------------
+; void STDmcpy2 (void* _dest, void* _source, u32 _length);
+; aligned, length multiple of 2 
+;-------------------------------------------------------------------------
+STDmcpy2:
+
+    move.w  d1,-(sp)
+
+    move.w  d0,d1               ; fill the rest
+    lsr.l   #6,d0               ; if length >= 64
+    
+    beq.s   .small              ; use fast fill loop (64 bytes / 64 bytes)
+
+.loop:
+    rept    16
+    move.l  (a1)+,(a0)+
+    endr
+
+    subq.w  #1,d0                ; instead of subq.l => limit to 4MB transfer
+    bne.s   .loop
+
+    and.w   #$3F,d1              ; if length modulo 64 = 0 => end
+    beq.s   .end
+
+.small:
+
+	neg.w   d1
+	jmp		.end(pc,d1.w)
+
+	rept	32
+    move.w  (a1)+,(a0)+         ; finish the last bytes
+	endr
+
+.end:
+
+    move.w  (sp)+,d1
+
+    rts
+
 
 *-------------------------------------------------------------------------
 * void STDcpuSetSR (u16 _status);

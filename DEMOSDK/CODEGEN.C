@@ -1,7 +1,7 @@
 /*-----------------------------------------------------------------------------------------------
   The MIT License (MIT)
 
-  Copyright (c) 2015-2021 J.Hubert
+  Copyright (c) 2015-2020 J.Hubert
 
   Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
   and associated documentation files (the "Software"), 
@@ -20,29 +20,51 @@
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 -------------------------------------------------------------------------------------------------*/
 
+#include "DEMOSDK\BASTYPES.H"
 
-/*! @brief @ref BIT @file */
-   
-#ifndef BMPLOADER_H
-#define BMPLOADER_H
+#include "DEMOSDK\STANDARD.H"
 
-#include "DEMOSDK\PC\SURFACE.H"
+#include "DEMOSDK\CODEGEN.H"
 
-enum BITloadResult_
+
+
+u16 CGENfindWords(CGENdesc* _desc, u16* _offsets, u16 _value)
 {
-    BITloadResult_OK,    
-    BITloadResult_READERROR,    
-    BITloadResult_UNKNOWN_FORMAT
-} ;
-typedef enum BITloadResult_ BITloadResult;
+    u16* p   = (u16*) _desc->codeaddress;
+    u16  len = _desc->opcodelen_div2 << 1;
+    u16  nb  = 0;
+    u16  t;
 
 
-BITloadResult BITbmpLoad	(BITsurface* _surface, MEMallocator* _allocator, char* _filename);
-BITloadResult BITbmpLoadLUT (BITlut* _lut, MEMallocator* _allocator, char* _filename);
-bool          BITbmpSave    (BITsurface* _surface, char* _filename);
-bool          BITdegasSave  (BITsurface* _surface, char* _filename);
+    for (t = 0 ; t < len ; t += 2)
+    {
+        if (*p++ == _value)
+        {
+            _offsets[nb++] = t;
+        }
+    }
 
-BITloadResult BITneoLoad    (BITsurface* _surface, MEMallocator* _allocator, char* _filename);
-BITloadResult BITdegasLoad  (BITsurface* _surface, MEMallocator* _allocator, char* _filename);
+    return nb;
+}
+
+
+#ifndef __TOS__
+
+u8* aCGENaddnops (u8* _output, u16 _cycles)
+{
+    u16* p = (u16*)_output;
+    u16 t;
+
+    for (t = 0; t < _cycles; t += 4)
+    {
+        *p++ = CGEN_OPCODE_NOP;
+    }
+
+    return (u8*)p;
+}
+
+void aCGENpatchWords(void* _address, u16* _offsets, u32 _values, u16 _nbvalues)
+{
+}
 
 #endif

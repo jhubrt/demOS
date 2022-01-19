@@ -33,13 +33,42 @@
 
 #ifndef COLORS_C
 extern u8 COLST24b[16];
-extern u8 COL4b2ST[16];
+extern u8 COL4b2ST[17];
 #endif
 
+#define COL_4B_TO_STE(COLOR) ((COL4b2ST[((COLOR) >> 8) & 0xF] << 8) | (COL4b2ST[((COLOR) >> 4) & 0xF] << 4) | COL4b2ST[(COLOR) & 0xF])
+#define COL_STE_TO_4B(COLOR) ((COLST24b[((COLOR) >> 8) & 0xF] << 8) | (COLST24b[((COLOR) >> 4) & 0xF] << 4) | COLST24b[(COLOR) & 0xF])
+
+#ifdef __TOS__
+
+#define COLswapEndianPC(_startColors,_nbColors)
+
+#define COLcomputeGradient16Steps(_startColors, _endcolors, _nbColors, _step, _destColors)       COL16STST(_startColors, _endcolors, _nbColors, _step, (u32)(_destColors))
+#define COLcomputeGradient16Steps4b4b(_startColors, _endcolors, _nbColors, _step, _destColors)   COL164b4b(_startColors, _endcolors, _nbColors, _step, (u32)(_destColors))
+#define COLcomputeGradient16Steps4bSTe(_startColors, _endcolors, _nbColors, _step, _destColors)  COL164bST(_startColors, _endcolors, _nbColors, _step, (u32)(_destColors))
+
+u16* COL16STST (u16* _startColors, u16* _endcolors, u16 _nbColors, s16 _step, u32 _destColors);
+u16* COL164bST (u16* _startColors, u16* _endcolors, u16 _nbColors, s16 _step, u32 _destColors);
+u16* COL164b4b (u16* _startColors, u16* _endcolors, u16 _nbColors, s16 _step, u32 _destColors);
+
+#else
+
+void COLswapEndianPC                 (u16* _colors, u16 _nbColors);
+
+u16* COLcomputeGradient16Steps       (u16* _startColors, u16* _endcolors, u16 _nbColors, s16 _step, u16* _destColors);
+u16* COLcomputeGradient16Steps4b4b   (u16* _startColors, u16* _endcolors, u16 _nbColors, s16 _step, u16* _destColors);
+u16* COLcomputeGradient16Steps4bSTe  (u16* _startColors, u16* _endcolors, u16 _nbColors, s16 _step, u16* _destColors);
+
+#endif
+
+u16* COLcomputeGradientStep          (u16* _startColors, u16* _endcolors, u16 _nbColors, s16 _nbSteps, s16 _step, u16* _destColors);
 u16* COLcomputeGradient         (u16* _startColors, u16* _endcolors, u16 _nbColors, s16 _nbSteps, u16* _destColors);
-u16* COLcomputeGradientStep     (u16* _startColors, u16* _endcolors, u16 _nbColors, s16 _nbSteps, s16 _step, u16* _destColors);
-u16* COLcomputeGradient16Steps  (u16* _startColors, u16* _endcolors, u16 _nbColors, s16 _step, u16* _destColors);
+u16* COLcomputeGradient4b4b          (u16* _startColors, u16* _endcolors, u16 _nbColors, s16 _nbSteps, u16* _destColors);
 
 u16  COLcomputeGradientEx       (u16* _startColors, u16* _endcolors, u16 _nbColors, s16 _nbSteps, u16* _destColors1, u16* _destColors2);
+
+#ifdef DEMOS_UNITTEST
+void COLrunUnitTests(void);
+#endif
 
 #endif

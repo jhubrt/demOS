@@ -170,7 +170,7 @@ int main(int argc, char** argv)
 
         screenadr = SYSreadVideoBase();
         mode      = *HW_VIDEO_MODE;
-        STDmcpy (colors, HW_COLOR_LUT, 32);
+        STDmcpy2 (colors, HW_COLOR_LUT, 32);
 
         PlayerEntry();
 
@@ -232,7 +232,7 @@ int main(int argc, char** argv)
         SYSshutdown();
 
         *HW_VIDEO_MODE = mode;
-        STDmcpy (HW_COLOR_LUT, colors, 32);
+        STDmcpy2 (HW_COLOR_LUT, colors, 32);
         SYSwriteVideoBase (screenadr);
 
         free (sys.membase);

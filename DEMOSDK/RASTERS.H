@@ -38,9 +38,11 @@
 #define RASTERS_H
 
 void RASsetColReg   (u16 _shortregaddress);
+void RASvbl 	    (void);
 void RASvbl1	    (void);
 void RASvbl2	    (void);
 void RASvbl15	    (void);
+void RASvbl16	    (void);
 void RAStop1	    (void);
 void RASmid1	    (void);
 void RASmid15	    (void);
@@ -53,22 +55,38 @@ void RASvbldonothing(void);
 extern void* RASnextOpList;
 #endif
 
+
+#define RASstopMask	0x8000
+
 /* raster OpList */
 
 typedef void(*RASinterupt)(void);
 
-/*! ----------------------------------------- @struct RASopVbl1
+/*! -----------------------------------------
+* OpList for VBL routine RASvbl1                                    <br>
+* [.w]	scan lines count to next inter call (timerb data register)  <br>
+* [.l]	next raster routine                                         <br>
+* -----------------------------------------*/
+struct RASopVbl_
+{
+    u16			scanLinesTo1stInterupt;
+    RASinterupt	nextRasterRoutine;
+};
+typedef struct RASopVbl_ RASopVbl;
+
+/*! -----------------------------------------
 * OpList for VBL routine RASvbl1                                    <br>
 * [.w]	background color                                            <br>
 * [.w]	scan lines count to next inter call (timerb data register)  <br>
 * [.l]	next raster routine                                         <br>
 * -----------------------------------------*/
-STRUCT(RASopVbl1)
+struct RASopVbl1_
 {
 	u16			backgroundColor;
 	u16			scanLinesTo1stInterupt;
 	RASinterupt	nextRasterRoutine;
 };
+typedef struct RASopVbl1_ RASopVbl1;
 
 /*! ----------------------------------------- @struct RASopVbl2
 * OpList for VBL routine RASvbl2                                    <br>
@@ -77,13 +95,14 @@ STRUCT(RASopVbl1)
 * [.w]	scan lines count to next inter call (timerb data register)  <br>
 * [.l]	next raster routine                                         <br>
 * -----------------------------------------*/
-STRUCT(RASopVbl2)
+struct RASopVbl2_
 {
 	u16			backgroundColor;
 	u16			color;
 	u16			scanLinesTo1stInterupt;
 	RASinterupt	nextRasterRoutine;
 };
+typedef struct RASopVbl2_ RASopVbl2;
 
 /*! ----------------------------------------- @struct RASopVbl15
 * OpList for VBL routine RASvbl15                                   <br>
@@ -91,12 +110,27 @@ STRUCT(RASopVbl2)
 * [.w]	scan lines count to next inter call (timerb data register)  <br>
 * [.l]	next raster routine                                         <br>
 * -----------------------------------------*/
-STRUCT(RASopVbl15)
+struct RASopVbl15_
 {
     u16			colors[15];
     u16			scanLinesTo1stInterupt;
     RASinterupt	nextRasterRoutine;
 };
+typedef struct RASopVbl15_ RASopVbl15;
+
+/*---------------------------------------------------------------------- 
+  OpList for VBL routine RASvbl16                                  
+  [.l]  16 colors                                                  
+  [.w]	scan lines count to next inter call (timerb data register) 
+  [.l]	next raster routine                                        
+------------------------------------------------------------------------*/
+struct RASopVbl16_
+{
+    u16			colors[16];
+    u16			scanLinesTo1stInterupt;
+    RASinterupt	nextRasterRoutine;
+};
+typedef struct RASopVbl16_ RASopVbl16;
 
 /*! ----------------------------------------- @struct RASopTop1
 * OpList for RAStop1                                                <br>
@@ -105,13 +139,14 @@ STRUCT(RASopVbl15)
 * [.w]	scan lines count to next inter call (timerb data register)  <br>
 * [.l]	next raster routine                                         <br>
 * -----------------------------------------*/
-STRUCT(RASopTop1)
+struct RASopTop1_
 {
 	u16			backgroundColor;
 	u16			color;
 	u16			scanLinesToNextInterupt;
 	RASinterupt	nextRasterRoutine;
 };
+typedef struct RASopTop1_ RASopTop1;
 
 /*! ----------------------------------------- @struct RASopMid1
 * OpList for RASmid1                                                <br>
@@ -120,14 +155,13 @@ STRUCT(RASopTop1)
 * > [.w] scan lines count to next inter call (timerb data register) <br>
 * >	[.l] next raster routine                                        <br>
 * -----------------------------------------*/
-#define RASstopMask	0x8000
-
-STRUCT(RASopMid1)
+struct RASopMid1_
 {
 	u16			color;
 	u16			scanLineToNextInterupt;
 	RASinterupt	nextRasterRoutine;
 };
+typedef struct RASopMid1_ RASopMid1;
 
 /*! ----------------------------------------- @struct RASopMid15
 * OpList for RASmid15                                               <br>
@@ -138,34 +172,43 @@ STRUCT(RASopMid1)
 * -----------------------------------------*/
 #define RASstopMask	0x8000
 
-STRUCT(RASopMid15)
+struct RASopMid15_
 {
     u16			colors[15];
     u16			scanLineToNextInterupt;
     RASinterupt	nextRasterRoutine;
 };
+typedef struct RASopMid15_ RASopMid15;
+
+struct RASopMid15Colors_
+{
+    u16			colors[15];
+};
+typedef struct RASopMid15Colors_ RASopMid15Colors;
 
 /*! ----------------------------------------- @struct RASopBot1
 * OpList for RASbot1                                                <br>
 * [.w]	background color                                            <br>
 * [.w]	color change                                                <br>    
 * -----------------------------------------*/
-STRUCT(RASopBot1)
+struct RASopBot1_
 {
 	u16		backgroundColor;
 	u16		color;
 };
+typedef struct RASopBot1_ RASopBot1;
 
 /*! ----------------------------------------- @struct RASopLowB
 * OpList for RASlowB                                         <br>
 * [.w] scan lines count to next inter call (timerb data register) <br>
 * [.l] next raster routine                                        <br>
 * -----------------------------------------*/
-STRUCT(RASopLowB)
+struct RASopLowB_
 {
     u16			scanLineToNextInterupt;
     RASinterupt	nextRasterRoutine;
 };
+typedef struct RASopLowB_ RASopLowB;
 
 /*! ---------------------------------------- @struct RASopLowB15
 * OpList for RASopLowB15                                       <br>
@@ -173,11 +216,12 @@ STRUCT(RASopLowB)
 * [.w] scan lines count to next inter call (timerb data register) <br>
 * [.l] next raster routine                                        <br>
 * -----------------------------------------*/
-STRUCT(RASopLowB15)
+struct RASopLowB15_
 {
     u16         colors[15];
     u16			scanLineToNextInterupt;
     RASinterupt	nextRasterRoutine;
 };
+typedef struct RASopLowB15_ RASopLowB15;
 
 #endif

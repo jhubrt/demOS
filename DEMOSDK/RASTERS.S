@@ -33,8 +33,8 @@
 	* void* RASNextOpList
 
 	xdef	RASsetColReg
-	xdef	RASvbl1,RASvbl2,RAStop1,RASmid1,RASbot1,RASlowB
-	xdef    RASvbl15,RASmid15,RASlowB15
+	xdef	RASvbl,RASvbl1,RASvbl2,RAStop1,RASmid1,RASbot1,RASlowB
+	xdef    RASvbl15,RASmid15,RASlowB15,RASvbl16
 	xdef	RASnextOpList
     xdef    RASvbldonothing
 
@@ -45,6 +45,25 @@ RASsetColReg:
 	move.w	d0,RASvbl2_automod+2
 	rts
 
+	* -----------------------------------------
+	* OpList for RASvbl
+	* [.w]	scan lines count to next inter call (timerb data register)
+	* [.l]	next raster routine
+	* -----------------------------------------
+RASvbl:
+    and.b	#$FE,$fffffa07.w			; disable timer B
+	clr.b	$fffffa1b.w    
+
+    move.l  RASnextOpList(pc),a1
+	move.w	(a1)+,$fffffa20.w
+	move.l	(a1)+,$120.w
+	move.l	a1,usp
+
+	or.b	#1,$fffffa07.w
+	move.b	#8,$fffffa1b.w
+
+    move.l  (a0)+,a1
+    jmp     (a1)
 
 	* -----------------------------------------
 	* OpList for RASvbl1
@@ -114,6 +133,37 @@ RASvbl15:
 	move.l	(a1)+,$ffff8256.w
 	move.l	(a1)+,$ffff825A.w
 	move.w	(a1)+,$ffff825E.w
+
+	move.w	(a1)+,$fffffa20.w
+	move.l	(a1)+,$120.w
+	move.l	a1,usp
+
+	or.b	#1,$fffffa07.w
+	move.b	#8,$fffffa1b.w
+
+    move.l  (a0)+,a1
+    jmp     (a1)
+
+	* -----------------------------------------
+	* OpList for VBL routine
+	* [.w]	16 colors
+	* [.w]	scan lines count to next inter call (timerb data register)
+	* [.l]	next raster routine
+	* -----------------------------------------
+RASvbl16:
+    and.b	#$FE,$fffffa07.w			; disable timer B
+	clr.b	$fffffa1b.w
+    
+    move.l  RASnextOpList(pc),a1
+
+	move.l	(a1)+,$ffff8240.w
+	move.l	(a1)+,$ffff8244.w
+	move.l	(a1)+,$ffff8248.w
+	move.l	(a1)+,$ffff824C.w
+	move.l	(a1)+,$ffff8250.w
+	move.l	(a1)+,$ffff8254.w
+	move.l	(a1)+,$ffff8258.w
+	move.l	(a1)+,$ffff825C.w
 
 	move.w	(a1)+,$fffffa20.w
 	move.l	(a1)+,$120.w
@@ -231,17 +281,51 @@ RASbot1_automod:
 	* [.l]	next raster routine
 	* -----------------------------------------
 RASlowB:
-	clr.b	$ffff820a.w					; 60hz
 	move.l	a0,-(sp)
+	move.w	d0,-(sp)
+	
 	move.l	usp,a0
-	move.b	#2,$ffff820a.w		        ; 50hz
+
 	clr.b	$fffffa1b.w
-	move.w	(a0)+,$fffffa20.w
+
+	move.w	(a0)+,$fffffa20.w			; 16
 	move.l	(a0)+,$120.w
+
+	move.b	$ffff8209.w,d0
+.waitleft:
+	cmp.b	$ffff8209.w,d0
+	beq.s	.waitleft
+
+	; move.w	#$70,$ffff8240.w
+
+	move.b	$ffff8209.w,d0
+	nop
+.waitright:
+	cmp.b	$ffff8209.w,d0
+	beq.s	.end
+	move.b	$ffff8209.w,d0
+	bra.s	.waitright
+.end:
+
 	move.b	#8,$fffffa1b.w
-	move.l	a0,usp
-	move.l	(sp)+,a0
+	
+	clr.b	$ffff820a.w					; 60hz
+
+	rept 2
+	nop
+	endr
+
+	move.l	a0,usp						; 4
+
+	move.w	(sp)+,d0					; 8
+	move.l	(sp)+,a0					; 12
+
+	move.b	#2,$ffff820a.w		        ; 50hz
+
+	; move.w	#$0,$ffff8240.w	
+	
 	rte
+
 
 	* -----------------------------------------
 	* OpList for RASlowB15
@@ -250,10 +334,10 @@ RASlowB:
 	* [.l]	next raster routine
 	* -----------------------------------------
 RASlowB15:
-	clr.b	$ffff820a.w					; 60hz
 	move.l	a0,-(sp)
+	move.w	d0,-(sp)
+	
 	move.l	usp,a0
-	move.b	#2,$ffff820a.w		        ; 50hz
 	
 	move.l	(a0)+,$ffff8242.w
 	move.l	(a0)+,$ffff8246.w
@@ -265,12 +349,45 @@ RASlowB15:
 	move.w	(a0)+,$ffff825E.w
 
 	clr.b	$fffffa1b.w
-	move.w	(a0)+,$fffffa20.w
+
+	move.w	(a0)+,$fffffa20.w			; 16
 	move.l	(a0)+,$120.w
+
+	move.b	$ffff8209.w,d0
+.waitleft:
+	cmp.b	$ffff8209.w,d0
+	beq.s	.waitleft
+
+	; move.w	#$70,$ffff8240.w
+
+	move.b	$ffff8209.w,d0
+	nop
+.waitright:
+	cmp.b	$ffff8209.w,d0
+	beq.s	.end
+	move.b	$ffff8209.w,d0
+	bra.s	.waitright
+.end:
+
 	move.b	#8,$fffffa1b.w
-	move.l	a0,usp
-	move.l	(sp)+,a0
+	
+	clr.b	$ffff820a.w					; 60hz
+
+	rept 2
+	nop
+	endr
+
+	move.l	a0,usp						; 4
+
+	move.w	(sp)+,d0					; 8
+	move.l	(sp)+,a0					; 12
+
+	move.b	#2,$ffff820a.w		        ; 50hz
+
+	; move.w	#$0,$ffff8240.w
+
 	rte
+
 
 RASvbldonothing:
 	

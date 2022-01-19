@@ -27,10 +27,10 @@
 /* #define TRAC_LOG_DEFAULT    TRAC_LOG_ALL */
 
 #ifdef __TOS__
-#   define TRAC_LOG_DEFAULT    (TRAC_LOG_FSM | TRAC_LOG_FLOW)
+#   define TRAC_LOG_DEFAULT    (TRAC_LOG_FSM | TRAC_LOG_FLOW | TRAC_LOG_TEMP)
 /*#   define TRAC_LOG_DEFAULT    (TRAC_LOG_FSM | TRAC_LOG_FLOW | TRAC_LOG_COMMANDS | TRAC_LOG_SPECIFIC)*/
 #else
-#   define TRAC_LOG_DEFAULT    (TRAC_LOG_FSM | TRAC_LOG_FLOW | TRAC_LOG_COMMANDS | TRAC_LOG_MEMORY | TRAC_LOG_SPECIFIC)
+#   define TRAC_LOG_DEFAULT    (TRAC_LOG_FSM | TRAC_LOG_FLOW | TRAC_LOG_COMMANDS | TRAC_LOG_MEMORY | TRAC_LOG_TEMP /*| TRAC_LOG_SPECIFIC*/)
 #endif
 
 
@@ -461,13 +461,14 @@ void TRACunitTest (void* _screen)
 
 static u32 g_tracNbAllocs = 0;
 
-STRUCT(tracAlloc)
+struct tracAlloc_
 {
     void*         adr;
     MEMallocator* allocator;
     char*         filename;
     u16           line;
 };
+typedef struct tracAlloc_ tracAlloc;
 
 static tracAlloc g_tracAllocs[TRAC_NBMAX_ALLOCS];
 

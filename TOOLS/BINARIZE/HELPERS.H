@@ -26,7 +26,7 @@
 #define WINDOW_WIDTH  1024
 #define WINDOW_HEIGHT 1024
 
-STRUCT(TOOLerror)
+struct TOOLerror
 {
     char m_message[256];
 
@@ -35,6 +35,7 @@ STRUCT(TOOLerror)
         strcpy(m_message, _message);
     }
 };
+
 
 u32  TOOLfileSize       (FILE* _file);
 void TOOLreadcheck      (void* _buf, u32 _size, FILE* _file);

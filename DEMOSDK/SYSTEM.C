@@ -197,11 +197,13 @@ static void SYSstdFree(void* _alloc, void* _adr)
 }
 #endif
    
-STRUCT(SYScookie)
+struct SYScookie_
 {
     u32 id;
 	u32 value;
 };
+typedef struct SYScookie_ SYScookie;
+
 
 bool SYSgetCookie(u32 _id, u32* _value)
 {
@@ -365,6 +367,10 @@ void SYSinitThreading(SYSinitThreadParam* _param)
     sys.idleThreadStackBase = (u8*) RINGallocatorAlloc ( &sys.coremem, _param->idleThreadStackSize );
     ASSERT(sys.idleThreadStackBase != NULL);
     
+    sys.idleThreadStackSize = _param->idleThreadStackSize;
+
+    STDmset(sys.idleThreadStackBase, 0xFAFAFAFAUL, _param->idleThreadStackSize);
+
 #	ifdef __TOS__
     if ( SYSsetIdlethread (sys.idleThreadStackBase, sys.idleThreadStackBase + _param->idleThreadStackSize) )
     {
@@ -457,6 +463,20 @@ void SYSassert(char* _message, char* _file, int _line)
 
 #endif /* !__TOS__ */
 
+u16 SYSevaluateStackUsage(u8* p, u16 size_)
+{
+    u16 t, freebytes = 0;
+
+    for (t = 0 ; t < size_ ; t++)
+    {
+        if (*p++ == 0xFA)
+            freebytes++; 
+        else
+            break;
+    }
+
+    return size_ - freebytes;
+}
 
 #ifdef DEMOS_DEBUG
 

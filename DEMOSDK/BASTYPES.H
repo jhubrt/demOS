@@ -127,6 +127,7 @@ typedef u8 bool;
 #	define ASMIMPORT			extern
 #   define ASMIMPORTDEFAULT(A)
 #   define CONST
+#   define PCONLY(A)
 #else
 #	define PCENDIANSWAP16(V)	STDswap16(V)
 #	define PCENDIANSWAP32(V)	STDswap32(V)
@@ -135,6 +136,7 @@ typedef u8 bool;
 #	define ASMIMPORT
 #   define ASMIMPORTDEFAULT(A)   = A
 #   define CONST const
+#   define PCONLY(A)            A
 #endif
 
 /* memory allocator interface */

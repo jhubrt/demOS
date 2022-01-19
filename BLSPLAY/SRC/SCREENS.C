@@ -83,7 +83,7 @@ static void SCRfade2black (FSM* _fsm)
     for (t = 0 ; t < 16 ; t++)
     {
         SYSvsync;
-        STDmcpy (HW_COLOR_LUT, gradient[t], 32);
+        STDmcpy2 (HW_COLOR_LUT, gradient[t], 32);
     }
     
     FSMgotoNextState (_fsm);

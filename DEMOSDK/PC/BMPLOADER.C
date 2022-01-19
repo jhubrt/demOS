@@ -33,12 +33,13 @@
 #define getDWord(P) (*(u32*)(P))
 
 
-STRUCT(BMPPixel)
+struct BMPPixel_
 {
     u8 b;
     u8 g;
     u8 r;
 };
+typedef struct BMPPixel_ BMPPixel;
 
 
 static bool readSurface (FILE* _file, BITsurface* _surface)
@@ -306,7 +307,7 @@ Error:
 
 
 
-STRUCT(BITbmpInfoHeader)
+struct BITbmpInfoHeader_
 {
     u32     biSize;
     s32     biWidth;
@@ -320,7 +321,7 @@ STRUCT(BITbmpInfoHeader)
     u32     biClrUsed;
     u32     biClrImportant;
 };
-
+typedef struct BITbmpInfoHeader_ BITbmpInfoHeader;
 
 
 bool BITbmpSave (BITsurface* _surface, char* _filename)

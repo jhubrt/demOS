@@ -38,8 +38,9 @@
 #define TRAC_LOG_MEMORY     0x00000001UL
 #define TRAC_LOG_FSM        0x00000002UL
 #define TRAC_LOG_FLOW       0x00000010UL
-#define TRAC_LOG_COMMANDS   0x40000000UL
-#define TRAC_LOG_SPECIFIC   0x80000000UL
+#define TRAC_LOG_COMMANDS   0x20000000UL
+#define TRAC_LOG_SPECIFIC   0x40000000UL
+#define TRAC_LOG_TEMP       0x80000000UL
 
 
 
@@ -81,7 +82,7 @@
 
 #   define TRAClogSourceLine(FILTER)                            while (TRACisSelected(FILTER)) { static char trace[] = "\nExec line:        "; STDutoa(&trace[sizeof(trace) - 8], __LINE__, 6); TRAClogOut(trace, ' '); TRAClogOut(__FILE__, '\n'); break; }
 
-#   define TRAClogFrameNum(FILTER)                              TRAClogNumber10(FILTER,"frame",SYSvblcount,8)
+#   define TRAClogFrameNum(FILTER)                              TRAClogNumber(FILTER,"frame",SYSvblcount,5)
     
 #	ifdef DEMOS_UNITTEST
 	void TRACunitTest (void* _screen);
