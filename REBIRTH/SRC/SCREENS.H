@@ -30,7 +30,7 @@
 #include "REBIRTH\SRC\FUGIT.H"
 #include "REBIRTH\SRC\INTERLUD.H"
 
-STRUCT(Screens)
+struct Screens_
 {
     /* Effects sub objects */
 	Cybervector* cybervector;
@@ -42,6 +42,7 @@ STRUCT(Screens)
     u8           visualizerIndex;
     u8           interludeTextIndex;
 };
+typedef struct Screens_ Screens;
 
 #ifndef SCREEN_C
 extern Screens      g_screens;

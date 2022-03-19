@@ -338,7 +338,7 @@ RASlowB15:
 	move.w	d0,-(sp)
 	
 	move.l	usp,a0
-	
+
 	move.l	(a0)+,$ffff8242.w
 	move.l	(a0)+,$ffff8246.w
 	move.l	(a0)+,$ffff824A.w

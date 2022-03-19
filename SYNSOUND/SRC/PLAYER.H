@@ -32,7 +32,7 @@ void IntroActivity (FSM* _fsm);
 void IntroExit	   (FSM* _fsm);
 void IntroBacktask (FSM* _fsm);
 
-STRUCT(Intro)
+struct Intro_
 {
     void* framebuffer;
     void* pcm[2];
@@ -42,5 +42,6 @@ STRUCT(Intro)
     u8    keyb[2];
     s8    mask[2];
 };
+typedef struct Intro_ Intro;
 
 #endif

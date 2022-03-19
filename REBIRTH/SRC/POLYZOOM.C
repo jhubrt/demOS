@@ -542,12 +542,13 @@ static void CybervectorEraseLogo (u16 _size, u16* _random, u8** _framebuffers)
 	}}
 
 
-STRUCT(CybervectorText)
+struct CybervectorText_
 {
 	s16 height;
 	s16 offsetsource;
 	s16 offsetdest;
 };
+typedef struct CybervectorText_ CybervectorText;
 
 #define NBTEXTS 2
 

@@ -31,7 +31,7 @@ void CybervectorActivity	(FSM* _fsm);
 void CybervectorExit		(FSM* _fsm);
 void CybervectorBacktask	(FSM* _fsm);
 
-STRUCT(Cybervector)
+struct Cybervector_
 {
 	u16*	polygonsList;
 	u8*		polygonsData;
@@ -50,5 +50,6 @@ STRUCT(Cybervector)
 	u16	    currentFrame;
 	u16*	pal;
 };
+typedef struct Cybervector_ Cybervector;
 
 #endif

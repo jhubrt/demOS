@@ -20,11 +20,7 @@
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 -------------------------------------------------------------------------------------------------*/
 
-/*! @brief @ref HARDWARE @file */
-
-/*! @defgroup  HARDWARE
-   
-    HARDWARE maps most of STe registers and some specific constant values 
+/*! HARDWARE maps most of STe registers and some specific constant values 
 */
 
 #ifndef HARDWARE_H

@@ -20,9 +20,7 @@
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 -------------------------------------------------------------------------------------------------*/
 
-
-/*! @brief @ref BIT @file */
-   
+  
 #ifndef BMPLOADER_H
 #define BMPLOADER_H
 
@@ -33,7 +31,7 @@ enum BITloadResult_
     BITloadResult_OK,    
     BITloadResult_READERROR,    
     BITloadResult_UNKNOWN_FORMAT
-} ;
+};
 typedef enum BITloadResult_ BITloadResult;
 
 

@@ -21,12 +21,6 @@
 -------------------------------------------------------------------------------------------------*/
 
 
-/*! @brief @ref MAIN @file */
-/*! @defgroup MAIN
-   
-    Main program : init / shutdown / main loop
-*/
-
 /*! @mainpage Main
 
     Here is the whole source code of 'rebirth' demo.

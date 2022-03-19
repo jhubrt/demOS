@@ -210,10 +210,10 @@ u16* COLcomputeGradient16Steps4b4b (u16* _startColors, u16* _endcolors, u16 _nbC
     default:        
         ASSERT(_step < 16);
 
-    for (n = 0 ; n < _nbColors ; n++)
-    {
-        u16 sc = *scp++;
-        u16 ec = *ecp++;
+        for (n = 0; n < _nbColors; n++)
+        {
+            u16 sc = *scp++;
+            u16 ec = *ecp++;
 
             s16 rs = (sc & 0xF00) >> 4;
             s16 gs =  sc & 0xF0;
@@ -268,8 +268,8 @@ u16* COLcomputeGradient16Steps4bSTe (u16* _startColors, u16* _endcolors, u16 _nb
         break;
 
     case 16: 
-    for (n = 0 ; n < _nbColors ; n++)
-    {
+        for (n = 0; n < _nbColors; n++)
+        {
             u8  ec1 = *ecp++;
             u8  ec2 = *ecp++;
 
@@ -281,8 +281,8 @@ u16* COLcomputeGradient16Steps4bSTe (u16* _startColors, u16* _endcolors, u16 _nb
             u16 gd = ec2 >> 4;
             u16 bd = ec2 & 0xF;
 
-        *_destColors++ = (COL4b2ST[rd] << 8) | (COL4b2ST[gd] << 4) | COL4b2ST[bd];
-    }
+            *_destColors++ = (COL4b2ST[rd] << 8) | (COL4b2ST[gd] << 4) | COL4b2ST[bd];
+        }
         break;
 
     default:        
@@ -334,10 +334,10 @@ u16* COLcomputeGradient (u16* _startColors, u16* _endcolors, u16 _nbColors, s16 
     }
     else
     {
-    _nbSteps--;
+        _nbSteps--;
 
-    for (s = 0 ; s <= _nbSteps ; s++)
-        _destColors = COLcomputeGradientStep (_startColors, _endcolors, _nbColors, _nbSteps, s, _destColors);
+        for (s = 0; s <= _nbSteps; s++)
+            _destColors = COLcomputeGradientStep(_startColors, _endcolors, _nbColors, _nbSteps, s, _destColors);
     }
 
     return _destColors;
@@ -409,7 +409,7 @@ u16 COLcomputeGradientEx (u16* _startColors, u16* _endcolors, u16 _nbColors, s16
             case 7: rd++;   gd2++;  bd++;   break;  
             }
 
-            *_destColors1++ = (COL4b2ST[rd] << 8) | (COL4b2ST[gd] << 4) | COL4b2ST[bd];
+            *_destColors1++ = (COL4b2ST[rd]  << 8) | (COL4b2ST[gd]  << 4) | COL4b2ST[bd];
             *_destColors2++ = (COL4b2ST[rd2] << 8) | (COL4b2ST[gd2] << 4) | COL4b2ST[bd2];
         }
     }

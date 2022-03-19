@@ -33,7 +33,7 @@ void SlidesActivity	    (FSM* _fsm);
 void SlidesExit		    (FSM* _fsm);
 void SlidesBacktask     (FSM* _fsm);
 
-STRUCT(Slides)
+struct Slides_
 {
 	RASinterupt rasterBootFunc;
 	RASopVbl1	rasterBootOp;
@@ -59,5 +59,6 @@ STRUCT(Slides)
     volatile s8 pulse;
     s8          pulseInc;
 };
+typedef struct Slides_ Slides;
 
 #endif

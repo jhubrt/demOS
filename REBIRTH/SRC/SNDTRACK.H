@@ -6,7 +6,7 @@
 
 s16 playTrack (void);
 
-ENUM(PlayerStep)
+enum PlayerStep_
 {
     STEP_SOUNDTRACK_STARTED  = 1,
     STEP_START_POLYZOOM      ,
@@ -33,5 +33,6 @@ ENUM(PlayerStep)
     STEP_VISUALIZER4_STOPPED ,
     STEP_START_FUGIT        
 };
+typedef enum PlayerStep_ PlayerStep;
 
 #endif

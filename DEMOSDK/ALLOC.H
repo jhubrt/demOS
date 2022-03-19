@@ -21,7 +21,7 @@
 -------------------------------------------------------------------------------------------------*/
 
 
-/*! \defgroup RINGallocator
+/*! @defgroup RINGallocator
 
     RINGallocator implements a ring heap where you can allocate buffers of various sizes   <br>
     

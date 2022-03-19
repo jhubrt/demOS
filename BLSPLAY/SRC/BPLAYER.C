@@ -73,11 +73,12 @@ u16 g_maskValues[] =
 };
 
 
-ENUM(TextdisplayState)
+enum TextdisplayState_
 {
     TDS_WRITELINE,
     TDS_WAITLINE
 };
+typedef enum TextdisplayState_ TextdisplayState;
 
 #ifdef __TOS__
 #   define TDS_WAITLINECOUNT   50

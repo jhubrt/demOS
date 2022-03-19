@@ -257,7 +257,7 @@ void STDmcpy2 (void* _dest, void* _src, u32 _length)
     ASSERT(((u32)_dest & 1) == 0);
     ASSERT(((u32)_src  & 1) == 0);
 
-	memcpy(_dest, _src, _length);
+    memcpy(_dest, _src, _length);
 }
 
 void STDfastmset (void* _adr, u32 _value, u32 _length)
@@ -405,7 +405,7 @@ static void STD_unitTest_mcpy (void)
             size = 32768UL - index2;
         }
 
-        memcpy  (&buf[0][index1], &buf[2][index1], size);
+        memcpy (&buf[0][index1], &buf[2][index1], size);
         STDmcpy(&buf[1][index1], &buf[2][index1], size);
 
         if ( memcmp(buf[0], buf[1], 32768UL) != 0 )

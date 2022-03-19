@@ -21,8 +21,6 @@
 -------------------------------------------------------------------------------------------------*/
 
 
-/*! @brief @ref BINARIZE @file */
-
 /*! @defgroup BINARIZE
 
   BINARIZE tool transforms your raw data stored into DATA folder to baked data into DATABIN folder <br>

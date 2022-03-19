@@ -21,8 +21,6 @@
 -------------------------------------------------------------------------------------------------*/
 
 
-/*! @brief @ref LOAD @file */
-
 /* Common defines shared with imager tool */
 
 #ifndef LOADDEFS_H

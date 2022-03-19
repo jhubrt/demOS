@@ -21,7 +21,9 @@
 -------------------------------------------------------------------------------------------------*/
 
 
-/*  Manages loading requests on floppy disks
+/*! @addtogroup LOAD
+
+    Manages loading requests on floppy disks
 
     LOAD system is designed to be cheap in terms of CPU usage (DMA + interrupts)               
 

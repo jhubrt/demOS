@@ -54,15 +54,16 @@ void FUGxorPass         (u8* _screenlineadr) PCSTUB;
 
 ASMIMPORT u16 FUGbufsize;
 
-STRUCT(FUGtext)
+struct FUGtext_
 {
     u16  effect;
     u16  nbsteps;
     char text [14];
     u16  pause;
 };
+typedef struct FUGtext_ FUGtext;
 
-ENUM(FUGfx)
+enum FUGfx_
 {
     APPEAR_L2R,
     APPEAR_SIMULT,
@@ -71,6 +72,7 @@ ENUM(FUGfx)
     DISAPPEAR_SIMULTANEOUS,
     DISAPPEAR_R2L,
 };
+typedef enum FUGfx_ FUGfx;
 
 static FUGtext FUGtexts[] =
 {

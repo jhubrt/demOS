@@ -28,10 +28,11 @@
 
 #include "SYNSOUND\SRC\PLAYER.H"
 
-STRUCT(Screens)
+struct Screens_
 {
     Intro*       intro;
 };
+typedef struct Screens_ Screens;
 
 #ifndef SCREEN_C
 extern Screens      g_screens;

@@ -512,7 +512,7 @@ void BITsurfaceFSErrorDiffuse (MEMallocator* _allocator, BITsurface* _surface, u
 	};	
     typedef enum Component_ Component;
 
-	
+
 	deltasize = (w + 2) * 3 * 2;
 	delta = (DeltaBuffer*) MEM_ALLOC(_allocator, deltasize);
 	memset (delta, 0, deltasize);

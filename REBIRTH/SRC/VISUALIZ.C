@@ -72,7 +72,7 @@ SNSload:	move.w	$AA(a0),d0
 SNSstore:	move.w	(a1,d0.w),(a2)+ 
 */
 
-ENUM(VisualizerState)
+enum VisualizerState_
 {
     VIS_EMPTY,
     VIS_VERTICAL,
@@ -80,12 +80,14 @@ ENUM(VisualizerState)
     VIS_RATIO,
     VIS_ROTATOR
 };
+typedef enum VisualizerState_ VisualizerState;
 
-ENUM(VisualizerFlashType)
+enum VisualizerFlashType_
 {
     VIS_FLASH_OFF       = 0,
     VIS_FLASH_ON        = 1
 };
+typedef enum VisualizerFlashType_ VisualizerFlashType;
 
 #define VIS_NOSYNC          false
 #define VIS_SYNC_STEP       true
@@ -95,14 +97,15 @@ ENUM(VisualizerFlashType)
 #define VIS_TRACK_LOOP      false
 #define VIS_TRACK_BEAT      true
 
-STRUCT(VisualizerOp)
+struct VisualizerOp_
 {
     u8      fadetype;    
     u8      flashfx;
     bool    syncstep;
 };
+typedef struct VisualizerOp_ VisualizerOp;
 
-STRUCT(VisualizerTrack)
+struct VisualizerTrack_
 {
     VisualizerOp*  track;
     u8             len;
@@ -110,6 +113,7 @@ STRUCT(VisualizerTrack)
     s8             animateat;
     bool           trackonbeat;
 };
+typedef struct VisualizerTrack_ VisualizerTrack;
 
 static VisualizerOp visTrack0[] = 
 { 
@@ -960,11 +964,12 @@ static u16* VisualizeLogoAnimate(VANIanimation** _logos, u16 _nbLogos, u16* _p)
 
 /* Logo move -------------------------------- */
 
-STRUCT(VisualizerLogoMove)
+struct VisualizerLogoMove_
 {
     VANIanimation logo;
     s16 speedy;
 };
+typedef struct VisualizerLogoMove_ VisualizerLogoMove;
 
 static bool VisualizerLogoMoveUpdate(VANIanimation* _this, u16* _p)
 {
@@ -1010,7 +1015,7 @@ static void VisualizerLogoMoveConstruct(VisualizerLogoMove* _this, u16 _ysrc, u1
 
 /* Logo glitch -------------------------------- */
 
-STRUCT(VisualizerLogoGlitch)
+struct VisualizerLogoGlitch_
 {
     VANIanimation logo;
     u16 ysrcglitch;
@@ -1018,6 +1023,7 @@ STRUCT(VisualizerLogoGlitch)
     u16 y1glitch;
     u16 y2glitch;
 };
+typedef struct VisualizerLogoGlitch_ VisualizerLogoGlitch;
 
 static bool VisualizerLogoGlitchUpdate(VANIanimation* _this, u16* _p)
 {
@@ -1119,7 +1125,7 @@ static void VisualizerLogoGlitchConstruct (VisualizerLogoGlitch* _this, u16 _ysr
 
 /* Logo Spread FX -------------------------------- */
 
-STRUCT(VisualizerLogoSpread)
+struct VisualizerLogoSpread_
 {
     VANIanimation logo;
     u16 start;
@@ -1127,6 +1133,7 @@ STRUCT(VisualizerLogoSpread)
     s16 *slicedy;
     s16 *slicespeed;
 };
+typedef struct VisualizerLogoSpread_ VisualizerLogoSpread;
 
 static bool VisualizerLogoSpreadUpdate(VANIanimation* _this, u16* _p)
 {

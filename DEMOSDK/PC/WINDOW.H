@@ -21,8 +21,6 @@
 -------------------------------------------------------------------------------------------------*/
 
 
-/*! @brief @ref WINDOW @file */
-
 /*! @defgroup WINDOW
    
     provides a very simple display window implementation for PC applications

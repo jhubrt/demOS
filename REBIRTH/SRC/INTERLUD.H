@@ -35,20 +35,22 @@ void InterludeActivity	(FSM* _fsm);
 void InterludeExit		(FSM* _fsm);
 void InterludeBacktask	(FSM* _fsm);
 
-STRUCT(InterludeText)
+struct InterludeText_
 {
     u8      y;
     u8      col;
     char*   text;
 };
+typedef struct InterludeText_ InterludeText;
 
-STRUCT(InterludeMessage)
+struct InterludeMessage_
 {
     InterludeText* texts;
     u16            nbTexts;
 };
+typedef struct InterludeMessage_ InterludeMessage;
 
-STRUCT(Interlude)
+struct Interlude_
 {
     s16                 index;
 	u8*		            framebuffers[2];
@@ -67,5 +69,6 @@ STRUCT(Interlude)
     u16*                rastersColors[INTERLUDE_MAX_MESSAGES];
     s16                 gradientIndex[INTERLUDE_MAX_MESSAGES];
 };
+typedef struct Interlude_ Interlude;
 
 #endif

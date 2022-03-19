@@ -33,7 +33,7 @@ void VisualizerExit		(FSM* _fsm);
 void VisualizerBacktask (FSM* _fsm);
 void VisualizerEntryFast(FSM* _fsm);
 
-STRUCT(Visualizer)
+struct Visualizer_
 {
 	u16*	    tcbuffers[2];
     u8*         opAddBuffer;
@@ -64,5 +64,6 @@ STRUCT(Visualizer)
     u16         entryClientStep;
     u16         multable[409];  /* 65536UL / 160UL */
 };
+typedef struct Visualizer_ Visualizer;
 
 #endif

@@ -37,12 +37,13 @@
 
 #include <time.h>
 
-STRUCT(SynthSample)
+struct SynthSample_
 {
     s8*     pcm;
     u16     length;
     u16     freq;
 };
+typedef struct SynthSample_ SynthSample;
 
 u16 value[8] = 
 {

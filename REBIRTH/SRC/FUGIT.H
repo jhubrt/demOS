@@ -32,15 +32,16 @@ void FugitActivity	(FSM* _fsm);
 void FugitExit		(FSM* _fsm);
 void FugitBacktask  (FSM* _fsm);
 
-STRUCT(FugitRasters)
+struct FugitRasters_
 {
 	RASopVbl1	    bootOp;
     RASopTop1	    topOp;
     u16             colors[97];
     RASopMid1       midLastOp;
 };
+typedef struct FugitRasters_ FugitRasters;
 
-STRUCT(Fugit)
+struct Fugit_
 {
     u8* framebuffers[2];
     u8* auxbuffer;
@@ -60,5 +61,6 @@ STRUCT(Fugit)
     RASinterupt  bootFunc;
     FugitRasters rasters[2];
 };
+typedef struct Fugit_ Fugit;
 
 #endif

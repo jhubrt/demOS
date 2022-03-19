@@ -21,13 +21,11 @@
 -------------------------------------------------------------------------------------------------*/
 
 
-/*! @brief @ref BASTYPES @file */
-
 /*! @defgroup BASTYPES 
 
    BASTYPES defines configuration and basic C language construct:                       <br>
     - Configuration flags for whole compilation (DEBUG mode, ASSERT activation...)      <br>
-    - Some basic C language constructs (STRUCT, ENUM, MEMallocator, endian swap, STATIC_ASSERT...)
+    - Some basic C language constructs (MEMallocator, endian swap, STATIC_ASSERT...)
 */
 
 #ifndef BASTYPES_H

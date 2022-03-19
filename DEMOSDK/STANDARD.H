@@ -21,8 +21,6 @@
 -------------------------------------------------------------------------------------------------*/
 
 
-/*! @brief @ref STD @file */
-
 /*! @defgroup  STD
 
     - replaces stdlib for standard services. 

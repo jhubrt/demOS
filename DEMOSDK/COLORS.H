@@ -62,10 +62,10 @@ u16* COLcomputeGradient16Steps4bSTe  (u16* _startColors, u16* _endcolors, u16 _n
 #endif
 
 u16* COLcomputeGradientStep          (u16* _startColors, u16* _endcolors, u16 _nbColors, s16 _nbSteps, s16 _step, u16* _destColors);
-u16* COLcomputeGradient         (u16* _startColors, u16* _endcolors, u16 _nbColors, s16 _nbSteps, u16* _destColors);
+u16* COLcomputeGradient              (u16* _startColors, u16* _endcolors, u16 _nbColors, s16 _nbSteps, u16* _destColors);
 u16* COLcomputeGradient4b4b          (u16* _startColors, u16* _endcolors, u16 _nbColors, s16 _nbSteps, u16* _destColors);
 
-u16  COLcomputeGradientEx       (u16* _startColors, u16* _endcolors, u16 _nbColors, s16 _nbSteps, u16* _destColors1, u16* _destColors2);
+u16  COLcomputeGradientEx            (u16* _startColors, u16* _endcolors, u16 _nbColors, s16 _nbSteps, u16* _destColors1, u16* _destColors2);
 
 #ifdef DEMOS_UNITTEST
 void COLrunUnitTests(void);

@@ -20,14 +20,14 @@
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 -------------------------------------------------------------------------------------------------*/
 
-#ifndef EMUL_H
-#define EMUL_H
-/*! @brief @ref EMUL @file */
 
 /*! @defgroup EMUL
-   
-    Very basic frame buffer emulation to test basic stuffs into demo code directly on PC.
+
+  Very basic frame buffer emulation to test basic stuffs into demo code directly on PC.
 */
+
+#ifndef EMUL_H
+#define EMUL_H
 
 #ifdef __TOS__
 

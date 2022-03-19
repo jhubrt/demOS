@@ -21,22 +21,9 @@
 -------------------------------------------------------------------------------------------------*/
 
 
-/*! @brief @ref SND @file */
+/*! @defgroup SYNTH
 
-/*! @defgroup SND
-
-    SND provides SouNDtrack management. 
-    It is designed to be cheap in terms of CPU usage.                                       <br>
-
-    SND:                                                                                     <br>
-    - plays PCM sample with STe DMA                                                         <br>
-    - manages volumes of left / right channels : the idea is to listen in mono 
-      and use them as (free) mixers                                                         <br>
-    - manages the musical score as a DSL code (coded as a co-routine)                       <br>
-    - requires / synchronizes loading of samples and transfer PCM to the wished channel     <br>
-
-    Volume slides are managed by VBL interrupt
-    PCM transfers are also sliced into VBL interrupt.
+    SYNTH prototypes use blitter to mix PCM voices on 2 voices
 */
     
 #ifndef SYNTH_H
@@ -71,12 +58,13 @@ extern volatile void*	SNDlastDMAposition;	    /* read only */
 extern volatile s8		SNDmasterVolume;		/* ready only - debug purpose */
 
 
-STRUCT(SNDsynPlayerInitParam)
+struct SNDsynPlayerInitParam_
 {
 	int dummy;
 };
+typedef struct SNDsynPlayerInitParam_ SNDsynPlayerInitParam;
 
-STRUCT(SNDsynSample)
+struct SNDsynSample_
 {
     s8* data;
     u32 length;
@@ -90,8 +78,9 @@ STRUCT(SNDsynSample)
 
     float* tmpdata;
 };
+typedef struct SNDsynSample_ SNDsynSample;
 
-STRUCT(SNDsynSound)
+struct SNDsynSound_
 {
     SNDsynSample*   samples;
     u8              nbsamples;
@@ -105,6 +94,7 @@ STRUCT(SNDsynSound)
 
     u8              sustainindex;
 };
+typedef struct SNDsynSound_ SNDsynSound;
 
 typedef enum SNDsynNote_
 {
@@ -141,34 +131,38 @@ typedef enum SNDsynNoteFrench_
 } SNDsynNoteFrench;
 
 
-STRUCT(SNDsynSoundSet)
+struct SNDsynSoundSet_
 {
     SNDsynSound* sounds[12];
 };
+typedef struct SNDsynSoundSet_ SNDsynSoundSet;
 
-STRUCT(SNDsynSoundCtrl)
+struct SNDsynSoundCtrl_
 {
     SNDsynSound* currentsound;
     u16          currentsample;
     u16          currentoffset;
 };
+typedef struct SNDsynSoundCtrl_ SNDsynSoundCtrl;
 
-STRUCT(SNDsynSampleConfig)
+struct SNDsynSampleConfig_
 {
     u8 nbperiods;
 };
+typedef struct SNDsynSampleConfig_ SNDsynSampleConfig;
 
-STRUCT(SNDsynConfig)
+struct SNDsynConfig_
 {
     float   basefreq;
     u8      transposerange;
     u8      nbsamples;
     SNDsynSampleConfig* sampleconfigs;
 };
+typedef struct SNDsynConfig_ SNDsynConfig;
 
 /* frames are the static data part of the voices */
 /* when replaying music, this part will be full precomputed */
-STRUCT(SNDsynSoundFrame)
+struct SNDsynSoundFrame_
 {
     SNDsynSample*   sample;      /* if NULL => sound mute */
     u16             nbloops;
@@ -177,9 +171,9 @@ STRUCT(SNDsynSoundFrame)
     u16*            mask;
     u8              volume;
 };
+typedef struct SNDsynSoundFrame_ SNDsynSoundFrame;
 
-
-STRUCT(SNDsynFrame)
+struct SNDsynFrame_
 {
     SNDsynSoundFrame*   soundFrames;
     u8                  nbsoundFrames;
@@ -193,9 +187,10 @@ STRUCT(SNDsynFrame)
     u16                 lastSampleIndex;
     u8                  lastvolume;
 };
+typedef struct SNDsynFrame_ SNDsynFrame;
 
 /*
-STRUCT(SNDsynModulator)
+struct SNDsynModulator_
 {
     u8  framescount;
     u8  stepcount;
@@ -212,7 +207,7 @@ typedef enum SNDsynModulatorType_
     SNDsynModulatorType_NBMODULATORS
 } SNDsynModulatorType;
 
-STRUCT(SNDsynLFO)
+struct SNDsynLFO_
 {
     u8  frames;
     u8  nbframes;
@@ -220,7 +215,7 @@ STRUCT(SNDsynLFO)
     SNDsynModulator     modulators[SNDsynModulatorType_NBMODULATORS];
 };*/
 
-STRUCT(SNDsynVoice)
+struct SNDsynVoice_
 {
     SNDsynFrame     frame;
 
@@ -235,9 +230,9 @@ STRUCT(SNDsynVoice)
 /*    u8              transpose; */
 /*    bool            mute;*/
 };
+typedef struct SNDsynVoice_ SNDsynVoice;
 
-
-STRUCT(SNDsynPlayer)
+struct SNDsynPlayer_
 {
     SNDsynVoice         voices[2];
   
@@ -248,6 +243,7 @@ STRUCT(SNDsynPlayer)
     u16                 dmabufferlen;
     u16                 backbuffer;
 };
+typedef struct SNDsynPlayer_ SNDsynPlayer;
 
 #ifndef SYNTH_C
 

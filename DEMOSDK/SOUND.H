@@ -21,14 +21,12 @@
 -------------------------------------------------------------------------------------------------*/
 
 
-/*! @brief @ref SND @file */
-
 /*! @defgroup SND
 
     SND provides SouNDtrack management. 
     It is designed to be cheap in terms of CPU usage.                                       <br>
 
-    SND:                                                                                     <br>
+    SND:                                                                                    <br>
     - plays PCM sample with STe DMA                                                         <br>
     - manages volumes of left / right channels : the idea is to listen in mono 
       and use them as (free) mixers                                                         <br>
@@ -58,7 +56,7 @@ extern void*			SNDdestTransfer;
 extern volatile void*	SNDlastDMAposition;	    /* read only */
 extern volatile s8		SNDmasterVolume;		/* ready only - debug purpose */
 
-STRUCT(SNDcore)
+struct SNDcore_
 {
 	u8*		     dmaBuffer;
 	u8*		     cache;
@@ -75,6 +73,7 @@ STRUCT(SNDcore)
 	u16			 playerStart;
     volatile u16 playerClientStep;
 };
+typedef struct SNDcore_ SNDcore;
 
 #ifndef SOUND_C
 
