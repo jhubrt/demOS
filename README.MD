@@ -40,7 +40,7 @@ Atari STe 8mhz
 
 Prototype using blitter to mix PCM sounds on 2 voices (proof of concept)
 	
-[Synthetic sound](http://cyber.savina.net/sound.htm)
+[Synthetic sound](http://cyber.savina.net/sound/sound.htm)
 
 [Thread on Atari forum](http://www.atari-forum.com/viewtopic.php?f=16&t=29097)
 
