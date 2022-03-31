@@ -26,7 +26,7 @@ maybe it can also solve problems for people having floppy timing problems
 
 [REBiRTH](https://youtu.be/iNbVcFThTxY)
 
-![](README_V.PNG)
+![](./DOCS/README_V.PNG)
  
 ## Ubi30 - Metal Ages - 2016
 
@@ -59,7 +59,7 @@ Have a look at DOCS/BLITsnd.md in the git depot for more info...
 
 [Documentation](./DOCS/BLITSnd/README.md)
 
-![](README_B.PNG) 
+![](./DOCS/README_B.PNG) 
 
 ## Todo list
 * add CRC / RNF error management in FDC routine
