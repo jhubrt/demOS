@@ -40,10 +40,13 @@
     <ClCompile Include="..\DEMOSDK\PC\_PRECOMP.C">
       <Filter>Source Files\DEMOSDK\PC</Filter>
     </ClCompile>
-    <ClCompile Include="..\DEMOSDK\PC\VISUALASRT.C">
-      <Filter>Source Files\DEMOSDK\PC</Filter>
+    <ClCompile Include="..\DEMOSDK\ALLOC.C">
+      <Filter>Source Files\DEMOSDK</Filter>
     </ClCompile>
     <ClCompile Include="..\DEMOSDK\PC\VISUALOG.CPP">
+      <Filter>Source Files\DEMOSDK\PC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\PC\VISUALASRT.C">
       <Filter>Source Files\DEMOSDK\PC</Filter>
     </ClCompile>
   </ItemGroup>
@@ -67,6 +70,9 @@
       <Filter>Source Files\DEMOSDK</Filter>
     </ClInclude>
     <ClInclude Include="..\DEMOSDK\PC\BMPLOADER.H">
+      <Filter>Source Files\DEMOSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DEMOSDK\ALLOC.H">
       <Filter>Source Files\DEMOSDK</Filter>
     </ClInclude>
     <ClInclude Include="..\DEMOSDK\PC\VISUALOG.H">

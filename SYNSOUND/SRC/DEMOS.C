@@ -126,7 +126,7 @@ int main(int argc, char** argv)
 
 		/* STDmset (buffer, 0, size); */
 
-        EMULinit (sys.membase, -1, -1, 0);
+        EMULinit (sys.membase, -1, -1, 0, "Synsound");
    
 		FSMinit (&g_stateMachine	, states    , statesSize    , 0, DEBUG_STRING("main"));
 		FSMinit (&g_stateMachineIdle, statesIdle, statesIdleSize, 0, DEBUG_STRING("idle"));

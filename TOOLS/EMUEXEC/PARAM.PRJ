@@ -1,0 +1,17 @@
+;-------------------------------------------------------------------------------
+; PARAM / DemOS
+;-------------------------------------------------------------------------------
+
+PARAM.PRG					; name of executable program
+
+.C [ -Y -P -K -C -M ]
+.L [ -G -L -Y ]
+.S [ -Y ]
+=							; list of modules follows...
+
+PCSTART.O					; standard startup code
+
+PARAM.C
+
+PCSTDLIB.LIB				; standard library
+

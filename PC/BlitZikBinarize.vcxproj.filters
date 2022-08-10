@@ -1,0 +1,425 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Source Files\DEMOSDK">
+      <UniqueIdentifier>{63376e97-fa66-4880-af07-45ae8624e06c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Batchs">
+      <UniqueIdentifier>{d49f3e9f-c47c-46ab-85ab-95d2fb7ff635}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\EXTERN">
+      <UniqueIdentifier>{f7a073e2-22fc-40e3-b1b1-31cb4ec97c20}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\TOOLS">
+      <UniqueIdentifier>{953dac38-cb2b-4828-94c2-5a2bb8c1a1dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\TOOLS\BINARIZE">
+      <UniqueIdentifier>{e077cc4d-184c-4692-80ec-a620fad9f9a3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\FX">
+      <UniqueIdentifier>{40bf4388-80b4-4018-aa6d-f6a04aec2134}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\FX\VECTOR">
+      <UniqueIdentifier>{ce326eca-578a-4853-999d-b630b5df35b3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\FX\VECTOR\TOOLS">
+      <UniqueIdentifier>{87579f48-391e-4dd3-a6e6-f2fe99c7cfe4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\TOOLS\FONT">
+      <UniqueIdentifier>{125b7984-14d2-4f84-9a90-9fbfaf9d22dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\DEMOSDK\DATA">
+      <UniqueIdentifier>{185c5ab5-287f-4926-997f-efecd45ac06c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\DEMOSDK\PC">
+      <UniqueIdentifier>{fffd7848-ae45-474b-9209-b25625a1ab5f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DATA">
+      <UniqueIdentifier>{240d7821-c7be-4200-a91c-03c8611e694d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DATA\POLYZOOM">
+      <UniqueIdentifier>{fbafb057-f38e-44fa-9fe6-b2b033608235}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DATA\MENUS">
+      <UniqueIdentifier>{a47ff0a9-805c-4e97-9e75-1feee6c0dea3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DATA\ZIKS">
+      <UniqueIdentifier>{4b3fc413-ea86-4737-adc5-a101ec6cc970}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DATA\INFO">
+      <UniqueIdentifier>{e27c72a2-cee3-4bad-8c3c-ad2db5ebb55e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DATA\LAYERZ">
+      <UniqueIdentifier>{d31bc65f-1b50-4ba6-87c6-9ff9219672b0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DATA\PICS">
+      <UniqueIdentifier>{33a52d32-eb9a-492c-94fa-81ac692a775a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\DEMOSDK\HARDWARE.C">
+      <Filter>Source Files\DEMOSDK</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\PC\SURFACE.C">
+      <Filter>Source Files\DEMOSDK</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\STANDARD.C">
+      <Filter>Source Files\DEMOSDK</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\COLORS.C">
+      <Filter>Source Files\DEMOSDK</Filter>
+    </ClCompile>
+    <ClCompile Include="..\EXTERN\MPP\BMP2MPP.C">
+      <Filter>Source Files\EXTERN</Filter>
+    </ClCompile>
+    <ClCompile Include="..\EXTERN\MPP\MPP2BMP.C">
+      <Filter>Source Files\EXTERN</Filter>
+    </ClCompile>
+    <ClCompile Include="..\EXTERN\MPP\PIXBUF.C">
+      <Filter>Source Files\EXTERN</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\BITMAP.C">
+      <Filter>Source Files\DEMOSDK</Filter>
+    </ClCompile>
+    <ClCompile Include="..\BLITZIK\TOOLS\BINARIZE\BINARIZE.CPP">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\TOOLS\BINARIZE\HELPERS.CPP">
+      <Filter>Source Files\TOOLS\BINARIZE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\FX\VECTOR\TOOLS\B_VECTOR.CPP">
+      <Filter>Source Files\FX\VECTOR\TOOLS</Filter>
+    </ClCompile>
+    <ClCompile Include="..\TOOLS\FONT\GLYPH.CPP">
+      <Filter>Source Files\TOOLS\FONT</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\DATA\DATA.C">
+      <Filter>Source Files\DEMOSDK\DATA</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\SYSTEM.C">
+      <Filter>Source Files\DEMOSDK</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\ALLOC.C">
+      <Filter>Source Files\DEMOSDK</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\PC\VISUALOG.CPP">
+      <Filter>Source Files\DEMOSDK\PC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\PC\WINDOW.C">
+      <Filter>Source Files\DEMOSDK\PC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\PC\BITCONVR.C">
+      <Filter>Source Files\DEMOSDK\PC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\PC\BMPLOADER.C">
+      <Filter>Source Files\DEMOSDK\PC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\PC\VISUALASRT.C">
+      <Filter>Source Files\DEMOSDK\PC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\TOOLS\BINARIZE\HELPERSW.CPP">
+      <Filter>Source Files\TOOLS\BINARIZE</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\DEMOSDK\BITMAP.S">
+      <Filter>Source Files\DEMOSDK</Filter>
+    </None>
+    <None Include="..\BLITZIK\DATA\MENUS\ICONS4.NEO">
+      <Filter>DATA\MENUS</Filter>
+    </None>
+    <None Include="..\BLITZIK\DATA\MENUS\INFOC.NEO">
+      <Filter>DATA\MENUS</Filter>
+    </None>
+    <None Include="..\BLITZIK\DATA\ZIKS\1st-kit.ini">
+      <Filter>DATA\ZIKS</Filter>
+    </None>
+    <None Include="..\BLITZIK\DATA\ZIKS\1st-Kit.xm">
+      <Filter>DATA\ZIKS</Filter>
+    </None>
+    <None Include="..\BLITZIK\DATA\ZIKS\1STBlit.ini">
+      <Filter>DATA\ZIKS</Filter>
+    </None>
+    <None Include="..\BLITZIK\DATA\ZIKS\1STBlit.xm">
+      <Filter>DATA\ZIKS</Filter>
+    </None>
+    <None Include="..\BLITZIK\DATA\ZIKS\BEETHOV7.ini">
+      <Filter>DATA\ZIKS</Filter>
+    </None>
+    <None Include="..\BLITZIK\DATA\ZIKS\BEETHOV7.xm">
+      <Filter>DATA\ZIKS</Filter>
+    </None>
+    <None Include="..\BLITZIK\DATA\ZIKS\Coders2.ini">
+      <Filter>DATA\ZIKS</Filter>
+    </None>
+    <None Include="..\BLITZIK\DATA\ZIKS\Coders2_1.xm">
+      <Filter>DATA\ZIKS</Filter>
+    </None>
+    <None Include="..\BLITZIK\DATA\ZIKS\CVDsong.ini">
+      <Filter>DATA\ZIKS</Filter>
+    </None>
+    <None Include="..\BLITZIK\DATA\ZIKS\CVDsong.xm">
+      <Filter>DATA\ZIKS</Filter>
+    </None>
+    <None Include="..\BLITZIK\DATA\ZIKS\Loader3.ini">
+      <Filter>DATA\ZIKS</Filter>
+    </None>
+    <None Include="..\BLITZIK\DATA\ZIKS\Loader3.xm">
+      <Filter>DATA\ZIKS</Filter>
+    </None>
+    <None Include="..\BLITZIK\DATA\ZIKS\meetthef.ini">
+      <Filter>DATA\ZIKS</Filter>
+    </None>
+    <None Include="..\BLITZIK\DATA\ZIKS\meetthef.xm">
+      <Filter>DATA\ZIKS</Filter>
+    </None>
+    <None Include="..\BLITZIK\DATA\ZIKS\Newstep5.ini">
+      <Filter>DATA\ZIKS</Filter>
+    </None>
+    <None Include="..\BLITZIK\DATA\ZIKS\Newstep5.SEQ">
+      <Filter>DATA\ZIKS</Filter>
+    </None>
+    <None Include="..\BLITZIK\DATA\ZIKS\Newstep5.xm">
+      <Filter>DATA\ZIKS</Filter>
+    </None>
+    <None Include="..\BLITZIK\DATA\ZIKS\NUTEK10.ini">
+      <Filter>DATA\ZIKS</Filter>
+    </None>
+    <None Include="..\BLITZIK\DATA\ZIKS\NUTEK10.SEQ">
+      <Filter>DATA\ZIKS</Filter>
+    </None>
+    <None Include="..\BLITZIK\DATA\ZIKS\NUTEK10.xm">
+      <Filter>DATA\ZIKS</Filter>
+    </None>
+    <None Include="..\BLITZIK\TOOLS\BATCH\_publishexecutables.bat">
+      <Filter>Batchs</Filter>
+    </None>
+    <None Include="..\BLITZIK\TOOLS\BATCH\_make_debug.bat">
+      <Filter>Batchs</Filter>
+    </None>
+    <None Include="..\BLITZIK\TOOLS\BATCH\_make_release.bat">
+      <Filter>Batchs</Filter>
+    </None>
+    <None Include="..\BLITZIK\TOOLS\BATCH\_make_ziks_all_debug.bat">
+      <Filter>Batchs</Filter>
+    </None>
+    <None Include="..\BLITZIK\TOOLS\BATCH\_make_ziks_all_release.bat">
+      <Filter>Batchs</Filter>
+    </None>
+    <None Include="..\BLITZIK\TOOLS\BATCH\_make_ziks_debug.bat">
+      <Filter>Batchs</Filter>
+    </None>
+    <None Include="..\BLITZIK\TOOLS\BATCH\_make_ziks_release.bat">
+      <Filter>Batchs</Filter>
+    </None>
+    <None Include="..\BLITZIK\TOOLS\BATCH\_makeall_debug.bat">
+      <Filter>Batchs</Filter>
+    </None>
+    <None Include="..\BLITZIK\TOOLS\BATCH\_makeall_release.bat">
+      <Filter>Batchs</Filter>
+    </None>
+    <None Include="..\BLITZIK\TOOLS\BATCH\binarizer.bat">
+      <Filter>Batchs</Filter>
+    </None>
+    <None Include="..\BLITZIK\TOOLS\BATCH\blitzwav.bat">
+      <Filter>Batchs</Filter>
+    </None>
+    <None Include="..\BLITZIK\TOOLS\BATCH\blitzwav.mak">
+      <Filter>Batchs</Filter>
+    </None>
+    <None Include="..\BLITZIK\TOOLS\BATCH\LogFilter.cfg">
+      <Filter>Batchs</Filter>
+    </None>
+    <None Include="..\BLITZIK\DATA\ZIKS\1STBLIT.SEQ">
+      <Filter>DATA\ZIKS</Filter>
+    </None>
+    <None Include="..\BLITZIK\DATA\LAYERZ\SPRITE.NEO">
+      <Filter>DATA\LAYERZ</Filter>
+    </None>
+    <None Include="..\BLITZIK\DATA\ZIKS\NEntry1.xm">
+      <Filter>DATA\ZIKS</Filter>
+    </None>
+    <None Include="..\BLITZIK\DATA\ZIKS\NEntry2.ini">
+      <Filter>DATA\ZIKS</Filter>
+    </None>
+    <None Include="..\BLITZIK\DATA\ZIKS\NEntry2.SEQ">
+      <Filter>DATA\ZIKS</Filter>
+    </None>
+    <None Include="..\BLITZIK\DATA\ZIKS\NEntry2.xm">
+      <Filter>DATA\ZIKS</Filter>
+    </None>
+    <None Include="..\BLITZIK\DATA\ZIKS\NEntry1.ini">
+      <Filter>DATA\ZIKS</Filter>
+    </None>
+    <None Include="..\BLITZIK\DATA\ZIKS\NEntry1.SEQ">
+      <Filter>DATA\ZIKS</Filter>
+    </None>
+    <None Include="..\BLITZIK\DATA\ZIKS\arp.xm">
+      <Filter>DATA\ZIKS</Filter>
+    </None>
+    <None Include="..\BLITZIK\DATA\ZIKS\arp.ini">
+      <Filter>DATA\ZIKS</Filter>
+    </None>
+    <None Include="..\BLITZIK\DATA\ZIKS\ARP.SEQ">
+      <Filter>DATA\ZIKS</Filter>
+    </None>
+    <None Include="..\BLITZIK\DATA\ZIKS\LOADER3.SEQ">
+      <Filter>DATA\ZIKS</Filter>
+    </None>
+    <None Include="..\BLITZIK\DATA\ZIKS\MEETTHEF.SEQ">
+      <Filter>DATA\ZIKS</Filter>
+    </None>
+    <None Include="..\BLITZIK\DATA\ZIKS\BEETHOV7.SEQ">
+      <Filter>DATA\ZIKS</Filter>
+    </None>
+    <None Include="..\BLITZIK\DATA\ZIKS\CODERS2.SEQ">
+      <Filter>DATA\ZIKS</Filter>
+    </None>
+    <None Include="..\BLITZIK\DATA\ZIKS\CVDSONG.SEQ">
+      <Filter>DATA\ZIKS</Filter>
+    </None>
+    <None Include="..\BLITZIK\DATA\INFO\VOLMASKS.PI1">
+      <Filter>DATA\INFO</Filter>
+    </None>
+    <None Include="..\BLITZIK\BLITZWAV.INI" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\DEMOSDK\HARDWARE.H">
+      <Filter>Source Files\DEMOSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DEMOSDK\PC\SURFACE.H">
+      <Filter>Source Files\DEMOSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DEMOSDK\STANDARD.H">
+      <Filter>Source Files\DEMOSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DEMOSDK\COLORS.H">
+      <Filter>Source Files\DEMOSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="..\EXTERN\MPP\PIXBUF.H">
+      <Filter>Source Files\EXTERN</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DEMOSDK\BITMAP.H">
+      <Filter>Source Files\DEMOSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="..\TOOLS\BINARIZE\HELPERS.H">
+      <Filter>Source Files\TOOLS\BINARIZE</Filter>
+    </ClInclude>
+    <ClInclude Include="..\FX\VECTOR\TOOLS\B_VECTOR.H">
+      <Filter>Source Files\FX\VECTOR\TOOLS</Filter>
+    </ClInclude>
+    <ClInclude Include="..\BLITZIK\TOOLS\BINARIZE\BINARIZE.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\TOOLS\FONT\GLYPH.H">
+      <Filter>Source Files\TOOLS\FONT</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DEMOSDK\DATA\SYSTFNT.H">
+      <Filter>Source Files\DEMOSDK\DATA</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DEMOSDK\SYSTEM.H">
+      <Filter>Source Files\DEMOSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DEMOSDK\ALLOC.H">
+      <Filter>Source Files\DEMOSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DEMOSDK\PC\VISUALOG.H">
+      <Filter>Source Files\DEMOSDK\PC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DEMOSDK\PC\WINDOW.H">
+      <Filter>Source Files\DEMOSDK\PC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DEMOSDK\PC\BITCONVR.H">
+      <Filter>Source Files\DEMOSDK\PC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DEMOSDK\PC\BMPLOADER.H">
+      <Filter>Source Files\DEMOSDK\PC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DEMOSDK\SYNTHYMD.H">
+      <Filter>Source Files\DEMOSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="..\TOOLS\BINARIZE\HELPERSW.H">
+      <Filter>Source Files\TOOLS\BINARIZE</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\BLITZIK\DATA\POLYZOOM\blitz.bmp">
+      <Filter>DATA\POLYZOOM</Filter>
+    </Image>
+    <Image Include="..\BLITZIK\DATA\POLYZOOM\Logos.bmp">
+      <Filter>DATA\POLYZOOM</Filter>
+    </Image>
+    <Image Include="..\BLITZIK\DATA\MENUS\test0.bmp">
+      <Filter>DATA\MENUS</Filter>
+    </Image>
+    <Image Include="..\BLITZIK\DATA\MENUS\test1.bmp">
+      <Filter>DATA\MENUS</Filter>
+    </Image>
+    <Image Include="..\BLITZIK\DATA\MENUS\test2.bmp">
+      <Filter>DATA\MENUS</Filter>
+    </Image>
+    <Image Include="..\BLITZIK\DATA\MENUS\test3.bmp">
+      <Filter>DATA\MENUS</Filter>
+    </Image>
+    <Image Include="..\BLITZIK\DATA\MENUS\test4.bmp">
+      <Filter>DATA\MENUS</Filter>
+    </Image>
+    <Image Include="..\BLITZIK\DATA\MENUS\test5.bmp">
+      <Filter>DATA\MENUS</Filter>
+    </Image>
+    <Image Include="..\BLITZIK\DATA\PICS\BLITZ.BMP">
+      <Filter>DATA\PICS</Filter>
+    </Image>
+    <Image Include="..\BLITZIK\DATA\PICS\Cyber0.bmp">
+      <Filter>DATA\PICS</Filter>
+    </Image>
+    <Image Include="..\BLITZIK\DATA\PICS\Cyber1.bmp">
+      <Filter>DATA\PICS</Filter>
+    </Image>
+    <Image Include="..\BLITZIK\DATA\PICS\Cyber2.bmp">
+      <Filter>DATA\PICS</Filter>
+    </Image>
+    <Image Include="..\BLITZIK\DATA\PICS\Cyber3.bmp">
+      <Filter>DATA\PICS</Filter>
+    </Image>
+    <Image Include="..\BLITZIK\DATA\PICS\Cyber4.bmp">
+      <Filter>DATA\PICS</Filter>
+    </Image>
+    <Image Include="..\BLITZIK\DATA\PICS\Cyber5.bmp">
+      <Filter>DATA\PICS</Filter>
+    </Image>
+    <Image Include="..\BLITZIK\DATA\PICS\Cyber6.bmp">
+      <Filter>DATA\PICS</Filter>
+    </Image>
+    <Image Include="..\BLITZIK\DATA\POLYZOOM\Party.bmp">
+      <Filter>DATA\POLYZOOM</Filter>
+    </Image>
+    <Image Include="..\BLITZIK\DATA\POLYZOOM\Cybernet.bmp">
+      <Filter>DATA\POLYZOOM</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\BLITZIK\DATA\ZIKS\FXMACROS.TXT">
+      <Filter>DATA\ZIKS</Filter>
+    </Text>
+    <Text Include="..\BLITZIK\DATA\MENUS\AUTORUN.TXT">
+      <Filter>DATA\MENUS</Filter>
+    </Text>
+    <Text Include="..\BLITZIK\DATA\MENUS\COMPO.TXT">
+      <Filter>DATA\MENUS</Filter>
+    </Text>
+    <Text Include="..\BLITZIK\DATA\INFO\INFO.TXT">
+      <Filter>DATA\INFO</Filter>
+    </Text>
+    <Text Include="..\BLITZIK\DATA\INFO\INFOCOMP.TXT">
+      <Filter>DATA\INFO</Filter>
+    </Text>
+    <Text Include="..\BLITZIK\DATA\MENUS\MENU.TXT">
+      <Filter>DATA\MENUS</Filter>
+    </Text>
+  </ItemGroup>
+</Project>

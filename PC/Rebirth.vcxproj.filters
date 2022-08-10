@@ -240,12 +240,6 @@
     <ClInclude Include="..\REBIRTH\SRC\VISUALIZ.H">
       <Filter>SPECIFIC\SRC\VISUALIZER</Filter>
     </ClInclude>
-    <ClInclude Include="..\REBIRTH\REBIRTH1.H">
-      <Filter>SPECIFIC\DISK</Filter>
-    </ClInclude>
-    <ClInclude Include="..\REBIRTH\REBIRTH2.H">
-      <Filter>SPECIFIC\DISK</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\REBIRTH\SRC\POLYZOOM.S">

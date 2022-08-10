@@ -11,8 +11,18 @@
 #include "DEMOSDK\COLORS.C"
 #include "DEMOSDK\FSM.C"
 #include "DEMOSDK\STANDARD.C"
-#include "DEMOSDK\BLITSND.C"
-#include "DEMOSDK\BLITSNDP.C"
+#include "DEMOSDK\BLSZIO.C"
+#include "DEMOSDK\BLSZPLAY.C"
+#include "DEMOSDK\BLSTEST.C"
+
+#if !blsUSEASM
+#include "DEMOSDK\BLSPLAY.C"
+#include "DEMOSDK\BLSIO.C"
+#include "DEMOSDK\SYNTHYM.C"
+#include "DEMOSDK\SYNTHYMD.C"
+#endif
+
+#include "DEMOSDK\YMDISP.C"
 #include "DEMOSDK\SYSTEM.C"
 #include "DEMOSDK\TRACE.C"
 #include "DEMOSDK\DATA\DATA.C"

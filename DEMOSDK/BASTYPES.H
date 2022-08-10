@@ -79,14 +79,6 @@
 #endif
 
 /* constructs */
-#ifdef __GNUC__
-#define ENUM(NAME)			                            enum NAME
-#else
-#define ENUM(NAME)			                            typedef enum NAME##_ NAME; enum NAME##_
-#endif
-#define STRUCT(NAME)									typedef struct NAME##_ NAME; struct NAME##_ 
-#define UNION(NAME)										typedef union NAME##_ NAME; union NAME##_ 
-
 #define DEFAULT_CONSTRUCT(INSTANCE_PTR)                 STDmset(INSTANCE_PTR,0,sizeof(*INSTANCE_PTR));
 
 /* basic types */
@@ -191,7 +183,7 @@ void  TRACmemDump           (MEMallocator* _allocator, FILE* _file, TRACmemDumpC
 #endif
 
 #if defined(DEMOS_ASSERT) || !defined(__TOS__) /* always assert on PC */
-    void SYSassert(char* _message, char* _file, int _line);
+    void SYSassert(CONST char* _message, CONST char* _file, int _line);
 #	define ASSERT(A) if (!(A)) { SYSassert(#A, __FILE__, __LINE__); }
 #else
 #   define ASSERT(A)

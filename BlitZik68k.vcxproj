@@ -1,0 +1,332 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{49855362-BF8E-40C9-8FA8-37BA5542C5D2}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>BlitZik</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <IntDir>$(SolutionDir)TEMP\$(ProjectName)_$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;blsUSEASM=0;BLS_SCOREMODE_ENABLE=0;NDEBUG;_CONSOLE;DEMOS_MEMDEBUG=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeaderFile>DEMOSDK\BASTYPES.H</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>
+      </AdditionalIncludeDirectories>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;dsound.lib;dxguid.lib;Winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Program Files (x86)\Windows Kits\8.1\Lib\winv6.3\um\x86</AdditionalLibraryDirectories>
+      <LinkTimeCodeGeneration>Default</LinkTimeCodeGeneration>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CustomBuild Include="BLITZIK\SRC\ALLCURVE\ALLCURVE.S">
+      <FileType>Document</FileType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">PC\_hatari\HatariDevpack.bat D:\PROJECTS\DEMOS\%(Identity) -L2</Command>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkObjects>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">OUTPUT\BLITZIK\%(Filename).O</Outputs>
+      <MaxProcesses Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">1</MaxProcesses>
+      <MaxItemsInBatch Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">1</MaxItemsInBatch>
+    </CustomBuild>
+    <CustomBuild Include="BLITZIK\SRC\INFO\INFO.S">
+      <FileType>Document</FileType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">PC\_hatari\HatariDevpack.bat D:\PROJECTS\DEMOS\%(Identity)</Command>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkObjects>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">OUTPUT\BLITZIK\%(Filename).PRX</Outputs>
+      <MaxProcesses Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">1</MaxProcesses>
+      <MaxItemsInBatch Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">1</MaxItemsInBatch>
+    </CustomBuild>
+    <CustomBuild Include="BLITZIK\SRC\LAYERZ\LAYERZ.S">
+      <FileType>Document</FileType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">PC\_hatari\HatariDevpack.bat D:\PROJECTS\DEMOS\%(Identity) -L2</Command>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkObjects>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">OUTPUT\BLITZIK\%(Filename).O</Outputs>
+      <MaxProcesses Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">1</MaxProcesses>
+      <MaxItemsInBatch Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">1</MaxItemsInBatch>
+    </CustomBuild>
+    <CustomBuild Include="BLITZIK\SRC\SAMSCROL\SAMSCROL.S">
+      <FileType>Document</FileType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">PC\_hatari\HatariDevpack.bat D:\PROJECTS\DEMOS\%(Identity) -L2</Command>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkObjects>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">OUTPUT\BLITZIK\%(Filename).O</Outputs>
+      <MaxProcesses Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">1</MaxProcesses>
+      <MaxItemsInBatch Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">1</MaxItemsInBatch>
+    </CustomBuild>
+    <CustomBuild Include="BLITZIK\SRC\MENU\MENU.S">
+      <FileType>Document</FileType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">PC\_hatari\HatariDevpack.bat D:\PROJECTS\DEMOS\%(Identity)</Command>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkObjects>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">OUTPUT\BLITZIK\%(Filename).PRX</Outputs>
+      <MaxProcesses Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">1</MaxProcesses>
+      <MaxItemsInBatch Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">1</MaxItemsInBatch>
+    </CustomBuild>
+    <CustomBuild Include="BLITZIK\SRC\SSHADE\SSHADE.S">
+      <FileType>Document</FileType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">PC\_hatari\HatariDevpack.bat D:\PROJECTS\DEMOS\%(Identity) -L2</Command>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkObjects>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">OUTPUT\BLITZIK\%(Filename).O</Outputs>
+      <MaxProcesses Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">1</MaxProcesses>
+      <MaxItemsInBatch Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">1</MaxItemsInBatch>
+    </CustomBuild>
+    <CustomBuild Include="BLITZIK\SRC\WAVHERO\WAVHERO.S">
+      <FileType>Document</FileType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">PC\_hatari\HatariDevpack.bat D:\PROJECTS\DEMOS\%(Identity) -L2</Command>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkObjects>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">OUTPUT\BLITZIK\%(Filename).O</Outputs>
+      <MaxProcesses Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">1</MaxProcesses>
+      <MaxItemsInBatch Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">1</MaxItemsInBatch>
+    </CustomBuild>
+    <CustomBuild Include="DEMOSDK\BITMAPEX.S">
+      <FileType>Document</FileType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">PC\_hatari\HatariDevpack.bat D:\PROJECTS\DEMOS\%(Identity) -L2</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">OUTPUT\%(Filename).O</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkObjects>
+      <MaxProcesses Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">1</MaxProcesses>
+      <MaxItemsInBatch Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">1</MaxItemsInBatch>
+    </CustomBuild>
+    <CustomBuild Include="DEMOSDK\BLSZIO.S">
+      <FileType>Document</FileType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">PC\_hatari\HatariDevpack.bat D:\PROJECTS\DEMOS\%(Identity) -L2</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">OUTPUT\%(Filename).O</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkObjects>
+      <MaxProcesses Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">1</MaxProcesses>
+      <MaxItemsInBatch Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">1</MaxItemsInBatch>
+    </CustomBuild>
+    <CustomBuild Include="DEMOSDK\BLSZPLAY.S">
+      <FileType>Document</FileType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">PC\_hatari\HatariDevpack.bat D:\PROJECTS\DEMOS\%(Identity) -L2</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">OUTPUT\%(Filename).O</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkObjects>
+      <MaxProcesses Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">1</MaxProcesses>
+      <MaxItemsInBatch Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">1</MaxItemsInBatch>
+    </CustomBuild>
+    <CustomBuild Include="DEMOSDK\CODEGEN.S">
+      <FileType>Document</FileType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">PC\_hatari\HatariDevpack.bat D:\PROJECTS\DEMOS\%(Identity) -L2</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">OUTPUT\%(Filename).O</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkObjects>
+      <MaxProcesses Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">1</MaxProcesses>
+      <MaxItemsInBatch Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">1</MaxItemsInBatch>
+    </CustomBuild>
+    <CustomBuild Include="EXTERN\ARJDEP2.S">
+      <FileType>Document</FileType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">PC\_hatari\HatariDevpack.bat D:\PROJECTS\DEMOS\%(Identity) -L2</Command>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkObjects>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">OUTPUT\%(Filename).O</Outputs>
+      <MaxProcesses Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">1</MaxProcesses>
+      <MaxItemsInBatch Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">1</MaxItemsInBatch>
+    </CustomBuild>
+    <CustomBuild Include="EXTERN\RELOCATE.S">
+      <FileType>Document</FileType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">PC\_hatari\HatariDevpack.bat D:\PROJECTS\DEMOS\%(Identity) -L2</Command>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkObjects>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">OUTPUT\%(Filename).O</Outputs>
+      <MaxProcesses Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">1</MaxProcesses>
+      <MaxItemsInBatch Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">1</MaxItemsInBatch>
+    </CustomBuild>
+    <CustomBuild Include="FX\SMPLCURV\SMPLCURV.S">
+      <FileType>Document</FileType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">PC\_hatari\HatariDevpack.bat D:\PROJECTS\DEMOS\%(Identity) -L2</Command>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkObjects>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">OUTPUT\FX\%(Filename).O</Outputs>
+      <MaxProcesses Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">1</MaxProcesses>
+      <MaxItemsInBatch Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">1</MaxItemsInBatch>
+    </CustomBuild>
+    <CustomBuild Include="FX\SNDSHADE\SNDSHADE.S">
+      <FileType>Document</FileType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">PC\_hatari\HatariDevpack.bat D:\PROJECTS\DEMOS\%(Identity) -L2</Command>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkObjects>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">OUTPUT\FX\%(Filename).O</Outputs>
+      <MaxProcesses Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">1</MaxProcesses>
+      <MaxItemsInBatch Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">1</MaxItemsInBatch>
+    </CustomBuild>
+    <CustomBuild Include="FX\STARFILD\STARFI1P.S">
+      <FileType>Document</FileType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">PC\_hatari\HatariDevpack.bat D:\PROJECTS\DEMOS\%(Identity) -L2</Command>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkObjects>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">OUTPUT\FX\%(Filename).O</Outputs>
+      <MaxProcesses Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">1</MaxProcesses>
+      <MaxItemsInBatch Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">1</MaxItemsInBatch>
+    </CustomBuild>
+    <CustomBuild Include="FX\VECTOR\VECTOR.S">
+      <FileType>Document</FileType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">PC\_hatari\HatariDevpack.bat D:\PROJECTS\DEMOS\%(Identity) -L2</Command>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkObjects>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">OUTPUT\FX\%(Filename).O</Outputs>
+      <MaxProcesses Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">1</MaxProcesses>
+      <MaxItemsInBatch Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">1</MaxItemsInBatch>
+    </CustomBuild>
+    <CustomBuild Include="DEMOSDK\SYSTEM.S">
+      <FileType>Document</FileType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">PC\_hatari\HatariDevpack.bat D:\PROJECTS\DEMOS\%(Identity) -L2</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">OUTPUT\%(Filename).O</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkObjects>
+      <MaxProcesses Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">1</MaxProcesses>
+      <MaxItemsInBatch Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">1</MaxItemsInBatch>
+    </CustomBuild>
+    <CustomBuild Include="DEMOSDK\BITMAP.S">
+      <FileType>Document</FileType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">PC\_hatari\HatariDevpack.bat D:\PROJECTS\DEMOS\%(Identity) -L2</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">OUTPUT\%(Filename).O</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkObjects>
+      <MaxProcesses Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">1</MaxProcesses>
+      <MaxItemsInBatch Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">1</MaxItemsInBatch>
+    </CustomBuild>
+    <CustomBuild Include="DEMOSDK\LOAD.S">
+      <FileType>Document</FileType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">PC\_hatari\HatariDevpack.bat D:\PROJECTS\DEMOS\%(Identity) -L2</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">OUTPUT\%(Filename).O</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkObjects>
+      <MaxProcesses Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">1</MaxProcesses>
+      <MaxItemsInBatch Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">1</MaxItemsInBatch>
+    </CustomBuild>
+    <CustomBuild Include="DEMOSDK\RASTERS.S">
+      <FileType>Document</FileType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">PC\_hatari\HatariDevpack.bat D:\PROJECTS\DEMOS\%(Identity) -L2</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">OUTPUT\%(Filename).O</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkObjects>
+      <MaxProcesses Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">1</MaxProcesses>
+      <MaxItemsInBatch Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">1</MaxItemsInBatch>
+    </CustomBuild>
+    <CustomBuild Include="DEMOSDK\STANDARD.S">
+      <FileType>Document</FileType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">PC\_hatari\HatariDevpack.bat D:\PROJECTS\DEMOS\%(Identity) -L2</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">OUTPUT\%(Filename).O</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkObjects>
+      <MaxProcesses Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">1</MaxProcesses>
+      <MaxItemsInBatch Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">1</MaxItemsInBatch>
+    </CustomBuild>
+    <CustomBuild Include="DEMOSDK\TRACE.S">
+      <FileType>Document</FileType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">PC\_hatari\HatariDevpack.bat D:\PROJECTS\DEMOS\%(Identity) -L2</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">OUTPUT\%(Filename).O</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkObjects>
+      <MaxProcesses Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">1</MaxProcesses>
+      <MaxItemsInBatch Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">1</MaxItemsInBatch>
+    </CustomBuild>
+    <CustomBuild Include="EXTERN\XSTARTUP.S">
+      <FileType>Document</FileType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">PC\_hatari\HatariDevpack.bat D:\PROJECTS\DEMOS\%(Identity) -L2</Command>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkObjects>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">OUTPUT\%(Filename).O</Outputs>
+      <MaxProcesses Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">1</MaxProcesses>
+      <MaxItemsInBatch Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">1</MaxItemsInBatch>
+    </CustomBuild>
+    <CustomBuild Include="BLITZIK\SRC\BOOTSTRA.S">
+      <FileType>Document</FileType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">PC\_hatari\HatariDevpack.bat D:\PROJECTS\DEMOS\%(Identity)</Command>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkObjects>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">OUTPUT\BLITZIK\%(Filename).BOT</Outputs>
+      <MaxProcesses Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">1</MaxProcesses>
+      <MaxItemsInBatch Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">1</MaxItemsInBatch>
+    </CustomBuild>
+    <CustomBuild Include="DEMOSDK\COLORS.S">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+      <FileType>Document</FileType>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">PC\_hatari\HatariDevpack.bat D:\PROJECTS\DEMOS\%(Identity) -L2</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">OUTPUT\%(Filename).O</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkObjects>
+      <MaxProcesses Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">1</MaxProcesses>
+      <MaxItemsInBatch Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">1</MaxItemsInBatch>
+    </CustomBuild>
+    <CustomBuild Include="BLITZIK\SRC\BOOTON_B.S">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+      <FileType>Document</FileType>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">PC\_hatari\HatariDevpack.bat D:\PROJECTS\DEMOS\%(Identity)</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">OUTPUT\BLITZIK\%(Filename).PRG</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkObjects>
+      <MaxProcesses Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">1</MaxProcesses>
+      <MaxItemsInBatch Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">1</MaxItemsInBatch>
+    </CustomBuild>
+    <CustomBuild Include="BLITZIK\SRC\SCREENS.S">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+      <FileType>Document</FileType>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">PC\_hatari\HatariDevpack.bat D:\PROJECTS\DEMOS\%(Identity) -L2</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">OUTPUT\BLITZIK\%(Filename).O</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkObjects>
+      <MaxProcesses Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">1</MaxProcesses>
+      <MaxItemsInBatch Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">1</MaxItemsInBatch>
+    </CustomBuild>
+    <CustomBuild Include="EXTERN\WIZZCAT\PRTRKSTE.S">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+      <FileType>Document</FileType>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">PC\_hatari\HatariDevpack.bat D:\PROJECTS\DEMOS\%(Identity) -L2</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">OUTPUT\%(Filename).O</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkObjects>
+      <MaxProcesses Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">1</MaxProcesses>
+      <MaxItemsInBatch Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">1</MaxItemsInBatch>
+    </CustomBuild>
+    <None Include="PC\_hatari\HatariDevpack.bat" />
+    <None Include="PC\_hatari\hataridevpack.cfg" />
+    <None Include="TOOLS\EMUEXEC\EMUEXEC.CFG" />
+    <None Include="TOOLS\EMUEXEC\EMUEXEC.PRJ" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="TOOLS\EMUEXEC\EMUEXEC.C">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

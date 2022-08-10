@@ -35,6 +35,7 @@
 #endif
 
 #if defined(DEMOS_OPTIMIZED) && defined(__TOS__)
+#	include "DEMOSDK\HARDWARE.H"
 #	define RINGALLOCATOR_FAIL()	while(1) { *HW_COLOR_LUT = 0x300; *HW_COLOR_LUT = 0x700; } 
 #else
 #	define RINGALLOCATOR_FAIL()

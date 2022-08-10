@@ -85,40 +85,6 @@ void TOOLwritecheck(const u8& _val, FILE* _file)
 void TOOLwritecheck(const u32& _val, FILE* _file);
 void TOOLwritecheck(const u16& _val, FILE* _file);
 
-void TOOLdisplayImage (WINdow* _window, BITsurface* _surface)
-{
-    if ( _window != NULL )
-    {
-        BITsurface temp;
-        BITsurface* surface = _surface;
-
-
-        if (( _surface->format != BITformat_8bits ) && ( _surface->format != BITformat_x888 ))
-        {
-            surface = &temp; 
-            
-            BITsurfaceConstruct (surface);
-            BITsurfaceConvert (&stdAllocator, _surface, surface, BITformat_8bits);
-        }
-
-        WINdrawImage (
-            _window, 
-            surface->buffer, 
-            surface->width, surface->height, 
-            surface->format == BITformat_8bits ? 8 : 32, 
-            surface->format == BITformat_8bits ? surface->lut.data.p : NULL,
-            (WINDOW_WIDTH - surface->width) / 2, (WINDOW_HEIGHT - surface->height) / 2);
-
-        WINrender (_window);
-        WINwaitForGUI(_window);
-
-        if ( surface == &temp )
-        {
-            BITsurfaceDestroy(surface);
-        }
-    }
-}
-
 
 void TOOLtruncateFile (const char* _source, const char* _dest, u32 _size)
 {

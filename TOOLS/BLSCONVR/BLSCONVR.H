@@ -23,27 +23,29 @@
 #ifndef BLSCONVR_H
 #define BLSCONVR_H
 
-const u32 NBPATTERNROWS = 64;
-const u32 NBVOICES      = 4; 
-
-const float AMIGA_NTSC_C2_FREQ = 8363.4229f;
-const float AMIGA_PAL_C2_FREQ  = 8287.1369f;
+const u32 NBMAXVOICES   = 8; 
+const u32 NBMODVOICES   = 4;
 
 const float STFREQ = (float) BLS_DMA_FREQ / 2.0f;
 
+const u16 NO_TRANSPOSE_PERIOD = 1; 
+
 #define BLS_CONVERT_OUTPUT(FORMAT, ...) { printf (FORMAT, __VA_ARGS__ ); fprintf (stderr, FORMAT, __VA_ARGS__ ); }
+
+#define BLS_CONVERT_OUTPUT_POSITION(MESSAGE_TYPE, p, r, v) {\
+    printf (MESSAGE_TYPE ": pat=0x%x|%d row=0x%x|%d voice=%d - ", p, p, r, r, v + 1);\
+    fprintf (stderr, MESSAGE_TYPE ": pat=0x%x|%d row=0x%x|%d voice=%d - ", p, p, r, r, v + 1); }
 
 struct Key
 {
+    static const u8 INVALID = 0x80;
+    static const u8 KEYOFF  = 0x79;
+
     u8      m_octave;
     u8      m_semitone;
     bool    m_supportArpeggio;
 
-    static const char*             m_names[12];
-    static std::map<unsigned, Key> m_period2Key;
-    static float                   m_amigaFreq;
-
-    static void Init (bool _palFreq);
+    static const char* m_names[12];
 
     Key(u8 _octave, u8 _semitone) 
         : m_octave   (_octave)
@@ -54,14 +56,16 @@ struct Key
     }
 
     Key() 
-        : m_octave   (0x80)
-        , m_semitone (0x80)
+        : m_octave   (INVALID)
+        , m_semitone (INVALID)
         , m_supportArpeggio (false)
     {}
 
-    bool isDefined() const { return m_octave != 0x80; }
+    bool isDefined() const { return m_octave != INVALID; }
+    bool isKeyOff () const { return m_octave == KEYOFF; }
 
-    void undefine() { m_octave = 0x80; }
+    void undefine()     { m_octave = INVALID; }
+    void setKeyOff()    { m_octave = KEYOFF;  } 
 
     bool operator < (const Key& _o) const
     {
@@ -81,24 +85,13 @@ struct Key
         return octavedist;
     }
     
-    float GetAmigaSampleFreq(s8 _fineTune) const
-    {
-        Key reference (2, 0);
-
-        const float deltasemitones = (float)GetDistance(reference) + (float)_fineTune / 8.0f;
-
-        const float amigaSampleFreq  = m_amigaFreq * powf(2.0f, (1.0f/12.0f) * deltasemitones);
-
-        return amigaSampleFreq; 
-    }
-
     void Transpose(s8 _nbsemitones)
     {
         s32 semitone = _nbsemitones + m_semitone;
     
         if (semitone < 0)
         {
-            m_octave -= (u8)(( (1 - semitone) / 12 ) + 1);
+            m_octave -= (u8)(( (- semitone - 1) / 12 ) + 1);
             semitone = (semitone + (12 * 100)) % 12;
         }
         else if (semitone >= 12)
@@ -111,19 +104,19 @@ struct Key
     }
 };
 
+struct FreqRef 
+{
+    float m_amigaFreq;
+
+    FreqRef();
+
+    void Init(bool _palfreq);
+
+    float GetAmigaSampleFreq(const Key& _key, s8 _fineTune);
+};
 
 struct Sample
 {
-    std::vector<s8> m_data;
-
-    char m_sampleName[23];
-    u16  m_sampleLen;
-    s8   m_fineTune;
-    u8   m_sampleVolume;
-    u16  m_sampleLoopStart;
-    u16  m_sampleLoopLength;
-    u32  m_fixedLen;
-
     struct TransposeType
     {
         enum Enum
@@ -134,18 +127,29 @@ struct Sample
         };
     };
 
-    TransposeType::Enum m_transposeType;
+    std::vector<s8> m_data;
 
-    bool isLooping() const { return m_sampleLoopLength > 2; }
+	char m_sampleName[23]	= {0};
+    u32  m_sampleLen		= 0;
+    s8   m_fineTune			= 0;
+	s8	 m_relativeNoteNum	= 0;
+    u8   m_sampleVolume		= 0;
+    u32  m_sampleLoopStart	= 0;
+    u16  m_sampleLoopLength = 0;
+    u32  m_fixedLen			= 0;
+    TransposeType::Enum m_transposeType = TransposeType::NO_INTERPOL;
+
+   
+	bool isLooping() const { return m_sampleLoopLength > 2; }
 
     bool isInterpolationRequired() const { return m_transposeType == TransposeType::LINEAR_INTERPOL; }
     bool isNoTranposeRequired()    const { return m_transposeType == TransposeType::NO_TRANSPOSE; }
     bool isFixedLengthRequired()   const { return m_fixedLen > 0; }
 
-    void Read (FILE* _file)
+    void SetName (const char* _name)
     {
+        strncpy(m_sampleName, _name, sizeof(m_sampleName) - 1);
         m_sampleName[sizeof(m_sampleName) - 1] = 0;
-        TOOLreadcheck(m_sampleName, sizeof(m_sampleName) - 1, _file);
 
         m_transposeType = TransposeType::NO_INTERPOL;
         m_fixedLen = 0;
@@ -194,25 +198,13 @@ struct Sample
                 sscanf (temp, "%lu", &m_fixedLen);
             }
         }
+    }
 
-        TOOLreadcheck(&m_sampleLen, sizeof(m_sampleLen), _file);
-        m_sampleLen = PCENDIANSWAP16(m_sampleLen) << 1;
-
-        TOOLreadcheck(&m_fineTune, sizeof(m_fineTune), _file);
-        m_fineTune <<= 4;
-        m_fineTune >>= 4;   /* 4 bits sign extension */ 
-
-        TOOLreadcheck(&m_sampleVolume, sizeof(m_sampleVolume), _file);
-
-        TOOLreadcheck(&m_sampleLoopStart, sizeof(m_sampleLoopStart), _file);
-        m_sampleLoopStart = PCENDIANSWAP16(m_sampleLoopStart) << 1;
-
-        TOOLreadcheck(&m_sampleLoopLength, sizeof(m_sampleLoopLength), _file);
-        m_sampleLoopLength = PCENDIANSWAP16(m_sampleLoopLength) << 1;
-
+    void CheckLength ()
+    {
         if (isLooping())
         {
-            if (m_sampleLen > (m_sampleLoopStart + m_sampleLoopLength))
+            if (m_sampleLen > (m_sampleLoopStart + (u32)m_sampleLoopLength))
             {
                 BLS_CONVERT_OUTPUT ("#WARNING cropping sample '%s' len from %u to %u\n", m_sampleName, m_sampleLen, m_sampleLoopStart + m_sampleLoopLength);
                 m_sampleLen = m_sampleLoopStart + m_sampleLoopLength;
@@ -228,11 +220,6 @@ struct Sample
 
         fclose (file);
     }
-
-    void Print ()
-    {
-        printf ("%22s | %6u | %6d | %6u | %6u | %6u\n", m_sampleName, m_sampleLen, m_fineTune, m_sampleVolume, m_sampleLoopStart, m_sampleLoopLength);
-    }
 };
 
 
@@ -240,61 +227,59 @@ struct Pattern
 {
     struct Cell
     {
-        u16 m_period;
+        Key m_key;
         u8  m_instrument;
+        u8  m_volume;
         u8  m_fx_h;
         u8  m_fx_m;
         u8  m_fx_l; 
 
 
-        void Read (FILE* _file)
-        {
-            u16 fx;
-            
-            TOOLreadcheck(&m_period, sizeof(m_period), _file);
-            TOOLreadcheck(&fx      , sizeof(fx), _file);
-
-            m_period = PCENDIANSWAP16(m_period);
-            fx       = PCENDIANSWAP16(fx);
-
-            m_instrument = ((m_period >> 8) & 0xF0) | (fx >> 12);
-
-            m_period &= 0xFFF;
-
-            m_fx_h = (fx >> 8) & 0xF;
-            m_fx_m = (fx >> 4) & 0xF;
-            m_fx_l =  fx       & 0xF;
-        }
-
         void Print ()
         {           
-            if (m_period != 0)
+            if (m_key.isDefined())
             {
-                auto it = FindKey();
-                if (it != Key::m_period2Key.end())
-                {
-                    printf (" %-2s%x", Key::m_names[it->second.m_semitone], it->second.m_octave);
-                }
-                else
-                {
-                    printf ("\n#ERROR unknown period %d\n", m_period);
-                }
+				if (m_key.isKeyOff())
+				{
+					printf (" OFF");
+				}
+				else
+				{
+					printf (" %-2s%x", Key::m_names[m_key.m_semitone], m_key.m_octave);
+				}
             }
-            else
-            {
+			else
+			{
                 printf(" - -");
             }
 
-            printf (" %-2u [%x %x %x]", m_instrument, m_fx_h, m_fx_m, m_fx_l);
-        }
-
-        std::map<unsigned, Key>::iterator FindKey () const
-        {            
-            return Key::m_period2Key.find(m_period);
+            printf (" %-2u{%2x %x %x %x", m_instrument, m_volume, m_fx_h, m_fx_m, m_fx_l);
         }
     };
 
-    Cell m_cells[NBPATTERNROWS][NBVOICES];
+    typedef Cell Row[NBMAXVOICES];
+
+    Row* m_cells;
+    u16  m_nbRows;
+
+    Pattern () 
+        : m_cells(NULL) 
+        , m_nbRows(0)
+    {}
+
+    ~Pattern () 
+    {
+        delete[] m_cells;
+        m_cells = NULL;
+        m_nbRows = 0;
+    }
+
+    void SetSize (u16 _nbRows) 
+    {
+        assert (m_cells == NULL);
+        m_cells = new Row[_nbRows];
+        m_nbRows = _nbRows;
+    }
 };
 
 
@@ -372,22 +357,30 @@ class Sndtrack
     char m_title[21];
     u8   m_songLen;
     u8   m_restartSongLooping;
-    u8   m_patternsSequence[128];
+    u8   m_patternsSequence[256];
     char m_format[5]; 
     bool m_useVolumeForBalance;
     u16  m_bitmasks[16];
 
     std::vector<Sample>            m_samples;
     std::map<u8,std::set<Key>>     m_instrumentUsedKeys;
+    std::vector<int>               m_instrToYmSound;
+    std::vector<bool>              m_ymSoundUsed;
     std::vector<Pattern>           m_patterns;
+    u16                            m_nbVoices;
     std::vector<PrecomputedKey>    m_precomputedKeys;
     std::map<u32,u32>              m_keyInstr2precomputedKeys;
     u16                            m_nbPrecomputedSamples;
-    
+
     std::map<u8, std::map<u8,VolFXLevel>> m_instrFXVolumes;
 
     typedef std::multimap<u32,u16> SamplesMapOrderBySize;
     
+    SNDYMsoundSet   m_ymSoundSet;
+    bool            m_ymloaded;
+
+    void TryToLoadYMsounds (const char* _filename);
+
 public:
 
     u32 GetNbVolFXLevelForInstrument (u8 _instrument) const
@@ -400,10 +393,20 @@ public:
             return 0;
     }
    
-    Sndtrack(bool _useVolumeForBalance) : m_useVolumeForBalance (_useVolumeForBalance) {}
+    Sndtrack(bool _useVolumeForBalance) 
+        : m_useVolumeForBalance (_useVolumeForBalance)
+        , m_ymloaded (false)    
+    {
+        memset(&m_ymSoundSet,0,sizeof(m_ymSoundSet));
+        memset(m_patternsSequence,0,sizeof(m_patternsSequence));
+    }
 
-    bool LoadModule (const char* _filename);
+    bool LoadModuleMOD (const char* _filename);
+    bool LoadModuleXM  (const char* _filename);
+    void PrintSamplesTable ();
+    int  RetrievePattern (u32 _patternNum, u32 _startIndex = 0);
 
+    void DetermineInstrumentsFromScore ();
     void AddKeyToInstrument (u8 _instrument, const Key& _key);
     void DisplayUsedInstruments ();
     void DumpSamples();
@@ -416,6 +419,7 @@ public:
     void ConvertToBlitSoundtrack_SourceSamplesTable (BLSsoundTrack* sndtrack, std::map<u8,u8>& instrumentToSourceSample);
     void ConvertToBlitSoundtrack_PrecomputedKeys(BLSsoundTrack* sndtrack, const std::map<u8,u8>& instrumentToSourceSample, SamplesMapOrderBySize& sizeordertopkindex);
     void ConvertToBlitSoundtrack_SamplesAllocOrder(BLSsoundTrack* sndtrack, const SamplesMapOrderBySize& sizeordertopkindex);
+    void ConvertToBlitSoundtrack_ToBLScell (BLSsoundTrack* sndtrack, u32 p, u32 r, u32 v, const Pattern::Cell& _sc, BLScell& dc, Key lastkey[NBMAXVOICES], u8 lastinstrument[NBMAXVOICES], bool balanceused[NBMAXVOICES]);
     void ConvertToBlitSoundtrack_Patterns (BLSsoundTrack* sndtrack);
     BLSsoundTrack* ConvertToBlitSoundtrack ();
 };

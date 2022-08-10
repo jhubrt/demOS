@@ -42,18 +42,19 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IntDir>$(ProjectName)_$(Configuration)\</IntDir>
+    <IntDir>$(SolutionDir)..\TEMP\$(ProjectName)_$(Configuration)\</IntDir>
+    <TargetName>$(ProjectName)_debug</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IntDir>$(ProjectName)_$(Configuration)\</IntDir>
+    <IntDir>$(SolutionDir)..\TEMP\$(ProjectName)_$(Configuration)\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;BLS_ENABLE_OPTIMIZED_DUMP=1;blsUSEASM=0;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>..\</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <PrecompiledHeaderFile>DEMOSDK\BASTYPES.H</PrecompiledHeaderFile>
@@ -61,7 +62,11 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>dsound.lib;dxguid.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>copy .\Debug\BLsConvert_debug.exe ..\BIN\BLS</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -70,7 +75,7 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;BLS_ENABLE_OPTIMIZED_DUMP=1;blsUSEASM=0;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>..\</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <PrecompiledHeaderFile>DEMOSDK\BASTYPES.H</PrecompiledHeaderFile>
@@ -82,20 +87,30 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <LinkTimeCodeGeneration>Default</LinkTimeCodeGeneration>
+      <AdditionalDependencies>dsound.lib;dxguid.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>copy .\Release\BLsConvert.exe ..\BIN\BLS</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\DEMOSDK\ALLOC.C" />
-    <ClCompile Include="..\DEMOSDK\BLITSND.C" />
+    <ClCompile Include="..\DEMOSDK\BLSIO.C" />
+    <ClCompile Include="..\DEMOSDK\BLSPLAY.C" />
+    <ClCompile Include="..\DEMOSDK\BLSTEST.C" />
+    <ClCompile Include="..\DEMOSDK\BLSZDUMP.C" />
+    <ClCompile Include="..\DEMOSDK\BLSZIO.C" />
+    <ClCompile Include="..\DEMOSDK\BLSZPLAY.C" />
     <ClCompile Include="..\DEMOSDK\COLORS.C" />
+    <ClCompile Include="..\DEMOSDK\DATA\DATA.C" />
     <ClCompile Include="..\DEMOSDK\HARDWARE.C" />
     <ClCompile Include="..\DEMOSDK\PC\BITCONVR.C" />
-    <ClCompile Include="..\DEMOSDK\PC\SURFACE.C" />
-    <ClCompile Include="..\DEMOSDK\PC\VISUALASRT.C" />
-    <ClCompile Include="..\DEMOSDK\PC\VISUALOG.CPP">
+    <ClCompile Include="..\DEMOSDK\PC\EMUL.CPP">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="..\DEMOSDK\PC\SURFACE.C" />
+    <ClCompile Include="..\DEMOSDK\PC\VISUALASRT.C" />
     <ClCompile Include="..\DEMOSDK\PC\WINDOW.C">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
@@ -105,7 +120,15 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="..\DEMOSDK\STANDARD.C" />
+    <ClCompile Include="..\DEMOSDK\SYNTHYM.C" />
+    <ClCompile Include="..\DEMOSDK\SYNTHYMD.C" />
+    <ClCompile Include="..\DEMOSDK\SYSTEM.C" />
+    <ClCompile Include="..\DEMOSDK\TRACE.C" />
     <ClCompile Include="..\TOOLS\BINARIZE\HELPERS.CPP">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="..\TOOLS\BLSCONVR\BLSCONVM.CPP">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
     </ClCompile>
@@ -113,22 +136,73 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="..\TOOLS\BLSCONVR\BLSCONVX.CPP">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\DEMOSDK\ALLOC.H" />
-    <ClInclude Include="..\DEMOSDK\BLITSND.H" />
+    <ClInclude Include="..\DEMOSDK\BLSSND.H" />
+    <ClInclude Include="..\DEMOSDK\BLSZDUMP.H" />
     <ClInclude Include="..\DEMOSDK\COLORS.H" />
+    <ClInclude Include="..\DEMOSDK\DATA\SYSTFNT.H" />
     <ClInclude Include="..\DEMOSDK\HARDWARE.H" />
     <ClInclude Include="..\DEMOSDK\PC\BITCONVR.H" />
+    <ClInclude Include="..\DEMOSDK\PC\EMUL.H" />
     <ClInclude Include="..\DEMOSDK\PC\SURFACE.H" />
     <ClInclude Include="..\DEMOSDK\PC\VISUALOG.H" />
     <ClInclude Include="..\DEMOSDK\PC\WINDOW.H" />
     <ClInclude Include="..\DEMOSDK\STANDARD.H" />
+    <ClInclude Include="..\DEMOSDK\SYNTHYM.H" />
+    <ClInclude Include="..\DEMOSDK\SYNTHYMD.H" />
+    <ClInclude Include="..\DEMOSDK\SYSTEM.H" />
+    <ClInclude Include="..\DEMOSDK\TRACE.H" />
     <ClInclude Include="..\TOOLS\BINARIZE\HELPERS.H" />
     <ClInclude Include="..\TOOLS\BLSCONVR\BLSCONVR.H" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\DOCS\BLITSnd\CHAPTERS\BLITSnd_backlog.md" />
+    <None Include="..\DOCS\BLITSnd\CHAPTERS\BLITSnd_blsconvert.md" />
+    <None Include="..\DOCS\BLITSnd\CHAPTERS\BLITSnd_blsplay.md" />
+    <None Include="..\DOCS\BLITSnd\CHAPTERS\BLITSnd_dev.md" />
+    <None Include="..\DOCS\BLITSnd\CHAPTERS\BLITSnd_intro.md" />
+    <None Include="..\DOCS\BLITSnd\CHAPTERS\BLITSnd_optimizations.md" />
+    <None Include="..\DOCS\BLITSnd\CHAPTERS\BLITSnd_pcm_mixing.md" />
+    <None Include="..\DOCS\BLITSnd\CHAPTERS\BLITSnd_synthym.md" />
+    <None Include="..\DOCS\BLITSnd\CHAPTERS\BLITSnd_tracker.md" />
+    <None Include="..\DOCS\BLITSnd\CHAPTERS\BLITSnd_workflow.md" />
+    <None Include="..\DOCS\BLITSnd\CHAPTERS\BLITSnd_ym.md" />
+    <None Include="..\DOCS\BLITSnd\README.md" />
+    <None Include="BlsAutotest.bat" />
     <None Include="BlsConvert.bat" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\DOCS\BLITSnd\CHAPTERS\blitstracker.png" />
+    <Image Include="..\DOCS\BLITSnd\CHAPTERS\img1.png" />
+    <Image Include="..\DOCS\BLITSnd\CHAPTERS\img10.png" />
+    <Image Include="..\DOCS\BLITSnd\CHAPTERS\img11.png" />
+    <Image Include="..\DOCS\BLITSnd\CHAPTERS\img12.png" />
+    <Image Include="..\DOCS\BLITSnd\CHAPTERS\img13.png" />
+    <Image Include="..\DOCS\BLITSnd\CHAPTERS\img14.png" />
+    <Image Include="..\DOCS\BLITSnd\CHAPTERS\img15.png" />
+    <Image Include="..\DOCS\BLITSnd\CHAPTERS\img16.png" />
+    <Image Include="..\DOCS\BLITSnd\CHAPTERS\img17.png" />
+    <Image Include="..\DOCS\BLITSnd\CHAPTERS\img2.png" />
+    <Image Include="..\DOCS\BLITSnd\CHAPTERS\img20.png" />
+    <Image Include="..\DOCS\BLITSnd\CHAPTERS\img21.png" />
+    <Image Include="..\DOCS\BLITSnd\CHAPTERS\img22.png" />
+    <Image Include="..\DOCS\BLITSnd\CHAPTERS\img23.png" />
+    <Image Include="..\DOCS\BLITSnd\CHAPTERS\img30.png" />
+    <Image Include="..\DOCS\BLITSnd\CHAPTERS\img31.png" />
+    <Image Include="..\DOCS\BLITSnd\CHAPTERS\img32.png" />
+    <Image Include="..\DOCS\BLITSnd\CHAPTERS\keyb.png" />
+    <Image Include="..\DOCS\BLITSnd\CHAPTERS\synthym.png" />
+    <Image Include="..\DOCS\BLITSnd\CHAPTERS\workflow.png" />
+    <Image Include="..\DOCS\BLITSnd\CHAPTERS\ym.png" />
+    <Image Include="..\DOCS\BLITSnd\CHAPTERS\ymsawtooth.png" />
+    <Image Include="..\DOCS\BLITSnd\CHAPTERS\ymshapes.png" />
+    <Image Include="..\DOCS\BLITSnd\CHAPTERS\ymtriangle.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

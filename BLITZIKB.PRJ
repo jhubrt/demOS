@@ -1,0 +1,47 @@
+;-------------------------------------------------------------------------------
+; BLITZWAV / DemOS - debug target => metafile build to speed up compilation
+;-------------------------------------------------------------------------------
+
+BLITZWAD.TTP		; name of executable program
+
+.C [ -Y -P -K -C -M -DblsUSEASM=1]
+.L [ -G -L -Y ]
+.S [ -Y ]
+=									; list of modules follows...
+
+PCSTART.O        ; standard startup code
+
+OUTPUT\ARJDEP2.O
+OUTPUT\RELOCATE.O
+
+OUTPUT\BITMAP.O
+OUTPUT\BITMAPEX.O
+OUTPUT\BLSZIO.O
+OUTPUT\BLITZIK\SCREENS.O
+OUTPUT\BLZPLAY.O
+OUTPUT\CODEGEN.O
+OUTPUT\COLORS.O
+OUTPUT\LOAD.O
+OUTPUT\RASTERS.O
+OUTPUT\STANDARD.O
+OUTPUT\TRACE.O
+OUTPUT\SYSTEM.O
+
+BLITZIK\BUILD.C
+
+OUTPUT\FX\SMPLCURV.O
+OUTPUT\FX\SNDSHADE.O
+OUTPUT\FX\VECTOR.O
+OUTPUT\FX\STARFI1P.O
+
+OUTPUT\BLITZIK\SSHADE.O
+OUTPUT\BLITZIK\SAMSCROL.O
+OUTPUT\BLITZIK\ALLCURVE.O
+OUTPUT\BLITZIK\WAVHERO.O
+OUTPUT\BLITZIK\LAYERZ.O
+
+PCSTDLIB.LIB        ; standard library
+
+; PCFLTLIB.LIB       ; floating point library
+; PCEXTLIB.LIB       ; extended library
+; PCTOSLIB.LIB       ; TOS library

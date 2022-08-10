@@ -43,7 +43,7 @@
       <UniqueIdentifier>{c8fad681-bce3-4c43-9946-4286ec8595d3}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\DEMOSDK\PC">
-      <UniqueIdentifier>{ba9e96a2-1db2-4b48-8660-e9508fc498ac}</UniqueIdentifier>
+      <UniqueIdentifier>{cf98d070-1aa2-4cd2-a28a-5a8bdc76d8fb}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

@@ -1,0 +1,503 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="DEMOSDK">
+      <UniqueIdentifier>{0166929c-daf7-48fc-b266-2567060771d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="EXTERN">
+      <UniqueIdentifier>{02c5f3d6-462e-4937-923f-89abacefdd41}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SPECIFIC">
+      <UniqueIdentifier>{4724582c-a246-4582-87cc-2960d08b5cb6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SPECIFIC\MAIN">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="SPECIFIC\SRC">
+      <UniqueIdentifier>{32e2bd30-aa0f-44fb-b3a5-9d0b88a7d0e6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SPECIFIC\PURE_C">
+      <UniqueIdentifier>{5a78965b-b5bc-422e-a6e8-6c6175fa83e3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SPECIFIC\DISK">
+      <UniqueIdentifier>{a07f1790-dda9-4715-9ddf-7dda3f588db2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DEMOSDK\DATA">
+      <UniqueIdentifier>{66eb5e69-a814-4d35-9fd2-80234e759162}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FX">
+      <UniqueIdentifier>{a42c1283-db68-4c47-a03d-b59d61ed0d86}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FX\VECTOR">
+      <UniqueIdentifier>{8defdfbd-4d0b-4692-99fd-2fdbd4179688}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SPECIFIC\SRC\INTRO">
+      <UniqueIdentifier>{50bf4384-7749-4bc0-9923-f9734e792780}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FX\SNDSHADE">
+      <UniqueIdentifier>{cc925e43-138e-4d7b-a2c2-6ba08cea760d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SPECIFIC\SRC\SSHADE">
+      <UniqueIdentifier>{7fb527b7-a03d-4daf-983d-396464825a0b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FX\VREGANIM">
+      <UniqueIdentifier>{d6d092f2-af85-47bf-a03e-36d37271f59d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SPECIFIC\SRC\SAMSCROL">
+      <UniqueIdentifier>{1d167800-ae96-433d-8101-4d8da8fa3638}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DEMOSDK\PC">
+      <UniqueIdentifier>{2a38062b-912a-4a4c-9792-94520b1cd38a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FX\COLPLANE">
+      <UniqueIdentifier>{509cf8fc-73bf-4099-a66e-2ee3324c76bf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SPECIFIC\SRC\MENU">
+      <UniqueIdentifier>{f2ce30cd-f229-450f-a466-507d8cda4577}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SPECIFIC\SRC\LOADER">
+      <UniqueIdentifier>{62e557b0-e2d7-4c00-bf52-e315ebd72ae0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SPECIFIC\HATARI">
+      <UniqueIdentifier>{9fcdaf60-5ad4-45b6-90fb-97bad206322a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FX\TEXT">
+      <UniqueIdentifier>{b4230fac-df82-45c4-92b2-8de08419528c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SPECIFIC\SRC\INFO">
+      <UniqueIdentifier>{0d057e9d-33fd-47cf-94d2-f32e57b0d7da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SPECIFIC\SRC\ALLCURVE">
+      <UniqueIdentifier>{af8661e3-ec12-456f-ab62-2c384048503a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FX\SMPLCURV">
+      <UniqueIdentifier>{752a0239-46be-4c47-8f14-2c3218b04f11}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DOCS">
+      <UniqueIdentifier>{aceaef14-b006-4c50-bd7f-dcab6e10e315}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SPECIFIC\SRC\LAYERZ">
+      <UniqueIdentifier>{8451a732-bec6-434d-95fe-6e229eb50a59}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FX\STARFILD">
+      <UniqueIdentifier>{bb26e26c-39f3-4af5-92ab-ea82bf057096}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SPECIFIC\SRC\SPACEWAV">
+      <UniqueIdentifier>{97cb0277-6c8b-4c27-a8e6-b4e835f514ac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SPECIFIC\SRC\WAVHERO">
+      <UniqueIdentifier>{22abf836-c820-4189-a738-cacba7d3f001}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SPECIFIC\BOOT">
+      <UniqueIdentifier>{d1a5ac8e-aeb7-4593-ae52-4dd9eea54618}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SPECIFIC\SRC\SAMCURVE">
+      <UniqueIdentifier>{65d51f04-99c0-4549-879a-0b361c86d65b}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\DEMOSDK\ALLOC.C">
+      <Filter>DEMOSDK</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\FSM.C">
+      <Filter>DEMOSDK</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\HARDWARE.C">
+      <Filter>DEMOSDK</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\SYSTEM.C">
+      <Filter>DEMOSDK</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\LOAD.C">
+      <Filter>DEMOSDK</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\RASTERS.C">
+      <Filter>DEMOSDK</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\BITMAP.C">
+      <Filter>DEMOSDK</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\STANDARD.C">
+      <Filter>DEMOSDK</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\PC\WINDOW.C">
+      <Filter>DEMOSDK\PC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\COLORS.C">
+      <Filter>DEMOSDK</Filter>
+    </ClCompile>
+    <ClCompile Include="..\EXTERN\ARJDEP.C">
+      <Filter>EXTERN</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\TRACE.C">
+      <Filter>DEMOSDK</Filter>
+    </ClCompile>
+    <ClCompile Include="..\BLITZIK\SRC\DEMOS.C">
+      <Filter>SPECIFIC\MAIN</Filter>
+    </ClCompile>
+    <ClCompile Include="..\BLITZIK\SRC\SCREENS.C">
+      <Filter>SPECIFIC\SRC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\EXTERN\RELOCATE.C">
+      <Filter>EXTERN</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\PC\BITCONVR.C">
+      <Filter>DEMOSDK\PC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\PC\EMUL.CPP">
+      <Filter>DEMOSDK\PC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\DATA\DATA.C">
+      <Filter>DEMOSDK\DATA</Filter>
+    </ClCompile>
+    <ClCompile Include="..\FX\VECTOR\VECTOR.C">
+      <Filter>FX\VECTOR</Filter>
+    </ClCompile>
+    <ClCompile Include="..\BLITZIK\SRC\INTRO\INTRO.C">
+      <Filter>SPECIFIC\SRC\INTRO</Filter>
+    </ClCompile>
+    <ClCompile Include="..\FX\SNDSHADE\SNDSHADE.C">
+      <Filter>FX\SNDSHADE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\BLITZIK\BUILD.C">
+      <Filter>SPECIFIC\PURE_C</Filter>
+    </ClCompile>
+    <ClCompile Include="..\FX\VREGANIM\VREGANIM.C">
+      <Filter>FX\VREGANIM</Filter>
+    </ClCompile>
+    <ClCompile Include="..\FX\COLPLANE\COLPLANE.C">
+      <Filter>FX\COLPLANE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\PC\_PRECOMP.C">
+      <Filter>DEMOSDK\PC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\BLSZPLAY.C">
+      <Filter>DEMOSDK</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\BLSZIO.C">
+      <Filter>DEMOSDK</Filter>
+    </ClCompile>
+    <ClCompile Include="..\BLITZIK\SRC\MENU\MENU.C">
+      <Filter>SPECIFIC\SRC\MENU</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\CODEGEN.C">
+      <Filter>DEMOSDK</Filter>
+    </ClCompile>
+    <ClCompile Include="..\BLITZIK\SRC\LOADER\LOADER.C">
+      <Filter>SPECIFIC\SRC\LOADER</Filter>
+    </ClCompile>
+    <ClCompile Include="..\BLITZIK\SRC\SSHADE\SSHADE.C">
+      <Filter>SPECIFIC\SRC\SSHADE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\BLITZIK\SRC\SAMSCROL\SAMSCROL.C">
+      <Filter>SPECIFIC\SRC\SAMSCROL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\BLITZIK\SRC\SAMCURVE\SAMCURVE.C">
+      <Filter>SPECIFIC\SRC\SAMCURVE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\FX\TEXT\TEXT.C">
+      <Filter>FX\TEXT</Filter>
+    </ClCompile>
+    <ClCompile Include="..\FX\VECTOR\VECTORC.C">
+      <Filter>FX\VECTOR</Filter>
+    </ClCompile>
+    <ClCompile Include="..\BLITZIK\SRC\INFO\INFO.C">
+      <Filter>SPECIFIC\SRC\INFO</Filter>
+    </ClCompile>
+    <ClCompile Include="..\BLITZIK\SRC\ALLCURVE\ALLCURVE.C">
+      <Filter>SPECIFIC\SRC\ALLCURVE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\FX\SMPLCURV\SMPLCURV.C">
+      <Filter>FX\SMPLCURV</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\PC\VISUALASRT.C">
+      <Filter>DEMOSDK\PC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\BLITZIK\SRC\LAYERZ\LAYERZ.C">
+      <Filter>SPECIFIC\SRC\LAYERZ</Filter>
+    </ClCompile>
+    <ClCompile Include="..\FX\STARFILD\STARFILD.C">
+      <Filter>FX\STARFILD</Filter>
+    </ClCompile>
+    <ClCompile Include="..\BLITZIK\SRC\SPACEWAV\SPACEWAV.C">
+      <Filter>SPECIFIC\SRC\SPACEWAV</Filter>
+    </ClCompile>
+    <ClCompile Include="..\BLITZIK\SRC\WAVHERO\WAVHERO.C">
+      <Filter>SPECIFIC\SRC\WAVHERO</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\SYNTHYMD.C">
+      <Filter>DEMOSDK</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\UNITTEST.C">
+      <Filter>DEMOSDK</Filter>
+    </ClCompile>
+    <ClCompile Include="..\EXTERN\sound.c">
+      <Filter>EXTERN</Filter>
+    </ClCompile>
+    <ClCompile Include="..\BLITZIK\BLITZWAV.C">
+      <Filter>SPECIFIC\DISK</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\DEMOSDK\ALLOC.H">
+      <Filter>DEMOSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DEMOSDK\BASTYPES.H">
+      <Filter>DEMOSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DEMOSDK\FSM.H">
+      <Filter>DEMOSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DEMOSDK\HARDWARE.H">
+      <Filter>DEMOSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DEMOSDK\SYSTEM.H">
+      <Filter>DEMOSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DEMOSDK\LOAD.H">
+      <Filter>DEMOSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DEMOSDK\TRACE.H">
+      <Filter>DEMOSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DEMOSDK\RASTERS.H">
+      <Filter>DEMOSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="..\EXTERN\ARJDEP.H">
+      <Filter>EXTERN</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DEMOSDK\BITMAP.H">
+      <Filter>DEMOSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DEMOSDK\STANDARD.H">
+      <Filter>DEMOSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DEMOSDK\PC\WINDOW.H">
+      <Filter>DEMOSDK\PC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DEMOSDK\COLORS.H">
+      <Filter>DEMOSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DEMOSDK\PC\EMUL.H">
+      <Filter>DEMOSDK\PC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\BLITZIK\SRC\SCREENS.H">
+      <Filter>SPECIFIC\SRC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DEMOSDK\LOADDEFS.H">
+      <Filter>DEMOSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="..\EXTERN\RELOCATE.H">
+      <Filter>EXTERN</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DEMOSDK\PC\BITCONVR.H">
+      <Filter>DEMOSDK\PC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DEMOSDK\DATA\SYSTFNT.H">
+      <Filter>DEMOSDK\DATA</Filter>
+    </ClInclude>
+    <ClInclude Include="..\FX\VECTOR\VECTOR.H">
+      <Filter>FX\VECTOR</Filter>
+    </ClInclude>
+    <ClInclude Include="..\BLITZIK\SRC\INTRO\INTRO.H">
+      <Filter>SPECIFIC\SRC\INTRO</Filter>
+    </ClInclude>
+    <ClInclude Include="..\FX\SNDSHADE\SNDSHADE.H">
+      <Filter>FX\SNDSHADE</Filter>
+    </ClInclude>
+    <ClInclude Include="..\BLITZIK\SRC\SSHADE\SSHADE.H">
+      <Filter>SPECIFIC\SRC\SSHADE</Filter>
+    </ClInclude>
+    <ClInclude Include="..\FX\VREGANIM\VREGANIM.H">
+      <Filter>FX\VREGANIM</Filter>
+    </ClInclude>
+    <ClInclude Include="..\FX\COLPLANE\COLPLANE.H">
+      <Filter>FX\COLPLANE</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DEMOSDK\BLSZPLAY.H">
+      <Filter>DEMOSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DEMOSDK\BLSSND.H">
+      <Filter>DEMOSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DEMOSDK\SYNTHYM.H">
+      <Filter>DEMOSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="..\BLITZIK\SRC\MENU\MENU.H">
+      <Filter>SPECIFIC\SRC\MENU</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DEMOSDK\CODEGEN.H">
+      <Filter>DEMOSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="..\BLITZIK\SRC\LOADER\LOADER.H">
+      <Filter>SPECIFIC\SRC\LOADER</Filter>
+    </ClInclude>
+    <ClInclude Include="..\BLITZIK\SRC\SAMSCROL\SAMSCROL.H">
+      <Filter>SPECIFIC\SRC\SAMSCROL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\BLITZIK\SRC\SAMCURVE\SAMCURVE.H">
+      <Filter>SPECIFIC\SRC\SAMCURVE</Filter>
+    </ClInclude>
+    <ClInclude Include="..\FX\TEXT\TEXT.H">
+      <Filter>FX\TEXT</Filter>
+    </ClInclude>
+    <ClInclude Include="..\BLITZIK\SRC\INFO\INFO.H">
+      <Filter>SPECIFIC\SRC\INFO</Filter>
+    </ClInclude>
+    <ClInclude Include="..\FX\SMPLCURV\SMPLCURV.H">
+      <Filter>FX\SMPLCURV</Filter>
+    </ClInclude>
+    <ClInclude Include="..\BLITZIK\SRC\ALLCURVE\ALLCURVE.H">
+      <Filter>SPECIFIC\SRC\ALLCURVE</Filter>
+    </ClInclude>
+    <ClInclude Include="..\BLITZIK\SRC\LAYERZ\LAYERZ.H">
+      <Filter>SPECIFIC\SRC\LAYERZ</Filter>
+    </ClInclude>
+    <ClInclude Include="..\FX\STARFILD\STARFILD.H">
+      <Filter>FX\STARFILD</Filter>
+    </ClInclude>
+    <ClInclude Include="..\BLITZIK\SRC\SPACEWAV\SPACEWAV.H">
+      <Filter>SPECIFIC\SRC\SPACEWAV</Filter>
+    </ClInclude>
+    <ClInclude Include="..\BLITZIK\SRC\WAVHERO\WAVHERO.H">
+      <Filter>SPECIFIC\SRC\WAVHERO</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DEMOSDK\SYNTHYMD.H">
+      <Filter>DEMOSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="..\EXTERN\sound.h">
+      <Filter>EXTERN</Filter>
+    </ClInclude>
+    <ClInclude Include="..\EXTERN\ym2149_fixed_vol.h">
+      <Filter>EXTERN</Filter>
+    </ClInclude>
+    <ClInclude Include="..\BLITZIK\BLITZWAV.H">
+      <Filter>SPECIFIC\DISK</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\DEMOSDK\BITMAP.S">
+      <Filter>DEMOSDK</Filter>
+    </None>
+    <None Include="..\DEMOSDK\STANDARD.S">
+      <Filter>DEMOSDK</Filter>
+    </None>
+    <None Include="..\DEMOSDK\TRACE.S">
+      <Filter>DEMOSDK</Filter>
+    </None>
+    <None Include="..\DEMOSDK\LOAD.S">
+      <Filter>DEMOSDK</Filter>
+    </None>
+    <None Include="..\DEMOSDK\RASTERS.S">
+      <Filter>DEMOSDK</Filter>
+    </None>
+    <None Include="..\DEMOSDK\BOOTSTRA.S">
+      <Filter>DEMOSDK</Filter>
+    </None>
+    <None Include="..\DEMOSDK\SYSTEM.S">
+      <Filter>DEMOSDK</Filter>
+    </None>
+    <None Include="..\EXTERN\XSTARTUP.S">
+      <Filter>EXTERN</Filter>
+    </None>
+    <None Include="..\BLITZIK.PRJ">
+      <Filter>SPECIFIC\PURE_C</Filter>
+    </None>
+    <None Include="..\BLITZIKO.PRJ">
+      <Filter>SPECIFIC\PURE_C</Filter>
+    </None>
+    <None Include="..\BLITZIKB.PRJ">
+      <Filter>SPECIFIC\PURE_C</Filter>
+    </None>
+    <None Include="..\EXTERN\RELOCATE.S">
+      <Filter>EXTERN</Filter>
+    </None>
+    <None Include="..\FX\VECTOR\VECTOR.S">
+      <Filter>FX\VECTOR</Filter>
+    </None>
+    <None Include="..\FX\SNDSHADE\SNDSHADE.S">
+      <Filter>FX\SNDSHADE</Filter>
+    </None>
+    <None Include="..\BLITZIK\SRC\BOOTSTRA.S">
+      <Filter>SPECIFIC\BOOT</Filter>
+    </None>
+    <None Include="..\BLITZIK\SRC\SAMSCROL\SAMSCROL.S">
+      <Filter>SPECIFIC\SRC\SAMSCROL</Filter>
+    </None>
+    <None Include="..\DEMOSDK\BLSZPLAY.S">
+      <Filter>DEMOSDK</Filter>
+    </None>
+    <None Include="..\DEMOSDK\BLSZIO.S">
+      <Filter>DEMOSDK</Filter>
+    </None>
+    <None Include="..\BLITZIK\SRC\MENU\MENU.S">
+      <Filter>SPECIFIC\SRC\MENU</Filter>
+    </None>
+    <None Include="..\EXTERN\ARJDEP2.S">
+      <Filter>EXTERN</Filter>
+    </None>
+    <None Include="_hatari\blitzik.cfg">
+      <Filter>SPECIFIC\HATARI</Filter>
+    </None>
+    <None Include="_hatari\blitziko.cfg">
+      <Filter>SPECIFIC\HATARI</Filter>
+    </None>
+    <None Include="..\DEMOSDK\CODEGEN.S">
+      <Filter>DEMOSDK</Filter>
+    </None>
+    <None Include="..\BLITZIK\SRC\INFO\INFO.S">
+      <Filter>SPECIFIC\SRC\INFO</Filter>
+    </None>
+    <None Include="..\BLITZIK\SRC\SSHADE\SSHADE.S">
+      <Filter>SPECIFIC\SRC\SSHADE</Filter>
+    </None>
+    <None Include="..\BLITZIK\SRC\ALLCURVE\ALLCURVE.S">
+      <Filter>SPECIFIC\SRC\ALLCURVE</Filter>
+    </None>
+    <None Include="..\DOCS\BLITZIK\BLITZWAV.MD">
+      <Filter>DOCS</Filter>
+    </None>
+    <None Include="..\BLITZIKH.PRJ">
+      <Filter>SPECIFIC\PURE_C</Filter>
+    </None>
+    <None Include="..\FX\SMPLCURV\SMPLCURV.S">
+      <Filter>FX\SMPLCURV</Filter>
+    </None>
+    <None Include="..\DEMOSDK\BITMAPEX.S">
+      <Filter>DEMOSDK</Filter>
+    </None>
+    <None Include="..\FX\STARFILD\STARFI1P.S">
+      <Filter>FX\STARFILD</Filter>
+    </None>
+    <None Include="..\BLITZIK\SRC\WAVHERO\WAVHERO.S">
+      <Filter>SPECIFIC\SRC\WAVHERO</Filter>
+    </None>
+    <None Include="..\BLITZIK\SRC\LAYERZ\LAYERZ.S">
+      <Filter>SPECIFIC\SRC\LAYERZ</Filter>
+    </None>
+    <None Include="_hatari\hataridevpack.cfg">
+      <Filter>SPECIFIC\HATARI</Filter>
+    </None>
+    <None Include="..\DEMOSDK\COLORS.S">
+      <Filter>DEMOSDK</Filter>
+    </None>
+    <None Include="..\BLITZIK\SRC\BOOTON_B.S">
+      <Filter>SPECIFIC\BOOT</Filter>
+    </None>
+    <None Include="..\BLITZIK\SRC\SCREENS.S">
+      <Filter>SPECIFIC\SRC</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\BLITZIK\TODOLIST.TXT">
+      <Filter>SPECIFIC</Filter>
+    </Text>
+    <Text Include="..\BLITZIK\BLITZWAV.INI">
+      <Filter>SPECIFIC\DISK</Filter>
+    </Text>
+    <Text Include="..\BLITZIK\BLITZWAV.TXT">
+      <Filter>SPECIFIC\DISK</Filter>
+    </Text>
+  </ItemGroup>
+</Project>

@@ -49,8 +49,20 @@ static void stepNext(FSM* _fsm)
 { 
     HW_COLOR_LUT[0] = 0;
     HW_COLOR_LUT[1] = PCENDIANSWAP16(0xFFF);
-    HW_COLOR_LUT[2] = PCENDIANSWAP16(0xF00);
     HW_COLOR_LUT[3] = PCENDIANSWAP16(0xFFF);
+
+    if (BLSisBlitzSndtrack(g_player.player.sndtrack))
+    {
+#       if BLS_SCOREMODE_ENABLE
+            HW_COLOR_LUT[2] = PCENDIANSWAP16(0x621);
+#       else
+            HW_COLOR_LUT[2] = PCENDIANSWAP16(0x760);
+#       endif 
+    }
+    else
+    {
+        HW_COLOR_LUT[2] = PCENDIANSWAP16(0x261);
+    }
 
     FSMgotoNextState (_fsm);
     FSMgotoNextState (&g_stateMachine);

@@ -308,7 +308,7 @@ struct FileType
     enum Enum
     {
         NORMAL,
-        ARJ,
+        ARJX,
         BOOTSECTOR
     };
 };
@@ -397,100 +397,15 @@ static void* loadDataFile(const char* _sourcepath, const char* _currentName, u32
 
         FileType::Enum fileType = FileType::NORMAL;
     
-        if ( _strcmpi(ext, ".ARJ") == 0 )
-            fileType = FileType::ARJ;
+        if ( _strcmpi(ext, ".ARJX") == 0 )
+            fileType = FileType::ARJX;
         else if ( _strcmpi(ext, ".BOT") == 0 )
             fileType = FileType::BOOTSECTOR;
     
-        if (fileType == FileType::ARJ)
+        if (fileType == FileType::ARJX)
         {
-            printf ("ARJ file detected\n");
-
-            if (( buffer[0] != 0x60 ) || ( buffer[1] != 0xEA ))
-            {
-                printf ("Error: '%s' is not an ARJ file\n", filename);
-                goto Error;
-            }
-            else
-            {
-                u8* p = &buffer[2];
-                
-                u16 headerSize = *(u16*)p;
-                p += sizeof(headerSize);
-                p += headerSize;
-                p += 4;     // skip crc
-
-                u16 exHeaderSize = *(u16*)p;
-                p += sizeof(exHeaderSize);
-
-                if (exHeaderSize > 0)
-                {
-                    p += exHeaderSize;
-                    p += 4;     // skip crc
-                }
-
-                if (( p[0] != 0x60 ) || ( p[1] != 0xEA ))
-                {   
-                    printf ("Error: '%s' is not an ARJ file\n", filename);
-                    goto Error;  
-                }
-
-                p += 2;
-
-                if ( p[7] != 4 )
-                {
-                    printf ("demOS expect to have ARJ file compressed in mode 4 (current is %d)\n", p[7]);
-                }
-
-                u32 compressedSize = *(u32*)&p[14];
-                _originalsize = *(u32*)&p[18];
-
-                printf ("sizes of ARJ : compressed=%d - uncompressed=%d (ratio=%d%%)\n", compressedSize, _originalsize, compressedSize * 100 / _originalsize);
-
-                u16 localHeaderSize = *(u16*)p;
-                p += sizeof(localHeaderSize);
-
-                if (localHeaderSize > 0)
-                {
-                    p += localHeaderSize;
-                    p += 4;     // skip crc
-                }            
-
-                u16 exLocalHeaderSize = *(u16*)p;
-                p += sizeof(exLocalHeaderSize);
-
-                if (exLocalHeaderSize > 0)
-                {
-                    p += localHeaderSize;
-                    p += 4;     // skip crc
-                }            
-
-                u32 shrinkSize = p - buffer;
-
-                shrinkSize -= 4; // leave place to store size
-
-                printf ("image strip headers for %d bytes\n", shrinkSize);
-
-                _filesize -= shrinkSize;
-                memmove (&buffer[4], p, _filesize);
-
-                *(u32*)buffer = STDswap32(_originalsize);
-                {
-                    sprintf (filename, "%s\\DATABIN\\%sX", _sourcepath, _currentName);
-
-                    FILE* data = fopen (filename, "wb");
-
-                    if ( data == NULL )
-                    {
-                        printf ("ERROR: can not open file %s\n", filename);
-                        goto Error;
-                    }
-
-                    u32 result = fwrite (buffer, 1, _filesize, data);
-                    assert(result == _filesize);
-                    fclose (data);
-                }
-            }
+            _originalsize = STDswap32(*(u32*)buffer);
+            printf("ARJX file detected - sizes: compressed=%d - uncompressed=%d (ratio=%d%%)\n", _filesize, _originalsize, _filesize * 100 / _originalsize);
         }
         else if (fileType == FileType::BOOTSECTOR)
         {
@@ -652,17 +567,6 @@ bool writeST (const char* _sourcepath, const char* _imagepath, const char* _imag
                     metaData.offset       = size;
                     metaData.size         = fsize;
                     metaData.originalsize = originalsize;
-
-                    if (originalsize != LOAD_NOTPACKED )
-                    {
-                        metaData.filename += 'X';    
-                        metaData.name     += 'X';
-
-                        if (size == 0)
-                        {
-                            fileEntry.name += 'X';
-                        }
-                    }
 
                     fileMetaData.push_back(metaData);
                 }

@@ -76,12 +76,6 @@
     <ClCompile Include="..\DEMOSDK\DATA\DATA.C">
       <Filter>DEMOSDK\DATA</Filter>
     </ClCompile>
-    <ClCompile Include="..\DEMOSDK\BLITSND.C">
-      <Filter>DEMOSDK</Filter>
-    </ClCompile>
-    <ClCompile Include="..\DEMOSDK\BLITSNDP.C">
-      <Filter>DEMOSDK</Filter>
-    </ClCompile>
     <ClCompile Include="..\BLSPLAY\SRC\BPLAYER.C">
       <Filter>SPECIFIC\SRC</Filter>
     </ClCompile>
@@ -97,11 +91,38 @@
     <ClCompile Include="..\BLSPLAY\SRC\DEMOS.C">
       <Filter>SPECIFIC\MAIN</Filter>
     </ClCompile>
+    <ClCompile Include="..\EXTERN\sound.c">
+      <Filter>EXTERN</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\SYNTHYM.C">
+      <Filter>DEMOSDK</Filter>
+    </ClCompile>
     <ClCompile Include="..\DEMOSDK\PC\_PRECOMP.C">
       <Filter>DEMOSDK\PC</Filter>
     </ClCompile>
+    <ClCompile Include="..\DEMOSDK\BLSTEST.C">
+      <Filter>DEMOSDK</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\BLSIO.C">
+      <Filter>DEMOSDK</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\BLSZPLAY.C">
+      <Filter>DEMOSDK</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\BLSPLAY.C">
+      <Filter>DEMOSDK</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\YMDISP.C">
+      <Filter>DEMOSDK</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\BLSZIO.C">
+      <Filter>DEMOSDK</Filter>
+    </ClCompile>
     <ClCompile Include="..\DEMOSDK\PC\VISUALASRT.C">
       <Filter>DEMOSDK\PC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\SYNTHYMD.C">
+      <Filter>DEMOSDK</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -156,9 +177,6 @@
     <ClInclude Include="..\DEMOSDK\DATA\SYSTFNT.H">
       <Filter>DEMOSDK\DATA</Filter>
     </ClInclude>
-    <ClInclude Include="..\DEMOSDK\BLITSND.H">
-      <Filter>DEMOSDK</Filter>
-    </ClInclude>
     <ClInclude Include="..\BLSPLAY\SRC\BPLAYER.H">
       <Filter>SPECIFIC\SRC</Filter>
     </ClInclude>
@@ -167,6 +185,27 @@
     </ClInclude>
     <ClInclude Include="..\DEMOSDK\TRACE.H">
       <Filter>DEMOSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DEMOSDK\SYNTHYM.H">
+      <Filter>DEMOSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="..\EXTERN\sound.h">
+      <Filter>EXTERN</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DEMOSDK\BLSZDUMP.H">
+      <Filter>DEMOSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DEMOSDK\BLSSND.H">
+      <Filter>DEMOSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DEMOSDK\BLSZPLAY.H">
+      <Filter>DEMOSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DEMOSDK\YMDISP.H">
+      <Filter>DEMOSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="..\EXTERN\ym2149_fixed_vol.h">
+      <Filter>EXTERN</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -200,12 +239,6 @@
     <None Include="..\BLSPLAY.PRJ">
       <Filter>SPECIFIC\PURE_C</Filter>
     </None>
-    <None Include="..\BLSPLAYB.PRJ">
-      <Filter>SPECIFIC\PURE_C</Filter>
-    </None>
-    <None Include="..\DEMOSDK\BLITSNDP.S">
-      <Filter>DEMOSDK</Filter>
-    </None>
     <None Include="..\BLSPLAY\SRC\BPLAYER.S">
       <Filter>SPECIFIC\SRC</Filter>
     </None>
@@ -214,11 +247,25 @@
     </None>
     <None Include="BlsAutotest.bat" />
     <None Include="BlsComparePC_ST.bat" />
-    <None Include="..\BLSPLAYC.PRJ">
-      <Filter>SPECIFIC\PURE_C</Filter>
-    </None>
-    <None Include="..\DEMOSDK\BLITSND.S">
+    <None Include="..\DEMOSDK\BLSZPLAY.S">
       <Filter>DEMOSDK</Filter>
     </None>
+    <None Include="..\DEMOSDK\YMDISP.S">
+      <Filter>DEMOSDK</Filter>
+    </None>
+    <None Include="..\DEMOSDK\BLSZIO.S">
+      <Filter>DEMOSDK</Filter>
+    </None>
+    <None Include="..\BLZPLAY.PRJ">
+      <Filter>SPECIFIC\PURE_C</Filter>
+    </None>
+    <None Include="..\BLSPLAYL.PRJ">
+      <Filter>SPECIFIC\PURE_C</Filter>
+    </None>
+    <None Include="..\DEMOSDK\BITMAP.S">
+      <Filter>DEMOSDK</Filter>
+    </None>
+    <None Include="..\BLSPLAY.CFG" />
+    <None Include="..\BLZPLAY.CFG" />
   </ItemGroup>
 </Project>

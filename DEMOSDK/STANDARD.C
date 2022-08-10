@@ -281,10 +281,10 @@ void  STDsetUSP(void* _adr)     {}
 #endif
 
 #ifdef DEMOS_LOAD_FROMHD
-void* STDloadfile(MEMallocator* _allocator, char* _filename)
+void* STDloadfile(MEMallocator* _allocator, char* _filename, u32* _size)
 {
-    void* buffer;
-    u32 size, readbytes;
+    void* buffer = NULL;
+    u32 size = 0, readbytes;
     FILE* file = fopen(_filename, "rb");
     ASSERT(file != NULL);
 
@@ -301,6 +301,11 @@ void* STDloadfile(MEMallocator* _allocator, char* _filename)
         ASSERT(size == readbytes);
 
         fclose(file);
+    }
+
+    if (_size != NULL)
+    {
+        *_size = size;
     }
 
     return buffer;

@@ -1,0 +1,216 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{2EB6E9A6-BEAC-4FBD-A86B-D478D7EE825A}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>BlitZikBinarize</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <IntDir>$(SolutionDir)..\TEMP\$(ProjectName)_$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <IntDir>$(SolutionDir)..\TEMP\$(ProjectName)_$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\</AdditionalIncludeDirectories>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <LinkTimeCodeGeneration>Default</LinkTimeCodeGeneration>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\DEMOSDK\ALLOC.C" />
+    <ClCompile Include="..\DEMOSDK\BITMAP.C" />
+    <ClCompile Include="..\DEMOSDK\COLORS.C" />
+    <ClCompile Include="..\DEMOSDK\DATA\DATA.C" />
+    <ClCompile Include="..\DEMOSDK\HARDWARE.C" />
+    <ClCompile Include="..\DEMOSDK\PC\BITCONVR.C" />
+    <ClCompile Include="..\DEMOSDK\PC\BMPLOADER.C" />
+    <ClCompile Include="..\DEMOSDK\PC\SURFACE.C" />
+    <ClCompile Include="..\DEMOSDK\PC\VISUALASRT.C" />
+    <ClCompile Include="..\DEMOSDK\PC\VISUALOG.CPP" />
+    <ClCompile Include="..\DEMOSDK\PC\WINDOW.C" />
+    <ClCompile Include="..\DEMOSDK\STANDARD.C" />
+    <ClCompile Include="..\DEMOSDK\SYSTEM.C" />
+    <ClCompile Include="..\EXTERN\MPP\BMP2MPP.C" />
+    <ClCompile Include="..\EXTERN\MPP\MPP2BMP.C" />
+    <ClCompile Include="..\EXTERN\MPP\PIXBUF.C" />
+    <ClCompile Include="..\FX\VECTOR\TOOLS\B_VECTOR.CPP" />
+    <ClCompile Include="..\BLITZIK\TOOLS\BINARIZE\BINARIZE.CPP" />
+    <ClCompile Include="..\TOOLS\BINARIZE\HELPERS.CPP" />
+    <ClCompile Include="..\TOOLS\BINARIZE\HELPERSW.CPP" />
+    <ClCompile Include="..\TOOLS\FONT\GLYPH.CPP" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\BLITZIK\BLITZWAV.INI" />
+    <None Include="..\BLITZIK\DATA\INFO\VOLMASKS.PI1" />
+    <None Include="..\BLITZIK\DATA\LAYERZ\SPRITE.NEO" />
+    <None Include="..\BLITZIK\DATA\MENUS\ICONS4.NEO" />
+    <None Include="..\BLITZIK\DATA\MENUS\INFOC.NEO" />
+    <None Include="..\BLITZIK\DATA\ZIKS\1st-kit.ini" />
+    <None Include="..\BLITZIK\DATA\ZIKS\1st-Kit.xm" />
+    <None Include="..\BLITZIK\DATA\ZIKS\1STBlit.ini" />
+    <None Include="..\BLITZIK\DATA\ZIKS\1STBLIT.SEQ" />
+    <None Include="..\BLITZIK\DATA\ZIKS\1STBlit.xm" />
+    <None Include="..\BLITZIK\DATA\ZIKS\arp.ini" />
+    <None Include="..\BLITZIK\DATA\ZIKS\ARP.SEQ" />
+    <None Include="..\BLITZIK\DATA\ZIKS\arp.xm" />
+    <None Include="..\BLITZIK\DATA\ZIKS\BEETHOV7.ini" />
+    <None Include="..\BLITZIK\DATA\ZIKS\BEETHOV7.SEQ" />
+    <None Include="..\BLITZIK\DATA\ZIKS\BEETHOV7.xm" />
+    <None Include="..\BLITZIK\DATA\ZIKS\Coders2.ini" />
+    <None Include="..\BLITZIK\DATA\ZIKS\CODERS2.SEQ" />
+    <None Include="..\BLITZIK\DATA\ZIKS\Coders2_1.xm" />
+    <None Include="..\BLITZIK\DATA\ZIKS\CVDsong.ini" />
+    <None Include="..\BLITZIK\DATA\ZIKS\CVDSONG.SEQ" />
+    <None Include="..\BLITZIK\DATA\ZIKS\CVDsong.xm" />
+    <None Include="..\BLITZIK\DATA\ZIKS\Loader3.ini" />
+    <None Include="..\BLITZIK\DATA\ZIKS\LOADER3.SEQ" />
+    <None Include="..\BLITZIK\DATA\ZIKS\Loader3.xm" />
+    <None Include="..\BLITZIK\DATA\ZIKS\meetthef.ini" />
+    <None Include="..\BLITZIK\DATA\ZIKS\MEETTHEF.SEQ" />
+    <None Include="..\BLITZIK\DATA\ZIKS\meetthef.xm" />
+    <None Include="..\BLITZIK\DATA\ZIKS\NEntry1.ini" />
+    <None Include="..\BLITZIK\DATA\ZIKS\NEntry1.SEQ" />
+    <None Include="..\BLITZIK\DATA\ZIKS\NEntry1.xm" />
+    <None Include="..\BLITZIK\DATA\ZIKS\NEntry2.ini" />
+    <None Include="..\BLITZIK\DATA\ZIKS\NEntry2.SEQ" />
+    <None Include="..\BLITZIK\DATA\ZIKS\NEntry2.xm" />
+    <None Include="..\BLITZIK\DATA\ZIKS\Newstep5.ini" />
+    <None Include="..\BLITZIK\DATA\ZIKS\Newstep5.SEQ" />
+    <None Include="..\BLITZIK\DATA\ZIKS\Newstep5.xm" />
+    <None Include="..\BLITZIK\DATA\ZIKS\NUTEK10.ini" />
+    <None Include="..\BLITZIK\DATA\ZIKS\NUTEK10.SEQ" />
+    <None Include="..\BLITZIK\DATA\ZIKS\NUTEK10.xm" />
+    <None Include="..\BLITZIK\TOOLS\BATCH\binarizer.bat" />
+    <None Include="..\BLITZIK\TOOLS\BATCH\blitzwav.bat" />
+    <None Include="..\BLITZIK\TOOLS\BATCH\blitzwav.mak" />
+    <None Include="..\BLITZIK\TOOLS\BATCH\LogFilter.cfg" />
+    <None Include="..\BLITZIK\TOOLS\BATCH\_makeall_debug.bat" />
+    <None Include="..\BLITZIK\TOOLS\BATCH\_makeall_release.bat" />
+    <None Include="..\BLITZIK\TOOLS\BATCH\_make_debug.bat" />
+    <None Include="..\BLITZIK\TOOLS\BATCH\_make_release.bat" />
+    <None Include="..\BLITZIK\TOOLS\BATCH\_make_ziks_all_debug.bat" />
+    <None Include="..\BLITZIK\TOOLS\BATCH\_make_ziks_all_release.bat" />
+    <None Include="..\BLITZIK\TOOLS\BATCH\_make_ziks_debug.bat" />
+    <None Include="..\BLITZIK\TOOLS\BATCH\_make_ziks_release.bat" />
+    <None Include="..\BLITZIK\TOOLS\BATCH\_publishexecutables.bat" />
+    <None Include="..\DEMOSDK\BITMAP.S" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\BLITZIK\TOOLS\BINARIZE\BINARIZE.h" />
+    <ClInclude Include="..\DEMOSDK\ALLOC.H" />
+    <ClInclude Include="..\DEMOSDK\BITMAP.H" />
+    <ClInclude Include="..\DEMOSDK\COLORS.H" />
+    <ClInclude Include="..\DEMOSDK\DATA\SYSTFNT.H" />
+    <ClInclude Include="..\DEMOSDK\HARDWARE.H" />
+    <ClInclude Include="..\DEMOSDK\PC\BITCONVR.H" />
+    <ClInclude Include="..\DEMOSDK\PC\BMPLOADER.H" />
+    <ClInclude Include="..\DEMOSDK\PC\SURFACE.H" />
+    <ClInclude Include="..\DEMOSDK\PC\VISUALOG.H" />
+    <ClInclude Include="..\DEMOSDK\PC\WINDOW.H" />
+    <ClInclude Include="..\DEMOSDK\STANDARD.H" />
+    <ClInclude Include="..\DEMOSDK\SYNTHYMD.H" />
+    <ClInclude Include="..\DEMOSDK\SYSTEM.H" />
+    <ClInclude Include="..\EXTERN\MPP\PIXBUF.H" />
+    <ClInclude Include="..\FX\VECTOR\TOOLS\B_VECTOR.H" />
+    <ClInclude Include="..\TOOLS\BINARIZE\HELPERS.H" />
+    <ClInclude Include="..\TOOLS\BINARIZE\HELPERSW.H" />
+    <ClInclude Include="..\TOOLS\FONT\GLYPH.H" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\BLITZIK\DATA\MENUS\test0.bmp" />
+    <Image Include="..\BLITZIK\DATA\MENUS\test1.bmp" />
+    <Image Include="..\BLITZIK\DATA\MENUS\test2.bmp" />
+    <Image Include="..\BLITZIK\DATA\MENUS\test3.bmp" />
+    <Image Include="..\BLITZIK\DATA\MENUS\test4.bmp" />
+    <Image Include="..\BLITZIK\DATA\MENUS\test5.bmp" />
+    <Image Include="..\BLITZIK\DATA\PICS\BLITZ.BMP" />
+    <Image Include="..\BLITZIK\DATA\PICS\Cyber0.bmp" />
+    <Image Include="..\BLITZIK\DATA\PICS\Cyber1.bmp" />
+    <Image Include="..\BLITZIK\DATA\PICS\Cyber2.bmp" />
+    <Image Include="..\BLITZIK\DATA\PICS\Cyber3.bmp" />
+    <Image Include="..\BLITZIK\DATA\PICS\Cyber4.bmp" />
+    <Image Include="..\BLITZIK\DATA\PICS\Cyber5.bmp" />
+    <Image Include="..\BLITZIK\DATA\PICS\Cyber6.bmp" />
+    <Image Include="..\BLITZIK\DATA\POLYZOOM\blitz.bmp" />
+    <Image Include="..\BLITZIK\DATA\POLYZOOM\Cybernet.bmp" />
+    <Image Include="..\BLITZIK\DATA\POLYZOOM\Logos.bmp" />
+    <Image Include="..\BLITZIK\DATA\POLYZOOM\Party.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\BLITZIK\DATA\INFO\INFO.TXT" />
+    <Text Include="..\BLITZIK\DATA\INFO\INFOCOMP.TXT" />
+    <Text Include="..\BLITZIK\DATA\MENUS\AUTORUN.TXT" />
+    <Text Include="..\BLITZIK\DATA\MENUS\COMPO.TXT" />
+    <Text Include="..\BLITZIK\DATA\MENUS\MENU.TXT" />
+    <Text Include="..\BLITZIK\DATA\ZIKS\FXMACROS.TXT" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

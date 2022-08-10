@@ -44,6 +44,9 @@ void   SYSvblend (void);
 
 #else
 
+void EMULnewFrame(void);
+bool EMULupdateRequested(void);
+
 SYSinterupt  SYSvblroutines[SYS_NBMAX_VBLROUTINES] = {SYSvblend, SYSvblend, SYSvblend, SYSvblend, SYSvblend};
 volatile u32 SYSvblcount;
 volatile u16 SYSvblLcount;
@@ -65,8 +68,17 @@ void SYSswitchIdle(void)
 {
 	if ( SYSidleThread != NULL )
 	{
-		SYSidleThread();
-	}
+        #ifndef __TOS__
+        EMULnewFrame();
+        if (EMULupdateRequested())
+        #endif
+        {
+		    SYSidleThread();
+            
+            SYSvblcount++;
+            SYSvblLcount++;
+        }
+    }
 
 #   ifndef __TOS__
     {
@@ -81,9 +93,6 @@ void SYSswitchIdle(void)
             SYSvblroutines[i]();
         }
     }
-
-    SYSvblcount++;
-    SYSvblLcount++;
 #   endif
 
 #   ifdef DEMOS_DEBUG

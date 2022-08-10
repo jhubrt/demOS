@@ -24,143 +24,254 @@
 
 	opt	o+
 
-    xdef SNSinit,SNSfade,SNSfade3,SNScopy,SNSfilsampl
-	xdef SNStc,SNScolor,SNStrace
-    xdef SNStunX1,SNStunX2,SNStunX3,SNStunX4
-	xdef SNSireg,SNSload,SNSstore
-	xdef SNSlines
-
+    xdef SNSimportTable
 
 TC_WIDTH:       set 48
 
+SNSimportTable:
+    dc.l    SNSgenerateCode
+    dc.l    SNSinit
+    dc.l    SNSfade
+    dc.l    SNSfade3
+    dc.l    SNSfilsampl
+    dc.l    SNStc
+
+SNSlines:	dc.l	0
+SNStable:	dc.l	0
+SNSempty:   dc.l    0
+
+SNSregs:
+SNSh:		dc.w	0		    ; d0
+            dc.w	1		    ; d1
+SNSpitch:	dc.w	TC_WIDTH	; d2
+    		dc.w	$C000	    ; d3
+SNStunX3:   dc.w    0           ; d4
+SNSsampinc: dc.w    4           ; d5
+SNSvoice2:  dc.w    0           ; d6
+SNSmask:    dc.w    $FFFF       ; d7
+
+SNSpushreg: move.l  a2,-(sp) 
+SNSpopreg:  move.l  (sp)+,a2
+SNSireg:	move.l	d0,a2
+SNSload:	move.w	$AA(a0),d0
+SNSstore:	move.w	(a1,d0.w),(a2)+
+
+SNSblit:
+            dc.w    2           ; source increment X        0           
+SNSsrcIncY: dc.w    0           ; source increment Y        2
+SNSsrcAdr:  dc.l    0           ; source address            4
+            dc.w    -1          ; endmask1                  8
+            dc.w    -1          ; endmask2                  10
+            dc.w    -1          ; endmask3                  12
+            dc.w    0           ; dest increment X          14
+            dc.w    0           ; dest increment Y          16
+SNSdestAdr: dc.l    $ffff8240   ; dest address              18
+SNScountX:  dc.w    0           ; count X                   22  
+            dc.w    1           ; count Y                   24
+            dc.w    $303        ; HOP | OP                  26
+                                ;                           28
+
 ;-----------------------------------------------
-; void SNSinit(void* _tcbuf, void* _lines, u16 _TCwidth, u16 _TCheight);
+; u16* SNSgenerateCode ( u8* poff, u16* p, u16 _height )
+;-----------------------------------------------
+SNSgenerateCode:
+    movem.l     d1-d7,-(sp)
+
+    lsl.w       #4,d0                   ; height * 16 (then each loop make 3 steps => 3 * 16 == 48 == WIDTH)
+    subq.w      #1,d0                   ; dbf need count - 1
+
+    moveq.l     #0,d1
+    moveq.l     #4,d4
+    moveq.l     #6,d5
+
+    move.w      SNSload(pc),d2
+    move.l      SNSstore(pc),d3
+
+    move.w      SNSpushreg(pc),(a1)+
+    move.w      SNSireg(pc),(a1)+
+
+.loop:
+    
+    move.l      (a0)+,d7                ; w
+    
+    move.w      d7,d6
+    lsl.w       d5,d6                   ; 
+    asr.w       #5,d6    
+    neg.w       d6
+    add.w       d1,d6
+    move.w      d2,(a1)+                ; SNSload
+    move.w      d6,(a1)+
+    move.l      d3,(a1)+                ; SNSstore
+    addq.w      #2,d1
+
+    move.l      d7,d6
+    lsr.l       d4,d6
+    asr.w       d5,d6
+    add.w       d6,d6
+    neg.w       d6
+    add.w       d1,d6
+    move.w      d2,(a1)+                ; SNSload
+    move.w      d6,(a1)+
+    move.l      d3,(a1)+                ; SNSstore
+    addq.w      #2,d1
+
+    swap        d7
+    asr.w       d5,d7
+    add.w       d7,d7
+    neg.w       d7
+    add.w       d1,d7
+    move.w      d2,(a1)+                ; SNSload
+    move.w      d7,(a1)+
+    move.l      d3,(a1)+                ; SNSstore
+    addq.w      #2,d1
+
+    dbf.w       d0,.loop
+
+    move.w      SNSpopreg(pc),(a1)+
+    move.w      #$4E75,(a1)+            ; rts opcode
+
+    move.l      a1,a0
+
+    movem.l     (sp)+,d1-d7
+
+    rts
+
+
+;-----------------------------------------------
+; void SNSinit(void* _table, u16 _TCwidth, u16 _TCheight);
 ;-----------------------------------------------
 SNSinit:
-	move.l	#-1,$ffff8a28.w				; Mask 1 - 2
-	move.w	#-1,$ffff8a2c.w				; Mask 3
-	clr.l	$ffff8a2e.w					; Inc X & Y dest
-	move.l	#$ffff8240,$ffff8a32.w		; Adr dest
-	move.w	d0,$ffff8a36.w				; Width
-    move.w  d0,SNSw
+	move.w	d0,SNScountX				; Width
 	add.w	d0,d0
 	move.w	d0,SNSpitch
 	move.w	#2,$ffff8a20.w				: Inc X source
 	neg.w	d0
     addq.w  #2,d0
-	move.w	d0,$ffff8a22.w				: Inc Y source
+	move.w	d0,SNSsrcIncY				: Inc Y source
 	move.w	#$203,$ffff8a3a.w			; op
     subq.w  #1,d1
 	move.w	d1,SNSh                     ; 4 pixels hight
-	move.l	a0,SNStcBuf
-	move.l	a1,SNSlines
+	move.l	a0,SNStable
 
 	rts
 
-; -----------------------------------------
-; void SNScopy(void* _source, void* _dest, u16 _nbwords);
-; -----------------------------------------
-SNScopy:	
-    move.l	a0,$ffff8a24.w              ; Adr source
-    move.w	#2,$ffff8a2e.w				; Inc X
-	move.l	a1,$ffff8a32.w		        ; Adr dest
-	move.w	d0,$ffff8a36.w				; Width
-    move.w  #1,$ffff8a38.w              ; Height
-    move.w  #$C000,$ffff8a3c.w
-
-	rts
 
 ; -----------------------------------------
 ; SNStc display interruption
 ; -----------------------------------------
 SNStc:
-    move.w  #$2700,sr		; cut all interrupts
-
-	move.w	d0,-(sp)
-    move.w  d1,-(sp)
-    move.l  a6,-(sp)
-
-    lea		$ffff8209.w,a6
-
+	move.l	d0,-(sp)
+    move.l  d1,-(sp)
+   
+    clr.b	$fffffa1b.w		; stop timer b 
+   
     ; synchro lsl to be perfectly synchronized with display
 
-    move.b  (a6),d0
+    move.b  $ffff8209.w,d0
 .lslSync:		
-	move.b	(a6),d1
-    cmp.b   d0,d1
+    move.b  d0,d1
+	sub.b	$ffff8209.w,d1
 	beq.s	.lslSync
 
-    sub.b	d1,d0
-	add.w	#31,d0
-	lsl.w	d0,d1
+    add.w	#31,d1
+	lsl.w	d1,d0
 
-    clr.b	$fffffa1b.w		; stop timer b
-  
+    movem.l d2-d7/a2-a6,-(sp)
+
     ; re-param blitter 
-
-    move.l	SNStcBuf(pc),$ffff8a24.w    , Adr source
-    clr.l	$ffff8a2e.w					; Inc X & Y dest
-    move.l	#$ffff8240,$ffff8a32.w		; Adr dest
-    move.w	SNSw(pc),$ffff8a36.w	    ; Width
-    move.w	#$203,$ffff8a3a.w			; op
-
-	movem.l	d2-d7/a5,-(sp)
+    movem.l SNSblit(pc),d0-d6
+    movem.l d0-d6,$ffff8a20.w
 
     movem.w SNSregs(pc),d0-d7
+    move.w  d7,$fffff8a00.w
+    moveq.l #0,d7
 
-    ext.l   d2
 	move.l	SNSlines(pc),a5
-    lea     $ffff8a38.w,a6
+    move.l  (a5),a5
+    add.w   d6,a5
+    move.l  SNStable(pc),a3
+    lea     $ffff8a26.w,a2
+    lea     $ffff8240.w,a4
+    lea     $ffff8a38.w,a6    
 
-.tunLoop:
-	dbra.w	d6,.tunLoop
-    
-	move.w	SNStunX2(pc),d6
-	lsl.l	d6,d7
-   
+    nop
+  
 .loop:
+    move.w	d1,(a6)                 ; sizey = 1
+	move.w	d3,4(a6)                ; run 
+    move.w  d7,(a4)                 ; 8
+    moveq.l #0,d6                   ; 4
+    move.b  (a5),d6                 ; 8
+    add.w   d5,a5
+    add.w   d6,d6                   ; 4
+    move.w  (a3,d6.w),d6            ; 16
+    movep.w d6,$8207-$8240(a4)      ; 16
+    nop
+    nop
+    nop
+    nop
+    nop
+    nop
+    lsl.w   d4,d7                   ; d4 = 10 => 28
 
-    move.w	d1,(a6)
-	move.w	d3,4(a6)
-    move.w  d7,$ffff8240.w
-	move.b	(a5)+,$ffff8207.w
-	move.b	(a5)+,$ffff8209.w
-    lsl.w   d4,d7
-    lsl.w   d4,d7
+    move.w	d1,(a6)                 ; sizey = 1
+	move.w	d3,4(a6)                ; run 
+    move.w  d7,(a4)                 ; 8
+    moveq.l #0,d6                   ; 4
+    move.b  (a5),d6                 ; 8
+    add.w   d5,a5
+    add.w   d6,d6                   ; 4
+    move.w  (a3,d6.w),d6            ; 16
+    movep.w d6,$8207-$8240(a4)      ; 16
+    nop
+    nop
+    nop
+    nop
+    nop
+    nop
+    lsl.w   d4,d7                   ; d4 = 10 => 28
 
-    move.w	d1,(a6)
-	move.w	d3,4(a6)
-    move.w  d7,$ffff8240.w
-	move.b	(a5)+,$ffff8207.w
-	move.b	(a5)+,$ffff8209.w
-    lsl.w   d4,d7
-    lsl.w   d4,d7
+    move.w	d1,(a6)                 ; sizey = 1
+	move.w	d3,4(a6)                ; run 
+    move.w  d7,(a4)                 ; 8
+    moveq.l #0,d6                   ; 4
+    move.b  (a5),d6                 ; 8
+    add.w   d5,a5
+    add.w   d6,d6                   ; 4
+    move.w  (a3,d6.w),d6            ; 16
+    movep.w d6,$8207-$8240(a4)      ; 16
+    nop
+    nop
+    nop
+    nop
+    nop
+    nop
+    lsl.w   d4,d7                   ; d4 = 10 => 28
 
-    move.w	d1,(a6)
-	move.w	d3,4(a6)
-    move.w  d7,$ffff8240.w
-	move.b	(a5)+,$ffff8207.w
-	move.b	(a5)+,$ffff8209.w
-    lsl.w   d4,d7
-    lsl.w   d4,d7
+    move.w	d1,(a6)                 ; sizey = 1
+	move.w	d3,4(a6)                ; run 
+    move.w  d7,(a4)                 ; 8
+    moveq.l #0,d6                   ; 4
+    move.b  (a5),d6                 ; 8
+    add.w   d5,a5
+    add.w   d6,d6                   ; 4
+    move.w  (a3,d6.w),d6            ; 16
+    movep.w d6,$8207-$8240(a4)      ; 16
+    lsl.w   d4,d7                   ; d4 = 10 => 28
 
-    move.w	d1,(a6)
-	move.w	d3,4(a6)
-    move.w  d7,$ffff8240.w
-	move.b	(a5)+,$ffff8207.w
-	move.b	(a5)+,$ffff8209.w
-    lsl.l   d5,d7
-    lsl.w   d5,d7
+    add.w   d2,(a2)                 ; 20
 
-    add.l   d2,$ffff8a24.w
+	dbra.w	d0,.loop                ; 12
 
-	dbra.w	d0,.loop
+.end:
 
-    movem.l	(sp)+,d2-d7/a5
+    move.b  SNSempty+1(pc),$ffff8205.w
+    move.b  SNSempty+2(pc),$ffff8207.w
+    move.b  SNSempty+3(pc),$ffff8209.w
 
-    move.l  (sp)+,a6
-    move.w  (sp)+,d1
-	move.w	(sp)+,d0
+    movem.l	(sp)+,d2-d7/a2-a6
+    move.l  (sp)+,d1
+    move.l  (sp)+,d0
 
     clr.l   $120.w      ; hack to synchronize with main thread
 
@@ -320,7 +431,7 @@ SNSfade3:
     rts
 
 ; -----------------------------------------
-; u16 SNSfilsampl (void* _sample, void* _startcolors, u32 _dest, u16 _width, s16 _sampleoffset);
+; void SNSfilsampl (void* _sample, void* _startcolors, u32 _dest, u16 _width, s16 _sampleoffset);
 ; -----------------------------------------
 SNSfilsampl:
 
@@ -332,63 +443,44 @@ SNSfilsampl:
 
     subq.w  #1,d1
     move.l  d0,a2
-    move.w  #$FC,d3
+    move.w  #$FE,d3
+    lea     .table(pc),a3
 
-	moveq.l	#0,d0
+.loop:    
+    move.w  (a1)+,d5            ; current color used to fill
+    move.b  (a0),d4             ; current sample load
+    and.w   d3,d4               ; 
+    move.w  (a3,d4.w),d4
+.jmpadr:
+    jmp     .jmpadr(pc,d4.w) 
 
-.loop:
-    
-    move.w  (a1)+,d5
-
-    move.b  (a0),d4
-    bge.s   .pos
-
-    neg.b   d4
-    lsr.b   #1,d4
-    and.w   d3,d4
-    beq.s   .zero
-	add.w	d4,d0
-    neg.w   d4
-    jmp     .jmp1+2(pc,d4.w)
-    
-offset: set 21*TC_WIDTH*2
-    rept 20
+.neg:    
+offset: set 16*TC_WIDTH*2
+    rept 15
 offset: set offset-TC_WIDTH*2
     move.w  d5,offset(a2)
     endr
     move.w  d5,(a2)+
-.jmp1:
     
-    lea     (a0,d2.w),a0
+    add.w   d2,a0
     dbra.w  d1,.loop
-
     bra.s   .end
 
 .zero:
     lea     2(a2),a2
-    lea     (a0,d2.w),a0
+    add.w   d2,a0
     dbra.w  d1,.loop
-
     bra.s   .end
 
-.pos:
-
-    lsr.b   #1,d4
-    and.w   d3,d4
-    beq.s   .zero
-	add.w	d4,d0
-    neg.w   d4
-    jmp     .jmp2+2(pc,d4.w)
-    
-offset: set -21*TC_WIDTH*2
-    rept 20
+.pos:   
+offset: set -17*TC_WIDTH*2
+    rept 16
 offset: set offset+TC_WIDTH*2
     move.w  d5,offset(a2)
     endr
     move.w  d5,(a2)+
-.jmp2:
 
-    lea     (a0,d2.w),a0
+    add.w   d2,a0
     dbra.w  d1,.loop
 
 .end:
@@ -402,24 +494,41 @@ offset: set offset+TC_WIDTH*2
     rts
 
 
-SNSregs:
+.table:
 
-SNSh:		dc.w	0		; d0
-            dc.w	1		; d1
-SNSpitch:	dc.w	0		; d2
-    		dc.w	$C000	; d3
-SNStunX3:	dc.w	31		; d4
-SNStunX4:	dc.w	13		; d5
-SNStunX1:	dc.w	6       ; d6
-            dc.w    0       ; d7
+    dc.w   .zero-.jmpadr
+    dc.w   .zero-.jmpadr
 
-SNStunX2:	dc.w	2
-SNSw:       dc.w    0
-SNScolor:	dc.w	0
-SNStcBuf:	dc.l	0
-SNSlines:	dc.l	0
-SNStrace:   dc.l    0
+offset: set .pos-.jmpadr+16*4
 
-SNSireg:	move.l	d0,a2
-SNSload:	move.w	$AA(a0),d0
-SNSstore:	move.w	(a1,d0.w),(a2)+
+    dc.w    offset
+    dc.w    offset
+
+offset: set offset-4
+
+    rept    15
+    dc.w    offset
+    dc.w    offset
+    dc.w    offset
+    dc.w    offset
+
+offset: set offset-4
+
+    endr
+
+offset: set .neg-.jmpadr
+
+    rept    15
+    dc.w    offset
+    dc.w    offset
+    dc.w    offset
+    dc.w    offset
+
+offset: set offset+4
+
+    endr
+
+    dc.w    offset
+    dc.w    offset
+    dc.w    offset
+    dc.w   .zero-.jmpadr

@@ -31,9 +31,11 @@
 
 #ifdef __TOS__
 
-#define EMULinit(BUFFER,W,H,E)
+#define EMULinit(BUFFER,W,H,E,T)
 #define EMULleftChannel()
 #define EMULrightChannel()
+#define EMULnewFrame()
+#define EMULupdateRequested() true
 #define EMULrender()
 #define EMULbufferSize(SIZE)	SIZE
 #define EMULalignBuffer(BUFFER)	BUFFER
@@ -42,19 +44,33 @@
 #define EMULblit()
 #define EMULwait(ms)
 #define EMULcls()
+#define EMULdrawYMbuffer(_x,_y,_sync)
+#define EMULsetVStretch(_vstretch)
 
-#define EMUMfbExStart(VIDEOMODE,STARTX,STARTY,ENDX,ENDY,PITCH)
+#define EMULfbStdEnable()
+#define EMULfbDisableAll()
+#define EMULfbExStart(VIDEOMODE,STARTX,STARTY,ENDX,ENDY,PITCH,PIXOFFSET)
 #define EMULfbExSetVideoMode(STARTCYCLE,VIDEOMODE)
 #define EMULfbExSetColor(STARTCYCLE,INDEX,VALUE)
 #define EMULfbExSetAdr(STARTCYCLE,ADR)
 #define EMULfbExSetWidth(STARTCYCLE,STARTX,ENDX,PITCH)
-#define EMUMfbExEnd()
+#define EMULfbExEnd()
 #define EMULfbExDisable()
 #define EMULfbExComputeCycle(VIDEOSYNC,X,Y) 0
 
+#define EMULgetWindow NULL
+
 #define EMULlog(STR)
 
-#else
+#define EMUL_BEGIN_ASYNC_REGION
+#define EMUL_END_ASYNC_REGION
+#define EMUL_REENTER_POINT
+#define EMUL_EXIT_IF(COND)
+#define EMUL_STATIC
+#define EMUL_BACKUP_REENTER_POINT
+#define EMUL_RESTORE_REENTER_POINT
+
+#else /* ! __TOS__ */
 
 #ifdef  __cplusplus 
 #   define EXTERN_C extern "C"
@@ -62,8 +78,10 @@
 #   define EXTERN_C
 #endif
 
-EXTERN_C void    EMULinit              (void* _buffer, s16 _width, s16 _height, s16 _width_ext);
+EXTERN_C void    EMULinit              (void* _buffer, s16 _width, s16 _height, s16 _width_ext, char* _title);
+EXTERN_C void    EMULnewFrame          (void);
 EXTERN_C void    EMULrender            (void);
+EXTERN_C bool    EMULupdateRequested   (void);
 EXTERN_C void    EMULcls               (void);
 EXTERN_C struct WINdow_* EMULgetWindow (void);
 EXTERN_C void    EMULcreateSoundBuffer (u32 _length, bool _stereo, u32 _dmafreq);
@@ -72,14 +90,18 @@ EXTERN_C void    EMULleftChannel       (void);
 EXTERN_C void    EMULrightChannel      (void);
 EXTERN_C u32     EMULgetPlayOffset     (void);
 EXTERN_C void    EMULblit              (void);
-EXTERN_C void    EMULgetSound          (void* _data, u32 _byteslength);
 EXTERN_C void    EMULwait              (u32 _ms);
+EXTERN_C void    EMULdrawYMbuffer      (s16 _x, s16 _y, bool _sync);
+EXTERN_C void    EMULsetVStretch       (bool _vstretch);
 
-EXTERN_C void    EMULfbExStart         (u8 _videomode, u16 _startcyclex, u16 _starty, u16 _endcyclex, u16 _endy, u16 _pitch);
-EXTERN_C void    EMULfbExSetVideoMode  (u32 _startcycle, u8 _videomode);
-EXTERN_C void    EMULfbExSetColor      (u32 _startcycle, u16 _index, u16 _value);
-EXTERN_C void    EMULfbExSetAdr        (u32 _startcycle, u32 _adr);
-EXTERN_C void    EMULfbExSetWidth      (u32 _startcycle, u16 _startx, u16 _endx, u16 _pitch);
+EXTERN_C void    EMULfbStdEnable       (void);
+EXTERN_C void    EMULfbDisableAll      (void);
+EXTERN_C void    EMULfbExStart         (u8 _videomode, u16 _startcyclex, u16 _starty, u16 _endcyclex, u16 _endy, u16 _pitch, u16 _pixoffset);
+EXTERN_C void    EMULfbExSetVideoMode  (u32 _execcycle, u8 _videomode);
+EXTERN_C void    EMULfbExSetColor      (u32 _execcycle, u16 _index, u16 _value);
+EXTERN_C void    EMULfbExSetAdr        (u32 _execcycle, u32 _adr);
+EXTERN_C void    EMULfbExSetPixOffset  (u32 _execcycle, u8 _offsetx);
+EXTERN_C void    EMULfbExSetWidth      (u32 _execcycle, u16 _startx, u16 _endx, u16 _pitch);
 EXTERN_C void    EMULfbExEnd           (void);
 EXTERN_C void    EMULfbExDisable       (void);
 EXTERN_C u32     EMULfbExComputeCycle  (u8 _videosync, u16 _x, u16 _y);
@@ -133,6 +155,29 @@ void EMUL_LSL_L (EMULregister* _reg, u8 _shift);
 void EMUL_SUB_B (EMULregister* _source, EMULregister* _dest, EMUL68k* _p);
 bool EMUL_BTST  (u32 _data, u8 _bit);
 
+#define EMUL_BEGIN_ASYNC_REGION     static int EMUL_reenter = -1; switch (EMUL_reenter) { case -1:
+#define EMUL_END_ASYNC_REGION       } EMUL_reenter = -1;
+#define EMUL_REENTER_POINT          case __LINE__: EMUL_reenter = __LINE__;
+#define EMUL_EXIT_IF(COND)          if (COND) return;
+#define EMUL_STATIC                 static
+#define EMUL_BACKUP_REENTER_POINT   static int EMUL_reenterBackup; EMUL_reenterBackup = EMUL_reenter;
+#define EMUL_RESTORE_REENTER_POINT  EMUL_reenter = EMUL_reenterBackup;
 #endif
+
+
+#if defined(__TOS__) || !EMUL_TRACED_VALUE_ENABLE
+
+#define EMULtraceNewValue(_valueindex,_min,_max,_r,_g,_b)
+#define EMULtracePushValue(_valueIndex,_val)
+#define EMULtraceClearValue(_valueindex)
+
+#else 
+
+EXTERN_C void EMULtraceNewValue     (u16 _valueindex, s32 _min, s32 _max, u8 _r, u8 _g, u8 _b);
+EXTERN_C void EMULtracePushValue    (u16 _valueIndex, s32 _val);
+EXTERN_C void EMULtraceClearValue   (u16 _valueindex);
+
+#endif
+
 
 #endif /* EMUL_H */

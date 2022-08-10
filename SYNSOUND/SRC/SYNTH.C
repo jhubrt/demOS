@@ -1014,7 +1014,7 @@ void SNDsynSoundSet_generate(SNDsynSoundSet* _soundset, SNDsynConfig* _config, b
 
             /*for (s = 0 ; s < _config->nbsamples ; s++)
             {
-                SNDsynSample_dump (&sound.samples[1], "E:\\temp\\dumpsine.raw", 1);
+                SNDsynSample_dump (&sound.samples[1], "dumpsine.raw", 1);
             }*/
         }
         else
@@ -1491,11 +1491,11 @@ void SNDtest2 (void)
     SNDsynSound_dump (soundSet1->sounds[0], "PCM\\SND1");
     SNDsynSound_dump (soundSet2->sounds[0], "PCM\\SND2");
 
-//    SNDsynSample_dump (soundSet1.sounds[0].samples[1], "E:\\temp\\dumpsine.raw", 1);
-//    SNDsynSample_dump (soundSet2.samples[1], "E:\\temp\\dumpsine2.raw", 2);
+//    SNDsynSample_dump (soundSet1.sounds[0].samples[1], "dumpsine.raw", 1);
+//    SNDsynSample_dump (soundSet2.samples[1], "dumpsine2.raw", 2);
 
-//    SNDsynSample_dump (&testsound.samples[1], "E:\\temp\\dumpsine.raw", 1);
-//    SNDsynSample_dump (&testsound.samples[1], "E:\\temp\\dumpsine2.raw", 2);
+//    SNDsynSample_dump (&testsound.samples[1], "dumpsine.raw", 1);
+//    SNDsynSample_dump (&testsound.samples[1], "dumpsine2.raw", 2);
 //    {      
 //        u32 base = SYSreadVideoBase ();
 

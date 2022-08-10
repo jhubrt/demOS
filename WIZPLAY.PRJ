@@ -1,0 +1,27 @@
+;-------------------------------------------------------------------------------
+; BLSPLAY / DemOS - debug target > metafile build to speed up compilation
+;-------------------------------------------------------------------------------
+
+WIZPLAY.TTP		; name of executable program
+
+.C [ -Y -P -K -C -M]
+.L [ -G -L -Y ]
+.S [ -Y ]
+=									; list of modules follows...
+
+PCSTART.O        ; standard startup code
+
+OUTPUT\BLSZIO.O
+OUTPUT\LOAD.O
+OUTPUT\COLORS.O
+OUTPUT\RASTERS.O
+OUTPUT\STANDARD.O
+OUTPUT\SYSTEM.O
+OUTPUT\TRACE.O
+OUTPUT\YMDISP.O
+OUTPUT\PRTRKSTE.O
+OUTPUT\BPLAYER\BPLAYER.O
+
+WIZPLAY\BUILD.C
+
+PCSTDLIB.LIB        ; standard library

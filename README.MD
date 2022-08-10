@@ -3,6 +3,54 @@ demOS is a framework to develop demos or demos tool for Atari ST in C + ASM 68k
 
 Products based on demOS...
 
+----------------------------------------
+
+## BLITZwav - Cybernetics - 2022
+
+Atari STe 8mhz - 1mb - 1 floppy
+
+Muzik disk based on BLITSnd routine version 2 (4 PCM + 3 YM voices)
+
+Interactive + scripted autoplay modes
+
+- Musik : DOK
+- Code : Metal Ages
+
+[Documentation](./DOCS/BLITZWAV/README.MD) 
+
+![](./DOCS/README_2.PNG)
+
+----------------------------------------
+
+## BLITSnd
+
+4 voices replay routine using blitter to mix sound (around 16% VBL max)
+
+* BLSconvert : convertion tool from .MOD format to .BLS format
+* BLSplay : player using the routine
+
+Have a look at DOCS/BLITsnd.md in the git depot for more info...
+
+[Prototype](https://youtu.be/Xc0zv4YFitI)
+
+[Release](https://youtu.be/ehSvjL8RLo4)
+
+[Documentation](./DOCS/BLITSnd/README.md)
+
+![](./DOCS/README_B.PNG) 
+
+----------------------------------------
+
+## Synthetic sound - Cybernetics - 2016
+
+Prototype using blitter to mix PCM sounds on 2 voices (proof of concept)
+	
+[Synthetic sound](http://cyber.savina.net/sound/sound.htm)
+
+[Thread on Atari forum](http://www.atari-forum.com/viewtopic.php?f=16&t=29097)
+
+----------------------------------------
+
 ## Rebirth - Cybernetics - 2015
 
 Atari STe 8mhz
@@ -28,6 +76,8 @@ maybe it can also solve problems for people having floppy timing problems
 
 ![](./DOCS/README_V.PNG)
  
+----------------------------------------
+
 ## Ubi30 - Metal Ages - 2016
 
 Atari STe 8mhz
@@ -36,30 +86,4 @@ Atari STe 8mhz
 
 [Ubi30](https://youtu.be/Gbq4wI9HsEw)
 
-## Synthetic sound - Cybernetics - 2016
-
-Prototype using blitter to mix PCM sounds on 2 voices (proof of concept)
-	
-[Synthetic sound](http://cyber.savina.net/sound/sound.htm)
-
-[Thread on Atari forum](http://www.atari-forum.com/viewtopic.php?f=16&t=29097)
-
-## BLITSnd
-
-4 voices replay routine using blitter to mix sound (around 16% VBL max)
-
-* BLSconvert : convertion tool from .MOD format to .BLS format
-* BLSplay : player using the routine
-
-Have a look at DOCS/BLITsnd.md in the git depot for more info...
-
-[Prototype](https://youtu.be/Xc0zv4YFitI)
-
-[Release](https://youtu.be/ehSvjL8RLo4)
-
-[Documentation](./DOCS/BLITSnd/README.md)
-
-![](./DOCS/README_B.PNG) 
-
-## Todo list
-* add CRC / RNF error management in FDC routine
+----------------------------------------

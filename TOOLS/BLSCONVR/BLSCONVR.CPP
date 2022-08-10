@@ -24,8 +24,9 @@ extern "C"
 {
 #   include "DEMOSDK\BASTYPES.H"
 #   include "DEMOSDK\STANDARD.H"
-#   include "DEMOSDK\BLITSND.H"
+#   include "DEMOSDK\BLSSND.H"
 #   include "DEMOSDK\HARDWARE.H"
+#   include "DEMOSDK\BLSZDUMP.H"
 }
 
 #include <string.h>
@@ -34,16 +35,12 @@ extern "C"
 #include <vector>
 #include <map>
 #include <set>
+#include <string>
 #include <algorithm>
 
 #include "TOOLS\BINARIZE\HELPERS.H"
 
 #include "TOOLS\BLSCONVR\BLSCONVR.H"
-
-
-#define BLS_CONVERT_OUTPUT_POSITION(MESSAGE_TYPE, p, r, v) {\
-    printf (MESSAGE_TYPE ": pat=0x%x|%d row=0x%x|%d voice=%d/4 - ", p, p, r, r, v + 1);\
-    fprintf (stderr, MESSAGE_TYPE ": pat=0x%x|%d row=0x%x|%d voice=%d/4 - ", p, p, r, r, v + 1); }
 
 // allocator
 static void* stdAlloc(void* _alloc, u32 _size)
@@ -58,12 +55,14 @@ static void stdFree(void* _alloc, void* _adr)
     free(_adr);
 }
 
-
 MEMallocator stdAllocator = { NULL, stdAlloc, stdAlloc, stdFree };
 
-const u32 NBINSTRUMENTS = 31;
+const char* Key::m_names[12] = { "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B" };
 
-u8 g_AmplitudeToLMC[] = 
+const Key NOTRANSPOSE_KEY(250, 0);
+
+
+u8 g_AmplitudeToLMC[] =
 {
     0,
     2 ,5 ,7 ,8 ,9 ,10,10,11,11,12,12,13,13,13,14,14,
@@ -72,138 +71,46 @@ u8 g_AmplitudeToLMC[] =
     19,19,19,19,19,19,19,19,19,20,20,20,20,20,20,20
 };
 
+const float AMIGA_NTSC_C2_FREQ = 8363.4229f;
+const float AMIGA_PAL_C2_FREQ  = 8287.1369f;
 
-/*  Protracker 16 note conversion table / MOD Period table
-+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
-PT16 : I    1I    2I    3I    4I    5I    6I    7I    8I    9I   10I   11I   12I
-MOD  : I 1712I 1616I 1524I 1440I 1356I 1280I 1208I 1140I 1076I 1016I  960I  906I
-Note : I  C-0I  C#0I  D-0I  D#0I  E-0I  F-0I  F#0I  G-0I  G#0I  A-0I  A#0I  B-0I
-+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
-I   13I   14I   15I   16I   17I   18I   19I   20I   21I   22I   23I   24I
-I  856I  808I  762I  720I  678I  640I  604I  570I  538I  508I  480I  453I
-I  C-1I  C#1I  D-1I  D#1I  E-1I  F-1I  F#1I  G-1I  G#1I  A-1I  A#1I  B-1I
-+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
-I   25I   26I   27I   28I   29I   30I   31I   32I   33I   34I   35I   36I
-I  428I  404I  381I  360I  339I  320I  302I  285I  269I  254I  240I  226I
-I  C-2I  C#2I  D-2I  D#2I  E-2I  F-2I  F#2I  G-2I  G#2I  A-2I  A#2I  B-2I
-+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
-I   37I   38I   39I   40I   41I   42I   43I   44I   45I   46I   47I   48I
-I  214I  202I  190I  180I  170I  160I  151I  143I  135I  127I  120I  113I
-I  C-3I  C#3I  D-3I  D#3I  E-3I  F-3I  F#3I  G-3I  G#3I  A-3I  A#3I  B-3I
-+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
-I   49I   50I   51I   52I   53I   54I   55I   56I   57I   58I   59I   60I
-I  107I  101I   95I   90I   85I   80I   75I   71I   67I   63I   60I   56I
-I  C-4I  C#4I  D-4I  D#4I  E-4I  F-4I  F#4I  G-4I  G#4I  A-4I  A#4I  B-4I
-+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+ */
+FreqRef::FreqRef() : m_amigaFreq(AMIGA_NTSC_C2_FREQ) {}
 
-/* G-3 fine tune +1 may play around 25 khz on Amiga (C-2 + 19 semitones + finetune 1)
-   => G-3 is the key to use for not interpolated samples */
-const u16 NO_TRANSPOSE_PERIOD = 1; 
-
-float Key::m_amigaFreq = AMIGA_NTSC_C2_FREQ;
-
-const char* Key::m_names [12] = { "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"};
-
-std::map<unsigned, Key> Key::m_period2Key;
-
-void Key::Init (bool _palFreq)
+void FreqRef::Init(bool _palfreq)
 {
-    m_amigaFreq = _palFreq ? AMIGA_PAL_C2_FREQ : AMIGA_NTSC_C2_FREQ;
+    m_amigaFreq = _palfreq ? AMIGA_PAL_C2_FREQ : AMIGA_NTSC_C2_FREQ;
+}
 
-    m_period2Key[NO_TRANSPOSE_PERIOD] = Key(10,0);
+float FreqRef::GetAmigaSampleFreq(const Key& _key, s8 _fineTune)
+{
+    Key reference (2, 0);
 
-    // MOD  : I 1712I 1616I 1524I 1440I 1356I 1280I 1208I 1140I 1076I 1016I  960I  906I
-    // Note : I  C-0I  C#0I  D-0I  D#0I  E-0I  F-0I  F#0I  G-0I  G#0I  A-0I  A#0I  B-0I
-    m_period2Key[1712] = Key(0,0);
-    m_period2Key[1616] = Key(0,1);
-    m_period2Key[1524] = Key(0,2);
-    m_period2Key[1440] = Key(0,3);
-    m_period2Key[1356] = Key(0,4);
-    m_period2Key[1280] = Key(0,5);
-    m_period2Key[1208] = Key(0,6);
-    m_period2Key[1140] = Key(0,7);
-    m_period2Key[1076] = Key(0,8);
-    m_period2Key[1016] = Key(0,9);
-    m_period2Key[960 ] = Key(0,10);
-    m_period2Key[906 ] = Key(0,11);
+    const float deltasemitones = (float)_key.GetDistance(reference) + (float)_fineTune / 128.0f;
 
-    // 856I  808I  762I  720I  678I  640I  604I  570I  538I  508I  480I  453I
-    // C-1I  C#1I  D-1I  D#1I  E-1I  F-1I  F#1I  G-1I  G#1I  A-1I  A#1I  B-1I
-    m_period2Key[856] = Key(1,0);
-    m_period2Key[808] = Key(1,1);
-    m_period2Key[762] = Key(1,2);
-    m_period2Key[720] = Key(1,3);
-    m_period2Key[678] = Key(1,4);
-    m_period2Key[640] = Key(1,5);
-    m_period2Key[604] = Key(1,6);
-    m_period2Key[570] = Key(1,7);
-    m_period2Key[538] = Key(1,8);
-    m_period2Key[508] = Key(1,9);
-    m_period2Key[480] = Key(1,10);
-    m_period2Key[453] = Key(1,11);
+    const float amigaSampleFreq  = m_amigaFreq * powf(2.0f, (1.0f/12.0f) * deltasemitones);
 
-    // 428I  404I  381I  360I  339I  320I  302I  285I  269I  254I  240I  226I
-    // C-2I  C#2I  D-2I  D#2I  E-2I  F-2I  F#2I  G-2I  G#2I  A-2I  A#2I  B-2I
-    m_period2Key[428] = Key(2,0);
-    m_period2Key[404] = Key(2,1);
-    m_period2Key[381] = Key(2,2);
-    m_period2Key[360] = Key(2,3);
-    m_period2Key[339] = Key(2,4);
-    m_period2Key[320] = Key(2,5);
-    m_period2Key[302] = Key(2,6);
-    m_period2Key[285] = Key(2,7);
-    m_period2Key[269] = Key(2,8);
-    m_period2Key[254] = Key(2,9);
-    m_period2Key[240] = Key(2,10);
-    m_period2Key[226] = Key(2,11);
+    return amigaSampleFreq; 
+}
 
-    // 214I  202I  190I  180I  170I  160I  151I  143I  135I  127I  120I  113I
-    // C-3I  C#3I  D-3I  D#3I  E-3I  F-3I  F#3I  G-3I  G#3I  A-3I  A#3I  B-3I
-    m_period2Key[214] = Key(3,0);
-    m_period2Key[202] = Key(3,1);
-    m_period2Key[190] = Key(3,2);
-    m_period2Key[180] = Key(3,3);
-    m_period2Key[170] = Key(3,4);
-    m_period2Key[160] = Key(3,5);
-    m_period2Key[151] = Key(3,6);
-    m_period2Key[143] = Key(3,7);
-    m_period2Key[135] = Key(3,8);
-    m_period2Key[127] = Key(3,9);
-    m_period2Key[120] = Key(3,10);
-    m_period2Key[113] = Key(3,11);
+FreqRef g_freqRef;
 
-    // 107I  101I   95I   90I   85I   80I   75I   71I   67I   63I   60I   56I
-    // C-4I  C#4I  D-4I  D#4I  E-4I  F-4I  F#4I  G-4I  G#4I  A-4I  A#4I  B-4I
-    m_period2Key[107] = Key(4,0);
-    m_period2Key[101] = Key(4,1);
-    m_period2Key[95 ] = Key(4,2);
-    m_period2Key[90 ] = Key(4,3);
-    m_period2Key[85 ] = Key(4,4);
-    m_period2Key[80 ] = Key(4,5);
-    m_period2Key[75 ] = Key(4,6);
-    m_period2Key[71 ] = Key(4,7);
-    m_period2Key[67 ] = Key(4,8);
-    m_period2Key[63 ] = Key(4,9);
-    m_period2Key[60 ] = Key(4,10);
-    m_period2Key[56 ] = Key(4,11);
+void Sndtrack::PrintSamplesTable()
+{
+    printf("Title = %20s\n\n", m_title);
 
-    // extended octave...
-    m_period2Key[53 ] = Key(5,0);
-    m_period2Key[50 ] = Key(5,1);
-    m_period2Key[47 ] = Key(5,2);
-    m_period2Key[45 ] = Key(5,3);
-    m_period2Key[42 ] = Key(5,4);
-    m_period2Key[40 ] = Key(5,5);
-    m_period2Key[37 ] = Key(5,6);
-    m_period2Key[35 ] = Key(5,7);
-    m_period2Key[33 ] = Key(5,8);
-    m_period2Key[31 ] = Key(5,9);
-    m_period2Key[30 ] = Key(5,10);
-    m_period2Key[28 ] = Key(5,11);
+    printf("    %22s |%8s|%8s|%8s|%8s|%8s|%8s", "Sample name", "Length", "RelativK", "FineTune", "Volume", "LoopStrt", "LoopLen\n\n");
+
+    for (u32 t = 0; t < m_samples.size(); t++)
+    {
+        const auto& s = m_samples[t];
+
+        printf("%2u: ", t + 1);
+        printf("%22s | %6u | %6d | %6d | %6u | %6u | %6u\n", s.m_sampleName, s.m_sampleLen, s.m_relativeNoteNum + 24, s.m_fineTune, s.m_sampleVolume, s.m_sampleLoopStart, s.m_sampleLoopLength);
+    }
 }
 
 
-void Sndtrack::AddKeyToInstrument (u8 _instrument, const Key& _key)
+void Sndtrack::AddKeyToInstrument(u8 _instrument, const Key& _key)
 {
     auto it2 = m_instrumentUsedKeys.find(_instrument);
     if (it2 == m_instrumentUsedKeys.end())
@@ -217,117 +124,85 @@ void Sndtrack::AddKeyToInstrument (u8 _instrument, const Key& _key)
 }
 
 
-bool Sndtrack::LoadModule (const char* _filename)
+int Sndtrack::RetrievePattern(u32 _patternNum, u32 _startIndex)
 {
-    FILE* file = fopen(_filename, "rb");
-
-    if (file != NULL)
+    for (u32 t = _startIndex ; t < m_songLen ; t++)
     {
-        printf ("Source module size = %u\n\n", TOOLfileSize(file));
-
-        m_title[sizeof(m_title) - 1] = 0;
-
-        fread(m_title, sizeof(m_title) - 1, 1, file);
-
-        printf ("Title = %20s\n\n", m_title);
-
-        printf ("    %22s |%8s|%8s|%8s|%8s|%8s", "Sample name", "Length", "FineTune", "Volume", "LoopStrt", "LoopLen\n\n");
-
-        m_samples.resize(NBINSTRUMENTS);
-
-        for (u32 t = 0 ; t < NBINSTRUMENTS ; t++)
+        if (m_patternsSequence[t] == _patternNum)
         {
-            Sample& sample = m_samples[t];
-
-            sample.Read(file);
-
-            printf ("%2u: ", t+1);
-            sample.Print();
+            return t;
         }
+    }
 
-        TOOLreadcheck(&m_songLen, sizeof(m_songLen), file);
-        printf ("\nSong length = %u\n", m_songLen);
+    return -1;
+}
 
-        TOOLreadcheck(&m_restartSongLooping, sizeof(m_restartSongLooping), file);
-        printf ("\nRestartSongLooping = %u\n", m_restartSongLooping);
 
-        TOOLreadcheck(&m_patternsSequence, sizeof(m_patternsSequence), file);
-        for (u32 t = 0 ; t < sizeof(m_patternsSequence) ; t++)
+void Sndtrack::DetermineInstrumentsFromScore()
+{
+    for (u32 p = 0; p < m_patterns.size(); p++)
+    {
+        u8  lastinstrument[NBMAXVOICES] = { 0,0,0,0,0,0,0,0 };
+        Key lastkey[NBMAXVOICES];
+
+        Pattern& pattern = m_patterns[p];
+
+        printf("\n\nPattern 0x%x|%d (%d)\n", p, p, pattern.m_nbRows);
+
+        if (RetrievePattern(p) < 0)
         {
-            if ((t & 7) == 0)
-            {
-                printf ("\n%3d: ", t);
-            }
-
-            printf ("%3u ", m_patternsSequence[t]);
+            printf ("pattern unused\n");
         }
-
-        m_format[4] = 0;
-        TOOLreadcheck(&m_format, sizeof(m_format) -1 , file);
-        printf ("\n\n%4s\n", m_format);
-
-        u32 nb = 1 + *std::max_element(m_patternsSequence, m_patternsSequence + sizeof(m_patternsSequence));
-        printf ("Nb saved patterns %d\n", nb);
-
-        m_patterns.resize(nb);
-
-        for (u32 p = 0 ; p < nb ; p++)
+        else
         {
-            printf ("\n\nPattern 0x%x|%d\n", p, p);
-            u8  lastinstrument[NBVOICES] = {0,0,0,0};
-            Key lastkey[NBVOICES];
-
-            for (u32 r = 0 ; r < NBPATTERNROWS ; r++)
+            for (u32 r = 0; r < pattern.m_nbRows; r++)
             {
-                printf ("\n%2d: ", r);
+                printf("\n%3d:", r);
 
-                for (u32 v = 0 ; v < NBVOICES ; v++)
+                for (u32 v = 0; v < NBMODVOICES; v++)
                 {
-                    Pattern::Cell& cell = m_patterns[p].m_cells[r][v];
+                    Pattern::Cell& cell = pattern.m_cells[r][v];
                     bool needToRegisterVolume = false;
                     u8 currentVolume = 64;
 
-                    cell.Read (file);
 
-                    if (cell.m_period != 0)
+                    if (cell.m_key.isDefined())
                     {
-                        ASSERT(cell.m_instrument >= 1);
+                        if (cell.m_instrument == 0)
+                        {
+                            ASSERT((lastinstrument[v] > 0) || cell.m_key.isKeyOff());
+                            cell.m_instrument = lastinstrument[v];
+                        }
+
                         if (cell.m_instrument > m_samples.size()) // Manage invalid cells
                         {
                             BLS_CONVERT_OUTPUT_POSITION("\n\nERROR", p, r, v);
-                            BLS_CONVERT_OUTPUT("use invalid instrument (0x%x|%d)\n\n" , cell.m_instrument, cell.m_instrument);
+                            BLS_CONVERT_OUTPUT("use invalid instrument (0x%x|%d)\n\n", cell.m_instrument, cell.m_instrument);
                         }
-                        else
+                        else if (cell.m_instrument > 0)
                         {
                             const Sample& sample = m_samples[cell.m_instrument - 1];
 
-                            if (sample.m_sampleLen == 0) // Manage "silence" sample
+                            if ((sample.m_sampleLen == 0) || (cell.m_key.isKeyOff())) // Manage "silence" sample (mod) of key off (xm)
                             {
                                 lastkey[v].undefine();
                                 lastinstrument[v] = 0;
                             }
                             else
                             {
+                                cell.m_key.Transpose(sample.m_relativeNoteNum);
+
                                 needToRegisterVolume = true;
 
                                 if (sample.isNoTranposeRequired() || sample.isFixedLengthRequired())
                                 {
-                                    cell.m_period = NO_TRANSPOSE_PERIOD;
+                                    cell.m_key = NOTRANSPOSE_KEY;
                                 }
 
-                                auto it = cell.FindKey();
-                                if (it != Key::m_period2Key.end())
-                                {
-                                    AddKeyToInstrument (cell.m_instrument, it->second);
+                                AddKeyToInstrument(cell.m_instrument, cell.m_key);
 
-                                    lastkey[v]        = it->second;
-                                    lastinstrument[v] = cell.m_instrument;
-                                }
-                                else
-                                {
-                                    BLS_CONVERT_OUTPUT_POSITION("\n\nERROR", p, r, v);
-                                    BLS_CONVERT_OUTPUT("unknown key period (0x%x|%d)\n\n" , cell.m_period, cell.m_period);
-                                }
+                                lastkey[v] = cell.m_key;
+                                lastinstrument[v] = cell.m_instrument;
                             }
                         }
                     }
@@ -343,11 +218,11 @@ bool Sndtrack::LoadModule (const char* _filename)
                             if ((m_useVolumeForBalance == false) || ((cell.m_fx_l & 1) == 0))
                             {
                                 u8 vol = (cell.m_fx_m << 4) | cell.m_fx_l;
-                                
+
                                 if (vol > 64)
                                 {
                                     BLS_CONVERT_OUTPUT_POSITION("\n\nERROR", p, r, v);
-                                    BLS_CONVERT_OUTPUT("volume exceed 64 (0x%x|%d)\n\n" , vol, vol);
+                                    BLS_CONVERT_OUTPUT("volume exceed 64 (0x%x|%d)\n\n", vol, vol);
                                     vol = 64;
                                 }
                                 currentVolume = vol;
@@ -370,18 +245,27 @@ bool Sndtrack::LoadModule (const char* _filename)
 
                                 key1.m_supportArpeggio = key2.m_supportArpeggio = true;
 
-                                AddKeyToInstrument (lastinstrument[v], key1);
-                                AddKeyToInstrument (lastinstrument[v], key2);
+                                AddKeyToInstrument(lastinstrument[v], key1);
+                                AddKeyToInstrument(lastinstrument[v], key2);
                             }
                         }
                         break;
                     }
 
+                    if (cell.m_volume > 0)
+                    {
+                        if (lastinstrument[v] != 0)
+                        {
+                            needToRegisterVolume = true;
+                            currentVolume = cell.m_volume - 0x10;
+                        }
+                    }
+
                     cell.Print();
 
-                    if ((v + 1) < NBVOICES)
+                    if ((v + 1) < m_nbVoices)
                     {
-                        printf (" | ");
+                        printf("|");
                     }
 
                     if (needToRegisterVolume)
@@ -389,7 +273,7 @@ bool Sndtrack::LoadModule (const char* _filename)
                         auto it = m_instrFXVolumes.find(lastinstrument[v]);
                         if (it == m_instrFXVolumes.end())
                         {
-                            m_instrFXVolumes.insert(std::make_pair(lastinstrument[v], std::map<u8,VolFXLevel>()));
+                            m_instrFXVolumes.insert(std::make_pair(lastinstrument[v], std::map<u8, VolFXLevel>()));
                             it = m_instrFXVolumes.find(lastinstrument[v]);
                         }
 
@@ -400,46 +284,66 @@ bool Sndtrack::LoadModule (const char* _filename)
                         auto it2 = volumemap.find(shift);
                         if (it2 == volumemap.end())
                         {
-                            volumemap.insert(std::make_pair(shift,volFXLevel));
+                            volumemap.insert(std::make_pair(shift, volFXLevel));
                         }
                         else
                         {
-                            it2->second.add(currentVolume);   
+                            it2->second.add(currentVolume);
+                        }
+                    }
+                }
+
+                {
+                    u32 max = m_nbVoices < (NBMODVOICES + SND_YM_NB_CHANNELS) ? m_nbVoices : (NBMODVOICES + SND_YM_NB_CHANNELS);
+
+                    for (u32 v = NBMODVOICES; v < max; v++)
+                    {
+                        Pattern::Cell& cell = pattern.m_cells[r][v];
+
+
+                        if (cell.m_key.isDefined())
+                        {
+                            if (cell.m_key.isKeyOff())
+                            {
+                            }
+                            else if (
+                                (cell.m_instrument > m_instrToYmSound.size()) ||
+                                (m_instrToYmSound[cell.m_instrument - 1] == -1)) // Manage invalid cells
+                            {
+                                BLS_CONVERT_OUTPUT_POSITION("\n\nERROR", p, r, v);
+                                BLS_CONVERT_OUTPUT("use invalid YM instrument (0x%x|%d)\n\n", cell.m_instrument, cell.m_instrument);
+                            }
+                            else
+                            {
+                                m_ymSoundUsed[m_instrToYmSound[cell.m_instrument - 1]] = true;
+                            }
+                        }
+
+                        if (v < 7)
+                        {
+                            cell.Print();
+                        }
+
+                        if (v < 6)
+                        {
+                            printf("|");
                         }
                     }
                 }
             }
         }
-
-        // Read samples
-        for (auto it = m_samples.begin() ; it != m_samples.end() ; it++)
-        {
-            auto len = it->m_sampleLen;
-
-            if (len > 0)
-            {
-                it->m_data.resize(len);
-                TOOLreadcheck (&(it->m_data[0]), len, file);
-            }
-        }
-
-        fclose(file);
-
-        printf ("\n\n-------------------- LoadModule End --------------------\n\n");
     }
-
-    return file != NULL;
 }
 
-void Sndtrack::DisplayUsedInstruments ()
+void Sndtrack::DisplayUsedInstruments()
 {
-    printf ("\n\nInstrument keys used...\n\n");
+    printf("\n\nInstrument keys used...\n\n");
 
-    for (auto it = m_instrumentUsedKeys.begin() ; it != m_instrumentUsedKeys.end() ; it++)
+    for (auto it = m_instrumentUsedKeys.begin(); it != m_instrumentUsedKeys.end(); it++)
     {
-        for (auto k = it->second.begin() ; k != it->second.end() ; k++)
+        for (auto k = it->second.begin(); k != it->second.end(); k++)
         {
-            printf ("instr = %-2u - Key %2s %u\n", it->first, Key::m_names[k->m_semitone], k->m_octave);
+            printf("instr = %-2u - Key %2s %u\n", it->first, Key::m_names[k->m_semitone], k->m_octave);
         }
     }
 }
@@ -448,7 +352,7 @@ void Sndtrack::DumpSamples()
 {
     u32 t = 0;
 
-    for (auto spl = m_samples.begin() ; spl != m_samples.end() ; spl++)
+    for (auto spl = m_samples.begin(); spl != m_samples.end(); spl++)
     {
         auto len = spl->m_sampleLen;
 
@@ -458,16 +362,16 @@ void Sndtrack::DumpSamples()
 
             sprintf(temp, "sample_%d.raw", t);
 
-            spl->Dump (temp);
+            spl->Dump(temp);
         }
 
         t++;
     }
 }
 
-void Sndtrack::LookForLinkBetweenKeys ()
+void Sndtrack::LookForLinkBetweenKeys()
 {
-    for (auto it = m_instrumentUsedKeys.begin() ; it != m_instrumentUsedKeys.end() ; it++)
+    for (auto it = m_instrumentUsedKeys.begin(); it != m_instrumentUsedKeys.end(); it++)
     {
         PrecomputedKey pKey;
         pKey.m_instrument = it->first;
@@ -476,7 +380,7 @@ void Sndtrack::LookForLinkBetweenKeys ()
 
         const auto& keyMap = it->second;
 
-        for (auto ikey = keyMap.begin() ; ikey != keyMap.end() ; ikey++)
+        for (auto ikey = keyMap.begin(); ikey != keyMap.end(); ikey++)
         {
             pKey.m_key = *ikey;
             pKey.m_blitterTranspose = 0;
@@ -484,58 +388,58 @@ void Sndtrack::LookForLinkBetweenKeys ()
             pKey.m_fineTune = m_samples[sampleindex].m_fineTune;
 
             /* Look if (in the beginning of the map) we found same semitone in a lower octave */
-            for (auto ikey2 = keyMap.begin() ; ikey2 != ikey ; ikey2++)
+            for (auto ikey2 = keyMap.begin(); ikey2 != ikey; ikey2++)
             {
                 if (ikey->m_semitone == ikey2->m_semitone)
                 {
-                    pKey.m_blitterTranspose  = ikey->m_octave - ikey2->m_octave;
-                    pKey.m_baseKeyIdentifier = PrecomputedKey::sGetIdentifier( pKey.m_instrument, *ikey2 );
+                    pKey.m_blitterTranspose = ikey->m_octave - ikey2->m_octave;
+                    pKey.m_baseKeyIdentifier = PrecomputedKey::sGetIdentifier(pKey.m_instrument, *ikey2);
                     break;
                 }
             }
 
-            u32 keyidentifier = pKey.GetIdentifier ();
+            u32 keyidentifier = pKey.GetIdentifier();
             m_keyInstr2precomputedKeys[keyidentifier] = m_precomputedKeys.size();
             m_precomputedKeys.push_back(pKey);
         }
-    }    
+    }
 }
 
-void Sndtrack::DisplayVolumeFXUsageByInstrument(const std::map<u8,u32>& instrToSize) const
+void Sndtrack::DisplayVolumeFXUsageByInstrument(const std::map<u8, u32>& instrToSize) const
 {
-    for (auto it = instrToSize.begin() ; it != instrToSize.end() ; it++)
+    for (auto it = instrToSize.begin(); it != instrToSize.end(); it++)
     {
         u32 nbVolFXLevel = GetNbVolFXLevelForInstrument(it->first);
         auto itv = m_instrFXVolumes.find(it->first);
         ASSERT(itv != m_instrFXVolumes.end());
 
 
-        printf ("instr %-2ld '%-22s' size = %-7u ", it->first, m_samples[it->first - 1].m_sampleName, it->second);
+        printf("instr %-2ld '%-22s' size = %-7u ", it->first, m_samples[it->first - 1].m_sampleName, it->second);
 
-        switch ( nbVolFXLevel )
+        switch (nbVolFXLevel)
         {
         case 0:
         case 1:
-            printf ("no volume effect found ");
+            printf("no volume effect found ");
 
             if (nbVolFXLevel == 1)
             {
-                printf (">%d", itv->second.begin()->first);
+                printf(">%d", itv->second.begin()->first);
             }
 
-            printf ("\n");
+            printf("\n");
             break;
 
         default:
-            printf ("volume used ");
+            printf("volume used ");
 
-            for (auto itl = itv->second.begin() ; itl != itv->second.end() ; itl++)
+            for (auto itl = itv->second.begin(); itl != itv->second.end(); itl++)
             {
-                printf (">%d [%d](", itl->first, itl->second.m_nbOccurences);
+                printf(">%d [%d](", itl->first, itl->second.m_nbOccurences);
 
-                for (auto itmv = itl->second.m_modVolumes.begin() ; itmv != itl->second.m_modVolumes.end() ; )
+                for (auto itmv = itl->second.m_modVolumes.begin(); itmv != itl->second.m_modVolumes.end(); )
                 {
-                    printf ("0x%x" , *itmv );
+                    printf("0x%x", *itmv);
 
                     itmv++;
 
@@ -545,39 +449,39 @@ void Sndtrack::DisplayVolumeFXUsageByInstrument(const std::map<u8,u32>& instrToS
                     }
                 }
 
-                printf (")  ");
+                printf(")  ");
             }
 
-            printf ("\n");
+            printf("\n");
             break;
         }
     }
 }
 
-void Sndtrack::ComputeSamplesTransposeTable ()
+void Sndtrack::ComputeSamplesTransposeTable()
 {
     LookForLinkBetweenKeys();
 
-    printf ("\n\nInstrument precompute...\n\n");
+    printf("\n\nInstrument precompute...\n\n");
 
     m_nbPrecomputedSamples = 0;
 
     u32 totalSize = 0;
 
-    std::map<u8,u32> instrToSize;
+    std::map<u8, u32> instrToSize;
     u8 lastinstru = 0;
 
-    for (auto ipkey = m_precomputedKeys.begin() ; ipkey != m_precomputedKeys.end() ; ipkey++)
+    for (auto ipkey = m_precomputedKeys.begin(); ipkey != m_precomputedKeys.end(); ipkey++)
     {
         const Sample& sourceSample = m_samples[ipkey->m_instrument - 1];
 
         if (lastinstru != ipkey->m_instrument)
         {
-            printf ("\ninstr %-2u '%-22s' (%5u): ", ipkey->m_instrument, m_samples[ipkey->m_instrument-1].m_sampleName, sourceSample.m_sampleLen);
+            printf("\ninstr %-2u '%-22s' (%6u): ", ipkey->m_instrument, m_samples[ipkey->m_instrument - 1].m_sampleName, sourceSample.m_sampleLen);
             lastinstru = ipkey->m_instrument;
         }
-    
-        if ( ipkey->IsBaseKey() )
+
+        if (ipkey->IsBaseKey())
         {
             assert(ipkey->m_blitterTranspose == 0);
 
@@ -589,35 +493,35 @@ void Sndtrack::ComputeSamplesTransposeTable ()
 
             if (sourceSample.isNoTranposeRequired())
             {
-                nbSTsamples      = sourceSample.m_sampleLen;
-                nbSTsamplesLoop  = sourceSample.m_sampleLoopLength;
+                nbSTsamples = sourceSample.m_sampleLen;
+                nbSTsamplesLoop = sourceSample.m_sampleLoopLength;
 
                 freqmul = 1.0;
 
-                printf ("notranspose ");
+                printf("notranspose ");
             }
             else
             {
                 if (sourceSample.isFixedLengthRequired())
                 {
-                    printf ("fixed len ");
+                    printf("fixed len ");
 
-                    freqmul = (double) sourceSample.m_fixedLen / (double)sourceSample.m_sampleLen;
+                    freqmul = (double)sourceSample.m_fixedLen / (double)sourceSample.m_sampleLen;
                 }
                 else
                 {
-                    double amigaSampleFreq = ipkey->m_key.GetAmigaSampleFreq(ipkey->m_fineTune);
+                    double amigaSampleFreq = g_freqRef.GetAmigaSampleFreq(ipkey->m_key, ipkey->m_fineTune);
                     freqmul = STFREQ / amigaSampleFreq;
                 }
 
-                nbSTsamples      = (u32) (0.5 + freqmul * (float)sourceSample.m_sampleLen);
-                nbSTsamplesLoop  = (u32) (0.5 + freqmul * (float)sourceSample.m_sampleLoopLength);
+                nbSTsamples = (u32)(0.5 + freqmul * (float)sourceSample.m_sampleLen);
+                nbSTsamplesLoop = (u32)(0.5 + freqmul * (float)sourceSample.m_sampleLoopLength);
 
                 if ((sourceSample.isInterpolationRequired() == false) && (sourceSample.isLooping() == false))
                 {
-                    u16 freqmulint  = (u16)freqmul;
+                    u16 freqmulint = (u16)freqmul;
 
-                    for (freqmullog2 = 14 ; ((1 << freqmullog2) & freqmulint) == 0 ; freqmullog2--)
+                    for (freqmullog2 = 14; ((1 << freqmullog2) & freqmulint) == 0; freqmullog2--)
                     {
                         if (freqmullog2 == 0)
                         {
@@ -631,7 +535,7 @@ void Sndtrack::ComputeSamplesTransposeTable ()
 
                         u32 identifier = ipkey->GetIdentifier();
 
-                        for (auto iharmonickeys = m_precomputedKeys.begin() ; iharmonickeys != m_precomputedKeys.end() ; iharmonickeys++)
+                        for (auto iharmonickeys = m_precomputedKeys.begin(); iharmonickeys != m_precomputedKeys.end(); iharmonickeys++)
                         {
                             if (iharmonickeys->m_baseKeyIdentifier == identifier)
                             {
@@ -646,12 +550,12 @@ void Sndtrack::ComputeSamplesTransposeTable ()
 
             ipkey->m_freqmul = freqmul;
 
-            printf ("[%s %u/%u (%u) >%d] ", Key::m_names[ipkey->m_key.m_semitone], ipkey->m_key.m_octave, ipkey->m_key.m_semitone, nbSTsamples >> freqmullog2, ipkey->m_blitterTranspose);            
+            printf("[%s %u/%u (%u) >%d] ", Key::m_names[ipkey->m_key.m_semitone], ipkey->m_key.m_octave, ipkey->m_key.m_semitone, nbSTsamples >> freqmullog2, ipkey->m_blitterTranspose);
 
             m_nbPrecomputedSamples++;
 
             const bool hasVolumeEffect = GetNbVolFXLevelForInstrument(ipkey->m_instrument) > 1;
-            ipkey->AssignStorageCharac (nbSTsamples, hasVolumeEffect, freqmullog2 );
+            ipkey->AssignStorageCharac(nbSTsamples, hasVolumeEffect, freqmullog2);
 
             auto its = instrToSize.find(ipkey->m_instrument);
             if (its == instrToSize.end())
@@ -666,24 +570,24 @@ void Sndtrack::ComputeSamplesTransposeTable ()
             totalSize += ipkey->m_storagesize;
 
             nbSTsamplesLoop >>= freqmullog2;
-            nbSTsamples     >>= freqmullog2;
+            nbSTsamples >>= freqmullog2;
 
-            if ( nbSTsamplesLoop > 16384 )
+            if (nbSTsamplesLoop > 16384)
             {
-                BLS_CONVERT_OUTPUT ("\nERROR: loop length exceeds 16384 samples for key [%u/%u (%lu)] : %d\n", ipkey->m_key.m_octave, ipkey->m_key.m_semitone, nbSTsamples, nbSTsamplesLoop);
+                BLS_CONVERT_OUTPUT("\nERROR: loop length exceeds 16384 samples for key [%u/%u (%lu)] : %d\n", ipkey->m_key.m_octave, ipkey->m_key.m_semitone, nbSTsamples, nbSTsamplesLoop);
             }
 
             if (ipkey->m_key.m_supportArpeggio)
             {
                 if (nbSTsamples > 65535)
                 {
-                    BLS_CONVERT_OUTPUT ("\nERROR: sample length used in arpeggio exceeds 65535 samples for key [%u/%u (%lu)]\n", ipkey->m_key.m_octave, ipkey->m_key.m_semitone, nbSTsamples);
+                    BLS_CONVERT_OUTPUT("\nERROR: sample length used in arpeggio exceeds 65535 samples for key [%u/%u (%lu)]\n", ipkey->m_key.m_octave, ipkey->m_key.m_semitone, nbSTsamples);
                 }
             }
         }
         else
         {
-            printf ("{%u/%u >%d} ", ipkey->m_key.m_octave, ipkey->m_key.m_semitone, ipkey->m_blitterTranspose);
+            printf("{%u/%u >%d} ", ipkey->m_key.m_octave, ipkey->m_key.m_semitone, ipkey->m_blitterTranspose);
             ipkey->m_freqmul = 0.0;
         }
     }
@@ -692,30 +596,30 @@ void Sndtrack::ComputeSamplesTransposeTable ()
 
     DisplayVolumeFXUsageByInstrument(instrToSize);
 
-    printf ("\ntotal size = %u for %u precomputed samples and %u keys\n", totalSize, m_nbPrecomputedSamples, m_precomputedKeys.size());
+    printf("\ntotal size = %u for %u precomputed samples and %u keys\n", totalSize, m_nbPrecomputedSamples, m_precomputedKeys.size());
 }
 
 
 void Sndtrack::ConvertToBlitSoundtrack_InitBitmasks(BLSsoundTrack* sndtrack)
 {
-    m_bitmasks [ 0] = 0xFFFF;
-    m_bitmasks [ 1] = 0xFEFE;
-    m_bitmasks [ 2] = 0xFCFC;
-    m_bitmasks [ 3] = 0xF8F8;
-    m_bitmasks [ 4] = 0xF0F0;
-    m_bitmasks [ 5] = 0xE0E0;
-    m_bitmasks [ 6] = 0xC0C0;
-    m_bitmasks [ 7] = 0x8080;
-    m_bitmasks [ 8] = 0xEEEE;
-    m_bitmasks [ 9] = 0xCCCC;
-    m_bitmasks [10] = 0x8888;
-    m_bitmasks [11] = 0x7F7F;
-    m_bitmasks [12] = 0x3F3F;
-    m_bitmasks [13] = 0x1F1F;
-    m_bitmasks [14] = 0x0F0F;
-    m_bitmasks [15] = 0x0000;
+    m_bitmasks[0] = 0xFFFF;
+    m_bitmasks[1] = 0xFEFE;
+    m_bitmasks[2] = 0xFCFC;
+    m_bitmasks[3] = 0xF8F8;
+    m_bitmasks[4] = 0xF0F0;
+    m_bitmasks[5] = 0xE0E0;
+    m_bitmasks[6] = 0xC0C0;
+    m_bitmasks[7] = 0x8080;
+    m_bitmasks[8] = 0xEEEE;
+    m_bitmasks[9] = 0xCCCC;
+    m_bitmasks[10] = 0x8888;
+    m_bitmasks[11] = 0x7F7F;
+    m_bitmasks[12] = 0x3F3F;
+    m_bitmasks[13] = 0x1F1F;
+    m_bitmasks[14] = 0x0F0F;
+    m_bitmasks[15] = 0x0000;
 
-    for (u32 i = 0 ; i < m_samples.size() ; i++)
+    for (u32 i = 0; i < m_samples.size(); i++)
     {
         const char* name = m_samples[i].m_sampleName;
 
@@ -725,15 +629,15 @@ void Sndtrack::ConvertToBlitSoundtrack_InitBitmasks(BLSsoundTrack* sndtrack)
         {
             char i[2];
             char m[3];
-            u32 mask  = 0;
+            u32 mask = 0;
             u32 index = 0;
 
-            i [0] = p[2];
-            i [1] = 0;
+            i[0] = p[2];
+            i[1] = 0;
 
-            m [0] = p[3];
-            m [1] = p[4];
-            m [2] = 0;
+            m[0] = p[3];
+            m[1] = p[4];
+            m[2] = 0;
 
             sscanf(i, "%x", &index);
             sscanf(m, "%x", &mask);
@@ -747,20 +651,20 @@ void Sndtrack::ConvertToBlitSoundtrack_InitBitmasks(BLSsoundTrack* sndtrack)
                 ASSERT(index < ARRAYSIZE(m_bitmasks));
                 m_bitmasks[index] = (u16)((mask << 8) | mask);
 
-                printf ("found bitmask 0x%x = 0x%x\n", index, m_bitmasks[index]);
+                printf("found bitmask 0x%x = 0x%x\n", index, m_bitmasks[index]);
 
-                p = strstr(p+2, "#$");
+                p = strstr(p + 2, "#$");
             }
         }
     }
 }
 
-void Sndtrack::ConvertToBlitSoundtrack_SourceSamplesTable (BLSsoundTrack* sndtrack, std::map<u8,u8>& instrumentToSourceSample)
+void Sndtrack::ConvertToBlitSoundtrack_SourceSamplesTable(BLSsoundTrack* sndtrack, std::map<u8, u8>& instrumentToSourceSample)
 {
     // create source samples table
     u8 ssi = 0;
 
-    for (auto i = m_instrumentUsedKeys.begin() ; i != m_instrumentUsedKeys.end() ; i++, ssi++)
+    for (auto i = m_instrumentUsedKeys.begin(); i != m_instrumentUsedKeys.end(); i++, ssi++)
     {
         bool copysample = true;
         u8 instrumentIndex = i->first;
@@ -770,22 +674,22 @@ void Sndtrack::ConvertToBlitSoundtrack_SourceSamplesTable (BLSsoundTrack* sndtra
         auto ss = &m_samples[instrumentIndex - 1];
         auto sd = &sndtrack->sourceSamples[ssi];
 
-        sd->sampleLen         = ss->m_sampleLen;
-        sd->sampleLoopLength  = ss->m_sampleLoopLength <= 2 ? 0 : ss->m_sampleLoopLength;
-        sd->sampleLoopStart   = ss->m_sampleLoopStart;
-        sd->sample            = new s8[sd->sampleLen];
-        sd->flags             = 0;
-        
+        sd->sampleLen = ss->m_sampleLen;
+        sd->sampleLoopLength = ss->m_sampleLoopLength <= 2 ? 0 : ss->m_sampleLoopLength;
+        sd->sampleLoopStart = ss->m_sampleLoopStart;
+        sd->sample = new s8[sd->sampleLen];
+        sd->flags = 0;
+
         if (ss->m_sampleVolume != 64)
         {
             copysample = false;
         }
-        
+
         if (GetNbVolFXLevelForInstrument(instrumentIndex) == 1)
         {
             shift = m_instrFXVolumes.find(instrumentIndex)->second.begin()->first;
             ASSERT(shift <= 8);
-            if (shift != 0)            
+            if (shift != 0)
                 copysample = false;
         }
 
@@ -795,32 +699,38 @@ void Sndtrack::ConvertToBlitSoundtrack_SourceSamplesTable (BLSsoundTrack* sndtra
             sd->flags |= BLS_SAMPLE_INTERPOLATE;
             break;
 
-/*        case Sample::TransposeType::NO_TRANSPOSE:
+            /*        case Sample::TransposeType::NO_TRANSPOSE:
             sd->flags |= BLS_SAMPLE_NOTRANSPOSE;
             break;*/
         }
 
         if (copysample)
         {
-            memcpy (sd->sample, &ss->m_data[0], sd->sampleLen);
+            memcpy(sd->sample, &ss->m_data[0], sd->sampleLen);
         }
         else
         {
-            for (u32 t = 0 ; t < sd->sampleLen ; t++)
+            for (u32 t = 0; t < sd->sampleLen; t++)
             {
                 sd->sample[t] = (ss->m_data[t] * ss->m_sampleVolume + 32) >> (6 + shift);
             }
         }
+
+        // Delta storage to help compression
+        for (s32 t = sd->sampleLen - 1; t > 0; t--)
+        {
+            sd->sample[t] -= sd->sample[t - 1];
+        }
     }
 }
 
-static void computeFloat16 (double _value, u16* _num, u8* _shift)
+static void computeFloat16(double _value, u16* _num, u8* _shift)
 {
     assert(_value >= 0.0);
-    u16 intval = (u16) _value;
+    u16 intval = (u16)_value;
     s16 b;
 
-    for (b = 15 ; b >= 0 ; b--)
+    for (b = 15; b >= 0; b--)
     {
         if ((1 << b) & intval)
         {
@@ -832,30 +742,32 @@ static void computeFloat16 (double _value, u16* _num, u8* _shift)
 
     *_shift = 16 - b;
     u32 value = (u32)(_value * float(1 << *_shift));
-    assert ((value & 0xFFFF0000) == 0);
+    assert((value & 0xFFFF0000) == 0);
     *_num = (u16)value;
 }
 
 
-void Sndtrack::ConvertToBlitSoundtrack_PrecomputedKeys(BLSsoundTrack* sndtrack, const std::map<u8,u8>& instrumentToSourceSample, SamplesMapOrderBySize& sizeordertopkindex)
+void Sndtrack::ConvertToBlitSoundtrack_PrecomputedKeys(BLSsoundTrack* sndtrack, const std::map<u8, u8>& instrumentToSourceSample, SamplesMapOrderBySize& sizeordertopkindex)
 {
-    for (u32 pi = 0, si = 0 ; pi < m_precomputedKeys.size() ; pi++)
+    for (u32 pi = 0, si = 0; pi < m_precomputedKeys.size(); pi++)
     {
         auto pks = &m_precomputedKeys[pi];
         auto pkd = &sndtrack->keys[pi];
         u8   baseKeyFlag = 0;
 
 
+        sndtrack->keysnoteinfo[pi] = (u8)(u16) pks->m_key;
+
         if (pks->IsBaseKey())
         {
             auto ssi = instrumentToSourceSample.find(pks->m_instrument);
-            ASSERT (ssi != instrumentToSourceSample.end());
+            ASSERT(ssi != instrumentToSourceSample.end());
 
-            ASSERT (pks->m_blitterTranspose <= 0);
+            ASSERT(pks->m_blitterTranspose <= 0);
 
             /* assign precomputed sample transposition parameter */
-            computeFloat16 (pks->m_freqmul      , &pkd->freqmul, &pkd->freqmulshift);
-            computeFloat16 (1.0 / pks->m_freqmul, &pkd->freqdiv, &pkd->freqdivshift);
+            computeFloat16(pks->m_freqmul, &pkd->freqmul, &pkd->freqmulshift);
+            computeFloat16(1.0 / pks->m_freqmul, &pkd->freqdiv, &pkd->freqdivshift);
 
             pkd->sampleIndex = ssi->second;
 
@@ -864,22 +776,22 @@ void Sndtrack::ConvertToBlitSoundtrack_PrecomputedKeys(BLSsoundTrack* sndtrack, 
             {
                 size += 0x8000000;
             }
-            sizeordertopkindex.insert (std::pair<u32,u16>(size, (u16) pi));
+            sizeordertopkindex.insert(std::pair<u32, u16>(size, (u16)pi));
 
             baseKeyFlag = BLS_BASEKEY_FLAG;
         }
         else
         {
             auto it = m_keyInstr2precomputedKeys.find(pks->m_baseKeyIdentifier);
-            ASSERT (it != m_keyInstr2precomputedKeys.end());
-            ASSERT (m_precomputedKeys[it->second].m_blitterTranspose <= 0);
+            ASSERT(it != m_keyInstr2precomputedKeys.end());
+            ASSERT(m_precomputedKeys[it->second].m_blitterTranspose <= 0);
 
             pkd->sampleIndex = static_cast<u8>(it->second);
 
             const auto& pbks = m_precomputedKeys[it->second];
 
-            computeFloat16 (pbks.m_freqmul      , &pkd->freqmul, &pkd->freqmulshift);
-            computeFloat16 (1.0 / pbks.m_freqmul, &pkd->freqdiv, &pkd->freqdivshift);
+            computeFloat16(pbks.m_freqmul, &pkd->freqmul, &pkd->freqmulshift);
+            computeFloat16(1.0 / pbks.m_freqmul, &pkd->freqdiv, &pkd->freqdivshift);
         }
 
         /* assign key */
@@ -890,59 +802,62 @@ void Sndtrack::ConvertToBlitSoundtrack_PrecomputedKeys(BLSsoundTrack* sndtrack, 
 
 void Sndtrack::ConvertToBlitSoundtrack_SamplesAllocOrder(BLSsoundTrack* sndtrack, const SamplesMapOrderBySize& sizeordertopkindex)
 {
-    u32 heapsize[2] = {0, 0};
-
-    assert(sizeordertopkindex.begin() != sizeordertopkindex.end());
-
-    auto it = sizeordertopkindex.end();
-    u16 index = 0;
-
-    do 
+    if (m_nbPrecomputedSamples > 0)
     {
-        it--;
+        u32 heapsize[2] = { 0, 0 };
 
-        u16 pkindex = it->second;
-        auto& pk = m_precomputedKeys[pkindex];
+        assert(sizeordertopkindex.begin() != sizeordertopkindex.end());
 
-        if (pk.m_supportVolumeFX)
+        auto it = sizeordertopkindex.end();
+        u16 index = 0;
+
+        do
         {
-            heapsize[0] += pk.m_storagesize + 2;
-            heapsize[1] += pk.m_storagesize + 2;
-            sndtrack->sampleAllocOrder[index++] = pkindex | BLS_STORAGE_WORD;
-        }
-        else
-        {
-            if (heapsize[0] > heapsize[1])
+            it--;
+
+            u16 pkindex = it->second;
+            auto& pk = m_precomputedKeys[pkindex];
+
+            if (pk.m_supportVolumeFX)
             {
-                heapsize[1] += (pk.m_storagesize + 1) << 1;
-                sndtrack->sampleAllocOrder[index++] = pkindex | BLS_STORAGE_BYTE_1;
+                heapsize[0] += pk.m_storagesize + 2;
+                heapsize[1] += pk.m_storagesize + 2;
+                sndtrack->sampleAllocOrder[index++] = pkindex | BLS_STORAGE_WORD;
             }
             else
             {
-                heapsize[0] += (pk.m_storagesize + 2) << 1;
-                sndtrack->sampleAllocOrder[index++] = pkindex | BLS_STORAGE_BYTE_0;
+                if (heapsize[0] > heapsize[1])
+                {
+                    heapsize[1] += (pk.m_storagesize + 1) << 1;
+                    sndtrack->sampleAllocOrder[index++] = pkindex | BLS_STORAGE_BYTE_1;
+                }
+                else
+                {
+                    heapsize[0] += (pk.m_storagesize + 2) << 1;
+                    sndtrack->sampleAllocOrder[index++] = pkindex | BLS_STORAGE_BYTE_0;
+                }
             }
-        }
-    }
-    while(it != sizeordertopkindex.begin());
+        } 
+        while (it != sizeordertopkindex.begin());
 
-    sndtrack->sampleHeapSize = std::max(heapsize[0], heapsize[1]);
-    printf ("heapsize %d %d\n", heapsize[0], heapsize[1]);
+        sndtrack->sampleHeapSize = std::max(heapsize[0], heapsize[1]) + 4;
+        printf("heapsize %d %d\n", heapsize[0], heapsize[1]);
+    }
 }
 
 
-u8 Sndtrack::FindPrecomputedKeyIndex (u8 _instrument, const Key& _key)
+u8 Sndtrack::FindPrecomputedKeyIndex(u8 _instrument, const Key& _key)
 {
     u32 identifier = PrecomputedKey::sGetIdentifier(_instrument, _key);
-    
+
     auto it = m_keyInstr2precomputedKeys.find(identifier);
-    ASSERT (it != m_keyInstr2precomputedKeys.end());
+    ASSERT(it != m_keyInstr2precomputedKeys.end());
 
     return static_cast<u8>(it->second);
 }
 
 
-static void Sndtrack_SetBalanceValue (const Pattern::Cell& _sc, u16 _value, bool _balanceused[4], u32 _p, u32 _r, u32 _voice, BLScell& _dc)
+static void Sndtrack_SetBalanceValue(const Pattern::Cell& _sc, u16 _value, bool _balanceused[4], u32 _p, u32 _r, u32 _voice, BLScell& _dc)
 {
     u16 val;
 
@@ -982,285 +897,547 @@ static void Sndtrack_SetBalanceValue (const Pattern::Cell& _sc, u16 _value, bool
     {
         BLS_CONVERT_OUTPUT_POSITION("ERROR", _p, _r, _voice);
         BLS_CONVERT_OUTPUT("balance volume exceeds %d (0x%x|%d)\n", sizeof(g_AmplitudeToLMC), _value, _value);
-        val |= g_AmplitudeToLMC[ARRAYSIZE(g_AmplitudeToLMC)-1];
+        val |= g_AmplitudeToLMC[ARRAYSIZE(g_AmplitudeToLMC) - 1];
     }
 
     *(u16*)&_dc.value = PCENDIANSWAP16(val);
 }
 
-void Sndtrack::ConvertToBlitSoundtrack_Patterns (BLSsoundTrack* sndtrack)
+
+
+
+
+void Sndtrack::ConvertToBlitSoundtrack_ToBLScell(BLSsoundTrack* sndtrack, u32 p, u32 r, u32 v, const Pattern::Cell& sc, BLScell& dc, Key lastkey[NBMAXVOICES], u8 lastinstrument[NBMAXVOICES], bool balanceused[NBMAXVOICES])
 {
-    for (u32 p = 0 ; p < m_patterns.size() ; p++)
+    u16 ymfxoffset = (v >= NBMODVOICES) ? 0x100 : 0;
+    bool unknownfx = false;
+
+    switch (sc.m_fx_h | ymfxoffset)
     {
-        const auto& sp = m_patterns[p];
-        auto& dp       = sndtrack->patterns[p];
-        Key lastkey[NBVOICES];
-        u8  lastinstrument[NBVOICES] = {0,0,0,0};
-
-
-        for (u32 r = 0 ; r < NBPATTERNROWS ; r++)
+        //--------------------------------------------------------------
+        // ARPEGGIO
+        //--------------------------------------------------------------
+    case 0x100:
+        if ((sc.m_fx_m != 0) || (sc.m_fx_l != 0))
         {
-            bool balanceused[4] = {false, false, false, false};
+            BLS_CONVERT_OUTPUT_POSITION("WARNING", p, r, v);
+            BLS_CONVERT_OUTPUT("arpeggio ignored on ym channel : define arpeggio into the ym sound\n");
+        }
+        break;
 
-            for (u32 v = 0 ; v < NBVOICES ; v++)
+    case 0:
+        if ((sc.m_fx_l != 0) || (sc.m_fx_m != 0))
+        {
+            if ((lastkey[v].isDefined() == false) || (lastinstrument[v] == 0))
             {
-                const auto& sc = sp.m_cells[r][v];
-                auto&       dc = dp.rows[r].cells[v];
+                BLS_CONVERT_OUTPUT_POSITION("WARNING", p, r, v);
+                BLS_CONVERT_OUTPUT("arpeggio without prior instrument / key\n");
+            }
+            else
+            {
+                const Sample& sample = m_samples[lastinstrument[v] - 1];
 
-
-                dc.fx          = BLSfx_NONE;
-                dc.value       = 0;
-
-                if ((sc.m_instrument != 0) && (m_samples[sc.m_instrument - 1].m_sampleLen == 0))
+                if (sample.isNoTranposeRequired() || sample.isFixedLengthRequired())
                 {
-                    lastkey[v].undefine();
-                    lastinstrument[v] = 0;
-                    dc.fx = BLSfx_VOICE_OFF;
+                    BLS_CONVERT_OUTPUT_POSITION("ERROR", p, r, v);
+                    BLS_CONVERT_OUTPUT("arpeggio triggered on 'no transpose sample'\n");
                 }
-                else if (sc.m_period != 0)
-                {
-                    const Key& key = sc.FindKey()->second;
-                    dc.precomputedKey = FindPrecomputedKeyIndex(sc.m_instrument, key) + 1;
 
-                    lastkey[v] = key;
-                    lastinstrument[v] = sc.m_instrument;
-                }
-                else if ((sc.m_instrument != 0) && lastkey[v].isDefined())
+                dc.fx = BLSfx_ARPEGGIO;
+
+                Key key1 = lastkey[v];
+                Key key2 = key1;
+
+                key1.Transpose(sc.m_fx_m);
+                key2.Transpose(sc.m_fx_l);
+
+                u8 pk1 = FindPrecomputedKeyIndex(lastinstrument[v], key1);
+                u8 pk2 = FindPrecomputedKeyIndex(lastinstrument[v], key2);
+
+                dc.value = pk1;
+                dc.value2 = pk2;
+            }
+        }
+        break;
+
+        //--------------------------------------------------------------
+        // SLIDE UP
+        //--------------------------------------------------------------
+    case 1:
+        BLS_CONVERT_OUTPUT_POSITION("WARNING", p, r, v);
+        BLS_CONVERT_OUTPUT("slide up ignored on pcm channel (can only be used on ym voice)\n");
+        break;
+
+    case 0x101:
+        dc.value = sc.m_fx_m * 16 + sc.m_fx_l;
+        dc.fx = BLSfx_PITCHBEND_RANGE;
+        break;
+
+        //--------------------------------------------------------------
+        // SLIDE DOWN
+        //--------------------------------------------------------------
+    case 2:
+        BLS_CONVERT_OUTPUT_POSITION("WARNING", p, r, v);
+        BLS_CONVERT_OUTPUT("slide down ignored on pcm channel (can only be used on ym voice)\n");
+        break;
+
+    case 0x102:
+        dc.value = -(sc.m_fx_m * 16 + sc.m_fx_l);
+        dc.fx = BLSfx_PITCHBEND_RANGE;
+        break;
+
+        //--------------------------------------------------------------
+        // PITCHBEND TICKS
+        //--------------------------------------------------------------
+    case 3:
+        BLS_CONVERT_OUTPUT_POSITION("WARNING", p, r, v);
+        BLS_CONVERT_OUTPUT("portamento ignored on pcm channel (can only be used on ym voice to set pitchbend ticks)\n");
+        break;
+    case 0x103:
+        dc.value = sc.m_fx_m * 16 + sc.m_fx_l;
+        dc.fx = BLSfx_PITCHBEND_TICKS;
+        break;
+
+        //--------------------------------------------------------------
+        // PORTAMENTO TICKS
+        //--------------------------------------------------------------
+    case 5:
+        BLS_CONVERT_OUTPUT_POSITION("WARNING", p, r, v);
+        BLS_CONVERT_OUTPUT("Continue fx 'Slide to note' + 'do Volume slide' ignored on pcm channel (can be used on ym voice to set portamento ticks)\n");
+        break;
+    case 0x105:
+        dc.value = sc.m_fx_m * 16 + sc.m_fx_l;
+        dc.fx = BLSfx_PORTAMENTO_TICKS;
+        break;
+
+        //--------------------------------------------------------------
+        // BALANCE VOLUME
+        //--------------------------------------------------------------
+    case 8:
+    case 0x108:
+        // When use volume for balance => odd value for balance control
+        if (m_useVolumeForBalance == false)
+        {
+            u8 value = sc.m_fx_m * 16 + sc.m_fx_l;
+
+            // 0x8 fx goes from 0 -> 0x80 -> 0xff for left -> middle (l+r) -> right
+            switch (v)
+            {
+            case 3:
+            case 0:
+                if (value <= 0x80)
+                    value = 64;
+                else
+                    value = (255 - value) >> 1;
+                break;
+            case 2:
+            case 1:
+                if (value >= 0x80)
+                    value = 64;
+                else
+                    value >>= 1;
+                break;
+            }
+
+            Sndtrack_SetBalanceValue(sc, value, balanceused, p, r, v, dc);
+        }
+        break;
+
+    //--------------------------------------------------------------
+    // SET SAMPLE OFFSET / SET FINE TUNE
+    //--------------------------------------------------------------
+    case 0x109:
+        dc.value = sc.m_fx_m * 16 + sc.m_fx_l;
+        dc.fx = BLSfx_SET_FINETUNE;
+        break;
+    case 9:
+    {
+        u16 offset = (sc.m_fx_m << 12) + (sc.m_fx_l << 8);
+        dc.fx = BLSfx_SETSAMPLEOFFSET;
+        *(u16*)&dc.value = PCENDIANSWAP16(offset);
+    }
+    break;
+
+    //--------------------------------------------------------------
+    // JUMP
+    //--------------------------------------------------------------
+    case 0xB:
+    case 0x10B:
+        dc.fx = BLSfx_JUMP;
+        dc.value = sc.m_fx_m * 16 + sc.m_fx_l;
+        if (dc.value >= m_songLen)
+        {
+            BLS_CONVERT_OUTPUT_POSITION("ERROR", p, r, v);
+            BLS_CONVERT_OUTPUT("in jump ($B) track position exceeds songlen (0x%x|%d >= 0x%x|%d)\n", dc.value, m_songLen, dc.value, m_songLen);
+            dc.value = m_songLen - 1;
+        }
+        break;
+
+        //--------------------------------------------------------------
+        // VOLUME
+        //--------------------------------------------------------------
+    case 0xC:
+    {
+        u16 vol = sc.m_fx_m * 16 + sc.m_fx_l;
+        if (vol > 64)
+        {
+            BLS_CONVERT_OUTPUT_POSITION("ERROR", p, r, v);
+            BLS_CONVERT_OUTPUT("volume exceeds 64 (0x%x|%d)\n", vol, vol);
+            vol = 64;
+        }
+
+        if (m_useVolumeForBalance && ((sc.m_fx_l & 1) != 0))
+        {
+            Sndtrack_SetBalanceValue(sc, vol, balanceused, p, r, v, dc);
+        }
+        else if ((lastinstrument[v] == 0) || (GetNbVolFXLevelForInstrument(lastinstrument[v]) > 1))
+        {
+            dc.value = VolFXLevel::GetShiftFromVolume(vol);
+            if (dc.value < 8)
+            {
+                if (GetNbVolFXLevelForInstrument(sc.m_instrument) == 1)
                 {
-                    if (lastinstrument[v] == sc.m_instrument)
+                    dc.value = 0;
+                }
+            }
+            dc.fx = BLSfx_VOLUME;
+        }
+    }
+    break;
+
+    case 0x10C:
+    {
+        u8 vol = sc.m_fx_m * 16 + sc.m_fx_l;
+        dc.value = std::min<u8>(vol, 15);
+        dc.fx = BLSfx_VOLUME;
+    }
+    break;
+
+    //--------------------------------------------------------------
+    // PATTERN BREAK
+    //--------------------------------------------------------------
+    case 0xD:
+    case 0x10D:
+        dc.fx = BLSfx_PATTERN_BREAK;
+        dc.value = sc.m_fx_m * 10 + sc.m_fx_l;
+        if (dc.value > 63)
+        {
+            BLS_CONVERT_OUTPUT_POSITION("ERROR", p, r, v);
+            BLS_CONVERT_OUTPUT("in pattern break ($D) row exceeds 63 (0x%x|%d)\n", dc.value, dc.value);
+            dc.value = 63;
+        }
+        break;
+
+        //--------------------------------------------------------------
+        // EXTENDED
+        //--------------------------------------------------------------
+    case 0xE:
+        switch (sc.m_fx_m | ymfxoffset)
+        {
+            //--------------------------------------------------------------
+            // SET BITMASK
+            //--------------------------------------------------------------
+        case 0x100:
+            BLS_CONVERT_OUTPUT_POSITION("WARNING", p, r, v);
+            BLS_CONVERT_OUTPUT("set bitmask ignored on ym sound\n");
+            break;
+
+        case 0:
+            dc.fx = BLSfx_BITMASK;
+            *(u16*)&dc.value = PCENDIANSWAP16(m_bitmasks[sc.m_fx_l]);
+            break;
+
+            //--------------------------------------------------------------
+            // LOOP
+            //--------------------------------------------------------------
+        case 6:
+        case 0x106:
+            if (sc.m_fx_l == 0)
+            {
+                dc.fx = BLSfx_LOOP_START_SET;
+            }
+            else
+            {
+                dc.fx = BLSfx_LOOP;
+                dc.value = sc.m_fx_l;
+            }
+            break;
+
+            //--------------------------------------------------------------
+            // FREE CODE TO IMPLEMENT SOMETHING ELSE...
+            //--------------------------------------------------------------
+//      case 8:
+//      case 0x108:
+//          dc.fx = BLSfx_CLIENT_EVENT;
+//          dc.value = sc.m_fx_l;
+//          break;
+
+            //--------------------------------------------------------------
+            // RETRIGGER SAMPLE
+            //--------------------------------------------------------------
+        case 0x109:
+            BLS_CONVERT_OUTPUT_POSITION("WARNING", p, r, v);
+            BLS_CONVERT_OUTPUT("retrigger sample ignored on ym sound\n");
+            break;
+
+        case 9:
+            dc.fx = BLSfx_RETRIGGER_SAMPLE;
+            dc.value = sc.m_fx_l;
+            break;
+
+            //--------------------------------------------------------------
+            // DELAY SAMPLE
+            //--------------------------------------------------------------
+        case 0x10D:
+            BLS_CONVERT_OUTPUT_POSITION("WARNING", p, r, v);
+            BLS_CONVERT_OUTPUT("delay sample ignored on ym sound\n");
+            break;
+
+        case 0xD:
+            dc.fx = BLSfx_DELAY_SAMPLE;
+            dc.value = sc.m_fx_l;
+            break;
+
+            //--------------------------------------------------------------
+            // DELAY PATTERN
+            //--------------------------------------------------------------
+        case 0xE:
+        case 0x10E:
+            dc.fx = BLSfx_DELAY_PATTERN;
+            dc.value = sc.m_fx_l;
+            break;
+
+            //--------------------------------------------------------------
+            // UNKNOWN
+            //--------------------------------------------------------------		
+        default:
+            unknownfx = true;
+        }
+        break;
+
+        //--------------------------------------------------------------
+        // SET SPEED
+        //--------------------------------------------------------------
+    case 0xF:
+    case 0x10F:
+    {
+        u8 speed = sc.m_fx_m * 16 + sc.m_fx_l;
+        dc.fx = BLSfx_SPEED;
+        if (speed < 32)
+        {
+            dc.value = speed;
+        }
+        else
+        {
+            dc.value = 60 * 50 / speed;
+        }
+    }
+    break;
+
+//  Free code to implement something else
+//  case 0x1E: // Blitracker specific FX Uxx
+//  {
+//      u8 clientdata = sc.m_fx_m * 16 + sc.m_fx_l;
+//      dc.fx = BLSfx_CLIENT_EVENT;
+//      dc.value = clientdata;
+//      break;
+//  }
+
+    default:
+        unknownfx = true;
+    }
+
+    if (unknownfx)
+    {
+        BLS_CONVERT_OUTPUT_POSITION("WARNING", p, r, v);
+        BLS_CONVERT_OUTPUT("unmanaged FX=0x%x [0x%x]\n", sc.m_fx_h, sc.m_fx_m);
+    }
+}
+
+
+
+
+void Sndtrack::ConvertToBlitSoundtrack_Patterns(BLSsoundTrack* sndtrack)
+{
+    for (u32 p = 0; p < m_patterns.size(); p++)
+    {
+        std::vector<BLScell> cells;
+
+        const auto& sp = m_patterns[p];
+        auto& dp = sndtrack->patterns[p];
+        Key lastkey[NBMAXVOICES];
+        u8  lastinstrument[NBMAXVOICES] = { 0,0,0,0,0,0,0,0 };
+
+
+        dp.nbrows = (u8)sp.m_nbRows;
+        dp.rowtocellindex = new u16[dp.nbrows + 1];
+
+        if (RetrievePattern(p) < 0)
+        {
+            printf ("pattern unused\n");
+        }
+        else
+        {
+            for (u32 r = 0; r < sp.m_nbRows; r++)
+            {
+                bool balanceused[NBMAXVOICES] = { false, false, false, false, false, false, false, false };
+
+
+                ASSERT(cells.size() < 65536);
+                dp.rowtocellindex[r] = (u16)cells.size();
+
+                for (u32 v = 0; v < NBMODVOICES; v++)
+                {
+                    const auto& sc = sp.m_cells[r][v];
+                    BLScell     dc;
+
+
+                    dc.precomputedKey = 0;
+                    dc.fx = BLSfx_NONE;
+                    dc.value = 0;
+                    dc.value2 = 0;
+
+                    if (((sc.m_instrument != 0) && (m_samples[sc.m_instrument - 1].m_sampleLen == 0)) || sc.m_key.isKeyOff())
                     {
-                        dc.precomputedKey = FindPrecomputedKeyIndex(sc.m_instrument, lastkey[v]) + 1;
+                        lastkey[v].undefine();
+                        lastinstrument[v] = 0;
+                        dc.precomputedKey = BLS_PRECOMPUTED_KEY_OFF;
+                    }
+                    else if (sc.m_key.isDefined())
+                    {
+                        dc.precomputedKey = FindPrecomputedKeyIndex(sc.m_instrument, sc.m_key) + 1;
+
+                        lastkey[v] = sc.m_key;
                         lastinstrument[v] = sc.m_instrument;
                     }
-                    else
+                    else if ((sc.m_instrument != 0) && lastkey[v].isDefined())
                     {
-                        BLS_CONVERT_OUTPUT_POSITION("ERROR", p, r, v);
-                        BLS_CONVERT_OUTPUT("use new instrument without setting key => not managed\n");
-                    }
-                }
-                else
-                {
-                    dc.precomputedKey = 0;
-                }
-
-                if (dc.fx != BLSfx_VOICE_OFF)
-                {
-                    // source : [12][x][y] set volume x*16+y - legal volumes are 0..64
-                    // dest   : 0 means do not set, else bit shift = volume - 1
-                    bool unknownfx = false;
-
-                    switch (sc.m_fx_h)
-                    {
-                    case 0:
-                        if ((sc.m_fx_l != 0) || (sc.m_fx_m != 0))
+                        if (lastinstrument[v] == sc.m_instrument)
                         {
-                            if ((lastkey[v].isDefined() == false) || (lastinstrument[v] == 0))
-                            {
-                                BLS_CONVERT_OUTPUT_POSITION("WARNING", p, r, v);
-                                BLS_CONVERT_OUTPUT("arpeggio without prior instrument / key\n");
-                            }
-                            else
-                            {
-                                const Sample& sample = m_samples[lastinstrument[v] - 1];
-
-                                if (sample.isNoTranposeRequired() || sample.isFixedLengthRequired())
-                                {
-                                    BLS_CONVERT_OUTPUT_POSITION("ERROR", p, r, v);
-                                    BLS_CONVERT_OUTPUT("arpeggio triggered on 'no transpose sample'\n");
-                                }
-
-                                dc.fx = BLSfx_ARPEGGIO;
-
-                                Key key1 = lastkey[v];
-                                Key key2 = key1;
-
-                                key1.Transpose(sc.m_fx_m);
-                                key2.Transpose(sc.m_fx_l);
-
-                                u8 pk1 = FindPrecomputedKeyIndex(lastinstrument[v], key1);
-                                u8 pk2 = FindPrecomputedKeyIndex(lastinstrument[v], key2);
-
-                                dc.value  = pk1;
-                                dc.value2 = pk2;
-                            }
+                            dc.precomputedKey = FindPrecomputedKeyIndex(sc.m_instrument, lastkey[v]) + 1;
+                            lastinstrument[v] = sc.m_instrument;
                         }
-                        break;
-
-                    case 8: 
-                        // When use volume for balance => odd value for balance control
-                        if (m_useVolumeForBalance == false)
+                        else
                         {
-                            u8 value = sc.m_fx_m * 16 + sc.m_fx_l;
-
-                            // 0x8 fx goes from 0 -> 0x80 -> 0xff for left -> middle (l+r) -> right
-                            switch (v)
-                            {
-                            case 3:
-                            case 0:
-                                if (value <= 0x80)
-                                    value = 64;
-                                else
-                                    value = (255 - value) >> 1;
-                                break;
-                            case 2:
-                            case 1:
-                                if (value >= 0x80)
-                                    value = 64;
-                                else
-                                    value >>= 1;
-                                break;
-                            }
-
-                            Sndtrack_SetBalanceValue(sc, value, balanceused, p, r, v, dc);
+                            BLS_CONVERT_OUTPUT_POSITION("ERROR", p, r, v);
+                            BLS_CONVERT_OUTPUT("use new instrument without setting key => not managed\n");
                         }
-                        break;
-
-                    case 9:
-                        {
-                            u16 offset = (sc.m_fx_m << 12) + (sc.m_fx_l << 8);
-                            dc.fx = BLSfx_SETSAMPLEOFFSET;
-                            *(u16*)&dc.value = PCENDIANSWAP16(offset);
-                        }
-                        break;
-
-                    case 0xB:
-                        {
-                            dc.fx = BLSfx_JUMP;
-                            dc.value = sc.m_fx_m * 16 + sc.m_fx_l;
-                            if (dc.value >=  m_songLen)
-                            {
-                                BLS_CONVERT_OUTPUT_POSITION("ERROR", p, r, v);
-                                BLS_CONVERT_OUTPUT("in jump ($B) track position exceeds songlen (0x%x|%d >= 0x%x|%d)\n", dc.value, m_songLen, dc.value, m_songLen);
-                                dc.value = m_songLen - 1;
-                            }
-                        }
-                        break;
-
-                    case 0xC:
-                        {
-                            u16 vol = sc.m_fx_m * 16 + sc.m_fx_l;
-                            if (vol > 64)
-                            {
-                                BLS_CONVERT_OUTPUT_POSITION("ERROR", p, r, v);
-                                BLS_CONVERT_OUTPUT("volume exceeds 64 (0x%x|%d)\n", vol, vol);
-                                vol = 64;
-                            }
-
-                            if (m_useVolumeForBalance && ((sc.m_fx_l & 1) != 0))
-                            {
-                                Sndtrack_SetBalanceValue(sc, vol, balanceused, p, r, v, dc);
-                            }
-                            else if ((lastinstrument[v] == 0) || (GetNbVolFXLevelForInstrument(lastinstrument[v]) > 1))
-                            {   
-                                dc.value = VolFXLevel::GetShiftFromVolume (vol);
-                                dc.fx = BLSfx_VOLUME;
-                            }
-                        }
-                        break;
-
-                    case 0xD:
-                        {
-                            dc.fx = BLSfx_PATTERN_BREAK;
-                            dc.value = sc.m_fx_m * 10 + sc.m_fx_l;
-                            if (dc.value > 63)
-                            {
-                                BLS_CONVERT_OUTPUT_POSITION("ERROR", p, r, v);
-                                BLS_CONVERT_OUTPUT("in pattern break ($D) row exceeds 63 (0x%x|%d)\n", dc.value, dc.value);
-                                dc.value = 63;
-                            }
-                        }
-                        break;
-
-                    case 0xE:
-                        switch (sc.m_fx_m)
-                        {
-                        case 0:
-                            dc.fx    = BLSfx_BITMASK;
-                            *(u16*)&dc.value = PCENDIANSWAP16(m_bitmasks[sc.m_fx_l]);
-                            break;
-                        case 6:
-                            if (sc.m_fx_l == 0)
-                            {
-                                dc.fx = BLSfx_LOOP_START_SET;
-                            }
-                            else
-                            {
-                                dc.fx = BLSfx_LOOP;
-                                dc.value = sc.m_fx_l;
-                            }
-                            break;
-                        case 8:
-                            dc.fx    = BLSfx_CLIENT_EVENT;
-                            dc.value = sc.m_fx_l;
-                            break;
-                        case 9:
-                            dc.fx    = BLSfx_RETRIGGER_SAMPLE;
-                            dc.value = sc.m_fx_l;
-                            break;
-                        case 0xD:
-                            dc.fx    = BLSfx_DELAY_SAMPLE;
-                            dc.value = sc.m_fx_l;
-                            break;
-                        case 0xE:
-                            dc.fx    = BLSfx_DELAY_PATTERN;
-                            dc.value = sc.m_fx_l;
-                            break;
-                        }
-                        break;
-
-                    case 0xF:
-                        {
-                            u8 speed = sc.m_fx_m * 16 + sc.m_fx_l;
-                            dc.fx = BLSfx_SPEED;
-                            if (speed < 32)
-                            {
-                                dc.value = speed;
-                            }
-                            else
-                            {
-                                dc.value = 60*50 / speed;
-                            }
-                        }
-                        break;
-
-                    default:
-                        unknownfx = sc.m_fx_h > 0;
                     }
 
-                    if (unknownfx)
+                    ConvertToBlitSoundtrack_ToBLScell(sndtrack, p, r, v, sc, dc, lastkey, lastinstrument, balanceused);
+
+                    if ((dc.precomputedKey != 0) || (dc.fx != BLSfx_NONE))
                     {
-                        BLS_CONVERT_OUTPUT_POSITION("WARNING", p, r, v);
-                        BLS_CONVERT_OUTPUT("unmanaged FX=0x%x [0x%x]\n", sc.m_fx_h, sc.m_fx_m);
+                        dc.fx |= v << BLS_FX_VOICENUM_SHIFT;
+                        cells.push_back(dc);
+                    }
+
+                    if (sc.m_volume > 0)
+                    {
+                        dc.precomputedKey = 0;
+                        dc.fx = (u8)(BLSfx_VOLUME | (v << BLS_FX_VOICENUM_SHIFT));
+                        dc.value = VolFXLevel::GetShiftFromVolume(sc.m_volume - 0x10);
+                        if (dc.value < 8)
+                        {
+                            if (GetNbVolFXLevelForInstrument(sc.m_instrument) == 1)
+                            {
+                                dc.value = 0;
+                            }
+                        }
+                        dc.value2 = 0;
+                        cells.push_back(dc);
+                    }
+                }
+
+                if (m_nbVoices > NBMODVOICES)
+                {
+                    for (u32 v = NBMODVOICES; v < (NBMODVOICES + SND_YM_NB_CHANNELS); v++)
+                    {
+                        const auto& sc = sp.m_cells[r][v];
+                        BLScell     dc;
+
+
+                        dc.precomputedKey = 0;
+                        dc.fx = BLSfx_NONE;
+                        dc.value = 0;
+                        dc.value2 = 0;
+
+                        if (sc.m_key.isDefined())
+                        {
+                            if (sc.m_key.isKeyOff())
+                            {
+                                dc.precomputedKey = BLS_PRECOMPUTED_KEY_OFF;
+                            }
+                            else if (sc.m_instrument != 0)
+                            {
+                                dc.precomputedKey = (sc.m_key.m_octave * 12 + sc.m_key.m_semitone) + 1;
+                                dc.value2 = m_instrToYmSound[sc.m_instrument - 1];
+                            }
+                        }
+
+                        ConvertToBlitSoundtrack_ToBLScell(sndtrack, p, r, v, sc, dc, lastkey, lastinstrument, balanceused);
+
+                        if ((dc.precomputedKey != 0) || (dc.fx != BLSfx_NONE))
+                        {
+                            dc.fx |= v << BLS_FX_VOICENUM_SHIFT;
+                            cells.push_back(dc);
+                        }
+
+                        if (sc.m_volume > 0)
+                        {
+                            dc.precomputedKey = 0;
+                            dc.fx = (u8)(BLSfx_VOLUME | (v << BLS_FX_VOICENUM_SHIFT));
+                            dc.value = std::min(sc.m_volume - 0x10, 15);
+                            dc.value2 = 0;
+                            cells.push_back(dc);
+                        }
                     }
                 }
             }
+        }
+        ASSERT(cells.size() < 65536);
+
+        u16 nbcells = (u16)cells.size();
+        dp.rowtocellindex[dp.nbrows] = nbcells;
+
+        if (nbcells > 0)
+        {
+            dp.cells = new BLScell[cells.size()];
+            memcpy(dp.cells, &cells[0], cells.size() * sizeof(BLScell));
         }
     }
 }
 
 
-BLSsoundTrack* Sndtrack::ConvertToBlitSoundtrack ()
+BLSsoundTrack* Sndtrack::ConvertToBlitSoundtrack()
 {
     BLSsoundTrack* sndtrack = new BLSsoundTrack;
 
-    sndtrack->nbSourceSamples = m_instrumentUsedKeys.size();
-    sndtrack->sourceSamples   = new BLSsample[sndtrack->nbSourceSamples];
+
+    memset (sndtrack, 0, sizeof(*sndtrack));
+
+    ASSERT(m_instrumentUsedKeys.size() < 256);
+    sndtrack->nbSourceSamples = (u8)m_instrumentUsedKeys.size();
+    sndtrack->sourceSamples = new BLSsample[sndtrack->nbSourceSamples];
 
     sndtrack->nbSamples = m_nbPrecomputedSamples;
-    sndtrack->samples   = new BLSsample[sndtrack->nbSamples];
+    sndtrack->samples = new BLSsample[sndtrack->nbSamples];
 
-    sndtrack->nbKeys    = m_precomputedKeys.size();
-    sndtrack->keys      = new BLSprecomputedKey[sndtrack->nbKeys];
+    ASSERT(m_precomputedKeys.size() < 65536);
+    sndtrack->nbKeys       = (u16)m_precomputedKeys.size();
+    sndtrack->keys         = new BLSprecomputedKey[sndtrack->nbKeys];
+    sndtrack->keysnoteinfo = new u8[sndtrack->nbKeys];
 
-    sndtrack->nbPatterns = m_patterns.size();
-    sndtrack->patterns  = new BLSpattern[sndtrack->nbPatterns];
+    ASSERT(m_patterns.size() < 256);
+    sndtrack->nbPatterns = (u8)m_patterns.size();
+    sndtrack->patterns = new BLSpattern[sndtrack->nbPatterns];
 
-    sndtrack->trackLen  = m_songLen;
-    sndtrack->track     = new u8 [sndtrack->trackLen];
+    sndtrack->trackLen = m_songLen;
+    sndtrack->track = new u8[sndtrack->trackLen];
 
     ConvertToBlitSoundtrack_InitBitmasks(sndtrack);
 
-    std::map<u8,u8> instrumentToSourceSample;
+    std::map<u8, u8> instrumentToSourceSample;
 
     ConvertToBlitSoundtrack_SourceSamplesTable(sndtrack, instrumentToSourceSample);
 
@@ -1271,36 +1448,340 @@ BLSsoundTrack* Sndtrack::ConvertToBlitSoundtrack ()
     ASSERT(m_nbPrecomputedSamples == sizeordertopkindex.size());
     sndtrack->sampleAllocOrder = new u16[m_nbPrecomputedSamples];
 
-    ConvertToBlitSoundtrack_SamplesAllocOrder (sndtrack, sizeordertopkindex);
+    ConvertToBlitSoundtrack_SamplesAllocOrder(sndtrack, sizeordertopkindex);
 
-    ConvertToBlitSoundtrack_Patterns (sndtrack);
+    ConvertToBlitSoundtrack_Patterns(sndtrack);
 
-    sndtrack->trackLen  = m_songLen;           
-    STDmcpy (sndtrack->track, m_patternsSequence, m_songLen);
+    sndtrack->trackLen = m_songLen;
+    STDmcpy(sndtrack->track, m_patternsSequence, m_songLen);
+
+    sndtrack->YMsoundSet = m_ymSoundSet;    // hacky temp
 
     return sndtrack;
 }
 
 
+struct SequenceScriptParserState
+{
+    int                         trackindex = -1;
+    std::map<std::string, u32>  macros;
+    std::string                 basepath;
+
+    SequenceScriptParserState(const char* filename_)
+    {
+        char drive[256];
+        char dir  [256];
+
+        _splitpath(filename_, drive, dir, NULL, NULL);
+        strcat(drive, dir);
+        basepath = drive;
+    }
+};
+
+static bool LoadSequenceScript(const char* _filename, std::vector<BLSextSequenceRow>& sequence, SequenceScriptParserState& state_)
+{
+    const char* delims = "\t \r\n";
+    u32         linecount = 1;
+    char        errormsg[256] = "";
+    char        line[256];
+
+    FILE* file = fopen (_filename, "rt");
+
+    if (file == NULL)
+    {
+        sprintf(errormsg, "cannot open file %s", _filename);
+        goto Error;
+    }
+
+    while (fgets(line, sizeof(line), file))
+    {
+        char* p = strtok(line, delims);
+
+        if ((p != NULL) && (*p != 0))
+        {
+            switch (line[0])
+            {
+            default:
+            {
+                if (state_.trackindex != -1)
+                {
+                    BLSextSequenceRow row;
+                    int i = 0;
 
 
-int main (char argc, char* _argv[])
+                    if (sscanf(p, "%x", &i) == 0)
+                    {
+                        strcpy(errormsg, "row not an hexa number");
+                        goto Error;
+                    }
+
+                    row.row = (u8)i;
+                    row.nbcommands = 0;
+                    row.framenum = BLS_SEQ_FRAMENUM_UNDEFINED;
+                    row.trackindex = (u8)state_.trackindex;
+
+                    while (p = strtok(NULL, delims))
+                    {
+                        auto it = state_.macros.find(p);
+
+                        if (it == state_.macros.end())
+                        {
+                            i = 0;
+                            if (sscanf(p, "%x", &i) == 0)
+                            {
+                                sprintf(errormsg, "command number not an hexa number nor macro name '%s'", p);
+                                goto Error;
+                            }
+                        }
+                        else
+                        {
+                            i = (u8)it->second;
+                        }
+
+                        row.commands[row.nbcommands++] = (u8)i;
+                    }
+
+                    if (row.nbcommands == 0)
+                    {
+                        strcpy(errormsg, "no command defined into this row");
+                        goto Error;
+                    }
+
+                    sequence.push_back(row);
+                }
+                else
+                {
+                    strcpy(errormsg, "commands defined without previous track index");
+                    goto Error;
+                }
+            }
+            break;
+
+            case 't':
+            {
+                p = strtok(NULL, delims);
+                if (p == NULL)
+                {
+                    strcpy(errormsg, "track index missing");
+                    goto Error;
+                }
+                if (sscanf(p, "%x", &state_.trackindex) == 0)
+                {
+                    strcpy(errormsg, "track index not an hexa number");
+                    goto Error;
+                }
+            }
+            break;
+
+            case '$':
+            {
+                p = strtok(NULL, delims);
+                const char* key = p;
+
+                if (p != NULL)
+                    p = strtok(NULL, delims);
+
+                if ((key == NULL) || (p == NULL))
+                {
+                    strcpy(errormsg, "macro definition");
+                    goto Error;
+                }
+                u32 value = 0;
+                if (sscanf(p, "%x", &value) == 0)
+                {
+                    strcpy(errormsg, "macro value not an hexa number");
+                    goto Error;
+                }
+                state_.macros[key] = value;
+            }
+            break;
+
+            case '#':
+            {
+                char filename[256];
+
+                sprintf (filename, "%s\\%s", state_.basepath.c_str(), line+1);
+                if (LoadSequenceScript(filename, sequence, state_) == false)
+                {
+                    sprintf(errormsg, "cannot include file %s", filename);
+                    goto Error;
+                }
+            }
+            break;
+
+            case ';':
+                break; // comment => do nothing
+            }
+        }
+
+        linecount++;
+    }
+
+    fclose(file);
+
+    return true;
+
+Error:
+    BLS_CONVERT_OUTPUT("\nERROR: in sequence file '%s' line %u : %s\n", _filename, linecount, errormsg);
+
+    if (file != NULL)
+        fclose(file);
+
+    return false;
+}
+
+static void saveExtSequence(BLSplayer* player_, FILE* seqfile_)
+{
+    u16* sequenceframenummap = player_->sequenceframenummap;
+    u16  tracklen = player_->sndtrack->trackLen;
+    BLSextSequenceRow* seq = player_->sequence;
+    u16  seqsize = player_->sequencesize;
+    u16 t;
+
+
+    for (t = 0; t < tracklen; t++)
+    {
+        TOOLwritecheck(sequenceframenummap[t], seqfile_);
+    }
+
+    for (t = 0; t < seqsize; t++, seq++)
+    {
+        u16 i;
+
+        if (seq->framenum == BLS_SEQ_FRAMENUM_UNDEFINED)
+        {
+            BLS_CONVERT_OUTPUT ("WARNING: seqfile contains trackindex unknown in .xm file\n");
+        }
+
+        TOOLwritecheck(seq->framenum  , seqfile_);
+        TOOLwritecheck(seq->nbcommands, seqfile_);
+
+        for (i = 0; i < seq->nbcommands; i++)
+        {
+            TOOLwritecheck(seq->commands[i], seqfile_);
+        }
+
+        if ((seq->nbcommands & 1) == 0)
+        {
+            TOOLwritecheck((u8)0, seqfile_);
+        }
+    }
+
+    TOOLwritecheck((u16)BLS_SEQ_FRAMENUM_UNDEFINED, seqfile_);
+}
+
+
+
+static void GenerateBlitzFile(const char* _filename, BLSsoundTrack * _bsndtrack, bool generateseq_)
+{
+    char blitzfilename[256];
+    std::vector<BLSextSequenceRow> sequence;
+
+
+    strcpy(blitzfilename, _filename);
+    char* p = strrchr(blitzfilename, '.');
+
+    if (p != NULL)
+    {
+        *p = 0;
+    }
+
+    FILE* seqfile = NULL;
+
+    if (generateseq_)
+    {
+        char seqfilename[256];
+
+        strcpy(seqfilename, blitzfilename);
+        strcat(seqfilename, ".SEQ");
+        SequenceScriptParserState state(seqfilename);
+        bool result = LoadSequenceScript(seqfilename, sequence, state);
+        ASSERT(result);
+
+        strcpy(seqfilename, blitzfilename);
+        strcat(seqfilename, ".BSQ");
+        printf("Generate sequence file : %s\n", seqfilename);
+        seqfile = fopen(seqfilename, "wb");
+        ASSERT(seqfile != NULL);
+    }
+
+    strcat(blitzfilename, ".BLZ");
+    printf("Generate blitz file : %s\n", blitzfilename);
+
+    FILE* blitzfile = fopen(blitzfilename, "wb");
+    ASSERT(blitzfile != NULL);
+
+    BLSwriteHeader(true, blitzfile);
+    BLSwriteSounds(_bsndtrack, blitzfile);
+    
+    {
+        u16 sequenceframenummap[256];
+        BLSplayer player;
+
+        
+
+        struct BLSoptDump_* dumper = BLSoptDumpInit(blitzfile, _bsndtrack);
+          
+        BLSinit(&stdAllocator, &stdAllocator, _bsndtrack, (BLSinitCallback)NULL);
+        BLSplayerInit(&stdAllocator, &player, _bsndtrack, BLZ_DMAMODE_NOAUDIO);
+        
+        player.blitzDumper = dumper;
+
+        memset(sequenceframenummap,-1,sizeof(sequenceframenummap));
+
+        player.sequence     = sequence.size() > 0 ? &sequence[0] : NULL;
+        player.sequencesize = (u16) sequence.size();
+        player.sequenceframenummap = sequenceframenummap;
+
+        BLStestPlay(&player, NULL, NULL, 0);
+
+        if (generateseq_)
+        {
+            saveExtSequence(&player, seqfile);
+        }
+
+        BLSplayerFree(&stdAllocator, &player);
+
+        BLSoptDumpShutdown(dumper);
+
+        printf ("\nDuration: nbframes= %d time= %dmin %ds\n", player.maxframenum, player.maxframenum / (50*60), (player.maxframenum / 50) % 60);
+    }
+
+    if (blitzfile != NULL)
+    {
+        fclose(blitzfile);
+    }
+
+    if (seqfile != NULL)
+    {
+        fclose(seqfile);
+    }
+}
+
+
+int main(char argc, char* _argv[])
 {
     bool useVolumeForBalance = false;
     bool amigaPALFreq = false;
-
+    bool generateblitz = false;
+    bool generateseq = false;
 
     if (argc == 1)
     {
-        printf ("BlsConvert v 1.4.0\n\n");
-        printf ("blsconvert [-v1] [-amigapal] filename\n\n");
+        printf("BlsConvert v 2.3.1\n\n");
+        printf("blsconvert filename [-v1] [-amigapal] [-blitz] [-seq]\n\n");
 
         return 1;
     }
 
+    char filename[256];
+
+    strcpy(filename, _argv[1]);
+    _strupr(filename);
+
     if (argc >= 3)
     {
-        for (u16 t = 2 ; t < argc ; t++)
+        for (u16 t = 2; t < argc; t++)
         {
             if (strcmp(_argv[t], "-v1") == 0)
             {
@@ -1309,36 +1790,67 @@ int main (char argc, char* _argv[])
             else if (strcmp(_argv[t], "-amigapal") == 0)
             {
                 amigaPALFreq = true;
-            }        
+            }
+            else if (strcmp(_argv[t], "-blitz") == 0)
+            {
+                generateblitz = true;
+            }
+            else if (strcmp(_argv[t], "-seq") == 0)
+            {
+                generateseq = true;
+            }
         }
     }
 
-    Key::Init(amigaPALFreq);
-
-    Sndtrack sndtrack(useVolumeForBalance);
-
-    if ( sndtrack.LoadModule (_argv[1]) )
+    try
     {
-        sndtrack.DisplayUsedInstruments ();
-        //sndtrack.DumpSamples();
-        sndtrack.ComputeSamplesTransposeTable();
+        g_freqRef.Init(amigaPALFreq);
+        
+        Sndtrack sndtrack(useVolumeForBalance);
 
-        auto bsndtrack = sndtrack.ConvertToBlitSoundtrack();
+        char* ext = strrchr(filename, '.');
+        bool success = false;
 
-        char temp[256];
+        if (ext != NULL)
+        {
+            if (strcmp(ext, ".MOD") == 0)
+            {
+                success = sndtrack.LoadModuleMOD(filename);
+            }
+            else if (strcmp(ext, ".XM") == 0)
+            {
+                success = sndtrack.LoadModuleXM(filename);
+            }
+        }
 
-        strcpy(temp, _argv[1]);
-        _strupr(temp);
-        char* p = strstr(temp, ".MOD");
-        ASSERT(p!=NULL);
-        strcpy (p, ".BLS");
+        if (success)
+        {
+            sndtrack.PrintSamplesTable();
 
-        BLSwrite(bsndtrack, temp);
+            sndtrack.DetermineInstrumentsFromScore();
+            sndtrack.DisplayUsedInstruments();
+            //sndtrack.DumpSamples();
+            sndtrack.ComputeSamplesTransposeTable();
 
-        delete bsndtrack; bsndtrack = NULL;
+            auto bsndtrack = sndtrack.ConvertToBlitSoundtrack();
+
+            strcpy(ext, ".BLS");
+            BLSsave(bsndtrack, filename);
+
+            if (generateblitz)
+            {
+                GenerateBlitzFile(filename, bsndtrack, generateseq);
+            }
+
+            delete bsndtrack; bsndtrack = NULL;
+        }
+        else
+        {
+            BLS_CONVERT_OUTPUT("ERROR: cannot open module file '%s' for read\n", filename);
+        }
     }
-    else
+    catch (const TOOLerror& error)
     {
-        BLS_CONVERT_OUTPUT("ERROR: cannot open module file '%s' for read\n", _argv[1]);
+        BLS_CONVERT_OUTPUT("#ERROR - exceptions catched : %s", error.m_message);
     }
 }

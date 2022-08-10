@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Source Files\DEMOSDK">
+      <UniqueIdentifier>{caca70f1-3115-4b31-9bd8-9fcca5f4f695}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\DEMOSDK\PC">
+      <UniqueIdentifier>{32134d70-f485-47b2-8703-409f26ec1d36}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\TOOLS\ARJ2ARJX\ARJ2ARJX.CPP">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\STANDARD.C">
+      <Filter>Source Files\DEMOSDK</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\PC\VISUALASRT.C">
+      <Filter>Source Files\DEMOSDK\PC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\PC\VISUALOG.CPP">
+      <Filter>Source Files\DEMOSDK\PC</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\DEMOSDK\BASTYPES.H">
+      <Filter>Source Files\DEMOSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DEMOSDK\STANDARD.H">
+      <Filter>Source Files\DEMOSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DEMOSDK\PC\VISUALOG.H">
+      <Filter>Source Files\DEMOSDK\PC</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

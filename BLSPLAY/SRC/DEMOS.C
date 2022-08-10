@@ -42,7 +42,7 @@
 #include "DEMOSDK\FSM.H"
 #include "DEMOSDK\LOAD.H"
 #include "DEMOSDK\TRACE.H"
-#include "DEMOSDK\BLITSND.H"
+#include "DEMOSDK\BLSSND.H"
 
 #include "DEMOSDK\BITMAP.H"
 #include "DEMOSDK\PC\WINDOW.H"
@@ -53,50 +53,75 @@
 
 #define FORCE_TESTMODE 0
 
-/*#define bls_TEST_MODULE "BLSPLAY\\DATA\\UNITTEST\\ARPEGGIO.BLS"*/
-/*#define bls_TEST_MODULE "BLSPLAY\\DATA\\UNITTEST\\BALANCE.BLS"*/
-/*#define bls_TEST_MODULE "BLSPLAY\\DATA\\UNITTEST\\CLIENT.BLS"*/
-/*#define bls_TEST_MODULE "BLSPLAY\\DATA\\UNITTEST\\DELAY.BLS"*/
-/*#define bls_TEST_MODULE "BLSPLAY\\DATA\\UNITTEST\\FINETUNE.BLS"*/
-/*#define bls_TEST_MODULE "BLSPLAY\\DATA\\UNITTEST\\JUMPS.BLS"*/
-/*#define bls_TEST_MODULE "BLSPLAY\\DATA\\UNITTEST\\LONGLOOP.BLS"*/
-/*#define bls_TEST_MODULE "BLSPLAY\\DATA\\UNITTEST\\MASK.BLS"*/
-/*#define bls_TEST_MODULE "BLSPLAY\\DATA\\UNITTEST\\PATRLOOP.BLS"*/
-/*#define bls_TEST_MODULE "BLSPLAY\\DATA\\UNITTEST\\SAMPLE.BLS"*/ /* => render differs from .MOD under milkytracker */
-/*#define bls_TEST_MODULE "BLSPLAY\\DATA\\UNITTEST\\SPEED.BLS"*/
-/*#define bls_TEST_MODULE "BLSPLAY\\DATA\\UNITTEST\\VOLUME.BLS"*/
-
-/*#define bls_TEST_MODULE "BLSPLAY\\DATA\\LOADER.BLS"*/
-/*#define bls_TEST_MODULE "BLSPLAY\\DATA\\QUICKIE.BLS"*/
-#define bls_TEST_MODULE "BLSPLAY\\DATA\\_QUICKIE.BLS"
-/*#define bls_TEST_MODULE "BLSPLAY\\DATA\\DEMO_B.BLS"*/
+#if blsUSEASM && defined(__TOS__)
+#   define PLAYERNAME "BLZPLAY"
+#else
+#   define PLAYERNAME "BLSPLAY"
+#endif
 
 
 static void SetParam (int argc, char** argv)
 {
-    strcpy(g_player.filename, bls_TEST_MODULE);
+    if (argc == 1)
+    {
+        char   line [256];
+        char*  myargv[10];
+        int    myargc = 1;
 
-    g_player.testMode = false;
+        {
+            char*  result;
+            FILE* file = fopen(".\\" PLAYERNAME ".CFG", "r");
 
-    if (argc > 1)
+            ASSERT(file != NULL);
+            result = fgets(line, (int)sizeof(line), file);
+            ASSERT(result != NULL);
+            fclose(file);
+        }
+
+        {
+            char* p = strtok(line, "\t \r\n");
+            while (p != NULL)
+            {
+                myargv[myargc++] = p;
+                p = strtok(NULL, "\t \r\n");
+                if (myargc >= ARRAYSIZE(myargv))
+                    break;
+            }
+        }
+
+        ASSERT(myargc > 0);
+
+        SetParam (myargc, myargv);
+    }
+    else
     {
         int t;
+
+        strcpy(g_player.filename , argv[1]);
+
         for (t = 2 ; t < argc ; t++)
         {
             if ( strcmp (argv[t], "-test") == 0 )
             {
-                g_player.testMode = true;
+                g_player.testMode = 1;
+            }
+            else if ( strcmp (argv[t], "-test2") == 0 )
+            {
+                g_player.testMode = 2;
             }
 
-#	        ifndef __TOS__
-            if ( strncmp(argv[t], "-freq", 5) == 0)
+#	        ifdef __TOS__
+            else if ( strncmp(argv[t], "-playonce", 9) == 0)
+            {
+                g_player.dmaplayonce = true;
+            }
+#           else
+            else if ( strncmp(argv[t], "-freq", 5) == 0)
             {
                 BLSsetSecondaryBufferFreq(atoi(&argv[t][5]));
             }
 #           endif
         }
-
-        strcpy(g_player.filename , argv[1]);
     }
 }
 
@@ -116,6 +141,8 @@ static void DEMOSidleThread(void)
 
 int main(int argc, char** argv)
 {
+    STDmset (&g_player, 0, sizeof(g_player));
+
     SetParam(argc, argv);
 
     printf("Build on " __DATE__ " " __TIME__ "\n");
@@ -159,7 +186,7 @@ int main(int argc, char** argv)
 
         sys.membase = (u8*) malloc( EMULbufferSize(demOS_COREHEAPSIZE + size) );
         ASSERT(sys.membase != NULL);
-        EMULinit (sys.membase, 660, 220, 0);
+        EMULinit (sys.membase, 660, 220, 0, g_player.filename);
 
         sys.coreHeapbase = EMULalignBuffer(sys.membase);
         sys.coreHeapsize = demOS_COREHEAPSIZE;
@@ -178,7 +205,7 @@ int main(int argc, char** argv)
 
         if (g_player.testMode)
         {
-            PlayerTest();
+            PlayerTest(g_player.testMode);
         }
         else
         {
@@ -212,14 +239,7 @@ int main(int argc, char** argv)
                         SYSkbReset();
                     }
 
-#                   ifndef __TOS__
-					static u32 lastframe = -1;
-					if (lastframe != g_player.player.framenum)
-                    {
-                        EMULrender();
-                        lastframe = g_player.player.framenum;
-                    }
-#                   endif
+                    EMULrender();
                 }
                 while (g_player.play);
 

@@ -40,8 +40,16 @@ LOAD_Request_nbsectors:         equ 10
 LOAD_Request_address:           equ 12
 LOAD_Request_order:             equ 16
 
-LOAD_Request_sizeof:            equ 18
+LOAD_Request_bak_sector:        equ 18
+LOAD_Request_bak_track:         equ 20
+LOAD_Request_bak_nbsectors:     equ 22
+LOAD_Request_bak_address:       equ 24
 
+LOAD_Request_sizeof:            equ 28
+
+LOAD_RequestState_Running:      equ 0
+LOAD_RequestState_Retrying:     equ -1
+LOAD_RequestState_Done:         equ 1
 
 loadfloppysideselect			equ $E00
 
@@ -54,8 +62,11 @@ loadfloppysideselect			equ $E00
 
 	; read only for debug only
 	xdef LOADreq,LOADcurrentreq,LOADreqNb
+    ; xdef loaddebug
 
     ; -----------------------------------------------------------
+
+; loaddebug: dc.w 0
 
 LOADpush:
     move.l      a2,-(sp)
@@ -76,12 +87,21 @@ LOADpush:
 load_initReq:
     exg.l       a0,a2
     clr.b       LOAD_Request_processed(a0)
+
     move.l		a2,LOAD_Request_address(a0)
+    move.l      a2,LOAD_Request_bak_address(a0)
+
     move.w		d0,LOAD_Request_sector(a0)
+    move.w		d0,LOAD_Request_bak_sector(a0)
+
     move.w		d1,LOAD_Request_track(a0)
+    move.w		d1,LOAD_Request_bak_track(a0)
+
     move.w		d2,LOAD_Request_nbsectors(a0)
+    move.w		d2,LOAD_Request_bak_nbsectors(a0)
+
     swap        d2
-    move.w      d2,LOAD_Request_order(a0)
+    move.w      d2,LOAD_Request_order(a0)             
 
 	move.w		#loadfloppysideselect,LOAD_Request_reserved(a0)
 
@@ -148,11 +168,70 @@ LOADstartRequest:
     
     ; -----------------------------------------------------------
   
+loadRestartRequest:
+
+    move.w      d1,-(sp)    
+    move.w      d2,-(sp)    
+
+    move.w      LOAD_Request_bak_sector(a0),d0
+    move.w      d0,LOAD_Request_sector(a0)
+
+    move.w      LOAD_Request_bak_track(a0),d1
+    move.w      d1,LOAD_Request_track(a0)
+
+    move.w      LOAD_Request_bak_nbsectors(a0),d2
+    move.w      d2,LOAD_Request_nbsectors(a0)
+
+    move.b      #LOAD_RequestState_Retrying,LOAD_Request_processed(a0)
+
+    move.l      LOAD_Request_bak_address(a0),LOAD_Request_address(a0)
+
+    ; -------------------- this is inspired from LOADpush
+	move.w		#loadfloppysideselect,LOAD_Request_reserved(a0)
+
+    move.w		#$400,LOAD_Request_side_drive(a0)     ; init side mask
+	btst		#16,d1                  
+    bne.s		.load_drive
+    move.w		#$500,LOAD_Request_side_drive(a0)     ;
+
+.load_drive:
+    move.w      #$400,d2
+	btst		#17,d1					              ; init drive mask
+    beq.s		.load_endinit
+	eor.w		#$600,LOAD_Request_side_drive(a0)	  ; select drive 1
+.load_endinit:
+
+    bsr.s       LOADstartRequest
+    ; -------------------- 
+
+    move.w      (sp)+,d2
+    move.w      (sp)+,d1    
+
+    move.w      (sp)+,d0
+    move.l      (sp)+,a0
+
+    ; clr.w       loaddebug
+
+    rte
+
+
 LOADreadSectorCommand:
-	move		#$2500,sr
 
     move.l      a0,-(sp)
+    move.w      d0,-(sp)
+    
     move.l      LOADcurrentreq(pc),a0
+
+    move.w		#$80,$FFFF8606.w				; select FDC data register 
+
+    move.w      $FFFF8604.w,d0
+    btst        #4,d0                           ; RNF
+    bne.s       loadRestartRequest
+    btst        #3,d0
+    bne.s       loadRestartRequest              ; CRC
+
+    ; tst.w       loaddebug
+    ; bne         loadRestartRequest
 
     move.l		LOAD_Request_reserved(a0),$FFFF8800.w	; select side + drive
 
@@ -172,51 +251,63 @@ LOADreadSectorCommand:
 	move.w		#$88,$FFFF8604.w						; read sector command (single sector, disable spin up sequence, no delay)
 
 	subq.w		#1,LOAD_Request_nbsectors(a0)
-	bne.s		loadroutine1_goon						; no more sector to load ?
+	bne.s		.loadroutine1_goon						; no more sector to load ?
 	move.l		#LOADend,$11C.w							; load ended
 	
+    move.w      (sp)+,d0
     move.l      (sp)+,a0
+
 	rte 
 
 	  
-loadroutine1_goon:
-	move.w		d0,-(sp)	
+.loadroutine1_goon:
     addq.w		#1,LOAD_Request_sector(a0)
     move.w		LOADsecpertrack(pc),d0
     cmp.w		LOAD_Request_sector(a0),d0
-    bge.s		loadroutine1_nextsector 
+    bge.s		.loadroutine1_nextsector 
     
 	move.w		#1,LOAD_Request_sector(a0)
 
 	eor.w		#$100,LOAD_Request_side_drive(a0)
 	btst.b		#0,LOAD_Request_side_drive(a0)
-	beq.s		loadroutine1_nextsector		        ; equal 0 means we just arrive on side 1 => go next sector
+	beq.s		.loadroutine1_nextsector		    ; equal 0 means we just arrive on side 1 => go next sector
     
 	move.l		#LOADseekTrackCommand,$11C.w		; else means we leave side 1 to side 0 => inc track
     addq.w		#1,LOAD_Request_track(a0)
 
-loadroutine1_nextsector:
+.loadroutine1_nextsector:
 	add.l		#512,LOAD_Request_address(a0)
     move.w		(sp)+,d0
-
     move.l      (sp)+,a0
+
 	rte
 
     ; -----------------------------------------------------------
 
 LOADseekTrackCommand:
-	move		#$2500,sr 
 
     move.l      a0,-(sp)
+    move.w      d0,-(sp)
+
     move.l      LOADcurrentreq(pc),a0
 
-    move.w		#$86,$FFFF8606.w				    ; select FDC data register 
+    move.w		#$80,$FFFF8606.w				     ; select FDC data register 
+
+    move.w      $FFFF8604.w,d0
+    btst        #4,d0                                ; RNF
+    bne         loadRestartRequest
+    btst        #3,d0
+    bne         loadRestartRequest                   ; CRC
+
+    move.w		#$86,$FFFF8606.w				     ; select FDC data register 
     move.w		LOAD_Request_track(a0),$FFFF8604.w	; FDC data holds track number during seek command
     move.w		#$80,$FFFF8606.w				    ; select FDC register control 
     move.w		#$1B,$FFFF8604.w				    ; seek command (disable spin up sequence, no verify, 3ms)
     move.l		#LOADreadSectorCommand,$11C.w
 
+    move.w      (sp)+,d0
     move.l      (sp)+,a0
+    
     rte 
 
 
@@ -227,18 +318,27 @@ LOADseekTrackCommand:
     ; --------------------------------------------------------------
 
 LOADend:
-	move		#$2500,sr
 
     move.l      a0,-(sp)
     move.w      d0,-(sp)
+
+    move.l      LOADcurrentreq(pc),a0           ; declare current request as done
+    
+    move.w		#$80,$FFFF8606.w				; select FDC data/control register 
+
+    move.w      $FFFF8604.w,d0
+    btst        #4,d0                           ; RNF
+    bne         loadRestartRequest
+    btst        #3,d0
+    bne         loadRestartRequest              ; CRC
+    
     move.w      d1,-(sp)
     move.l      d2,-(sp)
 
-    move.l      LOADcurrentreq(pc),a0           ; declare current request as processed
     move.w      LOAD_Request_side_drive(a0),d0
     move.w      d0,LOADlastdrive
     move.w      LOAD_Request_track(a0),LOADlasttrack
-    move.b      #1,LOAD_Request_processed(a0)
+    move.b      #LOAD_RequestState_Done,LOAD_Request_processed(a0)
 
     lea         LOADreq(pc),a0                  ; look for waiting request  
     move.w      #-1,d1                          ; d1 = min order
@@ -309,12 +409,16 @@ LOADlasttrack:                  dc.w        0
 LOADreqNb:                      dc.w    NBMAXREQUESTS
 
 LOADreq:
+    ; should reserved LOAD_Request_sizeof bytes for each
+    
     rept    NBMAXREQUESTS
     dc.l	0
     dc.l	0
     dc.l	0
     dc.l	0
-	dc.w	0
+    dc.l	0
+    dc.l	0
+    dc.l	0
     endr
 
 

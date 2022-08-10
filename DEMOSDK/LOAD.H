@@ -92,17 +92,32 @@ typedef struct LOADdisk_ LOADdisk;
 
 struct LOADrequest_
 {
-    bool            allocated;
-    volatile bool   processed;
-    volatile u16	sector;
-	u16		        reserved;
-    volatile u16    side_drive;
-    volatile u16    track;
-    u16		        nbsectors;
-    void*           address;
-    u16		        order;
+    bool            allocated;      /* 0  */
+    volatile s8     processed;      /* 1  */
+    volatile u16	sector;         /* 2  */
+	u16		        reserved;       /* 4  */
+    volatile u16    side_drive;     /* 6  */
+    volatile u16    track;          /* 8  */
+    u16		        nbsectors;      /* 10 */
+    void*           address;        /* 12 */
+    u16		        order;          /* 16 */
+  
+    volatile u16	baksector;      /* 18 */
+    volatile u16    baktrack;       /* 20 */
+    u16		        baknbsectors;   /* 22 */
+    void*           bakaddress;     /* 24 */
 };
 typedef struct LOADrequest_ LOADrequest;
+
+
+enum LOADrequestState_
+{
+    LOADrequestState_RUNNING  = 0 ,
+    LOADrequestState_RETRYING = -1,
+    LOADrequestState_DONE     = 1
+};
+typedef enum LOADrequestState_ LOADrequestState;    
+
 
 #define LOADroundBufferSize(SIZE)	((SIZE + 511UL) & 0xFFFFFE00UL)
 

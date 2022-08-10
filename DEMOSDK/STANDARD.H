@@ -80,7 +80,7 @@ void STDwriteW (FILE* _file, u16 _w);
 void STDwriteL (FILE* _file, u32 _l);
 void STDwrite  (FILE* _file, void* _buf, u32 _size);
 
-void* STDloadfile(MEMallocator* _allocator, char* _filename);
+void* STDloadfile(MEMallocator* _allocator, char* _filename, u32* _size);
 #endif
 
 #endif

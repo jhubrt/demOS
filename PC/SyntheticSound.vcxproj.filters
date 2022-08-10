@@ -91,6 +91,9 @@
     <ClCompile Include="..\DEMOSDK\PC\VISUALASRT.C">
       <Filter>DEMOSDK\PC</Filter>
     </ClCompile>
+    <ClCompile Include="..\EXTERN\sound.c">
+      <Filter>EXTERN</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\DEMOSDK\ALLOC.H">
@@ -146,6 +149,15 @@
     </ClInclude>
     <ClInclude Include="..\SYNSOUND\SRC\PLAYER.H">
       <Filter>SPECIFIC\SRC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SYNSOUND\SRC\SYNTH.H">
+      <Filter>SPECIFIC\SRC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\EXTERN\sound.h">
+      <Filter>EXTERN</Filter>
+    </ClInclude>
+    <ClInclude Include="..\EXTERN\ym2149_fixed_vol.h">
+      <Filter>EXTERN</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

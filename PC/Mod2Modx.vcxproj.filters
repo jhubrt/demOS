@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="..\TOOLS\BINARIZE\HELPERS.CPP">
+      <Filter>TOOLS\BINARIZE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\STANDARD.C">
+      <Filter>DEMOSDK</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\PC\VISUALASRT.C">
+      <Filter>DEMOSDK\PC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\PC\VISUALOG.CPP">
+      <Filter>DEMOSDK\PC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\TOOLS\MOD2MODX\MOD2MODX.CPP">
+      <Filter>TOOLS\MOD2MODX</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\TOOLS\BINARIZE\HELPERS.H">
+      <Filter>TOOLS\BINARIZE</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DEMOSDK\BASTYPES.H">
+      <Filter>DEMOSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DEMOSDK\STANDARD.H">
+      <Filter>DEMOSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DEMOSDK\PC\VISUALOG.H">
+      <Filter>DEMOSDK\PC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\TOOLS\MOD2MODX\MOD2MODX.H">
+      <Filter>TOOLS\MOD2MODX</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="TOOLS">
+      <UniqueIdentifier>{3c3e7a60-4605-4cfd-b92b-a3be89fed1f9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="TOOLS\BINARIZE">
+      <UniqueIdentifier>{03e0897d-d947-40da-a5aa-64d08b722aef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DEMOSDK">
+      <UniqueIdentifier>{640f63d0-65fb-4ef9-8f24-e70c18c2240a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DEMOSDK\PC">
+      <UniqueIdentifier>{3ba7a1f9-aac4-48f6-a5df-9ef26e5115a3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="TOOLS\MOD2MODX">
+      <UniqueIdentifier>{d450ddb5-6a82-4f59-8e13-46406493a35a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

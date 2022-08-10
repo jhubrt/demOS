@@ -1,0 +1,167 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="DEMOSDK">
+      <UniqueIdentifier>{0166929c-daf7-48fc-b266-2567060771d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="EXTERN">
+      <UniqueIdentifier>{02c5f3d6-462e-4937-923f-89abacefdd41}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SPECIFIC">
+      <UniqueIdentifier>{4724582c-a246-4582-87cc-2960d08b5cb6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SPECIFIC\SRC">
+      <UniqueIdentifier>{32e2bd30-aa0f-44fb-b3a5-9d0b88a7d0e6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FX">
+      <UniqueIdentifier>{a42c1283-db68-4c47-a03d-b59d61ed0d86}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FX\VECTOR">
+      <UniqueIdentifier>{8defdfbd-4d0b-4692-99fd-2fdbd4179688}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FX\SNDSHADE">
+      <UniqueIdentifier>{cc925e43-138e-4d7b-a2c2-6ba08cea760d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SPECIFIC\SRC\SSHADE">
+      <UniqueIdentifier>{7fb527b7-a03d-4daf-983d-396464825a0b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SPECIFIC\SRC\SAMSCROL">
+      <UniqueIdentifier>{1d167800-ae96-433d-8101-4d8da8fa3638}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SPECIFIC\SRC\MENU">
+      <UniqueIdentifier>{f2ce30cd-f229-450f-a466-507d8cda4577}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SPECIFIC\HATARI">
+      <UniqueIdentifier>{9fcdaf60-5ad4-45b6-90fb-97bad206322a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SPECIFIC\SRC\INFO">
+      <UniqueIdentifier>{0d057e9d-33fd-47cf-94d2-f32e57b0d7da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SPECIFIC\SRC\ALLCURVE">
+      <UniqueIdentifier>{af8661e3-ec12-456f-ab62-2c384048503a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FX\SMPLCURV">
+      <UniqueIdentifier>{752a0239-46be-4c47-8f14-2c3218b04f11}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SPECIFIC\SRC\LAYERZ">
+      <UniqueIdentifier>{8451a732-bec6-434d-95fe-6e229eb50a59}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FX\STARFILD">
+      <UniqueIdentifier>{bb26e26c-39f3-4af5-92ab-ea82bf057096}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SPECIFIC\BOOT">
+      <UniqueIdentifier>{d1a5ac8e-aeb7-4593-ae52-4dd9eea54618}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SPECIFIC\SRC\WAVHERO">
+      <UniqueIdentifier>{22abf836-c820-4189-a738-cacba7d3f001}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="PC\_hatari\HatariDevpack.bat">
+      <Filter>SPECIFIC\HATARI</Filter>
+    </None>
+    <None Include="PC\_hatari\hataridevpack.cfg">
+      <Filter>SPECIFIC\HATARI</Filter>
+    </None>
+    <None Include="TOOLS\EMUEXEC\EMUEXEC.CFG">
+      <Filter>SPECIFIC\HATARI</Filter>
+    </None>
+    <None Include="TOOLS\EMUEXEC\EMUEXEC.PRJ">
+      <Filter>SPECIFIC\HATARI</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="DEMOSDK\CODEGEN.S">
+      <Filter>DEMOSDK</Filter>
+    </CustomBuild>
+    <CustomBuild Include="DEMOSDK\LOAD.S">
+      <Filter>DEMOSDK</Filter>
+    </CustomBuild>
+    <CustomBuild Include="DEMOSDK\RASTERS.S">
+      <Filter>DEMOSDK</Filter>
+    </CustomBuild>
+    <CustomBuild Include="DEMOSDK\STANDARD.S">
+      <Filter>DEMOSDK</Filter>
+    </CustomBuild>
+    <CustomBuild Include="DEMOSDK\SYSTEM.S">
+      <Filter>DEMOSDK</Filter>
+    </CustomBuild>
+    <CustomBuild Include="DEMOSDK\TRACE.S">
+      <Filter>DEMOSDK</Filter>
+    </CustomBuild>
+    <CustomBuild Include="DEMOSDK\BLSZPLAY.S">
+      <Filter>DEMOSDK</Filter>
+    </CustomBuild>
+    <CustomBuild Include="DEMOSDK\BITMAP.S">
+      <Filter>DEMOSDK</Filter>
+    </CustomBuild>
+    <CustomBuild Include="EXTERN\ARJDEP2.S">
+      <Filter>EXTERN</Filter>
+    </CustomBuild>
+    <CustomBuild Include="EXTERN\RELOCATE.S">
+      <Filter>EXTERN</Filter>
+    </CustomBuild>
+    <CustomBuild Include="EXTERN\XSTARTUP.S">
+      <Filter>EXTERN</Filter>
+    </CustomBuild>
+    <CustomBuild Include="FX\SMPLCURV\SMPLCURV.S">
+      <Filter>FX\SMPLCURV</Filter>
+    </CustomBuild>
+    <CustomBuild Include="FX\SNDSHADE\SNDSHADE.S">
+      <Filter>FX\SNDSHADE</Filter>
+    </CustomBuild>
+    <CustomBuild Include="FX\STARFILD\STARFI1P.S">
+      <Filter>FX\STARFILD</Filter>
+    </CustomBuild>
+    <CustomBuild Include="FX\VECTOR\VECTOR.S">
+      <Filter>FX\VECTOR</Filter>
+    </CustomBuild>
+    <CustomBuild Include="BLITZIK\SRC\BOOTSTRA.S">
+      <Filter>SPECIFIC\BOOT</Filter>
+    </CustomBuild>
+    <CustomBuild Include="BLITZIK\SRC\ALLCURVE\ALLCURVE.S">
+      <Filter>SPECIFIC\SRC\ALLCURVE</Filter>
+    </CustomBuild>
+    <CustomBuild Include="DEMOSDK\BITMAPEX.S">
+      <Filter>DEMOSDK</Filter>
+    </CustomBuild>
+    <CustomBuild Include="DEMOSDK\BLSZIO.S">
+      <Filter>DEMOSDK</Filter>
+    </CustomBuild>
+    <CustomBuild Include="BLITZIK\SRC\INFO\INFO.S">
+      <Filter>SPECIFIC\SRC\INFO</Filter>
+    </CustomBuild>
+    <CustomBuild Include="BLITZIK\SRC\MENU\MENU.S">
+      <Filter>SPECIFIC\SRC\MENU</Filter>
+    </CustomBuild>
+    <CustomBuild Include="BLITZIK\SRC\LAYERZ\LAYERZ.S">
+      <Filter>SPECIFIC\SRC\LAYERZ</Filter>
+    </CustomBuild>
+    <CustomBuild Include="BLITZIK\SRC\SSHADE\SSHADE.S">
+      <Filter>SPECIFIC\SRC\SSHADE</Filter>
+    </CustomBuild>
+    <CustomBuild Include="BLITZIK\SRC\SAMSCROL\SAMSCROL.S">
+      <Filter>SPECIFIC\SRC\SAMSCROL</Filter>
+    </CustomBuild>
+    <CustomBuild Include="BLITZIK\SRC\WAVHERO\WAVHERO.S">
+      <Filter>SPECIFIC\SRC\WAVHERO</Filter>
+    </CustomBuild>
+    <CustomBuild Include="DEMOSDK\COLORS.S">
+      <Filter>DEMOSDK</Filter>
+    </CustomBuild>
+    <CustomBuild Include="BLITZIK\SRC\BOOTON_B.S">
+      <Filter>SPECIFIC\BOOT</Filter>
+    </CustomBuild>
+    <CustomBuild Include="BLITZIK\SRC\SCREENS.S">
+      <Filter>SPECIFIC\SRC</Filter>
+    </CustomBuild>
+    <CustomBuild Include="EXTERN\WIZZCAT\PRTRKSTE.S">
+      <Filter>EXTERN</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="TOOLS\EMUEXEC\EMUEXEC.C">
+      <Filter>SPECIFIC\HATARI</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

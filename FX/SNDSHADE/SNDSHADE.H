@@ -23,32 +23,77 @@
 #ifndef SNDSHADE_H
 #define SNDSHADE_H
 
+#include "DEMOSDK/RASTERS.H"
+
 #define VIS_WIDTH 48
 
-#ifndef SNDSHADE_C
+u8*  SNSprecomputeCoordsZoom   (u8* p, s16 _mul, u16 _width, u16 _height);
+u8*  SNSprecomputeCoordsRotate (s16* sin, u8* p, u8 orientation, s16 _mul, s16 _rot, u16 _width, u16 _height);
 
-extern u16 SNScolor;
-extern u32 SNStrace;
+void SNSfadeGCode (void* _source, void* _table, void* _code, u16 _height, u32 _dest);
 
-extern u16 SNStunX1;
-extern u16 SNStunX2;
-extern u16 SNStunX3;
-extern u16 SNStunX4;
-
-extern u16 SNSireg;
-extern u16 SNSload;
-extern u32 SNSstore;
-
-extern void* SNSlines;
-
+#ifndef __TOS__
+void SNSPCdisplay(u16 _height);
 #endif
 
-void SNSinit     (void* _tcbuf, void* _lines, u16 _tcWidth, u16 _tcHeight);
-void SNStc       (void);
-void SNSfade     (void* _source, void* _table, u32 _dest, s32 _pitch, u32 _count);
-void SNSfade3	 (void* _source, void* _table, u32 _dest, s32 _pitch, u32 _count);
-void SNScopy     (void* _source, void* _dest, u16 _nbwords);
-u16  SNSfilsampl (void* _sample, void* _startcolors, u32 _dest, u16 _width, s16 _sampleoffset);
+typedef u16*(*SNSgenerateCodeCall)(u8* poff, u16* p, u16 _height);
+typedef void(*SNSinitCall)        (void* _table, u16 _tcWidth, u16 _tcHeight);
+typedef void(*SNSfadeCall)        (void* _source, void* _table, u32 _dest, s32 _pitch, u32 _count);
+typedef void(*SNSfilsamplCall)    (void* _sample, void* _startcolors, u32 _dest, u16 _width, s16 _sampleoffset);
+typedef void(*SNStcCall)          (void);
+
+struct SNSASMimportTable_
+{
+    SNSgenerateCodeCall generateCodeCall;
+    SNSinitCall         initCall;
+    SNSfadeCall         fadeCall;
+    SNSfadeCall         fade3Call;
+    SNSfilsamplCall     fillsamplCall;
+    RASinterupt         displayColorsInterupt;
+
+    void**              lines;
+    void*               table;
+    void*               empty;
+
+    u16                 reservedh;
+    u16                 reserved1;
+    u16                 reservedpitch;
+    u16                 goblitter;
+    u16                 tunX3;
+    u16                 sampleinc;
+    u16                 voice2;
+    u16                 mask;
+
+    u16                 pushregopcode;
+    u16                 popregopcode;
+    u16                 iregopcode;
+    u16                 loadopcode;
+    u16                 loadopcodereserved;
+    u32                 storeopcode;
+
+    u16                 reserved2;
+    u16                 reserved3;
+
+    void*               srcAdr;
+
+    u16                 reserved4;
+    u16                 reserved5;
+    u16                 reserved6;
+
+    u16                 reserved7;
+    u16                 reserved8;
+
+    void*               reserved9;
+    
+    u16                 xwidth;
+    u16                 reserved10;
+    u16                 hopop;
+};
+typedef struct SNSASMimportTable_ SNSASMimportTable;
+
+#ifndef SNDSHADE_C
+extern SNSASMimportTable SNSimportTable;
+#endif
 
 #endif
 

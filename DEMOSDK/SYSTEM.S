@@ -374,7 +374,6 @@ SYSvblinterrupt:
 
 	move.w	#$2700,sr					; blocks all interupts => will be restored by rte
 
-	move.l	d0,-(sp)
     move.l  a0,-(sp)
     move.l  a1,-(sp)
 
@@ -383,6 +382,8 @@ SYSvblinterrupt:
     jmp     (a1)
 
 SYSvblend:
+
+	move.l	d0,-(sp)
 
 	* -------------------- floppy management -------------------------
 
@@ -400,9 +401,10 @@ SYSvblend:
 
 SYSvblinterrupt_nodrivedeselect:
 
+	move.l	(sp)+,d0
+
     move.l  (sp)+,a1
     move.l  (sp)+,a0
-	move.l	(sp)+,d0
 
 	* -------------------- idle thread management ------------------------
 

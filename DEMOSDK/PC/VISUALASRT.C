@@ -22,7 +22,7 @@
 
 #include "DEMOSDK\BASTYPES.H"
 
-void SYSassert(char* _message, char* _file, int _line)
+void SYSassert(CONST char* _message, CONST char* _file, int _line)
 {
     u8* doerror = NULL; 
     char assertion[1024]; 

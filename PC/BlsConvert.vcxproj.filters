@@ -16,15 +16,21 @@
     <Filter Include="TOOLS\BLSCONVR">
       <UniqueIdentifier>{1e14860d-146a-456e-b527-84c7ba4271de}</UniqueIdentifier>
     </Filter>
+    <Filter Include="DEMOSDK\DATA">
+      <UniqueIdentifier>{eb113b66-c70a-4e2e-836b-3643125279f6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DOCS">
+      <UniqueIdentifier>{dfabe33a-3993-4956-a1eb-f34ecd29cdfa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DOCS\CHAPTERS">
+      <UniqueIdentifier>{70cf89be-e810-41ed-85e9-68c3811e9efe}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\TOOLS\BINARIZE\HELPERS.CPP">
       <Filter>TOOLS\BINARIZER</Filter>
     </ClCompile>
     <ClCompile Include="..\DEMOSDK\ALLOC.C">
-      <Filter>DEMOSDK</Filter>
-    </ClCompile>
-    <ClCompile Include="..\DEMOSDK\BLITSND.C">
       <Filter>DEMOSDK</Filter>
     </ClCompile>
     <ClCompile Include="..\DEMOSDK\COLORS.C">
@@ -48,14 +54,53 @@
     <ClCompile Include="..\TOOLS\BLSCONVR\BLSCONVR.CPP">
       <Filter>TOOLS\BLSCONVR</Filter>
     </ClCompile>
+    <ClCompile Include="..\TOOLS\BLSCONVR\BLSCONVX.CPP">
+      <Filter>TOOLS\BLSCONVR</Filter>
+    </ClCompile>
+    <ClCompile Include="..\TOOLS\BLSCONVR\BLSCONVM.CPP">
+      <Filter>TOOLS\BLSCONVR</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\SYNTHYM.C">
+      <Filter>DEMOSDK</Filter>
+    </ClCompile>
     <ClCompile Include="..\DEMOSDK\PC\_PRECOMP.C">
       <Filter>DEMOSDK\PC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\BLSZDUMP.C">
+      <Filter>DEMOSDK\PC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\PC\EMUL.CPP">
+      <Filter>DEMOSDK\PC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\SYSTEM.C">
+      <Filter>DEMOSDK</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\DATA\DATA.C">
+      <Filter>DEMOSDK\DATA</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\TRACE.C">
+      <Filter>DEMOSDK</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\BLSTEST.C">
+      <Filter>DEMOSDK</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\BLSIO.C">
+      <Filter>DEMOSDK</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\BLSPLAY.C">
+      <Filter>DEMOSDK</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\BLSZPLAY.C">
+      <Filter>DEMOSDK</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\BLSZIO.C">
+      <Filter>DEMOSDK</Filter>
     </ClCompile>
     <ClCompile Include="..\DEMOSDK\PC\VISUALASRT.C">
       <Filter>DEMOSDK\PC</Filter>
     </ClCompile>
-    <ClCompile Include="..\DEMOSDK\PC\VISUALOG.CPP">
-      <Filter>DEMOSDK\PC</Filter>
+    <ClCompile Include="..\DEMOSDK\SYNTHYMD.C">
+      <Filter>DEMOSDK</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -74,9 +119,6 @@
     <ClInclude Include="..\DEMOSDK\COLORS.H">
       <Filter>DEMOSDK</Filter>
     </ClInclude>
-    <ClInclude Include="..\DEMOSDK\BLITSND.H">
-      <Filter>DEMOSDK</Filter>
-    </ClInclude>
     <ClInclude Include="..\DEMOSDK\ALLOC.H">
       <Filter>DEMOSDK</Filter>
     </ClInclude>
@@ -89,11 +131,149 @@
     <ClInclude Include="..\TOOLS\BLSCONVR\BLSCONVR.H">
       <Filter>TOOLS\BLSCONVR</Filter>
     </ClInclude>
+    <ClInclude Include="..\DEMOSDK\SYNTHYM.H">
+      <Filter>DEMOSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DEMOSDK\BLSZDUMP.H">
+      <Filter>DEMOSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DEMOSDK\PC\EMUL.H">
+      <Filter>DEMOSDK\PC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DEMOSDK\SYSTEM.H">
+      <Filter>DEMOSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DEMOSDK\DATA\SYSTFNT.H">
+      <Filter>DEMOSDK\DATA</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DEMOSDK\TRACE.H">
+      <Filter>DEMOSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DEMOSDK\BLSSND.H">
+      <Filter>DEMOSDK</Filter>
+    </ClInclude>
     <ClInclude Include="..\DEMOSDK\PC\VISUALOG.H">
       <Filter>DEMOSDK\PC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DEMOSDK\SYNTHYMD.H">
+      <Filter>DEMOSDK</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="BlsConvert.bat" />
+    <None Include="BlsAutotest.bat" />
+    <None Include="..\DOCS\BLITSnd\README.md">
+      <Filter>DOCS</Filter>
+    </None>
+    <None Include="..\DOCS\BLITSnd\CHAPTERS\BLITSnd_ym.md">
+      <Filter>DOCS\CHAPTERS</Filter>
+    </None>
+    <None Include="..\DOCS\BLITSnd\CHAPTERS\BLITSnd_backlog.md">
+      <Filter>DOCS\CHAPTERS</Filter>
+    </None>
+    <None Include="..\DOCS\BLITSnd\CHAPTERS\BLITSnd_blsconvert.md">
+      <Filter>DOCS\CHAPTERS</Filter>
+    </None>
+    <None Include="..\DOCS\BLITSnd\CHAPTERS\BLITSnd_blsplay.md">
+      <Filter>DOCS\CHAPTERS</Filter>
+    </None>
+    <None Include="..\DOCS\BLITSnd\CHAPTERS\BLITSnd_dev.md">
+      <Filter>DOCS\CHAPTERS</Filter>
+    </None>
+    <None Include="..\DOCS\BLITSnd\CHAPTERS\BLITSnd_intro.md">
+      <Filter>DOCS\CHAPTERS</Filter>
+    </None>
+    <None Include="..\DOCS\BLITSnd\CHAPTERS\BLITSnd_optimizations.md">
+      <Filter>DOCS\CHAPTERS</Filter>
+    </None>
+    <None Include="..\DOCS\BLITSnd\CHAPTERS\BLITSnd_pcm_mixing.md">
+      <Filter>DOCS\CHAPTERS</Filter>
+    </None>
+    <None Include="..\DOCS\BLITSnd\CHAPTERS\BLITSnd_synthym.md">
+      <Filter>DOCS\CHAPTERS</Filter>
+    </None>
+    <None Include="..\DOCS\BLITSnd\CHAPTERS\BLITSnd_tracker.md">
+      <Filter>DOCS\CHAPTERS</Filter>
+    </None>
+    <None Include="..\DOCS\BLITSnd\CHAPTERS\BLITSnd_workflow.md">
+      <Filter>DOCS\CHAPTERS</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\DOCS\BLITSnd\CHAPTERS\blitstracker.png">
+      <Filter>DOCS\CHAPTERS</Filter>
+    </Image>
+    <Image Include="..\DOCS\BLITSnd\CHAPTERS\img1.png">
+      <Filter>DOCS\CHAPTERS</Filter>
+    </Image>
+    <Image Include="..\DOCS\BLITSnd\CHAPTERS\img2.png">
+      <Filter>DOCS\CHAPTERS</Filter>
+    </Image>
+    <Image Include="..\DOCS\BLITSnd\CHAPTERS\img10.png">
+      <Filter>DOCS\CHAPTERS</Filter>
+    </Image>
+    <Image Include="..\DOCS\BLITSnd\CHAPTERS\img11.png">
+      <Filter>DOCS\CHAPTERS</Filter>
+    </Image>
+    <Image Include="..\DOCS\BLITSnd\CHAPTERS\img12.png">
+      <Filter>DOCS\CHAPTERS</Filter>
+    </Image>
+    <Image Include="..\DOCS\BLITSnd\CHAPTERS\img13.png">
+      <Filter>DOCS\CHAPTERS</Filter>
+    </Image>
+    <Image Include="..\DOCS\BLITSnd\CHAPTERS\img14.png">
+      <Filter>DOCS\CHAPTERS</Filter>
+    </Image>
+    <Image Include="..\DOCS\BLITSnd\CHAPTERS\img15.png">
+      <Filter>DOCS\CHAPTERS</Filter>
+    </Image>
+    <Image Include="..\DOCS\BLITSnd\CHAPTERS\img16.png">
+      <Filter>DOCS\CHAPTERS</Filter>
+    </Image>
+    <Image Include="..\DOCS\BLITSnd\CHAPTERS\img17.png">
+      <Filter>DOCS\CHAPTERS</Filter>
+    </Image>
+    <Image Include="..\DOCS\BLITSnd\CHAPTERS\img20.png">
+      <Filter>DOCS\CHAPTERS</Filter>
+    </Image>
+    <Image Include="..\DOCS\BLITSnd\CHAPTERS\img21.png">
+      <Filter>DOCS\CHAPTERS</Filter>
+    </Image>
+    <Image Include="..\DOCS\BLITSnd\CHAPTERS\img22.png">
+      <Filter>DOCS\CHAPTERS</Filter>
+    </Image>
+    <Image Include="..\DOCS\BLITSnd\CHAPTERS\img23.png">
+      <Filter>DOCS\CHAPTERS</Filter>
+    </Image>
+    <Image Include="..\DOCS\BLITSnd\CHAPTERS\img30.png">
+      <Filter>DOCS\CHAPTERS</Filter>
+    </Image>
+    <Image Include="..\DOCS\BLITSnd\CHAPTERS\img31.png">
+      <Filter>DOCS\CHAPTERS</Filter>
+    </Image>
+    <Image Include="..\DOCS\BLITSnd\CHAPTERS\img32.png">
+      <Filter>DOCS\CHAPTERS</Filter>
+    </Image>
+    <Image Include="..\DOCS\BLITSnd\CHAPTERS\keyb.png">
+      <Filter>DOCS\CHAPTERS</Filter>
+    </Image>
+    <Image Include="..\DOCS\BLITSnd\CHAPTERS\synthym.png">
+      <Filter>DOCS\CHAPTERS</Filter>
+    </Image>
+    <Image Include="..\DOCS\BLITSnd\CHAPTERS\workflow.png">
+      <Filter>DOCS\CHAPTERS</Filter>
+    </Image>
+    <Image Include="..\DOCS\BLITSnd\CHAPTERS\ym.png">
+      <Filter>DOCS\CHAPTERS</Filter>
+    </Image>
+    <Image Include="..\DOCS\BLITSnd\CHAPTERS\ymsawtooth.png">
+      <Filter>DOCS\CHAPTERS</Filter>
+    </Image>
+    <Image Include="..\DOCS\BLITSnd\CHAPTERS\ymshapes.png">
+      <Filter>DOCS\CHAPTERS</Filter>
+    </Image>
+    <Image Include="..\DOCS\BLITSnd\CHAPTERS\ymtriangle.png">
+      <Filter>DOCS\CHAPTERS</Filter>
+    </Image>
   </ItemGroup>
 </Project>

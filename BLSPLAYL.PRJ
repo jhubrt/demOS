@@ -1,0 +1,49 @@
+;-------------------------------------------------------------------------------
+; BLSPLAY / DemOS - debug target
+;-------------------------------------------------------------------------------
+
+; this project without metafile build is useful in particular to solve link errors
+
+BLSPLAY.TTP       ; name of executable program
+
+.C [ -Y -P -K -C -M -DblsUSEASM=0]
+.L [ -G -L -Y ]
+.S [ -Y ]
+=
+
+PCSTART.O        ; standard startup code
+
+OUTPUT\BLSZIO.O
+OUTPUT\BLSPLAY.O
+OUTPUT\LOAD.O
+OUTPUT\COLORS.O
+OUTPUT\RASTERS.O
+OUTPUT\STANDARD.O
+OUTPUT\SYSTEM.O
+OUTPUT\TRACE.O
+OUTPUT\YMDISP.O
+OUTPUT\BPLAYER\BPLAYER.O
+
+BLSPLAY\SRC\DEMOS.C
+
+DEMOSDK\ALLOC.C
+DEMOSDK\BITMAP.C
+DEMOSDK\COLORS.C
+DEMOSDK\FSM.C
+DEMOSDK\STANDARD.C
+DEMOSDK\BLSPLAY.C
+DEMOSDK\BLSZPLAY.C
+DEMOSDK\BLSIO.C
+DEMOSDK\BLSZIO.C
+DEMOSDK\SYNTHYM.C
+DEMOSDK\SYNTHYMD.C
+DEMOSDK\SYSTEM.C
+DEMOSDK\TRACE.C
+DEMOSDK\YMDISP.C
+
+DEMOSDK\DATA\DATA.C
+
+BLSPLAY\SRC\SCREENS.C
+BLSPLAY\SRC\BPLAYER.C
+
+PCSTDLIB.LIB        ; standard library

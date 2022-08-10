@@ -68,6 +68,8 @@ void LOADinit (LOADdisk* _firstmedia, u16 _nbEntries, u16 _nbMetaData)
 
 static void loadReadFAT (MEMallocator* _allocator, u16* _readbuffer, LOADdisk* _media, u16 _nbEntries, u16 _nbMetaData)
 {
+    STATIC_ASSERT(sizeof(LOADrequest) == 28);
+
     _media->nbEntries        = PCENDIANSWAP16(_readbuffer[0]);
     _media->nbMetaData       = PCENDIANSWAP16(_readbuffer[1]);
 
@@ -79,12 +81,13 @@ static void loadReadFAT (MEMallocator* _allocator, u16* _readbuffer, LOADdisk* _
     _media->mediapreloadsize -= LOAD_SECTORSIZE * (LOAD_FAT_NBSECTORS + 1); /* skip FAT + bootsector */
 
     {
-        u16 entriessize  = _media->nbEntries * sizeof(LOADresource);
+        u16 entriessize  = _media->nbEntries  * sizeof(LOADresource);
         u16 metadatasize = _media->nbMetaData * sizeof(LOADmetadata);
-        u16 preloadsize  = _media->nbEntries * sizeof(void*);
+        u16 preloadsize  = _media->nbEntries  * sizeof(void*);
 
         u8* FATbuffer = (u8*)MEM_ALLOC(_allocator, entriessize + metadatasize + preloadsize);
         ASSERT(FATbuffer != NULL);
+        ASSERT((entriessize + metadatasize) <= LOAD_SECTORSIZE * LOAD_FAT_NBSECTORS);
 
         _media->FAT = (LOADresource*)FATbuffer;
         _media->metaData = (LOADmetadata*)(FATbuffer + entriessize);
@@ -190,15 +193,10 @@ void LOADinitFAT (u8 _drive, LOADdisk* _media, u16 _nbEntries, u16 _nbMetaData)
 
 
 #ifdef DEMOS_LOAD_FROMHD
-LOADrequest* LOADrequestLoad (LOADdisk* _media, u16 _resourceid, void* _buffer, u16 _order)
-{
-    IGNORE_PARAM(_media);
-    IGNORE_PARAM(_resourceid);
-    IGNORE_PARAM(_buffer);
-    IGNORE_PARAM(_order);
 
+LOADrequest* LOADrequestLoad(LOADdisk* _media, u16 _resourceid, void* _buffer, u16 _order)
+{ 
     ASSERT(0);
-
     return NULL;
 }
 
@@ -269,7 +267,7 @@ void* LOADpreload (void* _preload, u32 _preloadsize, void* _current, LOADdisk* _
 
             _disk->preload[rsc] = currentpreload;
 
-            while (request->processed == false)
+            while (request->processed != LOADrequestState_DONE)
             {
                 _callback (t, request, _clientData);
             }
@@ -393,7 +391,7 @@ void LOADwaitRequestCompleted (LOADrequest* _request)
     if ( _request != NULL )
     {
         ASSERT (_request->allocated);
-	    while ( _request->processed == 0 );
+	    while ( _request->processed != LOADrequestState_DONE );
 	    _request->allocated = false;
     }
 }
@@ -424,7 +422,7 @@ u16 LOADtrace (void* _image, u16 _pitch, u16 _planePitch, u16 _y)
 
 			if ( r->allocated )
 			{
-                if ( r->processed == false )
+                if ( r->processed != LOADrequestState_DONE )
                 {
 					line[2] = '*';
 				    STDuxtoa(&line[8], r->nbsectors, 3);
@@ -525,7 +523,7 @@ void LOADunitTestUpdate (FSM* _fsm)
 	{
 		if ( g_requests[t] != NULL )
 		{
-			if ( g_requests[t]->processed )
+			if ( g_requests[t]->processed == LOADrequestState_DONE )
 			{
 				u32 size = LOADresourceRoundedSize (g_media, t + RESOURCEOFFSET);
 				u32 i;

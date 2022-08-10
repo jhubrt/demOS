@@ -42,11 +42,11 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IntDir>$(ProjectName)_$(Configuration)\</IntDir>
+    <IntDir>$(SolutionDir)..\TEMP\$(ProjectName)_$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IntDir>$(ProjectName)_$(Configuration)\</IntDir>
+    <IntDir>$(SolutionDir)..\TEMP\$(ProjectName)_$(Configuration)\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -83,6 +83,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\DEMOSDK\ALLOC.C" />
     <ClCompile Include="..\DEMOSDK\COLORS.C" />
     <ClCompile Include="..\DEMOSDK\HARDWARE.C" />
     <ClCompile Include="..\DEMOSDK\PC\BITCONVR.C" />
@@ -91,6 +92,7 @@
     <ClCompile Include="..\DEMOSDK\PC\VISUALASRT.C" />
     <ClCompile Include="..\DEMOSDK\PC\VISUALOG.CPP">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="..\DEMOSDK\PC\WINDOW.C" />
     <ClCompile Include="..\DEMOSDK\PC\_PRECOMP.C">
@@ -101,6 +103,7 @@
     <ClCompile Include="..\TOOLS\NEOVIEWER\NEOVIEWER.C" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\DEMOSDK\ALLOC.H" />
     <ClInclude Include="..\DEMOSDK\COLORS.H" />
     <ClInclude Include="..\DEMOSDK\HARDWARE.H" />
     <ClInclude Include="..\DEMOSDK\PC\BITCONVR.H" />

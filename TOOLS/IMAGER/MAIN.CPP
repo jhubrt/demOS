@@ -68,7 +68,8 @@ void main (int argc, char** argv)
     }
     else
     {
-        printf ("Wrong argument\n" 
+        printf ("IMAGER v2.0.1\n"
+                "Wrong argument\n" 
                 "Usage:\n"
                 "  imager imagescript.txt imagedestdir\n");
     }

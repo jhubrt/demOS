@@ -211,13 +211,6 @@
 #define HW_KEY_NUMPAD_DOT           0x71
 #define HW_KEY_NUMPAD_ENTER         0x72
 
-#ifndef __TOS__
-#define HW_KEY_EMUL_PAUSE           0x7F
-#endif
-
-/* 68k opcodes */
-#define HW_68KOP_RTS                0x4E75
-
 /* mega STe CPU freq and cache */
 #define HW_MEGASTE_CPUMODE_8MHZ     0
 #define HW_MEGASTE_CPUMODE_16MHZ    1
@@ -281,9 +274,11 @@
 
 #   define HW_DISABLE_MOUSE()
 
+void emulYMselectReg(u8 _regnum);
+void emulYMwriteReg(u8 _data);
 void hwSetYMReg(u8 _regnum, u8 _data);
 
-#   define HW_YM_SET_REG(REGNUM,DATA)   { hwSetYMReg(REGNUM,DATA); }
+#   define HW_YM_SET_REG(REGNUM,DATA)   { emulYMselectReg(REGNUM); emulYMwriteReg(DATA); hwSetYMReg(REGNUM,DATA); }
 #   define HW_YM_GET_REG()              ((&g_STHardware.reg_HW_YM_REGDATA)[*HW_YM_REGSELECT])
 
 struct SThardware_

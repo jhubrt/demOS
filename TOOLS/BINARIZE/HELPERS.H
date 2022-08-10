@@ -23,9 +23,6 @@
 #ifndef HELPERS_H
 #define HELPERS_H
 
-#define WINDOW_WIDTH  1024
-#define WINDOW_HEIGHT 1024
-
 struct TOOLerror
 {
     char m_message[256];
@@ -46,9 +43,6 @@ void TOOLwritecheck     (const u16& _val, FILE* _file);
 void TOOLwritecheck     (const u8&  _val, FILE* _file);
 
 void TOOLtruncateFile   (const char* _source, const char* _dest, u32 _size);
-
-void TOOLdisplayImage   (struct WINdow_* _window, struct BITsurface_* _surface);
-
 void TOOLwriteStaticData(char* _filename, char* _sourcefile, char* _symbolName);
 
 #endif
