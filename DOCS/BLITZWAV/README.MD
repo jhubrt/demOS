@@ -48,22 +48,6 @@
 In this documentation, keys are named for a QWERTY keyboard => for other keyboards you have to use keys with other names but at the same position
 
 -----------------------------------------------------------------------------------------------
-## Keys & soundtrack FX mapping
-
-In order to use the same code to decode 
-* FX commands from soundtrack in non interactive mode 
-* keyboard in interactive mode
-
-... there is a direct mapping between soundtrack Uxx effect parameter and keys
-
-* Function keys F1 to F10
-* Number keys 1 to *
-* Numpad number keys
-* 1st line keys
-* 2nd line keys
-* 3rd line keys
-
------------------------------------------------------------------------------------------------
 ## Main menu
 
 * CURSOR KEYS to move
