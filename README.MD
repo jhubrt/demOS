@@ -24,7 +24,7 @@ Interactive + scripted autoplay modes
 
 ## BLITSnd
 
-4 voices replay routine using blitter to mix sound (around 16% VBL max)
+4 voices replay routine using blitter to mix sound (less than 18% VBL)
 
 * BLSconvert : convertion tool from .MOD format to .BLS format
 * BLSplay : player using the routine

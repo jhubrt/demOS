@@ -1,6 +1,6 @@
 # BLITSnd
 
-Atari STe 4 PCM voices sound replay routine using blitter to mix sound (around 16% VBL max) + 3 YM voices
+Atari STe 4 PCM voices sound replay routine using blitter to mix sound + 3 YM voices (less than 18% VBL max : fits the upper border)
 
 BLITSnd on Youtube
 * [Prototype](https://youtu.be/Xc0zv4YFitI)
