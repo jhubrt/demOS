@@ -11,6 +11,7 @@
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>BlitZik</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>DemOS_68k</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
@@ -320,6 +321,24 @@
     <None Include="PC\_hatari\hataridevpack.cfg" />
     <None Include="TOOLS\EMUEXEC\EMUEXEC.CFG" />
     <None Include="TOOLS\EMUEXEC\EMUEXEC.PRJ" />
+    <CustomBuild Include="TOOLS\TESTSHIF\TESTSHIF.S">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+      <FileType>Document</FileType>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">PC\_hatari\HatariDevpack.bat D:\PROJECTS\DEMOS\%(Identity)</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">TOOLS\TESTSHIF\%(Filename).PRG</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkObjects>
+      <MaxProcesses Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">1</MaxProcesses>
+      <MaxItemsInBatch Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">1</MaxItemsInBatch>
+    </CustomBuild>
+    <CustomBuild Include="TOOLS\TESTDMA\TESTDMA.S">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+      <FileType>Document</FileType>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">PC\_hatari\HatariDevpack.bat D:\PROJECTS\DEMOS\%(Identity)</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">TOOLS\TESTSHIF\%(Filename).PRG</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkObjects>
+      <MaxProcesses Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">1</MaxProcesses>
+      <MaxItemsInBatch Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">1</MaxItemsInBatch>
+    </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TOOLS\EMUEXEC\EMUEXEC.C">
