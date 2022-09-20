@@ -362,6 +362,13 @@ void SynthYMActivity (void)
             {
                 u16 t;
                 bool result;
+                SNDYMcommand bakcommands[SND_YM_NB_CHANNELS];
+
+
+                for (t = 0; t < SND_YM_NB_CHANNELS; t++)
+                {
+                    bakcommands[t] = g_player.player.commands[t];
+                }
 
                 SNDYMfreePlayer(&sys.allocatorStandard, &g_player.player);
                 SNDYMfreeSounds(&sys.allocatorStandard, &g_player.soundSet);
@@ -376,9 +383,20 @@ void SynthYMActivity (void)
 
                 for (t = 0 ; t < SND_YM_NB_CHANNELS ; t++)
                 {
+                     g_player.player.commands[t].soundindex = bakcommands[t].soundindex; 
+
                     if (g_player.player.commands[t].soundindex >= g_player.soundSet.nbSounds)
                     {
-                        g_player.player.commands[t].soundindex = g_player.soundSet.nbSounds - 1;
+                        g_player.player.commands[t].soundindex       = g_player.soundSet.nbSounds - 1;
+                        g_player.player.commands[t].finetune         = 0;
+                        g_player.player.commands[t].portamientoticks = 0;
+                        g_player.player.commands[t].scorevolume      = 15;
+                    }
+                    else
+                    {
+                        g_player.player.commands[t].finetune         = bakcommands[t].finetune;
+                        g_player.player.commands[t].portamientoticks = bakcommands[t].portamientoticks;
+                        g_player.player.commands[t].scorevolume      = bakcommands[t].scorevolume;
                     }
 
                     g_player.ctrl.pressed[t] = 0;
