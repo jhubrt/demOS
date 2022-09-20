@@ -309,15 +309,6 @@ bool Sndtrack::LoadModuleMOD (const char* _filename)
         printf ("\nRestartSongLooping = %u\n", m_restartSongLooping);
 
         TOOLreadcheck(&m_patternsSequence, 128, file);
-        for (u32 t = 0 ; t < 128 ; t++)
-        {
-            if ((t & 7) == 0)
-            {
-                printf ("\n%3d: ", t);
-            }
-
-            printf ("%3u ", m_patternsSequence[t]);
-        }
 
         m_format[4] = 0;
         TOOLreadcheck(&m_format, sizeof(m_format) -1 , file);

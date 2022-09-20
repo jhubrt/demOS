@@ -406,6 +406,7 @@ public:
     void PrintSamplesTable ();
     int  RetrievePattern (u32 _patternNum, u32 _startIndex = 0);
 
+    void PrintTrack();
     void DetermineInstrumentsFromScore ();
     void AddKeyToInstrument (u8 _instrument, const Key& _key);
     void DisplayUsedInstruments ();

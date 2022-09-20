@@ -110,6 +110,19 @@ void Sndtrack::PrintSamplesTable()
 }
 
 
+void Sndtrack::PrintTrack()
+{
+    printf("\nSonglen = %d\n", m_songLen);
+    
+    for (u32 t = 0 ; t < m_songLen ; t++)
+    {
+        printf ("0x%2x | 0x%2x\n", t, m_patternsSequence[t]);
+    }
+
+    printf("\n");
+}
+
+
 void Sndtrack::AddKeyToInstrument(u8 _instrument, const Key& _key)
 {
     auto it2 = m_instrumentUsedKeys.find(_instrument);
@@ -1768,7 +1781,7 @@ int main(char argc, char* _argv[])
 
     if (argc == 1)
     {
-        printf("BlsConvert v 2.3.1\n\n");
+        printf("BlsConvert v 2.4.0\n\n");
         printf("blsconvert filename [-v1] [-amigapal] [-blitz] [-seq]\n\n");
 
         return 1;
@@ -1826,6 +1839,7 @@ int main(char argc, char* _argv[])
         if (success)
         {
             sndtrack.PrintSamplesTable();
+            sndtrack.PrintTrack();
 
             sndtrack.DetermineInstrumentsFromScore();
             sndtrack.DisplayUsedInstruments();
