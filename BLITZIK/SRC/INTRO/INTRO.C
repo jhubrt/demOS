@@ -488,7 +488,7 @@ void CybervectorEnter (FSM* _fsm)
                     {
                         EMUL_BACKUP_REENTER_POINT;
                         EMUL_REENTER_POINT;
-                        PCONLY( if (this->exit) goto Stop; )
+                        if (this->exit) goto Stop;
                         EMUL_EXIT_IF(this->currentScene < 3);
                         EMUL_RESTORE_REENTER_POINT;
                     } 
@@ -505,7 +505,7 @@ void CybervectorEnter (FSM* _fsm)
         sceneindex++;
         EMUL_EXIT_IF(sceneindex < PZ_NBSCENES)
 
-        PCONLY( Stop: ; )
+Stop: ;
 
     } /* foreach scene */    
 
