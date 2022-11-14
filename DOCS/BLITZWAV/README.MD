@@ -5,14 +5,33 @@
 ### 2022
 
 -----------------------------------------------------------------------------------------------
+## Changes
+
+### Beta version
+* [Released](https://files.scene.org/view/parties/2022/evoke22/alternative_platforms/blitzwav.zip) at [Evoke 22](https://2022.evoke.eu) in August 2022
+* Not final content
+* Menus crash on Mega STe
+* [Glitch](https://youtu.be/ZRU6bvv_gJU?t=87) happening into menus on STe based on C300588 shifters
+
+### Final version
+* [Released](https://cyber.savina.net/products/products.htm) in November 2022
+* Mega STe version fixed
+* Menus glitch on C300588 shifters minimized ( not completely fixed unfortunately :| )
+* Intro is now skipable by pressing SPACE key (except in compo mode)
+* Add option in *Samscroll* effect to toggle curves drawing
+* In *Sound shade* effect, inverse video mode filter now covers the whole screen borders in white
+* Changes in content (sequences, musik, texts...)
+* Works in STeem SSE
+
+-----------------------------------------------------------------------------------------------
 ## Launch
 
 * Run from floppy (Atari STe with at least 1mb)
-    - from drive A : write BLITZWAV.ST image, insert floppy into drive A then reboot
-    - from drive B : write BLITZWAV.ST image, insert floppy into drive B then run BOOTON_B.PRG from another drive
+    - from drive A : write BLITZWAV.ST image on a floppy, insert floppy into drive A, then reboot
+    - from drive B : write BLITZWAV.ST image on a floppy, insert floppy into drive B, then run BOOTON_B.PRG from another drive
     - pressing ALT during boot period activates compo mode
     - pressing CTRL during boot period activates dma audio in playonce mode (may be useful with native NTSC STe)
-    - ALT / CTRL color code :
+    - ALT / CTRL color code in boot :
         * ALT > blue
         * CTRL > cyan
         * ALT + CTRL > magenta
@@ -23,12 +42,13 @@
     - 1 parameter: automatic compo mode
     - 2 parameters: dma audio with be in playonce mode (should be useful on native NTSC STe)
     - 3 parameters: automatic compo mode + dma audio in playonce mode (may be useful with native NTSC STe)
+    - (parameter can get any value, only the number of parameters counts)
 
 -----------------------------------------------------------------------------------------------
 ## Emulators
 
-* If you use Hatari emulator, you should use keyboard in ***scancode*** mode
-* Regression in DMA sound loop sync with Hatari 2.4 (works well in 2.3.1). Might be fixed in 2.4.1 
+* With Hatari emulator, use keyboard in ***scancode*** mode
+* A regression in DMA sound loop sync with Hatari 2.4 (works well in 2.3.1) fixed in 2.4.1 
 -----------------------------------------------------------------------------------------------
 ## Interactive mode
 
@@ -60,11 +80,7 @@ In this documentation, keys are named for a QWERTY keyboard => for other keyboar
 ## All FX screens
 
 * Space / Return / Enter go back to menu
-* Function key 1 -> 7 - go to a specific FX screen
-* in dev mode : Clr home restart soundtrack
-* in dev mode : Insert restart current pattern
-* in dev mode : Backspace / Tab / => dec / inc track position
-
+* Function key F1 -> F7 - go to a specific FX screen
 -----------------------------------------------------------------------------------------------
 ## FX sound shade (F1)
 
@@ -141,6 +157,7 @@ In this documentation, keys are named for a QWERTY keyboard => for other keyboar
 * 1 -> 4 : choose PCM voice to display in upper screen (voice 1 2 4 3)
 * 5      : level 0 of samples is displayed
 * 6      : level 0 of samples is not displayed
+* 7      : toggle curves display
 
 ### Numpad
 * 1 -> 4 : choose PCM voice to display in lower screen (voice 1 2 4 3)

@@ -115,6 +115,7 @@ struct SamScroll_
     u8      freqcount;
     u8      freqmax;
     bool    no0;
+    bool    noCurve;
     u16     mask;
     u16     drawtextoffset;
 

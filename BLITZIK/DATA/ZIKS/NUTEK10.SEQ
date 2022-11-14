@@ -1,0 +1,289 @@
+#FXMACROS.TXT
+
+; Sequence test
+
+; t Trackindex
+; Row | Commands...
+
+t 00
+
+00 LAYfxLayerz LAYcurveSiamese LAYnoInterlace LAYvoice1_ym1 LAYvoice2_ym1
+40 LAYcurveSolo LAYnoInterlace LAYflash LAYvoice1_1
+
+t 01
+
+00 CRVfxSampleCurve CRVcurveSiamese CRVvoice1_2 CRVvoice2_2 CRVnoInterlace
+04 CRVcurveSoloBump
+08 CRVcurveSoloBump
+0C CRVcurveSoloBump
+10 CRVcurveSoloBump
+14 CRVcurveSoloBump
+18 CRVcurveSoloBump
+1C CRVcurveSoloBump
+20 CRVcurveSoloBump
+24 CRVcurveSoloBump
+28 CRVcurveSoloBump
+2C CRVcurveSoloBump
+30 CRVcurveSoloBump
+34 CRVcurveSoloBump
+38 CRVcurveSoloBump
+3C CRVcurveSoloBump
+
+40 LAYfxLayerz LAYcurveSiamese LAYflash LAYvoice1_2 LAYvoice2_2 LAYnoInterlace LAYbmpOpTOP_NOSCORE
+43 LAYbitmap1
+4B LAYbitmap2
+53 LAYbitmap3
+5B LAYbitmap4
+63 LAYbitmap5
+6B LAYbitmap6
+73 LAYbitmap0
+79 LAYbitmap1
+7D LAYbitmap0
+
+t 02
+00 LAYfxLayerz LAYflash LAYcurveTwins LAYvoice1_1 LAYvoice2_ym2 LAYnoInterlace LAYbmpOpOR_ALL
+04 LAYflash
+08 LAYflash
+0C LAYflash
+10 LAYflash
+14 LAYflash
+18 LAYflash
+1C LAYflash 
+1F LAYbitmap0
+20 LAYflash 
+24 LAYflash
+28 LAYflash
+2C LAYflash
+30 LAYflash
+34 LAYflash
+38 LAYflash
+3C LAYflash
+3E LAYflash 
+3F LAYbitmap0
+40 LAYflash 
+44 LAYflash
+48 LAYflash
+4C LAYflash
+50 LAYflash
+54 LAYflash
+58 LAYflash
+5C LAYflash
+5F LAYbitmap0
+60 LAYflash 
+64 LAYflash
+68 LAYflash
+6C LAYflash
+70 LAYflash
+74 LAYflash
+78 LAYflash
+7A LAYflash
+7C LAYflash
+
+t 03
+00 ALCfxAllCurve 
+
+t 04
+00 LAYfxLayerz LAYcurveKeys LAYbmpOpTOP_NOSCORE
+
+t 05
+00 ALCfxAllCurve
+
+t 06
+00 LAYfxLayerz LAYcurveKeys LAYbmpOpTOP_FX LAYflash
+08 LAYflash
+10 LAYflash
+18 LAYflash
+20 LAYflash
+28 LAYflash
+30 LAYflash
+38 LAYflash
+
+t 07
+00 SCRfxSampleScroll SCRNoLevel0 SCRvoice1_2 SCRvoice2_3
+
+t 08
+00 SCRupGfx
+10 SCRupSound
+20 SCRupGfx
+2A SCRupSound
+2C SCRupSound
+30 SCRupSound
+
+t 09
+04 SCRupTschak
+0C SCRupTschak
+14 SCRupTschak
+1C SCRupTschak
+24 SCRupTschak
+2C SCRupTschak
+34 SCRupTschak
+3C SCRupTschak
+3D SCRupTschak
+3E SCRupTschak
+
+t 0A
+00 LAYfxLayerz LAYflash LAYcurveTwins LAYvoice1_1 LAYvoice2_ym2 LAYnoInterlace LAYbmpOpOR_ALL
+04 LAYflash
+08 LAYflash
+0C LAYflash
+10 LAYflash
+14 LAYflash
+18 LAYflash
+1C LAYflash
+1F LAYbitmap0
+20 LAYflash 
+24 LAYflash
+28 LAYflash
+2C LAYflash
+30 LAYflash
+34 LAYflash
+38 LAYflash
+3C LAYflash
+3E LAYflash 
+3F LAYbitmap0
+40 LAYflash 
+44 LAYflash
+48 LAYflash
+4C LAYflash
+50 LAYflash
+54 LAYflash
+58 LAYflash
+5C LAYflash
+5F LAYbitmap0
+60 LAYflash 
+64 LAYflash
+68 LAYflash
+6C LAYflash
+70 LAYflash
+74 LAYflash
+78 LAYflash
+7A LAYflash
+7C LAYflash
+
+t 0B
+00 LAYflash LAYcurveRawSamples
+
+t 0C
+00 SDSfxSoundShade SDSfrontColorGrey SDSfrontVoice2 SDSbackRotate SDSbackFlash0
+08 SDSbackInvertRotate SDSbackFlash0
+10 SDSbackInvertRotate SDSbackFlash0
+18 SDSbackInvertRotate SDSbackFlash0
+20 SDSbackInvertRotate SDSbackFlash1
+28 SDSbackInvertRotate SDSbackFlash1
+30 SDSbackInvertRotate SDSbackFlash1
+38 SDSbackInvertRotate SDSbackFlash1
+40 SDSbackInvertRotate SDSbackFlash0
+48 SDSbackInvertRotate SDSbackFlash0
+50 SDSbackInvertRotate SDSbackFlash0
+58 SDSbackInvertRotate SDSbackFlash0
+60 SDSbackInvertRotate SDSbackFlash1
+68 SDSbackInvertRotate SDSbackFlash1
+70 SDSbackInvertRotate SDSbackFlash1
+78 SDSbackInvertRotate SDSbackFlash1
+7A SDSbackInvertRotate
+7E SDSbackInvertRotate SDSbackFlash0
+
+t 0D
+00 ALCfxAllCurve
+
+t 0E
+00 SCRfxSampleScroll SCRNoLevel0 SCRvoice1_2 SCRvoice2_3 SCRupGfx
+10 SCRupSound
+20 SCRupGfx
+
+t 0F
+00 SCRupGfx
+10 SCRupSound
+20 SCRupGfx
+
+t 10
+00 ALCfxAllCurve
+
+t 11
+00 SDSfxSoundShade SDSfrontColorGrey SDSfrontVoice2 SDSbackRotate SDSbackFlash0
+08 SDSbackInvertRotate SDSbackFlash0
+10 SDSbackInvertRotate SDSbackFlash0
+18 SDSbackInvertRotate SDSbackFlash0
+20 SDSbackInvertRotate SDSbackFlash1
+28 SDSbackInvertRotate SDSbackFlash1
+30 SDSbackInvertRotate SDSbackFlash1
+38 SDSbackInvertRotate SDSbackFlash1
+40 SDSbackInvertRotate SDSbackFlash0
+48 SDSbackInvertRotate SDSbackFlash0
+50 SDSbackInvertRotate SDSbackFlash0
+58 SDSbackInvertRotate SDSbackFlash0
+60 SDSbackInvertRotate SDSbackFlash1
+68 SDSbackInvertRotate SDSbackFlash1
+70 SDSbackInvertRotate SDSbackFlash1
+78 SDSbackInvertRotate SDSbackFlash1
+7A SDSbackInvertRotate
+7E SDSbackInvertRotate SDSbackFlash0
+
+t 12
+00 LAYfxLayerz LAYflash LAYcurveTwins LAYvoice1_1 LAYvoice2_ym2 LAYnoInterlace LAYbmpOpOR_ALL
+04 LAYflash
+08 LAYflash
+0C LAYflash
+10 LAYflash
+14 LAYflash
+18 LAYflash
+1C LAYflash
+1F LAYbitmap0
+20 LAYflash 
+24 LAYflash
+28 LAYflash
+2C LAYflash
+30 LAYflash
+34 LAYflash
+38 LAYflash
+3C LAYflash
+3E LAYflash 
+3F LAYbitmap0
+40 LAYflash 
+44 LAYflash
+48 LAYflash
+4C LAYflash
+50 LAYflash
+54 LAYflash
+58 LAYflash
+5C LAYflash
+5F LAYbitmap0
+60 LAYflash 
+64 LAYflash
+68 LAYflash
+6C LAYflash
+70 LAYflash
+74 LAYflash
+78 LAYflash
+7A LAYflash
+7C LAYflash
+
+t 13
+00 SCRfxSampleScroll SCRNoLevel0 SCRvoice1_4 SCRvoice2_3 SCRupGfx
+10 SCRupSound
+11 SCRupSound
+12 SCRupSound
+13 SCRupSound
+14 SCRupSound
+15 SCRupSound
+16 SCRupSound
+17 SCRupSound
+18 SCRupSound
+19 SCRupSound
+1A SCRupSound
+20 SCRupGfx
+
+t 14
+00 SCRupGfx
+10 SCRupSound
+11 SCRupSound
+12 SCRupSound
+13 SCRupSound
+14 SCRupSound
+15 SCRupSound
+16 SCRupSound
+17 SCRupSound
+18 SCRupSound
+19 SCRupSound
+1A SCRupSound
+20 SCRupGfx

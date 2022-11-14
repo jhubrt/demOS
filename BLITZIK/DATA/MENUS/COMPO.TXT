@@ -1,0 +1,61 @@
+; show menus
+200    RIGHT
+
+; select next mod
+10     DOWN
+10     DOWN
+10     DOWN
+10     DOWN
+150    SELECT   
+
+; go to select colors
+10     RIGHT
+10     RIGHT 
+; select next color
+10     DOWN
+10     DOWN
+10     DOWN
+10     DOWN
+10     DOWN
+10     SELECT
+; back to musik menu
+50     LEFT
+10     LEFT
+
+; select next mod              
+10     DOWN
+10     DOWN
+150    SELECT
+
+; go to select colors
+10     RIGHT
+10     RIGHT 
+; select next color
+10     UP
+10     UP
+10     UP
+10     UP
+10     SELECT
+; back to play mode
+50     LEFT
+
+; select play from menus
+10     UP
+10     SELECT
+
+; back to musik
+50     LEFT
+
+; select next mod              
+10     UP
+10     UP
+10     UP
+150    SELECT
+
+; select info screen
+10     LEFT
+200    SELECT
+
+; dummy
+255    LEFT
+255    LEFT

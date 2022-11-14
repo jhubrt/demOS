@@ -1,0 +1,239 @@
+; ----------------------------------------------------------------
+;  MACROS FOR COMMAND
+; ----------------------------------------------------------------
+$ SDSfxSoundShade			10
+
+$ SDSbackVoice1				20
+$ SDSbackVoice2				21
+$ SDSbackVoice4				22
+$ SDSbackVoice3				23
+
+$ SDSbackDisable			24
+$ SDSbackEnable 			25
+
+$ SDSfrontVoice1			30
+$ SDSfrontVoice2			31
+$ SDSfrontVoice4			32
+$ SDSfrontVoice3			33
+
+$ SDSfrontPCMnointerlace	36
+$ SDSfrontPCMinterlace14_23	37
+$ SDSfrontPCMinterlace1234	38
+
+$ SDSbackVertical			40
+$ SDSbackCross    			41
+$ SDSbackRotate   			42
+$ SDSbackZoom     			43
+$ SDSbackNoFeedback   		44
+$ SDSbackFlash0 			45
+$ SDSbackFlash1 			46
+$ SDSbackInvertRotate		47
+
+$ SDSfrontDisable			50			
+$ SDSfront2colors			51
+$ SDSfrontColorGrey			52
+$ SDSfrontGreys				53
+
+$ SDSbackNoFilter			60
+$ SDSbackFilterYellow1		61
+$ SDSbackFilterYellow2		62
+$ SDSbackFilterMagenta		63
+$ SDSbackFilterCyan			64
+$ SDSbackFilterBlue			65
+$ SDSbackFilterGreen		66
+$ SDSbackFilterRed 			67
+$ SDSbackNoInvertVideo		68
+$ SDSbackInvertVideo		69
+
+; ----------------------------------------------------------------
+$ CRVfxSampleCurve			11
+
+$ CRVvoice1_1				20
+$ CRVvoice1_2				21
+$ CRVvoice1_4				22
+$ CRVvoice1_3				23
+
+$ CRVvoice1_ym1				24
+$ CRVvoice1_ym2				25
+$ CRVvoice1_ym3				26
+
+$ CRVnoInterlace			28
+$ CRVinterlace14_23			29
+$ CRVinterlace13_21_42_34	2A
+$ CRVinterlace12_24_43_31	2B
+
+$ CRVvoice2_1				30
+$ CRVvoice2_2				31
+$ CRVvoice2_4				32
+$ CRVvoice2_3				33
+
+$ CRVvoice2_ym1				34
+$ CRVvoice2_ym2				35
+$ CRVvoice2_ym3				36
+
+$ CRVcurveTwins				40
+$ CRVcurveSolo				41
+$ CRVcurveSiamese			42
+$ CRVcurveTwinsSparks		43
+
+$ CRVcurveSoloFillAll		44
+$ CRVcurveSoloFill1			45
+$ CRVcurveSoloFill2			46
+$ CRVcurveSoloFill3			47
+$ CRVcurveSoloNoFill		48
+$ CRVcurveSoloBump			49
+$ CRVcurveSoloBumpDown		4A
+
+$ CRVcurveColor1or13		50
+$ CRVcurveColor2or24		51
+$ CRVcurveColor3or13		52	
+$ CRVcurveColor4or24		53
+
+; ----------------------------------------------------------------
+$ ALCfxAllCurve				12
+
+$ ALCrun					40				
+$ ALCfreeze					41
+$ ALCstepBitplane			42
+
+; ----------------------------------------------------------------
+$ SCRfxSampleScroll			13
+
+$ SCRvoice1_1				20
+$ SCRvoice1_2				21
+$ SCRvoice1_4				22
+$ SCRvoice1_3				23
+
+$ SCRwithLevel0				24
+$ SCRNoLevel0				25
+$ SCRToggleCurves			26
+
+$ SCRvoice2_1				30
+$ SCRvoice2_2				31
+$ SCRvoice2_4				32
+$ SCRvoice2_3				33
+
+$ SCRupBoing				40
+$ SCRupBoom 				41
+$ SCRupTschak				42
+$ SCRupPeng  				43
+$ SCRupZong  				44
+$ SCRdownBoing				45
+$ SCRdownBoom				46
+$ SCRdownTschak				47
+$ SCRdownPeng  				48
+$ SCRdownZong  				49
+
+$ SCRupGfx  				40
+$ SCRupSound				41
+
+$ SCRdisplayAlways          50
+$ SCRdisplay1on3            51
+$ SCRdisplay1on5            52
+$ SCRdisplay1on7            53
+$ SCRdisplay1on9            54
+$ SCRcolorCycleStep0        55
+$ SCRcolorCycleStep1	    56
+$ SCRcolorCycleStep2	    57
+$ SCRcolorCycleStop		    58
+$ SCRcolorCycleRun		    59
+
+$ SCRdisableCurves   		60
+$ SCRenableCurvesNormal		61
+$ SCRenableCurvesFX1		62
+$ SCRenableCurvesFX2		63
+$ SCRenableCurvesFX3		64
+$ SCRenableCurvesFX4		65
+$ SCRenableCurvesFX5		66
+$ SCRenableCurvesFX6		67
+
+; ----------------------------------------------------------------
+$ LAYfxLayerz				14
+
+$ LAYvoice1_1				20
+$ LAYvoice1_2				21
+$ LAYvoice1_4				22
+$ LAYvoice1_3				23
+
+$ LAYvoice1_ym1				24
+$ LAYvoice1_ym2				25
+$ LAYvoice1_ym3				26
+
+$ LAYnoInterlace			28
+$ LAYinterlace14_23			29
+$ LAYinterlace13_21_42_34	2A
+$ LAYinterlace12_24_43_31	2B
+
+$ LAYvoice2_1				30
+$ LAYvoice2_2				31
+$ LAYvoice2_4				32
+$ LAYvoice2_3				33
+
+$ LAYvoice2_ym1				34
+$ LAYvoice2_ym2				35
+$ LAYvoice2_ym3				36
+
+$ LAYcurveTwins				40
+$ LAYcurveSolo				41
+$ LAYcurveSiamese			42
+$ LAYcurveKeys 				43
+$ LAYcurveRawSamples		44
+
+$ LAYcurveSoloFillAll		45
+$ LAYcurveSoloFill1			46
+$ LAYcurveSoloFill2			47
+$ LAYcurveSoloFill3			48
+$ LAYcurveSoloNoFill		49
+
+$ LAYflash					4A
+
+$ LAYbmpOpXOR_ALL			50
+$ LAYbmpOpOR_ALL			51
+$ LAYbmpOpTOP_SCORE			52
+$ LAYbmpOpTOP_FX			53
+$ LAYbmpOpTOP_NOSCORE		54
+
+$ LAYcolorCycleStep0        55
+$ LAYcolorCycleStep1        56
+$ LAYcolorCycleStep2        57
+$ LATColorCycleStep3	    58
+$ LAYcolorCycleStep4	    59
+$ LAYcolorCycleOnOff		5A
+
+$ LAYbitmap0				60
+$ LAYbitmap1				61
+$ LAYbitmap2				62
+$ LAYbitmap3				63
+$ LAYbitmap4				64
+$ LAYbitmap5				65
+$ LAYbitmap6				66
+$ LAYbitmap7				67
+
+$ LAYbitmapXOR				68
+$ LAYbitmapOR				69
+$ LAYbitmapTOP				6A
+
+; ----------------------------------------------------------------
+$ SPWspaceWav				15
+
+$ SPWspeed1					40
+$ SPWspeed2					41
+$ SPWspeed3					42
+
+$ SPWflashRed				50
+$ SPWflashGreen				51
+$ SPWflashBlue				52
+$ SPWflashWhite				53
+
+; ----------------------------------------------------------------
+$ WAHwaveHero    			16
+
+$ WAHfeed					20
+$ WAHnofeed					21
+
+$ WAHspeed1					40
+$ WAHspeed2					41
+$ WAHspeed3					42
+
+$ WAHfalse3D				50
+$ WAH3D 					51

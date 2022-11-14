@@ -234,7 +234,6 @@ For an azerty keyboard on PC :
  - __SPACE__ : activate / deactivate channel
  - __BACKSPACE__ (PC only) : toggle YM PC emulator curve sync display (turn off if your PC is slow)
  - __RETURN__ (PC only) : hot reloads the sound script
- - __²__ (PC only) : change sound emulator (default is the most accurate)
 
 Curves name abreviation :
 

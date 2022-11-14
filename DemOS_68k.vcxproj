@@ -319,6 +319,14 @@
     </CustomBuild>
     <None Include="PC\_hatari\HatariDevpack.bat" />
     <None Include="PC\_hatari\hataridevpack.cfg" />
+    <CustomBuild Include="TOOLS\BOOT_FD2\BOOT_FD2.S">
+      <FileType>Document</FileType>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">PC\_hatari\HatariDevpack.bat D:\PROJECTS\DEMOS\%(Identity)</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">OUTPUT\BLITZIK\%(Filename).PRG</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkObjects>
+      <MaxProcesses Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">1</MaxProcesses>
+      <MaxItemsInBatch Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">1</MaxItemsInBatch>
+    </CustomBuild>
     <None Include="TOOLS\EMUEXEC\EMUEXEC.CFG" />
     <None Include="TOOLS\EMUEXEC\EMUEXEC.PRJ" />
     <CustomBuild Include="TOOLS\TESTSHIF\TESTSHIF.S">

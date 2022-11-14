@@ -1,0 +1,113 @@
+20    RIGHT
+
+2     UP
+2     UP
+2     UP
+2     UP
+2     UP
+2     UP
+2     SELECT
+
+20    LEFT	   
+20    LEFT	   
+
+2     UP
+2     UP
+2     UP
+2     UP
+2     UP
+2     UP
+2     UP
+2     UP
+2     UP
+2     DOWN
+
+; mod 1
+150   SELECT     
+              
+; go to select colors
+50     RIGHT
+50     RIGHT 
+; select next color
+50     DOWN
+50     SELECT
+; back to musik menu
+50     LEFT
+50     LEFT
+
+; mod 2
+50    DOWN       
+150   SELECT            
+      
+; mod 3
+50    DOWN       
+150   SELECT     
+              
+; go to select colors
+50     RIGHT
+50     RIGHT 
+; select next color
+50     DOWN
+50     SELECT
+; back to musik menu
+50     LEFT
+50     LEFT
+
+; mod 4
+50    DOWN       
+150   SELECT     
+                           
+; go to select colors
+50     RIGHT
+50     RIGHT 
+; select next color
+50     DOWN
+50     SELECT
+; back to musik menu
+50     LEFT
+50     LEFT
+
+; mod 5
+50    DOWN       
+150   SELECT     
+     
+; go to select colors
+50     RIGHT
+50     RIGHT 
+; select next color
+50     DOWN
+50     SELECT
+; back to musik menu
+50     LEFT
+50     LEFT
+
+; mod 6
+50    DOWN       
+150   SELECT     
+
+; mod 7
+50    DOWN       
+150   SELECT     
+
+; go to select colors
+50     RIGHT
+50     RIGHT 
+; select next color
+50     DOWN
+50     SELECT
+; back to musik menu
+50     LEFT
+50     LEFT
+       
+; mod 8
+50    UP
+2     UP
+2     UP
+2     UP
+2     UP
+2     UP
+2     UP
+150   SELECT     
+
+; dummy
+50   UP

@@ -1,0 +1,106 @@
+#FXMACROS.TXT
+
+; t Trackindex
+; Row | Commands...
+
+t 00
+00 SDSfxSoundShade SDSbackVoice1
+68 SDSfront2colors SDSfrontVoice2
+
+t 01
+08 SDSbackFilterRed
+28 SDSbackFilterGreen
+48 SDSbackFilterBlue
+68 SDSbackFilterCyan
+
+t 02
+00 SDSbackVertical SDSfrontColorGrey SDSbackNoFilter
+10 SDSbackCross	   SDSbackFlash1
+20 SDSbackVertical 
+30 SDSbackCross    SDSbackFlash0
+40 SDSbackVertical 
+50 SDSbackCross    SDSbackFlash1
+60 SDSbackVertical
+70 SDSbackCross	   SDSbackFlash0
+
+t 03
+00 SDSbackVertical 
+10 SDSbackCross	   SDSbackFlash1
+20 SDSbackVertical 
+30 SDSbackCross    SDSbackFlash0
+40 SDSbackVertical 
+50 SDSbackCross    SDSbackFlash1
+60 SDSbackVertical
+70 SDSbackCross	   SDSbackFlash0
+
+t 04
+0E CRVfxSampleCurve CRVcurveTwinsSparks
+
+t 05
+00 CRVcurveSolo
+20 CRVcurveColor2or24 CRVcurveSoloFill1
+40 CRVcurveColor3or13 CRVcurveSoloFill2
+60 CRVcurveColor4or24 CRVcurveSoloFill3
+
+t 06
+00 LAYfxLayerz LAYflash LAYbitmap0 LAYnoInterlace LAYvoice1_2 LAYbmpOpTOP_NOSCORE
+1F LAYbitmap1
+3F LAYbitmap2 
+5F LAYbitmap3
+
+t 07
+00 LAYbitmap0 LAYcurveSiamese LAYvoice2_2
+1F LAYbitmap4
+3F LAYbitmap5 
+5F LAYbitmap6
+
+t 08
+00 SCRfxSampleScroll SCRvoice2_2
+
+t 0A 
+00 SCRdisplay1on5
+10 SCRdownTschak
+20 SCRupBoing 
+30 SCRdownTschak
+40 SCRupBoing
+50 SCRdownTschak
+60 SCRupBoing
+70 SCRdownTschak
+
+t 0B
+00 SCRupBoing
+10 SCRdownTschak
+20 SCRupBoing
+30 SCRdownTschak
+40 SCRupBoing
+50 SCRdownTschak
+60 SCRupBoing
+00 SCRdisplayAlways
+
+70 WAHwaveHero
+
+t 0F
+40 WAHnofeed
+
+t 10
+00 ALCfxAllCurve
+
+t 12
+00 LAYfxLayerz
+
+t 13
+70 LAYbitmap1
+78 LAYbmpOpTOP_NOSCORE
+
+t 14 
+00 LAYcurveKeys 
+
+t 15
+00 LAYcurveKeys LAYbitmap0 LAYbitmapTOP
+1F LAYbitmap1
+3F LAYbitmap2 
+5F LAYbitmap3
+
+t 16
+00 LAYbmpOpTOP_SCORE LAYbmpOpTOP_FX LAYflash
+

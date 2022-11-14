@@ -56,7 +56,7 @@ struct SNSASMimportTable_
     void*               empty;
 
     u16                 reservedh;
-    u16                 reserved1;
+    u16                 backcolor;
     u16                 reservedpitch;
     u16                 goblitter;
     u16                 tunX3;

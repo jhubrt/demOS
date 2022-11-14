@@ -19,7 +19,6 @@
 ; void ARJdepack(char* depack_space, char* packed_data)
 ;
 ; CALL:
-; D0 = origsize (long)
 ; A0 = ptr to depack space
 ; A1 = ptr to packed data
 ;
@@ -46,7 +45,7 @@ ARJdepack:
 				lea		ARJprogress(pc),a4
 				move.l	a1,(a4)
 
-                move.l  (a1)+,d0
+                move.l  (a1)+,d0        ; D0 = origsize (long) added to bytes flow start
 
                 MOVE.L  D0,D3           ; origsize
                 MOVEQ   #0,D7           ; bitcount = 0

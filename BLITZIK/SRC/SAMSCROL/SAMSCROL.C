@@ -494,6 +494,11 @@ static void SamScrollManageCommands(SamScroll* this, bool allownavigation_)
                 BLZ_TRAC_COMMAND("SCRNoLevel0");
                 this->no0 = false;
             }
+            else if (cmd == 6)
+            {
+                BLZ_TRAC_COMMAND("SCRToggleCurves");
+                this->noCurve ^= true;
+            }
 
             break;
 
@@ -880,7 +885,7 @@ static void samScrollDisplay(SamScroll* this, u8* framebase, u8 pixoff, u8* next
 
     IGNORE_PARAM(framebase);
 
-    if (this->freqcount != 0)
+    if ((this->freqcount != 0) || this->noCurve)
         mask = 0;
 
     *HW_VIDEO_PIXOFFSET = pixoff;
@@ -968,7 +973,7 @@ static u16* samScrollDrawCurvePC (SamScroll* this, void* _sample, u16 _nbsamples
     u16  mask = this->mask;
 
 
-    if (this->freqcount != 0)
+    if ((this->freqcount != 0) || this->noCurve)
         mask = 0;
 
     p1  = mask << (15 - _offset);

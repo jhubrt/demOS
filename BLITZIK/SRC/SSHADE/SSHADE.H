@@ -56,7 +56,7 @@ struct SShade_
     u8*          empty;
     u16*         routines[3];
 	RASinterupt  rasterBootFunc;
-	RASopVbl1	 rasterBootOp;
+	RASopVbl     rasterBootOp;
                 
 	u16 	     colorscroll;
     u16 	     colorscroll2;

@@ -108,10 +108,6 @@ static BlitZMenuASMimport* BMpImport(void)
 static void BlitZMenuDisplay(BlitZMenu* this, u16* _buffer, u16 _x1, u16 _x2, u16 _y1, u16 _y2)
 {
     BlitZMenuASMimport* asmimport = this->asmimport;
-    u16 offset = (sys.emulator == SYSemulator_STEEM) ? 8 : 4;
-
-    *HW_VIDEO_PIXOFFSET = 0;
-    *HW_VIDEO_OFFSET = 0;
 
     asmimport->p1plasma     = _buffer + _x1 + (this->plasmasin[_y1] >> 1);
     asmimport->p2plasma     = _buffer + _x2 + (this->plasmasin[_y2] >> 1);
@@ -120,12 +116,12 @@ static void BlitZMenuDisplay(BlitZMenu* this, u16* _buffer, u16 _x1, u16 _x2, u1
     asmimport->rasters      = &this->flashcolors[_x1 & 31];
 
     if (asmimport->pixelOffsetIcons)
-        asmimport->pitchIcons = (BLITZ_MENU_PITCH - 160 - offset) >> 1;
+        asmimport->pitchIcons = (BLITZ_MENU_PITCH - 160 - 4) >> 1;
     else
         asmimport->pitchIcons = (BLITZ_MENU_PITCH - 160) / 2;
 
     if (asmimport->pixelOffsetTips)
-        asmimport->pitchTips = (BLITZ_MENU_TIPS_PITCH - 160 - offset) >> 1;
+        asmimport->pitchTips = (BLITZ_MENU_TIPS_PITCH - 160 - 4) >> 1;
     else
         asmimport->pitchTips = (BLITZ_MENU_TIPS_PITCH - 160) / 2;
 }
@@ -223,8 +219,10 @@ static void BlitZMenuPCInit(void)
 
     g_ASMimport.opcodes[BMpOp_Begin                   ].cycles_div2 = 0  ;
     g_ASMimport.opcodes[BMpOp_End                     ].cycles_div2 = 0  ;
-    g_ASMimport.opcodes[BMpOp_Blit                    ].cycles_div2 = 228;
-    g_ASMimport.opcodes[BMpOp_Blit2                   ].cycles_div2 = 228;
+    g_ASMimport.opcodes[BMpOp_PreBlit1                ].cycles_div2 = 22 ;
+    g_ASMimport.opcodes[BMpOp_PreBlit2                ].cycles_div2 = 22 ;
+    g_ASMimport.opcodes[BMpOp_Blit                    ].cycles_div2 = 208;
+    g_ASMimport.opcodes[BMpOp_C0_back                 ].cycles_div2 = 6  ;
     g_ASMimport.opcodes[BMpOp_C2_000                  ].cycles_div2 = 6  ;
     g_ASMimport.opcodes[BMpOp_C1_555                  ].cycles_div2 = 8  ;
     g_ASMimport.opcodes[BMpOp_C1_666                  ].cycles_div2 = 8  ;
@@ -533,7 +531,7 @@ static void blitzMenuInitGenerateCode(BlitZMenu* this)
     CGENdesc* code = this->asmimport->opcodes;
     u8*  output;
     u16  cycles = 0;
-    u16  targetcycles = sys.isMegaSTe ? 512 : 508; /* compensate blitter slowdown */
+    u16  targetcycles = sys.isMegaSTe ? 508 : 512; /* compensate blitter slowdown */
     u16  t;
     u16  nblines = 0;
     u16* patchoffset;
@@ -544,232 +542,323 @@ static void blitzMenuInitGenerateCode(BlitZMenu* this)
 
     BlitZMenuPCInit();
 
-    this->asmimport->waitloop  = 20;
-    this->asmimport->waitloop2 = 67;
+    this->asmimport->waitloop  = 4;
+    this->asmimport->waitloop2 = 70;
 
     output = (u8*)this->plasmacode = MEM_ALLOC(&sys.allocatorMem, BLITZ_GENCODE_BUFFERSIZE);
 
     CGENgenerateSimple(&code[BMpOp_Begin], output);
+    /*CGENaddNops(0, 4, output);*/
 
     /* line 0 */
     CGENgenerate(&code[BMpOp_AdrScroller1], cycles, output);
+
     /*CGENgenerate(&code[BMpOp_C3_R]        , cycles, output); moved to begin */
     /*CGENgenerate(&code[BMpOp_C1_000]      , cycles, output); moved to begin */
     /*CGENgenerate(&code[BMpOp_C2_555]      , cycles, output); moved to begin */
+
+    CGENgenerate(&code[BMpOp_C0_back], cycles, output); 
+
     patchoffset = (u16*) output;
-    CGENgenerate(&code[BMpOp_Blit + (nblines & 1)], cycles, output);
+    CGENgenerate(&code[BMpOp_PreBlit1 + (nblines & 1)], cycles, output);
     patchoffset[PLASMA_MOVEOFFSET] = nblines << 1;
     nblines++;
+
+    CGENgenerate(&code[BMpOp_Blit], cycles, output);
 
     /* line 1 to 24 */
     for (t = 1; t < 24; t++)
     {
-        cycles = 0;
+        cycles = code[BMpOp_Blit].cycles_div2 * 2;
+        
         CGENgenerate(&code[BMpOp_C3_R], cycles, output);
-        CGENaddNops(cycles + code[BMpOp_Blit].cycles_div2 * 2, targetcycles, output);
+
         patchoffset = (u16*) output;
-        CGENgenerate(&code[BMpOp_Blit + (nblines & 1)], cycles, output);
+        CGENgenerate(&code[BMpOp_PreBlit1 + (nblines & 1)], cycles, output);
         patchoffset[PLASMA_MOVEOFFSET] = nblines << 1;
         nblines++;
+
+        CGENaddNops(cycles, targetcycles, output);
+        CGENgenerate(&code[BMpOp_Blit], cycles, output);
     }
 
     /* line 24 */
-    cycles = 0;
+    cycles = code[BMpOp_Blit].cycles_div2 * 2;
+    
     CGENgenerate(&code[BMpOp_C1_666], cycles, output);
     CGENgenerate(&code[BMpOp_C3_R]  , cycles, output);
-    CGENaddNops(cycles + code[BMpOp_Blit].cycles_div2 * 2, targetcycles, output);
+    
     patchoffset = (u16*) output;
-    CGENgenerate(&code[BMpOp_Blit + (nblines & 1)]  , cycles, output);
+    CGENgenerate(&code[BMpOp_PreBlit1 + (nblines & 1)], cycles, output);
     patchoffset[PLASMA_MOVEOFFSET] = nblines << 1;
     nblines++;
+    
+    CGENaddNops(cycles, targetcycles, output);
+    CGENgenerate(&code[BMpOp_Blit], cycles, output);
 
     /* line 25 -> BLITZ_MENU_EMPTY1_Y - 1 */
     for (t = 25; t < BLITZ_MENU_EMPTY1_Y; t++)
     {
-        cycles = 0;
+        cycles = code[BMpOp_Blit].cycles_div2 * 2;
+
         CGENgenerate(&code[BMpOp_C3_R], cycles, output);
-        CGENaddNops(cycles + code[BMpOp_Blit].cycles_div2 * 2, targetcycles, output);
+        
         patchoffset = (u16*) output;
-        CGENgenerate(&code[BMpOp_Blit + (nblines & 1)], cycles, output);
+        CGENgenerate(&code[BMpOp_PreBlit1 + (nblines & 1)], cycles, output);
         patchoffset[PLASMA_MOVEOFFSET] = nblines << 1;
         nblines++;
+
+        CGENaddNops(cycles, targetcycles, output);
+        CGENgenerate(&code[BMpOp_Blit], cycles, output);
     }
 
     /* line BLITZ_MENU_EMPTY1_Y (48) */
-    cycles = 0;
+    cycles = code[BMpOp_Blit].cycles_div2 * 2;
+
     CGENgenerate(&code[BMpOp_AdrEmpty], cycles, output);
-    CGENaddNops(cycles + code[BMpOp_Blit].cycles_div2 * 2, targetcycles, output);
+
     patchoffset = (u16*) output;
-    CGENgenerate(&code[BMpOp_Blit + (nblines & 1)]    , cycles, output);
+    CGENgenerate(&code[BMpOp_PreBlit1 + (nblines & 1)]    , cycles, output);
     patchoffset[PLASMA_MOVEOFFSET] = nblines << 1;
     nblines++;
+    
+    CGENaddNops(cycles, targetcycles, output);
+
+    CGENgenerate(&code[BMpOp_Blit], cycles, output);
 
     /* line BLITZ_MENU_EMPTY1_Y -> BLITZ_MENU_POS_Y - 2 (50) */
     for (t = BLITZ_MENU_EMPTY1_Y + 1; t < (BLITZ_MENU_POS_Y - 1); t++)
     {
-        cycles = 0;
-        CGENaddNops(cycles + code[BMpOp_Blit].cycles_div2 * 2, targetcycles, output);
+        cycles = code[BMpOp_Blit].cycles_div2 * 2;
+
         patchoffset = (u16*) output;
-        CGENgenerate(&code[BMpOp_Blit + (nblines & 1)], cycles, output);
+        CGENgenerate(&code[BMpOp_PreBlit1 + (nblines & 1)], cycles, output);
         patchoffset[PLASMA_MOVEOFFSET] = nblines << 1;
         nblines++;
+
+        CGENaddNops(cycles, targetcycles, output);
+        CGENgenerate(&code[BMpOp_Blit], cycles, output);
     }
 
     /* BLITZ_MENU_POS_Y - 1 (51) => push pixoffset + pitch this earlier to minimize performance peak on next step */
-    cycles = 0;
-    CGENgenerate(&code[BMpOp_PitchIcons]      , cycles, output); 
+    cycles = code[BMpOp_Blit].cycles_div2 * 2;
+
     CGENgenerate(&code[BMpOp_PixOffsetIcons]  , cycles, output);
-    CGENaddNops(cycles + code[BMpOp_Blit].cycles_div2 * 2, targetcycles, output);
+
     patchoffset = (u16*) output;
-    CGENgenerate(&code[BMpOp_Blit + (nblines & 1)], cycles, output);
+    CGENgenerate(&code[BMpOp_PreBlit1 + (nblines & 1)], cycles, output);
     patchoffset[PLASMA_MOVEOFFSET] = nblines << 1;
     nblines++;
+
+    CGENgenerate(&code[BMpOp_PitchIcons], cycles, output);    
+
+    CGENaddNops(cycles, targetcycles, output);
+    CGENgenerate(&code[BMpOp_Blit], cycles, output);
 
     /* line BLITZ_MENU_POS_Y (52) */
-    cycles = 0;
+    cycles = code[BMpOp_Blit].cycles_div2 * 2;
+
     CGENgenerate(&code[BMpOp_AdrScrollerIcons], cycles, output);
-    CGENgenerate(&code[BMpOp_C3_R]            , cycles, output);
-    CGENaddNops(cycles + code[BMpOp_Blit].cycles_div2 * 2, targetcycles, output);
+    CGENgenerate(&code[BMpOp_C3_R], cycles, output);
+
     patchoffset = (u16*) output;
-    CGENgenerate(&code[BMpOp_Blit + (nblines & 1)]            , cycles, output);
+    CGENgenerate(&code[BMpOp_PreBlit1 + (nblines & 1)]            , cycles, output);
     patchoffset[PLASMA_MOVEOFFSET] = nblines << 1;
     nblines++;
 
+    CGENaddNops(cycles, targetcycles, output);
+    CGENgenerate(&code[BMpOp_Blit], cycles, output);
+
     /* line BLITZ_MENU_POS_Y + 1 (53) */
-    cycles = 0;
+    cycles = code[BMpOp_Blit].cycles_div2 * 2;
     CGENgenerate(&code[BMpOp_C3_R]            , cycles, output);
     CGENgenerate(&code[BMpOp_C1_FFF]          , cycles, output);
-    CGENaddNops(cycles + code[BMpOp_Blit].cycles_div2 * 2, targetcycles, output);
+
     patchoffset = (u16*) output;
-    CGENgenerate(&code[BMpOp_Blit + (nblines & 1)]            , cycles, output);
+    CGENgenerate(&code[BMpOp_PreBlit1 + (nblines & 1)], cycles, output);
     patchoffset[PLASMA_MOVEOFFSET] = nblines << 1;
     nblines++;
+
+    CGENaddNops(cycles, targetcycles, output);
+    CGENgenerate(&code[BMpOp_Blit], cycles, output);
 
     /* line BLITZ_MENU_POS_Y + 2 -> BLITZ_MENU_EMPTY2_Y - 1 */
     for (t = BLITZ_MENU_POS_Y + 2; t < BLITZ_MENU_EMPTY2_Y; t++)
     {
-        cycles = 0;
+        cycles = code[BMpOp_Blit].cycles_div2 * 2;
+
         CGENgenerate(&code[BMpOp_C3_R], cycles, output);
-        CGENaddNops(cycles + code[BMpOp_Blit].cycles_div2 * 2, targetcycles, output);
+
         patchoffset = (u16*) output;
-        CGENgenerate(&code[BMpOp_Blit + (nblines & 1)], cycles, output);
+        CGENgenerate(&code[BMpOp_PreBlit1 + (nblines & 1)], cycles, output);
         patchoffset[PLASMA_MOVEOFFSET] = nblines << 1;
         nblines++;
+
+        CGENaddNops(cycles, targetcycles, output);
+        CGENgenerate(&code[BMpOp_Blit], cycles, output);
     }
 
     /* line BLITZ_MENU_EMPTY2_Y */
-    cycles = 0;
+    cycles = code[BMpOp_Blit].cycles_div2 * 2;
     CGENgenerate(&code[BMpOp_AdrEmpty], cycles, output);
-    CGENaddNops(cycles + code[BMpOp_Blit].cycles_div2 * 2, targetcycles, output);
+
     patchoffset = (u16*) output;
-    CGENgenerate(&code[BMpOp_Blit + (nblines & 1)]    , cycles, output);
+    CGENgenerate(&code[BMpOp_PreBlit1 + (nblines & 1)]    , cycles, output);
     patchoffset[PLASMA_MOVEOFFSET] = nblines << 1;
     nblines++;
+
+    CGENaddNops(cycles, targetcycles, output);
+
+    CGENgenerate(&code[BMpOp_Blit], cycles, output);
 
     /* line BLITZ_MENU_EMPTY2_Y + 1 -> BLITZ_MENU_TIPS_Y - 2 */
     for (t = BLITZ_MENU_EMPTY2_Y + 1; t < (BLITZ_MENU_TIPS_Y - 1); t++)
     {
-        cycles = 0;
-        CGENaddNops(cycles + code[BMpOp_Blit].cycles_div2 * 2, targetcycles, output);
+        cycles = code[BMpOp_Blit].cycles_div2 * 2;
+
         patchoffset = (u16*) output;
-        CGENgenerate(&code[BMpOp_Blit + (nblines & 1)], cycles, output);
+        CGENgenerate(&code[BMpOp_PreBlit1 + (nblines & 1)], cycles, output);
         patchoffset[PLASMA_MOVEOFFSET] = nblines << 1;
         nblines++;
+
+        CGENaddNops(cycles, targetcycles, output);
+        CGENgenerate(&code[BMpOp_Blit], cycles, output);
     }
 
     /* BLITZ_MENU_TIPS_Y - 2 */
-    cycles = 0;
-    CGENgenerate(&code[BMpOp_PixOffsetTips]  , cycles, output);
-    CGENgenerate(&code[BMpOp_PitchTips]      , cycles, output);
-    CGENaddNops(cycles + code[BMpOp_Blit].cycles_div2 * 2, targetcycles, output);
+    cycles = code[BMpOp_Blit].cycles_div2 * 2;
+
+    CGENgenerate(&code[BMpOp_PixOffsetTips], cycles, output);
+
     patchoffset = (u16*) output;
-    CGENgenerate(&code[BMpOp_Blit + (nblines & 1)], cycles, output);
+    CGENgenerate(&code[BMpOp_PreBlit1 + (nblines & 1)], cycles, output);
     patchoffset[PLASMA_MOVEOFFSET] = nblines << 1;
     nblines++;
+
+    CGENgenerate(&code[BMpOp_PitchTips], cycles, output);
+
+    CGENaddNops(cycles, targetcycles, output);
+    CGENgenerate(&code[BMpOp_Blit], cycles, output);
 
     /* line BLITZ_MENU_TIPS_Y */
-    cycles = 0;
+    cycles = code[BMpOp_Blit].cycles_div2 * 2;
+
     CGENgenerate(&code[BMpOp_AdrScrollerTips], cycles, output);
     CGENgenerate(&code[BMpOp_C2_000]         , cycles, output);
-    CGENaddNops(cycles + code[BMpOp_Blit].cycles_div2 * 2, targetcycles, output);
+
     patchoffset = (u16*) output;
-    CGENgenerate(&code[BMpOp_Blit + (nblines & 1)]           , cycles, output);
+    CGENgenerate(&code[BMpOp_PreBlit1 + (nblines & 1)]           , cycles, output);
     patchoffset[PLASMA_MOVEOFFSET] = nblines << 1;
     nblines++;
 
+    CGENaddNops(cycles , targetcycles, output);
+
+    CGENgenerate(&code[BMpOp_Blit], cycles, output);
+
     /* line BLITZ_MENU_TIPS_Y + 1 */
-    cycles = 0;
+    cycles = code[BMpOp_Blit].cycles_div2 * 2;
+
     CGENgenerate(&code[BMpOp_C3_777]         , cycles, output);
-    CGENaddNops(cycles + code[BMpOp_Blit].cycles_div2 * 2, targetcycles, output);
+
     patchoffset = (u16*) output;
-    CGENgenerate(&code[BMpOp_Blit + (nblines & 1)]           , cycles, output);
+    CGENgenerate(&code[BMpOp_PreBlit1 + (nblines & 1)]           , cycles, output);
     patchoffset[PLASMA_MOVEOFFSET] = nblines << 1;
     nblines++;
+
+    CGENaddNops(cycles, targetcycles, output);
+    CGENgenerate(&code[BMpOp_Blit], cycles, output);
 
     /* line BLITZ_MENU_TIPS_Y + 2 -> BLITZ_MENU_EMPTY3_Y - 1 */
     for (t = BLITZ_MENU_TIPS_Y + 2; t < BLITZ_MENU_EMPTY3_Y; t++)
     {
-        cycles = 0;
-        CGENaddNops(cycles + code[BMpOp_Blit].cycles_div2 * 2, targetcycles, output);
+        cycles = code[BMpOp_Blit].cycles_div2 * 2;
+        
         patchoffset = (u16*) output;
-        CGENgenerate(&code[BMpOp_Blit + (nblines & 1)], cycles, output);
+        CGENgenerate(&code[BMpOp_PreBlit1 + (nblines & 1)], cycles, output);
         patchoffset[PLASMA_MOVEOFFSET] = nblines << 1;
         nblines++;
+
+        CGENaddNops(cycles, targetcycles, output);
+        CGENgenerate(&code[BMpOp_Blit], cycles, output);
     }
 
     /* line BLITZ_MENU_EMPTY3_Y */
-    cycles = 0;
-    CGENgenerate(&code[BMpOp_AdrEmpty]         , cycles, output);     /* add this empty line to change pixoffset and pitch before next step to avoid performance peak */
+    cycles = code[BMpOp_Blit].cycles_div2 * 2;
+    
     CGENgenerate(&code[BMpOp_PixOffset0]       , cycles, output);
-    CGENgenerate(&code[BMpOp_Pitch160]         , cycles, output);
-    CGENaddNops(cycles + code[BMpOp_Blit].cycles_div2 * 2, targetcycles, output);
+
     patchoffset = (u16*) output;
-    CGENgenerate(&code[BMpOp_Blit + (nblines & 1)]             , cycles, output);
+    CGENgenerate(&code[BMpOp_PreBlit1 + (nblines & 1)]             , cycles, output);
     patchoffset[PLASMA_MOVEOFFSET] = nblines << 1;
     nblines++;
 
+    CGENgenerate(&code[BMpOp_AdrEmpty]         , cycles, output);     /* add this empty line to change pixoffset and pitch before next step to avoid performance peak */
+    CGENgenerate(&code[BMpOp_Pitch160]         , cycles, output);
+
+    CGENaddNops(cycles, targetcycles, output);   
+
+    CGENgenerate(&code[BMpOp_Blit]             , cycles, output);
+
     /* line BLITZ_MENU_SCROLL2_Y */
-    cycles = 0;
+    cycles = code[BMpOp_Blit].cycles_div2 * 2;
+    
     CGENgenerate(&code[BMpOp_AdrScroller2Shift], cycles, output);
     CGENgenerate(&code[BMpOp_C3_R]             , cycles, output);
-    CGENaddNops(cycles + code[BMpOp_Blit].cycles_div2 * 2, targetcycles, output);
+    
     patchoffset = (u16*) output;
-    CGENgenerate(&code[BMpOp_Blit + (nblines & 1)]             , cycles, output);
+    CGENgenerate(&code[BMpOp_PreBlit1 + (nblines & 1)] , cycles, output);
     patchoffset[PLASMA_MOVEOFFSET] = nblines << 1;
     nblines++;
+
+    CGENaddNops(cycles, targetcycles, output);
+
+    CGENgenerate(&code[BMpOp_Blit], cycles, output);
 
     /* line BLITZ_MENU_SCROLL2_Y + 1 -> line BLITZ_MENU_SCROLL2_Y + BLITZ_MENU_YSPACING - 1 */
     for (t = BLITZ_MENU_SCROLL2_Y + 1; t < (BLITZ_MENU_SCROLL2_Y + BLITZ_MENU_YSPACING); t++)
     {
-        cycles = 0;
+        cycles = code[BMpOp_Blit].cycles_div2 * 2;
+
         CGENgenerate(&code[BMpOp_C3_R], cycles, output);
-        CGENaddNops(cycles + code[BMpOp_Blit].cycles_div2 * 2, targetcycles, output);
+
         patchoffset = (u16*) output;
-        CGENgenerate(&code[BMpOp_Blit + (nblines & 1)], cycles, output);
+        CGENgenerate(&code[BMpOp_PreBlit1 + (nblines & 1)], cycles, output);
         patchoffset[PLASMA_MOVEOFFSET] = nblines << 1;
         nblines++;
+
+        CGENaddNops(cycles, targetcycles, output);
+        CGENgenerate(&code[BMpOp_Blit], cycles, output);
     }
 
     /* line BLITZ_MENU_SCROLL2_Y + BLITZ_MENU_YSPACING */
-    cycles = 0;
+    cycles = code[BMpOp_Blit].cycles_div2 * 2;
+    
     CGENgenerate(&code[BMpOp_AdrScroller2], cycles, output);
     CGENgenerate(&code[BMpOp_C3_R], cycles, output);
-    CGENaddNops(cycles + code[BMpOp_Blit].cycles_div2 * 2, targetcycles, output);
+
     patchoffset = (u16*) output;
-    CGENgenerate(&code[BMpOp_Blit + (nblines & 1)], cycles, output);
+    CGENgenerate(&code[BMpOp_PreBlit1 + (nblines & 1)], cycles, output);
     patchoffset[PLASMA_MOVEOFFSET] = nblines << 1;
     nblines++;
+
+    CGENaddNops(cycles, targetcycles, output);
+
+    CGENgenerate(&code[BMpOp_Blit], cycles, output);
 
     /* line BLITZ_MENU_SCROLL2_Y + BLITZ_MENU_YSPACING + 1 -> BLITZ_MENUPLASMA_HEIGHT + 1 */
     for (t = BLITZ_MENU_SCROLL2_Y + BLITZ_MENU_YSPACING + 1; t < BLITZ_MENUPLASMA_HEIGHT ; t++)
     {
-        cycles = 0;
+        cycles = code[BMpOp_Blit].cycles_div2 * 2;
+        
         CGENgenerate(&code[BMpOp_C3_R], cycles, output);
-        CGENaddNops(cycles + code[BMpOp_Blit].cycles_div2 * 2, targetcycles, output);
+        
         patchoffset = (u16*) output;
-        CGENgenerate(&code[BMpOp_Blit + (nblines & 1)], cycles, output);
+        CGENgenerate(&code[BMpOp_PreBlit1 + (nblines & 1)], cycles, output);
         patchoffset[PLASMA_MOVEOFFSET] = nblines << 1;
         nblines++;
+
+        CGENaddNops(cycles, targetcycles, output);
+        CGENgenerate(&code[BMpOp_Blit], cycles, output);
     }
 
     CGENgenerateSimple(&code[BMpOp_End], output);
@@ -1002,6 +1091,10 @@ static void blitzMenuInitScroller(BlitZMenu* this)
 
     size -= BLITZ_MENU_SCROLL2_H * 160;
     this->empty = this->gridscrollerbuffer + size;
+
+    this->empty += 160;
+    this->empty = (u8*)(((u32)this->empty + 255) & 0xFFFFFF00UL);
+    this->empty -= 160;
 
     p = this->gridscrollerbuffer;
 
@@ -1294,6 +1387,10 @@ void BlitZMenuEnter (FSM* _fsm)
     BlitZMenuDisplay(this, (u16*)this->plasma, 0, 0, 0, 0);
 
     SYSvsync;
+   
+    *HW_VIDEO_PIXOFFSET = 0;
+    *HW_VIDEO_OFFSET = 0;
+
     RASnextOpList     = &this->rasterBootOp;
     SYSvblroutines[1] = this->rasterBootFunc;
 
@@ -1694,6 +1791,26 @@ void BlitZMenuActivity (FSM* _fsm)
         }
         this->updatebasstreble = BLITZ_MENU_BASSTREBLE_COUNT;
     }
+#   if BLZ_DEVMODE()
+    else if (cmd == BLZ_CMD_F9)
+    {
+        if (this->asmimport->waitloop)
+            this->asmimport->waitloop--;
+    }
+    else if (cmd == BLZ_CMD_F10)
+    {
+        this->asmimport->waitloop++;
+    }
+    else if (cmd == BLZ_CMD_Q)
+    {
+        if (this->asmimport->waitloop2)
+            this->asmimport->waitloop2--;
+    }
+    else if (cmd == BLZ_CMD_W)
+    {
+        this->asmimport->waitloop2++;
+    }
+#   endif
 
     /* Plasma variables update */
     {
@@ -1791,7 +1908,7 @@ static void blitzMenuUpdateTips(BlitZMenu* this)
             SYSfastPrint(pc, this->tipscrollerbuffer + BLITZ_MENU_TIPS_PITCH + 160, BLITZ_MENU_TIPS_PITCH, 4, (u32)&SYSfont);
 
             ASSERT(len <= 79);
-            this->menubarstate.tipstargetx = 640 - ((79 - len) * 8);
+            this->menubarstate.tipstargetx = 640 - ((79 - (len | 1)) * 8); /* | 1 to enforce 16 pixels alignement to limit glitches on faulty STes */
 
             blitzMenuShadowPrint(this, pc, this->tipscrollerbuffer + 160 + 2, BLITZ_MENU_TIPS_PITCH, 4);
             

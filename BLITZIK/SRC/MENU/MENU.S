@@ -58,7 +58,7 @@ BMpASTips:		dc.l	0
 	; a2 : pp2
 	; a3 : SN
 	; a4 : sn2
-	; a5 : ffff8203
+	; a5 : ffff8205
 	; a6 : ffff8a3c
 	
 BMpRegs:
@@ -67,7 +67,7 @@ BMpRegs:
 	dc.l	0			; p2plasma
 	dc.l	0			; sn
 	dc.l	0			; sn2
-	dc.l	$ffff8203
+	dc.l	$ffff8205
 	dc.l	$ffff8a3c
 
 	; functions table
@@ -87,11 +87,17 @@ BMplGenTable:
 	dc.b	(BMplEndEnd-BMplEnd)/2,0
 	dc.l	BMplEnd
 
-	dc.b	(BMplBlitEnd-BMplBlit)/2,228
+	dc.b	(BMplPreBlit1End-BMplPreBlit1)/2,22
+	dc.l	BMplPreBlit1
+
+	dc.b	(BMplPreBlit2End-BMplPreBlit2)/2,22
+	dc.l	BMplPreBlit2
+
+	dc.b	(BMplBlitEnd-BMplBlit)/2,208
 	dc.l	BMplBlit
 
-	dc.b	(BMplBlit2End-BMplBlit2)/2,228
-	dc.l	BMplBlit2
+	dc.b	(BMpC0backend-BMpC0back)/2,6
+	dc.l	BMpC0back
 
 	dc.b	(BMpC2000end-BMpC2000)/2,6
 	dc.l	BMpC2000
@@ -163,44 +169,40 @@ BMplBegin:
 	; move.w	BMpColor1,$ffff8240.w			; absolute adressing because of generated code
 
     ; synchro lsl to be perfectly synchronized with display
-	move.l	a0,usp		; this trick instead of saving d6.w and d7.w on stack to save 8 cycles
-	move.l	d7,a0
-	move.w	d6,d7
-	swap	d7
 	
-    move.b  $ffff8209.w,d6
+	move.w	d7,-(sp)
+
 .lslSync:		
-    move.b  d6,d7
-	sub.b	$ffff8209.w,d7
+	move.b	$ffff8209.w,d7
 	beq.s	.lslSync
 
     clr.b	$fffffa1b.w		; stop timer b 
 
-	add.w	#31,d7
-	lsl.w	d7,d6
-
-	swap	d7
-	move.w	d7,d6
-	move.l	a0,d7
-	move.l	usp,a0
-
-	move.w	d6,-(sp)
-	move.w	d7,-(sp)
+	neg.b	d7
+	add.b	#31,d7
+	lsl.w	d7,d7
 
     ;move.w  #$700,$ffff8240.w
 
-    movem.l d0-d5/a0-a6,-(sp)
+    movem.l d0-d6/a0-a6,-(sp)
 
     move.w  #$2700,sr		; cut all interrupts
 	move.l	sp,BMpBackSP
 	lea		BMpImportTable,sp	; generated code => no pc relative
+  
+    rept 9
+    nop
+    endr
 
-	;move.w  #$7,$ffff8240.w
+    moveq.l #1,d0
+    moveq.l #2,d1
+    
+    ; cycle 444 - L16 Shifter stabilizer
+    move.w d1,$ffff8260.w
+    move.b d0,$ffff8260.w
 
 	move.w	BMpWaitLoop-BMpImportTable(sp),d0
 .waitloop:	dbf.w d0,.waitloop
-    
-	;move.w  #$70,$ffff8240.w
 
     ; Re-param the blitter 
     movem.l BMpblitregs-BMpImportTable(sp),d0-d5/a0
@@ -209,20 +211,33 @@ BMplBegin:
 	; Loads / preloads registers
 	movem.l	BMpEmpty-BMpImportTable(sp),d0-d5/a0-a6
 
+	lsl.l	#8,d0
+	lsl.l	#8,d1
+	lsl.l	#8,d2
+	lsl.l	#8,d3
+	lsl.l	#8,d4
+	lsl.l	#8,d5
+
 	move.w	BMpColor2-BMpImportTable(sp),d6
-	move.w	#$C000,d7	; d7 can be used to start blitter, 0 color, 0 for bytes...
 
     move.w	#$555,$ffff8242.w
     move.w	d7,$ffff8244.w
 	move.w	(a0)+,$ffff8246.w ; to save time on 1st line...
 
-	move.w	BMpColor2-BMpImportTable(sp),$ffff8240.w
+	move.w	#$C000,d7	; d7 can be used to start blitter, 0 color, 0 for bytes...
+
+    nop
+    nop
 
 BMplBeginEnd:
 
 ;-----------------------------------------
 ; Set colors
 ;-----------------------------------------
+BMpC0back:
+	move.w	d6,$ffff8240.w
+BMpC0backend:
+
 BMpC2000:
 	move.w	d7,$ffff8244.w
 BMpC2000end:
@@ -320,12 +335,21 @@ BMpSATipsScrolend:
 
 ;-----------------------------------------
 
-;-----------------------------------------
-BMplBlit:
-
+BMplPreBlit1:
     move.w	#1,$ffff8a38.w				; vertical size => 1		12
 	move.l	a1,$ffff8a24.w				; address source			16
 	add.w	2(a3),a1					;							16
+BMplPreBlit1End:
+
+BMplPreBlit2:
+    move.w	#1,$ffff8a38.w				; vertical size => 1		12
+	move.l	a2,$ffff8a24.w				; address source			16
+	add.w	2(a4),a2					;							16
+BMplPreBlit2End:
+
+;-----------------------------------------
+BMplBlit:
+
     move.w	d7,(a6)						; run blitter				8 
 										;							384 ?
     move.w  d6,$ffff8240.w				; color          			12
@@ -334,34 +358,18 @@ BMplBlitEnd:
 
 
 ;-----------------------------------------
-BMplBlit2:
-
-    move.w	#1,$ffff8a38.w				; vertical size => 1		12
-	move.l	a2,$ffff8a24.w				; address source			16
-	add.w	2(a4),a2					;							16
-    move.w	d7,(a6)						; run blitter				8 
-										;							384 ?
-    move.w  d6,$ffff8240.w				; color2					12
-
-BMplBlit2End:
-
-
-;-----------------------------------------
 BMplEnd:
 
-	move.b	BMpEmpty+2-BMpImportTable(sp),$ffff8203.w	; restore base that has been crunched by the movep.l
 	move.l  BMpBackSP,sp
 	
 	move.w	BMpColor1,$ffff8240.w	; absolute adressing because of generated code...
-	move.w	BMpWaitLoop2,d6
+    movem.l	(sp)+,d0-d6/a0-a6
 
-    movem.l	(sp)+,d0-d5/a0-a6
-    move.w	(sp)+,d7
-
+	move.w	BMpWaitLoop2,d7
 .waitloop:
-	dbf.w	d6,.waitloop
+	dbf.w	d7,.waitloop
 
-    move.w	(sp)+,d6
+    move.w	(sp)+,d7
 
 	clr.w	$ffff8240.w
 

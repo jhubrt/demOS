@@ -64,8 +64,10 @@ enum BlitZMenuASMopcodes_
 {
     BMpOp_Begin,
     BMpOp_End,
+    BMpOp_PreBlit1,
+    BMpOp_PreBlit2,
     BMpOp_Blit,
-    BMpOp_Blit2,
+    BMpOp_C0_back,
     BMpOp_C2_000,
     BMpOp_C1_555,
     BMpOp_C1_666,

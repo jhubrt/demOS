@@ -1,0 +1,191 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@@@@  @@  @  @    @@@@@
+@   @  @     @@@     @   @   @  @@@   @  @
+@@@@   @  @  @      @    @   @     @  @ @
+@   @  @  @  @     @     @ @ @  @  @  @@
+@@@@   @  @   @@  @@@@@   @ @    @@@  @
+
+
+                    
+                        
+        I N F O          
+      I N F O            Dok - Metal Ages
+    I N F O                   Cybernetics
+  I N F O                            2022 
+I N F O                   
+                          
+                  @ @ @  
+                         
+                         
+Menu + Info - press arrows to scroll      
+Menu        - press space/return to select
+Info        - press space/return goto menu
+                         
+                         
+                  @ @ @   
+                 
+                 
+  We proudly present BlitZwav musik disk 
+      for Atari STe 1mb - 1 floppy
+                                          
+
+BlitZwav features a list of great tunes by
+    Dok who have kindly accepted to
+  compose for BlitSnd routine and tools
+                         
+                         
+                  @ @ @   
+                         
+                         
+BlitZwav features this new sound technique
+using blitter to mix 4 PCM voices and also
+     provides 3 traditional YM voices
+
+  This routine fits the upper border :)
+                         
+                         
+                  @ @ @   
+                         
+                                  
+            Interactive mode
+
+           
+  BlitZwav provides scripted FX sequences
+ for each tune but also has an interactive
+  mode to experience FX manually through
+                 keyboard
+
+    - use F1->F7 to select FX
+    - other keys to trig FX options
+  
+    Look at README file for detailled
+     keys mapping or just try ... :)
+
+
+
+         Playing from menus mode
+
+
+  If your STe is sensible to audio clicks
+   (depending on the hardware activity
+        blitter in particular...) 
+you can use this mode to minimize glitches
+
+
+
+              Autorun mode
+
+
+     Run all tunes with corresponding
+      FX sequences successively as a
+             continuous demo
+
+
+                  @ @ @
+    
+
+          BlitZwav floppy image
+     is additionnally provided with:
+
+  - alternative boot PRG 
+    to run floppy from disk drive B
+
+  - a PRG version to run image from HD
+    this version needs at least 2mb RAM
+
+
+   Look at README file for more info...
+
+
+                  @ @ @
+
+
+      We are grateful for their help
+
+     NPomarede  Leonard  Paulo Simoes
+     Evil DHS  GGN  Charlie  Strider
+
+
+         For the great emulators 
+
+   Hatari Steem dev teams  JF Del Nero
+
+
+      
+          Hi to all our friends
+
+
+
+             Greetings fly to
+
+        BlaBLa  Checkpoint  Cocoon
+       Cyclades  DHS  Dune  Equinox
+   Hemoroids  Live!  MJJ Prod  No extra
+     Overlanders  Oxygene  Sector One
+               Sync  Swyng
+
+...all people doing cool things for fun...
+
+
+
+
+
+
+           in memoriam Ultrasyd
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -786,10 +786,12 @@ void BlitZsetVideoMode (u8 vmode_, u8 voffset_, u16 xtrapix_)
 
     if (SYSvblroutines[0] != g_screens.blzupdateroutine)
     {
+        u8*p = &xtrapix_;
+
         SYSvsync;
 
-        *(u16*)HW_VIDEO_PIXOFFSET_HIDDEN = xtrapix_;
-        *HW_VIDEO_PIXOFFSET_HIDDEN       = xtrapix_;
+        *HW_VIDEO_PIXOFFSET = *p++;
+        *HW_VIDEO_PIXOFFSET_HIDDEN = *p;
 
         *HW_VIDEO_OFFSET                 = voffset_;
 
@@ -807,8 +809,8 @@ void BlitZsetVideoMode (u8 vmode_, u8 voffset_, u16 xtrapix_)
 
 #   else
 
-    *HW_VIDEO_PIXOFFSET_HIDDEN = xtrapix_ >> 8;
-    *HW_VIDEO_PIXOFFSET        = (u8)xtrapix_;
+    *HW_VIDEO_PIXOFFSET_HIDDEN = (u8)xtrapix_;
+    *HW_VIDEO_PIXOFFSET        = xtrapix_ >> 8;
     *HW_VIDEO_OFFSET           = voffset_;
     *HW_VIDEO_MODE             = vmode_;
 

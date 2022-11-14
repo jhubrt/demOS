@@ -42,7 +42,7 @@ SNSempty:   dc.l    0
 
 SNSregs:
 SNSh:		dc.w	0		    ; d0
-            dc.w	1		    ; d1
+            dc.w	0		    ; d1
 SNSpitch:	dc.w	TC_WIDTH	; d2
     		dc.w	$C000	    ; d3
 SNStunX3:   dc.w    0           ; d4
@@ -162,21 +162,26 @@ SNSinit:
 SNStc:
 	move.l	d0,-(sp)
     move.l  d1,-(sp)
-   
-    clr.b	$fffffa1b.w		; stop timer b 
-   
+     
     ; synchro lsl to be perfectly synchronized with display
-
     move.b  $ffff8209.w,d0
 .lslSync:		
     move.b  d0,d1
 	sub.b	$ffff8209.w,d1
 	beq.s	.lslSync
 
+    clr.b	$fffffa1b.w		; stop timer b 
+
     add.w	#31,d1
 	lsl.w	d1,d0
 
-    movem.l d2-d7/a2-a6,-(sp)
+    clr.l   $120.w      ; hack to synchronize with main thread
+
+    moveq.l #32,d0
+.wait:
+    dbf.w   d0,.wait
+
+    movem.l d2-d7/a1-a6,-(sp)
 
     ; re-param blitter 
     movem.l SNSblit(pc),d0-d6
@@ -184,96 +189,103 @@ SNStc:
 
     movem.w SNSregs(pc),d0-d7
     move.w  d7,$fffff8a00.w
-    moveq.l #0,d7
+    move.w  d1,d7
+    moveq.l #1,d1                   ; blit y size
 
 	move.l	SNSlines(pc),a5
     move.l  (a5),a5
     add.w   d6,a5
     move.l  SNStable(pc),a3
+    lea     $ffff8207.w,a1
+    lea     $ffff8a26.w,a2
     lea     $ffff8a26.w,a2
     lea     $ffff8240.w,a4
     lea     $ffff8a38.w,a6    
-
-    nop
-  
+ 
 .loop:
+    moveq.l #0,d6                   ; 4
+    move.b  (a5),d6                 ; 8
+    add.w   d6,d6                   ; 4
+    move.w  (a3,d6.w),d6            ; 16
     move.w	d1,(a6)                 ; sizey = 1
 	move.w	d3,4(a6)                ; run 
     move.w  d7,(a4)                 ; 8
+    add.w   d5,a5
+
+    nop
+    nop
+    nop
+    nop
+    nop
+    nop
+
+    movep.w d6,(a1)                 ; 16
+    lsl.w   d4,d6                   ; d4 = 10 => 28
+
     moveq.l #0,d6                   ; 4
     move.b  (a5),d6                 ; 8
-    add.w   d5,a5
     add.w   d6,d6                   ; 4
     move.w  (a3,d6.w),d6            ; 16
-    movep.w d6,$8207-$8240(a4)      ; 16
-    nop
-    nop
-    nop
-    nop
-    nop
-    nop
-    lsl.w   d4,d7                   ; d4 = 10 => 28
-
     move.w	d1,(a6)                 ; sizey = 1
 	move.w	d3,4(a6)                ; run 
     move.w  d7,(a4)                 ; 8
+    add.w   d5,a5
+
+    nop
+    nop
+    nop
+    nop
+    nop
+    nop
+
+    movep.w d6,(a1)                 ; 16
+    lsl.w   d4,d6                   ; d4 = 10 => 28
+
     moveq.l #0,d6                   ; 4
     move.b  (a5),d6                 ; 8
-    add.w   d5,a5
     add.w   d6,d6                   ; 4
     move.w  (a3,d6.w),d6            ; 16
-    movep.w d6,$8207-$8240(a4)      ; 16
-    nop
-    nop
-    nop
-    nop
-    nop
-    nop
-    lsl.w   d4,d7                   ; d4 = 10 => 28
-
     move.w	d1,(a6)                 ; sizey = 1
 	move.w	d3,4(a6)                ; run 
     move.w  d7,(a4)                 ; 8
+    add.w   d5,a5
+
+    nop
+    nop
+    nop
+    nop
+    nop
+    nop
+
+    movep.w d6,(a1)                 ; 16
+    lsl.w   d4,d6                   ; d4 = 10 => 28
+
     moveq.l #0,d6                   ; 4
     move.b  (a5),d6                 ; 8
-    add.w   d5,a5
     add.w   d6,d6                   ; 4
     move.w  (a3,d6.w),d6            ; 16
-    movep.w d6,$8207-$8240(a4)      ; 16
-    nop
-    nop
-    nop
-    nop
-    nop
-    nop
-    lsl.w   d4,d7                   ; d4 = 10 => 28
-
     move.w	d1,(a6)                 ; sizey = 1
 	move.w	d3,4(a6)                ; run 
     move.w  d7,(a4)                 ; 8
-    moveq.l #0,d6                   ; 4
-    move.b  (a5),d6                 ; 8
     add.w   d5,a5
-    add.w   d6,d6                   ; 4
-    move.w  (a3,d6.w),d6            ; 16
-    movep.w d6,$8207-$8240(a4)      ; 16
-    lsl.w   d4,d7                   ; d4 = 10 => 28
 
+    movep.w d6,(a1)                 ; 16
+    lsl.w   d4,d6                   ; d4 = 10 => 28
     add.w   d2,(a2)                 ; 20
 
 	dbra.w	d0,.loop                ; 12
 
 .end:
 
-    move.b  SNSempty+1(pc),$ffff8205.w
-    move.b  SNSempty+2(pc),$ffff8207.w
-    move.b  SNSempty+3(pc),$ffff8209.w
+    lea     SNSempty+1(pc),a1
 
-    movem.l	(sp)+,d2-d7/a2-a6
+    move.b  (a1)+,$ffff8205.w
+    move.b  (a1)+,$ffff8207.w
+    move.b  (a1)+,$ffff8209.w
+
+    movem.l	(sp)+,d2-d7/a1-a6
     move.l  (sp)+,d1
     move.l  (sp)+,d0
-
-    clr.l   $120.w      ; hack to synchronize with main thread
 
 	rte
 

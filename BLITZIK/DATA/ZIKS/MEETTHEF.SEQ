@@ -1,0 +1,62 @@
+#FXMACROS.TXT
+
+; Sequence test
+
+; t Trackindex
+; Row | Commands...
+
+t 00
+00 SDSfxSoundShade SDSbackVoice1 SDSfrontVoice3 SDSfront2colors SDSbackFilterCyan SDSbackVertical
+
+t 01
+20 SDSbackVoice4
+28 SDSbackNoFilter SDSfrontDisable
+
+t 02
+00 CRVfxSampleCurve CRVcurveSolo CRVcurveSoloFillAll CRVcurveSoloBump
+08 CRVcurveSoloBump
+
+18 SDSfxSoundShade SDSfrontVoice3 SDSfront2colors SDSbackVoice4
+
+t 04
+00 ALCfxAllCurve
+20 SDSfxSoundShade SDSbackVoice2 SDSbackZoom
+37 SDSbackVoice4 SDSbackNoFeedback 
+
+t 05
+00 ALCfxAllCurve
+20 SDSfxSoundShade SDSbackVoice2 SDSbackZoom
+37 SDSbackVoice4 SDSbackNoFeedback 
+
+t 06
+04 SDSfxSoundShade SDSfrontVoice3 SDSfront2colors SDSbackVertical
+37 SDSbackVoice4 SDSbackNoFeedback 
+
+t 07
+00 ALCfxAllCurve
+
+t 08
+00 CRVfxSampleCurve CRVcurveTwins CRVvoice1_1 CRVvoice2_3
+40 CRVfxSampleCurve CRVcurveSolo 
+48 CRVcurveSoloBump
+50 CRVcurveSoloBumpDown
+58 CRVcurveSoloBump
+60 CRVcurveSoloBumpDown
+68 CRVcurveSoloBump
+70 CRVcurveSoloBumpDown
+78 CRVcurveSoloBump
+
+t 09
+00 CRVcurveTwinsSparks CRVvoice1_1 CRVvoice2_3
+40 CRVcurveSolo 
+50 CRVcurveSoloFill1
+60 CRVcurveSoloFill2
+70 CRVcurveSoloFill3
+
+t 0A
+00 CRVcurveSiamese CRVnoInterlace CRVvoice1_1 CRVvoice2_1
+40 ALCfxAllCurve
+66 WAHwaveHero
+
+t 0D
+37 SDSfxSoundShade SDSbackNoFeedback SDSbackVoice4

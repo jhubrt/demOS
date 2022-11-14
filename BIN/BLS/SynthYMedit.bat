@@ -1,1 +1,1 @@
-"C:\Program Files (x86)\Notepad++\notepad++.exe" "%1"
+"C:\Program Files\Notepad++\notepad++.exe" "%1"

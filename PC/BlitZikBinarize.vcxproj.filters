@@ -195,9 +195,6 @@
     <None Include="..\BLITZIK\DATA\ZIKS\NUTEK10.xm">
       <Filter>DATA\ZIKS</Filter>
     </None>
-    <None Include="..\BLITZIK\TOOLS\BATCH\_publishexecutables.bat">
-      <Filter>Batchs</Filter>
-    </None>
     <None Include="..\BLITZIK\TOOLS\BATCH\_make_debug.bat">
       <Filter>Batchs</Filter>
     </None>
@@ -286,6 +283,9 @@
       <Filter>DATA\INFO</Filter>
     </None>
     <None Include="..\BLITZIK\BLITZWAV.INI" />
+    <None Include="..\BLITZIK\DATA\ZIKS\1st-kit.SEQ">
+      <Filter>DATA\ZIKS</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\DEMOSDK\HARDWARE.H">

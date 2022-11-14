@@ -24,21 +24,22 @@
 /*-----------------------------------------------------------------------------------------------
     Main program : init / shutdown / main loop
 
-    Here is the whole source code of 'BLITZIK' demo.
+    Here is the whole source code of 'BLITZWAV' demo.
     It is implemented as:                                                           
     - a low level reusable layer available in demOS folder                          
     - specialized high level implementations                                        
     
     So feel free to re-use, improve... demOS                                        
 
-    BLITZIK is implemented as a mix of C and ASM68k code. 
+    BLITZWAV is implemented as a mix of C and ASM68k code. 
     It can be build with pure C without linking any standard library 
     (have a look at configuration is BASETYPES.H)
 
     3 project .PRJ files are provided:                                              
-    - debug target with .C metafile (for optimized build times) BLITZIKB.PRJ        
-    - final target with .C metafile (for optimized build times) BLITZIKO.PRJ        
-    - 'normal' target BLITZIK.PRJ (useful to identify link errors)                           
+    - debug target with .C metafile (for optimized build times) BLITZWAB.PRJ
+    - final target with .C metafile (for optimized build times) BLITZWAO.PRJ
+    - final Hard Drive target with .C metafile (for optimized build times) BLITZWAH.PRJ
+    - 'normal' target BLITZWAV.PRJ (useful to identify link errors)                           
 -------------------------------------------------------------------------------------------------*/
 
 #include "DEMOSDK\BASTYPES.H"

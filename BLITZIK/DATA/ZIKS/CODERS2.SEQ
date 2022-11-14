@@ -1,0 +1,185 @@
+#FXMACROS.TXT
+
+; t Trackindex
+; Row | Commands...
+
+t 00
+
+00 CRVfxSampleCurve CRVcurveSolo CRVvoice1_1 CRVcurveSoloNoFill CRVcurveColor3or13
+
+t 01
+
+00 CRVfxSampleCurve CRVcurveSiamese CRVvoice1_4 CRVvoice2_4  CRVcurveSoloNoFill CRVnoInterlace CRVcurveColor3or13
+04 CRVcurveSoloBump
+0C CRVcurveSoloBump
+14 CRVcurveSoloBump
+1A CRVcurveSoloFillAll CRVcurveSoloBump
+20 CRVcurveSoloNoFill
+24 CRVcurveSoloBump
+2C CRVcurveSoloBump
+30 CRVcurveSoloNoFill
+32 CRVvoice1_4 CRVcurveSoloFillAll
+34 CRVcurveSoloBump
+3C CRVcurveSoloBump
+40 CRVvoice1_3 CRVcurveSoloNoFill
+44 CRVcurveSoloBump
+4C CRVcurveSoloBump
+54 CRVcurveSoloBump
+5A CRVvoice1_3 CRVcurveSoloFillAll CRVcurveSoloBump
+60 CRVcurveSoloNoFill
+64 CRVcurveSoloBump
+6C CRVcurveSoloBump
+72 CRVvoice1_4 CRVcurveSoloFillAll
+74 CRVcurveSoloBump
+7C CRVcurveSoloBump
+
+t 02
+
+00 CRVfxSampleCurve CRVcurveSolo CRVvoice1_3 CRVcurveSoloNoFill CRVinterlace14_23 CRVcurveColor1or13
+04 CRVcurveSoloBump
+0C CRVcurveSoloBump
+14 CRVcurveSoloBump
+1A CRVcurveSoloFillAll CRVcurveSoloBump
+20 CRVcurveSoloNoFill
+24 CRVcurveSoloBump
+2C CRVcurveSoloBump
+30 CRVcurveSoloNoFill
+32 CRVvoice1_4 CRVcurveSoloFillAll
+34 CRVcurveSoloBump
+3C CRVcurveSoloBump
+40 CRVvoice1_3 CRVcurveSoloNoFill
+44 CRVcurveSoloBump
+4C CRVcurveSoloBump
+54 CRVcurveSoloBump
+5A CRVvoice1_3 CRVcurveSoloFillAll CRVcurveSoloBump
+60 CRVcurveSoloNoFill
+64 CRVcurveSoloBump
+6C CRVcurveSoloBump
+72 CRVvoice1_4 CRVcurveSoloFillAll
+; 74 CRVcurveSoloBump
+; 7C CRVcurveSoloBump
+
+t 03
+
+00 CRVfxSampleCurve CRVvoice1_4 CRVvoice2_3 CRVcurveTwins CRVinterlace14_23 CRVcurveColor1or13
+2C CRVfxSampleCurve CRVvoice1_4 CRVvoice2_3 CRVcurveSiamese CRVnoInterlace CRVcurveColor3or13
+40 CRVfxSampleCurve CRVvoice1_4 CRVvoice2_3 CRVcurveTwins CRVinterlace14_23 CRVcurveColor1or13
+6C CRVfxSampleCurve CRVvoice1_4 CRVvoice2_3 CRVcurveSiamese CRVnoInterlace CRVcurveColor3or13
+72 CRVvoice1_3 CRVcurveSoloFillAll
+
+t 04
+
+00 CRVfxSampleCurve CRVvoice1_4 CRVvoice2_3 CRVcurveTwins CRVinterlace14_23 CRVcurveColor1or13
+2C CRVfxSampleCurve CRVvoice1_4 CRVvoice2_3 CRVcurveSiamese CRVnoInterlace CRVcurveColor3or13
+40 CRVfxSampleCurve CRVvoice1_1 CRVvoice2_3 CRVcurveTwins CRVinterlace14_23 CRVcurveColor1or13
+6C CRVfxSampleCurve CRVvoice1_4 CRVvoice2_3 CRVcurveSiamese CRVnoInterlace CRVcurveColor1or13
+72 CRVvoice1_3 CRVcurveSoloFillAll
+
+t 05
+
+00 SDSfxSoundShade SDSbackCross SDSbackVoice3 SDSfrontGreys SDSfrontVoice3 SDSbackFlash0
+08 SDSbackFilterRed 
+10 SDSbackNoFilter SDSbackFlash1
+18 SDSbackFilterGreen 
+20 SDSbackNoFilter SDSbackFlash1
+28 SDSbackFilterBlue 
+30 SDSbackNoFilter SDSbackFlash0
+38 SDSbackFilterRed 
+40 SDSbackNoFilter SDSbackFlash1
+48 SDSbackFilterGreen 
+50 SDSbackNoFilter SDSbackFlash1
+58 SDSbackFilterBlue 
+60 SDSbackNoFilter SDSbackFlash0
+68 SDSbackFilterRed 
+70 SDSbackNoFilter SDSbackFlash1
+78 SDSbackFilterBlue 
+
+t 06
+
+00 CRVfxSampleCurve CRVcurveSolo CRVvoice1_3 CRVcurveSoloFillAll
+04 CRVcurveSoloBump
+0C CRVcurveSoloBump
+14 CRVcurveSoloBump
+1A CRVcurveSoloFillAll CRVcurveSoloBump
+20 CRVcurveSoloNoFill
+24 CRVcurveSoloBump
+2C CRVcurveSoloBump
+30 CRVcurveSoloNoFill
+32 CRVvoice1_4 CRVcurveSoloFillAll
+34 CRVcurveSoloBump
+3C CRVcurveSoloBump
+40 CRVvoice1_3 CRVcurveSoloNoFill
+44 CRVcurveSoloBump
+4C CRVcurveSoloBump
+54 CRVcurveSoloBump
+5A CRVvoice1_3 CRVcurveSoloFillAll CRVcurveSoloBump
+60 CRVcurveSoloNoFill
+64 CRVcurveSoloBump
+6C CRVcurveSoloBump
+72 CRVvoice1_4 CRVcurveSoloFillAll
+; 74 CRVcurveSoloBump
+; 7C CRVcurveSoloBump
+
+t 07
+
+00 ALCfxAllCurve
+
+t 08
+
+00 LAYfxLayerz LAYcurveKeys
+
+t 09 
+
+00 CRVfxSampleCurve CRVvoice1_4 CRVvoice2_3 CRVcurveTwinsSparks
+2C SDSfxSoundShade SDSbackVoice3 SDSbackNoFeedback SDSfrontVoice3 SDSfront2colors SDSfrontPCMnointerlace
+40 CRVfxSampleCurve CRVvoice1_4 CRVvoice2_3 CRVcurveSiamese CRVnoInterlace CRVcurveColor3or13
+72 SDSfxSoundShade SDSbackVoice3 SDSbackNoFeedback SDSfrontVoice3 SDSfront2colors SDSfrontPCMnointerlace
+
+t 0A
+
+00 CRVfxSampleCurve CRVvoice1_3 CRVvoice2_4 CRVcurveTwinsSparks
+2C SDSfxSoundShade SDSbackVoice3 SDSbackNoFeedback SDSfrontVoice3 SDSfront2colors SDSfrontPCMnointerlace
+40 CRVfxSampleCurve CRVvoice1_4 CRVvoice2_3 CRVcurveSiamese CRVnoInterlace CRVcurveColor1or13
+70 SDSfxSoundShade SDSbackVoice1 SDSbackCross SDSfrontVoice1 SDSfront2colors SDSfrontPCMnointerlace
+
+t 0B
+
+00 SCRfxSampleScroll SCRupBoing
+04 SCRdownPeng
+08 SCRupTschak
+0C SCRdownPeng
+10 SCRupBoing
+14 SCRdownPeng
+18 SCRupTschak
+1C SCRdownPeng
+20 SCRupBoing
+24 SCRdownPeng
+28 SCRupTschak
+2C SCRdownPeng
+30 SCRupBoing
+34 SCRdownPeng
+38 SCRupTschak
+3C SCRdownPeng
+40 SCRupBoing SCRdisplay1on7 SCRenableCurvesFX2
+44 SCRdownPeng
+48 SCRupTschak
+4C SCRdownPeng
+50 SCRupBoing
+54 SCRdownPeng
+58 SCRupTschak
+5C SCRdownPeng
+60 SCRupBoing
+64 SCRdownPeng
+68 SCRupTschak
+6C SCRdownPeng
+70 SCRupBoing
+74 SCRdownPeng
+78 SCRupTschak
+7C SCRdownPeng
+
+t 0C
+
+00 ALCfxAllCurve
+6F CRVfxSampleCurve CRVvoice1_1 CRVnoInterlace CRVcurveSolo CRVcurveColor3or13
+
+; Back to main menu

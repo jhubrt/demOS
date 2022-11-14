@@ -1,0 +1,103 @@
+#FXMACROS.TXT
+
+; Sequence test
+
+; t Trackindex
+; Row | Commands...
+
+t 00
+00 SCRfxSampleScroll SCRvoice1_2 SCRvoice2_2 SCRToggleCurves
+07 SCRToggleCurves
+
+t 01
+00 CRVfxSampleCurve CRVvoice1_2 CRVcurveSolo CRVinterlace14_23 CRVcurveColor3or13
+
+t 02
+00 CRVcurveColor4or24 CRVinterlace12_24_43_31
+
+t 03
+00 CRVcurveColor2or24 
+
+t 04
+00 ALCfxAllCurve
+
+t 06
+00 CRVfxSampleCurve CRVcurveTwins CRVvoice1_1 CRVvoice2_4 CRVcurveColor2or24
+0E CRVcurveSolo CRVcurveSoloFillAll CRVvoice1_4
+10 CRVcurveTwins CRVvoice1_1 CRVvoice2_4
+18 CRVcurveSolo CRVcurveSoloFillAll CRVvoice1_4
+24 CRVcurveTwins CRVvoice1_1 CRVvoice2_4
+30 SDSfxSoundShade SDSbackVoice4 SDSbackNoFeedback SDSfront2colors SDSfrontVoice1 SDSfrontPCMnointerlace
+
+t 07
+00 CRVfxSampleCurve CRVvoice1_1 CRVvoice2_4 CRVcurveTwins CRVnoInterlace CRVcurveColor2or24
+0E CRVvoice1_4 CRVvoice2_1 
+10 CRVvoice1_1 CRVvoice2_4 
+1E CRVvoice1_4 CRVvoice2_1 
+20 CRVvoice1_1 CRVvoice2_4 
+30 CRVvoice1_4 CRVvoice2_1 
+
+t 08
+00 SDSfxSoundShade SDSbackRotate 
+10 SDSbackInvertRotate
+20 SDSbackInvertRotate
+30 SDSbackInvertRotate
+36 SDSbackInvertRotate
+
+t 09 
+00 SDSbackInvertRotate
+10 SDSbackInvertRotate
+20 SDSbackInvertRotate
+30 SDSbackInvertRotate
+36 SDSbackInvertRotate
+
+t 0A
+00 SDSbackInvertRotate
+10 SDSbackInvertRotate
+20 SDSbackInvertRotate
+26 SDSbackInvertRotate
+30 SDSbackInvertRotate
+36 SDSbackInvertRotate
+
+t 0B
+00 SDSbackInvertRotate
+08 SDSbackInvertRotate
+0E SDSbackInvertRotate
+10 SDSbackInvertRotate
+18 SDSbackInvertRotate
+20 SDSbackInvertRotate
+26 SDSbackInvertRotate
+30 SDSbackInvertRotate SDSfrontVoice4 SDSfrontGreys 
+36 SDSbackInvertRotate
+
+t 0C
+00 SDSfxSoundShade SDSbackVoice2 SDSbackFlash0
+10 SDSbackFlash1
+30 SDSbackFlash0
+36 SDSbackFlash1
+
+t 0D
+00 SDSbackFlash0
+10 SDSbackFlash1
+30 SDSbackFlash0
+36 SDSbackFlash1
+
+t 0E
+00 SDSfxSoundShade SDSbackRotate 
+06 SDSbackInvertRotate
+10 SDSbackInvertRotate
+20 SDSbackInvertRotate
+26 SDSbackInvertRotate
+30 SDSbackInvertRotate
+
+t 0F
+00 SDSfxSoundShade SDSbackRotate SDSfrontGreys 
+06 SDSbackInvertRotate
+0A SDSbackFlash1 
+0E SDSbackFlash0 
+10 SDSbackInvertRotate
+20 SDSbackInvertRotate
+26 SDSbackInvertRotate
+2A SDSbackFlash0 
+2E SDSbackFlash1
+30 SDSbackInvertRotate

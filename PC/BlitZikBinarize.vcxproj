@@ -112,6 +112,7 @@
     <None Include="..\BLITZIK\DATA\MENUS\ICONS4.NEO" />
     <None Include="..\BLITZIK\DATA\MENUS\INFOC.NEO" />
     <None Include="..\BLITZIK\DATA\ZIKS\1st-kit.ini" />
+    <None Include="..\BLITZIK\DATA\ZIKS\1st-kit.SEQ" />
     <None Include="..\BLITZIK\DATA\ZIKS\1st-Kit.xm" />
     <None Include="..\BLITZIK\DATA\ZIKS\1STBlit.ini" />
     <None Include="..\BLITZIK\DATA\ZIKS\1STBLIT.SEQ" />
@@ -158,7 +159,6 @@
     <None Include="..\BLITZIK\TOOLS\BATCH\_make_ziks_all_release.bat" />
     <None Include="..\BLITZIK\TOOLS\BATCH\_make_ziks_debug.bat" />
     <None Include="..\BLITZIK\TOOLS\BATCH\_make_ziks_release.bat" />
-    <None Include="..\BLITZIK\TOOLS\BATCH\_publishexecutables.bat" />
     <None Include="..\DEMOSDK\BITMAP.S" />
   </ItemGroup>
   <ItemGroup>

@@ -1,0 +1,60 @@
+#FXMACROS.TXT
+
+; Sequence test
+
+; t Trackindex
+; Row | Commands...
+
+t 00
+00 SDSfxSoundShade SDSfrontVoice4 SDSbackDisable SDSfront2colors SDSfrontPCMnointerlace
+08 SDSfrontPCMinterlace1234
+10 SDSfrontPCMnointerlace
+18 SDSfrontPCMinterlace1234
+20 SDSfrontPCMnointerlace
+28 SDSfrontPCMinterlace1234
+30 SDSfrontPCMnointerlace
+38 SDSfrontPCMinterlace1234
+40 SDSfrontPCMnointerlace
+48 SDSfrontPCMinterlace1234
+50 SDSfrontPCMnointerlace
+58 SDSfrontPCMinterlace1234
+60 SDSfrontPCMnointerlace
+68 SDSfrontPCMinterlace1234
+70 SDSfrontPCMnointerlace
+78 SDSfrontPCMinterlace1234
+
+t 01
+00 ALCfxAllCurve
+
+t 03
+00 CRVfxSampleCurve CRVvoice1_4 CRVvoice2_1 CRVnoInterlace
+
+t 04
+00 CRVcurveSolo
+
+t 05
+00 SDSfxSoundShade SDSbackVoice2
+
+t 06
+00 SCRfxSampleScroll SCRvoice1_1 SCRvoice2_2
+
+t 07
+00 SDSfxSoundShade SDSfrontVoice4 SDSbackDisable SDSfront2colors SDSfrontPCMnointerlace
+08 SDSfrontPCMinterlace1234
+10 SDSfrontPCMnointerlace
+18 SDSfrontPCMinterlace1234
+20 SDSfrontPCMnointerlace
+28 SDSfrontPCMinterlace1234
+30 SDSfrontPCMnointerlace
+38 SDSfrontPCMinterlace1234
+40 SDSfrontPCMnointerlace
+48 SDSfrontPCMinterlace1234
+50 SDSfrontPCMnointerlace
+58 SDSfrontPCMinterlace1234
+60 SDSfrontPCMnointerlace
+68 SDSfrontPCMinterlace1234
+70 SDSfrontPCMnointerlace
+78 SDSfrontPCMinterlace1234
+
+t 08
+00 SDSbackVoice3 SDSbackEnable SDSbackFilterMagenta

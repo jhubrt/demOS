@@ -425,7 +425,18 @@ static void sshadeManageCommands(SShade* this, bool allownavigation_)
             else
             {
                 BLZ_TRAC_COMMAND_NUM("SDSbackInvertVideo", cmd == BLZ_CMD_DOT);                
-                SNSimportTable.hopop = cmd == BLZ_CMD_DOT ? 0x303 : 0x30C;
+                if (cmd == BLZ_CMD_DOT)
+                {
+                    SNSimportTable.hopop= 0x303;
+                    SNSimportTable.backcolor = 0;
+                    aBLZbackground = 0;
+                }
+                else   
+                {
+                    SNSimportTable.hopop= 0x30C;
+                    SNSimportTable.backcolor = 0xFFFF;
+                    aBLZbackground = 0xFFFF;
+                }
             }
             break;
 
@@ -531,6 +542,7 @@ void SShadeEnter (FSM* _fsm)
     ASSERT( ((u32)p - ((u32)this->routines[0])) <= VIS_CODEBUFFER_SIZE);
     */ 
 
+    SNSimportTable.backcolor = 0;
     SNSimportTable.tunX3 = 2;
 
     if ( sys.isMegaSTe )
@@ -550,9 +562,8 @@ void SShadeEnter (FSM* _fsm)
     SNSimportTable.initCall (this->table, VIS_WIDTH, VIS_HEIGHT);
 
     /* init rasters system */
-    this->rasterBootFunc = RASvbl1;
+    this->rasterBootFunc = RASvbl;
     this->rasterBootOp.scanLinesTo1stInterupt = VIS_FIRST_SCANLINE;
-    this->rasterBootOp.backgroundColor   = 0;
     this->rasterBootOp.nextRasterRoutine = SNSimportTable.displayColorsInterupt;
   
     SNSimportTable.mask  = PCENDIANSWAP16(0xFFF);
@@ -916,6 +927,7 @@ void SShadeExit (FSM* _fsm)
 {
     SShade* this = g_screens.sshade;
 
+    aBLZbackground = 0;
     SYSvblroutines[1] = RASvbldonothing;
     BlitZturnOffDisplay();
 

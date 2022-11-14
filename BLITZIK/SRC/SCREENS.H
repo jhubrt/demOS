@@ -204,7 +204,7 @@ extern u16          statesIdleSize;
 
 
 #define BLITZ_VIDEO_NOXTRA_PIXEL    0
-#define BLITZ_VIDEO_16XTRA_PIXELS   1
+#define BLITZ_VIDEO_16XTRA_PIXELS   0x100
 
 void BlitZsetVideoMode (u8 vmode_, u8 voffset_, u16 xtrapix_);
 

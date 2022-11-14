@@ -5,7 +5,7 @@
 I do not have the time to develop an edition tool from scratch, so the simplest way is to rely on existing .MOD/.XM formats and develop a converter. It also gives the opportunity to do all precomputation.
 
 For .MOD format, we need 4 voices (not only 2 voices like provided in
-the initial blitter sound proptotype). The blitter cannot add samples, but it is good at interleaving : the way to go is to use multiplexing technique like Protracker 2 did on STe in the 90's =\> interleaves 2 replays at 25 khz with DMA sound running at 50khz stereo. This technique also preserve the 8 bits dynamic of samples.
+the initial blitter sound proptotype). The blitter cannot add samples, but it is good at interleaving : a good solution is to use multiplexing technique like Protracker 2 did on STe in the 90's =\> interleaves 2 replays at 25 khz with DMA sound running at 50khz stereo. This technique also preserves the 8 bits dynamic of samples.
 
 ![](img1.png)
   

@@ -43,9 +43,8 @@ blitzvbl:
     
     lea     blitzvpix(pc),a0
 
-    move.w  (a0),$ffff8264.w
-    move.b  (a0),$ffff8264.w
-    addq.l  #2,a0
+    move.b  (a0)+,$ffff8265.w
+    move.b  (a0)+,$ffff8264.w
     move.b  (a0)+,$ffff820f.w
     move.b  (a0)+,$ffff8260.w
 
@@ -69,9 +68,8 @@ blitz2vbl:
     
     lea     blitzvpix(pc),a0
 
-    move.w  (a0),$ffff8264.w
-    move.b  (a0),$ffff8264.w
-    addq.l  #2,a0
+    move.b  (a0)+,$ffff8265.w
+    move.b  (a0)+,$ffff8264.w
     move.b  (a0)+,$ffff820f.w
     move.b  (a0)+,$ffff8260.w
 

@@ -1,0 +1,59 @@
+#FXMACROS.TXT
+
+; Sequence test
+
+; t Trackindex
+; Row | Commands...
+
+t 00
+00 SPWspaceWav SPWspeed2
+
+t 01
+41 CRVfxSampleCurve CRVvoice1_3 CRVvoice2_1 CRVnoInterlace 
+60 CRVvoice1_4
+
+t 02
+00 ALCfxAllCurve
+
+t 03
+00 SCRfxSampleScroll SCRvoice1_2 SCRvoice2_4
+40 SCRvoice2_3 
+60 SCRvoice2_4
+
+t 04
+00 SDSfxSoundShade SDSbackVoice1 SDSbackNoFeedback SDSfront2colors SDSfrontPCMnointerlace SDSfrontVoice4
+40 SDSbackVoice1 SDSbackZoom SDSfrontDisable
+
+t 05
+00 CRVfxSampleCurve CRVvoice1_2 CRVvoice2_1 CRVnoInterlace 
+40 CRVvoice1_1 CRVcurveSolo
+
+t 06
+00 SDSfxSoundShade SDSbackVoice3 SDSbackZoom 
+38 SDSfrontVoice3 SDSfront2colors SDSbackNoFeedback
+40 SDSfrontDisable SDSbackVoice3 SDSbackZoom 
+78 SDSfrontVoice3 SDSfront2colors SDSbackNoFeedback
+
+t 07
+00 SDSbackVoice4 SDSbackZoom 
+38 SDSfrontVoice3 SDSfront2colors SDSbackDisable SDSbackFlash0
+3C SDSbackFlash1
+40 SDSfrontDisable SDSbackVoice3 SDSbackEnable SDSbackZoom 
+78 SDSfrontVoice3 SDSfront2colors SDSbackDisable SDSbackFlash0
+7C SDSbackFlash1
+
+t 08
+00 SDSbackZoom SDSbackVoice3 SDSbackEnable
+38 SDSbackFlash0
+3C SDSbackFlash1
+40 SDSbackDisable
+78 SDSbackFlash0
+7C SDSbackFlash1
+
+t 09
+00 SDSbackZoom  SDSbackEnable
+38 SDSbackFlash0
+3C SDSbackFlash1
+40 SDSbackDisable
+78 SDSbackFlash0
+7C SDSbackFlash1

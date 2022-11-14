@@ -1,0 +1,176 @@
+#FXMACROS.TXT
+
+; Sequence test
+
+; t Trackindex
+; Row | Commands...
+
+t 00 
+
+00 WAHwaveHero
+
+t 02
+
+38 CRVfxSampleCurve CRVvoice1_2 CRVcurveSolo CRVcurveSoloFillAll
+
+58 CRVcurveSoloBump
+
+74 CRVcurveSoloBump
+
+78 CRVfxSampleCurve CRVvoice1_4 CRVcurveSolo CRVcurveSoloFillAll CRVcurveSoloBump
+
+t 03
+
+00 CRVfxSampleCurve CRVvoice1_1 CRVvoice2_2 CRVinterlace14_23 CRVcurveTwins
+
+18 CRVfxSampleCurve CRVvoice1_4 CRVcurveSolo CRVcurveSoloFillAll CRVcurveSoloBump
+
+20 CRVfxSampleCurve CRVvoice1_1 CRVvoice2_2 CRVcurveTwins
+
+38 CRVfxSampleCurve CRVvoice1_4 CRVcurveSolo CRVcurveSoloFillAll CRVcurveSoloBump
+
+40 CRVfxSampleCurve CRVvoice1_1 CRVvoice2_2 CRVcurveTwins
+
+58 CRVfxSampleCurve CRVvoice1_4 CRVcurveSolo CRVcurveSoloFillAll CRVcurveSoloBump
+
+60 CRVfxSampleCurve CRVvoice1_1 CRVvoice2_2 CRVcurveTwins
+
+78 CRVfxSampleCurve CRVvoice1_4 CRVcurveSolo CRVcurveSoloFillAll CRVcurveSoloBump
+
+t 04
+
+00 CRVfxSampleCurve CRVvoice1_2 CRVvoice2_4 CRVcurveSiamese CRVnoInterlace CRVcurveColor3or13
+18 CRVfxSampleCurve CRVvoice1_ym1 CRVvoice2_4 CRVcurveSiamese CRVnoInterlace CRVcurveColor4or24
+28 CRVfxSampleCurve CRVvoice1_2 CRVvoice2_4 CRVcurveSiamese CRVnoInterlace CRVcurveColor3or13
+38 CRVfxSampleCurve CRVvoice1_ym1 CRVvoice2_4 CRVcurveSiamese CRVnoInterlace CRVcurveColor4or24
+48 CRVfxSampleCurve CRVvoice1_2 CRVvoice2_4 CRVcurveSiamese CRVnoInterlace CRVcurveColor3or13
+58 CRVfxSampleCurve CRVvoice1_ym1 CRVvoice2_4 CRVcurveSiamese CRVnoInterlace CRVcurveColor4or24
+68 CRVfxSampleCurve CRVvoice1_2 CRVvoice2_4 CRVcurveSiamese CRVnoInterlace CRVcurveColor3or13
+78 CRVfxSampleCurve CRVvoice1_ym1 CRVvoice2_4 CRVcurveSiamese CRVnoInterlace CRVcurveColor4or24
+
+t 05 
+
+00 SDSfxSoundShade SDSbackVertical SDSbackVoice2 SDSfront2colors SDSfrontVoice4
+
+74 SDSbackFlash1
+
+78 SDSbackFlash0
+
+t 06
+
+00 LAYfxLayerz LAYcurveKeys LAYbmpOpTOP_NOSCORE
+
+18 LAYbitmap0
+
+38 LAYbitmap1
+
+58 LAYbitmap2
+
+78 LAYbitmap5
+
+t 07
+
+00 SDSfxSoundShade SDSbackVertical SDSbackVoice1 SDSfront2colors SDSfrontVoice4
+
+74 SDSbackFlash1
+
+78 SDSbackFlash0
+
+t 08
+
+00 SDSfxSoundShade SDSbackVoice1 
+10 SDSbackCross
+
+t 09
+
+00 SDSfxSoundShade SDSbackRotate SDSbackVoice4
+
+04 SDSbackInvertRotate
+
+0C SDSbackInvertRotate
+
+14 SDSbackInvertRotate
+
+1C SDSbackInvertRotate
+
+24 SDSbackInvertRotate
+
+2C SDSbackInvertRotate
+
+34 SDSbackInvertRotate
+
+3C SDSbackInvertRotate
+
+44 SDSbackInvertRotate
+
+4C SDSbackInvertRotate
+
+54 SDSbackInvertRotate
+
+5C SDSbackInvertRotate
+
+64 SDSbackInvertRotate
+
+6C SDSbackInvertRotate
+
+74 SDSbackInvertRotate
+
+7C SDSbackInvertRotate
+
+t 0A
+
+00 ALCfxAllCurve
+
+58 LAYfxLayerz LAYcurveRawSamples
+
+t 0B 
+
+00 LAYfxLayerz LAYcurveKeys LAYbmpOpTOP_NOSCORE LAYflash
+
+18 LAYflash
+
+38 LAYflash
+
+58 LAYflash
+
+78 LAYflash LAYbitmap7
+
+t 0C
+
+00 SDSfxSoundShade SDSbackVoice4 SDSfrontVoice1 SDSbackRotate SDSfrontGreys SDSfrontPCMnointerlace
+
+04 SDSbackInvertRotate
+
+0C SDSbackInvertRotate
+
+14 SDSbackInvertRotate
+
+1C SDSbackInvertRotate
+
+24 SDSbackInvertRotate
+
+2C SDSbackInvertRotate
+
+34 SDSbackInvertRotate
+
+3C SDSbackInvertRotate
+
+44 SDSbackInvertRotate
+
+4C SDSbackInvertRotate
+
+54 SDSbackInvertRotate
+
+5C SDSbackInvertRotate
+
+64 SDSbackInvertRotate
+
+6C SDSbackInvertRotate
+
+74 SDSbackInvertRotate SDSbackFlash1
+
+78 SDSbackFlash0 SDSbackCross SDSbackDisable SDSfrontDisable
+
+t 0D
+
+00 WAHwaveHero
