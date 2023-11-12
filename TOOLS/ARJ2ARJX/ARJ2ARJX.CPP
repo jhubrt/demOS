@@ -74,10 +74,9 @@ int main(int argc, char* argv[])
 
     p += 2;
 
-    if (p[7] != 4)
-    {
-        printf("demOS expect to have ARJ file compressed in mode 4 (current is %d)\n", p[7]);
-    }
+    u8 compressmethod = p[7];
+
+    printf("compress method = %d\n", compressmethod);
 
     u32 compressedSize = *(u32*)&p[14];
     s32 originalsize = *(u32*)&p[18];
