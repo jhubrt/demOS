@@ -101,7 +101,7 @@ STDfastmset:
     move.l      d0,(a0)+    
     dbf.w       d2,.loop1
 
-.nohead
+.nohead:
     lsr.l       #5,d1
     subq.w      #1,d1
     blt.s       .end
