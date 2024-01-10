@@ -15,10 +15,9 @@
 	xdef 	WIZinit,WIZmodInit,WIZplay,WIZstereo,WIZfrontbuf,WIZbackbuf
 
 *-------------------------------------------------------------------------*
-cpu:		set	1	* Time cpu	
+cpu:		set	0	* Time cpu	
 *-------------------------------------------------------------------------*
 nbre_div:	set	4	* Len/nbre_div doit etre un entier
-volumon:	set	1	* Effets de volume on				(0/1)
 mvol:		equ	$40	* Main volume				
 *-------------------------------------------------------------------------*
 LEN			set 500
@@ -34,9 +33,7 @@ WIZinit:
 
 	movem.l	a0-a6/d0-d7,-(sp)
 
-	ifne	volumon			* Si volume on & pas de volume 
-	bsr		vol				* approxim, on calcule la table
-	endc					* des volumes
+	bsr		vol
 	bsr		incrcal			* Calcul table increments
 	
 	movem.l	(sp)+,a0-a6/d0-d7
@@ -121,35 +118,13 @@ WIZmodInit:
 	move.w	#8,voice4+20
 
 	lea	samplestarts(pc),a0
-	moveq.l	#31,d0
+	moveq.l	#30,d0
 .starts:	clr.l	(a0)+
 	dbf.w	d0,.starts	
 
-	jsr	init			* Initialise routine music
+	bsr		init			* Initialise routine music
+	bsr		prepare			* Prepare module (samples)
 		
-	move.l	data,a0			*
-	cmp.w	#$abcd,-(a0)		*
-	beq.s	.ever_prepared		*
-	move.w	#$abcd,(a0)		*
-	jsr	prepare			* Prepare module (samples)
-	move.l	data,a1			*
-	lea	-32*4-2(a1),a1		*
-	lea	samplestarts(pc),a0	*
-	moveq.l	#31,d0			*
-.copy_starts:				*
-	move.l	(a0)+,(a1)+		*
-	dbf.w	d0,.copy_starts		*
-	bra.s	.return			*
-.ever_prepared:				*
-	move.l	data,a0			*
-	lea	-32*4-2(a0),a0		*
-	lea	samplestarts(pc),a1	*
-	moveq.l	#31,d0			*
-.init_starts:				*
-	move.l	(a0)+,(a1)+		*
-	dbf.w	d0,.init_starts	*
-	
-.return:
 	movem.l	(sp)+,a2-a6/d0-d7
 
 	rts
@@ -157,7 +132,6 @@ WIZmodInit:
 
 
 *----------------------------------------------------------VOLUME TABLE
-	ifne	volumon			* Si effets volume on & volume non 
 vol:	
 	moveq.l	#64,d0			* approxim�
 	
@@ -177,7 +151,7 @@ vol:
 	dbra.w	d1,.mloop
 	dbra.w	d0,.ploop
 	rts
-	endc
+
 *-------------------------------------------------------INCREMENT TABLE
 incrcal:
 	lea	stab(pc),a0
@@ -239,7 +213,19 @@ calc3:
 
 
 WIZplay:
+	movem.l		d0-d1/a0,-(sp)
+
+	moveq.l		#0,d0
+	move.w		#((sample2_end-sample1)/4)-1,d1
+	lea			sample1(pc),a0
+.eff:
+	move.l		d0,(a0)+
+	dbra.w		d1,.eff
+
+	movem.l		(sp)+,d0-d1/a0
+
 	move.w		#3,$FFFF8920.w		; DMA 50khz stereo
+
 	rts
 
 
@@ -252,8 +238,6 @@ WIZstereo:
 	ifne	cpu
 	move.w	#$7,$ffff8240.w			
 	endc
-
-	move.w	#$2500,sr
 
 	movem.l	d0-d7/a0-a6,-(sp)
 
@@ -279,6 +263,8 @@ WIZstereo:
 	move.b	d1,12(a0)
 	lsr.w	d2,d1
 	move.l	d1,7(a0)			* End
+
+	move.w	#$2300,sr
 
 	; Score management
 	bsr		music
@@ -641,9 +627,10 @@ sample1:	DS.W 	LEN*2
 			DS.W	8	
 sample2:	DS.W	LEN*2
 			DS.W	8	
+sample2_end:
 *--------------------------------------------------- INIT MODULE
 prepare:
-	move.l	workspc,a6
+	move.l	workspc(pc),a6
 	movea.l	samplestarts(pc),a0
 	movea.l	end_of_samples(pc),a1
 
@@ -717,7 +704,7 @@ done:	add.w	d4,d4
 samplok:lea	$1E(a1),a1
 	dbra.w	d7,roop
 
-	cmp.l	workspc,a0
+	cmp.l	workspc(pc),a0
 	bgt.s	.nospac
 
 	rts
@@ -727,7 +714,8 @@ samplok:lea	$1E(a1),a1
 end_of_samples:	DC.L 0
 
 *--------------------------------------------------- INIT SAMPLE ADR TABLE
-init:	move.l	data(pc),a0
+init:	
+	move.l	data(pc),a0
 	lea	$03B8(a0),a1
 
 	moveq.l	#$7F,d0
@@ -1231,10 +1219,7 @@ voice_end:
 
 data:		dc.l	0					* Adresse module
 workspc:	dc.l	0					* Adresse fin workspc
-
-	ifne	volumon
 vtabptr: dc.l 0
-	endc
 
 *-------------------------------------------TABLE VOLUME & INCREMENTS
 itab:	ds.l $30
@@ -1245,10 +1230,8 @@ stab2:	DS.L $03A0-$30
 itabvar:	ds.w	$30					* Table de correction
 stabvar:	ds.w	(nbre_div-1)*$3a0	* dynamique
 
-	ifne	volumon
 	DS.B 256
 vtab:
 	DS.B 65*256
 vtabend:
-	endc
 
