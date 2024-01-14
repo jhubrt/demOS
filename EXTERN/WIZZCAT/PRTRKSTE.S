@@ -12,7 +12,7 @@
 
 	output 	D:\PROJECTS\DEMOS\OUTPUT\PRTRKSTE.O
 
-	xdef 	WIZinit,WIZmodInit,WIZplay,WIZstereo,WIZfrontbuf,WIZbackbuf
+	xdef 	WIZinit,WIZmodInit,WIZplay,WIZstereo,WIZfrontbuf,WIZbackbuf,WIZgetInfo,WIZjump
 
 *-------------------------------------------------------------------------*
 cpu:		set	0	* Time cpu	
@@ -129,6 +129,20 @@ WIZmodInit:
 
 	rts
 
+WIZgetInfo:
+	move.w	d0,-(sp)
+	move.b	songpos(pc),(a0)
+	move.w	pattpos(pc),d0
+	lsr.w	#4,d0
+	move.b	d0,1(a0)
+	move.w	(sp)+,d0
+	rts
+
+WIZjump:
+	subq.b	#1,d0
+	move.b	d0,songpos
+	st		break
+	rts
 
 
 *----------------------------------------------------------VOLUME TABLE
