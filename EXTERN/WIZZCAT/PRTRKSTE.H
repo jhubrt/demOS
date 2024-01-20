@@ -16,6 +16,7 @@ typedef struct WIZinfo_ WIZinfo;
 void WIZinit    (void);
 void WIZmodInit (void* mod_, void* modeend_);
 void WIZplay    (void);
+void WIZrundma  (void);
 void WIZstereo  (void);
 void WIZgetInfo (WIZinfo* info_);
 void WIZjump    (u8 pos_);

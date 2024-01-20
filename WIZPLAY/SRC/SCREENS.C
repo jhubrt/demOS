@@ -25,7 +25,6 @@
 #define SCREENS_C
 
 #include "DEMOSDK\STANDARD.H"
-#include "DEMOSDK\LOAD.H"
 #include "DEMOSDK\HARDWARE.H"
 #include "DEMOSDK\SYSTEM.H"
 #include "DEMOSDK\TRACE.H"

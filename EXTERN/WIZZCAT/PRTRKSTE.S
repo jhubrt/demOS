@@ -12,7 +12,7 @@
 
 	output 	D:\PROJECTS\DEMOS\OUTPUT\PRTRKSTE.O
 
-	xdef 	WIZinit,WIZmodInit,WIZplay,WIZstereo,WIZfrontbuf,WIZbackbuf,WIZgetInfo,WIZjump
+	xdef 	WIZinit,WIZmodInit,WIZplay,WIZrundma,WIZstereo,WIZfrontbuf,WIZbackbuf,WIZgetInfo,WIZjump
 
 *-------------------------------------------------------------------------*
 cpu:		set	0	* Time cpu	
@@ -246,8 +246,12 @@ WIZplay:
 ;-------------------------------------------------------------------------
 ; VBL interupt
 ;-------------------------------------------------------------------------
-WIZstereo:
+WIZrundma:
 	move.b	#1,$FFFF8901.w		* DMA run once
+    move.l  (a0)+,a1
+    jmp     (a1)
+
+WIZstereo:
 
 	ifne	cpu
 	move.w	#$7,$ffff8240.w			

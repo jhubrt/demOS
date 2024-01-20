@@ -88,7 +88,7 @@ void PlayerEntry (void)
         length = ftell(file);
         fseek (file, 0, SEEK_SET);
 
-        buffer = MEM_ALLOCTEMP(&sys.allocatorMem, length + 64UL*1024UL);
+        buffer = MEM_ALLOC(&sys.allocatorMem, length + 128UL*1024UL);
         ASSERT(buffer != NULL);
 
         fread(buffer, 1, length, file);
@@ -99,12 +99,12 @@ void PlayerEntry (void)
         g_player.modulebufferend = g_player.modulebuffer + length + 128UL*1024UL;
     }
    
-    g_player.framebuffer = RINGallocatorAlloc ( &sys.mem, 64000UL );
+    g_player.framebuffer = MEM_ALLOC ( &sys.allocatorMem, 64000UL );
     ASSERT (g_player.framebuffer != NULL);
     STDmset (g_player.framebuffer, 0, 64000UL);
     SYSwriteVideoBase ((u32)g_player.framebuffer);
 
-    g_player.pcmcopy = (s8*) RINGallocatorAlloc ( &sys.mem, PCMCOPYSIZE);
+    g_player.pcmcopy = (s8*) MEM_ALLOC ( &sys.allocatorMem, PCMCOPYSIZE);
     ASSERT (g_player.pcmcopy != NULL);
     STDmset(g_player.pcmcopy, 0, PCMCOPYSIZE);
 
@@ -112,7 +112,8 @@ void PlayerEntry (void)
     WIZmodInit(g_player.modulebuffer, g_player.modulebufferend);
     WIZplay();
 
-    SYSvblroutines[0] = (SYSinterupt)WIZstereo;
+    SYSvblroutines[0] = (SYSinterupt)WIZrundma;
+    SYSvblroutines[1] = (SYSinterupt)WIZstereo;
 }
 
 #if bplayerUSEASM==0
@@ -328,8 +329,8 @@ void PlayerExit	(FSM* _fsm)
 
     *HW_DMASOUND_CONTROL = HW_DMASOUND_CONTROL_OFF;
 
-    RINGallocatorFree(&sys.mem, g_player.framebuffer);
-    RINGallocatorFree(&sys.mem, g_player.pcmcopy);
+    MEM_FREE(&sys.allocatorMem, g_player.framebuffer);
+    MEM_FREE(&sys.allocatorMem, g_player.pcmcopy);
     
     ASSERT( RINGallocatorIsEmpty(&sys.mem) );
     

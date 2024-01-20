@@ -26,7 +26,6 @@
 #include "DEMOSDK\SYSTEM.H"
 #include "DEMOSDK\HARDWARE.H"
 #include "DEMOSDK\FSM.H"
-#include "DEMOSDK\LOAD.H"
 #include "DEMOSDK\TRACE.H"
 #include "DEMOSDK\BLSSND.H"
 
