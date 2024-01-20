@@ -37,6 +37,7 @@ extern "C"
 #include "TOOLS\MOD2MODX\MOD2MODX.H"
 
 
+const u32 NBMODVOICES = 4;
 const u32 NBINSTRUMENTS = 31;
 const u32 NBMODPATTERNROWS = 64;
 
@@ -140,7 +141,14 @@ bool Sndtrack::ProcessModuleMOD (const char* _filename, bool _pack)
             sample.m_sampleLoopLength = PCENDIANSWAP16(sample.m_sampleLoopLength) << 1;
 
             sample.SetName(name);
-            sample.CheckLength();
+
+            if (sample.isLooping())
+            {
+                if (sample.m_sampleLen > (sample.m_sampleLoopStart + (u32)sample.m_sampleLoopLength))
+                {
+                    printf ("#WARNING you may crop sample '%s' len from %u to %u\n", sample.m_sampleName, sample.m_sampleLen, sample.m_sampleLoopStart + sample.m_sampleLoopLength);
+                }
+            }
         }
 
         TOOLreadcheck(&m_songLen, sizeof(m_songLen), file);

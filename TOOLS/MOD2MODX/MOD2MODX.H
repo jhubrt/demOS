@@ -24,7 +24,6 @@
 #define MOD2DMOX_H
 
 const u32 NBMAXVOICES   = 8; 
-const u32 NBMODVOICES   = 4;
 
 #define MOD_CONVERT_OUTPUT(FORMAT, ...) { printf (FORMAT, __VA_ARGS__ ); fprintf (stderr, FORMAT, __VA_ARGS__ ); }
 
