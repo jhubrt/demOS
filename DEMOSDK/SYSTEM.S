@@ -50,16 +50,17 @@
 * void SYSinitDbgBreak (void);
 *-------------------------------------------------------------------------
 SYSinitDbgBreak:
-    move.l  #.return,$0A8.w
+    move.l  #.return,$2C.w		; line F vector
     rts
 .return
+	addq.l	#2,2(sp)			; line F does not inc pc => return after line F instruction
     rte
     
 *-------------------------------------------------------------------------
 * void SYSdbgBreak (void);
 *-------------------------------------------------------------------------
 SYSdbgBreak:
-    trap    #10
+    dc.w	$F000
     rts
 
 *-------------------------------------------------------------------------
