@@ -1,0 +1,22 @@
+-------------------------------------------------------------------------------
+  CYBERNETICS 2024
+  
+  LOVEBOOT by Metal Ages - Cybernetics
+-------------------------------------------------------------------------------
+
+  Bootsector for Atari STe/Mega STe 
+  (should also work on STf having a blitter with less blue colors)
+  
+  510 bytes including floopy header data
+
+  Switch on your speaker ;)
+  
+  Tested on :
+  - Hardware Atari STe TOS 1.62
+  - Emulators Hatari and Steem SSE TOS 1.62 and 2.06
+  
+  - LOVEBOOT.ST floppy image with the bootsector installed (1 side, 1 track, 1 sector)
+  - LOVEBOOT.S source code
+  - LOVEBOOT.MP4 video capture from hardware (Stock atari STe 8mhz)
+  - LOVEBOOT.PNG screenshot from execution on Hatari
+-------------------------------------------------------------------------------
