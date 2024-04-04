@@ -96,43 +96,17 @@ static void PlayYM(void)
     static char flip = 0;
     static u16 freq  = LOW_MIN;
     static u16 freq2 = LOW_MIN;
-    static bool twoplayers = false;
-    u8 mixer;
 
     void* adr = (void*) SYSreadVideoBase();
-    static char temp[] = "               ";
+    static char temp[] = "      ";
 
 
     flip ^= 1;
     if (flip)
-        if (twoplayers == false)
-            HW_YM_SET_REG (HW_YM_SEL_ENVELOPESHAPE, 10); /* restart triangle every 2 vbl */
+        HW_YM_SET_REG (HW_YM_SEL_ENVELOPESHAPE, 10); /* restart triangle every 2 vbl */
 
-
-    if (twoplayers)
-    {
-        u16 f  = freq;
-        u16 f2 = freq2 << 4;
-
-        HW_YM_SET_REG (HW_YM_SEL_FREQENVELOPE_H, f >> 8); 
-        HW_YM_SET_REG (HW_YM_SEL_FREQENVELOPE_L, f & 0xFF); 
-
-        HW_YM_SET_REG(HW_YM_SEL_FREQCHA_H, f2 >> 8);
-        HW_YM_SET_REG(HW_YM_SEL_FREQCHA_L, f2 & 0xFF);
-        f2++;
-
-        HW_YM_SET_REG(HW_YM_SEL_FREQCHB_H, f2 >> 8);
-        HW_YM_SET_REG(HW_YM_SEL_FREQCHB_L, f2 & 0xFF);
-        f2++;
-
-        HW_YM_SET_REG(HW_YM_SEL_FREQCHC_H, f2 >> 8);
-        HW_YM_SET_REG(HW_YM_SEL_FREQCHC_L, f2 & 0xFF);
-    }
-    else
-    {
-        HW_YM_SET_REG (HW_YM_SEL_FREQENVELOPE_H, freq >> 8); 
-        HW_YM_SET_REG (HW_YM_SEL_FREQENVELOPE_L, freq & 0xFF); 
-    }
+    HW_YM_SET_REG (HW_YM_SEL_FREQENVELOPE_H, freq >> 8); 
+    HW_YM_SET_REG (HW_YM_SEL_FREQENVELOPE_L, freq & 0xFF); 
 
     switch (sys.key)
     {
@@ -157,23 +131,9 @@ static void PlayYM(void)
         if (freq2 > HIGH_MAX)
             freq2 --;
         break;
-
-    case HW_KEY_1:
-        mixer = g_mixer | 0x37;        /* mixer : all square off, noise on A only */
-        HW_YM_SET_REG(HW_YM_SEL_IO_AND_MIXER, mixer);
-        twoplayers = false;
-        break;
-
-    case HW_KEY_2:
-        mixer = g_mixer | 0x38;         /* mixer : all square on, noise off */
-        HW_YM_SET_REG(HW_YM_SEL_IO_AND_MIXER, mixer);
-        twoplayers = true;
-        break;
     }
 
-    STDutoa( temp   , freq, 6);
-    STDutoa(&temp[8], freq2, 6);
-    
+    STDutoa(temp, freq, 6);   
     SYSdebugPrint(adr, 160, 2, 0, 0, temp);
 }
 
