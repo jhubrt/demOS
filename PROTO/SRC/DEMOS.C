@@ -87,15 +87,11 @@ static void InitYM(void)
 #define LOW_MIN  0x62
 #define HIGH_MAX 0x10
 
-#define LOW_MIN2  0xFF0
-#define HIGH_MAX2 0x100
-
 
 static void PlayYM(void)
 {
     static char flip = 0;
     static u16 freq  = LOW_MIN;
-    static u16 freq2 = LOW_MIN;
 
     void* adr = (void*) SYSreadVideoBase();
     static char temp[] = "      ";
@@ -120,17 +116,7 @@ static void PlayYM(void)
         if (freq > HIGH_MAX)
             freq--;
         HW_YM_SET_REG(HW_YM_SEL_FREQNOISE, 4);      /* set noise freq */
-        break;
-    
-    case HW_KEY_UP:
-        if (freq2 < LOW_MIN)
-            freq2 ++;
-        break;
-
-    case HW_KEY_DOWN:
-        if (freq2 > HIGH_MAX)
-            freq2 --;
-        break;
+        break;   
     }
 
     STDutoa(temp, freq, 6);   
