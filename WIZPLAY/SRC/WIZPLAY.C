@@ -28,11 +28,11 @@
 #include "DEMOSDK\TRACE.H"
 #include "DEMOSDK\HARDWARE.H"
 
-#include "EXTERN\WIZZCAT\PRTRKSTE.H"
-
 #include "WIZPLAY\SRC\SCREENS.H"
 
 #define WIZPLAY_TITLE "WIZplay 1.0.0"
+
+#define WIZPLAY_EXPERIMENT_PLAYSTATE 0
 
 #   define drawXorPass  adrawXorPass
 #   define drawCurve    adrawCurve
@@ -46,7 +46,7 @@ enum TextdisplayState_
 };
 typedef enum TextdisplayState_ TextdisplayState;
 
-#define PLAYER_NB_PANELS    2
+#define PLAYER_NB_PANELS    3
 
 /* 25khz (5 div) 100 + 63  */
 /* 25khz (4 div) 105 + 63  */
@@ -108,9 +108,14 @@ void PlayerEntry (void)
     ASSERT (g_player.pcmcopy != NULL);
     STDmset(g_player.pcmcopy, 0, PCMCOPYSIZE);
 
-    WIZinit();    
+    WIZinit(&g_player.playerInfo);
     WIZmodInit(g_player.modulebuffer, g_player.modulebufferend);
     WIZplay();
+
+    /*
+    TRAClogNumber10S(TRAC_LOG_ALL, "Size aud:", g_player.playerInfo.m_audioVarSize, 4, '\n');
+    TRAClogNumber10S(TRAC_LOG_ALL, "Size wiz:", g_player.playerInfo.m_wizVarSize  , 4, '\n');
+    */
 
     SYSvblroutines[0] = (SYSinterupt)WIZrundma;
     SYSvblroutines[1] = (SYSinterupt)WIZstereo;
@@ -237,7 +242,69 @@ static void playerDrawPanel0Background(void)
 
 static void playerDrawPanel0(u8* backframebuffer)
 {
+    WIZinfo info;
 	u8* line = (u8*)backframebuffer + (58 * 160);
+    static char* text  = "     ";
+
+
+    WIZgetInfo(&info);
+
+    STDuxtoa(text,    info.songpos, 2);
+    STDuxtoa(text+ 3, info.pattpos, 2);
+
+    SYSfastPrint(text, backframebuffer+1600, 160, 4, (u32)&SYSfont);
+
+#   if WIZPLAY_EXPERIMENT_PLAYSTATE
+    {
+        char* text2 = "                                          ";
+        u8*  d  = backframebuffer+3200;
+        u16* p  = g_player.playerInfo.m_audioPeriods;
+        u16* p2 = g_player.playerInfo.m_wizVars;
+        u16  t;
+
+        for (t = 0; t < 4; t++)
+        {
+            bool running = false;
+
+            STDuxtoa(text2,      p[1], 4);   /* lsb audlc   */
+            STDuxtoa(text2 + 5,  p[2], 4);   /* audlen      */ 
+            STDuxtoa(text2 + 10, p[3], 4);   /* audper      */
+            STDuxtoa(text2 + 15, p[4], 4);   /* audvol      */
+
+            STDuxtoa(text2 + 20, p2[1], 4);  /* wizlc lsb   */
+            STDuxtoa(text2 + 25, p2[3], 4);  /* wizlen lsb  */
+            STDuxtoa(text2 + 30, p2[4], 4);  /* wizrpt      */
+            STDuxtoa(text2 + 35, p2[5], 4);  /* wizpos      */
+
+            if ((p[4] & 0xFF) != 0)
+            {
+                if ((p[2] + 0x640) == p2[3]) /* no loop */
+                {
+                    /*text2[39] = 'n';*/
+                    if (p2[5] < p[2])
+                        running = true;
+                }
+                else /* looping */
+                {
+                    /*text2[39] = 'l';*/
+                    if (p2[5] > 0)
+                        running = true;
+                }
+            }
+
+            text2[40] = running ? '+' : '-';
+            text2[39] = info.dmacom & 1 ? '>' : ' ';
+
+            info.dmacom >>= 1;
+
+            p += g_player.playerInfo.m_audioVarSize >> 1;
+            p2 += g_player.playerInfo.m_wizVarSize >> 1;
+
+            SYSfastPrint(text2, d, 160, 4, (u32)&SYSfont);
+            d += 8*160;
+        }
+    }
+#   endif
 
     STDmcpy2 (g_player.pcmcopy, WIZbackbuf, 2000);
 
@@ -308,7 +375,8 @@ void PlayerBacktask (FSM* _fsm)
 		{
         case 0:	playerDrawPanel0Background(); break;
         case 1:	playerDrawPanel1Background(); break;
-		}
+        case 2:	playerDrawPanel0Background(); break;
+        }
 
 		g_player.lastpanel = g_player.panel;
     }
@@ -317,6 +385,7 @@ void PlayerBacktask (FSM* _fsm)
 	{
 	case 0:	playerDrawPanel0(backframebuffer); break;
 	case 1: playerDrawPanel1(backframebuffer); break;
+    case 2: STDstop2300(); break;
 	}
 
     SYSwriteVideoBase ((u32)backframebuffer);

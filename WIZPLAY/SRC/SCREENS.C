@@ -42,6 +42,7 @@ FSM g_stateMachineIdle;
 static void doNothing(FSM* _fsm)	
 { 
 	IGNORE_PARAM(_fsm); 
+    STDstop2300();
 }
 
 static void stepNext(FSM* _fsm)	

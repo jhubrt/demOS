@@ -12,7 +12,7 @@
 
 	output 	D:\PROJECTS\DEMOS\OUTPUT\PRTRKSTE.O
 
-	xdef 	WIZinit,WIZmodInit,WIZplay,WIZrundma,WIZstereo,WIZfrontbuf,WIZbackbuf,WIZgetInfo,WIZjump
+	xdef 	WIZinit,WIZmodInit,WIZplay,WIZrundma,WIZstereo,WIZstop,WIZfrontbuf,WIZbackbuf,WIZgetInfo,WIZjump
 
 *-------------------------------------------------------------------------*
 cpu:		set	0	* Time cpu	
@@ -20,8 +20,10 @@ cpu:		set	0	* Time cpu
 nbre_div:	set	4	* Len/nbre_div doit etre un entier
 mvol:		equ	$40	* Main volume				
 *-------------------------------------------------------------------------*
-LEN			set 500
-INC			set $008EFB4E			; 3579546/25035*65536
+LEN					set 500
+INC					set $008EFB4E			; 3579546/25035*65536
+NBBYTES_OVERHEAD    set 4
+STEP_PERFRAME		set (LEN*4+NBBYTES_OVERHEAD)
 
 *-------------------------------------------------------------------------*
 *	REPLAY ROUT
@@ -38,6 +40,12 @@ WIZinit:
 	
 	movem.l	(sp)+,a0-a6/d0-d7
 	
+	move.l	#aud1lc,(a0)
+	move.w  #aud2lc-aud1lc,4(a0)
+
+	move.l	#wiz1lc,6(a0)
+	move.w	#wiz2lc-wiz1lc,10(a0)
+
 	rts
 
 *-------------------------------------------------------------------------*
@@ -48,25 +56,25 @@ WIZmodInit:
 	move.l	a0,data
 	move.l	a1,workspc
 
-	move.l	#sample1,wiz1lc		
+	move.l	#WIZbuffer,wiz1lc		
 	clr.l	wiz1len			
 	clr.w	wiz1rpt	
 	clr.w	wiz1pos	
 	clr.w	wiz1frc
 
-	move.l	#sample1,wiz2lc
+	move.l	#WIZbuffer,wiz2lc
 	clr.l	wiz2len
 	clr.w	wiz2rpt	
 	clr.w	wiz2pos	
 	clr.w	wiz2frc
 
-	move.l	#sample1,wiz3lc
+	move.l	#WIZbuffer,wiz3lc
 	clr.l	wiz3len
 	clr.w	wiz3rpt	
 	clr.w	wiz3pos	
 	clr.w	wiz3frc
 
-	move.l	#sample1,wiz4lc
+	move.l	#WIZbuffer,wiz4lc
 	clr.l	wiz4len
 	clr.w	wiz4rpt	
 	clr.w	wiz4pos	
@@ -96,15 +104,14 @@ WIZmodInit:
 	clr.l	aud4vol
 	clr.l	aud4vol+4
 	
-	move.l	#sample1,samp1
-	move.l	#sample2,samp2
+	move.l	#WIZbuffer,WIZbackbuf
 	
 	move.w	#6,speed
 	clr.w	counter
 	clr.b	songpos
 	clr.b	break	
 	clr.w	pattpos	
-	clr.w	dmacon
+	clr.l	dmacon
 
 	lea	voice1(pc),a0
 	move.w	#(voice_end-voice1)/2-1,d0
@@ -124,7 +131,7 @@ WIZmodInit:
 
 	bsr		init			* Initialise routine music
 	bsr		prepare			* Prepare module (samples)
-		
+
 	movem.l	(sp)+,a2-a6/d0-d7
 
 	rts
@@ -135,8 +142,10 @@ WIZgetInfo:
 	move.w	pattpos(pc),d0
 	lsr.w	#4,d0
 	move.b	d0,1(a0)
+	move.w	dmaconcopy(pc),2(a0)
 	move.w	(sp)+,d0
 	rts
+
 
 WIZjump:
 	subq.b	#1,d0
@@ -144,6 +153,10 @@ WIZjump:
 	st		break
 	rts
 
+
+WIZstop:
+	clr.b	$ffff8901.w
+	rts
 
 *----------------------------------------------------------VOLUME TABLE
 vol:	
@@ -226,30 +239,118 @@ calc3:
 	rts
 
 
+;-------------------------------------------------------------------------
+
+HW_DMASOUND_COUNTER_H:      set $FFFF8909
+HW_DMASOUND_CONTROL:        set $FFFF8901
+
+HW_DMASOUND_CONTROL_PLAYLOOP:   set	3
+
+WIZfrontbuf:
+WIZplayer_dmabufstart:	dc.l	0
+WIZplayer_dmabufend:	dc.l	0
+WIZplayer_bufferstate:	dc.l	0
+WIZbackbuf:				dc.l	0
+
+
 WIZplay:
-	movem.l		d0-d1/a0,-(sp)
+	movem.l		d0-d1/a0-a1,-(sp)
+
+	lea			WIZbuffer(pc),a0
+	move.l		a0,d0
+
+	lea			$FFFF8901.w,a1		; set dma start address
+	move.l		d0,WIZplayer_dmabufstart
+	movep.l		d0,(a1)
+
+	lea			$FFFF890D.w,a1		; set dma end address	
+	add.l		#LEN*4,d0
+	move.l		d0,WIZplayer_dmabufend
+	movep.l		d0,(a1)
 
 	moveq.l		#0,d0
-	move.w		#((sample2_end-sample1)/4)-1,d1
-	lea			sample1(pc),a0
+	move.w		#((WIZbuffer_End-WIZbuffer)/4)-1,d1
+
 .eff:
 	move.l		d0,(a0)+
 	dbra.w		d1,.eff
 
-	movem.l		(sp)+,d0-d1/a0
+	move.l		#WIZ_START_CASE,WIZplayer_bufferstate
 
 	move.w		#3,$FFFF8920.w		; DMA 50khz stereo
 
-	rts
+	movem.l		(sp)+,d0-d1/a0-a1
 
+	rts
 
 ;-------------------------------------------------------------------------
 ; VBL interupt
 ;-------------------------------------------------------------------------
+
 WIZrundma:
-	move.b	#1,$FFFF8901.w		* DMA run once
-    move.l  (a0)+,a1
-    jmp     (a1)
+
+	movem.l		d0-d4/a2-a3,-(sp)
+
+	lea			WIZplayer_dmabufstart(pc),a1
+
+    move.l      (a1)+,d3				            ; d3 = dmabufstart
+    move.l      (a1)+,d4				            ; d4 = dmabufend
+    move.l      (a1),a2						        ; switch(_player->bufferstate)
+    move.l      #WIZbuffer,d1			            ; d1 = buffer
+
+    lea         HW_DMASOUND_COUNTER_H-2.w,a3
+    movep.l     (a3),d0
+    and.l       #$FFFFFF,d0                         ; d0 = readcursor just before starting at start step
+
+    jmp         (a2)
+
+WIZ_STEP0_CASE:
+    move.l      #WIZ_STEP1_CASE,(a1)+				; WIZplayer_bufferstate
+    move.l      d1,(a1)								; WIZbackbuf
+    add.l       #STEP_PERFRAME+STEP_PERFRAME,d1
+    bra.s       endswitch
+      
+WIZ_STEP1_CASE:
+    move.l      #WIZ_STEP2_CASE,(a1)+				; WIZplayer_bufferstate
+    move.l      d1,d2
+    add.l       #STEP_PERFRAME,d2
+    move.l      d2,(a1)								; WIZbackbuf
+    bra.s       endswitch
+
+WIZ_START_CASE:
+    move.b      #HW_DMASOUND_CONTROL_PLAYLOOP,HW_DMASOUND_CONTROL.w   
+    moveq.l     #-1,d0                              ; readcursor = -1
+
+WIZ_STEP2_CASE:
+    move.l      #WIZ_STEP0_CASE,(a1)+				; WIZplayer_bufferstate
+    move.l      d1,d2
+    add.l       #STEP_PERFRAME+STEP_PERFRAME,d2
+    move.l      d2,(a1)								; WIZbackbuf
+    add.l       #STEP_PERFRAME,d1
+
+endswitch:
+
+    ; manage dynamically buffer length
+    move.l      d1,WIZplayer_dmabufstart-WIZbackbuf(a1)
+    
+    add.l       #LEN*4,d1
+
+    cmp.l       d0,d3
+    bgt.s       .donotenlargeplaybuffer
+    cmp.l       d0,d4
+    blt.s       .donotenlargeplaybuffer
+    addq.l      #NBBYTES_OVERHEAD,d1
+.donotenlargeplaybuffer:
+
+    move.l      d1,WIZplayer_dmabufend-WIZbackbuf(a1)
+	clr.w		dmaconcopy
+
+	movem.l		(sp)+,d0-d4/a2-a3
+
+    move.l		(a0)+,a1
+    jmp			(a1)
+
+;-----------------------------------------------------------------------------------------------
 
 WIZstereo:
 
@@ -259,31 +360,8 @@ WIZstereo:
 
 	movem.l	d0-d7/a0-a6,-(sp)
 
-	; Flip sample buffer
-	; -----------------------------------------------------
-
-	move.l	samp2(pc),d0
-	move.l	samp1(pc),samp2
-	move.l	d0,samp1
-
-	move.l	d0,d1					; d0 = d1 = dma sound buffer to set for next vbl 
-	moveq.l	#8,d2
-
-	; Set DMA sound registers
-	; -----------------------------------------------------
-
-	lea		$FFFF8907.w,a0
-	move.b	d0,(a0)
-	lsr.w	d2,d0
-	move.l	d0,-5(a0)			* Start
-	
-	add.l	#LEN*4,d1
-	move.b	d1,12(a0)
-	lsr.w	d2,d1
-	move.l	d1,7(a0)			* End
-
 	move.w	#$2300,sr
-
+	 
 	; Score management
 	bsr		music
 
@@ -312,8 +390,6 @@ WIZstereo:
 	move.l  (a5,d7.w),d2		* d2 = ratio
 	move.w  d2,a4				* a4 = taux d'erreur
 	swap 	d2
-	; move.w	0(a5,d7.w),d2		
-	; movea.w	2(a5,d7.w),a4		
 
 	; manage loop	
     moveq.l	#0,d3				
@@ -323,9 +399,9 @@ WIZstereo:
 	blt.s	.ok2
 	sub.w	wiz2rpt(pc),d3		* dans lequel cas => gestion boucle
 .ok2:
-	move.w	d3,wiz2pos			* On note l'offset atteint
+	move.w	d3,wiz2pos-itab(a5)	* On note l'offset atteint
 	move.w	2(a6,d7.w),d3		* Correction du taux d'erreur
-	add.w	d3,wiz2frc
+	add.w	d3,wiz2frc-itab(a5)
 
 	; ---------------------
 	moveq.l	#0,d4	
@@ -341,8 +417,6 @@ WIZstereo:
 	move.l  (a5,d7.w),d6		* d6 = ratio
 	move.w  d6,a2				* a2 = taux d'erreur
 	swap	d6
-	; move.w	0(a5,d7.w),d6
-	; movea.w	2(a5,d7.w),a2
 
 	; manage loop	
 	moveq.l	#0,d3				* Table de correction VBL
@@ -352,9 +426,9 @@ WIZstereo:
 	blt.s	.ok3
 	sub.w	wiz3rpt(pc),d3
 .ok3:
-	move.w	d3,wiz3pos
+	move.w	d3,wiz3pos-itab(a5)
 	move.w	2(a6,d7.w),d3
-	add.w	d3,wiz3frc
+	add.w	d3,wiz3frc-itab(a5)
 	
 	lea		computesampleloop+2+8(pc),a3
 	bsr		automodrout
@@ -374,8 +448,6 @@ WIZstereo:
 	move.l  (a5,d7.w),d2		* d2 = ratio
 	move.w  d2,a4				* a4 = taux d'erreur
 	swap 	d2
-	;move.w	0(a5,d7.w),d2
-	;movea.w	2(a5,d7.w),a4
 	
     moveq.l	#0,d3
 	move.w	0(a6,d7.w),d3
@@ -384,9 +456,9 @@ WIZstereo:
 	blt.s	.ok1
 	sub.w	wiz1rpt(pc),d3
 .ok1:
-	move.w	d3,wiz1pos
+	move.w	d3,wiz1pos-itab(a5)
 	move.w	2(a6,d7.w),d3
-	add.w	d3,wiz1frc
+	add.w	d3,wiz1frc-itab(a5)
 
 	;-------------------------
 	moveq.l	#0,d4
@@ -402,8 +474,6 @@ WIZstereo:
 	move.l  (a5,d7.w),d6		* d6 = ratio
 	move.w  d6,a2				* a2 = taux d'erreur
 	swap	d6
-	;move.w	0(a5,d7.w),d6
-	;movea.w	2(a5,d7.w),a2
 
     moveq.l	#0,d3				* Table de correction voix 4
 	move.w	0(a6,d7.w),d3
@@ -412,9 +482,9 @@ WIZstereo:
 	blt.s	.ok4
 	sub.w	wiz4rpt(pc),d3
 .ok4:
-	move.w	d3,wiz4pos
+	move.w	d3,wiz4pos-itab(a5)
 	move.w	2(a6,d7.w),d3
-	add.w	d3,wiz4frc
+	add.w	d3,wiz4frc-itab(a5)
 
 	lea		computesampleloop+2(pc),a3
 	bsr		automodrout
@@ -475,7 +545,7 @@ WIZstereo:
 	move.l	a6,d6
 	movea.l	cursampl3(pc),a3
 
-	movea.l	samp1(pc),a6
+	movea.l	WIZbackbuf(pc),a6
 
 	; compute samples routine parameters :
 	; - a6 = dma buffer destination
@@ -538,7 +608,21 @@ computesampleloop:
 
 	dbra.w	d7,computesampleloop
 	
+	move.l		-4(a6),(a6)
+
 	; end ------------------------
+
+	lea		WIZplayer_dmabufstart+1(pc),a0
+
+	move.b	(a0)+,$FFFF8903.w	
+	move.b	(a0)+,$FFFF8905.w		
+	move.b	(a0)+,$FFFF8907.w		
+
+	lea		WIZplayer_dmabufend+1(pc),a0
+
+	move.b	(a0)+,$FFFF890F.w
+	move.b	(a0)+,$FFFF8911.w
+	move.b	(a0)+,$FFFF8913.w
 
 	movem.l	(sp)+,d0-d7/a0-a6	* Restore les registres
 
@@ -587,65 +671,64 @@ cursampl2:  DC.l 0
 cursampl3:  DC.l 0
 cursampl4:  DC.l 0
 
-wiz1lc		DC.L sample1
+wiz1lc		DC.L WIZbuffer
 wiz1len		DC.L 0
 wiz1rpt		DC.W 0
 wiz1pos		DC.W 0
 wiz1frc		DC.W 0
 
-wiz2lc	DC.L sample1
-wiz2len	DC.L 0
-wiz2rpt	DC.W 0
-wiz2pos	DC.W 0
-wiz2frc	DC.W 0
+wiz2lc		DC.L WIZbuffer
+wiz2len		DC.L 0
+wiz2rpt		DC.W 0
+wiz2pos		DC.W 0
+wiz2frc		DC.W 0
 
-wiz3lc	DC.L sample1
-wiz3len	DC.L 0
-wiz3rpt	DC.W 0
-wiz3pos	DC.W 0
-wiz3frc	DC.W 0
+wiz3lc		DC.L WIZbuffer
+wiz3len		DC.L 0
+wiz3rpt		DC.W 0
+wiz3pos		DC.W 0
+wiz3frc		DC.W 0
 
-wiz4lc	DC.L sample1
-wiz4len	DC.L 0
-wiz4rpt	DC.W 0
-wiz4pos	DC.W 0
-wiz4frc	DC.W 0
+wiz4lc		DC.L WIZbuffer
+wiz4len		DC.L 0
+wiz4rpt		DC.W 0
+wiz4pos		DC.W 0
+wiz4frc		DC.W 0
 
-aud1lc	DC.L dummy
-aud1len	DC.W 0
-aud1per	DC.W 0
-aud1vol	DC.W 0
-	DS.W 3
+aud1lc		DC.L dummy
+aud1len		DC.W 0
+aud1per		DC.W 0
+aud1vol		DC.W 0
+			DS.W 3
 
-aud2lc	DC.L dummy
-aud2len	DC.W 0
-aud2per	DC.W 0
-aud2vol	DC.W 0
-	DS.W 3
+aud2lc		DC.L dummy
+aud2len		DC.W 0
+aud2per		DC.W 0
+aud2vol		DC.W 0
+			DS.W 3
 
-aud3lc	DC.L dummy
-aud3len	DC.W 0
-aud3per	DC.W 0
-aud3vol	DC.W 0
-	DS.W 3
+aud3lc		DC.L dummy
+aud3len		DC.W 0
+aud3per		DC.W 0
+aud3vol		DC.W 0
+			DS.W 3
 
-aud4lc	DC.L dummy
-aud4len	DC.W 0
-aud4per	DC.W 0
-aud4vol	DC.W 0
+aud4lc		DC.L dummy
+aud4len		DC.W 0
+aud4per		DC.W 0
+aud4vol		DC.W 0
 
-dummy	DC.L 0
+dummy		DC.L 0
 
-WIZbackbuf:
-samp1:	DC.L sample1
-WIZfrontbuf:
-samp2:	DC.L sample2
+WIZbuffer:
+		DS.B 	LEN*4
+		DS.B	NBBYTES_OVERHEAD
+		DS.B	LEN*4
+		DS.B	NBBYTES_OVERHEAD
+		DS.B 	LEN*4
+		DS.B	NBBYTES_OVERHEAD
+WIZbuffer_End:
 
-sample1:	DS.W 	LEN*2
-			DS.W	8	
-sample2:	DS.W	LEN*2
-			DS.W	8	
-sample2_end:
 *--------------------------------------------------- INIT MODULE
 prepare:
 	move.l	workspc(pc),a6
@@ -705,12 +788,12 @@ moverep:
 
 	addq.w	#2,d1
 	dbra	d0,moverep
-	cmp.w	#320*5,d1			; Must be > 320
+	cmp.w	#320*5,d1		; Must be > 320
 	blt.s	toosmal
 
 	move.w	#320*5/2-1,d2
 last320:
-	move.w	(a5)+,(a0)+			; Move all samples back from stack
+	move.w	(a5)+,(a0)+		; Move all samples back from stack
 	dbra.w	d2,last320
 
 done:	add.w	d4,d4
@@ -734,7 +817,7 @@ end_of_samples:	DC.L 0
 *--------------------------------------------------- INIT SAMPLE ADR TABLE
 init:	
 	move.l	data(pc),a0
-	lea	$03B8(a0),a1
+	lea		$03B8(a0),a1
 
 	moveq.l	#$7F,d0
 	moveq.l	#0,d1
@@ -782,7 +865,8 @@ music:
 	clr.w	(a6)
 	bra	getnew
 
-nonew	lea	voice1(pc),a4
+nonew:
+	lea	voice1(pc),a4
 	lea	aud1lc(pc),a3
 	bsr	checkcom
 	lea	voice2(pc),a4
@@ -875,7 +959,7 @@ playvoice
 	tst.b	d2
 	beq.s	setregs
 	moveq	#0,d3
-	lea	samplestarts(pc),a1
+	lea		samplestarts(pc),a1
 	move.l	d2,d4
 	subq.l	#$01,d2
 	asl.l	#2,d2
@@ -923,11 +1007,14 @@ setperiod
 	move.w	$10(a4),d0
 	and.w	#$0FFF,d0
 	move.w	d0,$06(a3)
+	move.w	d0,$0A(a3)
 	move.w	$14(a4),d0
 	or.w	d0,dmacon-counter(a6)
 	bra	checkcom2
 
-setdma	move.w	dmacon(pc),d0
+setdma:
+	move.w	dmacon(pc),d0
+	move.w	d0,dmaconcopy-counter(a6)
 
 	btst	#0,d0			;-------------------
 	beq.s	wz_nch1			;
@@ -1215,6 +1302,7 @@ break:	DC.B $00
 pattpos:DC.W $00
 
 dmacon:			DC.W $00
+dmaconcopy:		DC.W $00
 samplestarts:	DS.L $1F
 
 voice1	
@@ -1237,7 +1325,7 @@ voice_end:
 
 data:		dc.l	0					* Adresse module
 workspc:	dc.l	0					* Adresse fin workspc
-vtabptr: dc.l 0
+vtabptr:	dc.l 0
 
 *-------------------------------------------TABLE VOLUME & INCREMENTS
 itab:	ds.l $30

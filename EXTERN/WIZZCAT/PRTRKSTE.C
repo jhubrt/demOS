@@ -2,12 +2,13 @@
 #include "PRTRKSTE.H"
 
 #ifndef __TOS__
-void* WIZbackbuf;
-void* WIZfrontbuf;
+s8* WIZbackbuf;
+s8* WIZfrontbuf;
 
-void WIZinit    (void) {}
+void WIZinit    (WIZplayerInfo* playerInfo_) {}
 void WIZmodInit (void* mod_, void* modeend_) {}
 void WIZplay    (void) {}
+void WIZstop    (void) {}
 void WIZrundma  (void) {}
 void WIZstereo  (void) {}
 void WIZgetInfo(WIZinfo* info)

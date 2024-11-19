@@ -27,6 +27,8 @@
 #include "DEMOSDK\FSM.H"
 #include "DEMOSDK\RASTERS.H"
 
+#include "EXTERN\WIZZCAT\PRTRKSTE.H"
+
 void PlayerEntry    (void);
 
 void PlayerActivity (FSM* _fsm);
@@ -49,6 +51,8 @@ struct Player_
 
     u8    panel;
     u8    lastpanel;
+    
+    WIZplayerInfo playerInfo;
 };
 typedef struct Player_ Player;
 
