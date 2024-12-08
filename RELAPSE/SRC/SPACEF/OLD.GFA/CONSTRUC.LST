@@ -1,0 +1,27 @@
+INPUT "Hauteur";h&
+INPUT "Offset";o&
+'
+OPEN "i",#1,"k:\slide\1"
+SEEK #1,4
+BGET #1,XBIOS(2)-32,32
+CLOSE #1
+~XBIOS(6,L:XBIOS(2)-32)
+'
+CLS
+LINE FALSE,99,319,99
+LINE FALSE,ADD(100,h&),319,ADD(100,h&)
+'
+RESERVE 20000
+a%=MALLOC(400000)
+IF a%=FALSE
+  END
+ENDIF
+BLOAD "k:\slide\nuages",a%
+OPEN "o",#1,"k:\slide\nuages2"
+FOR i&=FALSE TO 29
+  FOR j&=FALSE TO 44
+    BPUT #1,ADD(a%,ADD(MUL(i&,12000),MUL(ADD(o&,j&),160)))+8,144
+  NEXT j&
+NEXT i&
+CLOSE #1
+~MFREE(a%)

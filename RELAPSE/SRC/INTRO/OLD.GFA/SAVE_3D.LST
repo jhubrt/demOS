@@ -1,0 +1,38 @@
+' -----------------------------------------------------------------------------'
+' INTRO 'RELAPSE'      Forme le fichier  pour assemblage                       '
+' -----------------------------------------------------------------------------'
+'
+RESERVE 10000
+a%=MALLOC(1000000)
+IF a%=FALSE
+  END
+ENDIF
+FOR t&=FALSE TO 7
+  SETCOLOR t&,t&,t&,MIN(7,t&+1)
+NEXT t&
+e%=XBIOS(2)
+'
+z%=a%
+z2%=ADD(a%,50*56*114)
+FOR t&=1 TO 50
+  BLOAD "g:\1\"+"frame"+STR$(t&)+".pi1",SUB(e%,34)
+  RC_COPY e%,10,FALSE,320,200 TO e%,FALSE,FALSE
+  @bmove(z%)
+  BLOAD "g:\2\"+"frame"+STR$(t&)+".pi1",SUB(e%,34)
+  RC_COPY e%,10,FALSE,320,200 TO e%,FALSE,FALSE
+  @bmove(z2%)
+NEXT t&
+'
+BSAVE "e:\code\effects.grx\relapse\anim3d.bin",a%,99*56*114
+'
+~MFREE(a%)
+'
+> PROCEDURE bmove(VAR z%)
+  FOR t%=ADD(e%,MUL(68,160)) TO ADD(e%,MUL(123,160)) STEP 160
+    FOR i%=t% TO ADD(t%,144) STEP 8
+      {z%}={i%}
+      CARD{ADD(z%,4)}=CARD{ADD(i%,4)}
+      ADD z%,6
+    NEXT i%
+  NEXT t%
+RETURN

@@ -22,12 +22,12 @@
 
 #include "DEMOSDK\BASTYPES.H"
 
+void EMULlog (char* str); 
+
 void SYSassert(CONST char* _message, CONST char* _file, int _line)
 {
     u8* doerror = NULL; 
     char assertion[1024]; 
-
-    void EMULlog (char* str); 
 
     snprintf(assertion, sizeof(assertion), "%s(%d): ASSERTION failed '%s'\n", _file, _line, _message); 
     printf("%s", assertion); 

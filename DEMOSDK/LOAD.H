@@ -131,20 +131,24 @@ extern u16 LOADorder;
 #endif
 
 #ifdef DEMOS_LOAD_FROMHD
-void          LOADinitForHD             (LOADdisk* _media, u16 _nbEntries, u16 _nbMetaData);
+void          LOADinitForHD             (LOADdisk* _media, u16 _nbEntries, u16 _nbMetaData, u16 firstentry_);
 #else
+typedef void (*LOADmediaPreloadCallback)(LOADrequest* _request, void* _clientData);
 typedef void (*LOADpreloadCallback)     (u16 _preloadResourceIndex, LOADrequest* _request, void* _clientData);
+
+bool          LOADmediaPreload          (LOADdisk* _media, MEMallocator* allocator_, u16 firstentry_, LOADmediaPreloadCallback _callback, void* _clientData);
 void*         LOADpreload               (void* _preload, u32 _preloadsize, void* _current, LOADdisk* _disk, u8* _resources, u16 _nbResources, LOADpreloadCallback _callback, void* _clientData);
-void          LOADinitFAT               (u8 _drive, LOADdisk* _media, u16 _nbEntries, u16 _nbMetaData);
-void          LOADinit          		(LOADdisk* _firstmedia, u16 _nbEntries, u16 _nbMetaData);
+void          LOADinit          		(u16 _nbEntries, u16 _nbMetaData, LOADdisk* _firstmedia);
+void          LOADinitFAT               (u8 preferedDrive_, LOADdisk* _media, u16 _nbEntries, u16 _nbMetaData);
 #endif
 
+bool          LOADcheckInsertedMediaID  (u8 preferedDrive_, u16 mediaid_, void* tempbuffer);
 LOADrequest*  LOADrequestLoad           (LOADdisk* _media, u16 _resource, void* _buffer, u16 _order);
 LOADrequest*  LOADdata                  (LOADdisk* _media, u16 _resource, void* _buffer, u16 _order);
 void          LOADwaitRequestCompleted  (LOADrequest* request);
 void		  LOADwaitFDCIdle			(void);
 #define       LOADfreeRequest(_request) if (_request != NULL) _request->allocated = false;
-
+LOADrequest*  LOADwarmUp                (LOADdisk* _media, u16 _resourceid, void* _buffer);
 
 u16           LOADresourceNbSectors     (LOADdisk* _media, u16 _entryIndex);
 u32           LOADresourceRoundedSize   (LOADdisk* _media, u16 _entryIndex);
@@ -157,7 +161,7 @@ u32           LOADmetadataSize          (LOADdisk* _media, u16 _metaDataIndex);
 u32           LOADmetadataOriginalSize  (LOADdisk* _media, u16 _metaDataIndex);
 #define LOAD_METADATA_NOTPACKEDSIZE     0x1FFFFF
 
-u32           LOADcomputeExactSize      (LOADdisk* _media, u16 _entryIndex);
+u32           LOADcomputePreciseSize      (LOADdisk* _media, u16 _entryIndex);
 
 #ifdef DEMOS_DEBUG
 u16 LOADtrace (void* _image, u16 _pitch, u16 _planePitch, u16 _y);

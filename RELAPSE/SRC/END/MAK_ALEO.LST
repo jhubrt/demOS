@@ -1,0 +1,26 @@
+' -----------------------------------------------------------------------------'
+' END SCREEN 'RELAPSE' - CREE UNE TABLE DE COORD ALEATOIRES
+' -----------------------------------------------------------------------------'
+'
+RESERVE 40000
+a%=MALLOC(100000)
+IF a%=FALSE
+  END
+ENDIF
+z%=a%
+FOR j&=FALSE TO 499
+  REPEAT
+    x&=SUB(RAND(720),200)
+    y&=SUB(RAND(600),200)
+    etap&=ADD(180,RAND(20))
+  UNTIL OR(OR(x&<-15,x&>319),OR(y&<-15,y&>200))
+  CARD{z%}=etap&
+  ADD z%,2
+  CARD{z%}=x&
+  ADD z%,2
+  CARD{z%}=y&
+  ADD z%,2
+NEXT j&
+BSAVE "e:\code\effects.grx\end\aleo.bin",a%,SUB(z%,a%)
+PRINT SUB(z%,a%)
+~MFREE(a%)

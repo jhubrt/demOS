@@ -162,6 +162,7 @@
     <None Include="..\DEMOSDK\TRACE.S" />
     <None Include="..\SYNSOUND\SRC\SYNTH.S" />
     <None Include="..\SYNSOUND\SYNTH.INI" />
+    <None Include="_hatari\syntheticsoundo.cfg" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

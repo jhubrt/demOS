@@ -29,6 +29,7 @@
 #include "DEMOSDK\STANDARD.H"
 #include "DEMOSDK\SYSTEM.H"
 #include "DEMOSDK\ALLOC.H"
+#include "DEMOSDK\TRACE.H"
 
 u16 LOADorder = 1;
 
@@ -50,22 +51,6 @@ void LOADidle(void);
 #endif
 
 
-#ifndef DEMOS_LOAD_FROMHD
-void LOADinit (LOADdisk* _firstmedia, u16 _nbEntries, u16 _nbMetaData)
-{
-    if (sys.invertDrive)
-        LOADlastdrive = 0x200;    
-
-#	ifdef __TOS__
-	*HW_VECTOR_DMA = (u32) LOADidle;
-	LOADsecpertrack = LOAD_SECTORS_PER_TRACK;
-	STDcpuSetSR(0x2300);
-#	endif
-
-    LOADinitFAT (0, _firstmedia, _nbEntries, _nbMetaData);
-}
-#endif
-
 static void loadReadFAT (MEMallocator* _allocator, u16* _readbuffer, LOADdisk* _media, u16 _nbEntries, u16 _nbMetaData)
 {
     STATIC_ASSERT(sizeof(LOADrequest) == 28);
@@ -78,7 +63,6 @@ static void loadReadFAT (MEMallocator* _allocator, u16* _readbuffer, LOADdisk* _
 
     _media->mediapreloadsize = PCENDIANSWAP16(_readbuffer[2]);
     _media->mediapreloadsize <<= LOAD_MEDIAUSEDSIZE_SHIFT;
-    _media->mediapreloadsize -= LOAD_SECTORSIZE * (LOAD_FAT_NBSECTORS + 1); /* skip FAT + bootsector */
 
     {
         u16 entriessize  = _media->nbEntries  * sizeof(LOADresource);
@@ -94,7 +78,7 @@ static void loadReadFAT (MEMallocator* _allocator, u16* _readbuffer, LOADdisk* _
         _media->preload = (void**)(FATbuffer + entriessize + metadatasize);
 
         STDmcpy(FATbuffer, &_readbuffer[3], entriessize + metadatasize);
-        STDmset(_media->preload, 0, preloadsize);
+        STDmset(_media->preload, 0UL, preloadsize);
     }
 
 #   ifndef __TOS__
@@ -116,13 +100,30 @@ static void loadReadFAT (MEMallocator* _allocator, u16* _readbuffer, LOADdisk* _
 #   endif
 }
 
+static void loadAssignPreloadAddresses (LOADdisk* _media, u16 firstentry_)
+{
+    u8* p = (u8*)_media->mediapreload;
+    u16 t;
+
+    for (t = firstentry_ ; t < _media->nbEntries ; t++)
+    {
+        u16 nbsectors = _media->FAT[t].startsectorsidenbsectors & LOAD_RESOURCE_MASK_NBSECTORS;
+
+        _media->preload[t] = p;
+
+        p += nbsectors * LOAD_SECTORSIZE;
+    }
+}
+
 #ifdef DEMOS_LOAD_FROMHD
-void LOADinitForHD (LOADdisk* _media, u16 _nbEntries, u16 _nbMetaData)
+void LOADinitForHD (LOADdisk* _media, u16 _nbEntries, u16 _nbMetaData, u16 firstentry_)
 {
     u32 result;
     FILE* file = fopen(_media->filename, "rb");
 
     
+    printf("Preload %s\n", _media->filename);
+
     ASSERT(file != NULL);    
     {
         u16* temp = (u16*) MEM_ALLOCTEMP (&sys.allocatorStandard, LOAD_SECTORSIZE * LOAD_FAT_NBSECTORS);
@@ -139,60 +140,48 @@ void LOADinitForHD (LOADdisk* _media, u16 _nbEntries, u16 _nbMetaData)
         MEM_FREE(&sys.allocatorStandard, temp);
     }
 
-    _media->mediapreload = MEM_ALLOC (&sys.allocatorStandard, _media->mediapreloadsize);
-    ASSERT(_media->mediapreload != NULL);
-    
-    if (_media->mediapreload == NULL)
-        goto error;
+    {
+        LOADresource* rsc = &_media->FAT[firstentry_];
 
-    result = fread (_media->mediapreload, 1, _media->mediapreloadsize, file);
-    ASSERT(result == _media->mediapreloadsize);
+        u32 track = rsc->metadataindextrack & LOAD_RESOURCE_MASK_TRACK;
+        u32 side = (rsc->startsectorsidenbsectors & LOAD_RESOURCE_MASK_SIDE) != 0;
+        u16 startsector = (rsc->startsectorsidenbsectors >> LOAD_RESOURCE_RSHIFT_STARTSECTOR) & LOAD_RESOURCE_MASK_STARTSECTOR;
+
+        u16 nbsectors = _media->mediapreloadsize / LOAD_SECTORSIZE;
+        u16 skipsectors = (u16)(track * 2 + side) * LOAD_SECTORS_PER_TRACK + startsector;
+
+        u32 preloadsize;
+
+        nbsectors -= skipsectors;
+
+        preloadsize = STDmulu(nbsectors, LOAD_SECTORSIZE);
+
+        TRAClogNumber10(TRAC_LOG_DISK, "LOADinitForHD: track: ", track, 4);
+        TRAClogNumber10(TRAC_LOG_DISK, " side: ", side, 2);
+        TRAClogNumber10(TRAC_LOG_DISK, " sector: ", startsector, 4);
+        TRAClogNumber10S(TRAC_LOG_DISK, " nbsectors: ", nbsectors, 4, '\n');
+
+        _media->mediapreload = MEM_ALLOC(&sys.allocatorStandard, preloadsize);
+        ASSERT(_media->mediapreload != NULL);
+
+        if (_media->mediapreload == NULL)
+            goto error;
+
+        fseek(file, STDmulu(skipsectors, LOAD_SECTORSIZE), SEEK_SET); /* skip bootsector */
+        result = fread (_media->mediapreload, 1, preloadsize, file);
+        ASSERT(result == preloadsize);
+    }
 
     fclose(file);
 
-    {
-        u8* p = (u8*) _media->mediapreload;
-        u16 t;
-
-        for (t = 1 ; t < _media->nbEntries ; t++)
-        {
-            u16 nbsectors = _media->FAT[t].startsectorsidenbsectors & LOAD_RESOURCE_MASK_NBSECTORS;
-
-            _media->preload[t] = p;
-
-            p += nbsectors * LOAD_SECTORSIZE;
-        }
-    }    
+    loadAssignPreloadAddresses(_media, firstentry_);
 
     return;
 
 error:
     printf("Not enought RAM\n");
-    while(1);
+    exit(1);
 }
-
-#else
-
-void LOADinitFAT (u8 _drive, LOADdisk* _media, u16 _nbEntries, u16 _nbMetaData)
-{
-    u16* temp = (u16*) RINGallocatorAlloc (&sys.mem, LOAD_SECTORSIZE * LOAD_FAT_NBSECTORS);
-
-    _drive = sys.has2Drives & (_drive != sys.invertDrive);
-
-    {
-        LOADrequest* loadRequest = LOADpush (temp, LOAD_FAT_STARTSECTOR + 1, ((u32)_drive << 17), ((u32)LOAD_PRIOTITY_HIGH << 16) | LOAD_FAT_NBSECTORS);
-        LOADwaitRequestCompleted (loadRequest);
-    }
-
-    loadReadFAT (&sys.allocatorCoreMem, temp, _media, _nbEntries, _nbMetaData);
-
-    RINGallocatorFree (&sys.mem, temp);
-}
-
-#endif
-
-
-#ifdef DEMOS_LOAD_FROMHD
 
 LOADrequest* LOADrequestLoad(LOADdisk* _media, u16 _resourceid, void* _buffer, u16 _order)
 { 
@@ -202,6 +191,48 @@ LOADrequest* LOADrequestLoad(LOADdisk* _media, u16 _resourceid, void* _buffer, u
 
 #else
 
+static u8 loadGetDriveUnit(u8 preferedDrive_)
+{
+    if (sys.has2Drives == false)
+        return 0;
+
+    if (sys.forceUsedDrive >= 0)
+        return sys.forceUsedDrive;
+
+    return sys.invertDrive != preferedDrive_;
+}
+
+void LOADinit (u16 _nbEntries, u16 _nbMetaData, LOADdisk* _firstmedia)
+{
+    if (loadGetDriveUnit(_firstmedia->preferedDrive))
+        LOADlastdrive = 0x200;    
+
+#	ifdef __TOS__
+    *HW_VECTOR_DMA = (u32) LOADidle;
+    LOADsecpertrack = LOAD_SECTORS_PER_TRACK;
+    STDcpuSetSR(0x2300);
+#	endif
+
+    LOADinitFAT (0, _firstmedia, _nbEntries, _nbMetaData);
+}
+
+void LOADinitFAT (u8 preferedDrive_, LOADdisk* _media, u16 _nbEntries, u16 _nbMetaData)
+{
+    u16* temp = (u16*) RINGallocatorAlloc (&sys.mem, LOAD_SECTORSIZE * LOAD_FAT_NBSECTORS);
+    u8  drive = loadGetDriveUnit(preferedDrive_);
+
+    LOADrequest* loadRequest = LOADpush (temp, LOAD_FAT_STARTSECTOR + 1, ((u32)drive << 17), ((u32)LOAD_PRIOTITY_HIGH << 16) | LOAD_FAT_NBSECTORS);
+
+    TRAClogNumber10(TRAC_LOG_DISK, "LOADinitFAT drive: ", drive, 2);
+    TRAClogNumber10S(TRAC_LOG_DISK, " prefereddrive: ", _media->preferedDrive, 2, '\n');
+
+    LOADwaitRequestCompleted (loadRequest);
+
+    loadReadFAT (&sys.allocatorCoreMem, temp, _media, _nbEntries, _nbMetaData);
+
+    RINGallocatorFree (&sys.mem, temp);
+}
+
 LOADrequest* LOADrequestLoad (LOADdisk* _media, u16 _resourceid, void* _buffer, u16 _order)
 {
 	LOADresource* rsc = &_media->FAT[_resourceid];
@@ -210,10 +241,19 @@ LOADrequest* LOADrequestLoad (LOADdisk* _media, u16 _resourceid, void* _buffer, 
     u32 side        = (rsc->startsectorsidenbsectors & LOAD_RESOURCE_MASK_SIDE) != 0;
     u16 startsector = (rsc->startsectorsidenbsectors >> LOAD_RESOURCE_RSHIFT_STARTSECTOR) & LOAD_RESOURCE_MASK_STARTSECTOR;
     u32 nbsectors   = rsc->startsectorsidenbsectors & LOAD_RESOURCE_MASK_NBSECTORS;
-
-    u8 drive        = sys.has2Drives & (_media->preferedDrive != sys.invertDrive);
+    u8  drive       = loadGetDriveUnit(_media->preferedDrive);
     
 	LOADrequest* loadRequest = LOADpush (_buffer, startsector + 1, track | (side << 16) | ((u32) drive << 17), ((u32)_order << 16) | nbsectors);
+
+    TRAClogNumber10(TRAC_LOG_DISK, "LOADrequestLoad drive: ", drive, 2);
+    TRAClogNumber10(TRAC_LOG_DISK, " track: ", track, 4);
+    TRAClogNumber10(TRAC_LOG_DISK, " side: ", side, 2);
+    TRAClogNumber10(TRAC_LOG_DISK, " sector: ", startsector, 4);
+    TRAClogNumber10(TRAC_LOG_DISK, " nbsectors: ", nbsectors, 4);
+    TRAClogNumber10(TRAC_LOG_DISK, " preferedDrive: ", _media->preferedDrive, 2);
+    TRAClogNumber10(TRAC_LOG_DISK, " has2drives: ", sys.has2Drives, 2);
+    TRAClogNumber10(TRAC_LOG_DISK, " forceUsedDrive: ", sys.forceUsedDrive, 2);
+    TRAClogNumber10S(TRAC_LOG_DISK, " sys.invertDrive: ", sys.invertDrive, 2, '\n');
 
 #	ifdef LOAD_CHECK_CONTENT
 	if ( loadRequest != NULL )
@@ -250,6 +290,49 @@ LOADrequest* LOADrequestLoad (LOADdisk* _media, u16 _resourceid, void* _buffer, 
     return loadRequest;
 }
 
+bool LOADmediaPreload (LOADdisk* _media, MEMallocator* allocator_, u16 firstentry_, LOADmediaPreloadCallback _callback, void* _clientData)
+{
+    LOADresource* rsc = &_media->FAT[firstentry_];
+
+    u32 track       = rsc->metadataindextrack & LOAD_RESOURCE_MASK_TRACK;
+    u32 side        = (rsc->startsectorsidenbsectors & LOAD_RESOURCE_MASK_SIDE) != 0;
+    u16 startsector = (rsc->startsectorsidenbsectors >> LOAD_RESOURCE_RSHIFT_STARTSECTOR) & LOAD_RESOURCE_MASK_STARTSECTOR;
+    u8  drive       = loadGetDriveUnit(_media->preferedDrive);
+
+    u16 nbsectors   = _media->mediapreloadsize / LOAD_SECTORSIZE;
+
+
+    nbsectors -= (u16)(track * 2 + side) * LOAD_SECTORS_PER_TRACK + startsector;
+
+    TRAClogNumber10(TRAC_LOG_DISK, "LOADmediaPreload: ", drive, 2);
+    TRAClogNumber10(TRAC_LOG_DISK, " track: ", track, 4);
+    TRAClogNumber10(TRAC_LOG_DISK, " side: ", side, 2);
+    TRAClogNumber10(TRAC_LOG_DISK, " sector: ", startsector, 4);
+    TRAClogNumber10S(TRAC_LOG_DISK, " nbsectors: ", nbsectors, 4, '\n');
+
+    _media->mediapreload = MEM_ALLOC (allocator_, STDmulu(nbsectors, LOAD_SECTORSIZE));
+
+    if (_media->mediapreload == NULL)
+    {
+        return false;
+    }
+    else
+    {
+        LOADrequest* loadRequest = LOADpush (_media->mediapreload, startsector + 1, track | (side << 16) | ((u32) drive << 17), ((u32)LOAD_PRIOTITY_HIGH << 16) | nbsectors);
+
+        while (loadRequest->processed != LOADrequestState_DONE)
+        {
+            _callback (loadRequest, _clientData);
+        }
+
+        LOADfreeRequest (loadRequest);
+
+        loadAssignPreloadAddresses(_media, firstentry_);
+
+        return true;
+    }    
+}
+
 void* LOADpreload (void* _preload, u32 _preloadsize, void* _current, LOADdisk* _disk, u8* _resources, u16 _nbResources, LOADpreloadCallback _callback, void* _clientData)
 {
     u8* currentpreload = (u8*) _current;
@@ -282,17 +365,58 @@ void* LOADpreload (void* _preload, u32 _preloadsize, void* _current, LOADdisk* _
 
 #endif
 
-
-LOADrequest* LOADdata (LOADdisk* _media, u16 _resource, void* _buffer, u16 _order)
+bool LOADcheckInsertedMediaID(u8 preferedDrive_, u16 mediaid_, void* tempbuffer)
 {
-    if ( _media->preload[_resource] != NULL )
+#ifdef DEMOS_LOAD_FROMHD
+    return true;
+#else
+    u32 track       = 0;
+    u32 side        = 0;
+    u16 startsector = 0;
+    u32 nbsectors   = 1;
+    u8  drive       = loadGetDriveUnit(preferedDrive_);
+
+    if (sys.forceUsedDrive >= 0)
+        drive = sys.forceUsedDrive;
+
+    TRAClogNumber(TRAC_LOG_DISK, "LOADcheckInsertedMediaID drive:", drive, 2);
+
     {
-        STDmcpy(_buffer, _media->preload[_resource], LOADresourceRoundedSize(_media, _resource) );
+        LOADrequest* loadRequest = LOADpush (tempbuffer, startsector + 1, track | (side << 16) | ((u32) drive << 17), ((u32)LOAD_PRIOTITY_HIGH << 16) | nbsectors);
+        ASSERT(loadRequest != NULL);
+        LOADwaitRequestCompleted(loadRequest);
+    }
+
+    {
+        u16 t;
+        u16 CRC = 0;
+        u16* p = (u16*)tempbuffer;
+
+        for (t = 2; t < LOAD_SECTORSIZE; t += 2)
+            CRC += *p++;
+
+        TRAClogNumberS(TRAC_LOG_DISK, " CRC: $", CRC, 4, '\n');
+
+        return CRC == mediaid_;
+    }
+#endif
+}
+
+LOADrequest* LOADdata (LOADdisk* _media, u16 _resourceid, void* _buffer, u16 _order)
+{
+    if ( _media->preload[_resourceid] != NULL )
+    {
+        u32 size = LOADresourceRoundedSize(_media, _resourceid);
+
+        TRAClogNumber(TRAC_LOG_DISK, "LOAD data at $", (u32)_media->preload[_resourceid], 6);
+        TRAClogNumber10S(TRAC_LOG_DISK, " size: ", size, 6, '\n');
+
+        STDmcpy(_buffer, _media->preload[_resourceid], size);
     }
 #   ifndef DEMOS_LOAD_FROMHD
     else
     {
-        return LOADrequestLoad (_media, _resource, _buffer, _order);
+        return LOADrequestLoad (_media, _resourceid, _buffer, _order);
     }
 #   endif
 
@@ -300,6 +424,35 @@ LOADrequest* LOADdata (LOADdisk* _media, u16 _resource, void* _buffer, u16 _orde
 
     return NULL;
 }
+
+
+LOADrequest* LOADwarmUp (LOADdisk* _media, u16 _resourceid, void* _buffer)
+{
+#   ifndef DEMOS_LOAD_FROMHD
+    if ( _media->preload[_resourceid] == NULL )
+    {
+        LOADresource* rsc = &_media->FAT[_resourceid];
+        LOADrequest* loadRequest;
+
+        u32 track       = rsc->metadataindextrack & LOAD_RESOURCE_MASK_TRACK;
+        u32 side        = (rsc->startsectorsidenbsectors & LOAD_RESOURCE_MASK_SIDE) != 0;
+        u16 startsector = (rsc->startsectorsidenbsectors >> LOAD_RESOURCE_RSHIFT_STARTSECTOR) & LOAD_RESOURCE_MASK_STARTSECTOR;
+        u32 order       = LOAD_PRIORITY_INORDER;
+        u8 drive        = loadGetDriveUnit(_media->preferedDrive);
+
+        loadRequest = LOADpush (_buffer, startsector + 1, track | (side << 16) | ((u32) drive << 17), (order << 16) | 1UL); /* 1 sector */
+
+        return loadRequest;
+    }
+#   endif
+
+    IGNORE_PARAM(_media);
+    IGNORE_PARAM(_resourceid);
+    IGNORE_PARAM(_buffer);
+
+    return NULL;
+}
+
 
 
 u16 LOADresourceNbSectors (LOADdisk* _media, u16 _entryIndex)
@@ -357,7 +510,7 @@ u32 LOADmetadataOriginalSize (LOADdisk* _media, u16 _metaDataIndex)
     return _media->metaData[_metaDataIndex].originalsizesizel >> LOAD_METADATA_RSHIFT_ORIGINALSIZE;
 }
 
-u32 LOADcomputeExactSize (LOADdisk* _media, u16 _entryIndex)
+u32 LOADcomputePreciseSize (LOADdisk* _media, u16 _entryIndex)
 {
     u16 startIndex = _media->FAT[_entryIndex].metadataindextrack;
     u16 endIndex, t;

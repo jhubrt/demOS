@@ -30,14 +30,30 @@
 #ifndef BITMAP_H
 #define BITMAP_H
 
+#define BIT_RLE_HEADERSIZE (sizeof(u32) + sizeof(u16) * 3)
+
+struct BITrleHeader_
+{
+	u16 repeatLen;
+	u16 dataLen;
+	s32 columnInc;
+	s16 lineInc;
+};
+typedef struct BITrleHeader_ BITrleHeader;
+
 /* when _endpitch line is 0, you can use _src == _dst */
 void BITpl2chunk(void* _src, u16 _h, u16 _nbchunks, u16 _endlinepitch, void* _dst);
 
-u16  BITcompress1P      (void* _frame, void* _opcode, u32 _opcodeBufferSize, void* _wdata, u32 _wdataBufferSize, u16 _pitch, u16 _frameheight, u32* _opcodeSize, u32* _wdataSize);
-void BITuncompress1P_C  (void* _opcode, void* _wdata, void* _dest);
+u16  BITcompress1P (void* _frame, void* _opcode, u32 _opcodeBufferSize, void* _wdata, u32 _wdataBufferSize, u16 _pitch, u16 _frameheight, u32* _opcodeSize, u32* _wdataSize);
+void BITuncompress1P_C (void* _opcode, void* _wdata, void* _dest);
 
-void BITcompressRLE1P     (void* _frame, void* _wdata, u32 _wdataBufferSize, u16 _pitch, u16 _frameheight, u32* _wdatasize);
+void BITcompressRLE1P (void* _frame, void* _wdata, u32 _wdataBufferSize, u16 _pitch, u16 _frameheight, u32* _wdatasize);
 void BITuncompressRLE1P_C (void* _wdata, void* _dest);
+
+u8*  BITcompressRLE4v (MEMallocator* allocator_, void* _frame, u16 _pitch, u16 _frameheight);
+u8*  BITcompressRLE4h (MEMallocator* allocator_, void* _frame, u16 _pitch, u16 _frameheight);
+void BITuncompressRLE4_C (void* _compressedBuffer, void* _dest);
+
 
 #ifdef __TOS__
 void BIT1pUncompress    (void* _opcode, void* _wdata, u32 _dest);

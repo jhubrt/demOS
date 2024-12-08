@@ -1,0 +1,13 @@
+a$=SPACE$(32000)
+a%=V:a$
+z%=a%
+FOR t&=FALSE TO 127+4
+  x&=RAND(188)+66
+  y&=RAND(66)+67
+  PRINT x&;"  ";y&
+  CARD{z%}=x&
+  ADD z%,2
+  CARD{z%}=y&
+  ADD z%,2
+NEXT t&
+BSAVE "D:\PROJECTS\DEMOS\RELAPSE\SRC\GRAFIK_S\ALEOEFF9.DAT",a%,SUB(z%,a%)

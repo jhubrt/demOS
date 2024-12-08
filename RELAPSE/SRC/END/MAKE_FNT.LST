@@ -1,0 +1,29 @@
+' -----------------------------------------------------------------------------'
+' END SCREEN 'RELAPSE' - MET LA FONTE 1 PLAN EN FORME
+' -----------------------------------------------------------------------------'
+'
+~XBIOS(5,L:TRUE,L:TRUE,W:FALSE)
+RESERVE 40000
+a%=MALLOC(100000)
+IF a%=FALSE
+  END
+ENDIF
+e%=XBIOS(2)
+BLOAD "f:\images\personal\biggie.neo",SUB(e%,128)
+BMOVE ADD(e%,117*160),e%,16000
+SGET a$
+z%=a%
+FOR j&=FALSE TO 39
+  CLS
+  RC_COPY V:a$,MUL(MOD(j&,20),16),MUL(DIV(j&,20),17),16,16 TO e%,FALSE,FALSE
+  FOR t&=FALSE TO 2400 STEP 160
+    FOR i&=FALSE TO 8 STEP 8
+      CARD{z%}=CARD{ADD(ADD(e%,t&),i&)}
+      CARD{ADD(ADD(e%,t&),i&)}=TRUE
+      ADD z%,2
+    NEXT i&
+  NEXT t&
+NEXT j&
+BSAVE "e:\code\effects.grx\end\conclus.bin",a%,SUB(z%,a%)
+PRINT SUB(z%,a%)
+~MFREE(a%)

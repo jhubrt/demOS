@@ -1,0 +1,5 @@
+set TARGET=_debug
+set ALL=
+
+%DEMOS_PATH%\BIN\EXTERN\logfilter.exe %DEMOS_PATH%\BLITZIK\TOOLS\BATCH\LogFilter.cfg %DEMOS_PATH%\RELAPSE\TOOLS\BATCH\relapse.bat
+

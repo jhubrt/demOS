@@ -1,0 +1,240 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Source Files\DEMOSDK">
+      <UniqueIdentifier>{63376e97-fa66-4880-af07-45ae8624e06c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Batchs">
+      <UniqueIdentifier>{d49f3e9f-c47c-46ab-85ab-95d2fb7ff635}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\EXTERN">
+      <UniqueIdentifier>{f7a073e2-22fc-40e3-b1b1-31cb4ec97c20}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\BOOT">
+      <UniqueIdentifier>{123412be-23b6-4815-9bdc-ce13fb2d2e32}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\TOOLS">
+      <UniqueIdentifier>{953dac38-cb2b-4828-94c2-5a2bb8c1a1dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\TOOLS\BINARIZE">
+      <UniqueIdentifier>{e077cc4d-184c-4692-80ec-a620fad9f9a3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\FX">
+      <UniqueIdentifier>{40bf4388-80b4-4018-aa6d-f6a04aec2134}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\FX\VECTOR">
+      <UniqueIdentifier>{ce326eca-578a-4853-999d-b630b5df35b3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\FX\VECTOR\TOOLS">
+      <UniqueIdentifier>{87579f48-391e-4dd3-a6e6-f2fe99c7cfe4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\DEMOSDK\PC">
+      <UniqueIdentifier>{c132e1d9-b200-48b7-bd81-0b0c76d8d1be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\DATA">
+      <UniqueIdentifier>{78a7b8e4-2560-427a-b7fd-8698a1f20d94}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\DATA\ZIKS">
+      <UniqueIdentifier>{127ffc08-2121-42de-9d8d-2ba56c9af516}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\DATA\SPLASH">
+      <UniqueIdentifier>{a646e614-88e3-47dc-b4a1-fe9003a3c9ec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\DATA\INFO">
+      <UniqueIdentifier>{5f1e21df-a217-4b66-9292-19fba7f287ba}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\DEMOSDK\HARDWARE.C">
+      <Filter>Source Files\DEMOSDK</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\STANDARD.C">
+      <Filter>Source Files\DEMOSDK</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\PC\BITCONVR.C">
+      <Filter>Source Files\DEMOSDK</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\COLORS.C">
+      <Filter>Source Files\DEMOSDK</Filter>
+    </ClCompile>
+    <ClCompile Include="..\EXTERN\MPP\BMP2MPP.C">
+      <Filter>Source Files\EXTERN</Filter>
+    </ClCompile>
+    <ClCompile Include="..\EXTERN\MPP\MPP2BMP.C">
+      <Filter>Source Files\EXTERN</Filter>
+    </ClCompile>
+    <ClCompile Include="..\EXTERN\MPP\PIXBUF.C">
+      <Filter>Source Files\EXTERN</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\BITMAP.C">
+      <Filter>Source Files\DEMOSDK</Filter>
+    </ClCompile>
+    <ClCompile Include="..\RELAPSE\TOOLS\BINARIZE\BINARIZE.CPP">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\TOOLS\BINARIZE\HELPERS.CPP">
+      <Filter>Source Files\TOOLS\BINARIZE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\FX\VECTOR\TOOLS\B_VECTOR.CPP">
+      <Filter>Source Files\FX\VECTOR\TOOLS</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\PC\VISUALASRT.C">
+      <Filter>Source Files\DEMOSDK\PC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\PC\VISUALOG.CPP">
+      <Filter>Source Files\DEMOSDK\PC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\PC\BMPLOADER.C">
+      <Filter>Source Files\DEMOSDK\PC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\PC\SURFACE.C">
+      <Filter>Source Files\DEMOSDK\PC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\PC\WINDOW.C">
+      <Filter>Source Files\DEMOSDK\PC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\TOOLS\BINARIZE\HELPERSW.CPP">
+      <Filter>Source Files\TOOLS\BINARIZE</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\RELAPSE\DATA\BOOT\BOOT.BMP">
+      <Filter>Resource Files\BOOT</Filter>
+    </None>
+    <None Include="..\RELAPSE\DATA\BOOT\BOOT2P.BMP">
+      <Filter>Resource Files\BOOT</Filter>
+    </None>
+    <None Include="..\DEMOSDK\BITMAP.S">
+      <Filter>Source Files\DEMOSDK</Filter>
+    </None>
+    <None Include="..\RELAPSE\DATA\ZIKS\DELOS_0C.MOD">
+      <Filter>Resource Files\DATA\ZIKS</Filter>
+    </None>
+    <None Include="..\RELAPSE\DATA\ZIKS\DELOS_04.MOD">
+      <Filter>Resource Files\DATA\ZIKS</Filter>
+    </None>
+    <None Include="..\RELAPSE\DATA\ZIKS\EGYPTZIK.MOD">
+      <Filter>Resource Files\DATA\ZIKS</Filter>
+    </None>
+    <None Include="..\RELAPSE\DATA\ZIKS\ENDMOD3.MOD">
+      <Filter>Resource Files\DATA\ZIKS</Filter>
+    </None>
+    <None Include="..\RELAPSE\DATA\ZIKS\FIRST6.MOD">
+      <Filter>Resource Files\DATA\ZIKS</Filter>
+    </None>
+    <None Include="..\RELAPSE\DATA\ZIKS\GRAFIK.MOD">
+      <Filter>Resource Files\DATA\ZIKS</Filter>
+    </None>
+    <None Include="..\RELAPSE\DATA\ZIKS\HYDRO.MOD">
+      <Filter>Resource Files\DATA\ZIKS</Filter>
+    </None>
+    <None Include="..\RELAPSE\DATA\ZIKS\INFO.MOD">
+      <Filter>Resource Files\DATA\ZIKS</Filter>
+    </None>
+    <None Include="..\RELAPSE\DATA\ZIKS\NEW_TEC7.MOD">
+      <Filter>Resource Files\DATA\ZIKS</Filter>
+    </None>
+    <None Include="..\RELAPSE\TOOLS\BATCH\relapse.mak">
+      <Filter>Batchs</Filter>
+    </None>
+    <None Include="..\RELAPSE\TOOLS\BATCH\LogFilter.cfg">
+      <Filter>Batchs</Filter>
+    </None>
+    <None Include="..\RELAPSE\TOOLS\BATCH\_make_debug.bat">
+      <Filter>Batchs</Filter>
+    </None>
+    <None Include="..\RELAPSE\TOOLS\BATCH\_make_release.bat">
+      <Filter>Batchs</Filter>
+    </None>
+    <None Include="..\RELAPSE\TOOLS\BATCH\_make_ziks_all_debug.bat">
+      <Filter>Batchs</Filter>
+    </None>
+    <None Include="..\RELAPSE\TOOLS\BATCH\_make_ziks_all_release.bat">
+      <Filter>Batchs</Filter>
+    </None>
+    <None Include="..\RELAPSE\TOOLS\BATCH\_make_ziks_debug.bat">
+      <Filter>Batchs</Filter>
+    </None>
+    <None Include="..\RELAPSE\TOOLS\BATCH\_make_ziks_release.bat">
+      <Filter>Batchs</Filter>
+    </None>
+    <None Include="..\RELAPSE\TOOLS\BATCH\_makeall_debug.bat">
+      <Filter>Batchs</Filter>
+    </None>
+    <None Include="..\RELAPSE\TOOLS\BATCH\_makeall_release.bat">
+      <Filter>Batchs</Filter>
+    </None>
+    <None Include="..\RELAPSE\TOOLS\BATCH\binarizer.bat">
+      <Filter>Batchs</Filter>
+    </None>
+    <None Include="..\RELAPSE\TOOLS\BATCH\relapse.bat">
+      <Filter>Batchs</Filter>
+    </None>
+    <None Include="..\RELAPSE\TOOLS\BATCH\run.bat">
+      <Filter>Batchs</Filter>
+    </None>
+    <None Include="..\RELAPSE\DATA\SPLASH\COLORS.PAL">
+      <Filter>Resource Files\DATA\SPLASH</Filter>
+    </None>
+    <None Include="..\RELAPSE\DATA\ZIKS\DELOS_05.mod">
+      <Filter>Resource Files\DATA\ZIKS</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\DEMOSDK\HARDWARE.H">
+      <Filter>Source Files\DEMOSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DEMOSDK\STANDARD.H">
+      <Filter>Source Files\DEMOSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DEMOSDK\PC\BITCONVR.H">
+      <Filter>Source Files\DEMOSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DEMOSDK\COLORS.H">
+      <Filter>Source Files\DEMOSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="..\EXTERN\MPP\PIXBUF.H">
+      <Filter>Source Files\EXTERN</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DEMOSDK\BITMAP.H">
+      <Filter>Source Files\DEMOSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="..\TOOLS\BINARIZE\HELPERS.H">
+      <Filter>Source Files\TOOLS\BINARIZE</Filter>
+    </ClInclude>
+    <ClInclude Include="..\FX\VECTOR\TOOLS\B_VECTOR.H">
+      <Filter>Source Files\FX\VECTOR\TOOLS</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DEMOSDK\PC\VISUALOG.H">
+      <Filter>Source Files\DEMOSDK\PC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DEMOSDK\PC\BMPLOADER.H">
+      <Filter>Source Files\DEMOSDK\PC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DEMOSDK\PC\SURFACE.H">
+      <Filter>Source Files\DEMOSDK\PC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DEMOSDK\PC\WINDOW.H">
+      <Filter>Source Files\DEMOSDK\PC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\TOOLS\BINARIZE\HELPERSW.H">
+      <Filter>Source Files\TOOLS\BINARIZE</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\RELAPSE\DATA\SPLASH\SPLASH.TXT">
+      <Filter>Resource Files\DATA\SPLASH</Filter>
+    </Text>
+    <Text Include="..\RELAPSE\DATA\INFO\INFO.TXT">
+      <Filter>Resource Files\DATA\INFO</Filter>
+    </Text>
+  </ItemGroup>
+</Project>

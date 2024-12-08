@@ -24,6 +24,7 @@
 
 #define _CRT_SECURE_NO_WARNINGS
 #include <conio.h>
+#include <ctype.h>
 
 #include "DEMOSDK\STANDARD.H"
 
@@ -58,7 +59,7 @@ int main(int argc, char** argv)
 		char ext[256];
         char title[512];
         BITsurface surface, surface2;
-        BITloadResult result;
+        BITloadResult result = BITloadResult_UNKNOWN_FORMAT;
 
 
         BITsurfaceConstruct(&surface);
@@ -70,9 +71,17 @@ int main(int argc, char** argv)
         {
             result = BITneoLoad(&surface, &stdAllocator, argv[1]);
         }
-        else 
+        else if ((ext[0] == '.') && (toupper(ext[1]) == 'P') && (toupper(ext[2]) == 'I'))
         {
             result = BITdegasLoad(&surface, &stdAllocator, argv[1]);
+        }
+        else if (_strcmpi(ext, ".DAT") == 0)
+        {
+            result = BITcompressedLoad (&surface, &stdAllocator, argv[1]);
+        }
+        else if (_strcmpi(ext, ".C4V") == 0)
+        {
+            result = BITcompressed4Load (&surface, &stdAllocator, argv[1]);
         }
 
         if ( result != BITloadResult_OK )

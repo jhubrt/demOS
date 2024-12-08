@@ -72,6 +72,8 @@
 #			define _CRT_SECURE_NO_WARNINGS
 #		endif
 #       include <assert.h>
+#       define _USE_MATH_DEFINES 1
+#       include <math.h>
 #	endif
 #	include <stdio.h>
 #	include <stdlib.h>
@@ -112,6 +114,7 @@ typedef u8 bool;
 #ifdef __TOS__
 #	define PCENDIANSWAP16(V)	V
 #	define PCENDIANSWAP32(V)	V
+#   define PCENDIANSWAPBUFFER16(B,N)
 #	define PCSTUB
 #	define PCSTUBRET
 #	define ASMIMPORT			extern
@@ -119,14 +122,15 @@ typedef u8 bool;
 #   define CONST
 #   define PCONLY(A)
 #else
-#	define PCENDIANSWAP16(V)	STDswap16(V)
-#	define PCENDIANSWAP32(V)	STDswap32(V)
-#	define PCSTUB               {}
-#	define PCSTUBRET            { return 0; }
+#	define PCENDIANSWAP16(V)	     STDswap16(V)
+#	define PCENDIANSWAP32(V)	     STDswap32(V)
+#   define PCENDIANSWAPBUFFER16(B,N) STDswapBuffer16(B,N)
+#	define PCSTUB                    {}
+#	define PCSTUBRET                 { return 0; }
 #	define ASMIMPORT
-#   define ASMIMPORTDEFAULT(A)   = A
+#   define ASMIMPORTDEFAULT(A)       = A
 #   define CONST const
-#   define PCONLY(A)            A
+#   define PCONLY(A)                 A
 #endif
 
 /* memory allocator interface */

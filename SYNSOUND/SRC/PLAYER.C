@@ -33,6 +33,7 @@
 
 #ifndef __TOS__
 #include "DEMOSDK\PC\WINDOW.H"
+#include "DEMOSDK\PC\EMUL.H"
 #endif
 
 #include <time.h>
@@ -97,20 +98,20 @@ u16 mask[ARRAYSIZE(value)][16];
 
 
 
-void IntroEntry (FSM* _fsm)
+void SynthSoundEntry (FSM* _fsm)
 {
+    SyntheticSound* this = g_screens.proto = MEM_ALLOC_STRUCT( &sys.allocatorMem, SyntheticSound );
+    DEFAULT_CONSTRUCT(this);
+
     (*HW_VIDEO_MODE) = HW_VIDEO_MODE_2P;
 
-    g_screens.intro = MEM_ALLOC_STRUCT( &sys.allocatorMem, Intro );
-    DEFAULT_CONSTRUCT(g_screens.intro);
+    this->framebuffer = RINGallocatorAlloc ( &sys.mem, 64000UL );
+    ASSERT (this->framebuffer != NULL);
+    STDmset (this->framebuffer, 0, 64000UL);
+    SYSwriteVideoBase ((u32)this->framebuffer);
 
-    g_screens.intro->framebuffer = RINGallocatorAlloc ( &sys.mem, 64000UL );
-    ASSERT (g_screens.intro->framebuffer != NULL);
-    STDmset (g_screens.intro->framebuffer, 0, 64000UL);
-    SYSwriteVideoBase ((u32)g_screens.intro->framebuffer);
-
-    g_screens.intro->pcmcopy = (s8*) RINGallocatorAlloc ( &sys.mem, SND_FRAME_NBSAMPLES * 4);
-    ASSERT (g_screens.intro->pcmcopy != NULL);
+    this->pcmcopy = (s8*) RINGallocatorAlloc ( &sys.mem, SND_FRAME_NBSAMPLES * 4);
+    ASSERT (this->pcmcopy != NULL);
 
     STDmset (HW_COLOR_LUT+1, -1, 30);
 
@@ -124,27 +125,72 @@ void IntroEntry (FSM* _fsm)
                 mask[t][i] = (u16) value[t];
             }
         }
+
+        for (t = 0; t < 16; t++)
+        {
+            u16 start = t;
+
+            for (i = 0 ; i < 16 ; i++)
+            {
+                if (i <= t)
+                    this->wavetable[t][i] = 0;
+                else
+                    this->wavetable[t][i] = 127 * (i - t + 1) / (16 - t);
+
+                /* printf("[%d][%d] = %d\n", t, i, this->wavetable[t][i]); */
+            }
+        }
     }
 
-    /*STDmset (g_screens.intro->framebuffer, 0, 32000);
-    TRACdrawScanlinesScale (g_screens.intro->framebuffer, 160, 2, 200);*/
+    /*STDmset (this->framebuffer, 0, 32000);
+    TRACdrawScanlinesScale (this->framebuffer, 160, 2, 200);*/
+
+    SNDsynSquareInit();
+
+    this->cyclicratio[0] = this->cyclicratio[1] = 32768UL;
+    this->volume[0] = this->volume[1] = 127;
 
     FSMgotoNextState (&g_stateMachineIdle);
     FSMgotoNextState (&g_stateMachine);
 }
 
-void IntroActivity	(FSM* _fsm)
-{
-    SNDsynUpdate(g_screens.intro->keyb[0], g_screens.intro->keyb[1]);
+void SynthSoundActivity	(FSM* _fsm)
+{   
+    SyntheticSound* this = g_screens.proto;
+    u16 htone[16];
+    u16 t, i = this->wtindex[this->channel];
+
+
+    for (t = 0; t < 16; t++)
+    {
+        htone[t] = ((u32)this->wavetable[i][t] * (u32)(this->volume[this->channel] + 1)) >> 7;
+    }
+
+    SNDsynSquareUpdate(this->keyb, this->cyclicratio, this->porta, this->volume, htone);
+
+    EMULwait(1);
 
     if ( SYSkbHit )
     {
         bool         pressed  = (sys.key & HW_KEYBOARD_KEYRELEASE) == 0;
         u8           scancode = sys.key & ~(HW_KEYBOARD_KEYRELEASE);
-        SNDsynVoice* voice    = &synth.voices[g_screens.intro->channel];
+        SNDsynVoice* voice    = &synth.voices[this->channel];
 
         switch (scancode)
         {
+        case HW_KEY_F1: 
+        case HW_KEY_F2: 
+        case HW_KEY_F3: 
+        case HW_KEY_F4: 
+        case HW_KEY_F5: 
+        case HW_KEY_F6: 
+        case HW_KEY_F7: 
+        case HW_KEY_F8: 
+        case HW_KEY_F9: 
+        case HW_KEY_F10:
+            synth.keyboardtranspose = scancode - HW_KEY_F1;
+            break;
+
         case HW_KEY_Q:
         case HW_KEY_W:
         case HW_KEY_E:
@@ -159,14 +205,11 @@ void IntroActivity	(FSM* _fsm)
         case HW_KEY_BRACKET_RIGHT:
             if ( pressed )
             {
-                g_screens.intro->keyb[g_screens.intro->channel] = scancode - HW_KEY_Q + 1;
+                this->keyb[this->channel] = scancode - HW_KEY_Q + 1 + synth.keyboardtranspose * 12;
             }
             else
             {
-                if ( g_screens.intro->keyb[g_screens.intro->channel] == (scancode - HW_KEY_Q + 1 ))
-                {
-                    g_screens.intro->keyb[g_screens.intro->channel] = 0;
-                }
+                this->keyb[this->channel] = 0;
             }
             break;
 
@@ -207,50 +250,64 @@ void IntroActivity	(FSM* _fsm)
             }
             break;
 
-        }
-
-        switch (sys.key)
-        {
-        case HW_KEY_NUMPAD_PLUS:
-            if ( voice->frame.transpose > 0 )
-            {
-                voice->frame.transpose--;
-            }
-            break;
-
-        case HW_KEY_NUMPAD_MINUS:
-            if ( voice->frame.transpose < 4 )
-            {
-                voice->frame.transpose++;
-            }
-            break;
-
         case HW_KEY_SPACEBAR:
-            g_screens.intro->channel ^= 1;
+            this->channel ^= 1;
             break;
 
-        case HW_KEY_LEFT:
-            if ( voice->frame.volume > 0 )
-            {
-                voice->frame.volume--;
-            }
+        case HW_KEY_NUMPAD_7:
+            if (this->wtindex[this->channel] > 0)
+                this->wtindex[this->channel]--;
             break;
 
-        case HW_KEY_RIGHT:
-            if ( voice->frame.volume < 7 )
-            {
-                voice->frame.volume++;
-            }
+        case HW_KEY_NUMPAD_9:
+            if (this->wtindex[this->channel] < 16)
+                this->wtindex[this->channel]++;
             break;
         }
+    }
+
+    switch (sys.key)
+    {
+    case HW_KEY_NUMPAD_1:
+        if (this->porta[this->channel] > 0)
+            this->porta[this->channel]--;
+        break;
+
+    case HW_KEY_NUMPAD_3:
+        if (this->porta[this->channel] < 1024)
+            this->porta[this->channel]++;
+        break;
+
+    case HW_KEY_LEFT:
+        if (this->cyclicratio[this->channel] > 0)
+            this->cyclicratio[this->channel] -= 256;
+        /*printf("%u ", this->cyclicratio[this->channel]);*/
+        break;
+
+    case HW_KEY_RIGHT:
+        if ( this->cyclicratio[this->channel] < 65536UL ) 
+            this->cyclicratio[this->channel] += 256;
+        /*printf("%u ", this->cyclicratio[this->channel]);*/
+        break;
+
+    case HW_KEY_UP:
+        if (this->volume[this->channel] > 0)
+            this->volume[this->channel]--;
+        break;
+
+    case HW_KEY_DOWN:
+        if (this->volume[this->channel] < 127)
+            this->volume[this->channel]++;       
+        break;
     }
 }
 
 
-void IntroBacktask (FSM* _fsm)
+void SynthSoundBacktask (FSM* _fsm)
 {
+    SyntheticSound* this = g_screens.proto;
     static u8 flip = 0;
-    u32 backframebuffer = (u32)g_screens.intro->framebuffer;
+    u32 backframebuffer = (u32)this->framebuffer;
     
     backframebuffer += flip ? 32000 : 0;
 
@@ -258,28 +315,24 @@ void IntroBacktask (FSM* _fsm)
 
     SYSvsync;
     {
-        u8 channel = g_screens.intro->channel;
+        u8 channel = this->channel;
 
-        s8* backbuf  = g_screens.intro->pcmcopy;
-        s8* frontbuf = g_screens.intro->pcmcopy;
+        s8* backbuf  = synth.dmabuffers[synth.backbuffer];
 /*        u32 cursor = EMULgetPlayOffset ();*/
 /*        char temp [32]; */
         
-        backbuf  -= channel;
-        frontbuf -= channel;
+        backbuf += channel;
 
-        if (synth.backbuffer)
         {
-            backbuf += SND_FRAME_NBSAMPLES * 2;
-        }
-        else
-        {
-            frontbuf += SND_FRAME_NBSAMPLES * 2;
+            u32 offset = synth.squarevoices[0].current * 2;
+
+            if (offset > 280)
+                offset = 0;
+
+            STDmcpy (this->pcmcopy, backbuf + offset, synth.dmabufferlen * 2);
         }
 
-        STDmcpy (g_screens.intro->pcmcopy, synth.buffer, synth.dmabufferlen * 2);
-
-        /*EMULgetSound (g_screens.intro->pcmcopy, 4000);
+        /*EMULgetSound (this->pcmcopy, 4000);
 
         {
             static clock_t last = 0;
@@ -340,26 +393,22 @@ void IntroBacktask (FSM* _fsm)
                 off = 0;
             }
 
-            SNDsynSample_drawCurve (backbuf + off, nbsamples, 2, (u8*)backframebuffer);
+            /* SNDsynSample_drawCurve (backbuf + off, nbsamples, 2, (u8*)backframebuffer); */
         }
 
-        /*SNDsynSample_drawCurve ( g_screens.intro->pcmcopy, 640, 8, (u8*)backframebuffer);*/
-
-        SNDsynSample_drawCurve ( frontbuf + synth.dmabufferlen - (160 * 2), 160, 2, (u8*) backframebuffer + 16040);
-        SNDsynSample_drawCurve ( backbuf , 160, 2, (u8*) backframebuffer + 16080);
-
-        SNDsynSample_drawXorPass (640, (u8*) backframebuffer + 16000);
-        SNDsynSample_drawXorPass (640, (u8*) backframebuffer);
+        SNDsynSample_drawCurve ( this->pcmcopy + 1, 500, 4, (u8*) backframebuffer + 16000);
+ 
+        SNDsynSample_drawXorPass (500, (u8*) backframebuffer + 16000);
 
         SYSwriteVideoBase (backframebuffer);
     }
     flip ^= 1;
 }
 
-void IntroExit	(FSM* _fsm)
+void SynthSoundExit (FSM* _fsm)
 {
-    MEM_FREE(&sys.allocatorMem, g_screens.intro);
-    g_screens.intro = NULL; 
+    MEM_FREE(&sys.allocatorMem, g_screens.proto);
+    g_screens.proto = NULL; 
 
     ASSERT( RINGallocatorIsEmpty(&sys.mem) );
 

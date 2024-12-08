@@ -1,8 +1,8 @@
 	
 	output  D:\PROJECTS\DEMOS\OUTPUT\ARJDEP2.O
 
-	xdef	ARJdepack,ARJprogress
-
+	xdef	ARJdepack
+    xref    SYSdpakActive
 
 ; ARJ mode4 decode function
 ; Size optimized
@@ -35,15 +35,14 @@
 ; a1: rbuf_current
 ; a2: source adres for byte copy
 ; a3: temporary register
-; a4: progress adress
+; a4: not used
 ; a5: not used
 ; a6: not used
 
 ARJdepack:
-                MOVEM.L D0-D7/A2-A4,-(SP) ; save registers
+                MOVEM.L D0-D7/A2-A3,-(SP) ; save registers
 
-				lea		ARJprogress(pc),a4
-				move.l	a1,(a4)
+                move.b  #1,SYSdpakActive
 
                 move.l  (a1)+,d0        ; D0 = origsize (long) added to bytes flow start
 
@@ -68,11 +67,12 @@ COUNT_LOOP:                             ; main depack loop
                 BSR.S   GETBITS         ;
                 MOVE.B  D2,(A0)+        ; push byte in buffer
 EVAL_LOOP:
-				move.l	a1,(a4)			; progress update
-
 				SUBQ.L  #1,D3           ;
                 BNE.S   COUNT_LOOP      ;
-                MOVEM.L (SP)+,D0-D7/A2-A4 ;
+
+                clr.b  SYSdpakActive
+
+                MOVEM.L (SP)+,D0-D7/A2-A3 ;
 				
                 RTS                     ;
 
@@ -128,5 +128,3 @@ FILLBITS:
 NO_FILL:
                 ROL.L   D0,D6           ; bits to pop from buffer
                 RTS                     ;
-
-ARJprogress:	dc.l	0

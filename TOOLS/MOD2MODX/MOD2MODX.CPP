@@ -97,6 +97,25 @@ void Sndtrack::PrintSamplesTable()
 }
 
 
+static void PCM_DPCM(bool _pack, s8* _p, s32 _len)
+{
+    if (_pack)
+    {
+        for (s32 t = _len - 1 ; t > 0 ; t--)
+        {
+            _p[t] -= _p[t - 1];
+        }
+    }
+    else
+    {
+        for (s32 t = 1 ; t < _len ; t++)
+        {
+            _p[t] += _p[t - 1];
+        }
+    }
+}
+
+
 bool Sndtrack::ProcessModuleMOD (const char* _filename, bool _pack)
 {
     FILE* file = fopen(_filename, "rb");
@@ -198,20 +217,7 @@ bool Sndtrack::ProcessModuleMOD (const char* _filename, bool _pack)
                 it->m_data.resize(len);
                 TOOLreadcheck (&(it->m_data[0]), len, file);
 
-                if (_pack)
-                {
-                    for (s32 t = it->m_data.size() - 1; t > 0; t--)
-                    {
-                        p[t] -= p[t - 1];
-                    }
-                }
-                else
-                {
-                    for (u32 t = 1; t < it->m_data.size(); t++)
-                    {
-                        p[t] += p[t-1];
-                    }
-                }
+                PCM_DPCM(_pack, p, it->m_data.size());
             }
         }
 
@@ -246,11 +252,55 @@ bool Sndtrack::ProcessModuleMOD (const char* _filename, bool _pack)
 
 
 
+bool ProcessSample (const char* _filename, bool _pack)
+{
+    FILE* file = fopen(_filename, "rb");
+
+    if (file != NULL)
+    {
+        u32 fileSize = TOOLfileSize(file);
+        printf ("Source module size = %u\n\n", fileSize);
+
+        s8* buffer = new s8[fileSize];
+        fread(buffer, fileSize, 1, file);
+        fclose(file);
+
+        printf ("LoadSample End\n");
+
+        PCM_DPCM(_pack, buffer, fileSize);
+
+        // Save ----------------------------------------------------------------
+        char filename[256];
+
+        if (_pack)
+            sprintf(filename, "%sX", _filename);
+        else
+        {
+            strcpy(filename, _filename);
+            filename[strlen(filename) - 1] = 0;
+        }
+
+        file = fopen(filename, "wb");
+
+        if (file != NULL)
+        {
+            fwrite (buffer, 1, fileSize, file);
+            fclose(file);
+
+            printf ("Module saved PCM End \n");
+        }
+    }
+
+    return file != NULL;
+}
+
+
+
 int main(char argc, char* _argv[])
 {
     if (argc == 1)
     {
-        printf("Mod2Modx v1.0.0\n\n");
+        printf("Mod2Modx v1.1.0\n\n");
         printf("mod2modx filename\n\n");
 
         return 1;
@@ -262,30 +312,44 @@ int main(char argc, char* _argv[])
     _strupr(filename);
 
     bool pack = true;
+    bool pcmonly = false;
 
     char* ext = strrchr(filename, '.');
     bool success = false;
 
     if (ext != NULL)
     {
-        pack = _stricmp(ext, ".MOD") == 0;
+        pack     = _stricmp(ext, ".MOD") == 0;
+        pack    |= _stricmp(ext, ".PCM") == 0;
+
+        pcmonly  = _stricmp(ext, ".PCM" ) == 0;
+        pcmonly |= _stricmp(ext, ".PCMX") == 0;
     }        
 
     try
     {
-        Sndtrack sndtrack;
+        printf ("%s - %s\n", pack ? "dpcm to pcm" : "pcm to dpcm", pcmonly ? "mod" : "sample");
 
-        bool success = false;
-
-        success = sndtrack.ProcessModuleMOD(filename, pack);
-
-        if (success)
+        if (pcmonly)
         {
-            sndtrack.PrintSamplesTable();
+            ProcessSample (filename, pack);
         }
         else
         {
-            MOD_CONVERT_OUTPUT("ERROR: cannot open module file '%s' for read\n", filename);
+            Sndtrack sndtrack;
+
+            bool success = false;
+
+            success = sndtrack.ProcessModuleMOD(filename, pack);
+
+            if (success)
+            {
+                sndtrack.PrintSamplesTable();
+            }
+            else
+            {
+                MOD_CONVERT_OUTPUT("ERROR: cannot open module file '%s' for read\n", filename);
+            }
         }
     }
     catch (const TOOLerror& error)

@@ -48,6 +48,7 @@ u16   STDmfrnd (void);
 u16   STDifrnd (void);
 u16   STDswap16(u16 _v);
 u32   STDswap32(u32 _v);
+void  STDswapBuffer16(u16* _buffer, u16 _nbWorsd);
 u32   STDmulu (u16 _x, u16 _y);
 s32   STDmuls (s16 _x, s16 _y);
 u32   STDdivu (u32 _x, u16 _y);

@@ -30,7 +30,7 @@
 
 struct Screens_
 {
-    Intro*       intro;
+    SyntheticSound*       proto;
 };
 typedef struct Screens_ Screens;
 

@@ -38,6 +38,7 @@
 #define TRAC_LOG_MEMORY     0x00000001UL
 #define TRAC_LOG_FSM        0x00000002UL
 #define TRAC_LOG_FLOW       0x00000010UL
+#define TRAC_LOG_DISK       0x00000020UL
 #define TRAC_LOG_COMMANDS   0x20000000UL
 #define TRAC_LOG_SPECIFIC   0x40000000UL
 #define TRAC_LOG_TEMP       0x80000000UL
@@ -69,7 +70,6 @@
 	void TRACmanage (u8 _key);
     void TRACdrawScanlinesScale (void* _image, u16 _screenPitch, u16 _bitplanPitchShift, u16 _h);
     u16  TRACmaxraster (u16 maxraster);
-    void TRACdisplayVBLcountAsColors(s16 _index);
 
 #   define TRACselect(FILTER)                                   tracLogger.filtermask = (FILTER)
 #   define TRACisSelected(FILTER)                               ((FILTER) & tracLogger.filtermask)
@@ -83,10 +83,6 @@
 #   define TRAClogSourceLine(FILTER)                            while (TRACisSelected(FILTER)) { static char trace[] = "\nExec line:        "; STDutoa(&trace[sizeof(trace) - 8], __LINE__, 6); TRAClogOut(trace, ' '); TRAClogOut(__FILE__, '\n'); break; }
 
 #   define TRAClogFrameNum(FILTER)                              TRAClogNumber(FILTER,"frame",SYSvblcount,5)
-    
-#	ifdef DEMOS_UNITTEST
-	void TRACunitTest (void* _screen);
-#	endif
 
 #   ifndef __TOS__
     void TRACsaveLog(char* _filename);
@@ -110,8 +106,6 @@
 #   define TRAClogNumber10S(FILTER,STR,NUM,NBCHARS,SEPARATOR)
 #   define TRAClogSourceLine(FILTER)
 #   define TRAClogFrameNum(FILTER)
-
-#   define TRACdisplayVBLcountAsColors(A)
 
 #endif
 

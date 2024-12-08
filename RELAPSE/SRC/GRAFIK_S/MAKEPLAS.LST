@@ -1,0 +1,32 @@
+' -----------------------------------------------------------------------------'
+'                                                                              '
+' GRAFIKSOUND II - Generation des courbes pour plasma - CYBERNETICS 1992 -     '
+'                                                                              '
+' -----------------------------------------------------------------------------'
+'
+RESERVE 10000
+a%=MALLOC(32000)
+IF a%=FALSE
+  END
+ENDIF
+'
+z%=a%
+r&=FALSE
+r2&=FALSE
+FOR j&=FALSE TO 31
+  CLS
+  FOR t&=FALSE TO 38
+    x&=ROUND(SINQ(t&*360/38-90)*j&+j&+1)
+    deca&=ADD(SUB(MUL(SUB(AND(x&,1),1),2),r&),4)
+    r&=MUL(SUB(AND(x&,1),1),2)
+    CARD{ADD(z%,2)}=deca&
+    CARD{z%}=AND(x&,&X11111110)+256-(55-1)*2-r2&
+    r2&=AND(x&,&X11111110)
+    ADD z%,4
+    PLOT x&,t&
+  NEXT t&
+NEXT j&
+'
+BSAVE "D:\plasmacb.dat",a%,SUB(z%,a%)
+'
+~MFREE(a%)

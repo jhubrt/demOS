@@ -1,0 +1,23 @@
+' -----------------------------------------------------------------------------'
+' INTRO 'RELAPSE'      Cherche la taille minimum pour l'animatø raytracee      '
+' -----------------------------------------------------------------------------'
+'
+INLINE redim%,296
+'
+FOR t&=FALSE TO 7
+  SETCOLOR t&,t&,t&,t&
+NEXT t&
+y1&=199
+FOR t&=1 TO 50
+  BLOAD "g:\2\"+"frame"+STR$(t&)+".pi1",XBIOS(2)-34
+  t%=C:redim%(L:XBIOS(2))
+  y1&=MIN(INT{t%},y1&)
+  y2&=MAX(INT{ADD(t%,2)},y2&)
+  PRINT AT(1,1);y1&;" ";y2&;" ";
+NEXT t&
+CLS
+PRINT "Y MAX:";y2&
+PRINT "Y MIN:";y1&
+'
+' => Taille minimum: 68->123
+'

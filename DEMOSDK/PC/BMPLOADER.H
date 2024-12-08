@@ -35,12 +35,18 @@ enum BITloadResult_
 typedef enum BITloadResult_ BITloadResult;
 
 
-BITloadResult BITbmpLoad	(BITsurface* _surface, MEMallocator* _allocator, char* _filename);
-BITloadResult BITbmpLoadLUT (BITlut* _lut, MEMallocator* _allocator, char* _filename);
-bool          BITbmpSave    (BITsurface* _surface, char* _filename);
-bool          BITdegasSave  (BITsurface* _surface, char* _filename);
+BITloadResult BITbmpLoad	    (BITsurface* _surface, MEMallocator* _allocator, CONST char* _filename);
+BITloadResult BITbmpLoadLUT     (BITlut* _lut, MEMallocator* _allocator, CONST char* _filename);
+BITloadResult BITpalLoadLUT     (BITlut* _lut, MEMallocator* _allocator, CONST char* _filename);
+bool          BITbmpSave        (BITsurface* _surface, CONST char* _filename);
+bool          BITdegasSave      (BITsurface* _surface, CONST char* _filename);
+bool          BITsave           (BITsurface* _surface, CONST char* _filename);
+bool          BITrawbufferSave  (BITsurface* _surface, CONST char* _filename);
 
-BITloadResult BITneoLoad    (BITsurface* _surface, MEMallocator* _allocator, char* _filename);
-BITloadResult BITdegasLoad  (BITsurface* _surface, MEMallocator* _allocator, char* _filename);
+BITloadResult BITneoLoad        (BITsurface* _surface, MEMallocator* _allocator, CONST char* _filename);
+BITloadResult BITdegasLoad      (BITsurface* _surface, MEMallocator* _allocator, CONST char* _filename);
+BITloadResult BITkidLoad        (BITsurface* _surface, MEMallocator* _allocator, CONST char* _filename);
+BITloadResult BITcompressedLoad (BITsurface* _surface, MEMallocator* _allocator, CONST char* _filename);
+BITloadResult BITcompressed4Load(BITsurface* _surface, MEMallocator* _allocator, CONST char* _filename);
 
 #endif

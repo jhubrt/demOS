@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="..\TOOLS\P2C\P2C.CPP" />
+    <ClCompile Include="..\DEMOSDK\STANDARD.C">
+      <Filter>DEMOSDK</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\PC\VISUALOG.CPP">
+      <Filter>DEMOSDK\PC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\PC\VISUALASRT.C">
+      <Filter>DEMOSDK\PC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\PC\BITCONVR.C">
+      <Filter>DEMOSDK\PC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\PC\BMPLOADER.C">
+      <Filter>DEMOSDK\PC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\PC\SURFACE.C">
+      <Filter>DEMOSDK\PC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\COLORS.C">
+      <Filter>DEMOSDK</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\BITMAP.C">
+      <Filter>DEMOSDK</Filter>
+    </ClCompile>
+    <ClCompile Include="..\TOOLS\BINARIZE\HELPERS.CPP">
+      <Filter>TOOLS\BINARIZE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\HARDWARE.C">
+      <Filter>DEMOSDK</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\DEMOSDK\BASTYPES.H">
+      <Filter>DEMOSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DEMOSDK\STANDARD.H">
+      <Filter>DEMOSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DEMOSDK\PC\VISUALOG.H">
+      <Filter>DEMOSDK\PC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DEMOSDK\PC\BITCONVR.H">
+      <Filter>DEMOSDK\PC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DEMOSDK\PC\BMPLOADER.H">
+      <Filter>DEMOSDK\PC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DEMOSDK\PC\SURFACE.H">
+      <Filter>DEMOSDK\PC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DEMOSDK\COLORS.H">
+      <Filter>DEMOSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DEMOSDK\BITMAP.H">
+      <Filter>DEMOSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DEMOSDK\HARDWARE.H">
+      <Filter>DEMOSDK</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="DEMOSDK">
+      <UniqueIdentifier>{c9f1ed55-6558-43a4-b48a-615740ff20be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DEMOSDK\PC">
+      <UniqueIdentifier>{f512d6a4-e8fb-4ab6-8f9b-111e3c4117e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="TOOLS">
+      <UniqueIdentifier>{6740e187-4254-492c-a207-d04f084adf6a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="TOOLS\BINARIZE">
+      <UniqueIdentifier>{067b2f4d-3811-461e-8bba-b686f3e7dd4f}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

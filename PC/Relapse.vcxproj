@@ -1,0 +1,244 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{7BF137E9-D6AC-4DDB-BF96-B58259E81BBA}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>Relapse</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <IntDir>$(SolutionDir)..\TEMP\$(ProjectName)_$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <IntDir>$(SolutionDir)..\TEMP\$(ProjectName)_$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;DEMOS_MEMDEBUG=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeaderFile>DEMOSDK\BASTYPES.H</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>..\</AdditionalIncludeDirectories>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;dsound.lib;dxguid.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Program Files (x86)\Windows Kits\8.1\Lib\winv6.3\um\x86</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;DEMOS_MEMDEBUG=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeaderFile>DEMOSDK\BASTYPES.H</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>..\</AdditionalIncludeDirectories>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;dsound.lib;dxguid.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Program Files (x86)\Windows Kits\8.1\Lib\winv6.3\um\x86</AdditionalLibraryDirectories>
+      <LinkTimeCodeGeneration>Default</LinkTimeCodeGeneration>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\DEMOSDK\CODEGEN.C" />
+    <ClCompile Include="..\DEMOSDK\MODX2MOD.C" />
+    <ClCompile Include="..\DEMOSDK\PC\BITCONVR.C" />
+    <ClCompile Include="..\DEMOSDK\PC\VISUALASRT.C" />
+    <ClCompile Include="..\DEMOSDK\PC\_PRECOMP.C">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\SYNTHYMZ.C" />
+    <ClCompile Include="..\EXTERN\NI_PACK\ni_n2.c">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="..\EXTERN\RELOCATE.C" />
+    <ClCompile Include="..\EXTERN\WIZZCAT\PRTRKSTE.C" />
+    <ClCompile Include="..\FX\COLPLANE\COLPLANE.C" />
+    <ClCompile Include="..\FX\MOD\MOD.C" />
+    <ClCompile Include="..\RELAPSE\BUILD.C">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\RELAPSE\RELAPSE1.C" />
+    <ClCompile Include="..\RELAPSE\RELAPSE2.C" />
+    <ClCompile Include="..\RELAPSE\SRC\CASCADE\CASCADE.C" />
+    <ClCompile Include="..\RELAPSE\SRC\DEMOS.C" />
+    <ClCompile Include="..\DEMOSDK\ALLOC.C" />
+    <ClCompile Include="..\DEMOSDK\BITMAP.C" />
+    <ClCompile Include="..\DEMOSDK\COLORS.C" />
+    <ClCompile Include="..\DEMOSDK\FSM.C" />
+    <ClCompile Include="..\DEMOSDK\HARDWARE.C" />
+    <ClCompile Include="..\DEMOSDK\LOAD.C" />
+    <ClCompile Include="..\DEMOSDK\PC\EMUL.CPP">
+      <DisableLanguageExtensions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</DisableLanguageExtensions>
+      <DisableLanguageExtensions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</DisableLanguageExtensions>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\RASTERS.C" />
+    <ClCompile Include="..\DEMOSDK\STANDARD.C" />
+    <ClCompile Include="..\DEMOSDK\SYSTEM.C" />
+    <ClCompile Include="..\DEMOSDK\TRACE.C" />
+    <ClCompile Include="..\DEMOSDK\PC\WINDOW.C">
+      <DisableLanguageExtensions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</DisableLanguageExtensions>
+      <DisableLanguageExtensions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</DisableLanguageExtensions>
+    </ClCompile>
+    <ClCompile Include="..\RELAPSE\SRC\EGYPTIA\EGYPTIA.C" />
+    <ClCompile Include="..\RELAPSE\SRC\END\END.C" />
+    <ClCompile Include="..\RELAPSE\SRC\FASTMENU\FASTMENU.C" />
+    <ClCompile Include="..\RELAPSE\SRC\GRAFIK_S\GRAFIK_S.C" />
+    <ClCompile Include="..\RELAPSE\SRC\INFO\INFO.C" />
+    <ClCompile Include="..\RELAPSE\SRC\INTERLUD\INTERLUD.C" />
+    <ClCompile Include="..\RELAPSE\SRC\INTRO\INTRO.C" />
+    <ClCompile Include="..\RELAPSE\SRC\LIQUID\LIQUID.C" />
+    <ClCompile Include="..\RELAPSE\SRC\LOADER\LOADER.C" />
+    <ClCompile Include="..\RELAPSE\SRC\LOADER\PRELOAD.C" />
+    <ClCompile Include="..\RELAPSE\SRC\SCREENS.C" />
+    <ClCompile Include="..\DEMOSDK\DATA\DATA.C" />
+    <ClCompile Include="..\RELAPSE\SRC\SHADE\SHADE.C" />
+    <ClCompile Include="..\RELAPSE\SRC\SPACEF\SPACEF.C" />
+    <ClCompile Include="..\RELAPSE\SRC\SPLASH\SPLASH.C" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\DEMOSDK\ALLOC.H" />
+    <ClInclude Include="..\DEMOSDK\BASTYPES.H" />
+    <ClInclude Include="..\DEMOSDK\BITMAP.H" />
+    <ClInclude Include="..\DEMOSDK\CODEGEN.H" />
+    <ClInclude Include="..\DEMOSDK\COLORS.H" />
+    <ClInclude Include="..\DEMOSDK\LOADDEFS.H" />
+    <ClInclude Include="..\DEMOSDK\FSM.H" />
+    <ClInclude Include="..\DEMOSDK\HARDWARE.H" />
+    <ClInclude Include="..\DEMOSDK\LOAD.H" />
+    <ClInclude Include="..\DEMOSDK\MODX2MOD.H" />
+    <ClInclude Include="..\DEMOSDK\PC\BITCONVR.H" />
+    <ClInclude Include="..\DEMOSDK\PC\EMUL.H" />
+    <ClInclude Include="..\DEMOSDK\PC\WINDOW.H" />
+    <ClInclude Include="..\DEMOSDK\RASTERS.H" />
+    <ClInclude Include="..\DEMOSDK\STANDARD.H" />
+    <ClInclude Include="..\DEMOSDK\SYNTHYMZ.H" />
+    <ClInclude Include="..\DEMOSDK\SYSTEM.H" />
+    <ClInclude Include="..\DEMOSDK\TRACE.H" />
+    <ClInclude Include="..\EXTERN\RELOCATE.H" />
+    <ClInclude Include="..\EXTERN\WIZZCAT\PRTRKSTE.H" />
+    <ClInclude Include="..\FX\COLPLANE\COLPLANE.H" />
+    <ClInclude Include="..\FX\MOD\MOD.H" />
+    <ClInclude Include="..\RELAPSE\RELAPSE1.H" />
+    <ClInclude Include="..\RELAPSE\RELAPSE2.H" />
+    <ClInclude Include="..\RELAPSE\SRC\CASCADE\CASCADE.H" />
+    <ClInclude Include="..\RELAPSE\SRC\EGYPTIA\EGYPTIA.H" />
+    <ClInclude Include="..\RELAPSE\SRC\END\END.H" />
+    <ClInclude Include="..\RELAPSE\SRC\FASTMENU\FASTMENU.H" />
+    <ClInclude Include="..\RELAPSE\SRC\GRAFIK_S\GRAFIK_S.H" />
+    <ClInclude Include="..\RELAPSE\SRC\IDYNLIB.H" />
+    <ClInclude Include="..\RELAPSE\SRC\INFO\INFO.H" />
+    <ClInclude Include="..\RELAPSE\SRC\INTERLUD\INTERLUD.H" />
+    <ClInclude Include="..\RELAPSE\SRC\INTRO\INTRO.H" />
+    <ClInclude Include="..\RELAPSE\SRC\LIQUID\LIQUID.H" />
+    <ClInclude Include="..\RELAPSE\SRC\LOADER\LOADER.H" />
+    <ClInclude Include="..\RELAPSE\SRC\LOADER\PRELOAD.H" />
+    <ClInclude Include="..\RELAPSE\SRC\SCREENS.H" />
+    <ClInclude Include="..\DEMOSDK\DATA\SYSTFNT.H" />
+    <ClInclude Include="..\RELAPSE\SRC\SHADE\SHADE.H" />
+    <ClInclude Include="..\RELAPSE\SRC\SPACEF\SPACEF.H" />
+    <ClInclude Include="..\RELAPSE\SRC\SPLASH\SPLASH.H" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\DEMOSDK\CODEGEN.S" />
+    <None Include="..\DEMOSDK\MODX2MOD.S" />
+    <None Include="..\EXTERN\NI_PACK\atari_st\ni_n0_f.s" />
+    <None Include="..\EXTERN\NI_PACK\atari_st\ni_n1_e.s" />
+    <None Include="..\EXTERN\NI_PACK\atari_st\ni_n2_f.s" />
+    <None Include="..\EXTERN\RELOCATE.S" />
+    <None Include="..\EXTERN\stsys10\fullscr.ste\fullscr.s" />
+    <None Include="..\EXTERN\WIZZCAT\PRTRKSTE.S" />
+    <None Include="..\RELAPSE.PRJ" />
+    <None Include="..\RELAPSEB.PRJ" />
+    <None Include="..\RELAPSEH.PRJ" />
+    <None Include="..\RELAPSEO.PRJ" />
+    <None Include="..\DEMOSDK\SYSTEM.S" />
+    <None Include="..\DEMOSDK\BITMAP.S" />
+    <None Include="..\DEMOSDK\BOOTSTRA.S" />
+    <None Include="..\DEMOSDK\LOAD.S" />
+    <None Include="..\DEMOSDK\RASTERS.S" />
+    <None Include="..\DEMOSDK\STANDARD.S" />
+    <None Include="..\DEMOSDK\TRACE.S" />
+    <None Include="..\EXTERN\XSTARTUP.S" />
+    <None Include="..\RELAPSE\README.MD" />
+    <None Include="..\RELAPSE\RELAPSE1.TXT" />
+    <None Include="..\RELAPSE\RELAPSE2.TXT" />
+    <None Include="..\RELAPSE\SRC\BOOTSEC2.S" />
+    <None Include="..\RELAPSE\SRC\BOOTSTRA.S" />
+    <None Include="..\RELAPSE\SRC\CASCADE\CASCADE.S" />
+    <None Include="..\RELAPSE\SRC\EGYPTIA\EGYPTIA.S" />
+    <None Include="..\RELAPSE\SRC\END\END.S" />
+    <None Include="..\RELAPSE\SRC\FASTMENU\FASTMENU.S" />
+    <None Include="..\RELAPSE\SRC\GRAFIK_S\GRAFIK_S.S" />
+    <None Include="..\RELAPSE\SRC\INFO\INFO.S" />
+    <None Include="..\RELAPSE\SRC\INTERLUD\INTERLUD.S" />
+    <None Include="..\RELAPSE\SRC\LIQUID\LIQUID.S" />
+    <None Include="..\RELAPSE\SRC\LOADER\LOADER.S" />
+    <None Include="..\RELAPSE\SRC\RBOOTonB.S" />
+    <None Include="..\RELAPSE\SRC\SHADE\SHADE.S" />
+    <None Include="..\RELAPSE\SRC\SPACEF\SPACEF.S" />
+    <None Include="_hatari\relapseo.cfg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\RELAPSE\DATA\INFO\INFO.TXT" />
+    <Text Include="..\RELAPSE\DATA\SPLASH\SPLASH.TXT" />
+    <Text Include="..\RELAPSE\RELAPSE1.INI" />
+    <Text Include="..\RELAPSE\RELAPSE2.INI" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

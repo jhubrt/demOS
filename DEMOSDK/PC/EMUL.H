@@ -32,6 +32,7 @@
 #ifdef __TOS__
 
 #define EMULinit(BUFFER,W,H,E,T)
+#define EMULmixer()
 #define EMULleftChannel()
 #define EMULrightChannel()
 #define EMULnewFrame()
@@ -46,6 +47,7 @@
 #define EMULcls()
 #define EMULdrawYMbuffer(_x,_y,_sync)
 #define EMULsetVStretch(_vstretch)
+#define EMULdebugSurface(buffer, pitch, width, height, nbplanes)
 
 #define EMULfbStdEnable()
 #define EMULfbDisableAll()
@@ -69,6 +71,7 @@
 #define EMUL_STATIC
 #define EMUL_BACKUP_REENTER_POINT
 #define EMUL_RESTORE_REENTER_POINT
+#define EMUL_DELAY(NBFRAMES)
 
 #else /* ! __TOS__ */
 
@@ -86,6 +89,7 @@ EXTERN_C void    EMULcls               (void);
 EXTERN_C struct WINdow_* EMULgetWindow (void);
 EXTERN_C void    EMULcreateSoundBuffer (u32 _length, bool _stereo, u32 _dmafreq);
 EXTERN_C void    EMULplaysound         (void* _data, u32 _byteslength, u32 _offset);
+EXTERN_C void    EMULmixer             (void);
 EXTERN_C void    EMULleftChannel       (void);
 EXTERN_C void    EMULrightChannel      (void);
 EXTERN_C u32     EMULgetPlayOffset     (void);
@@ -93,6 +97,7 @@ EXTERN_C void    EMULblit              (void);
 EXTERN_C void    EMULwait              (u32 _ms);
 EXTERN_C void    EMULdrawYMbuffer      (s16 _x, s16 _y, bool _sync);
 EXTERN_C void    EMULsetVStretch       (bool _vstretch);
+EXTERN_C void    EMULdebugSurface      (void* buffer, u16 pitch, u16 width, u16 height, u16 nbplanes);
 
 EXTERN_C void    EMULfbStdEnable       (void);
 EXTERN_C void    EMULfbDisableAll      (void);
@@ -162,6 +167,8 @@ bool EMUL_BTST  (u32 _data, u8 _bit);
 #define EMUL_STATIC                 static
 #define EMUL_BACKUP_REENTER_POINT   static int EMUL_reenterBackup; EMUL_reenterBackup = EMUL_reenter;
 #define EMUL_RESTORE_REENTER_POINT  EMUL_reenter = EMUL_reenterBackup;
+#define EMUL_DELAY(NBFRAMES)        { static int EMUL_count = 0; EMUL_REENTER_POINT EMUL_EXIT_IF(EMUL_count++ < (NBFRAMES)); }
+
 #endif
 
 

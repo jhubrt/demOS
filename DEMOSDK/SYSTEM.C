@@ -50,12 +50,15 @@ bool EMULupdateRequested(void);
 SYSinterupt  SYSvblroutines[SYS_NBMAX_VBLROUTINES] = {SYSvblend, SYSvblend, SYSvblend, SYSvblend, SYSvblend};
 volatile u32 SYSvblcount;
 volatile u16 SYSvblLcount;
+volatile u8* SYSdpakProgress;
+volatile bool SYSdpakActive;
 
 static SYSthread SYSidleThread = NULL;
 
 void SYSvbldonothing    (void) {}
 void SYSvblrunRTSroutine(void) {}
 void SYSvblend          (void) {}
+void SYSvbldpakProgress (void) {}
 void SYSdbgBreak        (void) {}
 
 u32* SYSdetectEmu (void)
@@ -309,14 +312,22 @@ void SYSinit(void)
     sys.memoryMapHigh = ((u32)sys.coreHeapbase) & 0xFF000000;
 #   endif
 
-    sys.invertDrive = DEMOS_INVERT_DRIVE;
-
-    *HW_YM_REGSELECT = HW_YM_SEL_IO_PORTA;
-    if ((HW_YM_GET_REG() & 0x4) == 0) /* if drive B selected into YM */
-        sys.invertDrive = true;
-
+    sys.forceUsedDrive = -1;
     sys.has2Drives  = *OS_NFLOPS >= 2;
-    sys.phytop      = *OS_PHYTOP;
+
+    if (sys.has2Drives)
+    {
+        sys.invertDrive = DEMOS_INVERT_DRIVE;
+        *HW_YM_REGSELECT = HW_YM_SEL_IO_PORTA;
+        if ((HW_YM_GET_REG() & 0x4) == 0) /* if drive B selected into YM */
+            sys.invertDrive = true;
+    }
+    else
+    {
+        sys.invertDrive = false;
+    }
+
+    sys.phytop = *OS_PHYTOP;
 
 	sys.bakUSP = STDgetUSP();
 
@@ -581,4 +592,12 @@ void SYSstackTest (void)
     }
 }
 
+#endif
+
+#ifdef DEMOS_UNITTEST
+void SYSunitTest (void* _screen)
+{
+    SYSdebugPrint(_screen, 160, SYS_4P_BITSHIFT, 0, 0, "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-+.'");
+    SYSdebugPrint(_screen, 160, SYS_4P_BITSHIFT, 0, 8, "/*<>=:;,?![]%|abcdefghijklmnopqrstuvwxyz");
+}
 #endif

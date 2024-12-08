@@ -170,7 +170,7 @@ FSMstate states[] =
 FSMstate states[] =
 {
 	FSM_STATE(doNothing), 
-    FSM_STATE(IntroActivity), 
+    FSM_STATE(SynthSoundActivity), 
     FSM_STATE(doNothing)
 };
 
@@ -178,9 +178,9 @@ FSMstate statesIdle[] =
 {
     FSM_STATE(SCRswitch50hz), 
     FSM_STATE(SCRfade2black), 
-    FSM_STATE(IntroEntry), 
-    FSM_STATE(IntroBacktask),
-    FSM_STATE(IntroExit)
+    FSM_STATE(SynthSoundEntry), 
+    FSM_STATE(SynthSoundBacktask),
+    FSM_STATE(SynthSoundExit)
 };
 
 u16 statesSize     = (u16) ARRAYSIZE(states);

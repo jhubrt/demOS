@@ -31,6 +31,7 @@
 #include <math.h>
 #include <malloc.h>
 #include <vector>
+#include <conio.h>
 
 #undef ARRAY_SIZE // collision...
 #undef MEM_FREE   // collision...
@@ -146,6 +147,16 @@ struct emulTraceValue
     }
 };
 
+struct EMULlmcMixer
+{
+    enum Enum
+    {
+        NO_YM   = 0x0,
+        YM      = 0x1,
+        YM_12DB = 0x2
+    };
+};
+
 struct MiniEmul
 {
 	WINdow* w;
@@ -168,6 +179,7 @@ struct MiniEmul
     bool                    captureSound;
     bool                    mono;
     bool                    fastforward;
+    bool                    drawcolors;
     u16                     pause;
 
     u8                      lastmode;
@@ -176,6 +188,9 @@ struct MiniEmul
     s16                     ymbuffer [emul_SOUND_FREQ / 50];
     s16                     ymbuffercopy [(emul_SOUND_FREQ / 50) * 2];
     s16                     lastdelay = 0;
+    s32                     LMCleftChannelAmp;
+    s32                     LMCrightChannelAmp;    
+    EMULlmcMixer::Enum      LMCmixer;
 
     std::vector<emulTraceValue*> m_tracedValues;
 };
@@ -397,20 +412,22 @@ static bool InitializeDirectSound(MiniEmul* _emul)
 	return true;
 }
 
-static s32 g_EMULleftChannelAmp = 64;
+extern "C" void EMULmixer(void)
+{
+    g_miniEmul.LMCmixer = (EMULlmcMixer::Enum)(*HW_MICROWIRE_DATA & 0x3F);
+}
+
 
 extern "C" void EMULleftChannel(void)
 {
     const float dbleft  = -2.0f * (float)(20 - (*HW_MICROWIRE_DATA & 0x3F));   
-    g_EMULleftChannelAmp = (s32) (powf(10.0f, dbleft / 10.0f) * 64.0f);
+    g_miniEmul.LMCleftChannelAmp = (s32) (powf(10.0f, dbleft / 10.0f) * 64.0f);
 }
-
-static s32 g_EMULrightChannelAmp = 64;
 
 extern "C" void EMULrightChannel(void)
 {
     const float dbright  = -2.0f * float(20 - (*HW_MICROWIRE_DATA & 0x3F));   
-    g_EMULrightChannelAmp = (s32) (powf(10.0f, dbright / 10.0f) * 64.0f);
+    g_miniEmul.LMCrightChannelAmp = (s32) (powf(10.0f, dbright / 10.0f) * 64.0f);
 }
 
 
@@ -520,19 +537,29 @@ extern "C" void EMULplaysound (void* _data, u32 _nbSamples, u32 _offset)
     DWORD bufferSize2 = 0;
 
     u32 ymbufferlen = 0; 
+    u8  shift = g_miniEmul.LMCmixer == EMULlmcMixer::YM_12DB ? 2 : 0;
 
    
     ASSERT((_nbSamples >> 1) <= sizeof(g_miniEmul.ymbuffer));
     
     _offset <<= 1;
 
-    do
+    if (g_miniEmul.LMCmixer == EMULlmcMixer::NO_YM)
     {
-        s16 value = YM2149_NextSample();
-        g_miniEmul.ymbuffer[ymbufferlen] = value;
-        ymbufferlen++;
+        memset (g_miniEmul.ymbuffer, 0, sizeof(g_miniEmul.ymbuffer));
     }
-    while (ymbufferlen < (_nbSamples >> 1));
+    else
+    {
+        ymsample v[3];
+
+        do
+        {
+            s16 value = YM2149_NextSample(v) >> shift;
+            g_miniEmul.ymbuffer[ymbufferlen] = value;
+            ymbufferlen++;
+        } 
+        while (ymbufferlen < (_nbSamples >> 1));
+    }
 
     s16 buffercopy[4096];
 
@@ -551,8 +578,8 @@ extern "C" void EMULplaysound (void* _data, u32 _nbSamples, u32 _offset)
         {
             s32 ymvalue = g_miniEmul.ymbuffer[i];
 
-            s32 value1 = ((*s++) * GAIN_MUL + ymvalue) * g_EMULleftChannelAmp;
-            s32 value2 = ((*s++) * GAIN_MUL + ymvalue) * g_EMULrightChannelAmp;
+            s32 value1 = ((*s++) * GAIN_MUL + ymvalue) * g_miniEmul.LMCleftChannelAmp;
+            s32 value2 = ((*s++) * GAIN_MUL + ymvalue) * g_miniEmul.LMCrightChannelAmp;
 
             value1 = (value1 + value2) / (2 * GAIN_DIV);
 
@@ -567,7 +594,7 @@ extern "C" void EMULplaysound (void* _data, u32 _nbSamples, u32 _offset)
             s32 ymvalue = g_miniEmul.ymbuffer[i];
             s32 value;
 
-            value = ((*s++) * GAIN_MUL + ymvalue) * g_EMULleftChannelAmp;
+            value = ((*s++) * GAIN_MUL + ymvalue) * g_miniEmul.LMCleftChannelAmp;
             value /= GAIN_DIV;
 
             ASSERT(value < 32768);
@@ -575,7 +602,7 @@ extern "C" void EMULplaysound (void* _data, u32 _nbSamples, u32 _offset)
 
             *d++ = (s16) value;
 
-            value = ((*s++) * GAIN_MUL + ymvalue) * g_EMULrightChannelAmp;
+            value = ((*s++) * GAIN_MUL + ymvalue) * g_miniEmul.LMCrightChannelAmp;
             value /= GAIN_DIV;
 
             ASSERT(value < 32768);
@@ -745,6 +772,10 @@ extern "C" void EMULinit (void* _buffer, s16 _width, s16 _height, s16 _width_ext
 
     memset (g_miniEmul.ymbuffer, 0, sizeof(g_miniEmul.ymbuffer));
 
+    g_miniEmul.LMCmixer = EMULlmcMixer::YM;
+    g_miniEmul.LMCleftChannelAmp = 64;
+    g_miniEmul.LMCrightChannelAmp = 64;    
+
     emuInitYM();
 }
 
@@ -878,6 +909,28 @@ static void emulIncPause(void)
     }
 }
 
+
+void EMULdebugSurface(void* buffer, u16 pitch, u16 width, u16 height, u16 nbplanes)
+{
+    switch (nbplanes)
+    {
+    case 1:
+        BITfromChunk1PTo8b(buffer, pitch, NULL, g_miniEmul.image, width, height, width);
+        break;
+    case 2:
+        BITfromChunk2PTo8b(buffer, pitch, NULL, g_miniEmul.image, width, height, width);
+        break;
+    case 4:
+        BITfromChunk4PTo8b(buffer, pitch, NULL, g_miniEmul.image, width, height, width); 
+        break;
+    }
+
+    ST2PCLut(HW_COLOR_LUT, g_miniEmul.imagelut);
+    WINdrawImage (g_miniEmul.w, g_miniEmul.image, width, height, 8, (u8*) g_miniEmul.imagelut, 0, 0);
+    WINrender(g_miniEmul.w);
+}
+
+
 void EMULrender (void)
 {
     void* adr = NULL;
@@ -967,6 +1020,20 @@ void EMULrender (void)
     break;
     }
 
+    if (g_miniEmul.drawcolors)
+    {
+        u16 t, i = 0;
+        u16* colorlut = &(g_STHardware.reg_HW_COLOR_LUT);
+
+        for (t = 0; t < 16; t++)
+        {            
+            u32 c = ST2RVBcolor( colorlut[t] ) << 8;
+            WINsetColor32     (g_miniEmul.w, PCENDIANSWAP32(c));
+            WINfilledRectangle(g_miniEmul.w, i, 0, i + 50, 30);
+            i += 60;
+        }
+    }
+
     if (g_miniEmul.captureSound)
     {
         WINsetColor       (g_miniEmul.w, 255, 0, 0);
@@ -1011,9 +1078,30 @@ void EMULrender (void)
                 break;
 
             case VK_END:
-                TRACsaveLog("logPC.txt");
+            {
+                printf ("Your choice ?\n\n");
+                printf ("[C] draw colors lut\n");
+                printf ("[L] save log\n");
+
+                while (_kbhit())
+                    _getch();
+
+                switch (_getch())
+                {
+                case 'C':
+                case 'c':
+                    g_miniEmul.drawcolors ^= 1;
+                    break;
+
+                case 'L':
+                case 'l':
+                    TRACsaveLog("logPC.txt");
+                    break;
+                }
+
                 WINresetKeyExtraState(g_miniEmul.w);
                 break;
+            }
 
             case VK_PAUSE:			
                 emulIncPause();
@@ -1049,6 +1137,7 @@ extern "C" void EMULblit (void)
     u8   rshift = *HW_BLITTER_CTRL2 & 15;
     bool fxsr   = (*HW_BLITTER_CTRL2 & HW_BLITTER_CTRL2_FORCE_XTRA_SRC   ) != 0;
     bool nfsr   = (*HW_BLITTER_CTRL2 & HW_BLITTER_CTRL2_NO_FINAL_SRC_READ) != 0;
+    bool smudge = (*HW_BLITTER_CTRL1 & HW_BLITTER_CTRL1_SMUDGE) != 0;
 
     u16 htone = (*HW_BLITTER_CTRL1) & 15;
     u16* s = (u16*) *HW_BLITTER_ADDR_SOURCE;
@@ -1094,6 +1183,11 @@ extern "C" void EMULblit (void)
                     w2 = *s;
                     w2 = PCENDIANSWAP16(w2);
                 }
+            }
+
+            if (smudge)
+            {
+                htone = ((w1 << (16 - rshift)) | (PCENDIANSWAP16(*s) >> rshift)) & 15;
             }
 
             switch (*HW_BLITTER_HOP)
@@ -1181,7 +1275,10 @@ extern "C" void EMULblit (void)
         s += incSy;
         d += incDy;
 
-        htone++;
+        if ((s16)*HW_BLITTER_YINC_DEST >= 0)
+            htone++;
+        else
+            htone--;
 
         (*HW_BLITTER_YSIZE)--;
     }

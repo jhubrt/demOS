@@ -379,13 +379,11 @@ void WINrectangle (WINdow* _m, s32 _x1, s32 _y1, s32 _x2, s32 _y2)
 	Rectangle(_m->pixmapDC, _x1, _y1, _x2, _y2);
 }
 
-void WINsetColor (WINdow* _m, u8 _r, u8 _g, u8 _b)
+void WINsetColor32 (WINdow* _m, u32 _color)
 {
-	DWORD color = RGB(_r,_g,_b);
-
-	if ( _m->color != color )
+	if ( _m->color != _color )
 	{
-		_m->color = color;
+		_m->color = _color;
 
 		if ( _m->pen != 0 )
 		{
@@ -401,6 +399,11 @@ void WINsetColor (WINdow* _m, u8 _r, u8 _g, u8 _b)
 
 		_m->brush = CreateSolidBrush ( _m->color);
 	}
+}
+
+void WINsetColor (WINdow* _m, u8 _r, u8 _g, u8 _b)
+{
+	WINsetColor32 (_m, RGB(_r,_g,_b));
 }
 
 void WINtext (WINdow* _m, s32 _x, s32 _y, char* _string)

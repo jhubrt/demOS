@@ -89,6 +89,9 @@
     <ClCompile Include="..\DEMOSDK\PC\VISUALOG.CPP">
       <Filter>Source Files\DEMOSDK\PC</Filter>
     </ClCompile>
+    <ClCompile Include="..\DEMOSDK\BITMAP.C">
+      <Filter>Source Files\DEMOSDK</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\REBIRTH\DATA\SYSTFONT.NEO">
@@ -239,6 +242,9 @@
     </ClInclude>
     <ClInclude Include="..\DEMOSDK\PC\VISUALOG.H">
       <Filter>Source Files\DEMOSDK\PC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DEMOSDK\BITMAP.H">
+      <Filter>Source Files\DEMOSDK</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

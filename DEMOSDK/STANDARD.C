@@ -25,6 +25,7 @@
 #include "DEMOSDK\STANDARD.H"
 
 
+#ifndef __TOS__
 u16 STDswap16(u16 _v)
 {
     u16 v;
@@ -51,6 +52,19 @@ u32 STDswap32(u32 _v)
     return v;
 }
 
+void STDswapBuffer16(u16* _buffer, u16 _nbWorsd)
+{
+    u16 t;
+
+    for (t = 0 ; t < _nbWorsd ; t++)
+    {
+        *_buffer = PCENDIANSWAP16(*_buffer);
+        _buffer++;
+    }
+}
+#endif
+
+
 void STDuxtoa(char* _text, u32 _value, s16 _nbchars)
 {
     s16 i = 0;
@@ -76,9 +90,9 @@ void STDuxtoa(char* _text, u32 _value, s16 _nbchars)
             u16 v = _value & 0xF;
             
             if ( v < 10 )
-                *(--_text) = '0' + v;
+                *(--_text) = (char)('0' + v);
             else
-                *(--_text) = 'A' - 10 + v; 
+                *(--_text) = (char)('A' - 10 + v); 
 
 			_value >>= 4;
         }
@@ -90,7 +104,7 @@ void STDutoa(char* _text, u32 _value, s16 _nbchars)
     static u32 powof10[] = {1000000000UL, 100000000UL, 10000000UL, 1000000UL, 100000UL, 10000UL, 1000UL, 100UL, 10UL, 1UL};
     u32*  p = powof10;
     u8    i = 10;
-    u8*   end = _text + _nbchars;
+    u8*   end = (u8*)_text + _nbchars;
 
 
     while (_value < *p) 
@@ -113,7 +127,7 @@ void STDutoa(char* _text, u32 _value, s16 _nbchars)
         *_text++ = n;
     }
 
-    while (_text < end)
+    while ((u8*)_text < end)
     {
         *_text++ = ' ';
     }
@@ -276,7 +290,7 @@ void STDfastmset (void* _adr, u32 _value, u32 _length)
 void  STDcpuSetSR (u16 _status) { IGNORE_PARAM(_status); }
 void* STDgetSP(void)            { return NULL; }
 void* STDgetUSP(void)           { return NULL; }
-void  STDsetUSP(void* _adr)     {}
+void  STDsetUSP(void* _adr)     { _adr; }
 
 #endif
 
@@ -342,10 +356,10 @@ static void STD_unitTest_mset (void)
 
     for (t = 0 ; t < 20000 ; t++)
     {
-        u8  val   = rand();
+        u8  val   = (u8) rand();
 
-        u16 index = rand() & 32767;
-        u16 size  = rand();
+        u16 index = (u16)(rand() & 32767);
+        u16 size  = (u16) rand();
 
         memset (buf[0],0,32768UL);
         memset (buf[1],0,32768UL);
@@ -392,10 +406,10 @@ static void STD_unitTest_mcpy (void)
 
     for (t = 0 ; t < 20000 ; t++)
     {
-        u8  val    = rand();
-        u16 index1 = rand() & 32767;
-        u16 index2 = rand() & 32767;
-        u16 size   = rand();
+        u8  val    = (u8)  rand();
+        u16 index1 = (u16)(rand() & 32767);
+        u16 index2 = (u16)(rand() & 32767);
+        u16 size   = (u16) rand();
 
         memset (buf[0],0,32768UL);
         memset (buf[1],0,32768UL);
@@ -449,10 +463,10 @@ void STD_unitTest_mcpy2 (void)
 
     for (t = 0 ; t < 20000 ; t++)
     {
-        u8  val    = rand();
-        u16 index1 = rand() & 32767;
-        u16 index2 = rand() & 32767;
-        u16 size   = rand();
+        u8  val    = (u8)  rand();
+        u16 index1 = (u16)(rand() & 32767);
+        u16 index2 = (u16)(rand() & 32767);
+        u16 size   = (u16) rand();
 
         memset (buf[0],0,65536UL);
         memset (buf[1],0,65536UL);

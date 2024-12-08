@@ -554,6 +554,312 @@ void BITuncompressRLE1P_C (void* _wdata, void* _dest)
     }	
 }
 
+#ifndef __TOS__
+
+#ifndef DEMOS_OPTIMIZED
+
+#define BITcompressRLE4_MAXSIZE 128000UL
+
+#define BIT_COMPRESS_TRON() 0
+
+#if BIT_COMPRESS_TRON()
+
+static bitDumpRLEsecondPass (s8* repeatStart, s8* repeatEnd)
+{
+    static int number = 0;
+    FILE* file;
+    char filename[256];
+    s8* p;
+    u32 total = 0;
+
+    sprintf(filename, "..\\_logs\\RLEp2_%d.log", number++);
+
+    file = fopen(filename, "wt");
+
+    for (p = repeatStart; p < repeatEnd; p++)
+    {
+        if (*p >= 0)
+            total += *p;
+        else
+            total -= *p;
+    }
+
+    fprintf (file, "Length = %d Total = %d\n\n", repeatEnd - repeatStart, total);
+
+    for (p = repeatStart; p < repeatEnd; p++)
+    {
+        fprintf (file, "%d\n", *p);
+    }
+
+    fclose(file);
+}
+#else
+#define bitDumpRLEsecondPass(repeatStart, repeatEnd)
+#endif
+
+static u8* bitRLEsecondPass(MEMallocator* allocator_, s8* repeatBase, s8* repeat, u32* data, u32* dataBase, s16 lineInc, s32 columnInc)
+{
+    BITrleHeader header, *h;
+    u8* result;
+    u8* p;
+    s8* p1;
+
+    /* Second pass : Optimize removing count 1 */
+
+    for (p1 = repeatBase; (p1 + 1) < repeat; p1++)
+    {
+        if (*p1 == 1)
+        {
+            s16 count = 1;
+            s8* p2 = p1 + 1;
+
+            for (; p2 < repeat; p2++)
+            {
+                if (count >= 128)
+                    break;
+
+                if (*p2 != 1)
+                    break;
+
+                count++;
+            }
+
+            if (count > 1)
+            {
+                bitDumpRLEsecondPass(repeatBase, repeat);
+
+                memmove(p1 + 1, p2, repeat - p2);
+                repeat -= p2 - (p1 + 1);
+                *p1 = -count;
+                p1++;
+            }
+        }
+    }
+
+    header.repeatLen = repeat - repeatBase;
+    header.dataLen = (data - dataBase) << 2;
+    header.lineInc = lineInc; 
+    header.columnInc = columnInc; 
+
+    p = result = (u8*)MEM_ALLOC(allocator_, BIT_RLE_HEADERSIZE + header.dataLen + header.repeatLen);
+
+    STDmcpy(p, &header, BIT_RLE_HEADERSIZE);
+    p += BIT_RLE_HEADERSIZE;
+
+    h = (BITrleHeader*) result;
+
+    h->columnInc = PCENDIANSWAP32(h->columnInc);
+    h->lineInc   = PCENDIANSWAP16(h->lineInc);
+    h->dataLen   = PCENDIANSWAP16(h->dataLen);
+    h->repeatLen = PCENDIANSWAP16(h->repeatLen);
+
+    STDmcpy(p, dataBase, header.dataLen);
+    p += header.dataLen;
+
+    STDmcpy(p, repeatBase, header.repeatLen);
+    p += header.repeatLen;
+
+    MEM_FREE(allocator_, repeatBase);
+    MEM_FREE(allocator_, dataBase);
+
+    return result;
+}
+
+
+u8* BITcompressRLE4v (MEMallocator* allocator_, void* _frame, u16 _pitch, u16 _frameheight)
+{
+    s8*  repeatBase = (s8*)  MEM_ALLOCTEMP(allocator_, BITcompressRLE4_MAXSIZE);
+    u32* dataBase   = (u32*) MEM_ALLOCTEMP(allocator_, BITcompressRLE4_MAXSIZE);
+
+    u32* frame  = (u32*) _frame;
+    s8*  repeat = repeatBase;
+    u32* data   = dataBase;
+
+    u16 offx;
+
+    s8 count;
+
+
+    for (offx = 0 ; offx < _pitch ; offx += 4)
+    {
+        u16 totalcount = 0;
+        u32 p01last = *frame;
+        u32 p01;
+        bool equal;
+        u16 line;
+
+        u32* p = frame + (_pitch >> 2);
+
+        count = 1;
+
+        for (line = 1 ; line < _frameheight ; line++)
+        {
+            p01 = *p;
+
+            equal = (p01 == p01last);
+
+            if (equal && (count < 127))
+            {
+                count++;
+            }
+            else
+            {
+                totalcount += count;
+                *repeat++ = count;
+                *data++ = p01last;
+                count = 1;
+            }
+
+            p01last = p01;
+
+            p += _pitch >> 2;
+        }
+
+        totalcount += count;
+        *repeat++ = count;
+        *data++ = p01last;
+
+        ASSERT(totalcount == _frameheight);
+
+        *repeat++ = 0;
+
+        frame++;
+    }
+
+    repeat--;
+
+    return bitRLEsecondPass(allocator_, repeatBase, repeat, data, dataBase, _pitch, -STDmuls(_frameheight, _pitch) + 4);
+}
+
+
+u8* BITcompressRLE4h (MEMallocator* allocator_, void* _frame, u16 _pitch, u16 _frameheight)
+{
+    s8*  repeatBase = (s8*)  MEM_ALLOCTEMP(allocator_, BITcompressRLE4_MAXSIZE);
+    u32* dataBase   = (u32*) MEM_ALLOCTEMP(allocator_, BITcompressRLE4_MAXSIZE);
+
+    u32* frame  = (u32*) _frame;
+    s8*  repeat = repeatBase;
+    u32* data   = dataBase;
+
+    u16 biplanes;
+    u32 framesize = STDmulu(_pitch, _frameheight);
+
+    s8 count;
+
+
+    for (biplanes = 0 ; biplanes < 2 ; biplanes++)
+    {
+        u16 totalcount = 0;
+        u32 p01last = *frame;
+        u32 p01;
+        bool equal;
+        u32* p = frame + 2;
+
+        count = 1;
+
+        for (u32 off = 8 ; off < framesize ; off += 8)
+        {
+            p01 = *p;
+
+            equal = (p01 == p01last);
+
+            if (equal && (count < 127))
+            {
+                count++;
+            }
+            else
+            {
+                totalcount += count;
+                *repeat++ = count;
+                *data++ = p01last;
+                count = 1;
+            }
+
+            p01last = p01;
+
+            p += 2;
+        }
+
+        totalcount += count;
+        *repeat++ = count;
+        *data++ = p01last;
+
+        ASSERT((totalcount << 3) == framesize);
+
+        *repeat++ = 0;
+
+        frame++;
+    }
+
+    repeat--;
+
+    return bitRLEsecondPass(allocator_, repeatBase, repeat, data, dataBase, 8, 4UL - framesize);
+}
+
+#endif
+#endif
+
+
+void BITuncompressRLE4_C (void* _compressedBuffer, void* _dest)
+{
+    BITrleHeader* header = (BITrleHeader*) _compressedBuffer;
+
+    header->columnInc = PCENDIANSWAP32(header->columnInc);
+    header->lineInc   = PCENDIANSWAP16(header->lineInc);
+    header->dataLen   = PCENDIANSWAP16(header->dataLen);
+    header->repeatLen = PCENDIANSWAP16(header->repeatLen);
+
+    {
+        u32* data = (u32*)((u8*)_compressedBuffer + BIT_RLE_HEADERSIZE);   /* sizeof(BITrelHeader) on ST */
+        s8* repeat = ((s8*)data) + header->dataLen;
+        u32* dataend = (u32*)repeat;
+        s8* repeatend = repeat + header->repeatLen;
+        u8* dest = (u8*)_dest;
+        s8   count;
+
+        while (repeat < repeatend)
+        {
+            count = *repeat++;
+            ASSERT(repeat <= repeatend);
+
+            if (count == 0)
+            {
+                dest += header->columnInc;
+                count = *repeat++;
+                ASSERT(repeat <= repeatend);
+                ASSERT(count != 0);
+            }
+
+            if (count > 0)
+            {
+                u32 data0 = *data++;
+                ASSERT(data <= dataend);
+
+                while (count-- != 0)
+                {
+                    ASSERT(dest >= (u8*)_dest);
+                    ASSERT(dest < ((u8*)_dest + 32000));
+                    *(u32*)dest = data0;
+                    dest += header->lineInc;
+                }
+            }
+            else if (count < 0)
+            {
+                while (count++ != 0)
+                {
+                    ASSERT(dest >= (u8*)_dest);
+                    ASSERT(dest < ((u8*)_dest + 32000));
+                    *(u32*)dest = *data++;
+                    ASSERT(data <= dataend);
+                    dest += header->lineInc;
+                }
+            }
+        }
+    }
+}
+
+
+
 
 void BITstreamInit(BITStream* _desc, void* _buffer, u32 _bufferSize)
 {

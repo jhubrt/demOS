@@ -185,7 +185,6 @@
     <ClCompile Include="..\DEMOSDK\COLORS.C" />
     <ClCompile Include="..\DEMOSDK\FSM.C" />
     <ClCompile Include="..\DEMOSDK\HARDWARE.C" />
-    <ClCompile Include="..\DEMOSDK\LOAD.C" />
     <ClCompile Include="..\DEMOSDK\PC\EMUL.CPP">
       <DisableLanguageExtensions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</DisableLanguageExtensions>
       <DisableLanguageExtensions Condition="'$(Configuration)|$(Platform)'=='Debug_BLZonly|Win32'">false</DisableLanguageExtensions>
@@ -229,7 +228,6 @@
     <ClInclude Include="..\DEMOSDK\LOADDEFS.H" />
     <ClInclude Include="..\DEMOSDK\FSM.H" />
     <ClInclude Include="..\DEMOSDK\HARDWARE.H" />
-    <ClInclude Include="..\DEMOSDK\LOAD.H" />
     <ClInclude Include="..\DEMOSDK\PC\BITCONVR.H" />
     <ClInclude Include="..\DEMOSDK\PC\EMUL.H" />
     <ClInclude Include="..\DEMOSDK\PC\WINDOW.H" />
@@ -243,6 +241,7 @@
     <ClInclude Include="..\WIZPLAY\SRC\WIZPLAY.H" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\DEMOSDK\LOAD.S" />
     <None Include="..\DEMOSDK\SYSTEM.S" />
     <None Include="..\DEMOSDK\BITMAP.S">
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">VASM_BUILD.BAT %(FullPath) $(SolutionDir)..\OUTPUT\%(Filename).O</Command>
@@ -261,7 +260,6 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug_BLZonly|Win32'">true</ExcludedFromBuild>
       <FileType>Document</FileType>
     </None>
-    <None Include="..\DEMOSDK\LOAD.S" />
     <None Include="..\DEMOSDK\RASTERS.S" />
     <None Include="..\DEMOSDK\STANDARD.S" />
     <None Include="..\DEMOSDK\TRACE.S" />

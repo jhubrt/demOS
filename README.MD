@@ -16,9 +16,11 @@ Interactive + scripted autoplay modes
 - Musik : DOK
 - Code : Metal Ages
 
-[Documentation](./DOCS/BLITZWAV/README.MD) 
+[Documentation](./DOCS/BLITZWAV/README.MD)
 
 [Youtube](https://youtu.be/jTW-htWG84A)
+[Youtube](https://youtu.be/kGRVz-J6_W4)
+[Twitch](https://www.twitch.tv/videos/1553977161?t=8h17m22s)
 
 ![](./DOCS/README_2.PNG)
 

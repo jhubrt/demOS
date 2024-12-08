@@ -317,16 +317,200 @@
       <MaxProcesses Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">1</MaxProcesses>
       <MaxItemsInBatch Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">1</MaxItemsInBatch>
     </CustomBuild>
-    <None Include="PC\_hatari\HatariDevpack.bat" />
-    <None Include="PC\_hatari\hataridevpack.cfg" />
-    <CustomBuild Include="TOOLS\BOOT_FD2\BOOT_FD2.S">
+    <CustomBuild Include="EXTERN\NI_PACK\atari_st\ni_n2_f.s">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
       <FileType>Document</FileType>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">PC\_hatari\HatariDevpack.bat D:\PROJECTS\DEMOS\%(Identity)</Command>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">OUTPUT\BLITZIK\%(Filename).PRG</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">PC\_hatari\HatariDevpack.bat D:\PROJECTS\DEMOS\%(Identity) -L2</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">OUTPUT\%(Filename).O</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkObjects>
       <MaxProcesses Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">1</MaxProcesses>
       <MaxItemsInBatch Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">1</MaxItemsInBatch>
     </CustomBuild>
+    <CustomBuild Include="EXTERN\NI_PACK\ATARI_ST\ni_n0_f.s">
+      <FileType>Document</FileType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">PC\_hatari\HatariDevpack.bat D:\PROJECTS\DEMOS\%(Identity) -L2</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">OUTPUT\%(Filename).O</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkObjects>
+      <MaxProcesses Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">1</MaxProcesses>
+      <MaxItemsInBatch Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">1</MaxItemsInBatch>
+    </CustomBuild>
+    <CustomBuild Include="DEMOSDK\MODX2MOD.S">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+      <FileType>Document</FileType>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">PC\_hatari\HatariDevpack.bat D:\PROJECTS\DEMOS\%(Identity) -L2</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">OUTPUT\%(Filename).O</Outputs>
+      <MaxProcesses Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">1</MaxProcesses>
+      <MaxItemsInBatch Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">1</MaxItemsInBatch>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkObjects>
+    </CustomBuild>
+    <CustomBuild Include="LOVEBYTE\LOVEBOOT.S">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+      <FileType>Document</FileType>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">PC\_hatari\HatariDevpack.bat D:\PROJECTS\DEMOS\%(Identity)</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">OUTPUT\LOVEBYTE\%(Filename).BOT</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkObjects>
+      <MaxProcesses Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">1</MaxProcesses>
+      <MaxItemsInBatch Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">1</MaxItemsInBatch>
+    </CustomBuild>
+    <CustomBuild Include="DEMOSDK\BITMAP3.S">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+      <FileType>Document</FileType>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">PC\_hatari\HatariDevpack.bat D:\PROJECTS\DEMOS\%(Identity) -L2</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">OUTPUT\%(Filename).O</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkObjects>
+      <MaxProcesses Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">1</MaxProcesses>
+      <MaxItemsInBatch Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">1</MaxItemsInBatch>
+    </CustomBuild>
+    <None Include="DEMOSDK\SYNTHYMZ.S" />
+    <None Include="EXTERN\NI_PACK\atari_st\ni_n0.s" />
+    <None Include="EXTERN\NI_PACK\atari_st\ni_n1.s" />
+    <None Include="EXTERN\NI_PACK\atari_st\ni_n1_e.s" />
+    <None Include="EXTERN\NI_PACK\atari_st\ni_n1_f.s" />
+    <None Include="EXTERN\NI_PACK\atari_st\ni_n2.s" />
+    <None Include="LOVEBYTE\FILE_ID.DIZ" />
+    <None Include="LOVEBYTE\LOVEBOOT.BAT" />
+    <None Include="LOVEBYTE\LOVEBOOT.INI" />
+    <None Include="PC\_hatari\HatariDevpack.bat" />
+    <None Include="PC\_hatari\hataridevpack.cfg" />
+    <CustomBuild Include="RELAPSE\SRC\LIQUID\LIQUID.S">
+      <FileType>Document</FileType>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">RELAPSE\TOOLS\BATCH\RelapseAssemble.bat D:\PROJECTS\DEMOS\%(Identity)</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">OUTPUT\RELAPSE\%(Filename).PRX</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkObjects>
+      <MaxProcesses Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">1</MaxProcesses>
+      <MaxItemsInBatch Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">1</MaxItemsInBatch>
+    </CustomBuild>
+    <CustomBuild Include="RELAPSE\SRC\BOOTSEC2.S">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+      <FileType>Document</FileType>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">PC\_hatari\HatariDevpack.bat D:\PROJECTS\DEMOS\%(Identity)</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">OUTPUT\RELAPSE\%(Filename).BOT</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkObjects>
+      <MaxProcesses Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">1</MaxProcesses>
+      <MaxItemsInBatch Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">1</MaxItemsInBatch>
+    </CustomBuild>
+    <CustomBuild Include="RELAPSE\SRC\BOOTSTRA.S">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+      <FileType>Document</FileType>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">PC\_hatari\HatariDevpack.bat D:\PROJECTS\DEMOS\%(Identity)</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">OUTPUT\RELAPSE\%(Filename).BOT</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkObjects>
+      <MaxProcesses Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">1</MaxProcesses>
+      <MaxItemsInBatch Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">1</MaxItemsInBatch>
+    </CustomBuild>
+    <CustomBuild Include="RELAPSE\SRC\EGYPTIA\EGYPTIA.S">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+      <FileType>Document</FileType>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">RELAPSE\TOOLS\BATCH\RelapseAssemble.bat D:\PROJECTS\DEMOS\%(Identity)</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">OUTPUT\RELAPSE\%(Filename).PRX</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkObjects>
+      <MaxProcesses Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">1</MaxProcesses>
+      <MaxItemsInBatch Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">1</MaxItemsInBatch>
+    </CustomBuild>
+    <None Include="PC\_hatari\lovebooto.cfg" />
+    <CustomBuild Include="RELAPSE\SRC\LOADER\LOADER.S">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+      <FileType>Document</FileType>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">RELAPSE\TOOLS\BATCH\RelapseAssemble.bat D:\PROJECTS\DEMOS\%(Identity)</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">OUTPUT\RELAPSE\%(Filename).PRX</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkObjects>
+      <MaxProcesses Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">1</MaxProcesses>
+      <MaxItemsInBatch Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">1</MaxItemsInBatch>
+    </CustomBuild>
+    <CustomBuild Include="RELAPSE\SRC\SHADE\SHADE.S">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+      <FileType>Document</FileType>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">RELAPSE\TOOLS\BATCH\RelapseAssemble.bat D:\PROJECTS\DEMOS\%(Identity)</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">OUTPUT\RELAPSE\%(Filename).PRX</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkObjects>
+      <MaxProcesses Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">1</MaxProcesses>
+      <MaxItemsInBatch Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">1</MaxItemsInBatch>
+    </CustomBuild>
+    <CustomBuild Include="RELAPSE\SRC\CASCADE\CASCADE.S">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+      <FileType>Document</FileType>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">RELAPSE\TOOLS\BATCH\RelapseAssemble.bat D:\PROJECTS\DEMOS\%(Identity)</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">OUTPUT\RELAPSE\%(Filename).PRX</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkObjects>
+      <MaxProcesses Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">1</MaxProcesses>
+      <MaxItemsInBatch Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">1</MaxItemsInBatch>
+    </CustomBuild>
+    <CustomBuild Include="RELAPSE\SRC\END\END.S">
+      <FileType>Document</FileType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">RELAPSE\TOOLS\BATCH\RelapseAssemble.bat D:\PROJECTS\DEMOS\%(Identity)</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">OUTPUT\RELAPSE\%(Filename).PRX</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkObjects>
+      <MaxProcesses Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">1</MaxProcesses>
+      <MaxItemsInBatch Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">1</MaxItemsInBatch>
+    </CustomBuild>
+    <CustomBuild Include="RELAPSE\SRC\SPACEF\SPACEF.S">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+      <FileType>Document</FileType>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">RELAPSE\TOOLS\BATCH\RelapseAssemble.bat D:\PROJECTS\DEMOS\%(Identity)</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">OUTPUT\RELAPSE\%(Filename).PRX</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkObjects>
+      <MaxProcesses Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">1</MaxProcesses>
+      <MaxItemsInBatch Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">1</MaxItemsInBatch>
+    </CustomBuild>
+    <CustomBuild Include="RELAPSE\SRC\FASTMENU\FASTMENU.S">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+      <FileType>Document</FileType>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">RELAPSE\TOOLS\BATCH\RelapseAssemble.bat D:\PROJECTS\DEMOS\%(Identity)</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">OUTPUT\RELAPSE\%(Filename).PRX</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkObjects>
+      <MaxProcesses Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">1</MaxProcesses>
+      <MaxItemsInBatch Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">1</MaxItemsInBatch>
+    </CustomBuild>
+    <CustomBuild Include="RELAPSE\SRC\INFO\INFO.S">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+      <FileType>Document</FileType>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">RELAPSE\TOOLS\BATCH\RelapseAssemble.bat D:\PROJECTS\DEMOS\%(Identity)</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">OUTPUT\RELAPSE\%(Filename).PRX</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkObjects>
+      <MaxProcesses Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">1</MaxProcesses>
+      <MaxItemsInBatch Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">1</MaxItemsInBatch>
+    </CustomBuild>
+    <CustomBuild Include="RELAPSE\SRC\INTERLUD\INTERLUD.S">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+      <FileType>Document</FileType>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">RELAPSE\TOOLS\BATCH\RelapseAssemble.bat D:\PROJECTS\DEMOS\%(Identity)</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">OUTPUT\RELAPSE\%(Filename).PRX</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkObjects>
+      <MaxProcesses Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">1</MaxProcesses>
+      <MaxItemsInBatch Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">1</MaxItemsInBatch>
+    </CustomBuild>
+    <CustomBuild Include="RELAPSE\SRC\RBOOTonB.S">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+      <FileType>Document</FileType>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">PC\_hatari\HatariDevpack.bat D:\PROJECTS\DEMOS\%(Identity)</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">OUTPUT\RELAPSE\%(Filename).PRG</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkObjects>
+      <MaxProcesses Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">1</MaxProcesses>
+      <MaxItemsInBatch Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">1</MaxItemsInBatch>
+    </CustomBuild>
+    <CustomBuild Include="RELAPSE\SRC\SCREENS.S">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+      <FileType>Document</FileType>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">PC\_hatari\HatariDevpack.bat D:\PROJECTS\DEMOS\%(Identity) -L2</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">OUTPUT\RELAPSE\%(Filename).O</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkObjects>
+      <MaxProcesses Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">1</MaxProcesses>
+      <MaxItemsInBatch Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">1</MaxItemsInBatch>
+    </CustomBuild>
+    <CustomBuild Include="RELAPSE\SRC\GRAFIK_S\GRAFIK_S.S">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+      <FileType>Document</FileType>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">RELAPSE\TOOLS\BATCH\RelapseAssemble.bat D:\PROJECTS\DEMOS\%(Identity)</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">OUTPUT\RELAPSE\%(Filename).PRX</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkObjects>
+      <MaxProcesses Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">1</MaxProcesses>
+      <MaxItemsInBatch Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">1</MaxItemsInBatch>
+    </CustomBuild>
+    <None Include="RELAPSE\SRC\BOOTSEC2.BAT" />
+    <None Include="RELAPSE\SRC\BOOTSEC2.INI" />
+    <None Include="RELAPSE\SRC\GRAFIK_S\OBJECTS.S" />
     <None Include="TOOLS\EMUEXEC\EMUEXEC.CFG" />
     <None Include="TOOLS\EMUEXEC\EMUEXEC.PRJ" />
     <CustomBuild Include="TOOLS\TESTSHIF\TESTSHIF.S">

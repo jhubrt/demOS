@@ -1,0 +1,480 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="DEMOSDK">
+      <UniqueIdentifier>{0166929c-daf7-48fc-b266-2567060771d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="EXTERN">
+      <UniqueIdentifier>{02c5f3d6-462e-4937-923f-89abacefdd41}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SPECIFIC">
+      <UniqueIdentifier>{4724582c-a246-4582-87cc-2960d08b5cb6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SPECIFIC\MAIN">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="SPECIFIC\SRC">
+      <UniqueIdentifier>{32e2bd30-aa0f-44fb-b3a5-9d0b88a7d0e6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SPECIFIC\DISK">
+      <UniqueIdentifier>{a07f1790-dda9-4715-9ddf-7dda3f588db2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SPECIFIC\SRC\LIQUID">
+      <UniqueIdentifier>{dcb96e63-cde1-42b9-9006-cfea817dffdb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SPECIFIC\SRC\INTRO">
+      <UniqueIdentifier>{3b1fb232-158e-438e-a922-214ce056ab82}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SPECIFIC\SRC\EGYPTIA">
+      <UniqueIdentifier>{94ee015f-0365-407b-9b01-5d626a3e166f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DEMOSDK\DATA">
+      <UniqueIdentifier>{66eb5e69-a814-4d35-9fd2-80234e759162}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DEMOSDK\PC">
+      <UniqueIdentifier>{2a38062b-912a-4a4c-9792-94520b1cd38a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SPECIFIC\SRC\LOADER">
+      <UniqueIdentifier>{666e8ddc-8de7-4631-8ffa-3b44563b6872}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SPECIFIC\SRC\SHADED">
+      <UniqueIdentifier>{e86802ba-92d7-4917-afe7-9460e842a6b5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SPECIFIC\SRC\SPLASH">
+      <UniqueIdentifier>{447f91e8-42c5-438c-837d-e9315c7a1c60}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SPECIFIC\SRC\CASCADE">
+      <UniqueIdentifier>{479a16e0-ef9d-4d23-b397-eb3a251f5bcd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SPECIFIC\SRC\END">
+      <UniqueIdentifier>{89eb645c-50d1-4104-8e63-c88dcb094540}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SPECIFIC\SRC\SPACEF">
+      <UniqueIdentifier>{3ca80aaf-110c-4bc8-93d8-2f6ced3762ac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SPECIFIC\SRC\FASTMENU">
+      <UniqueIdentifier>{772f8e5d-b45f-4459-93b5-b60d99e9da43}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SPECIFIC\MAIN\PURE_C">
+      <UniqueIdentifier>{5a78965b-b5bc-422e-a6e8-6c6175fa83e3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SPECIFIC\MAIN\BOOT">
+      <UniqueIdentifier>{d1a5ac8e-aeb7-4593-ae52-4dd9eea54618}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SPECIFIC\DATA">
+      <UniqueIdentifier>{6c80f6be-c64d-4ccd-9374-8761fae6c4d3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SPECIFIC\DATA\SPLASH">
+      <UniqueIdentifier>{e4020dea-ea2b-467c-a536-9e8c040d3dab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SPECIFIC\DISK\HATARI">
+      <UniqueIdentifier>{83f3c1c9-9624-4ee4-9bcf-439868529e98}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SPECIFIC\DATA\INFO">
+      <UniqueIdentifier>{982a4b3d-6674-4a2a-83e9-8733c79c76f9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SPECIFIC\SRC\INFO">
+      <UniqueIdentifier>{8579334f-c6d3-4d8d-9613-e78655da6552}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SPECIFIC\SRC\INTERLUD">
+      <UniqueIdentifier>{625dc7f1-2c6b-4be5-80ab-926e970572e1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SPECIFIC\SRC\GRAFIK_S">
+      <UniqueIdentifier>{111cf539-5619-4abe-8356-e8b1dc8ad863}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FX">
+      <UniqueIdentifier>{451fd0f9-cefb-4b01-8c16-26a00bf4a112}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FX\COLPLANE">
+      <UniqueIdentifier>{1fe0e25b-a40c-4729-affc-34141ad64a65}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FX\MOD">
+      <UniqueIdentifier>{a0bb00a3-1f1d-428c-94c7-6d188cc44acc}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\DEMOSDK\ALLOC.C">
+      <Filter>DEMOSDK</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\FSM.C">
+      <Filter>DEMOSDK</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\HARDWARE.C">
+      <Filter>DEMOSDK</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\SYSTEM.C">
+      <Filter>DEMOSDK</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\LOAD.C">
+      <Filter>DEMOSDK</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\RASTERS.C">
+      <Filter>DEMOSDK</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\BITMAP.C">
+      <Filter>DEMOSDK</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\STANDARD.C">
+      <Filter>DEMOSDK</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\PC\WINDOW.C">
+      <Filter>DEMOSDK\PC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\COLORS.C">
+      <Filter>DEMOSDK</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\TRACE.C">
+      <Filter>DEMOSDK</Filter>
+    </ClCompile>
+    <ClCompile Include="..\RELAPSE\SRC\DEMOS.C">
+      <Filter>SPECIFIC\MAIN</Filter>
+    </ClCompile>
+    <ClCompile Include="..\RELAPSE\SRC\SCREENS.C">
+      <Filter>SPECIFIC\SRC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\RELAPSE\SRC\LIQUID\LIQUID.C">
+      <Filter>SPECIFIC\SRC\LIQUID</Filter>
+    </ClCompile>
+    <ClCompile Include="..\EXTERN\RELOCATE.C">
+      <Filter>EXTERN</Filter>
+    </ClCompile>
+    <ClCompile Include="..\RELAPSE\SRC\INTRO\INTRO.C">
+      <Filter>SPECIFIC\SRC\INTRO</Filter>
+    </ClCompile>
+    <ClCompile Include="..\RELAPSE\SRC\EGYPTIA\EGYPTIA.C">
+      <Filter>SPECIFIC\SRC\EGYPTIA</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\PC\BITCONVR.C">
+      <Filter>DEMOSDK\PC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\PC\EMUL.CPP">
+      <Filter>DEMOSDK\PC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\DATA\DATA.C">
+      <Filter>DEMOSDK\DATA</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\PC\_PRECOMP.C">
+      <Filter>DEMOSDK\PC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\PC\VISUALASRT.C">
+      <Filter>DEMOSDK\PC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\RELAPSE\RELAPSE1.C">
+      <Filter>SPECIFIC\DISK</Filter>
+    </ClCompile>
+    <ClCompile Include="..\RELAPSE\RELAPSE2.C">
+      <Filter>SPECIFIC\DISK</Filter>
+    </ClCompile>
+    <ClCompile Include="..\EXTERN\WIZZCAT\PRTRKSTE.C">
+      <Filter>EXTERN</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\MODX2MOD.C">
+      <Filter>DEMOSDK</Filter>
+    </ClCompile>
+    <ClCompile Include="..\EXTERN\NI_PACK\ni_n2.c">
+      <Filter>EXTERN</Filter>
+    </ClCompile>
+    <ClCompile Include="..\RELAPSE\SRC\LOADER\LOADER.C">
+      <Filter>SPECIFIC\SRC\LOADER</Filter>
+    </ClCompile>
+    <ClCompile Include="..\RELAPSE\SRC\SHADE\SHADE.C">
+      <Filter>SPECIFIC\SRC\SHADED</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\CODEGEN.C">
+      <Filter>DEMOSDK</Filter>
+    </ClCompile>
+    <ClCompile Include="..\RELAPSE\SRC\SPLASH\SPLASH.C">
+      <Filter>SPECIFIC\SRC\SPLASH</Filter>
+    </ClCompile>
+    <ClCompile Include="..\RELAPSE\SRC\CASCADE\CASCADE.C">
+      <Filter>SPECIFIC\SRC\CASCADE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\RELAPSE\SRC\END\END.C">
+      <Filter>SPECIFIC\SRC\END</Filter>
+    </ClCompile>
+    <ClCompile Include="..\RELAPSE\SRC\SPACEF\SPACEF.C">
+      <Filter>SPECIFIC\SRC\SPACEF</Filter>
+    </ClCompile>
+    <ClCompile Include="..\RELAPSE\SRC\FASTMENU\FASTMENU.C">
+      <Filter>SPECIFIC\SRC\FASTMENU</Filter>
+    </ClCompile>
+    <ClCompile Include="..\RELAPSE\BUILD.C">
+      <Filter>SPECIFIC\MAIN\PURE_C</Filter>
+    </ClCompile>
+    <ClCompile Include="..\RELAPSE\SRC\INFO\INFO.C">
+      <Filter>SPECIFIC\SRC\INFO</Filter>
+    </ClCompile>
+    <ClCompile Include="..\RELAPSE\SRC\INTERLUD\INTERLUD.C">
+      <Filter>SPECIFIC\SRC\INTERLUD</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\SYNTHYMZ.C">
+      <Filter>DEMOSDK</Filter>
+    </ClCompile>
+    <ClCompile Include="..\RELAPSE\SRC\GRAFIK_S\GRAFIK_S.C">
+      <Filter>SPECIFIC\SRC\GRAFIK_S</Filter>
+    </ClCompile>
+    <ClCompile Include="..\FX\COLPLANE\COLPLANE.C">
+      <Filter>FX\COLPLANE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\RELAPSE\SRC\LOADER\PRELOAD.C">
+      <Filter>SPECIFIC\SRC\LOADER</Filter>
+    </ClCompile>
+    <ClCompile Include="..\FX\MOD\MOD.C">
+      <Filter>FX\MOD</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\DEMOSDK\ALLOC.H">
+      <Filter>DEMOSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DEMOSDK\BASTYPES.H">
+      <Filter>DEMOSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DEMOSDK\FSM.H">
+      <Filter>DEMOSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DEMOSDK\HARDWARE.H">
+      <Filter>DEMOSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DEMOSDK\SYSTEM.H">
+      <Filter>DEMOSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DEMOSDK\LOAD.H">
+      <Filter>DEMOSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DEMOSDK\TRACE.H">
+      <Filter>DEMOSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DEMOSDK\RASTERS.H">
+      <Filter>DEMOSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DEMOSDK\BITMAP.H">
+      <Filter>DEMOSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DEMOSDK\STANDARD.H">
+      <Filter>DEMOSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DEMOSDK\PC\WINDOW.H">
+      <Filter>DEMOSDK\PC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DEMOSDK\COLORS.H">
+      <Filter>DEMOSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DEMOSDK\PC\EMUL.H">
+      <Filter>DEMOSDK\PC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\RELAPSE\SRC\SCREENS.H">
+      <Filter>SPECIFIC\SRC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DEMOSDK\LOADDEFS.H">
+      <Filter>DEMOSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="..\RELAPSE\SRC\LIQUID\LIQUID.H">
+      <Filter>SPECIFIC\SRC\LIQUID</Filter>
+    </ClInclude>
+    <ClInclude Include="..\RELAPSE\SRC\IDYNLIB.H">
+      <Filter>SPECIFIC\SRC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\EXTERN\RELOCATE.H">
+      <Filter>EXTERN</Filter>
+    </ClInclude>
+    <ClInclude Include="..\RELAPSE\SRC\INTRO\INTRO.H">
+      <Filter>SPECIFIC\SRC\INTRO</Filter>
+    </ClInclude>
+    <ClInclude Include="..\RELAPSE\SRC\EGYPTIA\EGYPTIA.H">
+      <Filter>SPECIFIC\SRC\EGYPTIA</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DEMOSDK\PC\BITCONVR.H">
+      <Filter>DEMOSDK\PC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DEMOSDK\DATA\SYSTFNT.H">
+      <Filter>DEMOSDK\DATA</Filter>
+    </ClInclude>
+    <ClInclude Include="..\RELAPSE\RELAPSE1.H">
+      <Filter>SPECIFIC\DISK</Filter>
+    </ClInclude>
+    <ClInclude Include="..\RELAPSE\RELAPSE2.H">
+      <Filter>SPECIFIC\DISK</Filter>
+    </ClInclude>
+    <ClInclude Include="..\EXTERN\WIZZCAT\PRTRKSTE.H">
+      <Filter>EXTERN</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DEMOSDK\MODX2MOD.H">
+      <Filter>DEMOSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="..\RELAPSE\SRC\LOADER\LOADER.H">
+      <Filter>SPECIFIC\SRC\LOADER</Filter>
+    </ClInclude>
+    <ClInclude Include="..\RELAPSE\SRC\SHADE\SHADE.H">
+      <Filter>SPECIFIC\SRC\SHADED</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DEMOSDK\CODEGEN.H">
+      <Filter>DEMOSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="..\RELAPSE\SRC\SPLASH\SPLASH.H">
+      <Filter>SPECIFIC\SRC\SPLASH</Filter>
+    </ClInclude>
+    <ClInclude Include="..\RELAPSE\SRC\CASCADE\CASCADE.H">
+      <Filter>SPECIFIC\SRC\CASCADE</Filter>
+    </ClInclude>
+    <ClInclude Include="..\RELAPSE\SRC\END\END.H">
+      <Filter>SPECIFIC\SRC\END</Filter>
+    </ClInclude>
+    <ClInclude Include="..\RELAPSE\SRC\SPACEF\SPACEF.H">
+      <Filter>SPECIFIC\SRC\SPACEF</Filter>
+    </ClInclude>
+    <ClInclude Include="..\RELAPSE\SRC\FASTMENU\FASTMENU.H">
+      <Filter>SPECIFIC\SRC\FASTMENU</Filter>
+    </ClInclude>
+    <ClInclude Include="..\RELAPSE\SRC\INFO\INFO.H">
+      <Filter>SPECIFIC\SRC\INFO</Filter>
+    </ClInclude>
+    <ClInclude Include="..\RELAPSE\SRC\INTERLUD\INTERLUD.H">
+      <Filter>SPECIFIC\SRC\INTERLUD</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DEMOSDK\SYNTHYMZ.H">
+      <Filter>DEMOSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="..\RELAPSE\SRC\GRAFIK_S\GRAFIK_S.H">
+      <Filter>SPECIFIC\SRC\GRAFIK_S</Filter>
+    </ClInclude>
+    <ClInclude Include="..\FX\COLPLANE\COLPLANE.H">
+      <Filter>FX\COLPLANE</Filter>
+    </ClInclude>
+    <ClInclude Include="..\RELAPSE\SRC\LOADER\PRELOAD.H">
+      <Filter>SPECIFIC\SRC\LOADER</Filter>
+    </ClInclude>
+    <ClInclude Include="..\FX\MOD\MOD.H">
+      <Filter>FX\MOD</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\DEMOSDK\BITMAP.S">
+      <Filter>DEMOSDK</Filter>
+    </None>
+    <None Include="..\DEMOSDK\STANDARD.S">
+      <Filter>DEMOSDK</Filter>
+    </None>
+    <None Include="..\DEMOSDK\TRACE.S">
+      <Filter>DEMOSDK</Filter>
+    </None>
+    <None Include="..\DEMOSDK\LOAD.S">
+      <Filter>DEMOSDK</Filter>
+    </None>
+    <None Include="..\DEMOSDK\RASTERS.S">
+      <Filter>DEMOSDK</Filter>
+    </None>
+    <None Include="..\DEMOSDK\BOOTSTRA.S">
+      <Filter>DEMOSDK</Filter>
+    </None>
+    <None Include="..\RELAPSE\SRC\BOOTSEC2.S">
+      <Filter>SPECIFIC\MAIN\BOOT</Filter>
+    </None>
+    <None Include="..\DEMOSDK\SYSTEM.S">
+      <Filter>DEMOSDK</Filter>
+    </None>
+    <None Include="..\EXTERN\XSTARTUP.S">
+      <Filter>EXTERN</Filter>
+    </None>
+    <None Include="..\RELAPSE.PRJ">
+      <Filter>SPECIFIC\MAIN\PURE_C</Filter>
+    </None>
+    <None Include="..\RELAPSEO.PRJ">
+      <Filter>SPECIFIC\MAIN\PURE_C</Filter>
+    </None>
+    <None Include="..\RELAPSEB.PRJ">
+      <Filter>SPECIFIC\MAIN\PURE_C</Filter>
+    </None>
+    <None Include="..\EXTERN\RELOCATE.S">
+      <Filter>EXTERN</Filter>
+    </None>
+    <None Include="..\RELAPSE\SRC\LIQUID\LIQUID.S">
+      <Filter>SPECIFIC\SRC\LIQUID</Filter>
+    </None>
+    <None Include="..\RELAPSE\SRC\EGYPTIA\EGYPTIA.S">
+      <Filter>SPECIFIC\SRC\EGYPTIA</Filter>
+    </None>
+    <None Include="..\RELAPSE\SRC\BOOTSTRA.S">
+      <Filter>SPECIFIC\MAIN\BOOT</Filter>
+    </None>
+    <None Include="..\RELAPSE\RELAPSE1.TXT">
+      <Filter>SPECIFIC\DISK</Filter>
+    </None>
+    <None Include="..\RELAPSE\RELAPSE2.TXT">
+      <Filter>SPECIFIC\DISK</Filter>
+    </None>
+    <None Include="..\EXTERN\WIZZCAT\PRTRKSTE.S">
+      <Filter>EXTERN</Filter>
+    </None>
+    <None Include="..\EXTERN\NI_PACK\atari_st\ni_n0_f.s">
+      <Filter>EXTERN</Filter>
+    </None>
+    <None Include="..\EXTERN\NI_PACK\atari_st\ni_n2_f.s">
+      <Filter>EXTERN</Filter>
+    </None>
+    <None Include="_hatari\relapseo.cfg">
+      <Filter>SPECIFIC\DISK\HATARI</Filter>
+    </None>
+    <None Include="..\RELAPSE\SRC\LOADER\LOADER.S">
+      <Filter>SPECIFIC\SRC\LOADER</Filter>
+    </None>
+    <None Include="..\RELAPSE\SRC\SHADE\SHADE.S">
+      <Filter>SPECIFIC\SRC\SHADED</Filter>
+    </None>
+    <None Include="..\DEMOSDK\CODEGEN.S">
+      <Filter>DEMOSDK</Filter>
+    </None>
+    <None Include="..\RELAPSE\SRC\CASCADE\CASCADE.S">
+      <Filter>SPECIFIC\SRC\CASCADE</Filter>
+    </None>
+    <None Include="..\DEMOSDK\MODX2MOD.S">
+      <Filter>DEMOSDK</Filter>
+    </None>
+    <None Include="..\EXTERN\NI_PACK\atari_st\ni_n1_e.s">
+      <Filter>EXTERN</Filter>
+    </None>
+    <None Include="..\RELAPSE\SRC\END\END.S">
+      <Filter>SPECIFIC\SRC\END</Filter>
+    </None>
+    <None Include="..\RELAPSE\SRC\SPACEF\SPACEF.S">
+      <Filter>SPECIFIC\SRC\SPACEF</Filter>
+    </None>
+    <None Include="..\RELAPSE\SRC\FASTMENU\FASTMENU.S">
+      <Filter>SPECIFIC\SRC\FASTMENU</Filter>
+    </None>
+    <None Include="..\RELAPSE\SRC\INFO\INFO.S">
+      <Filter>SPECIFIC\SRC\INFO</Filter>
+    </None>
+    <None Include="..\RELAPSE\SRC\INTERLUD\INTERLUD.S">
+      <Filter>SPECIFIC\SRC\INTERLUD</Filter>
+    </None>
+    <None Include="..\RELAPSE\SRC\RBOOTonB.S">
+      <Filter>SPECIFIC\MAIN\BOOT</Filter>
+    </None>
+    <None Include="..\RELAPSE\SRC\GRAFIK_S\GRAFIK_S.S">
+      <Filter>SPECIFIC\SRC\GRAFIK_S</Filter>
+    </None>
+    <None Include="..\EXTERN\stsys10\fullscr.ste\fullscr.s">
+      <Filter>EXTERN</Filter>
+    </None>
+    <None Include="..\RELAPSEH.PRJ">
+      <Filter>SPECIFIC\MAIN\PURE_C</Filter>
+    </None>
+    <None Include="..\RELAPSE\README.MD" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\RELAPSE\RELAPSE1.INI">
+      <Filter>SPECIFIC\DISK</Filter>
+    </Text>
+    <Text Include="..\RELAPSE\RELAPSE2.INI">
+      <Filter>SPECIFIC\DISK</Filter>
+    </Text>
+    <Text Include="..\RELAPSE\DATA\SPLASH\SPLASH.TXT">
+      <Filter>SPECIFIC\DATA\SPLASH</Filter>
+    </Text>
+    <Text Include="..\RELAPSE\DATA\INFO\INFO.TXT">
+      <Filter>SPECIFIC\DATA\INFO</Filter>
+    </Text>
+  </ItemGroup>
+</Project>

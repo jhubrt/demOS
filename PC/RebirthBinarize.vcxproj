@@ -83,6 +83,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\DEMOSDK\BITMAP.C" />
     <ClCompile Include="..\DEMOSDK\COLORS.C" />
     <ClCompile Include="..\DEMOSDK\HARDWARE.C" />
     <ClCompile Include="..\DEMOSDK\PC\BITCONVR.C" />
@@ -140,6 +141,7 @@
     <None Include="..\REBIRTH\TOOLS\BINARIZE\ARJ_VISU.BAT" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\DEMOSDK\BITMAP.H" />
     <ClInclude Include="..\DEMOSDK\COLORS.H" />
     <ClInclude Include="..\DEMOSDK\HARDWARE.H" />
     <ClInclude Include="..\DEMOSDK\PC\BITCONVR.H" />

@@ -70,8 +70,39 @@
     <Filter Include="TOOLS\TESTDMA">
       <UniqueIdentifier>{8b2c8266-4561-48ae-bb34-f6825d604745}</UniqueIdentifier>
     </Filter>
-    <Filter Include="TOOLS\BOOTFD2">
-      <UniqueIdentifier>{98cf4bf2-2086-4237-a072-4b98c67cf71a}</UniqueIdentifier>
+    <Filter Include="RELAPSE">
+      <UniqueIdentifier>{0723594e-4df2-438a-afc1-7371fb98f0b5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="RELAPSE\SPECIFIC">
+      <UniqueIdentifier>{1c75ca93-665c-4772-abfb-e53acb8e9fe9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="RELAPSE\SPECIFIC\LIQUID">
+      <UniqueIdentifier>{f1b232d0-5f28-47d9-bc90-932049704138}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="RELAPSE\SPECIFIC\EGYPTIA">
+      <UniqueIdentifier>{cc689e63-986f-45de-b4f0-98adc4b69290}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="RELAPSE\SPECIFIC\BOOT">
+      <UniqueIdentifier>{390dd685-cb8f-42f9-8ce5-a894bc30f57f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="LOVEBYTE">
+      <UniqueIdentifier>{f6f9d9e7-71a8-4cd2-bdb5-1e724fd58f57}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="LOVEBYTE\_hatari">
+      <UniqueIdentifier>{821fb2fe-9719-4fbd-8c38-35c53d99482e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="RELAPSE\SPECIFIC\LOADER">
+      <UniqueIdentifier>{42f1dc69-8dfe-4211-9c20-c6fa169e1579}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="RELAPSE\SPECIFIC\SHADE">
+      <UniqueIdentifier>{f1ff928a-af3c-42bc-94ab-8803fc751ea9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="RELAPSE\SPECIFIC\CASCADE">
+      <UniqueIdentifier>{182e4e8e-c23d-41f4-883c-7267b1e26493}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="RELAPSE\SPECIFIC\END">
+      <UniqueIdentifier>{80f17c1e-4f3d-4aae-97f5-c5c586fdd6d3}</UniqueIdentifier>
+    </Filter>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -86,6 +117,39 @@
     </None>
     <None Include="PC\_hatari\hataridevpack.cfg">
       <Filter>_Hatari</Filter>
+    </None>
+    <None Include="LOVEBYTE\LOVEBOOT.BAT">
+      <Filter>LOVEBYTE</Filter>
+    </None>
+    <None Include="LOVEBYTE\LOVEBOOT.INI">
+      <Filter>LOVEBYTE</Filter>
+    </None>
+    <None Include="LOVEBYTE\FILE_ID.DIZ">
+      <Filter>LOVEBYTE</Filter>
+    </None>
+    <None Include="RELAPSE\SRC\GRAFIK_S\OBJECTS.S">
+      <Filter>RELAPSE\SPECIFIC\GRAFIK_S</Filter>
+    </None>
+    <None Include="EXTERN\NI_PACK\atari_st\ni_n0.s">
+      <Filter>EXTERN</Filter>
+    </None>
+    <None Include="EXTERN\NI_PACK\atari_st\ni_n1.s">
+      <Filter>EXTERN</Filter>
+    </None>
+    <None Include="EXTERN\NI_PACK\atari_st\ni_n1_e.s">
+      <Filter>EXTERN</Filter>
+    </None>
+    <None Include="EXTERN\NI_PACK\atari_st\ni_n1_f.s">
+      <Filter>EXTERN</Filter>
+    </None>
+    <None Include="EXTERN\NI_PACK\atari_st\ni_n2.s">
+      <Filter>EXTERN</Filter>
+    </None>
+    <None Include="RELAPSE\SRC\BOOTSEC2.BAT">
+      <Filter>RELAPSE\SPECIFIC\BOOT</Filter>
+    </None>
+    <None Include="RELAPSE\SRC\BOOTSEC2.INI">
+      <Filter>RELAPSE\SPECIFIC\BOOT</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -182,8 +246,68 @@
     <CustomBuild Include="TOOLS\TESTDMA\TESTDMA.S">
       <Filter>TOOLS\TESTDMA</Filter>
     </CustomBuild>
-    <CustomBuild Include="TOOLS\BOOT_FD2\BOOT_FD2.S">
-      <Filter>TOOLS\BOOTFD2</Filter>
+    <CustomBuild Include="EXTERN\NI_PACK\atari_st\ni_n2_f.s">
+      <Filter>EXTERN</Filter>
+    </CustomBuild>
+    <CustomBuild Include="EXTERN\NI_PACK\ATARI_ST\ni_n0_f.s">
+      <Filter>EXTERN</Filter>
+    </CustomBuild>
+    <CustomBuild Include="RELAPSE\SRC\LIQUID\LIQUID.S">
+      <Filter>RELAPSE\SPECIFIC\LIQUID</Filter>
+    </CustomBuild>
+    <CustomBuild Include="RELAPSE\SRC\BOOTSTRA.S">
+      <Filter>RELAPSE\SPECIFIC\BOOT</Filter>
+    </CustomBuild>
+    <CustomBuild Include="RELAPSE\SRC\BOOTSEC2.S">
+      <Filter>RELAPSE\SPECIFIC\BOOT</Filter>
+    </CustomBuild>
+    <CustomBuild Include="DEMOSDK\MODX2MOD.S">
+      <Filter>DEMOSDK</Filter>
+    </CustomBuild>
+    <CustomBuild Include="RELAPSE\SRC\EGYPTIA\EGYPTIA.S">
+      <Filter>RELAPSE\SPECIFIC\EGYPTIA</Filter>
+    </CustomBuild>
+    <CustomBuild Include="LOVEBYTE\LOVEBOOT.S">
+      <Filter>LOVEBYTE</Filter>
+    </CustomBuild>
+    <CustomBuild Include="RELAPSE\SRC\LOADER\LOADER.S">
+      <Filter>RELAPSE\SPECIFIC\LOADER</Filter>
+    </CustomBuild>
+    <CustomBuild Include="RELAPSE\SRC\SHADE\SHADE.S">
+      <Filter>RELAPSE\SPECIFIC\SHADE</Filter>
+    </CustomBuild>
+    <CustomBuild Include="RELAPSE\SRC\CASCADE\CASCADE.S">
+      <Filter>RELAPSE\SPECIFIC\CASCADE</Filter>
+    </CustomBuild>
+    <CustomBuild Include="RELAPSE\SRC\END\END.S">
+      <Filter>RELAPSE\SPECIFIC\END</Filter>
+    </CustomBuild>
+    <CustomBuild Include="ZOOMER\ZOOMER.S">
+      <Filter>ZOOMER</Filter>
+    </CustomBuild>
+    <CustomBuild Include="RELAPSE\SRC\SPACEF\SPACEF.S">
+      <Filter>RELAPSE\SPECIFIC\SPACEF</Filter>
+    </CustomBuild>
+    <CustomBuild Include="RELAPSE\SRC\FASTMENU\FASTMENU.S">
+      <Filter>RELAPSE\SPECIFIC\FASTMENU</Filter>
+    </CustomBuild>
+    <CustomBuild Include="RELAPSE\SRC\INFO\INFO.S">
+      <Filter>RELAPSE\SPECIFIC\INFO</Filter>
+    </CustomBuild>
+    <CustomBuild Include="RELAPSE\SRC\INTERLUD\INTERLUD.S">
+      <Filter>RELAPSE\SPECIFIC\INTERLUD</Filter>
+    </CustomBuild>
+    <CustomBuild Include="RELAPSE\SRC\RBOOTonB.S">
+      <Filter>RELAPSE\SPECIFIC\BOOT</Filter>
+    </CustomBuild>
+    <CustomBuild Include="RELAPSE\SRC\SCREENS.S">
+      <Filter>RELAPSE\SPECIFIC</Filter>
+    </CustomBuild>
+    <CustomBuild Include="RELAPSE\SRC\GRAFIK_S\GRAFIK_S.S">
+      <Filter>RELAPSE\SPECIFIC\GRAFIK_S</Filter>
+    </CustomBuild>
+    <CustomBuild Include="DEMOSDK\BITMAP3.S">
+      <Filter>DEMOSDK</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>

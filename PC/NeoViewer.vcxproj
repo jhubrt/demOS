@@ -84,6 +84,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\DEMOSDK\ALLOC.C" />
+    <ClCompile Include="..\DEMOSDK\BITMAP.C" />
     <ClCompile Include="..\DEMOSDK\COLORS.C" />
     <ClCompile Include="..\DEMOSDK\HARDWARE.C" />
     <ClCompile Include="..\DEMOSDK\PC\BITCONVR.C" />
@@ -104,6 +105,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\DEMOSDK\ALLOC.H" />
+    <ClInclude Include="..\DEMOSDK\BITMAP.H" />
     <ClInclude Include="..\DEMOSDK\COLORS.H" />
     <ClInclude Include="..\DEMOSDK\HARDWARE.H" />
     <ClInclude Include="..\DEMOSDK\PC\BITCONVR.H" />

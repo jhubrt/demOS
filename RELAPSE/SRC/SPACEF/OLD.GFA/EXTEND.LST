@@ -1,0 +1,28 @@
+DIM rvb&(15,2)
+BLOAD "i:\digits\image1.pic",XBIOS(2)
+FOR t&=FALSE TO 15
+  FOR i&=FALSE TO 2
+    rvb&(t&,i&)=MIN(@renc(CARD{XBIOS(2)+t&*2},i&),14)
+  NEXT i&
+  IF AND(AND(NOT ODD(rvb&(t&,2)),NOT ODD(rvb&(t&,1))),NOT ODD(rvb&(t&,FALSE)))
+    a$=a$+MKI$(@fixc(rvb&(t&,FALSE)/2,rvb&(t&,1)/2,rvb&(t&,2)/2))
+    b$=b$+MKI$(@fixc(rvb&(t&,FALSE)/2,rvb&(t&,1)/2,rvb&(t&,2)/2))
+  ELSE IF NOT ODD(rvb&(t&,1))
+    a$=a$+MKI$(@fixc(rvb&(t&,FALSE)/2-ODD(rvb&(t&,FALSE)),rvb&(t&,1)/2,rvb&(t&,2)/2))
+    b$=b$+MKI$(@fixc(rvb&(t&,FALSE)/2,rvb&(t&,1)/2,rvb&(t&,2)/2-ODD(rvb&(t&,2))))
+  ELSE
+    a$=a$+MKI$(@fixc(rvb&(t&,FALSE)/2-ODD(rvb&(t&,FALSE)),rvb&(t&,1)/2,rvb&(t&,2)/2-ODD(rvb&(t&,2))))
+    b$=b$+MKI$(@fixc(rvb&(t&,FALSE)/2,rvb&(t&,1)/2-ODD(rvb&(t&,1)),rvb&(t&,2)/2))
+  ENDIF
+NEXT t&
+BSAVE "i:\digits\pal10.dat",V:a$,32
+BSAVE "i:\digits\pal11.dat",V:b$,32
+> FUNCTION renc(a%,j&)
+LOCAL o&
+o&=SHL&(SHR&(AND(a%,SHL(15,SHL&(j&,2))),SHL&(j&,2)),1)
+o&=OR(-BTST(o&,4),AND(o&,15))
+RETURN o&
+ENDFUNC
+> FUNCTION fixc(r&,v&,b&)
+RETURN OR(OR(SHL(r&,8),SHL(v&,4)),b&)
+ENDFUNC

@@ -1,0 +1,26 @@
+' -----------------------------------------------------------------------------'
+' INTRO 'RELAPSE'      Decompose en bloc minimum                               '
+' -----------------------------------------------------------------------------'
+'
+INLINE redim%,296
+'
+FOR t&=FALSE TO 7
+  SETCOLOR t&,t&,t&,t&
+NEXT t&
+y1&=199
+FOR t&=1 TO 50
+  BLOAD "g:\2\"+"frame"+STR$(t&)+".pi1",XBIOS(2)-34
+  t%=C:redim%(L:XBIOS(2))
+  y1&=INT{t%}
+  y2&=INT{ADD(t%,2)}
+  x1&=INT{ADD(t%,4)}
+  x2&=INT{ADD(t%,6)}
+  ADD l%,ADD(MUL(SHL&(AND(SUB(x2&,x1&),&HFFF0),1),SUB(y2&,y1&)),6)
+  PRINT AT(1,1);y1&;" ";y2&;" ";
+NEXT t&
+CLS
+PRINT "Y MAX:";y2&
+PRINT "Y MIN:";y1&
+'
+' => Taille minimum: 68->123
+'

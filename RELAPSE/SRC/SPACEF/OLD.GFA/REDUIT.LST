@@ -1,0 +1,21 @@
+CLS
+OPEN "o",#1,"k:\slide\nuages"
+DIM caca$(29)
+FOR j&=1 TO 30
+  BLOAD "k:\slide\"+STR$(j&),XBIOS(2)-128
+  ~XBIOS(6,L:XBIOS(2)-124)
+  SGET caca$(SUB(j&,1))
+  CLS
+  BMOVE V:caca$(SUB(j&,1))+8000,XBIOS(2)-8000,24000
+  FOR t&=FALSE TO 319
+    FOR i&=FALSE TO 149 STEP 2
+      PSET t&,ADD(SHR&(i&,1),100),ROUND(ADD(PTST(t&,SUB(i&,50)),PTST(t&,SUB(i&,49)))/2)
+    NEXT i&
+  NEXT t&
+  BPUT #1,XBIOS(2)+16000,75*160
+  IF INP(-2)
+    tch&=INP(2)
+  ENDIF
+  EXIT IF tch&=27
+NEXT j&
+CLOSE #1

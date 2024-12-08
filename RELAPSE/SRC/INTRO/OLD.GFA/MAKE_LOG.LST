@@ -1,0 +1,28 @@
+' -----------------------------------------------------------------------------'
+' INTRO 'RELAPSE' - MET LA FONTE 1 PLAN EN FORME
+' -----------------------------------------------------------------------------'
+'
+~XBIOS(5,L:TRUE,L:TRUE,W:FALSE)
+RESERVE 40000
+a%=MALLOC(100000)
+IF a%=FALSE
+  END
+ENDIF
+e%=XBIOS(2)
+BLOAD "f:\images\personal\relapse2.neo",SUB(e%,128)
+SGET a$
+z%=a%
+FOR j&=FALSE TO 6
+  CLS
+  RC_COPY V:a$,MUL(MOD(j&,6),48),MUL(DIV(j&,6),91),48,120 TO e%,FALSE,FALSE
+  FOR t&=FALSE TO 89*160 STEP 160
+    FOR i&=FALSE TO 24 STEP 8
+      CARD{z%}=CARD{ADD(ADD(e%,t&),i&)}
+      CARD{ADD(ADD(e%,t&),i&)}=TRUE
+      ADD z%,2
+    NEXT i&
+  NEXT t&
+NEXT j&
+BSAVE "e:\code\effects.grx\relapse\relapse2.bin",a%,SUB(z%,a%)
+PRINT SUB(z%,a%)
+~MFREE(a%)

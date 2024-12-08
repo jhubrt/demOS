@@ -1,0 +1,11 @@
+REPEAT
+  FILESELECT "e:\code\effects.grx\slide\images.pak\*.neo","",a$
+  IF a$<>""
+    BLOAD a$,XBIOS(2)-128
+    OPEN "o",#1,"e:\code\effects.grx\slide\images.pak\IMAGE"+STR$(i&)+".PIC"
+    BPUT #1,XBIOS(2)-124,32
+    BPUT #1,XBIOS(2),32000
+    CLOSE #1
+    INC i&
+  ENDIF
+UNTIL a$=""

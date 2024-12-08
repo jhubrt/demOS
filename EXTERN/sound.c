@@ -460,7 +460,7 @@ static void	YM2149_Normalise_5bit_Table(ymu16 *in_5bit , yms16 *out_5bit, unsign
 			if ( DoCenter )
 				res -= Center;
 
-			out_5bit[h] = res;
+			out_5bit[h] = (yms16) res;
 			//fprintf ( stderr , "h %d in %d out %d\n" , h , tmp , res );
 		}
 	}
@@ -496,7 +496,7 @@ static void	YM2149_EnvBuild ( void )
 
 			for ( i=0 ; i<32 ; i++ )		/* 32 volumes per block */
 			{
-				YmEnvWaves[ env ][ block*32 + i ] = YM_MERGE_VOICE ( vol , vol , vol );
+				YmEnvWaves[ env ][ block*32 + i ] = (yms16) YM_MERGE_VOICE ( vol , vol , vol );
 				vol += inc;
 			}
 		}
@@ -714,7 +714,7 @@ static ymu32	Ym2149_EnvStepCompute(ymu8 rHigh , ymu8 rLow)
  * to all 0 bits or all 1 bits using a '-'
  */
 
-static ymsample	YM2149_NextSample(void)
+static ymsample	YM2149_NextSample(ymsample voicesdetail[3])
 {
 	ymsample	sample;
 	ymu32		bt;
@@ -765,6 +765,9 @@ static ymsample	YM2149_NextSample(void)
 
 	sample = ymout5[ Tone3Voices ];			/* 16 bits signed value */
 
+	voicesdetail[0] = ymout5_u16[0][0][Tone3Voices & 0x1F];
+	voicesdetail[1] = ymout5_u16[0][(Tone3Voices >> 5) & 0x1F][0];
+	voicesdetail[2] = ymout5_u16[(Tone3Voices >> 10) & 0x1F][0][0];
 
 	/* Increment positions */
 	posA += stepA;

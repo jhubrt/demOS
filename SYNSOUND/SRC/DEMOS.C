@@ -50,38 +50,6 @@ static void DEMOSidleThread(void)
 	}
 }
 
-#ifdef DEMOS_DEBUG
-static u16 DEMOStrace (void* _image, u16 _pitch, u16 _planePitch, u16 _y)
-{
-    u16 y = _y;
-        
-    y += FSMtrace (&g_stateMachine    , _image, _pitch, _planePitch, y);
-    y += FSMtrace (&g_stateMachineIdle, _image, _pitch, _planePitch, y);
-
-    return y;
-}
-
-static u16 DEMOStraceversion (void* _image, u16 _pitch, u16 _planePitch, u16 _y)
-{
-    SYSdebugPrint ( _image, _pitch, _planePitch, 30, _y, DEMOSbuildversion);
-    
-    return _y + 8;
-}
-
-static void registerTraceServices(void)
-{
-    TRACregisterDisplayService (SYStraceFPS,         1);   /* F1 */
-	TRACregisterDisplayService (SYStraceHW,		     2);   /* F2 */
-    TRACregisterDisplayService (SYStraceAllocators,  4);   /* F3 */
-    TRACregisterDisplayService (LOADtrace,           8);   /* F4 */
-    TRACregisterDisplayService (SNDsynPlayerTrace,  16);   /* F5 */
-    TRACregisterDisplayService (DEMOStrace,         32);   /* F6 */
-    TRACregisterDisplayService (DEMOStraceversion, 128);   /* F8 */
-}
-#   endif
-
-
-
 #define demOS_COREHEAPSIZE      (64UL  * 1024UL)
 #define demOS_HEAPSIZE          (512UL * 1024UL)
 
@@ -154,10 +122,6 @@ int main(int argc, char** argv)
 
             SYSfastPrint(DEMOSbuildversion, (u8*)(SYSreadVideoBase()) + 160 * 192 + 152, 160, 4, (u32)&SYSfont);
 
-#           ifdef DEMOS_DEBUG
-            registerTraceServices();
-#           endif
-
 			/* BIT_unitTest(); */
 		}
        
@@ -176,14 +140,8 @@ int main(int argc, char** argv)
 				FSMupdate (&g_stateMachine);
 
 #               if !defined(DEMOS_OPTIMIZED)
-				TRACdisplay((u16*)(((u32)*HW_VIDEO_BASE_H << 16) | ((u32)*HW_VIDEO_BASE_M << 8) | ((u32)*HW_VIDEO_BASE_L)) + 1);
-
 				if ( SYSkbHit )
 				{
-                    if ( sys.key != HW_KEY_S )  /* do not allow 60hz  switch */  
-                    {
-					    TRACmanage(sys.key);
-                    }
                     SYSkbReset();
 				}
 

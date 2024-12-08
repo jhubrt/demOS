@@ -69,20 +69,6 @@ u8 COL4b2ST[17] =
 };
 
 
-#ifndef __TOS__
-void COLswapEndianPC(u16* _colors, u16 _nbColors)
-{
-    u16 t;
-
-    for (t = 0 ; t < _nbColors ; t++)
-    {
-        *_colors = PCENDIANSWAP16(*_colors);
-        _colors++;
-    }
-}
-#endif
-
-
 u16* COLcomputeGradientStep (u16* _startColors, u16* _endcolors, u16 _nbColors, s16 _nbSteps, s16 _step, u16* _destColors)
 {
     u16  n;

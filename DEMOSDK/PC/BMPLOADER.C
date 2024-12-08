@@ -24,6 +24,7 @@
 #include "DEMOSDK\BASTYPES.H"
 
 #include "DEMOSDK\STANDARD.H"
+#include "DEMOSDK\BITMAP.H"
 
 #include "DEMOSDK\PC\SURFACE.H"
 #include "DEMOSDK\PC\BMPLOADER.H"
@@ -99,7 +100,7 @@ static bool readSurface (FILE* _file, BITsurface* _surface)
 }
 
 
-BITloadResult BITbmpLoad (BITsurface* _surface, MEMallocator* _allocator, char* _filename)
+BITloadResult BITbmpLoad (BITsurface* _surface, MEMallocator* _allocator, CONST char* _filename)
 {
     u8			bmpFileHeader[14];    
     u8			bmpInfoHeader[64];    
@@ -222,7 +223,7 @@ Error:
 }
 
 
-BITloadResult BITbmpLoadLUT (BITlut* _lut, MEMallocator* _allocator, char* _filename)
+BITloadResult BITbmpLoadLUT (BITlut* _lut, MEMallocator* _allocator, CONST char* _filename)
 {
     u8 bmpFileHeader[14];   
     u8 bmpInfoHeader[64];   
@@ -324,7 +325,7 @@ struct BITbmpInfoHeader_
 typedef struct BITbmpInfoHeader_ BITbmpInfoHeader;
 
 
-bool BITbmpSave (BITsurface* _surface, char* _filename)
+bool BITbmpSave (BITsurface* _surface, CONST char* _filename)
 {
     u8               bmpFileHeader[14];   
     BITbmpInfoHeader bmpInfoHeader;
@@ -397,7 +398,7 @@ Error:
 }
 
 
-bool BITdegasSave (BITsurface* _surface, char* _filename)
+bool BITdegasSave (BITsurface* _surface, CONST char* _filename)
 {
     FILE* file = fopen (_filename, "wb");
 
@@ -445,9 +446,32 @@ Error:
     return false;
 }
 
+BITloadResult BITpalLoadLUT (BITlut* _lut, MEMallocator* _allocator, CONST char* _filename)
+{
+    BITloadResult returnCode = BITloadResult_READERROR;
 
+    FILE* file = fopen (_filename, "rb");
 
-BITloadResult BITneoLoad (BITsurface* _surface, MEMallocator* _allocator, char* _filename)
+    if ( file == NULL )
+        goto Error;
+
+    BITlutConstruct(_lut);
+    BITlutInit(_allocator, _lut, BITlutFormat_STe, 16);
+
+    fread (_lut->data.p, 16, sizeof(u16), file);
+
+    fclose(file);
+
+    return BITloadResult_OK;
+
+Error:
+    if ( file != NULL )
+        fclose (file);
+
+    return returnCode;
+}
+
+BITloadResult BITneoLoad (BITsurface* _surface, MEMallocator* _allocator, CONST char* _filename)
 {
 	BITloadResult returnCode = BITloadResult_READERROR;
 
@@ -479,7 +503,166 @@ Error:
 }
 
 
-BITloadResult BITdegasLoad (BITsurface* _surface, MEMallocator* _allocator, char* _filename)
+
+BITloadResult BITcompressedLoad (BITsurface* _surface, MEMallocator* _allocator, CONST char* _filename)
+{
+    BITloadResult returnCode = BITloadResult_READERROR;
+    u16 d4 = 0;
+    u8* buffer = NULL;
+    u32 pos, size;
+
+    FILE* file = fopen (_filename, "rb");
+
+    if ( file == NULL )
+        goto Error;
+
+    BITsurfaceInit (_allocator, _surface, BITformat_Chunk4P, 320, 200, BIT_DEFAULT_PITCH);
+
+    BITlutConstruct(&_surface->lut);
+    BITlutInit(_allocator, &_surface->lut, BITlutFormat_STe, 16);
+
+    fread (&d4, sizeof(d4), 1, file);
+
+    fread (_surface->lut.data.p, 16, sizeof(u16), file);
+
+    pos = ftell(file);
+    fseek (file, 0, SEEK_END);
+
+    size = ftell(file);
+    size -= pos;
+
+    fseek (file, pos, SEEK_SET);
+
+    buffer = (u8*) MEM_ALLOC(_allocator, size);
+
+    fread (buffer, 1, size, file);
+
+    d4 = PCENDIANSWAP16(d4);          /* move.w		(a0)+,d4		*a0: image compactee */
+
+    {
+        u8 *p0,*d,*p2,*p3;
+        u16 col;
+        u16 d2 = 0;
+        u32 d3 = 0;
+
+        d = p3 = _surface->buffer;
+
+        p0 = p2 = buffer;
+
+        d4 <<= 2;
+        p2 += d4;
+
+        for (col = 0 ; col < 40 ; col++)
+        {
+            u16 d1;
+
+            d = p3;
+            p3 += 4;
+            
+            for (d1 = 0 ; d1 < _surface->height ; d1++)
+            {
+                if (d2 == 0)
+                {
+                    d2 = *p2++;
+                    d3 = *(u32*)p0; 
+                    p0 += 4;
+                }
+
+                *(u32*)d = d3;
+                d += _surface->pitch;
+                d2--;
+            }
+        }
+    }
+
+    /*
+        ;move.l		a0,a2			
+        ;lsl.w		#2,d4			
+        ;add.w		d4,a2	
+        ;moveq.w		#39,d4
+        ;moveq.w		#0,d2
+        ;moveq.l		#0,d3
+        ;move.l		a1,a3
+.dec:	
+        move.l		a3,a1
+        addq.l		#4,a3
+        move.w		d0,d1			
+.dec2:	
+        tst.w		d2
+        bne.s		.endifdec
+        move.b		(a2)+,d2
+        move.l		(a0)+,d3
+.endifdec:
+        move.l		d3,(a1)
+        lea			160(a1),a1
+        subq.w		#1,d2
+
+        dbra.w		d1,.dec2
+        dbra.w		d4,.dec
+
+        */
+    fclose(file);
+
+    MEM_FREE(_allocator, buffer);
+
+    return BITloadResult_OK;
+
+Error:
+    if ( file != NULL )
+        fclose (file);
+
+    return returnCode;
+}
+
+
+BITloadResult BITcompressed4Load (BITsurface* _surface, MEMallocator* _allocator, CONST char* _filename)
+{
+    BITloadResult returnCode = BITloadResult_READERROR;
+    u8* buffer = NULL;
+    u32 pos, size;
+
+    FILE* file = fopen (_filename, "rb");
+
+    if ( file == NULL )
+        goto Error;
+
+    BITsurfaceInit (_allocator, _surface, BITformat_Chunk4P, 320, 200, BIT_DEFAULT_PITCH);
+
+    BITlutConstruct(&_surface->lut);
+    BITlutInit(_allocator, &_surface->lut, BITlutFormat_STe, 16);
+
+    fread (_surface->lut.data.p, 16, sizeof(u16), file);
+
+    pos = ftell(file);
+    fseek (file, 0, SEEK_END);
+
+    size = ftell(file);
+    size -= pos;
+
+    fseek (file, pos, SEEK_SET);
+
+    buffer = (u8*) MEM_ALLOC(_allocator, size);
+
+    fread (buffer, 1, size, file);
+   
+    BITuncompressRLE4_C (buffer, _surface->buffer);
+
+    fclose(file);
+
+    MEM_FREE(_allocator, buffer);
+
+    return BITloadResult_OK;
+
+Error:
+    if ( file != NULL )
+        fclose (file);
+
+    return returnCode;
+}
+
+
+
+BITloadResult BITdegasLoad (BITsurface* _surface, MEMallocator* _allocator, CONST char* _filename)
 {
 	BITloadResult returnCode = BITloadResult_READERROR;
     FILE* file = NULL;
@@ -525,3 +708,95 @@ Error:
     return returnCode;
 }
 
+
+BITloadResult BITkidLoad (BITsurface* _surface, MEMallocator* _allocator, CONST char* _filename)
+{
+    u16 t;
+    u8* p;
+    BITloadResult returnCode = BITloadResult_READERROR;
+
+    FILE* file = fopen (_filename, "rb");
+
+    if ( file == NULL )
+        goto Error;
+
+    BITsurfaceInit (_allocator, _surface, BITformat_Chunk4P, 448, 274, BIT_DEFAULT_PITCH);
+
+    BITlutConstruct(&_surface->lut);
+    BITlutInit(_allocator, &_surface->lut, BITlutFormat_STe, 16);
+
+    fseek (file, 2, SEEK_SET);
+    fread (_surface->lut.data.p, 16, sizeof(u16), file);
+
+    p = _surface->buffer;
+
+    for (t = 0 ; t < 274 ; t++)
+    {
+        fread (p, 224, 1, file);
+        fseek (file, 6, SEEK_CUR);
+        p += 224;
+    }
+
+    fclose(file);
+
+    return BITloadResult_OK;
+
+Error:
+    if ( file != NULL )
+        fclose (file);
+
+    return returnCode;
+}
+
+
+bool BITsave(BITsurface* _surface, CONST char* _filename)
+{
+    FILE* file = fopen (_filename, "wb");
+
+    if ( file == NULL )
+        goto Error;
+
+    STDwriteB(file, (u8)_surface->format);
+       
+    STDwriteB(file, (u8)_surface->lut.size);
+
+    ASSERT((_surface->lut.format == BITlutFormat_444) | (_surface->lut.format == BITlutFormat_STe)); /* other need to be implemented */
+    if (_surface->lut.size > 0)
+        STDwrite (file, _surface->lut.data.p, _surface->lut.size * sizeof(u16));
+
+    STDwriteW(file, _surface->width);
+    STDwriteW(file, _surface->height);
+
+    STDwrite(file, _surface->buffer, _surface->pitch * _surface->height);
+
+    fclose (file);
+
+    return true;
+
+Error:
+    if ( file != NULL )
+        fclose (file);
+
+    return false;
+}
+
+
+bool BITrawbufferSave(BITsurface* _surface, CONST char* _filename)
+{
+    FILE* file = fopen (_filename, "wb");
+
+    if ( file == NULL )
+        goto Error;
+
+    STDwrite(file, _surface->buffer, _surface->pitch * _surface->height);
+
+    fclose (file);
+
+    return true;
+
+Error:
+    if ( file != NULL )
+        fclose (file);
+
+    return false;
+}

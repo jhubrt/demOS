@@ -162,7 +162,7 @@ int main(int argc, char** argv)
             
         TRACinit ("_logs\\traclogpc.log");
 
-        EMULinit (sys.membase, -1, -1, 0);
+        EMULinit (sys.membase, -1, -1, 0, "Engine proto");
    
 		{
             SYSinitThreadParam      threadParam;

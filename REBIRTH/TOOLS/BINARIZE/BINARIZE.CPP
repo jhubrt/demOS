@@ -579,10 +579,12 @@ static void binarizeFugit( WINdow* _window )
     BITsurfaceSetExternal (&surface, buffer, BITformat_Plane1P, 640, 300, 80);
     BITsurfaceConvert (&stdAllocator, &surface, &surface2, BITformat_8bits);
 
-    //     if ( _window != NULL )
-    //     {
-    //         WINdrawImage (_window, surface2.buffer, surface2.width, surface2.height, 8, surface2.lut.data.p, (768 - surface2.width) / 2, (576 - surface2.height) / 2);
-    //     }
+    if ( _window != NULL )
+    {
+        WINdrawImage (_window, surface2.buffer, surface2.width, surface2.height, 8, surface2.lut.data.p, (768 - surface2.width) / 2, (576 - surface2.height) / 2);
+        WINrender (_window); 
+        waitForGUI(_window);
+    }
 
 #       define CHARLEN 64
 #       define CHARH   100

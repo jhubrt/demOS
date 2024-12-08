@@ -26,22 +26,29 @@
 
 #include "DEMOSDK\FSM.H"
 #include "DEMOSDK\RASTERS.H"
+#include "SYNSOUND\SRC\SYNTH.H"
 
-void IntroEntry	   (FSM* _fsm);
-void IntroActivity (FSM* _fsm);
-void IntroExit	   (FSM* _fsm);
-void IntroBacktask (FSM* _fsm);
+void SynthSoundEntry	(FSM* _fsm);
+void SynthSoundActivity (FSM* _fsm);
+void SynthSoundExit	    (FSM* _fsm);
+void SynthSoundBacktask (FSM* _fsm);
 
-struct Intro_
+struct SyntheticSound_
 {
     void* framebuffer;
     void* pcm[2];
     s8*   pcmcopy;
     u8    channel;
-    u8    volume;
+    u8    volume[2];
     u8    keyb[2];
     s8    mask[2];
+    u8    wtindex[2];
+    u16   wavetable[16][16];
+    u32   cyclicratio[2];
+    u16   porta[2];
+
+    SNDsquareSound squareSounds[2];
 };
-typedef struct Intro_ Intro;
+typedef struct SyntheticSound_ SyntheticSound;
 
 #endif

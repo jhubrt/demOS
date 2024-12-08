@@ -26,6 +26,9 @@
     <Filter Include="DEMOSDK\PC">
       <UniqueIdentifier>{2a38062b-912a-4a4c-9792-94520b1cd38a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="SPECIFIC\HATARI">
+      <UniqueIdentifier>{9e6f1f9e-86f6-47a9-a3e4-5b9c7b599a6e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\DEMOSDK\ALLOC.C">
@@ -193,6 +196,9 @@
     </None>
     <None Include="..\SYNSOUND\SRC\SYNTH.S">
       <Filter>SPECIFIC\SRC</Filter>
+    </None>
+    <None Include="_hatari\syntheticsoundo.cfg">
+      <Filter>SPECIFIC\HATARI</Filter>
     </None>
   </ItemGroup>
 </Project>

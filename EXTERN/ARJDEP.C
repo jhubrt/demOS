@@ -5,8 +5,6 @@
 
 #include "DEMOSDK\PC\EMUL.H"
 
-u8*  ARJprogress = NULL;
-
 static EMUL68k p;
 
 static void GETBITS(void);

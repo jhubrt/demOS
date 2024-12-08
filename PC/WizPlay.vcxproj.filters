@@ -40,9 +40,6 @@
     <ClCompile Include="..\DEMOSDK\SYSTEM.C">
       <Filter>DEMOSDK</Filter>
     </ClCompile>
-    <ClCompile Include="..\DEMOSDK\LOAD.C">
-      <Filter>DEMOSDK</Filter>
-    </ClCompile>
     <ClCompile Include="..\DEMOSDK\RASTERS.C">
       <Filter>DEMOSDK</Filter>
     </ClCompile>
@@ -108,9 +105,6 @@
     <ClInclude Include="..\DEMOSDK\SYSTEM.H">
       <Filter>DEMOSDK</Filter>
     </ClInclude>
-    <ClInclude Include="..\DEMOSDK\LOAD.H">
-      <Filter>DEMOSDK</Filter>
-    </ClInclude>
     <ClInclude Include="..\DEMOSDK\RASTERS.H">
       <Filter>DEMOSDK</Filter>
     </ClInclude>
@@ -158,9 +152,6 @@
     <None Include="..\DEMOSDK\TRACE.S">
       <Filter>DEMOSDK</Filter>
     </None>
-    <None Include="..\DEMOSDK\LOAD.S">
-      <Filter>DEMOSDK</Filter>
-    </None>
     <None Include="..\DEMOSDK\RASTERS.S">
       <Filter>DEMOSDK</Filter>
     </None>
@@ -181,6 +172,9 @@
     </None>
     <None Include="_hatari\HatariWizPlay.bat">
       <Filter>SPECIFIC</Filter>
+    </None>
+    <None Include="..\DEMOSDK\LOAD.S">
+      <Filter>DEMOSDK</Filter>
     </None>
   </ItemGroup>
 </Project>

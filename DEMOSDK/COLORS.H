@@ -41,8 +41,6 @@ extern u8 COL4b2ST[17];
 
 #ifdef __TOS__
 
-#define COLswapEndianPC(_startColors,_nbColors)
-
 #define COLcomputeGradient16Steps(_startColors, _endcolors, _nbColors, _step, _destColors)       COL16STST(_startColors, _endcolors, _nbColors, _step, (u32)(_destColors))
 #define COLcomputeGradient16Steps4b4b(_startColors, _endcolors, _nbColors, _step, _destColors)   COL164b4b(_startColors, _endcolors, _nbColors, _step, (u32)(_destColors))
 #define COLcomputeGradient16Steps4bSTe(_startColors, _endcolors, _nbColors, _step, _destColors)  COL164bST(_startColors, _endcolors, _nbColors, _step, (u32)(_destColors))
@@ -52,8 +50,6 @@ u16* COL164bST (u16* _startColors, u16* _endcolors, u16 _nbColors, s16 _step, u3
 u16* COL164b4b (u16* _startColors, u16* _endcolors, u16 _nbColors, s16 _step, u32 _destColors);
 
 #else
-
-void COLswapEndianPC                 (u16* _colors, u16 _nbColors);
 
 u16* COLcomputeGradient16Steps       (u16* _startColors, u16* _endcolors, u16 _nbColors, s16 _step, u16* _destColors);
 u16* COLcomputeGradient16Steps4b4b   (u16* _startColors, u16* _endcolors, u16 _nbColors, s16 _step, u16* _destColors);

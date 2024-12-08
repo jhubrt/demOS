@@ -88,6 +88,7 @@ struct SYScore_
 	u8				lastKey;
 	bool			has2Drives;
     bool            invertDrive;
+    s8              forceUsedDrive;
     bool            isMegaSTe;
     bool            OSneedRestore;
     SYSemulator     emulator;
@@ -136,9 +137,13 @@ void SYSdbgBreak            (void);
 void SYSvbldonothing        (void); 
 void SYSvblend              (void);
 void SYSvblrunRTSroutine    (void);
+void SYSvbldpakProgress     (void);
 
 extern volatile u32	SYSvblcount;
 extern volatile u16	SYSvblLcount;
+extern volatile u8* SYSdpakProgress;
+extern volatile bool SYSdpakActive;
+
 
 #ifdef __TOS__
 #	define SYSvsync {	u16 currentvblcount = SYSvblLcount; while (SYSvblLcount == currentvblcount); }
@@ -188,5 +193,9 @@ void SYSlockIdle (SYSlock* _lock); /* when called from idle thread, it will spin
 void* SYSgemdosSetMode (void* _adr);
 void* SYSmalloc (unsigned long _size);
 void  SYSreset (void);
+
+#ifdef DEMOS_UNITTEST
+void SYSunitTest (void* _screen);
+#endif
 
 #endif

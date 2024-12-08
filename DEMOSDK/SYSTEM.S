@@ -34,7 +34,8 @@
     ; exports
     xdef    SYSdetectEmu,SYSlockIdle,SYSlockMain,SYSreadVideoBase,SYSwriteVideoBase,SYSvidCountRead,SYSemptyKb
 
-	xdef	SYSvblinterrupt,SYSvblcount,SYSvblLcount,SYSvblroutines,SYSvbldonothing,SYSvblrunRTSroutine,SYSvblend
+	xdef	SYSvblinterrupt,SYSvblcount,SYSvblLcount,SYSvblroutines,SYSvbldonothing,SYSvblrunRTSroutine,SYSvblend,SYSvbldpakProgress
+	xdef	SYSdpakActive,SYSdpakProgress
 	xdef	SYSsetIdlethread,SYSswitchIdle
     xdef    SYSgemdosSetMode,SYSmalloc,SYSreset
     xdef    SYSinitDbgBreak,SYSdbgBreak
@@ -357,6 +358,7 @@ SYSvbldonothing:
     move.l  (a0)+,a1
     jmp     (a1)
 
+
 SYSvblrunRTSroutine:
     move.l  (a0)+,a1
     
@@ -367,13 +369,20 @@ SYSvblrunRTSroutine:
     move.l  (a0)+,a1
     jmp     (a1)
 
+
+SYSvbldpakProgress:
+	tst.b	SYSdpakActive
+	beq.s	.nosample
+	move.l	(sp),SYSdpakProgress
+.nosample:
+    move.l  (a0)+,a1
+    jmp     (a1)
+
 *-------------------------------------------------------------------------
 * Interupt routines
 *-------------------------------------------------------------------------
 
 SYSvblinterrupt:
-
-	move.w	#$2700,sr					; blocks all interupts => will be restored by rte
 
     move.l  a0,-(sp)
     move.l  a1,-(sp)
@@ -387,6 +396,8 @@ SYSvblend:
 	move.l	d0,-(sp)
 
 	* -------------------- floppy management -------------------------
+
+	move.w	#$2700,sr					; blocks all interupts => will be restored by rte
 
     move.l  LOADdeconnectAndStartRequest(pc),a0
     move.l  a0,d0
@@ -455,5 +466,11 @@ idlethreadcontext:
 	dc.l	0		; current sp backup
 	dc.l	0		; stack low
 	dc.l	0		; stack high
+
+SYSdpakProgress:
+	dc.l	0
+
+SYSdpakActive:	
+	dc.w	0
 
 	END

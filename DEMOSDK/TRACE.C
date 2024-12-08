@@ -27,10 +27,10 @@
 /* #define TRAC_LOG_DEFAULT    TRAC_LOG_ALL */
 
 #ifdef __TOS__
-#   define TRAC_LOG_DEFAULT    (TRAC_LOG_FSM | TRAC_LOG_FLOW | TRAC_LOG_TEMP)
+#   define TRAC_LOG_DEFAULT    (TRAC_LOG_FSM | TRAC_LOG_FLOW | TRAC_LOG_TEMP | TRAC_LOG_DISK)
 /*#   define TRAC_LOG_DEFAULT    (TRAC_LOG_FSM | TRAC_LOG_FLOW | TRAC_LOG_COMMANDS | TRAC_LOG_SPECIFIC)*/
 #else
-#   define TRAC_LOG_DEFAULT    (TRAC_LOG_FSM | TRAC_LOG_FLOW | TRAC_LOG_COMMANDS | TRAC_LOG_MEMORY | TRAC_LOG_TEMP /*| TRAC_LOG_SPECIFIC*/)
+#   define TRAC_LOG_DEFAULT    (TRAC_LOG_FSM | TRAC_LOG_FLOW | TRAC_LOG_COMMANDS | TRAC_LOG_MEMORY | TRAC_LOG_TEMP | TRAC_LOG_DISK /*| TRAC_LOG_SPECIFIC*/)
 #endif
 
 
@@ -98,7 +98,11 @@ void   TRAC8bomb (void);
 
 FILE* g_loggerFile = NULL;
 
-u16 TRACmaxraster (u16 maxraster) { return 0; }
+u16 TRACmaxraster (u16 maxraster) 
+{ 
+    maxraster; 
+    return 0; 
+}
 
 void TRACsaveLog(char* _filename)
 {
@@ -366,7 +370,7 @@ void TRACmanage (u8 _key)
 	}
 }
 
-
+#ifdef __TOS__
 void TRACdrawScanlinesScale (void* _image, u16 _screenPitch, u16 _bitplanPitchShift, u16 _h)
 {
     char line[4] = "   ";
@@ -411,47 +415,6 @@ void TRACdrawScanlinesScale (void* _image, u16 _screenPitch, u16 _bitplanPitchSh
 
         p += (screenPitchW << 2);
     }
-}
-
-
-void TRACdisplayVBLcountAsColors(s16 _index)
-{
-    static u16 vbl = 0;
-
-    switch(SYSvblLcount - vbl)
-    {
-    case 0:
-        ASSERT(0);
-        break;
-    case 1:
-        HW_COLOR_LUT[_index] = 0x70;    /* GREEN */
-        break;
-    case 2:
-        HW_COLOR_LUT[_index] = 0x77;    /* CYAN */
-        break;
-    case 3:
-        HW_COLOR_LUT[_index] = 0x770;   /* YELLOW */
-        break;
-    case 4:
-        HW_COLOR_LUT[_index] = 0x700;   /* RED */
-        break;
-    case 5:
-        HW_COLOR_LUT[_index] = 0x707;   /* MAGENTA */
-        break;
-    default:
-        HW_COLOR_LUT[_index] = 0x777;   /* WHITE */
-        break;
-    }
-
-    vbl = SYSvblLcount;
-}
-
-
-#ifdef DEMOS_UNITTEST
-void TRACunitTest (void* _screen)
-{
-	SYSdebugPrint(_screen, 160, SYS_4P_BITSHIFT, 0, 0, "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-+.'");
-	SYSdebugPrint(_screen, 160, SYS_4P_BITSHIFT, 0, 8, "/*<>=:;,?![]%|abcdefghijklmnopqrstuvwxyz");
 }
 #endif
 

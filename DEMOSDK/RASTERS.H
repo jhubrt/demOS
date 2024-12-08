@@ -57,6 +57,13 @@ extern void* RASnextOpList;
 
 #define RASstopMask	0x8000
 
+/* p should be a u16* */
+#define RAS_GEN_STOP_TIMERB(p)                  { *p++ = CGEN_OPCODE_CLR_B_SHORTADR; *p++=0xFA1B; }
+#define RAS_GEN_START_TIMERB(p)                 { *p++ = CGEN_OPCODE_MOVE_IMMEDIATE_SHORTADR(CGEN_MOVESIZE_B); *p++= 8; *p++=0xFA1B; }
+#define RAS_GEN_SET_TIMERB_NBSCANLINES(p,NB)    { *p++ = CGEN_OPCODE_MOVE_IMMEDIATE_SHORTADR(CGEN_MOVESIZE_W); *p++= (NB); *p++=0xFA20; }
+#define RAS_GEN_SET_TIMERB_ADR(p,ADR)           { *p++ = CGEN_OPCODE_MOVE_IMMEDIATE_SHORTADR(CGEN_MOVESIZE_L); *(u32*)p = (u32)(ADR); p+=2; *p++=0x120; }
+#define RAS_GEN_SET_COLOR_W(P,COLORNUM,VALUE)   { *p++ = CGEN_OPCODE_MOVE_IMMEDIATE_SHORTADR(CGEN_MOVESIZE_W); *p++=(VALUE); *p++=(0x8240+((COLORNUM)<<1)); }
+
 /* raster OpList */
 
 typedef void(*RASinterupt)(void);

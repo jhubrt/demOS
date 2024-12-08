@@ -1,0 +1,158 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{D8C5351D-89BF-4974-BC5F-59FEEB5AF49A}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>RelapseBinarize</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <IntDir>$(SolutionDir)..\TEMP\$(ProjectName)_$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <IntDir>$(SolutionDir)..\TEMP\$(ProjectName)_$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\</AdditionalIncludeDirectories>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <LinkTimeCodeGeneration>Default</LinkTimeCodeGeneration>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\DEMOSDK\BITMAP.C" />
+    <ClCompile Include="..\DEMOSDK\COLORS.C" />
+    <ClCompile Include="..\DEMOSDK\HARDWARE.C" />
+    <ClCompile Include="..\DEMOSDK\PC\BITCONVR.C" />
+    <ClCompile Include="..\DEMOSDK\PC\BMPLOADER.C" />
+    <ClCompile Include="..\DEMOSDK\PC\SURFACE.C" />
+    <ClCompile Include="..\DEMOSDK\PC\VISUALASRT.C" />
+    <ClCompile Include="..\DEMOSDK\PC\VISUALOG.CPP">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="..\DEMOSDK\PC\WINDOW.C" />
+    <ClCompile Include="..\DEMOSDK\STANDARD.C" />
+    <ClCompile Include="..\EXTERN\MPP\BMP2MPP.C" />
+    <ClCompile Include="..\EXTERN\MPP\MPP2BMP.C" />
+    <ClCompile Include="..\EXTERN\MPP\PIXBUF.C" />
+    <ClCompile Include="..\FX\VECTOR\TOOLS\B_VECTOR.CPP" />
+    <ClCompile Include="..\RELAPSE\TOOLS\BINARIZE\BINARIZE.CPP" />
+    <ClCompile Include="..\TOOLS\BINARIZE\HELPERS.CPP" />
+    <ClCompile Include="..\TOOLS\BINARIZE\HELPERSW.CPP" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\DEMOSDK\BITMAP.S" />
+    <None Include="..\RELAPSE\DATA\BOOT\BOOT.BMP" />
+    <None Include="..\RELAPSE\DATA\BOOT\BOOT2P.BMP" />
+    <None Include="..\RELAPSE\DATA\SPLASH\COLORS.PAL" />
+    <None Include="..\RELAPSE\DATA\ZIKS\DELOS_04.MOD" />
+    <None Include="..\RELAPSE\DATA\ZIKS\DELOS_05.mod" />
+    <None Include="..\RELAPSE\DATA\ZIKS\DELOS_0C.MOD" />
+    <None Include="..\RELAPSE\DATA\ZIKS\EGYPTZIK.MOD" />
+    <None Include="..\RELAPSE\DATA\ZIKS\ENDMOD3.MOD" />
+    <None Include="..\RELAPSE\DATA\ZIKS\FIRST6.MOD" />
+    <None Include="..\RELAPSE\DATA\ZIKS\GRAFIK.MOD" />
+    <None Include="..\RELAPSE\DATA\ZIKS\HYDRO.MOD" />
+    <None Include="..\RELAPSE\DATA\ZIKS\INFO.MOD" />
+    <None Include="..\RELAPSE\DATA\ZIKS\NEW_TEC7.MOD" />
+    <None Include="..\RELAPSE\TOOLS\BATCH\binarizer.bat" />
+    <None Include="..\RELAPSE\TOOLS\BATCH\LogFilter.cfg" />
+    <None Include="..\RELAPSE\TOOLS\BATCH\relapse.bat" />
+    <None Include="..\RELAPSE\TOOLS\BATCH\relapse.mak" />
+    <None Include="..\RELAPSE\TOOLS\BATCH\run.bat" />
+    <None Include="..\RELAPSE\TOOLS\BATCH\_makeall_debug.bat" />
+    <None Include="..\RELAPSE\TOOLS\BATCH\_makeall_release.bat" />
+    <None Include="..\RELAPSE\TOOLS\BATCH\_make_debug.bat" />
+    <None Include="..\RELAPSE\TOOLS\BATCH\_make_release.bat" />
+    <None Include="..\RELAPSE\TOOLS\BATCH\_make_ziks_all_debug.bat" />
+    <None Include="..\RELAPSE\TOOLS\BATCH\_make_ziks_all_release.bat" />
+    <None Include="..\RELAPSE\TOOLS\BATCH\_make_ziks_debug.bat" />
+    <None Include="..\RELAPSE\TOOLS\BATCH\_make_ziks_release.bat" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\DEMOSDK\BITMAP.H" />
+    <ClInclude Include="..\DEMOSDK\COLORS.H" />
+    <ClInclude Include="..\DEMOSDK\HARDWARE.H" />
+    <ClInclude Include="..\DEMOSDK\PC\BITCONVR.H" />
+    <ClInclude Include="..\DEMOSDK\PC\BMPLOADER.H" />
+    <ClInclude Include="..\DEMOSDK\PC\SURFACE.H" />
+    <ClInclude Include="..\DEMOSDK\PC\VISUALOG.H" />
+    <ClInclude Include="..\DEMOSDK\PC\WINDOW.H" />
+    <ClInclude Include="..\DEMOSDK\STANDARD.H" />
+    <ClInclude Include="..\EXTERN\MPP\PIXBUF.H" />
+    <ClInclude Include="..\FX\VECTOR\TOOLS\B_VECTOR.H" />
+    <ClInclude Include="..\TOOLS\BINARIZE\HELPERS.H" />
+    <ClInclude Include="..\TOOLS\BINARIZE\HELPERSW.H" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\RELAPSE\DATA\INFO\INFO.TXT" />
+    <Text Include="..\RELAPSE\DATA\SPLASH\SPLASH.TXT" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

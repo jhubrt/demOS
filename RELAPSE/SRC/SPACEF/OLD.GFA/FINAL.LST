@@ -1,0 +1,36 @@
+OPEN "i",#1,"k:\slide\logo2.neo"
+SEEK #1,4
+BGET #1,XBIOS(2)-32,32
+~XBIOS(6,L:XBIOS(2)-32)
+SEEK #1,128
+BGET #1,XBIOS(2),32000
+CLOSE #1
+'
+FOR t%=XBIOS(2) TO XBIOS(2)+8000 STEP 8
+  val%=OR(OR(CARD{t%},CARD{ADD(t%,2)}),OR(CARD{ADD(t%,4)},CARD{ADD(t%,6)}))
+  CARD{ADD(t%,16000)}=val%
+  CARD{ADD(t%,16002)}=val%
+  CARD{ADD(t%,16004)}=val%
+  CARD{ADD(t%,16006)}=val%
+NEXT t%
+'
+RESERVE 20000
+a%=MALLOC(400000)
+IF a%=FALSE
+  END
+ENDIF
+BLOAD "k:\slide\nuages",a%
+FOR j&=FALSE TO 29
+  e%=ADD(a%,MUL(j&,12000))
+  RC_COPY XBIOS(2),FALSE,100,320,50 TO e%,FALSE,FALSE,4
+  RC_COPY XBIOS(2),FALSE,FALSE,320,50 TO e%,FALSE,FALSE,7
+NEXT j&
+'
+CLS
+OPEN "o",#1,"k:\slide\nuages2"
+FOR i&=FALSE TO 26
+  PRINT AT(1,1);i&
+  BPUT #1,ADD(ADD(a%,640),MUL(i&,12000)),6720
+NEXT i&
+CLOSE #1
+~MFREE(a%)
