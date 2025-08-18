@@ -1,0 +1,26 @@
+#ifndef DEMOS_INVERT_DRIVE
+#   define DEMOS_INVERT_DRIVE 1
+#endif
+
+#define DEMOS_LOAD_FROMHD
+
+#include "SNDPLAY\SRC\DEMOS.C"
+
+#include "DEMOSDK\ALLOC.C"
+#include "DEMOSDK\BITMAP.C"
+#include "DEMOSDK\COLORS.C"
+#include "DEMOSDK\FSM.C"
+#include "DEMOSDK\STANDARD.C"
+
+#include "DEMOSDK\SYNTHYM.C"
+#include "DEMOSDK\SYNTHYMD.C"
+#include "DEMOSDK\SYNTHYMF.C"
+#include "DEMOSDK\SYNTHYMI.C"
+
+#include "DEMOSDK\YMDISP.C"
+#include "DEMOSDK\SYSTEM.C"
+#include "DEMOSDK\TRACE.C"
+#include "DEMOSDK\DATA\DATA.C"
+
+#include "SNDPLAY\SRC\SCREENS.C"
+#include "SNDPLAY\SRC\SNDPLAY.C"

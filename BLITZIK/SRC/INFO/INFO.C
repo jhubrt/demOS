@@ -484,7 +484,7 @@ void InfoEnter (FSM* _fsm)
         };
 
         STDmcpy2(HW_COLOR_LUT + 1, colors, 30);
-        COLswapEndianPC (HW_COLOR_LUT + 1, 15);
+        PCENDIANSWAPBUFFER16 (HW_COLOR_LUT + 1, 15);
     }
 
     BLZ_FLUSH_COMMANDS;
@@ -776,7 +776,7 @@ void InfoBacktask(FSM* _fsm)
             if (this->exit) return;
 
             COLcomputeGradient16Steps(endcolors, startcolors, 4, t, colors);
-            COLswapEndianPC(colors, 4);
+            PCENDIANSWAPBUFFER16(colors, 4);
             STDmcpy2(HW_COLOR_LUT + 4, colors, 4 << 1);
 
             t += 4;
@@ -792,7 +792,7 @@ void InfoBacktask(FSM* _fsm)
             if (this->exit) return;
 
             COLcomputeGradient16Steps(startcolors, endcolors, 4, t >> 2, colors);
-            COLswapEndianPC(colors, 4);
+            PCENDIANSWAPBUFFER16(colors, 4);
             STDmcpy2(HW_COLOR_LUT + 4, colors, 4 << 1);
 
             t++;

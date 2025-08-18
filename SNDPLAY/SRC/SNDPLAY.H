@@ -21,57 +21,58 @@
 -------------------------------------------------------------------------------------------------*/
 
 
-#ifndef PLAYER_H
-#define PLAYER_H
+#ifndef BPLAYER_H
+#define BPLAYER_H
 
 #include "DEMOSDK\FSM.H"
 #include "DEMOSDK\RASTERS.H"
-#include "DEMOSDK\SYNTHYM.H"
 
-void SynthYMEntry	 (void);
-void SynthYMActivity (void);
-void SynthYMBacktask (void);
+void PlayerEntry    (void);
+void PlayerTest     (u8 _mode);
+
+void PlayerActivity (void);
+void PlayerExit	    (void);
+void PlayerBacktask (void);
+
+void PlayerSetParam (int argc, char** argv);
 
 
-struct PlayerControl_
+struct PlayerText_
 {
-    u8      currentchannel;
-    bool    channels[SND_YM_NB_CHANNELS];
-    s8      keyb;
-    u8      pressed[SND_YM_NB_CHANNELS];
-    s8      transpose[SND_YM_NB_CHANNELS];
+    u8    state;
+    u8    currentpos;
+    u8    currentline;
+    s16   animatecount;
 };
-typedef struct PlayerControl_ PlayerControl;
+typedef struct PlayerText_ PlayerText;
+
 
 struct Player_
 {
-    SNDYMsoundSet     soundSet;
-    SNDYMplayer       player;
-    PlayerControl     ctrl;
-    void*             framebuffer;
-    bool              flip;
-    bool              updated;
-    bool              curvesync;
-    bool              capturesound;
-    bool              capturehasstarted;
-    u32               captureindex;
-    u32               captureframe;
-    u8*               capturebuffer;
-    u32               framenum;
-    u8                keyboard[256];
-    char              filename[256];
-    YMregs            lastYMregs;
+    PlayerText          text;
+    
+    void* framebuffer;
+    u8*   data;
+    u32   datasize;
+    u8    testMode;
+    char  filename[256];
+    u32   dataindex;
+
+    u16   playframe;
+    bool  play;
+    bool  run;
+    bool  ymemuldisplaysync;
+
+    u8    panel;
+    u8    lastpanel;
+
+	s32	  allocatedbytes;
 };
 typedef struct Player_ Player;
 
-#ifndef PLAYER_C
-extern Player       g_player;
-extern FSM          g_stateMachine;
-extern FSM          g_stateMachineIdle;
-extern FSMfunction  states[];
-extern FSMfunction  statesIdle[];
-extern u16          statesSize;
-extern u16          statesIdleSize;
+#ifndef SNDPLAY_C
+extern 
 #endif
+Player g_player;
 
 #endif

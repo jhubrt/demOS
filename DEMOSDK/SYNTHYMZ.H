@@ -20,58 +20,11 @@
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 -------------------------------------------------------------------------------------------------*/
 
+#ifndef SYNTHYMZ_H
+#define SYNTHYMZ_H
 
-#ifndef PLAYER_H
-#define PLAYER_H
+#define SND_YM_NB_CHANNELS  3
 
-#include "DEMOSDK\FSM.H"
-#include "DEMOSDK\RASTERS.H"
-#include "DEMOSDK\SYNTHYM.H"
-
-void SynthYMEntry	 (void);
-void SynthYMActivity (void);
-void SynthYMBacktask (void);
-
-
-struct PlayerControl_
-{
-    u8      currentchannel;
-    bool    channels[SND_YM_NB_CHANNELS];
-    s8      keyb;
-    u8      pressed[SND_YM_NB_CHANNELS];
-    s8      transpose[SND_YM_NB_CHANNELS];
-};
-typedef struct PlayerControl_ PlayerControl;
-
-struct Player_
-{
-    SNDYMsoundSet     soundSet;
-    SNDYMplayer       player;
-    PlayerControl     ctrl;
-    void*             framebuffer;
-    bool              flip;
-    bool              updated;
-    bool              curvesync;
-    bool              capturesound;
-    bool              capturehasstarted;
-    u32               captureindex;
-    u32               captureframe;
-    u8*               capturebuffer;
-    u32               framenum;
-    u8                keyboard[256];
-    char              filename[256];
-    YMregs            lastYMregs;
-};
-typedef struct Player_ Player;
-
-#ifndef PLAYER_C
-extern Player       g_player;
-extern FSM          g_stateMachine;
-extern FSM          g_stateMachineIdle;
-extern FSMfunction  states[];
-extern FSMfunction  statesIdle[];
-extern u16          statesSize;
-extern u16          statesIdleSize;
-#endif
+u8*  SNDblitzDecodeYM  (u8* blitzdata);
 
 #endif

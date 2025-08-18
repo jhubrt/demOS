@@ -41,6 +41,9 @@ volatile u8		SNDrightVolume;
 volatile s8		SNDmasterVolume;	/* ready only - debug purpose */
 #endif
 
+s8* SNDsquare    = NULL;
+u16 SNDsquareLen = 4000;
+
 /*
 20   0db = 1.0
 19  -2db = 0.8
@@ -414,6 +417,7 @@ void SNDsynSample_drawCurve (void* _sample, u16 _nbsamples, u16 _incx, void* _sc
         {
             s16 s = *sample;
             sample += _incx;
+
             s >>= 2;
             s *= 80;
 
@@ -519,12 +523,12 @@ void SNDsynPlayerInit(RINGallocator* _allocator, SNDsynPlayerInitParam* _init)
     DEFAULT_CONSTRUCT(&synth);
 
 	synth.dmabufferlen = (SND_DMA_FREQ / SND_SCREEN_FREQ * 2UL);    /* stereo sample */ 
-	synth.buffer       = (s8*) RINGallocatorAlloc (_allocator, synth.dmabufferlen * 2);
+	synth.buffer       = (s8*) RINGallocatorAlloc (_allocator, synth.dmabufferlen * 10);
 
     STDmset (synth.buffer, 0, synth.dmabufferlen * 2);
 
     synth.dmabuffers[0] = synth.buffer;
-    synth.dmabuffers[1] = synth.buffer + synth.dmabufferlen;
+    synth.dmabuffers[1] = synth.buffer + synth.dmabufferlen*4;
     	
     *HW_MICROWIRE_MASK = HW_MICROWIRE_MASK_SOUND;
     
@@ -601,68 +605,6 @@ void SNDsynUpdateVoiceFrame (SNDsynVoice* _voice, u32 _backbuffer, u16 _blitmask
 
 
 extern u16 mask[8][16];
-
-/*
-void SNDsynUpdateLFO (SNDsynVoice* _voice)
-{
-    SNDsynModulator* modulator;
-    u16 t;
-
-    for (t = 0 ; t < ARRAYSIZE(_voice->lfo.modulators) ; t++)
-    {
-        modulator = &_voice->lfo.modulators[t];
-
-        if (modulator->length > 0)
-        {
-            modulator->framescount++;
-
-            if (modulator->framescount >= modulator->speed)
-            {
-                modulator->framescount = 0;
-                modulator->stepcount++;
-
-                if (modulator->stepcount >= modulator->length)
-                {
-                    modulator->stepcount = 0;
-                }
-            }
-        }
-    }
-
-    modulator = &_voice->lfo.modulators[SNDsynModulatorType_VOLUME];
-    
-    if ( modulator->length > 0)
-    {
-        _voice->frame.volume = modulator->steps[ modulator->stepcount ];
-    }
-    else
-    {
-        _voice->frame.volume = 0;
-    }
-
-    modulator = &_voice->lfo.modulators[SNDsynModulatorType_MASK];
-
-    if ( modulator->length > 0)
-    {
-        _voice->frame.mask = &mask[ modulator->steps[ modulator->stepcount ] ][0];
-    }
-    else
-    {
-        _voice->frame.mask = NULL;
-    }
-
-    if (_voice->frame.lastSound != NULL) // TEMPORARY : TODO LINK TO SOUND / UPDATE ELSEWHERE 
-    {
-        modulator = &_voice->lfo.modulators[SNDsynModulatorType_WAVE];
-
-        if ( modulator->length > 0)
-        {
-            _voice->frame.lastSound->sampleindexes[ _voice->frame.lastSound->sustainindex ] = modulator->steps[ modulator->stepcount ];
-        }
-    }
-}
-*/
-
 
 void SNDsynUpdateFrames (SNDsynVoice* _voice, bool _pressed, SNDsynSound* _sound, SNDsynSoundFrame* _freeframes)
 {
@@ -961,6 +903,212 @@ void SNDsynUpdate (u8 _keyb1, u8 _keyb2)
 
    /* STDmcpy (synth.dmabuffers[0], sndcontroller->currentsound->samples[0].data, sndcontroller->currentsound->samples[0].length * 2 ); */
 }
+
+
+
+void SNDsynSquareInit (void)
+{
+    u16 t;
+
+    SNDsquare = (s8*) malloc(SNDsquareLen);
+
+    for (t = 0 ; t < SNDsquareLen / 2 ; t += 2)
+    {
+        if (t < 1024)
+        {
+            SNDsquare[t] = 0;
+            SNDsquare[t+1] = 0;
+        }
+        else
+        {
+            int i = t - 1024; 
+            i /= 64;
+            SNDsquare[t] = i;
+            SNDsquare[t+1] = i;
+        }
+    }
+
+    for (t = SNDsquareLen / 2 ; t < SNDsquareLen ; t += 2)
+    {
+        SNDsquare[t] = 0;
+        SNDsquare[t+1] = 0;
+    }
+}
+
+/*
+    ______________________
+                          |
+                          |
+                          |
+                          |______________________
+
+                <------------------>  period len
+                <-------->            half period len
+      <------------------>            shifter by cyclic ratio
+         
+         ^ sample start = middle - period * cyclic ratio
+                        = middle - period * 0
+                        = middle - period * 1
+
+*/
+
+
+void SNDsynUpdateSquareVoiceFrame (SNDsynSquareVoice* _voice, u8 _keyb1, u8 _volume, u32 _cyclicratio, u16 _porta1, u16 _wavetable[16], u32 backbuf)
+{
+    float freq = 27.5f * (float) pow(2.0f, 1.0f/12.0f * (float)_keyb1);
+    u32 period = (u32)((float) SND_DMA_FREQ / freq) + _porta1;
+    u32 squarestart = (SNDsquareLen / 2) - ((period * _cyclicratio) / 65536UL) * 2;
+    u32 div;
+    u32 remaining = SND_DMA_FREQ / 50;
+
+
+    STDmcpy(HW_BLITTER_HTONE, _wavetable, 32);
+
+    *HW_BLITTER_HOP         = HW_BLITTER_HOP_HTONE;
+    *HW_BLITTER_OP          = HW_BLITTER_OP_S;
+    *HW_BLITTER_ENDMASK1    = -1;
+    *HW_BLITTER_ENDMASK2    = -1;
+    *HW_BLITTER_ENDMASK3    = -1;
+
+    *HW_BLITTER_XINC_SOURCE = 2;
+    *HW_BLITTER_YINC_SOURCE = -((s16)period * 2 - 2);
+
+    *HW_BLITTER_ADDR_DEST   = backbuf;
+    *HW_BLITTER_XINC_DEST   = 2;
+    *HW_BLITTER_YINC_DEST   = 2;
+    *HW_BLITTER_CTRL2       = 0;    /* shift */
+    
+    if (_voice->current > 0)
+    {
+        if (_voice->current < period)
+        {
+            u16 size;
+
+            *HW_BLITTER_ADDR_SOURCE = (u32)(SNDsquare + squarestart + _voice->current * 2);
+
+            size = (u16)(period - _voice->current);
+
+            if (size > remaining)
+            {
+                size = (u16)remaining;
+                _voice->current += size;
+            }
+            else
+            {
+                _voice->current = 0;
+            }
+
+            *HW_BLITTER_XSIZE = size;
+            *HW_BLITTER_YSIZE = 1;
+            remaining -= size;
+
+            *HW_BLITTER_CTRL1       = HW_BLITTER_CTRL1_SMUDGE | HW_BLITTER_CTRL1_HOGMODE_BLIT | HW_BLITTER_CTRL1_BUSY;        /* run */
+
+            EMULblit();
+
+        }
+    }
+
+    div = STDdivu(remaining, (u16)period);
+
+    if (div & 0xFFFF)
+    {
+        remaining -= (div & 0xFFFF) * period;
+
+        *HW_BLITTER_ADDR_SOURCE = (u32)(SNDsquare + squarestart);
+        *HW_BLITTER_XSIZE       = (u16)period;
+        *HW_BLITTER_YSIZE       = (u16) div;
+        *HW_BLITTER_CTRL1       = HW_BLITTER_CTRL1_SMUDGE | HW_BLITTER_CTRL1_HOGMODE_BLIT | HW_BLITTER_CTRL1_BUSY;        /* run */
+
+        EMULblit();
+
+        _voice->current = 0;
+    }
+
+    div >>= 16;
+    if (div > 0)
+    {
+        *HW_BLITTER_ADDR_SOURCE = (u32)(SNDsquare + squarestart);
+        *HW_BLITTER_XSIZE       = (u16) div;
+        *HW_BLITTER_YSIZE       = 1;
+
+        *HW_BLITTER_CTRL1       = HW_BLITTER_CTRL1_SMUDGE | HW_BLITTER_CTRL1_HOGMODE_BLIT | HW_BLITTER_CTRL1_BUSY;        /* run */
+
+        EMULblit();
+
+        _voice->current = (u16) div;
+    }
+}
+
+
+
+void SNDsynSquareUpdate (u8 _keyb[2], u32 _cyclicratio[2], u16 _porta[2], u8 _volume[2], u16 _wavtable[16])
+{
+    u32 frontbuf = (u32) synth.dmabuffers[synth.backbuffer];
+    u32 endbuf = frontbuf + synth.dmabufferlen;
+
+#   ifndef __TOS__
+    u8 playBuffer = EMULgetPlayOffset () >= (SND_FRAME_NBSAMPLES * 2);
+    {
+        static u8 oldBuffer = 0;
+
+        if (oldBuffer == playBuffer)
+        {
+            return;
+        }
+
+        oldBuffer = playBuffer;
+    }
+#   endif
+
+    synth.backbuffer ^= 1;
+
+    (*HW_DMASOUND_STARTADR_H) = (u8)(frontbuf >> 16);
+    (*HW_DMASOUND_STARTADR_M) = (u8)(frontbuf >> 8);
+    (*HW_DMASOUND_STARTADR_L) = (u8) frontbuf;
+
+    (*HW_DMASOUND_ENDADR_H) = (u8)(endbuf >> 16);
+    (*HW_DMASOUND_ENDADR_M) = (u8)(endbuf >> 8);
+    (*HW_DMASOUND_ENDADR_L) = (u8) endbuf;
+
+    {
+#       ifdef __TOS__
+        u8 p = *HW_VIDEO_COUNT_L;
+        while (p == *HW_VIDEO_COUNT_L);
+#       endif
+    }
+
+    *HW_DMASOUND_CONTROL = HW_DMASOUND_CONTROL_PLAYONCE;
+
+    {
+        u32 backbuf = (u32) synth.dmabuffers[synth.backbuffer];
+
+        *HW_BLITTER_XINC_DEST       = 2;
+        *HW_BLITTER_YINC_DEST       = 2;
+
+        /* voice 0 */
+        *HW_BLITTER_ENDMASK1        = 0xFFFF;                   /* -1 for left channel, 00FF for right channel in the 2nd pass */
+        *HW_BLITTER_ENDMASK2        = 0xFFFF;
+        *HW_BLITTER_ENDMASK3        = 0xFFFF;
+
+        if (_keyb[0] == 0)
+            STDmset ((u8*)backbuf, 0, SND_FRAME_NBSAMPLES * 2);
+        else
+            SNDsynUpdateSquareVoiceFrame (&synth.squarevoices[0], _keyb[0], _volume[0], _cyclicratio[0], _porta[0], _wavtable, backbuf);
+
+        /* voice 1 */
+        *HW_BLITTER_ENDMASK1        = PCENDIANSWAP16(0xFF00);   /* -1 for left channel, FF00 for right channel in the 2nd pass */
+        *HW_BLITTER_ENDMASK2        = PCENDIANSWAP16(0xFF00);
+        *HW_BLITTER_ENDMASK3        = PCENDIANSWAP16(0xFF00);
+
+/*        SNDsynUpdateSquareVoiceFrame (&synth.squarevoices[1], _keyb2, 127, _cyclicratio2, backbuf); */
+
+        EMULplaysound ((void*)backbuf, SND_FRAME_NBSAMPLES * 2, playBuffer != 0 ? 0 : SND_FRAME_NBSAMPLES * 2);
+    }
+
+    /* STDmcpy (synth.dmabuffers[0], sndcontroller->currentsound->samples[0].data, sndcontroller->currentsound->samples[0].length * 2 ); */
+}
+
 
 void SNDtestMask (s8* _sample, u16 _length, u8* _mask)
 {

@@ -147,7 +147,7 @@ void LOADinitForHD (LOADdisk* _media, u16 _nbEntries, u16 _nbMetaData, u16 first
         u32 side = (rsc->startsectorsidenbsectors & LOAD_RESOURCE_MASK_SIDE) != 0;
         u16 startsector = (rsc->startsectorsidenbsectors >> LOAD_RESOURCE_RSHIFT_STARTSECTOR) & LOAD_RESOURCE_MASK_STARTSECTOR;
 
-        u16 nbsectors = _media->mediapreloadsize / LOAD_SECTORSIZE;
+        u16 nbsectors = (u16)(_media->mediapreloadsize / LOAD_SECTORSIZE);
         u16 skipsectors = (u16)(track * 2 + side) * LOAD_SECTORS_PER_TRACK + startsector;
 
         u32 preloadsize;

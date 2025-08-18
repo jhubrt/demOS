@@ -737,7 +737,7 @@ void CybervectorActivity2 (FSM* _fsm)
             }
 
             STDmcpy2(HW_COLOR_LUT + 1, this->cyclingcolors, 15 * sizeof(u16));
-            COLswapEndianPC(HW_COLOR_LUT + 1, 15);
+            PCENDIANSWAPBUFFER16(HW_COLOR_LUT + 1, 15);
 
             this->coloranimation.currentplane ^= 1;
         }
@@ -749,7 +749,7 @@ void CybervectorActivity2 (FSM* _fsm)
                 if (this->currentFrame >= (scene->nbframes - 32))
                 {
                     COLcomputeGradient16Steps(this->black, HW_COLOR_LUT + 1, 15, (scene->nbframes - this->currentFrame) >> 1, HW_COLOR_LUT + 1);
-                    COLswapEndianPC(HW_COLOR_LUT + 1, 15);
+                    PCENDIANSWAPBUFFER16(HW_COLOR_LUT + 1, 15);
                 }
         }
         else

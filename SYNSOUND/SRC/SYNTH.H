@@ -96,6 +96,23 @@ struct SNDsynSound_
 };
 typedef struct SNDsynSound_ SNDsynSound;
 
+
+struct SNDsquareSound_
+{
+    s8* sample;
+};
+typedef struct SNDsquareSound_ SNDsquareSound;
+
+
+struct SNDsynSquareVoice_
+{
+    u32 current;
+};
+typedef struct SNDsynSquareVoice_ SNDsynSquareVoice;
+
+extern s8* SNDsquare;
+
+
 typedef enum SNDsynNote_
 {
     SNDsynC,
@@ -234,6 +251,7 @@ typedef struct SNDsynVoice_ SNDsynVoice;
 
 struct SNDsynPlayer_
 {
+    SNDsynSquareVoice   squarevoices[2];
     SNDsynVoice         voices[2];
   
     SNDsynSoundFrame    soundFrames[2][256];
@@ -242,6 +260,7 @@ struct SNDsynPlayer_
     s8*                 dmabuffers[2];
     u16                 dmabufferlen;
     u16                 backbuffer;
+    u8                  keyboardtranspose;
 };
 typedef struct SNDsynPlayer_ SNDsynPlayer;
 
@@ -258,7 +277,10 @@ void SNDsynSound_drawCurve    (SNDsynSample* _sample, void* _screen);
 void SNDsynSample_drawCurve   (void* _sample, u16 _nbsamples, u16 _incx, void* _screen);
 void SNDsynSample_drawXorPass (u16 _nbsamples, void* _screen);
 
-SNDsynSoundSet*     SNDsynthLoad   (char* _filename);
+void SNDsynSquareInit         (void);
+void SNDsynSquareUpdate       (u8 _keyb[2], u32 _cyclicratio[2], u16 _porta[2], u8 _volume[2], u16 _wavtable[16]);
+
+SNDsynSoundSet* SNDsynthLoad  (char* _filename);
 
 void SNDtest (SNDsynSoundSet* _soundSet);
 
