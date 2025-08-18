@@ -20,7 +20,7 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 *--------------------------------------------------------------------------------------------------------
 
-	output  D:\PROJECTS\DEMOS\OUTPUT\BLITZIK\LAYERZ.O
+	output  ..\..\OUTPUT\BLITZIK\LAYERZ.O
 
 	xdef	LAYZcomputeVolumes,LAYZmid15,LAYZcount
 	xdef	LAYZym,LAYZymnoise,LAZgenSprite

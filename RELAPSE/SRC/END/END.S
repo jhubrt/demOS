@@ -20,7 +20,7 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 *--------------------------------------------------------------------------------------------------------
 
-	output  D:\PROJECTS\DEMOS\OUTPUT\RELAPSE\END.PRX
+	output  ..\..\OUTPUT\RELAPSE\END.PRX
 
 	opt	o+
 

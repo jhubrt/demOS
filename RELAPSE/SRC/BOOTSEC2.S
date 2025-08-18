@@ -43,7 +43,7 @@ nbtracks:			set 82
 nbsectorspertrack:	set 10
 *-------------------------------------------------------------------------
 
-	output	D:\PROJECTS\DEMOS\OUTPUT\RELAPSE\BOOTRELB.BOT
+	output	..\..\OUTPUT\RELAPSE\BOOTRELB.BOT
 	
 	; -----------------------------------------------
 

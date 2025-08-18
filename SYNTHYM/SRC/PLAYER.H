@@ -50,11 +50,17 @@ struct Player_
     PlayerControl     ctrl;
     void*             framebuffer;
     bool              flip;
+    bool              updated;
     bool              curvesync;
+    bool              capturesound;
+    bool              capturehasstarted;
+    u32               captureindex;
+    u32               captureframe;
+    u8*               capturebuffer;
     u32               framenum;
     u8                keyboard[256];
-    bool              updated;
     char              filename[256];
+    YMregs            lastYMregs;
 };
 typedef struct Player_ Player;
 

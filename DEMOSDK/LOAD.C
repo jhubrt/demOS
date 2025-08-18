@@ -147,7 +147,7 @@ void LOADinitForHD (LOADdisk* _media, u16 _nbEntries, u16 _nbMetaData, u16 first
         u32 side = (rsc->startsectorsidenbsectors & LOAD_RESOURCE_MASK_SIDE) != 0;
         u16 startsector = (rsc->startsectorsidenbsectors >> LOAD_RESOURCE_RSHIFT_STARTSECTOR) & LOAD_RESOURCE_MASK_STARTSECTOR;
 
-        u16 nbsectors = _media->mediapreloadsize / LOAD_SECTORSIZE;
+        u16 nbsectors = (u16)(_media->mediapreloadsize / LOAD_SECTORSIZE);
         u16 skipsectors = (u16)(track * 2 + side) * LOAD_SECTORS_PER_TRACK + startsector;
 
         u32 preloadsize;
@@ -156,10 +156,10 @@ void LOADinitForHD (LOADdisk* _media, u16 _nbEntries, u16 _nbMetaData, u16 first
 
         preloadsize = STDmulu(nbsectors, LOAD_SECTORSIZE);
 
-        TRAClogNumber10(TRAC_LOG_DISK, "LOADinitForHD: track: ", track, 4);
-        TRAClogNumber10(TRAC_LOG_DISK, " side: ", side, 2);
-        TRAClogNumber10(TRAC_LOG_DISK, " sector: ", startsector, 4);
-        TRAClogNumber10S(TRAC_LOG_DISK, " nbsectors: ", nbsectors, 4, '\n');
+        TRAClogNumber10(TRAC_LOG_DISK, "LOADinitForHD: track", track, 4);
+        TRAClogNumber10(TRAC_LOG_DISK, " side", side, 2);
+        TRAClogNumber10(TRAC_LOG_DISK, " sector", startsector, 4);
+        TRAClogNumber10S(TRAC_LOG_DISK, " nbsectors", nbsectors, 4, '\n');
 
         _media->mediapreload = MEM_ALLOC(&sys.allocatorStandard, preloadsize);
         ASSERT(_media->mediapreload != NULL);
@@ -223,8 +223,8 @@ void LOADinitFAT (u8 preferedDrive_, LOADdisk* _media, u16 _nbEntries, u16 _nbMe
 
     LOADrequest* loadRequest = LOADpush (temp, LOAD_FAT_STARTSECTOR + 1, ((u32)drive << 17), ((u32)LOAD_PRIOTITY_HIGH << 16) | LOAD_FAT_NBSECTORS);
 
-    TRAClogNumber10(TRAC_LOG_DISK, "LOADinitFAT drive: ", drive, 2);
-    TRAClogNumber10S(TRAC_LOG_DISK, " prefereddrive: ", _media->preferedDrive, 2, '\n');
+    TRAClogNumber10(TRAC_LOG_DISK, "LOADinitFAT drive", drive, 2);
+    TRAClogNumber10S(TRAC_LOG_DISK, " prefereddrive", _media->preferedDrive, 2, '\n');
 
     LOADwaitRequestCompleted (loadRequest);
 
@@ -245,15 +245,15 @@ LOADrequest* LOADrequestLoad (LOADdisk* _media, u16 _resourceid, void* _buffer, 
     
 	LOADrequest* loadRequest = LOADpush (_buffer, startsector + 1, track | (side << 16) | ((u32) drive << 17), ((u32)_order << 16) | nbsectors);
 
-    TRAClogNumber10(TRAC_LOG_DISK, "LOADrequestLoad drive: ", drive, 2);
-    TRAClogNumber10(TRAC_LOG_DISK, " track: ", track, 4);
-    TRAClogNumber10(TRAC_LOG_DISK, " side: ", side, 2);
-    TRAClogNumber10(TRAC_LOG_DISK, " sector: ", startsector, 4);
-    TRAClogNumber10(TRAC_LOG_DISK, " nbsectors: ", nbsectors, 4);
-    TRAClogNumber10(TRAC_LOG_DISK, " preferedDrive: ", _media->preferedDrive, 2);
-    TRAClogNumber10(TRAC_LOG_DISK, " has2drives: ", sys.has2Drives, 2);
-    TRAClogNumber10(TRAC_LOG_DISK, " forceUsedDrive: ", sys.forceUsedDrive, 2);
-    TRAClogNumber10S(TRAC_LOG_DISK, " sys.invertDrive: ", sys.invertDrive, 2, '\n');
+    TRAClogNumber10(TRAC_LOG_DISK,  "LOADrequestLoad drive", drive, 1);
+    TRAClogNumber10(TRAC_LOG_DISK,  " track", track, 4);
+    TRAClogNumber10(TRAC_LOG_DISK,  " side", side, 1);
+    TRAClogNumber10(TRAC_LOG_DISK,  " sector", startsector, 2);
+    TRAClogNumber10(TRAC_LOG_DISK,  " nbsectors", nbsectors, 4);
+    TRAClogNumber10(TRAC_LOG_DISK,  " preferedDrive", _media->preferedDrive, 1);
+    TRAClogNumber10(TRAC_LOG_DISK,  " has2drives", sys.has2Drives, 1);
+    TRAClogNumber10(TRAC_LOG_DISK,  " forceUsedDrive", sys.forceUsedDrive, 1);
+    TRAClogNumber10S(TRAC_LOG_DISK, " sys.invertDrive", sys.invertDrive, 1, '\n');
 
 #	ifdef LOAD_CHECK_CONTENT
 	if ( loadRequest != NULL )
@@ -304,11 +304,11 @@ bool LOADmediaPreload (LOADdisk* _media, MEMallocator* allocator_, u16 firstentr
 
     nbsectors -= (u16)(track * 2 + side) * LOAD_SECTORS_PER_TRACK + startsector;
 
-    TRAClogNumber10(TRAC_LOG_DISK, "LOADmediaPreload: ", drive, 2);
-    TRAClogNumber10(TRAC_LOG_DISK, " track: ", track, 4);
-    TRAClogNumber10(TRAC_LOG_DISK, " side: ", side, 2);
-    TRAClogNumber10(TRAC_LOG_DISK, " sector: ", startsector, 4);
-    TRAClogNumber10S(TRAC_LOG_DISK, " nbsectors: ", nbsectors, 4, '\n');
+    TRAClogNumber10(TRAC_LOG_DISK,  "LOADmediaPreload", drive, 1);
+    TRAClogNumber10(TRAC_LOG_DISK,  " track", track, 2);
+    TRAClogNumber10(TRAC_LOG_DISK,  " side", side, 1);
+    TRAClogNumber10(TRAC_LOG_DISK,  " sector", startsector, 2);
+    TRAClogNumber10S(TRAC_LOG_DISK, " nbsectors", nbsectors, 4, '\n');
 
     _media->mediapreload = MEM_ALLOC (allocator_, STDmulu(nbsectors, LOAD_SECTORSIZE));
 
@@ -365,6 +365,22 @@ void* LOADpreload (void* _preload, u32 _preloadsize, void* _current, LOADdisk* _
 
 #endif
 
+
+u16 LOADcomputeMediaID(void* buffer_)
+{
+    u16 t;
+    u16 CRC = 0;
+    u16* p = (u16*)buffer_;
+
+    for (t = 2; t < LOAD_SECTORSIZE; t += 2)
+        CRC += *p++;
+
+    TRAClogNumberS(TRAC_LOG_DISK, "LOADcomputeMediaID CRC", CRC, 4, '\n');
+
+    return CRC;
+}
+
+
 bool LOADcheckInsertedMediaID(u8 preferedDrive_, u16 mediaid_, void* tempbuffer)
 {
 #ifdef DEMOS_LOAD_FROMHD
@@ -379,7 +395,9 @@ bool LOADcheckInsertedMediaID(u8 preferedDrive_, u16 mediaid_, void* tempbuffer)
     if (sys.forceUsedDrive >= 0)
         drive = sys.forceUsedDrive;
 
-    TRAClogNumber(TRAC_LOG_DISK, "LOADcheckInsertedMediaID drive:", drive, 2);
+    TRAClogNumber(TRAC_LOG_DISK, "LOADcheckInsertedMediaID drive", drive, 1);    
+    TRAClogNumber(TRAC_LOG_DISK, " expected mediaid", mediaid_, 4);
+    TRAClogNumberS(TRAC_LOG_DISK, " buffer", (u32) tempbuffer, 6, '\n');
 
     {
         LOADrequest* loadRequest = LOADpush (tempbuffer, startsector + 1, track | (side << 16) | ((u32) drive << 17), ((u32)LOAD_PRIOTITY_HIGH << 16) | nbsectors);
@@ -387,29 +405,24 @@ bool LOADcheckInsertedMediaID(u8 preferedDrive_, u16 mediaid_, void* tempbuffer)
         LOADwaitRequestCompleted(loadRequest);
     }
 
-    {
-        u16 t;
-        u16 CRC = 0;
-        u16* p = (u16*)tempbuffer;
+    return LOADcomputeMediaID(tempbuffer) == mediaid_;
 
-        for (t = 2; t < LOAD_SECTORSIZE; t += 2)
-            CRC += *p++;
-
-        TRAClogNumberS(TRAC_LOG_DISK, " CRC: $", CRC, 4, '\n');
-
-        return CRC == mediaid_;
-    }
 #endif
 }
 
 LOADrequest* LOADdata (LOADdisk* _media, u16 _resourceid, void* _buffer, u16 _order)
 {
+    TRAClogNumber(TRAC_LOG_DISK, "LOADdata ", (u32)_buffer, 6);
+    TRAClogNumber10(TRAC_LOG_DISK, " rsc", _resourceid, 3);
+    TRAClog(TRAC_LOG_DISK, "", ' ');
+    TRAClog(TRAC_LOG_DISK, _media->filename, '\n');
+
     if ( _media->preload[_resourceid] != NULL )
     {
         u32 size = LOADresourceRoundedSize(_media, _resourceid);
 
-        TRAClogNumber(TRAC_LOG_DISK, "LOAD data at $", (u32)_media->preload[_resourceid], 6);
-        TRAClogNumber10S(TRAC_LOG_DISK, " size: ", size, 6, '\n');
+        TRAClogNumber(TRAC_LOG_DISK, "-> preloaded", (u32)_media->preload[_resourceid], 6);
+        TRAClogNumber10S(TRAC_LOG_DISK, " size", size, 6, '\n');
 
         STDmcpy(_buffer, _media->preload[_resourceid], size);
     }
@@ -429,7 +442,9 @@ LOADrequest* LOADdata (LOADdisk* _media, u16 _resourceid, void* _buffer, u16 _or
 LOADrequest* LOADwarmUp (LOADdisk* _media, u16 _resourceid, void* _buffer)
 {
 #   ifndef DEMOS_LOAD_FROMHD
-    if ( _media->preload[_resourceid] == NULL )
+    TRAClog(TRAC_LOG_DISK, "LOADwarmup", ' ');
+
+    if ((_media->preload == NULL) || ( _media->preload[_resourceid] == NULL ))
     {
         LOADresource* rsc = &_media->FAT[_resourceid];
         LOADrequest* loadRequest;
@@ -440,9 +455,22 @@ LOADrequest* LOADwarmUp (LOADdisk* _media, u16 _resourceid, void* _buffer)
         u32 order       = LOAD_PRIORITY_INORDER;
         u8 drive        = loadGetDriveUnit(_media->preferedDrive);
 
+        TRAClogNumber(TRAC_LOG_DISK, "buffer", (u32)_buffer, 6);
+        TRAClogNumber10(TRAC_LOG_DISK, " rsc", _resourceid, 3);
+        TRAClog(TRAC_LOG_DISK, _media->filename, ' ');
+        
+        TRAClogNumber10(TRAC_LOG_DISK,  "drive", drive, 1);
+        TRAClogNumber10(TRAC_LOG_DISK,  " track", track, 4);
+        TRAClogNumber10(TRAC_LOG_DISK,  " side", side, 1);
+        TRAClogNumber10S(TRAC_LOG_DISK,  " sector", startsector, 2, '\n');
+
         loadRequest = LOADpush (_buffer, startsector + 1, track | (side << 16) | ((u32) drive << 17), (order << 16) | 1UL); /* 1 sector */
 
         return loadRequest;
+    }
+    else
+    {
+        TRAClog(TRAC_LOG_DISK, " preloaded => skip", '\n');
     }
 #   endif
 
@@ -541,11 +569,15 @@ void LOADwaitFDCIdle (void)
 
 void LOADwaitRequestCompleted (LOADrequest* _request)
 {
+    TRAClogNumberS(TRAC_LOG_DISK, "LOADwaitRequestCompleted ", (u32)_request, 6, '\n');
+
     if ( _request != NULL )
     {
         ASSERT (_request->allocated);
 	    while ( _request->processed != LOADrequestState_DONE );
 	    _request->allocated = false;
+
+        TRAClog(TRAC_LOG_DISK, "-> waitend", '\n');
     }
 }
 

@@ -2,7 +2,7 @@
 ; Code relocation routine
 ;-------------------------------------------------------------------------
 
-	output	D:\PROJECTS\DEMOS\OUTPUT\RELOCATE.O
+	output	..\..\OUTPUT\RELOCATE.O
 	
 	opt 	o+
 

@@ -240,14 +240,14 @@ static u16* interludeGenerateFlexiCode(Interlude* this, u16* d_, u16 maxcycles_,
                             nop                                         4
                             */
 
-                            * d++ = CGEN_OPCODE_B_S(CGEN_CS, 6);
+                            * d++ = CGEN_OPCODE_B_S(CG_COND_CS, 6);
                             *d++ = CGEN_OPCODE_MOVE_Dx_0Ay0_I(CGEN_MOVESIZE_B, 7, 1);
                             *d++ = this->gen.offset;
 
                             if (compensate_)
-                                *d++ = CGEN_OPCODE_B_S(CGEN_T, 8);
+                                *d++ = CGEN_OPCODE_B_S(CG_COND_T, 8);
                             else
-                                *d++ = CGEN_OPCODE_B_S(CGEN_T, 4);
+                                *d++ = CGEN_OPCODE_B_S(CG_COND_T, 4);
 
                             *d++ = CGEN_OPCODE_MOVE_Dx_0Ay0_I(CGEN_MOVESIZE_B, interlud_bitmapping[this->gen.bit] & 7, 1);
                             *d++ = this->gen.offset;
@@ -269,14 +269,14 @@ static u16* interludeGenerateFlexiCode(Interlude* this, u16* d_, u16 maxcycles_,
                             nop                                         4
                             */
 
-                            *d++ = CGEN_OPCODE_B_S(CGEN_CS, 6);
+                            *d++ = CGEN_OPCODE_B_S(CG_COND_CS, 6);
                             *d++ = CGEN_OPCODE_MOVE_Dx_0Ay0_I(CGEN_MOVESIZE_B, 7, 1);
                             *d++ = this->gen.offset;
 
                             if (compensate_)
-                                *d++ = CGEN_OPCODE_B_S(CGEN_T, 8);
+                                *d++ = CGEN_OPCODE_B_S(CG_COND_T, 8);
                             else
-                                *d++ = CGEN_OPCODE_B_S(CGEN_T, 6);
+                                *d++ = CGEN_OPCODE_B_S(CG_COND_T, 6);
 
                             *d++ = CGEN_OPCODE_MOVE_IMMEDIATE_0Ax0_I(CGEN_MOVESIZE_B, 1);
                             *d++ = ~(1 << this->gen.bit);
@@ -304,7 +304,7 @@ static u16* interludeGenerateFlexiCode(Interlude* this, u16* d_, u16 maxcycles_,
                         *d++ = CGEN_OPCODE_ADD_W_Dx_Dy(0, 0);                       /* 4 */
                         cycles += 4;
 
-                        *d++ = CGEN_OPCODE_S_Dx(CGEN_CC, 1);                        /* scc     d1         4/8  */
+                        *d++ = CGEN_OPCODE_S_Dx(CG_COND_CC, 1);                        /* scc     d1         4/8  */
                         cycles += 8;
 
                         if ((interlud_bitmapping[this->gen.bit] & 0xF0) == 0x10)
@@ -344,15 +344,15 @@ static u16* interludeGenerateFlexiCode(Interlude* this, u16* d_, u16 maxcycles_,
 
                         if (compensate_)
                         {
-                            *d++ = CGEN_OPCODE_B_S(CGEN_CS, 8);
+                            *d++ = CGEN_OPCODE_B_S(CG_COND_CS, 8);
                             *d++ = CGEN_OPCODE_NOP;
                             *d++ = CGEN_OPCODE_NOP;
                             *d++ = CGEN_OPCODE_NOP;
-                            *d++ = CGEN_OPCODE_B_S(CGEN_T, 6);
+                            *d++ = CGEN_OPCODE_B_S(CG_COND_T, 6);
                         }
                         else
                         {
-                            *d++ = CGEN_OPCODE_B_S(CGEN_CC, 6);
+                            *d++ = CGEN_OPCODE_B_S(CG_COND_CC, 6);
                         }
 
                         *d++ = CGEN_OPCODE_AND_IMMEDIATE_0Ay0_I(CGEN_OPSIZE_B, 1);
@@ -380,14 +380,14 @@ static u16* interludeGenerateFlexiCode(Interlude* this, u16* d_, u16 maxcycles_,
 
                         if (compensate_)
                         {
-                            *d++ = CGEN_OPCODE_B_S(CGEN_CS, 6);
+                            *d++ = CGEN_OPCODE_B_S(CG_COND_CS, 6);
                             *d++ = CGEN_OPCODE_NOP;
                             *d++ = CGEN_OPCODE_NOP;
-                            *d++ = CGEN_OPCODE_B_S(CGEN_T, 4);
+                            *d++ = CGEN_OPCODE_B_S(CG_COND_T, 4);
                         }
                         else
                         {
-                            *d++ = CGEN_OPCODE_B_S(CGEN_CC, 4);
+                            *d++ = CGEN_OPCODE_B_S(CG_COND_CC, 4);
                         }
 
                         if (interlud_bitmapping[this->gen.bit] & 0x10)

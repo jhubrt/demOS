@@ -1093,10 +1093,12 @@ void EMULrender (void)
                     g_miniEmul.drawcolors ^= 1;
                     break;
 
+#               ifndef DEMOS_OPTIMIZED
                 case 'L':
                 case 'l':
                     TRACsaveLog("logPC.txt");
                     break;
+#               endif
                 }
 
                 WINresetKeyExtraState(g_miniEmul.w);

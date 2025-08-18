@@ -1,7 +1,7 @@
 /*-----------------------------------------------------------------------------------------------
   The MIT License (MIT)
 
-  Copyright (c) 2015-2022 J.Hubert
+  Copyright (c) 2015-2024 J.Hubert
 
   Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
   and associated documentation files (the "Software"), 
@@ -819,8 +819,8 @@ static void binarizeGrafikS(/*char* _srcfile,*/ char* _destfile)
     {
         for (u16 i = 0 ; i < 32 ; i++)
         {
-            float x =  sin(float(t) * 1.5f / 180.f * M_PI) * float(i + 48) +  78.0f + 1.0f;
-            float y = -cos(float(t) * 1.5f / 180.f * M_PI) * float(i + 48) + 100.0f + 1.0f;
+            float x = (float)  sin(float(t) * 1.5f / 180.f * M_PI) * float(i + 48) +  78.0f + 1.0f;
+            float y = (float) -cos(float(t) * 1.5f / 180.f * M_PI) * float(i + 48) + 100.0f + 1.0f;
 
             u16 off = ((int)y & 0xFFFE) * 160 + (((int)x & 0xFFF0) >> 1);
             u16 pix = 3 << (0xE - ((int)x & 0xE));

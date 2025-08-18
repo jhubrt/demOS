@@ -42,6 +42,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "P2C", "P2C.vcxproj", "{2712
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SndPlay", "SndPlay.vcxproj", "{BBFA0453-804A-45D3-8FFF-972677832814}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BlzSNDH", "BlzSNDH.vcxproj", "{6CDF9B78-E707-4993-A0F0-0F91F0073768}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug_BLZonly|Win32 = Debug_BLZonly|Win32

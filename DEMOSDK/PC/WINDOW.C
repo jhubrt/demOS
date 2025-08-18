@@ -451,6 +451,7 @@ static s32 WINconvertMapping (WPARAM _wparam)
     case VK_NUMPAD7:        key = HW_KEY_NUMPAD_7;          break;
     case VK_NUMPAD8:        key = HW_KEY_NUMPAD_8;          break;
     case VK_NUMPAD9:        key = HW_KEY_NUMPAD_9;          break;
+	case VK_DECIMAL:	    key = HW_KEY_NUMPAD_DOT;        break;	
     case VK_BACK:           key = HW_KEY_BACKSPACE;         break;
     case VK_TAB:            key = HW_KEY_TAB;               break;
     case VK_RETURN:         key = HW_KEY_RETURN;            break;

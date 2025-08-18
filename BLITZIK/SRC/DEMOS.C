@@ -207,7 +207,7 @@ int main(int argc, char** argv)
 
 #   ifdef DEMOS_LOAD_FROMHD
     SYSinitStdAllocator();
-    LOADinitForHD(&RSC_BLITZWAV, RSC_BLITZWAV_NBENTRIES, RSC_BLITZWAV_NBMETADATA);
+    LOADinitForHD(&RSC_BLITZWAV, RSC_BLITZWAV_NBENTRIES, RSC_BLITZWAV_NBMETADATA, RSC_BLITZWAV_POLYZOOM_SIN_BIN);
 #   endif
 
     /*STD_unitTest();*/
@@ -278,7 +278,7 @@ int main(int argc, char** argv)
         
         /*PTRKinit ();*/
 #       ifndef DEMOS_LOAD_FROMHD
-        LOADinit (&RSC_BLITZWAV, RSC_BLITZWAV_NBENTRIES, RSC_BLITZWAV_NBMETADATA);
+        LOADinit (RSC_BLITZWAV_NBENTRIES, RSC_BLITZWAV_NBMETADATA, &RSC_BLITZWAV);
 
         /*#       if BLZ_DEVMODE()==0*/
         if (*OS_PHYTOP >= 0x200000UL)

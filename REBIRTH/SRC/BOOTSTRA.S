@@ -30,7 +30,7 @@
 ;   - load, decompress, relocate and run program
 ;-------------------------------------------------------------------------
 
-	output		D:\PROJECTS\DEMOS\OUTPUT\BOOTREBI.BOT
+	output		..\..\OUTPUT\BOOTREBI.BOT
 
 	opt		o+,a+,p+
 

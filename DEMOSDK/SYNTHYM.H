@@ -176,4 +176,9 @@ void SNDYMfreeSounds   (MEMallocator* _allocator, SNDYMsoundSet* _soundSet);
 
 u8*  SNDYMdrawSoundCurves (SNDYMplayer* _player, bool _active[SND_YM_NB_CHANNELS], u8* pinstr);
 
+#if SNDYM_REGS_MIRRORING
+bool SNDdiffYMdata     (YMregs* p1, YMregs* p2);
+u8   SNDcaptureYMdata  (u8 compressed[256], YMregs* _ymregs, YMregs* _lastYMregs, bool _forceYMkeyframe);
+#endif
+
 #endif

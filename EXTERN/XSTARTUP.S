@@ -1,5 +1,5 @@
 
-		output  D:\PROJECTS\DEMOS\OUTPUT\XSTARTUP.O
+		output  ..\..\OUTPUT\XSTARTUP.O
 
         xdef _BasPag
         xdef _app

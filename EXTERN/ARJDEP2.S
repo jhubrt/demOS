@@ -1,5 +1,5 @@
 	
-	output  D:\PROJECTS\DEMOS\OUTPUT\ARJDEP2.O
+	output  ..\..\OUTPUT\ARJDEP2.O
 
 	xdef	ARJdepack
     xref    SYSdpakActive

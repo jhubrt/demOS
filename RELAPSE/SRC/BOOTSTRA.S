@@ -29,7 +29,7 @@
 ;   - load, decompress, relocate and run program
 ;-------------------------------------------------------------------------
 
-	output		D:\PROJECTS\DEMOS\OUTPUT\RELAPSE\BOOTRELA.BOT
+	output	..\..\OUTPUT\RELAPSE\BOOTRELA.BOT
 
 	opt		o+,a+,p+
 

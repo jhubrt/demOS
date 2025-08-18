@@ -27,7 +27,7 @@
 * - call raster system routine if defined
 *--------------------------------------------------------------------------
 
-	output	D:\PROJECTS\DEMOS\OUTPUT\SYSTEM.O
+	output	..\..\OUTPUT\SYSTEM.O
 	
 	opt 	o+
 

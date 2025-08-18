@@ -28,7 +28,7 @@
 
 		opt	o+
 	
-		output	D:\PROJECTS\DEMOS\OUTPUT\RELAPSE\SPACEF.PRX
+		output	..\..\OUTPUT\RELAPSE\SPACEF.PRX
 
 
 fonth:  set 35

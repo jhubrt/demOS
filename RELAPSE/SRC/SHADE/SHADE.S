@@ -26,7 +26,7 @@
 *	CYBERNETICS 1992													  *
 *-------------------------------------------------------------------------*
 
-	output	D:\PROJECTS\DEMOS\OUTPUT\RELAPSE\SHADE.PRX
+	output	..\..\OUTPUT\RELAPSE\SHADE.PRX
 
 	opt	o+
 

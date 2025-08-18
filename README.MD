@@ -5,6 +5,41 @@ Products based on demOS...
 
 ----------------------------------------
 
+## Relapse HD - Cybernetics - 2024
+
+Atari STe 8mhz - 1mb - 2 floppies
+
+Muzik disk remaster of our 1992 Relapse demo
+
+Flow + Interactive mode
+
+- Musik : BIP, DOK Delos, Sinis, Remi, Metal Ages
+- Code : Metal Ages, Krag
+- Graphix : Metal Ages, Brain Blaster, Polaris
+
+[Youtube](https://youtu.be/3_GMjpwR4V4)
+[Youtube](https://youtu.be/9XmS1d_NMfw)
+
+![](./DOCS/README_4.PNG)
+
+----------------------------------------
+
+## Loveboot - Cybernetics - 2024
+
+Atari STe or STf with blitter 8mhz 
+
+Bootsector ( < 512 bytes )
+
+- Metal Ages
+
+[Youtube](https://www.youtube.com/watch?v=5MPVdt0biAU)
+
+[Code](./LOVEBYTE/LOVEBOOT.S)
+
+![](./DOCS/README_3.PNG)
+
+----------------------------------------
+
 ## BLITZwav - Cybernetics - 2022
 
 Atari STe 8mhz - 1mb - 1 floppy

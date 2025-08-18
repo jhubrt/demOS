@@ -28,7 +28,7 @@
 ;   - load, decompress, relocate and run program
 ;-------------------------------------------------------------------------
 
-	output		D:\PROJECTS\DEMOS\OUTPUT\RELAPSE\RBOOTonB.PRG
+	output	..\..\OUTPUT\RELAPSE\RBOOTonB.PRG
 
 	opt		o+,a+,p+
 

@@ -39,6 +39,7 @@
 #define TRAC_LOG_FSM        0x00000002UL
 #define TRAC_LOG_FLOW       0x00000010UL
 #define TRAC_LOG_DISK       0x00000020UL
+#define TRAC_LOG_SOUND      0x00000040UL
 #define TRAC_LOG_COMMANDS   0x20000000UL
 #define TRAC_LOG_SPECIFIC   0x40000000UL
 #define TRAC_LOG_TEMP       0x80000000UL
@@ -72,6 +73,7 @@
     u16  TRACmaxraster (u16 maxraster);
 
 #   define TRACselect(FILTER)                                   tracLogger.filtermask = (FILTER)
+#   define TRACaddSelection(FILTER)                             tracLogger.filtermask |= (FILTER)
 #   define TRACisSelected(FILTER)                               ((FILTER) & tracLogger.filtermask)
 #   define TRAClog(FILTER, STR, SEPARATOR)                      while (TRACisSelected(FILTER)) { TRAClogOut(STR,SEPARATOR); break; }
 #   define TRAClogNumber(FILTER,STR,NUM,NBCHARS)                while (TRACisSelected(FILTER)) { static char trace[] = STR ":         "; STDuxtoa(&trace[sizeof(trace) - 9], (NUM), (NBCHARS)); TRAClogOut(trace, ' '      ); break; }

@@ -28,7 +28,7 @@
 ;   - load, decompress, relocate and run program
 ;-------------------------------------------------------------------------
 
-	output		D:\PROJECTS\DEMOS\OUTPUT\BLITZIK\BOOTon_B.PRG
+	output	..\..\OUTPUT\BLITZIK\BOOTon_B.PRG
 
 	opt		o+,a+,p+
 

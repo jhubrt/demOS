@@ -1,0 +1,28 @@
+DEPACK_T.TTP
+
+.C [ -Y ]
+.L [ ]
+.S [ -Y ]
+=                  ; list of modules follows...
+
+e:\pc\lib\original\PCSTART.s          ; startup code
+
+depack_e.c                ;
+atari_st\arj_crc.s
+atari_st\arj_m4e.s
+;atari_st\arj_m7e.s
+atari_st\arj_m7f.s
+;atari_st\ni_n0.s
+atari_st\ni_n0_f.s
+;atari_st\ni_n1_e.s
+atari_st\ni_n1_f.s
+;atari_st\ni_n2.s
+atari_st\ni_n2_f.s
+atari_st\unstore.s
+
+;PCBGILIB.LIB       ; BGI library
+PCFLTLIB.LIB       ; floating point library
+PCSTDLIB.LIB       ; standard library
+PCEXTLIB.LIB       ; extended library
+PCTOSLIB.LIB       ; TOS library
+;PCGEMLIB.LIB       ; AES and VDI library

@@ -48,6 +48,7 @@ static char* sndYMdelims = "\n\r";
 
 
 #ifdef DEMOS_LOAD_FROMHD
+
 static char sndYM_g_Error[256] = "";
 
 char* SNDYMgetError(void) 
@@ -434,6 +435,192 @@ bool SNDYMloadSounds (MEMallocator* _allocator, char* _filename, SNDYMsoundSet* 
     return file != NULL;
 }
 
+#if !SNDYM_REGS_MIRRORING
+
+#define SND_YM_SET_REG(REGNUM,DATA,YMREGS)  HW_YM_SET_REG(REGNUM,DATA)
+#define SND_YM_REGS_NEWFRAME(YMREGS)
+#define SND_YM_REGS_SQUARE_RESTART(INDEX,YMREGS)
+
+#else
+
+#define SND_YM_SET_REG(REGNUM,DATA,YMREGS) { HW_YM_SET_REG(REGNUM,DATA); YMREGS.regscopy[REGNUM] = DATA; if (REGNUM == HW_YM_SEL_ENVELOPESHAPE) YMREGS.envshapeReselected = true; }
+#define SND_YM_REGS_NEWFRAME(YMREGS) { u8 t; YMREGS.envshapeReselected = false; for (t = 0 ; t < SND_YM_NB_CHANNELS ; t++) YMREGS.squareRestarted[t] = false; }
+#define SND_YM_REGS_SQUARE_RESTART(INDEX,YMREGS) YMREGS.squareRestarted[INDEX] = true
+
+bool SNDdiffYMdata(YMregs* p1, YMregs* p2)
+{
+    u8   mixer = p1->regscopy[HW_YM_SEL_IO_AND_MIXER] & 0x3F;
+    bool diff  = false;
+
+
+    if (mixer != (p2->regscopy[HW_YM_SEL_IO_AND_MIXER] & 0x3F))
+    {
+        diff = true;
+    }
+    else
+    {
+        u8 t, t2;
+
+        for (t = 0, t2 = 0; t < 3; t++, t += 2)
+        {
+            bool square = (mixer & 1) == 0;
+            bool noise  = (mixer & 8) == 0;
+            bool env    = false;            
+
+
+            if (square)
+                if ((p1->regscopy[HW_YM_SEL_FREQCHA_L + t2] != p2->regscopy[HW_YM_SEL_FREQCHA_L + t2]) || 
+                    (p1->regscopy[HW_YM_SEL_FREQCHA_H + t2] != p2->regscopy[HW_YM_SEL_FREQCHA_H + t2]))
+                    diff = true;
+
+            if (noise)
+                if (p1->regscopy[HW_YM_SEL_FREQNOISE] != p2->regscopy[HW_YM_SEL_FREQNOISE])
+                    diff = true;
+
+            if (square || noise)
+                if (p1->regscopy[HW_YM_SEL_LEVELCHA + t] != p2->regscopy[HW_YM_SEL_LEVELCHA + t])
+                    diff = true;
+
+            if (p1->regscopy[HW_YM_SEL_LEVELCHA + t] == 16)
+                env = true;
+
+            if (env)
+            {
+                if ((p1->regscopy[HW_YM_SEL_FREQENVELOPE_L] != p2->regscopy[HW_YM_SEL_FREQENVELOPE_L]) || 
+                    (p1->regscopy[HW_YM_SEL_FREQENVELOPE_H] != p2->regscopy[HW_YM_SEL_FREQENVELOPE_H]))
+                    diff = true;
+
+                if (p1->regscopy[HW_YM_SEL_ENVELOPESHAPE] != p2->regscopy[HW_YM_SEL_ENVELOPESHAPE])
+                    diff = true;
+            }
+
+            mixer >>= 1;
+        }
+    }
+
+    return diff;
+}
+
+u8 SNDcaptureYMdata(u8 compressed[256], YMregs* _ymregs, YMregs* _lastYMregs, bool _forceYMkeyframe)
+{
+    u8  index = 0;
+    u8* regmask = &compressed[index++];
+    u8  i;
+    u8  currentmask = 0x80;
+
+    memset(compressed, 0, sizeof(compressed));
+
+    { /* MIXER */
+        u8 mixer = _ymregs->regscopy[HW_YM_SEL_IO_AND_MIXER] & 0x3F;
+        if ((mixer != (_lastYMregs->regscopy[HW_YM_SEL_IO_AND_MIXER] & 0x3F)) || _forceYMkeyframe)
+        {
+            *regmask |= currentmask;
+            compressed[index++] = mixer | 0xC0; /* port A & B out */
+        }
+        currentmask >>= 1;
+    }
+
+    /* FREQ SQUARES */
+    for (i = 0 ; i < SND_YM_NB_CHANNELS ; i++)
+    {
+        u8   freqL           = _ymregs->regscopy[HW_YM_SEL_FREQCHA_L + (i << 1)];
+        u8   freqH           = _ymregs->regscopy[HW_YM_SEL_FREQCHA_H + (i << 1)];
+        bool squareRestarted = _ymregs->squareRestarted[i];
+
+
+        if ((freqL != _lastYMregs->regscopy[HW_YM_SEL_FREQCHA_L + (i << 1)]) ||
+            (freqH != _lastYMregs->regscopy[HW_YM_SEL_FREQCHA_H + (i << 1)]) ||
+            squareRestarted || _forceYMkeyframe)
+        {
+            *regmask |= currentmask;
+
+            compressed[index++] = freqL;
+            compressed[index++] = freqH | (squareRestarted ? 0x80 : 0);
+        }
+        currentmask >>= 1;
+    }
+
+    {   /* ENV FREQ */
+        u8   envfreqL           = _ymregs->regscopy[HW_YM_SEL_FREQENVELOPE_L];
+        u8   envfreqH           = _ymregs->regscopy[HW_YM_SEL_FREQENVELOPE_H];
+
+
+        if ((envfreqL != _lastYMregs->regscopy[HW_YM_SEL_FREQENVELOPE_L]) ||
+            (envfreqH != _lastYMregs->regscopy[HW_YM_SEL_FREQENVELOPE_H]) ||
+            _forceYMkeyframe)
+        {
+            *regmask |= currentmask;
+
+            compressed[index++] = envfreqL;
+            compressed[index++] = envfreqH;
+        }
+        currentmask >>= 1;
+    }
+
+    {
+        u8 level;
+        {  /* LEVEL CHANNEL A + NOISE FREQ */
+            u8   noisefreq    = _ymregs->regscopy[HW_YM_SEL_FREQNOISE];
+            bool noisefreqset = noisefreq != _lastYMregs->regscopy[HW_YM_SEL_FREQNOISE];
+
+
+            level = _ymregs->regscopy[HW_YM_SEL_LEVELCHA];
+            if (level != _lastYMregs->regscopy[HW_YM_SEL_LEVELCHA] || noisefreqset || _forceYMkeyframe)
+            {
+                *regmask |= currentmask;
+
+                if (noisefreqset)
+                {
+                    compressed[index++] = level | 0x80;
+                    compressed[index++] = noisefreq;
+                }
+                else
+                {
+                    compressed[index++] = level;
+                }
+            }
+            currentmask >>= 1;
+        }
+
+        {  /* LEVEL CHANNEL B + ENV SHAPE */
+            u8   envshape     = _ymregs->regscopy[HW_YM_SEL_ENVELOPESHAPE];
+            bool envshapeset = envshape != _lastYMregs->regscopy[HW_YM_SEL_ENVELOPESHAPE] || _ymregs->envshapeReselected;
+
+
+            level = _ymregs->regscopy[HW_YM_SEL_LEVELCHB];
+            if (level != _lastYMregs->regscopy[HW_YM_SEL_LEVELCHB] || envshapeset || _forceYMkeyframe)
+            {
+                *regmask |= currentmask;
+
+                if (envshapeset)
+                {
+                    compressed[index++] = level | 0x80;
+                    compressed[index++] = envshape;
+                }
+                else
+                {
+                    compressed[index++] = level;
+                }
+            }
+            currentmask >>= 1;
+        }
+
+        /* LEVEL CHANNEL C */
+        level = _ymregs->regscopy[HW_YM_SEL_LEVELCHC];
+        if ((level != _lastYMregs->regscopy[HW_YM_SEL_LEVELCHC]) || _forceYMkeyframe)
+        {
+            *regmask |= currentmask;
+            compressed[index++] = level;
+        }
+
+        ASSERT(currentmask == 1);
+    }
+
+    return index;
+}
+
+#endif
+
 
 void SNDYMinitPlayer (MEMallocator* _allocator, SNDYMplayer* _player, SNDYMsoundSet* _soundSet)
 {
@@ -458,7 +645,6 @@ void SNDYMinitPlayer (MEMallocator* _allocator, SNDYMplayer* _player, SNDYMsound
         }
     }   
 }
-
 
 void SNDYMwriteSounds(SNDYMsoundSet* _soundsSet, FILE* _file)
 {

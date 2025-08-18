@@ -26,7 +26,7 @@
 * - soundtrack routine slicing
 *--------------------------------------------------------------------------
 
-	output	D:\PROJECTS\DEMOS\OUTPUT\SYNSOUND\SYNTH.O
+	output	..\..\OUTPUT\SYNSOUND\SYNTH.O
 	
 	opt 	o+
 

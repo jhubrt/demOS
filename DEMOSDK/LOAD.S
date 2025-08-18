@@ -24,7 +24,7 @@
 ; Floppy load routines
 ;-------------------------------------------------------------------------
 
-	output	D:\PROJECTS\DEMOS\OUTPUT\LOAD.O
+	output	..\..\OUTPUT\LOAD.O
 	
 	opt 	o+
 

@@ -384,9 +384,9 @@ struct SThardware_
 };
 typedef struct SThardware_ SThardware;
 
-#	ifndef HARDWARE_C
-	extern SThardware g_STHardware;
-#	endif
+#ifndef HARDWARE_C
+extern SThardware g_STHardware;
+#endif
 
 #endif  /* ! __TOS__ */
 

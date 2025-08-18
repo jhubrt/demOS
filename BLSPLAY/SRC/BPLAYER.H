@@ -57,16 +57,6 @@ struct PlayerInterface_
 typedef struct PlayerInterface_ PlayerInterface;
 
 
-struct PlayerText_
-{
-    u8    state;
-    u8    currentpos;
-    u8    currentline;
-    s16   animatecount;
-};
-typedef struct PlayerText_ PlayerText;
-
-
 typedef void (*PlayerPlayRoutine)(BLSplayer* _player);
 
 struct Player_
@@ -74,8 +64,6 @@ struct Player_
     BLSplayer           player;
     PlayerInterface     playerinterface;
 
-    PlayerText          text;
-    
     void* framebuffer;
     s8*   pcmcopy;
     u8    currentchannel;
@@ -92,7 +80,8 @@ struct Player_
 
     u8    panel;
     u8    lastpanel;
-    bool  dmaplayonce;
+
+    bool  noxorpass;
 
 	s32	  allocatedbytes;
 };

@@ -31,7 +31,7 @@ exportall:  set 0
 
     IFNE    exportall
 	
-    output	D:\PROJECTS\DEMOS\OUTPUT\BLSPLAY.O
+    output	..\..\BLSPLAY.O
 
     xdef    ablzUpAllVoices,ablzUpSoundBuffers,ablzUp2SoundBuffers,ablzSetDMABuffer,ablzBlitzDecode
     

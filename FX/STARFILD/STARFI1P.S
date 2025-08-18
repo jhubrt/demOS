@@ -20,7 +20,7 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 *--------------------------------------------------------------------------------------------------------
 
-	output	D:\PROJECTS\DEMOS\OUTPUT\FX\STARFI1P.O
+	output	..\..\OUTPUT\FX\STARFI1P.O
 
     xdef STARiniField1P,STARdraw1P,STARerase1P
     xdef STARiniField1P,STARdraw1P,STARerase1P

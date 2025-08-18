@@ -20,7 +20,7 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 *--------------------------------------------------------------------------------------------------------
 
-	output	D:\PROJECTS\DEMOS\OUTPUT\TRACE.O
+	output	..\..\OUTPUT\TRACE.O
 	
 	opt 	o+
 
@@ -30,19 +30,19 @@
     xref    SYSfastPrint,SYSfont
 
 
-tracNBBOMBS:		set 72
-tracREGSTORAGESIZE: set 74
+tracNBBOMBS:		set 76
+tracREGSTORAGESIZE: set 78
 
 ;-----------------------------------------------------------------------------------------
 ; TRACbomb
 ;-----------------------------------------------------------------------------------------
 TRAC2bomb:
     move.b  #'2',buffer+tracNBBOMBS
-    bra.s   TRACbomb
+    bra.s   TRACbombGroup0
 
 TRAC3bomb:
     move.b  #'3',buffer+tracNBBOMBS
-    bra.s   TRACbomb
+    bra.s   TRACbombGroup0
 
 TRAC4bomb:
     move.b  #'4',buffer+tracNBBOMBS
@@ -65,13 +65,20 @@ TRAC8bomb:
 
 TRACbomb:
     move.w  #$2700,sr           ; disable interupts
+    move.l  2(a7),buffer+68     ; retrieve faulty instruction address
+    clr.l   buffer+72
+    bra.s   TRACbombStart
 
+TRACbombGroup0:
+    move.w  #$2700,sr           ; disable interupts
+    move.l   10(a7),buffer+68   ; retrieve faulty instruction address
+    move.l   2(a7),buffer+72    ; retrieve faulty address
+
+TRACbombStart:
     movem.l d0-d7/a0-a7,buffer  ; store regs at fixed address => we can trash code because we wont exit from here
 
     move.l  usp,a0
     move.l  a0,buffer+64
-
-	move.l	10(a7),buffer+68	; retrieve faulty instruction address
 
     lea     $ffff8201.w,a0      ; get the current screen adr
     moveq.l #0,d0
@@ -101,7 +108,7 @@ TRACbomb:
     move.w  #160,d0             ; pitch
     moveq.l #4,d1               ; bitplane pitch
     lea     buffer(pc),a2       ; regs value adr
-    moveq.l #17,d2              ; 16 registers + usp + faulty pc
+    moveq.l #18,d2              ; 16 registers + usp + faulty pc
 .loop:
     move.l  (a2)+,d3            ; get current reg value
     
@@ -128,16 +135,21 @@ TRACbomb:
 
     lea     160*8(a1),a1
 
-    cmp.w   #10,d2
+    cmp.w   #11,d2
     bne.s   .donotinc
     move.w  #'a'*256+'0'-1,(a0)
 .donotinc:
     addq.b  #1,1(a0)
 
-	cmp.w	#1,d2
+	cmp.w	#2,d2
 	bne.s	.notpc
     move.w  #'pc',(a0)
 .notpc:
+
+	cmp.w	#1,d2
+	bne.s	.notadr
+    move.w  #'ad',(a0)
+.notadr:
 
     dbf.w   d2,.loop
 

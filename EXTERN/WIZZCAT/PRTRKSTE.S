@@ -10,7 +10,7 @@
 * - Routine does not take too much memory (43kb)
 *-------------------------------------------------------------------------*
 
-	output 	D:\PROJECTS\DEMOS\OUTPUT\PRTRKSTE.O
+	output 	..\..\OUTPUT\PRTRKSTE.O
 
 	xdef 	WIZinit,WIZmodInit,WIZplay,WIZrundma,WIZstereo,WIZstop,WIZfrontbuf,WIZbackbuf,WIZgetInfo,WIZjump
 

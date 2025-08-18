@@ -20,7 +20,7 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 *--------------------------------------------------------------------------------------------------------
 
-	output	D:\PROJECTS\DEMOS\OUTPUT\FX\STARFILD.O
+	output	..\..\OUTPUT\FX\STARFILD.O
 
     xdef STARasminit,STARdraw,STARerase
     xdef STARloop,STARreset

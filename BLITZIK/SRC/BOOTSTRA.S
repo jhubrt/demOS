@@ -29,7 +29,7 @@
 ;   - load, decompress, relocate and run program
 ;-------------------------------------------------------------------------
 
-	output		D:\PROJECTS\DEMOS\OUTPUT\BLITZIK\BOOTSTRA.BOT
+	output		..\..\OUTPUT\BLITZIK\BOOTSTRA.BOT
 
 	opt		o+,a+,p+
 

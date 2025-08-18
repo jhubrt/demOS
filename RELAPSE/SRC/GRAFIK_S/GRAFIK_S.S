@@ -28,7 +28,7 @@
 
 	opt		o+
 
-	output D:\PROJECTS\DEMOS\OUTPUT\RELAPSE\GRAFIK_S.PRX	
+	output ..\..\OUTPUT\RELAPSE\GRAFIK_S.PRX	
 
 
 cpu:		set		0

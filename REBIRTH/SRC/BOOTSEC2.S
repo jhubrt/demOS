@@ -37,7 +37,7 @@ WORKDATA:   EQU 2
 SCREEN0:    EQU 65536 + 1000
 *-------------------------------------------------------------------------
 
-	output	D:\PROJECTS\DEMOS\OUTPUT\BOOTSEC2.BOT
+	output	..\..\OUTPUT\BOOTSEC2.BOT
 	
 	ifne	system
 	clr.w	-(sp)			* Resolution
@@ -265,40 +265,37 @@ rts_:	rts
 
 ;-------------------------------------------------------------------------
 rect1plane:
-	tst.w	d0				* Si x1 < 0
+	tst.w	d0				* If x1 < 0
 	bpl.s	.okh1			*
- 	tst.w	d2				*   Si x2 < 0 Alors no rectangle
-	bmi.s	rts_			*   Sinon
+ 	tst.w	d2				*   If x2 < 0 => norect
+	bmi.s	rts_			*   Else
 	moveq.l	#0,d0			*     x1 = 0
-.okh1: 						*   Finsi
-							* Finsi
+.okh1:
 					
-	move.w	#319,d7			* Precharge #319 dans d7
-	cmp.w	d7,d2			* Si x2 > 319
+	move.w	#319,d7			
+	cmp.w	d7,d2			* If x2 > 319
 	ble.s	.okh2			*
-	cmp.w	d7,d0			*   Si x1 > 319 Alors
+	cmp.w	d7,d0			*   If x1 > 319 
 	bgt.s	rts_			*     no rectangle
-	move.w	d7,d2			*   Sinon x2 = 319
-							*   Finsi
-.okh2:						* Finsi
+	move.w	d7,d2			*   Else x2 = 319
+.okh2:
 
-	tst.w	d1				* Si y1 < 0
+	tst.w	d1				* If y1 < 0
 	bpl.s	.okv1			*
- 	tst.w	d4				*   Si y2 < 0 Alors no rectangle
-	bmi.s	.norect			*   Sinon
+ 	tst.w	d4				*   If y2 < 0 => no rectangle
+	bmi.s	.norect			*   Else
 	moveq.l	#0,d1			*     x1 = 0
-.okv1: 						*   Finsi
-							* Finsi
+.okv1:
 			
-	move.w	#199,d7			* Precharge #199 dans d7
-	cmp.w	d7,d4			* Si y2 > 199
+	move.w	#199,d7			
+	cmp.w	d7,d4			* If y2 > 199
 	ble.s	.okv2			*
-	cmp.w	d7,d1			*   Si y1 > 199 Alors
+	cmp.w	d7,d1			*   If y1 > 199
 	bgt.s	.norect			*     no rectangle
-	move.w	d7,d4			*   Sinon y2 = 199
-							*   Finsi
-.okv2:						* Finsi
+	move.w	d7,d4			*   Else y2 = 199							
+.okv2:
 
+    ; rect
 	sub.w	d1,d4			
 	addq.w	#1,d4			* Hauteur
 	
@@ -306,19 +303,19 @@ rect1plane:
 	add.w	d1,a0			
 	
 	moveq.l	#$fffffff0,d7
-	move.w	d0,d6			* Adr affichage + offset horizontal
-	and.w	d7,d6			
-	lsr.w	#1,d6			
-	add.w	d6,a0			
+	move.w	d0,d6			
+	and.w	d7,d6			* d6 = x1 & 0xfff0
+	lsr.w	#1,d6			* / 2
+	add.w	d6,a0			* Adr affichage + offset horizontal
 	
-	move.w	d2,d3			* Adr affichage + offset horizontal
-	and.w	d7,d3			
-	lsr.w	#1,d3			
-	sub.w	d6,d3			
-	move.w	a5,d6			* Calcul 
+	move.w	d2,d3			
+	and.w	d7,d3			* d3 = x2 & 0xfff0
+	lsr.w	#1,d3			* / 2
+	sub.w	d6,d3		    * d3 = nb horiz chunks * 8	
+	move.w	a5,d6
 	sub.w	d3,d6			
 	move.w	d6,$ffff8a30.w	* Inc Y dest
-	lsr.w	#3,d3			* Nombre de mots	
+	lsr.w	#3,d3			* d3 = nb words		
 	
 	moveq.l	#0,d6			
 	moveq.l	#15,d1			
@@ -332,19 +329,18 @@ rect1plane:
 	and.w	d1,d2			
 	sub.w	d2,d1			
 	bset.l	d1,d7			
-	subq.l	#1,d7			
+	subq.l	#1,d7			* d7 = (1 << d1) - 1
 	not.w	d7				
 	move.w	d7,$ffff8a2c.w	* Masque droit
 
 	move.l	a0,$ffff8a32.w	* Adresse dest
 	tst.w	d3
-	bne.s	.oklarg			* Si largeur en nb mots = 0 Alors
-	and.w	d7,d6			*   Masque gauche and masque droit
-.oklarg:					*   blitter de masque gauche
-	
-	move.w	d6,$ffff8a28.w		* Masque gauche
-	addq.w	#1,d3				* Finsi	
-	movem.w	d3-d4,$ffff8a36.w	* Hori size & Vert size
+	bne.s	.oklarg			* If width nb words = 0
+	and.w	d7,d6			*   And left & right mask
+.oklarg:					
+	move.w	d6,$ffff8a28.w	* Set left mask
+	addq.w	#1,d3			*
+	movem.w	d3-d4,$ffff8a36.w	* Hori size & vert size
 	move.w	#%11000000*256,$ffff8a3c.w	* No partage & Go !
 	
 .norect:

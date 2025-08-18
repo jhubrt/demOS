@@ -48,6 +48,7 @@ Player g_player;
 
 char* g_keyNames[] = {"C-", "C+", "D-", "D+", "E-", "F-", "F+", "G-", "G+", "A-", "A+", "B-"};
 
+#define SYNTHYM_CAPTURE_BUFFERLEN 32000
 
 
 void SynthYMEntry (void)
@@ -70,6 +71,7 @@ void SynthYMEntry (void)
 
     g_player.ctrl.channels[0] = true;
     g_player.curvesync = true;
+    g_player.capturebuffer = (u8*) RINGallocatorAlloc( &sys.mem, SYNTHYM_CAPTURE_BUFFERLEN );
 
     /*    {
     int t;
@@ -96,7 +98,9 @@ void SynthYMEntry (void)
 #define PLAYER_KEYREPEAT_DELAY 35
 #define PLAYER_KEYREPEAT_FREQ  1
 
-void SynthYMActivity (void)
+
+
+void SynthYMprocessKeyboard(void)
 {
     u8   t;
     u8   scancode = sys.key & ~(HW_KEYBOARD_KEYRELEASE);
@@ -160,6 +164,15 @@ void SynthYMActivity (void)
 
                 if ( pressed )
                 {
+                if (g_player.capturesound)
+                {
+                    if (g_player.capturehasstarted == false)
+                    {
+                        g_player.capturehasstarted = true;
+                        g_player.captureframe = 0;
+                    }
+                }
+
                     g_player.ctrl.keyb = key;
 
                     for (t = 0 ; t < SND_YM_NB_CHANNELS ; t++)
@@ -285,6 +298,35 @@ void SynthYMActivity (void)
         }
         break;
 
+#       if SNDYM_REGS_MIRRORING
+        case HW_KEY_NUMPAD_0:
+            if (SYSkbHit)
+            {
+                if (g_player.capturesound)
+                {
+                    char temp[256];
+                    static u16 index = 0;
+
+                    sprintf(temp, "YMDUMP%d.YM", index++);
+
+                    FILE* file = fopen(temp, "wb");
+                    fwrite(g_player.capturebuffer, g_player.captureindex, 1, file);
+                    fclose(file);
+
+                    g_player.capturesound = false;
+                    g_player.capturehasstarted = false;
+
+                    printf("end capture %d bytes => file save %s\n", g_player.captureindex, temp);
+                }
+                else
+                {
+                    printf("start capture\n");
+                    g_player.capturesound = true;
+                }
+            }
+            break;
+#       endif
+
         case HW_KEY_NUMPAD_1:
             if ( g_player.player.commands[g_player.ctrl.currentchannel].scorevolume > 0 )
             {
@@ -339,10 +381,6 @@ void SynthYMActivity (void)
             }
             break;
 
-        case HW_KEY_SPACEBAR:
-            g_player.ctrl.channels[g_player.ctrl.currentchannel] ^= 1;
-            break;
-
         case HW_KEY_NUMPAD_PLUS:
             if ( (g_player.player.commands[g_player.ctrl.currentchannel].soundindex + 1) < g_player.soundSet.nbSounds )
             {
@@ -355,6 +393,10 @@ void SynthYMActivity (void)
             {
                 g_player.player.commands[g_player.ctrl.currentchannel].soundindex--;
             }
+            break;
+
+        case HW_KEY_SPACEBAR:
+            g_player.ctrl.channels[g_player.ctrl.currentchannel] ^= 1;
             break;
 
 #       ifndef __TOS__
@@ -407,8 +449,55 @@ void SynthYMActivity (void)
 #       endif
         }
     }
+}
 
+void SynthYMCaptureSound(void)
+{
+#   if SNDYM_REGS_MIRRORING
+    if (g_player.capturesound)
     {
+        if (g_player.capturehasstarted)
+        {
+            if (g_player.captureframe == 0)
+            {
+                g_player.capturebuffer[0] = 0;
+                g_player.capturebuffer[1] = 0;
+                g_player.captureindex = 2;
+                g_player.captureindex += SNDcaptureYMdata(g_player.capturebuffer + g_player.captureindex, &g_player.player.YMregs, &g_player.lastYMregs, true);
+            }
+            else
+            {
+                if (SNDdiffYMdata(&g_player.player.YMregs, &g_player.lastYMregs))
+                {
+                    printf("frame=%d index=%d\n", g_player.captureframe, g_player.captureindex);
+
+                    g_player.capturebuffer[g_player.captureindex] = (u8)(g_player.captureframe >> 8);
+                    g_player.capturebuffer[g_player.captureindex + 1] = (u8)g_player.captureframe;
+
+                    g_player.captureindex += 2;
+
+                    g_player.captureindex += SNDcaptureYMdata(g_player.capturebuffer + g_player.captureindex, &g_player.player.YMregs, &g_player.lastYMregs, false);
+                }
+            }
+
+            ASSERT(g_player.captureindex <= SYNTHYM_CAPTURE_BUFFERLEN);
+
+            g_player.lastYMregs = g_player.player.YMregs;
+
+            g_player.captureframe++;
+        }
+    }
+#   endif
+}
+
+
+void SynthYMActivity (void)
+{
+    SynthYMprocessKeyboard();
+    
+    {
+        u8 t;
+
         for (t = 0 ; t < SND_YM_NB_CHANNELS ; t++)
         {
             g_player.player.commands[t].key          = g_player.ctrl.transpose [t] + g_player.ctrl.keyb + 1;
@@ -433,6 +522,8 @@ void SynthYMActivity (void)
 
             if (g_player.updated)
             {
+                SynthYMCaptureSound();
+
                 SNDYMupdate (&g_player.player);
 
 #               ifndef __TOS__
@@ -453,6 +544,7 @@ void SynthYMActivity (void)
         }
     }
 }
+
 
 void SynthYMBacktask (void)
 {

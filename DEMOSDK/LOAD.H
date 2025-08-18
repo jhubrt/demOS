@@ -142,6 +142,9 @@ void          LOADinit          		(u16 _nbEntries, u16 _nbMetaData, LOADdisk* _f
 void          LOADinitFAT               (u8 preferedDrive_, LOADdisk* _media, u16 _nbEntries, u16 _nbMetaData);
 #endif
 
+#define LOADisPreloaded(_media, _resourceid) (_media->preload[_resourceid] != NULL)
+
+u16           LOADcomputeMediaID        (void* buffer_);
 bool          LOADcheckInsertedMediaID  (u8 preferedDrive_, u16 mediaid_, void* tempbuffer);
 LOADrequest*  LOADrequestLoad           (LOADdisk* _media, u16 _resource, void* _buffer, u16 _order);
 LOADrequest*  LOADdata                  (LOADdisk* _media, u16 _resource, void* _buffer, u16 _order);
