@@ -234,6 +234,7 @@ For an azerty keyboard on PC :
  - __SPACE__ : activate / deactivate channel
  - __BACKSPACE__ (PC only) : toggle YM PC emulator curve sync display (turn off if your PC is slow)
  - __RETURN__ (PC only) : hot reloads the sound script
+ - __0__ (numpad) (PC only) : allow to capture YM session in delta format (in order to create FX). Then you can test the generated file with _SndPlay_ program.
 
 Curves name abreviation :
 
