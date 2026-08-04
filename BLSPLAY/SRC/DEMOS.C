@@ -110,12 +110,7 @@ static void SetParam (int argc, char** argv)
                 g_player.testMode = 2;
             }
 
-#	        ifdef __TOS__
-            else if ( strncmp(argv[t], "-playonce", 9) == 0)
-            {
-                g_player.dmaplayonce = true;
-            }
-#           else
+#	        ifndef __TOS__
             else if ( strncmp(argv[t], "-freq", 5) == 0)
             {
                 BLSsetSecondaryBufferFreq(atoi(&argv[t][5]));
@@ -137,6 +132,29 @@ static void DEMOSidleThread(void)
 }
 
 #define demOS_COREHEAPSIZE (64UL  * 1024UL)
+
+
+static void blsPlayLoop(void)
+{
+    do
+    {
+        SYSswitchIdle();
+    
+        /* no need to vsync here as main thread context is reset by idle thread switch */
+        SYSkbAcquire;
+    
+        FSMupdate(&g_stateMachine);
+    
+        if (SYSkbHit)
+        {
+            SYSkbReset();
+        }
+    
+        EMULrender();
+    } while (g_player.play);
+    
+    SYSvsync;
+} 
 
 
 int main(int argc, char** argv)
@@ -224,27 +242,7 @@ int main(int argc, char** argv)
 
             HW_DISABLE_MOUSE(); /* deactivate mouse management on ACIA */
 
-            {
-                do
-                {
-                    SYSswitchIdle();
-
-                    /* no need to vsync here as main thread context is reset by idle thread switch */
-                    SYSkbAcquire;
-
-                    FSMupdate (&g_stateMachine);
-
-                    if ( SYSkbHit )
-                    {
-                        SYSkbReset();
-                    }
-
-                    EMULrender();
-                }
-                while (g_player.play);
-
-                SYSvsync;
-            }
+            blsPlayLoop();
 
             *HW_KEYBOARD_DATA = 0x8; /* activate mouse management on ACIA */
         }

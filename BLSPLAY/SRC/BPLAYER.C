@@ -75,33 +75,23 @@ u16 g_maskValues[] =
 };
 
 
-enum TextdisplayState_
-{
-    TDS_WRITELINE,
-    TDS_WAITLINE
-};
-typedef enum TextdisplayState_ TextdisplayState;
+#define BLSPLAY_SND_DISPLAY_Y   (200-57)
+#define BLSPLAY_PCM_DISPLAY_Y   (200-58-70)
+#define BLSPLAY_PCMINFO_DISPLAY_Y 18
 
 #ifdef __TOS__
-#   define TDS_WAITLINECOUNT   50
-#   define PLAYER_NB_PANELS    4
+#   define BLSPLAY_NB_PANELS    4
 #else
-#   define TDS_WAITLINECOUNT   100
-#   define PLAYER_NB_PANELS    5
+#   define BLSPLAY_NB_PANELS    5
 #endif
 
-char* g_textdisplayContent[] =
+static void playerDebugPrint(void* _screen, u16 _col, u16 _y, char* _s)
 {
-    "BLITsnd by Metal Ages from CYBERNETICS sound routine using blitter",
-    "BLITsnd provides 4 PCM + 3 YM voices [uses up to 16% of VBL on 8mhz STe]",
-    "BLSconvert converts MOD/XM format into BLS format [with constraints...]",
-    "BLSplay plays intermediate .BLS files or .BLZ optimized files",
-    "Thanks fly to NPomarede for his great advices about DMA sound",
-    "Greetings go to all friends and kind people from the demoscene" 
-};
+    SYSdebugPrint(_screen             , 160, 2, _col, _y, _s);
+    SYSdebugPrint((u8*)_screen + 32000, 160, 2, _col, _y, _s);
+}
 
-
-static void playerInit (bool _deltadecode, u16 _i, u16 _nb)
+static void playerInit(bool _deltadecode, u16 _i, u16 _nb)
 {
     u8* framebuffer = (u8*)SYSreadVideoBase();
     char temp[] = "   /   ";
@@ -138,6 +128,10 @@ void PlayerEntry (void)
 
     g_player.leftvolume  = 20;
     g_player.rightvolume = 20;
+    
+#ifdef __TOS__
+    g_player.noxorpass = true;
+#endif
 
     RINGallocatorFreeSize(&sys.mem, &info);
 	g_player.allocatedbytes = info.size;
@@ -153,7 +147,7 @@ void PlayerEntry (void)
             g_player.playerinterface.read       = BLZread;
             g_player.playerinterface.init       = BLSinit;
             g_player.playerinterface.playerInit = BLZplayerInit;
-            g_player.playerinterface.update     = g_player.dmaplayonce ? BLZ2update : BLZupdate;
+            g_player.playerinterface.update     = BLZupdate;
             g_player.playerinterface.updAsync   = BLZupdAsync;
             g_player.playerinterface.playerFree = BLZplayerFree;
             g_player.playerinterface.free       = BLZfree;
@@ -197,12 +191,12 @@ void PlayerEntry (void)
     STDmset(g_player.pcmcopy, 0, PCMCOPYSIZE);
 
     {
-        BLZdmaMode mode = BLZ_DMAMODE_LOOP;
+        BLZdmaMode mode;
 
         if (g_player.testMode)
             mode = BLZ_DMAMODE_NOAUDIO;
-        else if (g_player.dmaplayonce)
-            mode = BLZ_DMAMODE_PLAYONCE;
+        else
+            mode = BLZ_DMAMODE_LOOP;
 
         g_player.playerinterface.playerInit (&sys.allocatorMem, &g_player.player, sndtrack, mode);
     }
@@ -292,8 +286,6 @@ void PlayerActivity	(FSM* _fsm)
     if (g_player.startdisplay)
     {
         *HW_COLOR_LUT = 0x70;
-        if (g_player.dmaplayonce)
-            *HW_DMASOUND_CONTROL = HW_DMASOUND_CONTROL_PLAYONCE;
         g_player.playerinterface.update (&(g_player.player));
     }
     else
@@ -307,8 +299,6 @@ void PlayerActivity	(FSM* _fsm)
         *HW_COLOR_LUT = 0x70;
 #       endif
 
-        if (g_player.dmaplayonce)
-            *HW_DMASOUND_CONTROL = HW_DMASOUND_CONTROL_PLAYONCE;
         g_player.playerinterface.update (&(g_player.player));
 
         *HW_COLOR_LUT = 0x34;
@@ -318,7 +308,7 @@ void PlayerActivity	(FSM* _fsm)
     *HW_COLOR_LUT = 0;
     
 #   ifdef __TOS__
-	if ((g_player.panel == 0) && (g_player.dmaplayonce == false))
+	if (g_player.panel == 0)
 	{
         u16 mask = (g_player.player.dmabufend - g_player.player.dmabufstart) > BLS_NBBYTES_PERFRAME ? 0xFFFF : 0;
         u8* framebuffer = (u8*)g_player.framebuffer;
@@ -521,8 +511,12 @@ void PlayerActivity	(FSM* _fsm)
             case HW_KEY_NUMPAD_MINUS:
 			case HW_KEY_X:
                 g_player.panel++;
-                if (g_player.panel == PLAYER_NB_PANELS)
+                if (g_player.panel == BLSPLAY_NB_PANELS)
                     g_player.panel = 0;
+                break;
+
+            case HW_KEY_Z:
+                g_player.noxorpass = !g_player.noxorpass;
                 break;
             }
         }
@@ -583,100 +577,36 @@ void PlayerTest	(u8 _mode)
     g_player.playerinterface.testPlay (&(g_player.player), filesample, filetrace, _mode);
 }
 
-
-void TextDisplayUpdate (PlayerText* _text)
-{
-    u8* frame1 = (u8*) g_player.framebuffer + 2;
-    u8* frame2;
-    char currentchar;
-
-    
-	frame1 += 191*160;
-    frame2 = frame1 + 32000;
-
-    switch (_text->state)
-    {
-    case TDS_WRITELINE:
-        
-        currentchar = g_textdisplayContent[_text->currentline][_text->currentpos];
-        
-        if (currentchar != 0)
-        {
-            char temp[2] = "";
-
-            *temp = currentchar;
-
-            SYSdebugPrint(frame1, 160, 2, _text->currentpos, 0, temp);
-            SYSdebugPrint(frame2, 160, 2, _text->currentpos, 0, temp);
-            _text->currentpos++;
-        }
-        else
-        {
-            _text->currentline++;
-            _text->currentpos = 0;
-
-            if (_text->currentline >= ARRAYSIZE(g_textdisplayContent))
-            {
-                _text->currentline = 0;
-            }
-
-            _text->animatecount = 0;
-
-            _text->state = TDS_WAITLINE;
-        }
-        break;
-
-    case TDS_WAITLINE:
-
-        _text->animatecount++;
-
-        if (_text->animatecount >= TDS_WAITLINECOUNT)
-        {
-            STDmset (frame1, 0, 8*160);
-            STDmset (frame2, 0, 8*160);
-            _text->state = TDS_WRITELINE;
-        }
-        break;
-    }
-}
-
-
 static void playerDrawPanel0Background(void)
 {
 	char temp[] = "alloc=        ";
 	u8* framebuffer = (u8*)g_player.framebuffer;
 
-	SYSdebugPrint(framebuffer, 160, 2, 0, 0, BLSPLAY_TITLE);
-	SYSdebugPrint(framebuffer + 32000, 160, 2, 0, 0, BLSPLAY_TITLE);
+    playerDebugPrint(framebuffer, 0, 0, BLSPLAY_TITLE);
 
 	STDutoa(&temp[6], g_player.allocatedbytes, 7);
-	SYSdebugPrint(framebuffer, 160, 2, 66, 0, temp);
-	SYSdebugPrint(framebuffer + 32000, 160, 2, 66, 0, temp);
-
-    g_player.text.currentpos = 0;
-
-    if (g_player.dmaplayonce == false)
-    {
-        SYSdebugPrint(framebuffer, 160, 2, 66, 18, "DMAsync");
-	    SYSdebugPrint(framebuffer + 32000, 160, 2, 66, 18, "DMAsync");
-    }
+    playerDebugPrint (framebuffer, 66, 0, temp);
+    
+    playerDebugPrint(framebuffer, 66, 18, "DMAsync");
+       
 #   ifndef __TOS__
 	printf("bytes allocated= %d\n", g_player.allocatedbytes);
     EMULfbStdEnable();
     EMULcls();
-#   endif
+#   endif       
 }
 
 static void playerDrawPanel0(u8* backframebuffer)
 {
-	u8* line = (u8*)backframebuffer + (58 * 160);
+	u8* pcmlineadr  = (u8*)backframebuffer + (BLSPLAY_PCM_DISPLAY_Y * 160) + 2;
+    u8* pcminfoline = (u8*)backframebuffer + (BLSPLAY_PCMINFO_DISPLAY_Y * 160);
 	char cleared[4];
 	BLSplayer* player = &g_player.player;
 	BLSvoice* voice;
 	BLSsoundTrack* sndtrack = g_player.player.sndtrack;
-	static char text [] = "trk=  /   pat=   row=   L=   R=   ";
-	static char text2[] = " k=   v=  t=   vo= ";
-    static char text3[] = " i=   o=  k=  ";
+	
+    static char textmain [] = "trk=  /   pat=   row=   L=   R=   ";
+
 	u16 t;
 	u16* m;
 
@@ -692,14 +622,15 @@ static void playerDrawPanel0(u8* backframebuffer)
 		cleared[3] = bufclearflags[2];
 	}
 
-	line += 2;
-	drawCurve(g_player.pcmcopy    , 160, 12, (u8*)line);
-	drawCurve(g_player.pcmcopy + 1, 160, 12, (u8*)line + 40);
-	drawCurve(g_player.pcmcopy + 3, 160, 12, (u8*)line + 80);
-	drawCurve(g_player.pcmcopy + 2, 160, 12, (u8*)line + 120);
-	drawXorPass(line);
+	drawCurve(g_player.pcmcopy    , 160, 12, (u8*) pcmlineadr);
+	drawCurve(g_player.pcmcopy + 1, 160, 12, (u8*) pcmlineadr + 40);
+	drawCurve(g_player.pcmcopy + 3, 160, 12, (u8*) pcmlineadr + 80);
+	drawCurve(g_player.pcmcopy + 2, 160, 12, (u8*) pcmlineadr + 120);
 
-	m = (u16*)(line + 16 + 160 * 30);
+    if (g_player.noxorpass == false)
+	    drawXorPass(pcmlineadr);
+
+	m = (u16*)(pcmlineadr + 16 + 160 * 30);
 
 	for (t = 0; t < 4; t++, m += 20)
 	{
@@ -716,41 +647,46 @@ static void playerDrawPanel0(u8* backframebuffer)
 		}
 	}
 
-	line = (u8*)backframebuffer + (50 * 160);
-	STDmset(line, 0, 20 * 160);
-
-    STDuxtoa(&text[4], player->trackindex, 2);
-    STDuxtoa(&text[7], player->sndtrack->trackLen, 2);
-    STDuxtoa(&text[14], player->sndtrack->track[player->trackindex], 2);
+    STDuxtoa(&textmain[4], player->trackindex, 2);
+    STDuxtoa(&textmain[7], player->sndtrack->trackLen, 2);
+    STDuxtoa(&textmain[14], player->sndtrack->track[player->trackindex], 2);
 
     if (BLSisBlitzSndtrack(player->sndtrack))
     {
-        text[18] = '=';
-        STDuxtoa(&text[19], player->patternend - player->blizcurrent, 4);
+        textmain[18] = '=';
+        STDuxtoa(&textmain[19], player->patternend - player->blizcurrent, 4);
     }
 #   if BLS_SCOREMODE_ENABLE
     else
     {
-        STDuxtoa(&text[21], player->row, 2);
+        STDuxtoa(&textmain[21], player->row, 2);
     }
 #   endif
 
-	STDuxtoa(&text[26], g_player.leftvolume, 2);
-	STDuxtoa(&text[31], g_player.rightvolume, 2);
+	STDuxtoa(&textmain[26], g_player.leftvolume, 2);
+	STDuxtoa(&textmain[31], g_player.rightvolume, 2);
 
-    line = (u8*)backframebuffer + (18 * 160);
+	SYSdebugPrint(pcminfoline, 160, 2, 0, 0, textmain);
 
-	SYSdebugPrint(line, 160, 2, 0, 0, text);
+    pcminfoline += 20 * 160;
 
-	line += 20 * 160;
-
-	for (t = 0; t < 4; t++, line += 40, voice++)
+	for (t = 0; t < 4; t++, pcminfoline += 40, voice++)
 	{
-		u16* d = (u16*)(line - 20 * 160);
+        static char textvoice1[] = " k=   o=  m=  ";
+        static char textvoice2[] = " v=   vo=  ";
+
+#       define KEY_CHAR_XPOS 3
+#       define OCTAVE_CHAR_XPOS 8
+#       define MASKTABLE_CHAR_XPOS 12
+
+#       define VOLUME_CHAR_XPOS 3
+#       define VOLUME_OFFSET_CHAR_XPOS 9
+        
+        u16* d = (u16*)(pcminfoline - 20 * 160);
 
 		voice = &player->voices[t];
 
-		text3[0] = t == g_player.currentchannel ? '>' : ' ';
+		textvoice2[0] = t == g_player.currentchannel ? '>' : ' ';
 
 		if (voice->keys[0] != NULL)
         {
@@ -760,6 +696,7 @@ static void playerDrawPanel0(u8* backframebuffer)
             u16 sampleindex = voice->keys[0]->sampleIndex;
             u8  octave      = noteinfo >> 4;
             u8  semitone    = noteinfo & 0xF;
+            BLSsample* sample;
 
             ASSERT(offset < sndtrack->nbKeys);
             ASSERT(semitone < 12);
@@ -769,66 +706,77 @@ static void playerDrawPanel0(u8* backframebuffer)
                 sampleindex = sndtrack->keys[sampleindex].sampleIndex;
             }
                 
-            STDuxtoa(&text2[3], offset, 2);
+            sample = sndtrack->samples + sampleindex;
                         
-            STDuxtoa(&text3[3],  sampleindex    , 2);
-            STDuxtoa(&text3[8],  octave         , 1);
+            STDuxtoa(&textvoice1[OCTAVE_CHAR_XPOS], octave, 1);
             
             semitone <<= 1;
 
-            text3[13] = keynames[semitone];
-            text3[14] = keynames[semitone+1];
+            textvoice1[KEY_CHAR_XPOS]   = keynames[semitone];
+            textvoice1[KEY_CHAR_XPOS+1] = keynames[semitone+1];            
+            textvoice1[MASKTABLE_CHAR_XPOS-2] = 'm';
+            STDuxtoa(&textvoice1[MASKTABLE_CHAR_XPOS], voice->mask & 0xFF, 2);
         }
 		else
 		{
-			text2[3]  = ' ';
-			text2[4]  = ' ';
+			textvoice1[KEY_CHAR_XPOS]   = ' ';
+			textvoice1[KEY_CHAR_XPOS+1] = ' ';
+
+            textvoice1[OCTAVE_CHAR_XPOS] = ' ';
+
+            textvoice1[MASKTABLE_CHAR_XPOS]   = ' ';
+            textvoice1[MASKTABLE_CHAR_XPOS+1] = ' ';
+
+            textvoice2[VOLUME_CHAR_XPOS]   = ' ';
+            textvoice2[VOLUME_CHAR_XPOS+1] = ' ';
+
+            textvoice2[VOLUME_CHAR_XPOS]  = ' ';
+            textvoice2[VOLUME_CHAR_XPOS]  = ' ';
         
-            text3[3]  = ' ';
-            text3[4]  = ' ';
-            text3[8]  = ' ';
-            text3[13] = ' ';
-            text3[14] = ' ';
+            textvoice2[VOLUME_OFFSET_CHAR_XPOS]  = ' ';
+            textvoice2[VOLUME_OFFSET_CHAR_XPOS+1] = ' ';
         }
 
 		if (cleared[t])
 		{
-			text2[8] = '*';
+			textvoice2[VOLUME_CHAR_XPOS]   = ' ';
+            textvoice2[VOLUME_CHAR_XPOS+1] = '*';
 		}
 		else
 		{
-			STDuxtoa(&text2[8], voice->volume, 1);
+			STDuxtoa(&textvoice2[VOLUME_CHAR_XPOS], voice->volume, 2);
 		}
 
-		if (voice->keys[0] != NULL)
-		{
-			STDuxtoa(&text2[12], voice->keys[0]->blitterTranspose, 2);
-		}
-		else
-		{
-			text2[12] = '-';
-			text2[13] = ' ';
-		}
+		STDuxtoa(&textvoice2[VOLUME_OFFSET_CHAR_XPOS], voice->volumeoffset, 2);
 
-		STDuxtoa(&text2[18], voice->volumeoffset, 1);
-
-		SYSdebugPrint(line      , 160, 2, 0, 0, text3);
-        SYSdebugPrint(line+8*160, 160, 2, 0, 0, text2);
+		SYSdebugPrint(pcminfoline      , 160, 2, 0, 0, textvoice2);
+        SYSdebugPrint(pcminfoline+8*160, 160, 2, 0, 0, textvoice1);
 
 		{
-			u32 m = voice->mask;
-			if (m != 0xFFFFFFFFUL)
-			{
-				d[40*80+2] = (u16)m;
+            u16* p = &d[40 * 80 + 2];
+
+            {
+                u16 i;
+                u16 m = voice->mask;
+                if (m != 0xFFFFUL)
+		  	{
+                    for (i = 0; i < 16; i++)
+                    {
+                        *p = m;
+                        p += 80;
+                    }
 			}
 			else
 			{
-				d[40*80+2] = 0;
+                    for (i = 0; i < 16; i++)
+                    {
+                        *p = 0;
+                        p += 80;
+                    }
+                }
 			}
 		}
 	}
-
-	TextDisplayUpdate(&g_player.text);
 
 #   if BLS_SCOREMODE_ENABLE
     if (BLSisBlitzSndtrack(g_player.player.sndtrack) == false)
@@ -836,7 +784,7 @@ static void playerDrawPanel0(u8* backframebuffer)
         BLSsoundTrack* sndtrack = (BLSsoundTrack*)g_player.player.sndtrack;
         SNDYMcommand* command = g_player.player.ymplayer.commands;
 
-        m = (u16*)(backframebuffer + 130 * 160 + 2);
+        m = (u16*)(backframebuffer + BLSPLAY_SND_DISPLAY_Y * 160 + 2);
 
         for (t = 0; t < SND_YM_NB_CHANNELS; t++, command++)
         {
@@ -898,11 +846,9 @@ static void playerDrawPanel0(u8* backframebuffer)
         u8* regsstate = &g_STHardware.reg_HW_YM_REGDATA;
 #       endif
 
-        SNDYMdrawYMstate(regsstate, backframebuffer + 130 * 160 + 8);
+        SNDYMdrawYMstate(regsstate, backframebuffer + BLSPLAY_SND_DISPLAY_Y * 160 + 8);
     }
 }
-
-
 
 static void playerDrawPanel1Background(void)
 {
@@ -928,7 +874,19 @@ static void playerDrawPanel1(u8* backframebuffer)
         active[2] = !g_player.player.ymplayer.commands[2].mute;
 
         STDmset(backframebuffer, 0, 160 * 48 * SND_YM_NB_CHANNELS);
-        SNDYMdrawSoundCurves(&g_player.player.ymplayer, active, backframebuffer);
+        {
+            SNDYMchannel* channels[SND_YM_NB_CHANNELS] = 
+            { 
+                &g_player.player.ymplayer.channels[0], 
+                &g_player.player.ymplayer.channels[1], 
+                &g_player.player.ymplayer.channels[2]
+            };
+
+            SNDYMdrawSoundCurves(
+                &g_player.player.ymplayer,
+                active,
+                backframebuffer);
+        }
     }
 #   endif
 
@@ -947,6 +905,7 @@ static void playerDrawPanel2(u8* backframebuffer)
 	STDmset(backframebuffer, 0, 160 * 68);
 
 	drawCurve(g_player.pcmcopy, 640, 1, line);
+    if (g_player.noxorpass == false)
 	drawXorPass(line);
 }
 
