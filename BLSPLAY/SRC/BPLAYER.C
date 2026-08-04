@@ -760,7 +760,7 @@ static void playerDrawPanel0(u8* backframebuffer)
                 u16 m = voice->mask;
                 if (m != 0xFFFFUL)
 		  	{
-                    for (i = 0; i < 16; i++)
+                    for (i = 0; i < 8; i++)
                     {
                         *p = m;
                         p += 80;
@@ -768,7 +768,7 @@ static void playerDrawPanel0(u8* backframebuffer)
 			}
 			else
 			{
-                    for (i = 0; i < 16; i++)
+                    for (i = 0; i < 8; i++)
                     {
                         *p = 0;
                         p += 80;
