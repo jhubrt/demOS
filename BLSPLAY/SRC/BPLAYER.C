@@ -285,7 +285,7 @@ void PlayerActivity	(FSM* _fsm)
 {
     if (g_player.startdisplay)
     {
-        *HW_COLOR_LUT = 0x70;
+        *HW_COLOR_LUT = 0x40;
         g_player.playerinterface.update (&(g_player.player));
     }
     else
@@ -296,12 +296,12 @@ void PlayerActivity	(FSM* _fsm)
             u8 count = *HW_VIDEO_COUNT_L;
             while (*HW_VIDEO_COUNT_L == count);
         }
-        *HW_COLOR_LUT = 0x70;
+        *HW_COLOR_LUT = 0x40;
 #       endif
 
         g_player.playerinterface.update (&(g_player.player));
 
-        *HW_COLOR_LUT = 0x34;
+        *HW_COLOR_LUT = 0x410;
         g_player.rastermax = TRACmaxraster(g_player.rastermax);
     }
 
@@ -401,6 +401,7 @@ void PlayerActivity	(FSM* _fsm)
                 g_player.currentchannel = scancode - HW_KEY_1;
                 break;
 
+#if BLS_SCOREMODE_ENABLE
             case HW_KEY_5:
             case HW_KEY_6:
 			case HW_KEY_7:
@@ -408,12 +409,15 @@ void PlayerActivity	(FSM* _fsm)
                 g_player.player.voices[scancode - HW_KEY_5].mute ^= 1;
                 break;
 
-#if BLS_SCOREMODE_ENABLE
             case HW_KEY_9:
 			case HW_KEY_0:
 			case HW_KEY_MINUS:
 				g_player.player.ymplayer.commands[scancode - HW_KEY_9].mute ^= 1;
 				break;
+
+            case HW_KEY_SPACEBAR:
+                g_player.player.voices[g_player.currentchannel].mute ^= 1;
+                break;
 #endif
 
             case HW_KEY_NUMPAD_7:
@@ -425,10 +429,6 @@ void PlayerActivity	(FSM* _fsm)
             case HW_KEY_NUMPAD_1:
             case HW_KEY_NUMPAD_2:
                 g_player.player.voices[g_player.currentchannel].volumeoffset = scancode - HW_KEY_NUMPAD_7;
-                break;
-
-            case HW_KEY_SPACEBAR:
-                g_player.player.voices[g_player.currentchannel].mute ^= 1;
                 break;
 
             case HW_KEY_Q:
@@ -682,8 +682,6 @@ static void playerDrawPanel0(u8* backframebuffer)
 #       define VOLUME_CHAR_XPOS 3
 #       define VOLUME_OFFSET_CHAR_XPOS 9
         
-        u16* d = (u16*)(pcminfoline - 20 * 160);
-
 		voice = &player->voices[t];
 
 		textvoice2[0] = t == g_player.currentchannel ? '>' : ' ';
@@ -753,21 +751,22 @@ static void playerDrawPanel0(u8* backframebuffer)
         SYSdebugPrint(pcminfoline+8*160, 160, 2, 0, 0, textvoice1);
 
 		{
+            u16* d = (u16*)(pcminfoline - 20 * 160);
             u16* p = &d[40 * 80 + 2];
 
             {
                 u16 i;
                 u16 m = voice->mask;
                 if (m != 0xFFFFUL)
-		  	{
+		     	{
                     for (i = 0; i < 8; i++)
                     {
                         *p = m;
                         p += 80;
                     }
-			}
-			else
-			{
+			    }
+			    else
+			    {
                     for (i = 0; i < 8; i++)
                     {
                         *p = 0;

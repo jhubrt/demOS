@@ -49,7 +49,7 @@ static void stepNext(FSM* _fsm)
 { 
     HW_COLOR_LUT[0] = 0;
     HW_COLOR_LUT[1] = PCENDIANSWAP16(0xFFF);
-    HW_COLOR_LUT[3] = PCENDIANSWAP16(0xFFF);
+    HW_COLOR_LUT[3] = PCENDIANSWAP16(0xF0);
 
     if (BLSisBlitzSndtrack(g_player.player.sndtrack))
     {

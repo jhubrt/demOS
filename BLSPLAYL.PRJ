@@ -6,7 +6,7 @@
 
 BLSPLAY.TTP       ; name of executable program
 
-.C [ -Y -P -K -C -M -DblsUSEASM=0]
+.C [ -Y -P -K -C -M -DblsUSEASM=0 -DblsBENCHMARK=0]
 .L [ -G -L -Y ]
 .S [ -Y ]
 =

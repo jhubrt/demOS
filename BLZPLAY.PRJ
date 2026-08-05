@@ -4,7 +4,7 @@
 
 BLZPLAY.TTP		; name of executable program
 
-.C [ -P -K -C -M -DblsUSEASM=1]
+.C [ -P -K -C -M -DblsUSEASM=1 -DblsBENCHMARK=0]
 .L [ ]
 .S [ ]
 =									; list of modules follows...
