@@ -95,9 +95,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug_BLZonly|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release_BLZonly|Win32'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\BLZSNDH\SRC\BLZSNDH.C" />
     <ClCompile Include="..\BLZSNDH\SRC\DEMOS.C" />
-    <ClCompile Include="..\BLZSNDH\SRC\SCREENS.C" />
     <ClCompile Include="..\DEMOSDK\BLSPLAY.C">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release_BLZonly|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug_BLZonly|Win32'">true</ExcludedFromBuild>
@@ -154,8 +152,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\BLZSNDH\SRC\BLZSNDH.H" />
-    <ClInclude Include="..\BLZSNDH\SRC\SCREENS.H" />
     <ClInclude Include="..\DEMOSDK\ALLOC.H" />
     <ClInclude Include="..\DEMOSDK\BASTYPES.H" />
     <ClInclude Include="..\DEMOSDK\BITMAP.H" />

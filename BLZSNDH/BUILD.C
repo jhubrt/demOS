@@ -19,6 +19,3 @@
 #include "DEMOSDK\SYSTEM.C"
 #include "DEMOSDK\TRACE.C"
 #include "DEMOSDK\DATA\DATA.C"
-
-#include "BLZSNDH\SRC\SCREENS.C"
-#include "BLZSNDH\SRC\BLZSNDH.C"

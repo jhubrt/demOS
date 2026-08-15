@@ -20,20 +20,6 @@
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 -------------------------------------------------------------------------------------------------*/
 
-/* ------------------------------------------------------------------------------  
-  Keymap:                                                                       
-  
-  [ESC]            quit program                                                 
-  [1-4]            select voice 1 to 4                                          
-  [5-8]            mute voice 1 to 4                                            
-  [SPACE]          mute selected voice                                          
-  [Q-P/A-L]        apply bit decimation mask                                    
-  [NUMPAD 4-9/1-2] step volume effect (only for sound with volume fx available) 
-  [RETURN]         reset max raster bar            
-  [BACKSPACE]      toggle sync to first display line / sync to VBL start
-                   (strangely it removes clicks to run at VBL start in Hatari ?)
------------------------------------------------------------------------------- */
-
 #include "DEMOSDK\BASTYPES.H"
 
 #include "DEMOSDK\STANDARD.H"
@@ -48,12 +34,39 @@
 #include "DEMOSDK\PC\WINDOW.H"
 #include "DEMOSDK\PC\EMUL.H"
 
-#include "BLZSNDH\SRC\SCREENS.H"
-#include "BLZSNDH\SRC\BLZSNDH.H"
+#ifndef __TOS__
+#include <conio.h>
+#endif
 
-#define FORCE_TESTMODE 0
+struct PlayerInterface_
+{
+    void (*init)        (MEMallocator* _allocator, MEMallocator* _allocatorTemp, BLSsoundTrack* _sndtrack, BLSinitCallback _statCallback);
+    void* (*read)        (MEMallocator* _allocator, MEMallocator* _allocatorTemp, void* _buffer, BLSsoundTrack** _sndtrack);
+    void (*playerInit)  (MEMallocator* _allocator, BLSplayer* _player, BLSsoundTrack* _sndtrack, BLZdmaMode _dmamode);
+    void (*playerFree)  (MEMallocator* _allocator, BLSplayer* _player);
+    void (*free)        (MEMallocator* _allocator, BLSsoundTrack* _sndtrack);
+    void (*update)      (BLSplayer* _player);
+    void (*updAsync)    (BLSplayer* _player);
+    void (*gotoindex)   (BLSplayer* _player, u8 _trackindex);
+    void (*testPlay)    (BLSplayer* _player, char* _filesamplename, char* _filetracename, u8 _mode);
+};
+typedef struct PlayerInterface_ PlayerInterface;
 
-#define PLAYERNAME "BLZSNDH"
+
+typedef void (*PlayerPlayRoutine)(BLSplayer* _player);
+
+struct Player_
+{
+    BLSplayer           player;
+    PlayerInterface     playerinterface;
+
+    char  filename[256];
+
+    s32	  allocatedbytes;
+};
+typedef struct Player_ Player;
+
+Player g_player;
 
 
 static void SetParam (int argc, char** argv)
@@ -63,31 +76,107 @@ static void SetParam (int argc, char** argv)
     strcpy(g_player.filename , argv[1]);
 }
 
-static void DEMOSidleThread(void)
+static void DEMOSinitHW(void)
 {
-#	ifdef __TOS__
-    STDcpuSetSR(0x2300);
-    while (true)
-#	endif
-    {
-        FSMupdate (&g_stateMachineIdle);
-    }
+    static u16 vbl = 0x4E73;
+
+    sys.OSneedRestore = true;
+
+    sys.bakvideoMode = *HW_VIDEO_MODE;
+    sys.bakvbl = *HW_VECTOR_VBL;
+    sys.bakdma = *HW_VECTOR_DMA;
+
+    sys.bakvideoAdr[0] = *HW_VIDEO_BASE_H;
+    sys.bakvideoAdr[1] = *HW_VIDEO_BASE_M;
+    sys.bakvideoAdr[2] = *HW_VIDEO_BASE_L;
+
+    sys.bakmfpInterruptEnableA = *HW_MFP_INTERRUPT_ENABLE_A;
+    sys.bakmfpInterruptMaskA = *HW_MFP_INTERRUPT_MASK_A;
+    sys.bakmfpInterruptEnableB = *HW_MFP_INTERRUPT_ENABLE_B;
+    sys.bakmfpInterruptMaskB = *HW_MFP_INTERRUPT_MASK_B;
+
+    STDcpuSetSR(0x2700);
+
+    *HW_MFP_INTERRUPT_ENABLE_A = 0;
+    *HW_MFP_INTERRUPT_ENABLE_B = 0;
+
+    *HW_MICROWIRE_MASK = 0x7FF;
+    *HW_VECTOR_VBL = (u32)&vbl;
+
+    sys.bakmfpVectorBase = *HW_MFP_VECTOR_BASE;
+
+    sys.lastKey = sys.key = 0;
 }
 
-#define demOS_COREHEAPSIZE (64UL  * 1024UL)
+static void PlayerEntry(void)
+{
+    BLSsoundTrack* sndtrack;
+    RINGallocatorFreeArea info;
+
+    STDstop2300();
+    *HW_VIDEO_SYNC = HW_VIDEO_SYNC_50HZ;
+
+    DEFAULT_CONSTRUCT(&g_player.player);
+
+    RINGallocatorFreeSize(&sys.mem, &info);
+    g_player.allocatedbytes = info.size;
+
+    {
+        void* buffer;
+
+        buffer = STDloadfile(&sys.allocatorMem, g_player.filename, NULL);
+
+        g_player.playerinterface.read = BLZread;
+        g_player.playerinterface.init = BLSinit;
+        g_player.playerinterface.playerInit = BLZplayerInit;
+        g_player.playerinterface.update = BLZupdate;
+        g_player.playerinterface.updAsync = BLZupdAsync;
+        g_player.playerinterface.playerFree = BLZplayerFree;
+        g_player.playerinterface.free = BLZfree;
+        g_player.playerinterface.gotoindex = BLZgoto;
+        g_player.playerinterface.testPlay = BLZtestPlay;
+
+        g_player.playerinterface.read(&sys.allocatorMem, &sys.allocatorMem, buffer, &sndtrack);
+
+        MEM_FREE(&sys.allocatorMem, buffer);
+    }
+
+    g_player.playerinterface.init(&sys.allocatorMem, &sys.allocatorMem, sndtrack, (BLSinitCallback)NULL);
+
+    RINGallocatorFreeSize(&sys.mem, &info);
+    g_player.allocatedbytes -= info.size;
+
+    g_player.playerinterface.playerInit(&sys.allocatorMem, &g_player.player, sndtrack, BLZ_DMAMODE_LOOP);
+}
+
+static void PlayerExit(void)
+{
+    *HW_DMASOUND_CONTROL = HW_DMASOUND_CONTROL_OFF;
+
+    g_player.playerinterface.free(&sys.allocatorMem, g_player.player.sndtrack);
+    g_player.playerinterface.playerFree(&sys.allocatorMem, &g_player.player);
+
+    ASSERT(RINGallocatorIsEmpty(&sys.mem));
+}
 
 
-static void blsPlayLoop(void)
+static void DEMOSplayLoop(void)
 {
     do
     {
-        SYSswitchIdle();
+        STDstop2300();
+
+        #ifndef __TOS__
+        EMULnewFrame();
+        if (_kbhit())
+            break;
+        #endif
     
         /* no need to vsync here as main thread context is reset by idle thread switch */
         SYSkbAcquire;
-    
-        FSMupdate(&g_stateMachine);
-    
+
+        g_player.playerinterface.update(&(g_player.player));
+   
         if (SYSkbHit)
         {
             SYSkbReset();
@@ -95,11 +184,11 @@ static void blsPlayLoop(void)
     
         EMULrender();
     }
-    while (g_player.player.tracklooped == false);
-    
-    SYSvsync;
+    while (g_player.player.tracklooped == false);   
 } 
 
+
+#define demOS_COREHEAPSIZE (64UL  * 1024UL)
 
 int main(int argc, char** argv)
 {
@@ -160,23 +249,16 @@ int main(int argc, char** argv)
         PlayerEntry();
 
         {
-            SYSinitThreadParam threadParam;
-
-            FSMinit (&g_stateMachine    , statesPlay, statesPlaySize, 0, DEBUG_STRING("main"));
-            FSMinit (&g_stateMachineIdle, statesIdle, statesIdleSize, 0, DEBUG_STRING("idle"));
- 
-            threadParam.idleThread = DEMOSidleThread;
-            threadParam.idleThreadStackSize = 1024;
-
-            SYSinitHW ();
-            SYSinitThreading (&threadParam);
+            DEMOSinitHW ();
 
             HW_DISABLE_MOUSE(); /* deactivate mouse management on ACIA */
 
-            blsPlayLoop();
+            DEMOSplayLoop();
 
             *HW_KEYBOARD_DATA = 0x8; /* activate mouse management on ACIA */
         }
+
+        PlayerExit();
 
         SYSshutdown();
 

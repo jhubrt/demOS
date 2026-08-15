@@ -14,9 +14,6 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="SPECIFIC\SRC">
-      <UniqueIdentifier>{32e2bd30-aa0f-44fb-b3a5-9d0b88a7d0e6}</UniqueIdentifier>
-    </Filter>
     <Filter Include="SPECIFIC\PURE_C">
       <UniqueIdentifier>{5a78965b-b5bc-422e-a6e8-6c6175fa83e3}</UniqueIdentifier>
     </Filter>
@@ -76,9 +73,6 @@
     <ClCompile Include="..\DEMOSDK\DATA\DATA.C">
       <Filter>DEMOSDK\DATA</Filter>
     </ClCompile>
-    <ClCompile Include="..\BLZSNDH\SRC\SCREENS.C">
-      <Filter>SPECIFIC\SRC</Filter>
-    </ClCompile>
     <ClCompile Include="..\DEMOSDK\TRACE.C">
       <Filter>DEMOSDK</Filter>
     </ClCompile>
@@ -120,9 +114,6 @@
     </ClCompile>
     <ClCompile Include="..\DEMOSDK\SYNTHYMD.C">
       <Filter>DEMOSDK</Filter>
-    </ClCompile>
-    <ClCompile Include="..\BLZSNDH\SRC\BLZSNDH.C">
-      <Filter>SPECIFIC\SRC</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -177,9 +168,6 @@
     <ClInclude Include="..\DEMOSDK\DATA\SYSTFNT.H">
       <Filter>DEMOSDK\DATA</Filter>
     </ClInclude>
-    <ClInclude Include="..\BLZSNDH\SRC\SCREENS.H">
-      <Filter>SPECIFIC\SRC</Filter>
-    </ClInclude>
     <ClInclude Include="..\DEMOSDK\TRACE.H">
       <Filter>DEMOSDK</Filter>
     </ClInclude>
@@ -203,9 +191,6 @@
     </ClInclude>
     <ClInclude Include="..\EXTERN\ym2149_fixed_vol.h">
       <Filter>EXTERN</Filter>
-    </ClInclude>
-    <ClInclude Include="..\BLZSNDH\SRC\BLZSNDH.H">
-      <Filter>SPECIFIC\SRC</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
