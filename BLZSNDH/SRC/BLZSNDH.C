@@ -52,9 +52,7 @@ void PlayerEntry (void)
     (*HW_VIDEO_MODE) = HW_VIDEO_MODE_2P;
 
     DEFAULT_CONSTRUCT(&g_player.player);
-    
-    g_player.play = true;
-    
+       
     RINGallocatorFreeSize(&sys.mem, &info);
 	g_player.allocatedbytes = info.size;
 
@@ -104,7 +102,5 @@ void PlayerExit	(FSM* _fsm)
    
     ASSERT( RINGallocatorIsEmpty(&sys.mem) );
     
-    g_player.play = false;
-
     FSMgotoNextState (&g_stateMachineIdle);
 }

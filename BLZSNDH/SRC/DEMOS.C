@@ -95,7 +95,7 @@ static void blsPlayLoop(void)
     
         EMULrender();
     }
-    while (g_player.play);
+    while (g_player.player.tracklooped == false);
     
     SYSvsync;
 } 
@@ -106,8 +106,6 @@ int main(int argc, char** argv)
     STDmset (&g_player, 0, sizeof(g_player));
 
     SetParam(argc, argv);
-
-    printf("Build on " __DATE__ " " __TIME__ "\n");
 
     sys.bakGemdos32 = SYSgemdosSetMode(NULL);
 
@@ -121,8 +119,6 @@ int main(int argc, char** argv)
 #       ifdef __TOS__
         {
             size_t maxsize = (u32) SYSmalloc(-1UL) - 12000UL;
-
-            printf ("free mem= %lu bytes\n", maxsize);
             size = maxsize - demOS_COREHEAPSIZE;
         }
 #       else

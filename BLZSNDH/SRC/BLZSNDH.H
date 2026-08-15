@@ -56,7 +56,6 @@ struct Player_
 
     char  filename[256];
 
-    bool  play;
 	s32	  allocatedbytes;
 };
 typedef struct Player_ Player;
