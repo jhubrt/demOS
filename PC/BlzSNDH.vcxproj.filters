@@ -26,6 +26,9 @@
     <Filter Include="DEMOSDK\PC\BUILD">
       <UniqueIdentifier>{0b6a3c62-3ec4-40fd-90a0-51a92fe89594}</UniqueIdentifier>
     </Filter>
+    <Filter Include="SPECIFIC\ZIKS">
+      <UniqueIdentifier>{52e4ddc1-825d-46c6-9c54-714cc16291c7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\DEMOSDK\ALLOC.C">
@@ -238,6 +241,9 @@
     </None>
     <None Include="..\DEMOSDK\BITMAP.S">
       <Filter>DEMOSDK</Filter>
+    </None>
+    <None Include="..\BLZSNDH\SRC\CODERS.S">
+      <Filter>SPECIFIC\ZIKS</Filter>
     </None>
   </ItemGroup>
 </Project>

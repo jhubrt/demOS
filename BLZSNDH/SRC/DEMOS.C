@@ -68,6 +68,8 @@ typedef struct Player_ Player;
 
 Player g_player;
 
+extern u16 themuzik;
+
 
 static void SetParam (int argc, char** argv)
 {
@@ -122,10 +124,15 @@ static void PlayerEntry(void)
     g_player.allocatedbytes = info.size;
 
     {
+#ifdef __TOS__
+        void* buffer = &themuzik;
+
+        ASSERT(BLS_FORMAT_BLITZ == themuzik);
+#else
         void* buffer;
 
         buffer = STDloadfile(&sys.allocatorMem, g_player.filename, NULL);
-
+#endif
         g_player.playerinterface.read = BLZread;
         g_player.playerinterface.init = BLSinit;
         g_player.playerinterface.playerInit = BLZplayerInit;
@@ -138,7 +145,9 @@ static void PlayerEntry(void)
 
         g_player.playerinterface.read(&sys.allocatorMem, &sys.allocatorMem, buffer, &sndtrack);
 
+#ifndef __TOS__
         MEM_FREE(&sys.allocatorMem, buffer);
+#endif
     }
 
     g_player.playerinterface.init(&sys.allocatorMem, &sys.allocatorMem, sndtrack, (BLSinitCallback)NULL);
@@ -194,7 +203,9 @@ int main(int argc, char** argv)
 {
     STDmset (&g_player, 0, sizeof(g_player));
 
+#ifndef __TOS__
     SetParam(argc, argv);
+#endif
 
     sys.bakGemdos32 = SYSgemdosSetMode(NULL);
 

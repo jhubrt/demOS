@@ -180,6 +180,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="..\BLZSNDH.PRJ" />
+    <None Include="..\BLZSNDH\SRC\CODERS.S" />
     <None Include="..\DEMOSDK\BLSZIO.S" />
     <None Include="..\DEMOSDK\BLSZPLAY.S" />
     <None Include="..\DEMOSDK\YMDISP.S" />
