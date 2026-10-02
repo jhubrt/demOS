@@ -18,3 +18,9 @@ Documentation
 7. [BLSplay](CHAPTERS/BLITSnd_blsplay.md)
 8. [Dev](CHAPTERS/BLITSnd_dev.md)
 9. [Backlog](CHAPTERS/BLITSnd_backlog.md)
+
+Release
+
+Get binary packages here and deploy the 2 zip files in a way that BIN\BLS\ folders are merged :
+* https://github.com/jhubrt/MilkyTracker-fork/releases
+* https://github.com/jhubrt/demOS/releases
