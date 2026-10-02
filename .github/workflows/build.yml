@@ -14,12 +14,16 @@ env:
   # ou "chemin\vers\le.sln|Projet1,Projet2" pour ne compiler que ces projets
   # (et leurs dépendances). Les noms de projet sont ceux affichés dans
   # l'Explorateur de solutions (pas le nom de fichier .vcxproj).
+  # Un 3e champ optionnel "|Config1,Config2" limite l'entrée à ces
+  # configurations : un projet non sélectionné dans une configuration de
+  # la solution ne doit pas être demandé en cible (erreur MSB4057).
   SOLUTIONS: >-
-    PC\DemOS.sln|BlsPlay,BlsConvert,SynthYM;
+    PC\DemOS.sln|BlsPlay,BlsConvert,SynthYM|Release,Debug;
+    PC\DemOS.sln|BlsPlay|Release_BLZonly,Debug_BLZonly;
 
   # Configurations à produire, séparées par des ";". Chaque solution listée
   # ci-dessus est compilée une fois par configuration pour produire tous les exe listés
-  CONFIGURATIONS: Release;Debug;Release_BLZOnly;Debug_BLZOnly
+  CONFIGURATIONS: Release;Debug;Release_BLZonly;Debug_BLZonly
 
   # Exécutables à livrer, séparés par des ";". Après le "|", indiquez soit un
   # chemin de fichier complet dans le zip, soit un dossier terminé par "\"
@@ -71,9 +75,14 @@ jobs:
               $entry = $entry.Trim()
               if (-not $entry) { continue }
 
-              # "chemin\le.sln|Projet1,Projet2" -> sln + liste de cibles (optionnelle)
-              $parts = $entry -split '\|', 2
+              # "chemin\le.sln|Projet1,Projet2|Config1,Config2" -> sln + liste de
+              # cibles (optionnelle) + configurations concernées (optionnelles)
+              $parts = $entry -split '\|', 3
               $sln = $parts[0].Trim()
+              if ($parts.Count -gt 2 -and $parts[2].Trim()) {
+                $configs = $parts[2].Trim() -split ',' | ForEach-Object { $_.Trim() }
+                if ($configs -notcontains $config) { continue }
+              }
               $targetArgs = @()
               if ($parts.Count -gt 1 -and $parts[1].Trim()) {
                 $targets = ($parts[1].Trim() -split ',' | ForEach-Object { $_.Trim() }) -join ';'
@@ -144,6 +153,14 @@ jobs:
             $parts = $entry -split '\|', 2
             $src = $parts[0].Trim()
             $destSpec = if ($parts.Count -gt 1) { $parts[1].Trim() } else { '' }
+            # Source avec joker (ex. "*.xm") : la destination est un dossier
+            if ([WildcardPattern]::ContainsWildcardCharacters($src)) {
+              if (-not (Test-Path $src)) { throw "Aucun fichier ne correspond à : $src" }
+              $destPath = Join-Path $pkg $destSpec
+              New-Item -ItemType Directory -Force $destPath | Out-Null
+              Copy-Item $src $destPath -Recurse
+              continue
+            }
             $dest = Resolve-Dest $src $destSpec
             $destPath = Join-Path $pkg $dest
             $destParent = Split-Path $destPath -Parent
