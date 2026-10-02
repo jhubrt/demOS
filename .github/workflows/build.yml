@@ -1,0 +1,180 @@
+name: Build Windows
+
+on:
+  push:
+    tags: ['v*']          # build + release quand vous poussez un tag, ex. v1.0.0
+  workflow_dispatch:      # bouton "Run workflow" pour lancer un build manuellement
+
+permissions:
+  contents: write         # nécessaire pour créer la release
+
+env:
+  # Solutions à compiler, séparées par des ";".
+  # Pour chaque solution : "chemin\vers\le.sln" seul pour tout compiler,
+  # ou "chemin\vers\le.sln|Projet1,Projet2" pour ne compiler que ces projets
+  # (et leurs dépendances). Les noms de projet sont ceux affichés dans
+  # l'Explorateur de solutions (pas le nom de fichier .vcxproj).
+  SOLUTIONS: >-
+    PC\DemOS.sln|BlsPlay,BlsConvert,SynthYM;
+
+  # Configurations à produire, séparées par des ";". Chaque solution listée
+  # ci-dessus est compilée une fois par configuration pour produire tous les exe listés
+  CONFIGURATIONS: Release;Debug;Release_BLZOnly;Debug_BLZOnly
+
+  # Exécutables à livrer, séparés par des ";". Après le "|", indiquez soit un
+  # chemin de fichier complet dans le zip, soit un dossier terminé par "\"
+  # pour y placer l'exe sous son nom d'origine.
+  EXES: >-
+    PC\Debug\BlsConvert_debug.exe|BIN\BLS\;
+    PC\Debug\BlsPlay_debug.exe|BIN\BLS\;
+    PC\Debug\SynthYM_debug.exe|BIN\BLS\;
+    PC\Release\BlsConvert.exe|BIN\BLS\;
+    PC\Release\BlsPlay.exe|BIN\BLS\;
+    PC\Release\SynthYM.exe|BIN\BLS\;
+    PC\Debug_BLZonly\BLZplay_debug.exe|BIN\BLS\;
+    PC\Release_BLZonly\BLZplay.exe|BIN\BLS\;
+
+  # Fichiers et dossiers du dépôt à livrer avec les exe, séparés par des ";".
+  # Une ligne commençant par "#" est un vrai commentaire YAML et est ignorée
+  # (attention : pas de "|" ni ">-" ici, sinon les "#" perdent ce rôle).
+  EXTRA_FILES:
+    BIN\BLS\_logs\dummy.txt|BIN\BLS\_logs\;
+    DOCS\BLITSnd|DOCS\;
+    EXTERN\SDL2\lib\x86\SDL2.dll|BIN\BLS;
+    BLITZIK\DATA\ZIKS\*.xm|BLITZIK\DATA\ZIKS\;
+    BLITZIK\DATA\ZIKS\*.ini|BLITZIK\DATA\ZIKS\;
+
+  APP_NAME: demOS_bin               # nom du dossier et du zip livrés
+  PLATFORM: Win32                   # identique pour toutes les solutions
+
+jobs:
+  build:
+    runs-on: windows-2025         # Windows Server 2025 + Visual Studio 2026
+
+    steps:
+      - name: Récupérer le code
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive     # utile si on utilise un sous-module git
+
+      - name: Préparer MSBuild
+        uses: microsoft/setup-msbuild@v2
+
+      - name: Compiler les solutions
+        shell: pwsh
+        run: |
+          foreach ($config in $env:CONFIGURATIONS -split ';') {
+            $config = $config.Trim()
+            if (-not $config) { continue }
+
+            foreach ($entry in $env:SOLUTIONS -split ';') {
+              $entry = $entry.Trim()
+              if (-not $entry) { continue }
+
+              # "chemin\le.sln|Projet1,Projet2" -> sln + liste de cibles (optionnelle)
+              $parts = $entry -split '\|', 2
+              $sln = $parts[0].Trim()
+              $targetArgs = @()
+              if ($parts.Count -gt 1 -and $parts[1].Trim()) {
+                $targets = ($parts[1].Trim() -split ',' | ForEach-Object { $_.Trim() }) -join ';'
+                $targetArgs = @("/t:$targets")
+                Write-Host "=== Compilation de $sln [$config] (projets : $targets) ==="
+              } else {
+                Write-Host "=== Compilation de $sln [$config] (solution complète) ==="
+              }
+
+              msbuild $sln /m `
+                /p:Configuration=$config `
+                /p:Platform=$env:PLATFORM `
+                /p:PlatformToolset=v145 `
+                /p:WindowsTargetPlatformVersion=10.0 `
+                /p:PreBuildEventUseInBuild=false `
+                /p:PreLinkEventUseInBuild=false `
+                /p:PostBuildEventUseInBuild=false `
+                @targetArgs
+              if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+            }
+          }
+
+      # Emplacement prévu pour la signature des exe (avant l'assemblage du zip)
+
+      - name: Assembler le paquet et créer le zip
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $pkg = "package\$env:APP_NAME"
+          New-Item -ItemType Directory -Force $pkg | Out-Null
+
+          # Résout une entrée "source|destination" : si la destination est
+          # vide ou finit par "\" ou "/", c'est un dossier -> on y garde le
+          # nom d'origine du fichier ; sinon c'est le chemin complet voulu.
+          function Resolve-Dest($srcPath, $destSpec) {
+            if (-not $destSpec) { return Split-Path $srcPath -Leaf }
+            if ($destSpec.EndsWith('\') -or $destSpec.EndsWith('/')) {
+              return Join-Path $destSpec (Split-Path $srcPath -Leaf)
+            }
+            return $destSpec
+          }
+
+          # Les exécutables (le build échoue si l'un manque ou si deux ciblent
+          # le même chemin dans le zip)
+          $sums = @()
+          foreach ($entry in $env:EXES -split ';') {
+            $entry = $entry.Trim()
+            if (-not $entry) { continue }
+            $parts = $entry -split '\|', 2
+            $exe = $parts[0].Trim()
+            $destSpec = if ($parts.Count -gt 1) { $parts[1].Trim() } else { '' }
+            $dest = Resolve-Dest $exe $destSpec
+            $destPath = Join-Path $pkg $dest
+            if (Test-Path $destPath) { throw "Deux exécutables ciblent le même chemin dans le zip : $dest" }
+            $destParent = Split-Path $destPath -Parent
+            if ($destParent) { New-Item -ItemType Directory -Force $destParent | Out-Null }
+            Copy-Item $exe $destPath
+            $h = (Get-FileHash $exe -Algorithm SHA256).Hash.ToLower()
+            $sums += "$h  $dest"
+          }
+          # Empreintes de chaque exe, incluses dans le zip
+          $sums | Out-File -Encoding ascii "$pkg\SHA256SUMS.txt"
+
+          # Les fichiers complémentaires
+          foreach ($entry in $env:EXTRA_FILES -split ';') {
+            $entry = $entry.Trim()
+            if (-not $entry) { continue }
+            $parts = $entry -split '\|', 2
+            $src = $parts[0].Trim()
+            $destSpec = if ($parts.Count -gt 1) { $parts[1].Trim() } else { '' }
+            $dest = Resolve-Dest $src $destSpec
+            $destPath = Join-Path $pkg $dest
+            $destParent = Split-Path $destPath -Parent
+            if ($destParent) { New-Item -ItemType Directory -Force $destParent | Out-Null }
+            Copy-Item $src $destPath -Recurse
+          }
+
+          # Le zip contient un dossier APP_NAME avec tout dedans
+          $zip = "$env:APP_NAME-$env:GITHUB_REF_NAME.zip"
+          Compress-Archive -Path $pkg -DestinationPath $zip
+
+          # Empreinte SHA-256 du zip
+          $hash = (Get-FileHash $zip -Algorithm SHA256).Hash.ToLower()
+          "$hash  $zip" | Out-File -Encoding ascii "$zip.sha256"
+          Write-Host "SHA-256 du zip : $hash"
+
+          # Mémorise le nom du zip pour les étapes suivantes
+          "ZIP_NAME=$zip" >> $env:GITHUB_ENV
+
+      - name: Conserver le zip comme artefact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.APP_NAME }}
+          path: |
+            ${{ env.ZIP_NAME }}
+            ${{ env.ZIP_NAME }}.sha256
+
+      - name: Publier la release
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            ${{ env.ZIP_NAME }}
+            ${{ env.ZIP_NAME }}.sha256

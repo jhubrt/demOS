@@ -61,7 +61,9 @@ out/
 REF/
 UBI30/DATA/UBI/UBI.zip
 TEMP/
-_logs/
+/_logs/
+BIN/BLS/_logs/*
+!BIN/BLS/_logs/dummy.txt
 _docs_ST/
 EXTERN/stsys10
 BIN/*.exe
