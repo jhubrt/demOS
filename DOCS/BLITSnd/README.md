@@ -2,11 +2,12 @@
 
 Atari STe 4 PCM voices sound replay routine using blitter to mix sound + 3 YM voices (less than 18% VBL max : fits the upper border)
 
-BLITSnd on Youtube
+## BLITSnd on Youtube
+
 * [Prototype](https://youtu.be/Xc0zv4YFitI)
 * [Release](https://youtu.be/ehSvjL8RLo4)
 
-Documentation
+## Documentation
 
 0. [Initial ideas](CHAPTERS/BLITSnd_intro.md)
 1. [PCM mixing](CHAPTERS/BLITSnd_pcm_mixing.md)
@@ -19,7 +20,7 @@ Documentation
 8. [Dev](CHAPTERS/BLITSnd_dev.md)
 9. [Backlog](CHAPTERS/BLITSnd_backlog.md)
 
-Release
+## Release
 
 Get binary packages here and deploy the 2 zip files in a way that BIN\BLS\ folders are merged :
 * https://github.com/jhubrt/MilkyTracker-fork/releases
