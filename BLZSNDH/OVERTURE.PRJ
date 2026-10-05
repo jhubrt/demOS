@@ -1,0 +1,24 @@
+;-------------------------------------------------------------------------------
+; BLSSNDH / DemOS - debug target > metafile build to speed up compilation
+;-------------------------------------------------------------------------------
+
+OVERTURE.PRG		; name of executable program
+
+.C [ -P -K -C -M -DblsUSEASM=1 -DblsBENCHMARK=0 -DDEMOS_OPTIMIZED=1 -I..]
+.L [ ]
+.S [ ]
+=									; list of modules follows...
+
+PCSTART.O        ; standard startup code
+
+..\OUTPUT\BLSZIO.O
+..\OUTPUT\BLZPLAY.O
+..\OUTPUT\LOAD.O
+..\OUTPUT\STANDARD.O
+..\OUTPUT\SYSTEM.O
+
+BUILD.C
+
+PCSTDLIB.LIB        ; standard library
+
+..\OUTPUT\BLZSNDH\OVERTURE.O

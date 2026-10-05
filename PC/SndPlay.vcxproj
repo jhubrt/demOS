@@ -1,6 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Atari_PureC|Win32">
+      <Configuration>Atari_PureC</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
     <ProjectConfiguration Include="Debug_BLZonly|Win32">
       <Configuration>Debug_BLZonly</Configuration>
       <Platform>Win32</Platform>
@@ -26,6 +30,12 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v145</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Atari_PureC|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>MultiByte</CharacterSet>
@@ -57,6 +67,9 @@
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Atari_PureC|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug_BLZonly|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
@@ -68,6 +81,11 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <IntDir>$(SolutionDir)..\TEMP\$(ProjectName)_$(Configuration)\</IntDir>
+    <TargetName>$(ProjectName)_debug</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Atari_PureC|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <IntDir>$(SolutionDir)..\TEMP\$(ProjectName)_$(Configuration)\</IntDir>
     <TargetName>$(ProjectName)_debug</TargetName>
@@ -87,6 +105,25 @@
     <TargetName>BLZplay</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;blsUSEASM=0;DEMOS_MEMDEBUG=1;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeaderFile>DEMOSDK\BASTYPES.H</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>..\</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;dsound.lib;dxguid.lib;Winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Command>copy .\Debug\SndPlay_debug.exe ..\BIN\BLS</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Atari_PureC|Win32'">
     <ClCompile>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
@@ -173,6 +210,7 @@
     <ClCompile Include="..\DEMOSDK\SYNTHYMZ.C" />
     <ClCompile Include="..\SNDPLAY\BUILD.C">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Atari_PureC|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug_BLZonly|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release_BLZonly|Win32'">true</ExcludedFromBuild>
@@ -182,8 +220,10 @@
     <ClCompile Include="..\DEMOSDK\PC\VISUALASRT.C" />
     <ClCompile Include="..\DEMOSDK\PC\_PRECOMP.C">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Atari_PureC|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug_BLZonly|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">DEMOSDK\BASTYPES.H</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Atari_PureC|Win32'">DEMOSDK\BASTYPES.H</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug_BLZonly|Win32'">DEMOSDK\BASTYPES.H</PrecompiledHeaderFile>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release_BLZonly|Win32'">Create</PrecompiledHeader>
@@ -194,6 +234,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug_BLZonly|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release_BLZonly|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Atari_PureC|Win32'">false</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\DEMOSDK\TRACE.C" />
     <ClCompile Include="..\DEMOSDK\YMDISP.C" />
@@ -206,10 +247,12 @@
     <ClCompile Include="..\DEMOSDK\LOAD.C" />
     <ClCompile Include="..\DEMOSDK\PC\EMUL.CPP">
       <DisableLanguageExtensions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</DisableLanguageExtensions>
+      <DisableLanguageExtensions Condition="'$(Configuration)|$(Platform)'=='Atari_PureC|Win32'">false</DisableLanguageExtensions>
       <DisableLanguageExtensions Condition="'$(Configuration)|$(Platform)'=='Debug_BLZonly|Win32'">false</DisableLanguageExtensions>
       <DisableLanguageExtensions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</DisableLanguageExtensions>
       <DisableLanguageExtensions Condition="'$(Configuration)|$(Platform)'=='Release_BLZonly|Win32'">false</DisableLanguageExtensions>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Atari_PureC|Win32'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug_BLZonly|Win32'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release_BLZonly|Win32'">NotUsing</PrecompiledHeader>
@@ -219,10 +262,12 @@
     <ClCompile Include="..\DEMOSDK\SYSTEM.C" />
     <ClCompile Include="..\DEMOSDK\PC\WINDOW.C">
       <DisableLanguageExtensions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</DisableLanguageExtensions>
+      <DisableLanguageExtensions Condition="'$(Configuration)|$(Platform)'=='Atari_PureC|Win32'">false</DisableLanguageExtensions>
       <DisableLanguageExtensions Condition="'$(Configuration)|$(Platform)'=='Debug_BLZonly|Win32'">false</DisableLanguageExtensions>
       <DisableLanguageExtensions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</DisableLanguageExtensions>
       <DisableLanguageExtensions Condition="'$(Configuration)|$(Platform)'=='Release_BLZonly|Win32'">false</DisableLanguageExtensions>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Atari_PureC|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug_BLZonly|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release_BLZonly|Win32'">Use</PrecompiledHeader>
@@ -231,6 +276,7 @@
     <ClCompile Include="..\DEMOSDK\DATA\DATA.C" />
     <ClCompile Include="..\EXTERN\sound.c">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Atari_PureC|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug_BLZonly|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release_BLZonly|Win32'">true</ExcludedFromBuild>
@@ -273,18 +319,22 @@
     <None Include="..\DEMOSDK\SYSTEM.S" />
     <None Include="..\DEMOSDK\BITMAP.S">
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">VASM_BUILD.BAT %(FullPath) $(SolutionDir)..\OUTPUT\%(Filename).O</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Atari_PureC|Win32'">VASM_BUILD.BAT %(FullPath) $(SolutionDir)..\OUTPUT\%(Filename).O</Command>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug_BLZonly|Win32'">VASM_BUILD.BAT %(FullPath) $(SolutionDir)..\OUTPUT\%(Filename).O</Command>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">VASM_BUILD.BAT %(FullPath) $(SolutionDir)..\OUTPUT\%(Filename).O</Command>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release_BLZonly|Win32'">VASM_BUILD.BAT %(FullPath) $(SolutionDir)..\OUTPUT\%(Filename).O</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">VASM_BUILD.BAT %(FullPath) $(SolutionDir)..\OUTPUT\%(Filename).O</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Atari_PureC|Win32'">VASM_BUILD.BAT %(FullPath) $(SolutionDir)..\OUTPUT\%(Filename).O</Message>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug_BLZonly|Win32'">VASM_BUILD.BAT %(FullPath) $(SolutionDir)..\OUTPUT\%(Filename).O</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)..\OUTPUT\%(Filename).O</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Atari_PureC|Win32'">$(SolutionDir)..\OUTPUT\%(Filename).O</Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug_BLZonly|Win32'">$(SolutionDir)..\OUTPUT\%(Filename).O</Outputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">VASM_BUILD.BAT %(FullPath) $(SolutionDir)..\OUTPUT\%(Filename).O</Message>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release_BLZonly|Win32'">VASM_BUILD.BAT %(FullPath) $(SolutionDir)..\OUTPUT\%(Filename).O</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)..\OUTPUT\%(Filename).O</Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release_BLZonly|Win32'">$(SolutionDir)..\OUTPUT\%(Filename).O</Outputs>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Atari_PureC|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug_BLZonly|Win32'">true</ExcludedFromBuild>
       <FileType>Document</FileType>
     </None>

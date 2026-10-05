@@ -4,9 +4,6 @@
     <Filter Include="DEMOSDK">
       <UniqueIdentifier>{0166929c-daf7-48fc-b266-2567060771d4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="EXTERN">
-      <UniqueIdentifier>{02c5f3d6-462e-4937-923f-89abacefdd41}</UniqueIdentifier>
-    </Filter>
     <Filter Include="SPECIFIC">
       <UniqueIdentifier>{4724582c-a246-4582-87cc-2960d08b5cb6}</UniqueIdentifier>
     </Filter>
@@ -34,9 +31,6 @@
     <ClCompile Include="..\DEMOSDK\ALLOC.C">
       <Filter>DEMOSDK</Filter>
     </ClCompile>
-    <ClCompile Include="..\DEMOSDK\HARDWARE.C">
-      <Filter>DEMOSDK</Filter>
-    </ClCompile>
     <ClCompile Include="..\DEMOSDK\SYSTEM.C">
       <Filter>DEMOSDK</Filter>
     </ClCompile>
@@ -45,12 +39,6 @@
     </ClCompile>
     <ClCompile Include="..\DEMOSDK\PC\WINDOW.C">
       <Filter>DEMOSDK\PC</Filter>
-    </ClCompile>
-    <ClCompile Include="..\EXTERN\ARJDEP.C">
-      <Filter>EXTERN</Filter>
-    </ClCompile>
-    <ClCompile Include="..\EXTERN\RELOCATE.C">
-      <Filter>EXTERN</Filter>
     </ClCompile>
     <ClCompile Include="..\DEMOSDK\PC\BITCONVR.C">
       <Filter>DEMOSDK\PC</Filter>
@@ -61,34 +49,13 @@
     <ClCompile Include="..\DEMOSDK\DATA\DATA.C">
       <Filter>DEMOSDK\DATA</Filter>
     </ClCompile>
-    <ClCompile Include="..\DEMOSDK\TRACE.C">
-      <Filter>DEMOSDK</Filter>
-    </ClCompile>
-    <ClCompile Include="..\BLZSNDH\BUILD.C">
-      <Filter>SPECIFIC\PURE_C</Filter>
-    </ClCompile>
     <ClCompile Include="..\BLZSNDH\SRC\DEMOS.C">
       <Filter>SPECIFIC\MAIN</Filter>
-    </ClCompile>
-    <ClCompile Include="..\EXTERN\sound.c">
-      <Filter>EXTERN</Filter>
-    </ClCompile>
-    <ClCompile Include="..\DEMOSDK\SYNTHYM.C">
-      <Filter>DEMOSDK</Filter>
     </ClCompile>
     <ClCompile Include="..\DEMOSDK\PC\_PRECOMP.C">
       <Filter>DEMOSDK\PC</Filter>
     </ClCompile>
-    <ClCompile Include="..\DEMOSDK\BLSTEST.C">
-      <Filter>DEMOSDK</Filter>
-    </ClCompile>
-    <ClCompile Include="..\DEMOSDK\BLSIO.C">
-      <Filter>DEMOSDK</Filter>
-    </ClCompile>
     <ClCompile Include="..\DEMOSDK\BLSZPLAY.C">
-      <Filter>DEMOSDK</Filter>
-    </ClCompile>
-    <ClCompile Include="..\DEMOSDK\BLSPLAY.C">
       <Filter>DEMOSDK</Filter>
     </ClCompile>
     <ClCompile Include="..\DEMOSDK\BLSZIO.C">
@@ -97,8 +64,8 @@
     <ClCompile Include="..\DEMOSDK\PC\VISUALASRT.C">
       <Filter>DEMOSDK\PC</Filter>
     </ClCompile>
-    <ClCompile Include="..\DEMOSDK\SYNTHYMD.C">
-      <Filter>DEMOSDK</Filter>
+    <ClCompile Include="..\BLZSNDH\BUILD.C">
+      <Filter>SPECIFIC\MAIN</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -108,14 +75,8 @@
     <ClInclude Include="..\DEMOSDK\BASTYPES.H">
       <Filter>DEMOSDK</Filter>
     </ClInclude>
-    <ClInclude Include="..\DEMOSDK\HARDWARE.H">
-      <Filter>DEMOSDK</Filter>
-    </ClInclude>
     <ClInclude Include="..\DEMOSDK\SYSTEM.H">
       <Filter>DEMOSDK</Filter>
-    </ClInclude>
-    <ClInclude Include="..\EXTERN\ARJDEP.H">
-      <Filter>EXTERN</Filter>
     </ClInclude>
     <ClInclude Include="..\DEMOSDK\STANDARD.H">
       <Filter>DEMOSDK</Filter>
@@ -126,26 +87,11 @@
     <ClInclude Include="..\DEMOSDK\PC\EMUL.H">
       <Filter>DEMOSDK\PC</Filter>
     </ClInclude>
-    <ClInclude Include="..\EXTERN\RELOCATE.H">
-      <Filter>EXTERN</Filter>
-    </ClInclude>
     <ClInclude Include="..\DEMOSDK\PC\BITCONVR.H">
       <Filter>DEMOSDK\PC</Filter>
     </ClInclude>
     <ClInclude Include="..\DEMOSDK\DATA\SYSTFNT.H">
       <Filter>DEMOSDK\DATA</Filter>
-    </ClInclude>
-    <ClInclude Include="..\DEMOSDK\TRACE.H">
-      <Filter>DEMOSDK</Filter>
-    </ClInclude>
-    <ClInclude Include="..\DEMOSDK\SYNTHYM.H">
-      <Filter>DEMOSDK</Filter>
-    </ClInclude>
-    <ClInclude Include="..\EXTERN\sound.h">
-      <Filter>EXTERN</Filter>
-    </ClInclude>
-    <ClInclude Include="..\DEMOSDK\BLSZDUMP.H">
-      <Filter>DEMOSDK</Filter>
     </ClInclude>
     <ClInclude Include="..\DEMOSDK\BLSSND.H">
       <Filter>DEMOSDK</Filter>
@@ -153,34 +99,13 @@
     <ClInclude Include="..\DEMOSDK\BLSZPLAY.H">
       <Filter>DEMOSDK</Filter>
     </ClInclude>
-    <ClInclude Include="..\EXTERN\ym2149_fixed_vol.h">
-      <Filter>EXTERN</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\EXTERN\ARJDEP.S">
-      <Filter>EXTERN</Filter>
-    </None>
     <None Include="..\DEMOSDK\STANDARD.S">
-      <Filter>DEMOSDK</Filter>
-    </None>
-    <None Include="..\DEMOSDK\TRACE.S">
       <Filter>DEMOSDK</Filter>
     </None>
     <None Include="..\DEMOSDK\SYSTEM.S">
       <Filter>DEMOSDK</Filter>
-    </None>
-    <None Include="..\EXTERN\XSTARTUP.S">
-      <Filter>EXTERN</Filter>
-    </None>
-    <None Include="..\EXTERN\RELOCATE.S">
-      <Filter>EXTERN</Filter>
-    </None>
-    <None Include="..\BLZSNDH.PRJ">
-      <Filter>SPECIFIC\PURE_C</Filter>
-    </None>
-    <None Include="..\BLZSNDH.PRJ">
-      <Filter>SPECIFIC\PURE_C</Filter>
     </None>
     <None Include="VASM_BUILD.BAT">
       <Filter>DEMOSDK\PC\BUILD</Filter>
@@ -191,8 +116,55 @@
     <None Include="..\DEMOSDK\BLSZIO.S">
       <Filter>DEMOSDK</Filter>
     </None>
-    <None Include="..\BLZSNDH\SRC\CODERS.S">
-      <Filter>SPECIFIC\ZIKS</Filter>
+    <None Include="..\BLZSNDH\ECHOSYS.PRJ">
+      <Filter>SPECIFIC\PURE_C</Filter>
     </None>
+    <None Include="..\BLZSNDH\GOFAST.PRJ">
+      <Filter>SPECIFIC\PURE_C</Filter>
+    </None>
+    <None Include="..\BLZSNDH\GSNUTEK.PRJ">
+      <Filter>SPECIFIC\PURE_C</Filter>
+    </None>
+    <None Include="..\BLZSNDH\METTHEF.PRJ">
+      <Filter>SPECIFIC\PURE_C</Filter>
+    </None>
+    <None Include="..\BLZSNDH\NEWSTEP.PRJ">
+      <Filter>SPECIFIC\PURE_C</Filter>
+    </None>
+    <None Include="..\BLZSNDH\OVERTURE.PRJ">
+      <Filter>SPECIFIC\PURE_C</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="..\BLZSNDH\SRC\ZIKS\CODERS.S">
+      <Filter>SPECIFIC\ZIKS</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\BLZSNDH\SRC\ZIKS\BEATOVEN.S">
+      <Filter>SPECIFIC\ZIKS</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\BLZSNDH\SRC\ZIKS\ECHOSYS.S">
+      <Filter>SPECIFIC\ZIKS</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\BLZSNDH\SRC\ZIKS\GOFAST.S">
+      <Filter>SPECIFIC\ZIKS</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\BLZSNDH\SRC\ZIKS\GSNUTEK.S">
+      <Filter>SPECIFIC\ZIKS</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\BLZSNDH\SRC\ZIKS\MEETTHEF.S">
+      <Filter>SPECIFIC\ZIKS</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\BLZSNDH\SRC\ZIKS\NEWSTEP.S">
+      <Filter>SPECIFIC\ZIKS</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\BLZSNDH\SRC\ZIKS\OVERTURE.S">
+      <Filter>SPECIFIC\ZIKS</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\BLZSNDH\CODERS.PRJ">
+      <Filter>SPECIFIC\PURE_C</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\BLZSNDH\BEATOVEN.PRJ">
+      <Filter>SPECIFIC\PURE_C</Filter>
+    </CustomBuild>
   </ItemGroup>
 </Project>

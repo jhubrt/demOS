@@ -1,8 +1,4 @@
-#ifndef DEMOS_INVERT_DRIVE
-#   define DEMOS_INVERT_DRIVE 1
-#endif
-
-#define DEMOS_LOAD_FROMHD
+#define DEMOS_INVERT_DRIVE 0
 
 #include "BLZSNDH\SRC\DEMOS.C"
 
@@ -10,8 +6,6 @@
 #include "DEMOSDK\STANDARD.C"
 #include "DEMOSDK\BLSZIO.C"
 #include "DEMOSDK\BLSZPLAY.C"
-#include "DEMOSDK\BLSTEST.C"
 
 #include "DEMOSDK\SYSTEM.C"
-#include "DEMOSDK\TRACE.C"
 #include "DEMOSDK\DATA\DATA.C"

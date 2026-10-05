@@ -66,6 +66,7 @@
     </Link>
     <PostBuildEvent>
       <Command>copy .\Debug\BLsConvert_debug.exe ..\BIN\BLS</Command>
+      <Message>copy .\Debug\BLsConvert_debug.exe ..\BIN\BLS</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -91,6 +92,7 @@
     </Link>
     <PostBuildEvent>
       <Command>copy .\Release\BLsConvert.exe ..\BIN\BLS</Command>
+      <Message>copy .\Release\BLsConvert.exe ..\BIN\BLS</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>

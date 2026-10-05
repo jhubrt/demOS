@@ -34,6 +34,9 @@
 #include "DEMOSDK\PC\WINDOW.H"
 #include "DEMOSDK\PC\EMUL.H"
 
+#include <stdlib.h>
+#include <string.h>
+
 #ifndef __TOS__
 #include <conio.h>
 #endif
@@ -170,7 +173,7 @@ static void PlayerEntry(void)
         g_player.playerinterface.playerFree = BLZplayerFree;
         g_player.playerinterface.free = BLZfree;
         g_player.playerinterface.gotoindex = BLZgoto;
-        g_player.playerinterface.testPlay = BLZtestPlay;
+        g_player.playerinterface.testPlay = NULL;
 
         g_player.playerinterface.read(&sys.allocatorMem, &sys.allocatorMem, buffer, &sndtrack);
 
@@ -243,7 +246,7 @@ int main(int argc, char** argv)
 
 #       ifdef __TOS__
         {
-            size_t maxsize = (u32) SYSmalloc(-1UL) - 12000UL;
+            u32 maxsize = (u32) SYSmalloc(-1UL) - 12000UL;
             size = maxsize - demOS_COREHEAPSIZE;
         }
 #       else
