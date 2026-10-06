@@ -22,16 +22,11 @@
 
 #include "DEMOSDK\BASTYPES.H"
 
+#include "DEMOSDK\HARDWARE.H"
 #include "DEMOSDK\STANDARD.H"
 #include "DEMOSDK\SYSTEM.H"
-#include "DEMOSDK\HARDWARE.H"
-#include "DEMOSDK\FSM.H"
-#include "DEMOSDK\LOAD.H"
-#include "DEMOSDK\TRACE.H"
 #include "DEMOSDK\BLSSND.H"
 
-#include "DEMOSDK\BITMAP.H"
-#include "DEMOSDK\PC\WINDOW.H"
 #include "DEMOSDK\PC\EMUL.H"
 
 #include <stdlib.h>

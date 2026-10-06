@@ -116,24 +116,6 @@
     <None Include="..\DEMOSDK\BLSZIO.S">
       <Filter>DEMOSDK</Filter>
     </None>
-    <None Include="..\BLZSNDH\ECHOSYS.PRJ">
-      <Filter>SPECIFIC\PURE_C</Filter>
-    </None>
-    <None Include="..\BLZSNDH\GOFAST.PRJ">
-      <Filter>SPECIFIC\PURE_C</Filter>
-    </None>
-    <None Include="..\BLZSNDH\GSNUTEK.PRJ">
-      <Filter>SPECIFIC\PURE_C</Filter>
-    </None>
-    <None Include="..\BLZSNDH\METTHEF.PRJ">
-      <Filter>SPECIFIC\PURE_C</Filter>
-    </None>
-    <None Include="..\BLZSNDH\NEWSTEP.PRJ">
-      <Filter>SPECIFIC\PURE_C</Filter>
-    </None>
-    <None Include="..\BLZSNDH\OVERTURE.PRJ">
-      <Filter>SPECIFIC\PURE_C</Filter>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="..\BLZSNDH\SRC\ZIKS\CODERS.S">
@@ -164,6 +146,24 @@
       <Filter>SPECIFIC\PURE_C</Filter>
     </CustomBuild>
     <CustomBuild Include="..\BLZSNDH\BEATOVEN.PRJ">
+      <Filter>SPECIFIC\PURE_C</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\BLZSNDH\ECHOSYS.PRJ">
+      <Filter>SPECIFIC\PURE_C</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\BLZSNDH\GOFAST.PRJ">
+      <Filter>SPECIFIC\PURE_C</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\BLZSNDH\GSNUTEK.PRJ">
+      <Filter>SPECIFIC\PURE_C</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\BLZSNDH\METTHEF.PRJ">
+      <Filter>SPECIFIC\PURE_C</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\BLZSNDH\NEWSTEP.PRJ">
+      <Filter>SPECIFIC\PURE_C</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\BLZSNDH\OVERTURE.PRJ">
       <Filter>SPECIFIC\PURE_C</Filter>
     </CustomBuild>
   </ItemGroup>

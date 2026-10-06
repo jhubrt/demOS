@@ -55,12 +55,12 @@
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Atari_PureC|Win32'">false</LinkObjects>
       <MaxProcesses Condition="'$(Configuration)|$(Platform)'=='Atari_PureC|Win32'">1</MaxProcesses>
       <MaxItemsInBatch Condition="'$(Configuration)|$(Platform)'=='Atari_PureC|Win32'">1</MaxItemsInBatch>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Atari_PureC|Win32'">cmd /c start /B ..\PC\_hatari\HatariDevpack.bat D:\PROJECTS\DEMOS\PC\%(Identity) -L2</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Atari_PureC|Win32'">cmd /c start /B ..\PC\_hatari\HatariDevpack.bat $(ATARI_DEMOS_PATH)\PC\%(Identity) -L2</Command>
     </CustomBuild>
     <CustomBuild Include="..\BLZSNDH\SRC\ZIKS\BEATOVEN.S">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Atari_PureC|Win32'">false</ExcludedFromBuild>
       <FileType>Document</FileType>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Atari_PureC|Win32'">cmd /c start /B ..\PC\_hatari\HatariDevpack.bat D:\PROJECTS\DEMOS\PC\%(Identity) -L2</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Atari_PureC|Win32'">cmd /c start /B ..\PC\_hatari\HatariDevpack.bat $(ATARI_DEMOS_PATH)\PC\%(Identity) -L2</Command>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Atari_PureC|Win32'">OUTPUT\BLZSNDH\%(Filename).O</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Atari_PureC|Win32'">false</LinkObjects>
       <MaxProcesses Condition="'$(Configuration)|$(Platform)'=='Atari_PureC|Win32'">1</MaxProcesses>
@@ -69,7 +69,7 @@
     <CustomBuild Include="..\BLZSNDH\SRC\ZIKS\ECHOSYS.S">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Atari_PureC|Win32'">false</ExcludedFromBuild>
       <FileType>Document</FileType>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Atari_PureC|Win32'">cmd /c start /B ..\PC\_hatari\HatariDevpack.bat D:\PROJECTS\DEMOS\PC\%(Identity) -L2</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Atari_PureC|Win32'">cmd /c start /B ..\PC\_hatari\HatariDevpack.bat $(ATARI_DEMOS_PATH)\PC\%(Identity) -L2</Command>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Atari_PureC|Win32'">OUTPUT\BLZSNDH\%(Filename).O</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Atari_PureC|Win32'">false</LinkObjects>
       <MaxProcesses Condition="'$(Configuration)|$(Platform)'=='Atari_PureC|Win32'">1</MaxProcesses>
@@ -78,7 +78,7 @@
     <CustomBuild Include="..\BLZSNDH\SRC\ZIKS\GOFAST.S">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Atari_PureC|Win32'">false</ExcludedFromBuild>
       <FileType>Document</FileType>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Atari_PureC|Win32'">cmd /c start /B ..\PC\_hatari\HatariDevpack.bat D:\PROJECTS\DEMOS\PC\%(Identity) -L2</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Atari_PureC|Win32'">cmd /c start /B ..\PC\_hatari\HatariDevpack.bat $(ATARI_DEMOS_PATH)\PC\%(Identity) -L2</Command>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Atari_PureC|Win32'">OUTPUT\BLZSNDH\%(Filename).O</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Atari_PureC|Win32'">false</LinkObjects>
       <MaxProcesses Condition="'$(Configuration)|$(Platform)'=='Atari_PureC|Win32'">1</MaxProcesses>
@@ -87,7 +87,7 @@
     <CustomBuild Include="..\BLZSNDH\SRC\ZIKS\GSNUTEK.S">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Atari_PureC|Win32'">false</ExcludedFromBuild>
       <FileType>Document</FileType>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Atari_PureC|Win32'">cmd /c start /B ..\PC\_hatari\HatariDevpack.bat D:\PROJECTS\DEMOS\PC\%(Identity) -L2</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Atari_PureC|Win32'">cmd /c start /B ..\PC\_hatari\HatariDevpack.bat $(ATARI_DEMOS_PATH)\PC\%(Identity) -L2</Command>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Atari_PureC|Win32'">OUTPUT\BLZSNDH\%(Filename).O</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Atari_PureC|Win32'">false</LinkObjects>
       <MaxProcesses Condition="'$(Configuration)|$(Platform)'=='Atari_PureC|Win32'">1</MaxProcesses>
@@ -96,7 +96,7 @@
     <CustomBuild Include="..\BLZSNDH\SRC\ZIKS\MEETTHEF.S">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Atari_PureC|Win32'">false</ExcludedFromBuild>
       <FileType>Document</FileType>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Atari_PureC|Win32'">cmd /c start /B ..\PC\_hatari\HatariDevpack.bat D:\PROJECTS\DEMOS\PC\%(Identity) -L2</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Atari_PureC|Win32'">cmd /c start /B ..\PC\_hatari\HatariDevpack.bat $(ATARI_DEMOS_PATH)\PC\%(Identity) -L2</Command>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Atari_PureC|Win32'">OUTPUT\BLZSNDH\%(Filename).O</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Atari_PureC|Win32'">false</LinkObjects>
       <MaxProcesses Condition="'$(Configuration)|$(Platform)'=='Atari_PureC|Win32'">1</MaxProcesses>
@@ -105,7 +105,7 @@
     <CustomBuild Include="..\BLZSNDH\SRC\ZIKS\NEWSTEP.S">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Atari_PureC|Win32'">false</ExcludedFromBuild>
       <FileType>Document</FileType>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Atari_PureC|Win32'">cmd /c start /B ..\PC\_hatari\HatariDevpack.bat D:\PROJECTS\DEMOS\PC\%(Identity) -L2</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Atari_PureC|Win32'">cmd /c start /B ..\PC\_hatari\HatariDevpack.bat $(ATARI_DEMOS_PATH)\PC\%(Identity) -L2</Command>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Atari_PureC|Win32'">OUTPUT\BLZSNDH\%(Filename).O</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Atari_PureC|Win32'">false</LinkObjects>
       <MaxProcesses Condition="'$(Configuration)|$(Platform)'=='Atari_PureC|Win32'">1</MaxProcesses>
@@ -114,7 +114,7 @@
     <CustomBuild Include="..\BLZSNDH\SRC\ZIKS\OVERTURE.S">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Atari_PureC|Win32'">false</ExcludedFromBuild>
       <FileType>Document</FileType>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Atari_PureC|Win32'">cmd /c start /B ..\PC\_hatari\HatariDevpack.bat D:\PROJECTS\DEMOS\PC\%(Identity) -L2</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Atari_PureC|Win32'">cmd /c start /B ..\PC\_hatari\HatariDevpack.bat $(ATARI_DEMOS_PATH)\PC\%(Identity) -L2</Command>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Atari_PureC|Win32'">OUTPUT\BLZSNDH\%(Filename).O</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Atari_PureC|Win32'">false</LinkObjects>
       <MaxProcesses Condition="'$(Configuration)|$(Platform)'=='Atari_PureC|Win32'">1</MaxProcesses>
@@ -123,7 +123,7 @@
     <CustomBuild Include="..\BLZSNDH\CODERS.PRJ">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Atari_PureC|Win32'">false</ExcludedFromBuild>
       <FileType>Document</FileType>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Atari_PureC|Win32'">cmd /c start /B ..\PC\_hatari\HatariPureC.bat D:\PROJECTS\DEMOS\PC\%(Identity)</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Atari_PureC|Win32'">cmd /c start /B ..\PC\_hatari\HatariPureC.bat $(ATARI_DEMOS_PATH)\PC\%(Identity)</Command>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Atari_PureC|Win32'">%(Filename).PRG</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Atari_PureC|Win32'">false</LinkObjects>
       <MaxProcesses Condition="'$(Configuration)|$(Platform)'=='Atari_PureC|Win32'">1</MaxProcesses>
@@ -132,7 +132,7 @@
     <CustomBuild Include="..\BLZSNDH\BEATOVEN.PRJ">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Atari_PureC|Win32'">false</ExcludedFromBuild>
       <FileType>Document</FileType>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Atari_PureC|Win32'">cmd /c start /B ..\PC\_hatari\HatariPureC.bat D:\PROJECTS\DEMOS\PC\%(Identity)</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Atari_PureC|Win32'">cmd /c start /B ..\PC\_hatari\HatariPureC.bat $(ATARI_DEMOS_PATH)\PC\%(Identity)</Command>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Atari_PureC|Win32'">%(Filename).PRG</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Atari_PureC|Win32'">false</LinkObjects>
       <MaxProcesses Condition="'$(Configuration)|$(Platform)'=='Atari_PureC|Win32'">1</MaxProcesses>
@@ -141,7 +141,7 @@
     <CustomBuild Include="..\BLZSNDH\ECHOSYS.PRJ">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Atari_PureC|Win32'">false</ExcludedFromBuild>
       <FileType>Document</FileType>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Atari_PureC|Win32'">cmd /c start /B ..\PC\_hatari\HatariPureC.bat D:\PROJECTS\DEMOS\PC\%(Identity)</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Atari_PureC|Win32'">cmd /c start /B ..\PC\_hatari\HatariPureC.bat $(ATARI_DEMOS_PATH)\PC\%(Identity)</Command>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Atari_PureC|Win32'">%(Filename).PRG</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Atari_PureC|Win32'">false</LinkObjects>
       <MaxProcesses Condition="'$(Configuration)|$(Platform)'=='Atari_PureC|Win32'">1</MaxProcesses>
@@ -150,7 +150,7 @@
     <CustomBuild Include="..\BLZSNDH\GOFAST.PRJ">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Atari_PureC|Win32'">false</ExcludedFromBuild>
       <FileType>Document</FileType>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Atari_PureC|Win32'">cmd /c start /B ..\PC\_hatari\HatariPureC.bat D:\PROJECTS\DEMOS\PC\%(Identity)</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Atari_PureC|Win32'">cmd /c start /B ..\PC\_hatari\HatariPureC.bat $(ATARI_DEMOS_PATH)\PC\%(Identity)</Command>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Atari_PureC|Win32'">%(Filename).PRG</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Atari_PureC|Win32'">false</LinkObjects>
       <MaxProcesses Condition="'$(Configuration)|$(Platform)'=='Atari_PureC|Win32'">1</MaxProcesses>
@@ -159,7 +159,7 @@
     <CustomBuild Include="..\BLZSNDH\GSNUTEK.PRJ">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Atari_PureC|Win32'">false</ExcludedFromBuild>
       <FileType>Document</FileType>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Atari_PureC|Win32'">cmd /c start /B ..\PC\_hatari\HatariPureC.bat D:\PROJECTS\DEMOS\PC\%(Identity)</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Atari_PureC|Win32'">cmd /c start /B ..\PC\_hatari\HatariPureC.bat $(ATARI_DEMOS_PATH)\PC\%(Identity)</Command>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Atari_PureC|Win32'">%(Filename).PRG</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Atari_PureC|Win32'">false</LinkObjects>
       <MaxProcesses Condition="'$(Configuration)|$(Platform)'=='Atari_PureC|Win32'">1</MaxProcesses>
@@ -168,7 +168,7 @@
     <CustomBuild Include="..\BLZSNDH\METTHEF.PRJ">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Atari_PureC|Win32'">false</ExcludedFromBuild>
       <FileType>Document</FileType>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Atari_PureC|Win32'">cmd /c start /B ..\PC\_hatari\HatariPureC.bat D:\PROJECTS\DEMOS\PC\%(Identity)</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Atari_PureC|Win32'">cmd /c start /B ..\PC\_hatari\HatariPureC.bat $(ATARI_DEMOS_PATH)\PC\%(Identity)</Command>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Atari_PureC|Win32'">%(Filename).PRG</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Atari_PureC|Win32'">false</LinkObjects>
       <MaxProcesses Condition="'$(Configuration)|$(Platform)'=='Atari_PureC|Win32'">1</MaxProcesses>
@@ -177,7 +177,7 @@
     <CustomBuild Include="..\BLZSNDH\NEWSTEP.PRJ">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Atari_PureC|Win32'">false</ExcludedFromBuild>
       <FileType>Document</FileType>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Atari_PureC|Win32'">cmd /c start /B ..\PC\_hatari\HatariPureC.bat D:\PROJECTS\DEMOS\PC\%(Identity)</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Atari_PureC|Win32'">cmd /c start /B ..\PC\_hatari\HatariPureC.bat $(ATARI_DEMOS_PATH)\PC\%(Identity)</Command>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Atari_PureC|Win32'">%(Filename).PRG</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Atari_PureC|Win32'">false</LinkObjects>
       <MaxProcesses Condition="'$(Configuration)|$(Platform)'=='Atari_PureC|Win32'">1</MaxProcesses>
@@ -186,7 +186,7 @@
     <CustomBuild Include="..\BLZSNDH\OVERTURE.PRJ">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Atari_PureC|Win32'">false</ExcludedFromBuild>
       <FileType>Document</FileType>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Atari_PureC|Win32'">cmd /c start /B ..\PC\_hatari\HatariPureC.bat D:\PROJECTS\DEMOS\PC\%(Identity)</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Atari_PureC|Win32'">cmd /c start /B ..\PC\_hatari\HatariPureC.bat $(ATARI_DEMOS_PATH)\PC\%(Identity)</Command>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Atari_PureC|Win32'">%(Filename).PRG</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Atari_PureC|Win32'">false</LinkObjects>
       <MaxProcesses Condition="'$(Configuration)|$(Platform)'=='Atari_PureC|Win32'">1</MaxProcesses>
